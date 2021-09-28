@@ -38,8 +38,10 @@
             "App\\": "app/"
         },
         "classmap": [
-            "database/seeds",
-            "database/factories"
+            "database"
+        ],
+        "files": [
+            "app/Library/Library.php"
         ]
     },
     "autoload-dev": {
