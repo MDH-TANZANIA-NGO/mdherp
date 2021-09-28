@@ -25,9 +25,8 @@ class UsersTableSeeder extends Seeder
                 'first_name' => 'Hamis',
                 'last_name' => 'Hamis',
                 'phone' => '255758483019',
-                'password' => config('icap.super_admin_password'),
-                'user_account_cv_id' => 9,
-                'user_gender_cv_id' => 6,
+                'password' => bcrypt('123456'),
+                'gender_cv_id' => 6,
                 'isactive' => 1,
             ]);
             $this->enableForeignKeys("users");

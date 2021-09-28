@@ -23,8 +23,8 @@ class UnitsTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'name' => 'Accountant',
-                'title' => 'Accountant',
+                'name' => 'Director',
+                'title' => 'Director',
                 'unit_group_id' => '1',
                 'isactive' => '1',
                 'created_at' => '2020-07-08 20:16:49',
@@ -34,8 +34,8 @@ class UnitsTableSeeder extends Seeder
             1 =>
             array (
                 'id' => 2,
-                'name' => 'Administrative',
-                'title' => 'Administrative',
+                'name' => 'Human Resource',
+                'title' => 'HR',
                 'unit_group_id' => '1',
                 'isactive' => '1',
                 'created_at' => '2020-07-08 20:16:49',
@@ -45,8 +45,8 @@ class UnitsTableSeeder extends Seeder
             2 =>
                 array (
                     'id' => 3,
-                    'name' => 'Assistant',
-                    'title' => 'Assistant',
+                    'name' => 'TB/HIV',
+                    'title' => 'TB/HIV',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -56,8 +56,8 @@ class UnitsTableSeeder extends Seeder
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'Boat',
-                    'title' => 'Boat',
+                    'name' => 'Administration',
+                    'title' => 'ADMIN',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -67,8 +67,8 @@ class UnitsTableSeeder extends Seeder
             4 =>
                 array (
                     'id' => 5,
-                    'name' => 'Contract and compliance',
-                    'title' => 'CC',
+                    'name' => 'Chief Executive Officer',
+                    'title' => 'CEO',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -78,8 +78,8 @@ class UnitsTableSeeder extends Seeder
             5 =>
                 array (
                     'id' => 6,
-                    'name' => 'Director',
-                    'title' => 'DR',
+                    'name' => 'Chief Operation',
+                    'title' => 'CO',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -89,8 +89,8 @@ class UnitsTableSeeder extends Seeder
             6 =>
                 array (
                     'id' => 7,
-                    'name' => 'Executive',
-                    'title' => 'EX',
+                    'name' => 'Clinical And SI',
+                    'title' => 'CSI',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -100,8 +100,8 @@ class UnitsTableSeeder extends Seeder
             7 =>
                 array (
                     'id' => 8,
-                    'name' => 'Field',
-                    'title' => 'FD',
+                    'name' => 'Community Linkage',
+                    'title' => 'CL',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -111,8 +111,8 @@ class UnitsTableSeeder extends Seeder
             8 =>
                 array (
                     'id' => 9,
-                    'name' => 'Finance',
-                    'title' => 'FN',
+                    'name' => 'Compliance',
+                    'title' => 'COM',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -122,8 +122,8 @@ class UnitsTableSeeder extends Seeder
             9 =>
                 array (
                     'id' => 10,
-                    'name' => 'Fleet',
-                    'title' => 'FL',
+                    'name' => 'CryptoCocoal Menengitis ',
+                    'title' => 'CM',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -133,8 +133,8 @@ class UnitsTableSeeder extends Seeder
             10 =>
                 array (
                     'id' => 11,
-                    'name' => 'Health Informatics',
-                    'title' => 'HI',
+                    'name' => 'Data And ICT',
+                    'title' => 'DICT',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -144,8 +144,8 @@ class UnitsTableSeeder extends Seeder
             11 =>
                 array (
                     'id' => 12,
-                    'name' => 'Human Resource',
-                    'title' => 'HR',
+                    'name' => 'Data',
+                    'title' => 'DATA',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -155,8 +155,8 @@ class UnitsTableSeeder extends Seeder
             12 =>
                 array (
                     'id' => 13,
-                    'name' => 'ICT',
-                    'title' => 'ICT',
+                    'name' => 'Deputy Director of Program',
+                    'title' => 'DEP. DIR. OF PROG',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -166,8 +166,8 @@ class UnitsTableSeeder extends Seeder
             13 =>
                 array (
                     'id' => 14,
-                    'name' => 'Inventory and asset',
-                    'title' => 'IA',
+                    'name' => 'Dist Comm Field',
+                    'title' => 'DCF',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -177,8 +177,8 @@ class UnitsTableSeeder extends Seeder
             14 =>
                 array (
                     'id' => 15,
-                    'name' => 'Linkage and retention',
-                    'title' => 'LR',
+                    'name' => 'District clinical & si',
+                    'title' => 'DCSI',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -188,8 +188,8 @@ class UnitsTableSeeder extends Seeder
             15 =>
                 array (
                     'id' => 16,
-                    'name' => 'Operation',
-                    'title' => 'OP',
+                    'name' => 'District Community',
+                    'title' => 'DC',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -199,8 +199,8 @@ class UnitsTableSeeder extends Seeder
             16 =>
                 array (
                     'id' => 17,
-                    'name' => 'Operation and HR',
-                    'title' => 'OHR',
+                    'name' => 'District Date',
+                    'title' => 'DD',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -210,8 +210,8 @@ class UnitsTableSeeder extends Seeder
             17 =>
                 array (
                     'id' => 18,
-                    'name' => 'Procurement and Logistic',
-                    'title' => 'PL',
+                    'name' => 'District Project',
+                    'title' => 'DP',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -221,8 +221,8 @@ class UnitsTableSeeder extends Seeder
             18 =>
                 array (
                     'id' => 19,
-                    'name' => 'Program',
-                    'title' => 'PG',
+                    'name' => 'Dreams',
+                    'title' => 'DREAMS',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -232,8 +232,8 @@ class UnitsTableSeeder extends Seeder
             19 =>
                 array (
                     'id' => 20,
-                    'name' => 'Program and improvement',
-                    'title' => 'PGI',
+                    'name' => 'Executive Assistance',
+                    'title' => 'EA',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -243,8 +243,8 @@ class UnitsTableSeeder extends Seeder
             20 =>
                 array (
                     'id' => 21,
-                    'name' => 'Project',
-                    'title' => 'PR',
+                    'name' => 'Faith Based',
+                    'title' => 'FB',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -254,8 +254,8 @@ class UnitsTableSeeder extends Seeder
             21 =>
                 array (
                     'id' => 22,
-                    'name' => 'Senior',
-                    'title' => 'SN',
+                    'name' => 'Field Project',
+                    'title' => 'FP',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -265,8 +265,8 @@ class UnitsTableSeeder extends Seeder
             22 =>
                 array (
                     'id' => 23,
-                    'name' => 'Service agreement',
-                    'title' => 'SA',
+                    'name' => 'Finance & Administration',
+                    'title' => 'FADMIN',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -276,8 +276,8 @@ class UnitsTableSeeder extends Seeder
             23 =>
                 array (
                     'id' => 24,
-                    'name' => 'Social mobilization and marketing',
-                    'title' => 'SMM',
+                    'name' => 'Finance',
+                    'title' => 'FNC',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -287,7 +287,7 @@ class UnitsTableSeeder extends Seeder
             24 =>
                 array (
                     'id' => 25,
-                    'name' => 'Strategic information',
+                    'name' => 'Front Desk',
                     'title' => 'SI',
                     'unit_group_id' => '1',
                     'isactive' => '1',
@@ -298,8 +298,8 @@ class UnitsTableSeeder extends Seeder
             25 =>
                 array (
                     'id' => 26,
-                    'name' => 'Technical',
-                    'title' => 'TC',
+                    'name' => 'General Service',
+                    'title' => 'GS',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -309,8 +309,8 @@ class UnitsTableSeeder extends Seeder
             26 =>
                 array (
                     'id' => 27,
-                    'name' => 'Truck',
-                    'title' => 'TRK',
+                    'name' => 'GHS Project',
+                    'title' => 'GHSP',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -320,8 +320,8 @@ class UnitsTableSeeder extends Seeder
             27 =>
                 array (
                     'id' => 28,
-                    'name' => 'Zonal strategic information',
-                    'title' => 'ZST',
+                    'name' => 'Grants',
+                    'title' => 'GRNT',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -331,8 +331,8 @@ class UnitsTableSeeder extends Seeder
             28 =>
                 array (
                     'id' => 29,
-                    'name' => 'Zonal project manager',
-                    'title' => 'ZPM',
+                    'name' => 'HIV',
+                    'title' => 'HIV',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -342,8 +342,8 @@ class UnitsTableSeeder extends Seeder
             29 =>
                 array (
                     'id' => 30,
-                    'name' => 'ICAP',
-                    'title' => 'ICAP',
+                    'name' => 'HIV Care & treatment',
+                    'title' => 'HIVCT',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -353,8 +353,8 @@ class UnitsTableSeeder extends Seeder
             30 =>
                 array (
                     'id' => 31,
-                    'name' => 'Country',
-                    'title' => 'CON',
+                    'name' => 'HIV TB Malaria integr',
+                    'title' => 'HIVTMI',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -364,8 +364,8 @@ class UnitsTableSeeder extends Seeder
             31 =>
                 array (
                     'id' => 32,
-                    'name' => 'Employee',
-                    'title' => 'EMP',
+                    'name' => 'HTS',
+                    'title' => 'HTS',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
@@ -375,8 +375,8 @@ class UnitsTableSeeder extends Seeder
             32 =>
                 array (
                     'id' => 33,
-                    'name' => 'Applicant',
-                    'title' => 'APP',
+                    'name' => 'ICT',
+                    'title' => 'ICT',
                     'unit_group_id' => '1',
                     'isactive' => '0',
                     'created_at' => '2020-07-08 20:16:49',
@@ -386,8 +386,8 @@ class UnitsTableSeeder extends Seeder
             33 =>
                 array (
                     'id' => 34,
-                    'name' => 'Chief',
-                    'title' => 'CO',
+                    'name' => 'Information Technology',
+                    'title' => 'IT',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2021-03-10 16:32:27',
@@ -397,8 +397,8 @@ class UnitsTableSeeder extends Seeder
             34 =>
                 array (
                     'id' => 35,
-                    'name' => 'Software and System',
-                    'title' => 'SAS',
+                    'name' => 'ITF GHS Lab Project',
+                    'title' => 'IGLP',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2021-03-10 16:32:27',

@@ -24,16 +24,16 @@ class UnitGroupsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'name' => 'Internal Unit',
-                'created_at' => '2020-07-08 20:16:49',
-                'updated_at' => NULL,
+                'created_at' => '2021-09-29 18:21:50',
+                'updated_at' => \Illuminate\Support\Carbon::now(),
                 'deleted_at' => NULL,
             ),
             1 =>
                 array (
                     'id' => 2,
                     'name' => 'External Unit',
-                    'created_at' => '2020-07-08 20:16:49',
-                    'updated_at' => NULL,
+                    'created_at' => '2021-09-29 18:21:50',
+                    'updated_at' => \Illuminate\Support\Carbon::now(),
                     'deleted_at' => NULL,
                 )
         ));
