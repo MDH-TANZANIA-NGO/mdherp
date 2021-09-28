@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Repositories\System;
+
+use App\Models\Auth\User;
+use App\Models\System\Region;
+use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
+
+class RegionRepository extends BaseRepository
+{
+    const MODEL = Region::class;
+
+    public function getRegionByCode($hasc)
+    {
+        $region = $this->query()->where('hasc', $hasc)->first();
+            return $region;
+    }
+
+    public function getRegionById($id)
+    {
+        $region = $this->query()->where('id', $id)->first();
+        return $region;
+    }
+
+    /**
+     * @param array $input
+     * @return mixed
+     * Regex column search
+     */
+    public function regexColumnSearch(array $input)
+    {
+        $return = $this->query();
+        if ($input) {
+            $sql = $this->regexFormatColumn($input)['sql'];
+            $keyword = $this->regexFormatColumn($input)['keyword'];
+            $return = $this->query()->whereRaw($sql, $keyword);
+        }
+        return $return;
+    }
+
+    /**
+     * @param $q
+     * @param $page
+     * @return \Illuminate\Http\JsonResponse
+     * Get registered companies for select
+     */
+    public function getForSelect($q, $page)
+    {
+        $resultCount = 15;
+        $offset = ($page - 1) * $resultCount;
+        $data['items'] = $this->regexColumnSearch(['name' => $q])->limit($resultCount)->offset($offset)->get()->toArray();
+        $data['total_count'] = count($data['items']);
+        return response()->json($data);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('regions.id'),
+            DB::raw('regions.name'),
+            DB::raw('COUNT(districts.id) as districts_count'),
+        ])
+            ->join('districts','districts.region_id','regions.id')
+            ->groupBy([
+                'regions.id',
+                'regions.name',
+            ]);
+    }
+
+    public function getExceptional()
+    {
+        return $this->getQuery()
+            ->where('regions.exceptional', true);
+    }
+
+    public function forOfficeSelect()
+    {
+        return $this->query()
+            ->where('isactive', 1)
+            ->whereNotIn('id', User::query()->select('region_id')->where('user_account_cv_id',config('icap.office_cvid'))->pluck('region_id'))
+            ->pluck('name', 'id');
+    }
+}
