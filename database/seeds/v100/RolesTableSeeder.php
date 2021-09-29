@@ -40,9 +40,6 @@ class RolesTableSeeder extends Seeder
                     'isactive' => '1',
             ),
 
-
-
-
         ));
         $this->enableForeignKeys("roles");
 

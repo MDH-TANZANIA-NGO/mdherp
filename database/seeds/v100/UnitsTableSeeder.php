@@ -406,6 +406,173 @@ class UnitsTableSeeder extends Seeder
                     'deleted_at' => NULL,
                 ),
 
+//            20 =>
+//                array (
+//                    'id' => 21,
+//                    'name' => 'Lab & sc sen',
+//                    'title' => 'LSS',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            21 =>
+//                array (
+//                    'id' => 22,
+//                    'name' => 'Lab & Supply Chain',
+//                    'title' => 'LSC',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            22 =>
+//                array (
+//                    'id' => 23,
+//                    'name' => 'Lab',
+//                    'title' => 'LAB',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            23 =>
+//                array (
+//                    'id' => 24,
+//                    'name' => 'Lab Project',
+//                    'title' => 'LPJ',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            24 =>
+//                array (
+//                    'id' => 25,
+//                    'name' => 'Laboratory',
+//                    'title' => 'LBTR',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            25 =>
+//                array (
+//                    'id' => 26,
+//                    'name' => 'Laboratory Service',
+//                    'title' => 'LBTRS',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            26 =>
+//                array (
+//                    'id' => 27,
+//                    'name' => 'M & E',
+//                    'title' => 'ME',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            27 =>
+//                array (
+//                    'id' => 28,
+//                    'name' => 'Malaria',
+//                    'title' => 'MLA',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            28 =>
+//                array (
+//                    'id' => 29,
+//                    'name' => 'Mat',
+//                    'title' => 'MAT',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            29 =>
+//                array (
+//                    'id' => 30,
+//                    'name' => 'Mat AND CH Health',
+//                    'title' => 'MACH',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            30 =>
+//                array (
+//                    'id' => 31,
+//                    'name' => 'HIV TB Malaria integr',
+//                    'title' => 'HIVTMI',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            31 =>
+//                array (
+//                    'id' => 32,
+//                    'name' => 'HTS',
+//                    'title' => 'HTS',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            32 =>
+//                array (
+//                    'id' => 33,
+//                    'name' => 'ICT',
+//                    'title' => 'ICT',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '0',
+//                    'created_at' => '2020-07-08 20:16:49',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            33 =>
+//                array (
+//                    'id' => 34,
+//                    'name' => 'Information Technology',
+//                    'title' => 'IT',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2021-03-10 16:32:27',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+//            34 =>
+//                array (
+//                    'id' => 35,
+//                    'name' => 'ITF GHS Lab Project',
+//                    'title' => 'IGLP',
+//                    'unit_group_id' => '1',
+//                    'isactive' => '1',
+//                    'created_at' => '2021-03-10 16:32:27',
+//                    'updated_at' => NULL,
+//                    'deleted_at' => NULL,
+//                ),
+
+
         ));
 
         $this->enableForeignKeys('units');
