@@ -17,14 +17,14 @@ class UsersTableSeeder extends Seeder
     {
         $this->disableForeignKeys("users");
         $userRepo = new \App\Repositories\Access\UserRepository();
-        $check = $userRepo->query()->where('email','hhamis@mdh.or.tz' );
+        $check = $userRepo->query()->where('email',config('mdh.email'));
         if  ($check->count() == 0) {
             $user = $userRepo->query()->updateOrCreate([
-                'email' => 'hhamis@mdh.or.tz',
-                'first_name' => 'Hamis',
-                'last_name' => 'Hamis',
+                'email' => config('mdh.email'),
+                'first_name' => 'admin',
+                'last_name' => 'admin',
                 'phone' => '255758483019',
-                'password' => bcrypt('123456'),
+                'password' => bcrypt(config('mdh.password')),
                 'gender_cv_id' => 6,
                 'isactive' => 1,
             ]);
