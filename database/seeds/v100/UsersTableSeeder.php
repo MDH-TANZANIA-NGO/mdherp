@@ -15,13 +15,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $super_admin = config('icap.super_admin_email');
         $this->disableForeignKeys("users");
         $userRepo = new \App\Repositories\Access\UserRepository();
-        $check = $userRepo->query()->where('email',$super_admin );
+        $check = $userRepo->query()->where('email','hhamis@mdh.or.tz' );
         if  ($check->count() == 0) {
             $user = $userRepo->query()->updateOrCreate([
-                'email' => $super_admin,
+                'email' => 'hhamis@mdh.or.tz',
                 'first_name' => 'Hamis',
                 'last_name' => 'Hamis',
                 'phone' => '255758483019',

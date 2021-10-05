@@ -17,7 +17,8 @@ class CreateDistrictsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->smallInteger('region_id');
-            $table->smallInteger('isactive')->default(1);
+            $table->boolean('isactive')->default(true);
+            $table->unsignedBigInteger('separate_id')->nullable();
             $table->timestamps();
         });
     }
