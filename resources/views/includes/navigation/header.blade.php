@@ -112,7 +112,7 @@
                             </div>
                             <div>
                                 <div>Your Admin lanuched</div>
-                                <div class="small text-muted">1 daya ago</div>
+                                <div class="small text-muted">1 day(s) ago</div>
                             </div>
                         </a>
                         <div class=" text-center p-2 border-top">
@@ -130,6 +130,7 @@
                         <div class="text-center">
                             <a href="#" class="dropdown-item text-center user pb-0">{{{Auth::user()->first_name}}}</a>
                             <span class="text-center user-semi-title text-dark">{{{Auth::user()->email}}}</span>
+                            
                             <div class="dropdown-divider"></div>
                         </div>
                         <a class="dropdown-item" href="#">
