@@ -10,7 +10,7 @@
     <meta name="keywords" content="Admin, Admin Template, Dashboard, Responsive, Admin Dashboard, Bootstrap, Bootstrap 4, Clean, Backend, Jquery, Modern, Web App, Admin Panel, Ui, Premium Admin Templates, Flat, Admin Theme, Ui Kit, Bootstrap Admin, Responsive Admin, Application, Template, Admin Themes, Dashboard Template"/>
 
     <!-- Title -->
-    <title>Clont - Bootstrap Webapp Responsive Dashboard Simple Admin Panel Premium HTML5 Template</title>
+    <title>{{ config("app.name") }}</title>
 
     <!--Favicon -->
     <link rel="icon" href="mdh/images/brand/favicon.ico" type="image/x-icon"/>
@@ -50,7 +50,7 @@
     <div class="page-main">
 
         {{--Header--}}
-            @include('includes.navigation.header')
+        @include('includes.navigation.header')
         {{--Header closed--}}
 
         <!--aside open-->
@@ -82,15 +82,15 @@
     </div>
 
     <!--Footer-->
-    <footer class="footer">
-        <div class="container">
-            <div class="row align-items-center flex-row-reverse">
-                <div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">
-                    Copyright © 2019 <a href="#">Clont</a>. Designed by <a href="#">Spruko Technologies Pvt.Ltd</a> All rights reserved.
-                </div>
-            </div>
-        </div>
-    </footer>
+{{--    <footer class="footer">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row align-items-center flex-row-reverse">--}}
+{{--                <div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">--}}
+{{--                    Copyright © 2019 <a href="#">Clont</a>. Designed by <a href="#">Spruko Technologies Pvt.Ltd</a> All rights reserved.--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </footer>--}}
     <!-- End Footer-->
 
 </div>

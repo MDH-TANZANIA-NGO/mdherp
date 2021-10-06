@@ -2,7 +2,7 @@
     <div class="app-sidebar__user">
         <div class="dropdown user-pro-body text-center">
             <div class="user-pic">
-                <img src="../../assets/images/users/16.jpg" alt="user-img" class="avatar-xl rounded-circle mb-1">
+                <img src="mdh/images/users/16.jpg" alt="user-img" class="avatar-xl rounded-circle mb-1">
             </div>
             <div class="user-info">
                 <h6 class=" mb-1 text-dark">John Thomson</h6>
@@ -10,16 +10,16 @@
             </div>
             <div class="sidebar-navs mt-3">
                 <ul class="nav nav-pills nav-pills-circle" id="tabs_3" role="tablist">
-                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Settings">
-                        <a class="nav-link border h-6 text-center m-2" id="tab21" data-toggle="tab" href="#tabs_2_1" role="tab" >
-                            <i class="fe fe-settings"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Chat">
-                        <a class="nav-link border h-6  m-2" id="tab22" data-toggle="tab" href="#tabs_2_2" role="tab" >
-                            <i class="fe fe-mail"></i>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Settings">--}}
+{{--                        <a class="nav-link border h-6 text-center m-2" id="tab21" data-toggle="tab" href="#tabs_2_1" role="tab" >--}}
+{{--                            <i class="fe fe-settings"></i>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Chat">--}}
+{{--                        <a class="nav-link border h-6  m-2" id="tab22" data-toggle="tab" href="#tabs_2_2" role="tab" >--}}
+{{--                            <i class="fe fe-mail"></i>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Followers">
                         <a class="nav-link border h-6  m-2" id="tab23" data-toggle="tab" href="#tabs_2_3" role="tab" >
                             <i class="fe fe-users"></i>
