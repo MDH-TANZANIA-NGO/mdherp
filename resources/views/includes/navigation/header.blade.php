@@ -128,8 +128,8 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
                         <div class="text-center">
-                            <a href="#" class="dropdown-item text-center user pb-0">John Thomson</a>
-                            <span class="text-center user-semi-title text-dark">App Developer</span>
+                            <a href="#" class="dropdown-item text-center user pb-0">{{{Auth::user()->first_name}}}</a>
+                            <span class="text-center user-semi-title text-dark">{{{Auth::user()->email}}}</span>
                             <div class="dropdown-divider"></div>
                         </div>
                         <a class="dropdown-item" href="#">
