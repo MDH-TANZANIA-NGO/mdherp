@@ -87,10 +87,14 @@
 											</div>
                                             </form>
 										</div>
-										<div class="card text-white bg-primary py-5 d-md-down-none ">
-											<div class="card-body text-center justify-content-center ">
-												<h2>ERP</h2>
-												<p>Welcome to MDH ERP</p>
+                                        
+										<!-- <div class="card text-white  py-5 d-md-down-none " style="background-color:white;"> -->
+										<div class="card text-white  py-5 d-md-down-none " style="background-color:rgb(168,204,255);">
+											<div class="card-body text-center justify-content-center " style="margin-top:10%">
+
+                                            <!-- <img src="../../mdh/images/photos/home2.png" > -->
+                                            <img src="../../mdh/images/photos/home.png" >
+												
 												<!-- <a href="register.html" class="btn btn-secondary mt-3">Register Now!</a> -->
 											</div>
 										</div>
