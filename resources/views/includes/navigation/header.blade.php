@@ -19,7 +19,7 @@
                     <i class="fe fe-settings"></i><span class="nav-span">Settings <i class="fa fa-angle-down ml-1 fs-18"></i></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{route('userslist')}}">
                         User Management
                     </a>
                     <a class="dropdown-item" href="#">
