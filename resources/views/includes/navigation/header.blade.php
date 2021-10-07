@@ -13,49 +13,29 @@
                     <i class="fe fe-align-left"></i>
                 </a><!-- sidebar-toggle-->
             </div>
-            <div class="dropdown  header-option">
-                <a class="nav-link icon" data-toggle="dropdown">
-                    <i class="fe fe-codepen"></i> <span class="nav-span">Projects <i class="fa fa-angle-down ml-1 fs-18"></i></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
-                    <a class="dropdown-item" href="#">
-                        App Design Projects
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        Web Design Projects
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        App Development Projects
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        Back-End Projects
-                    </a>
-                    <div class="text-left pr-5 pl-5 p-2 border-top">
-                        <a href="#" class="">View Projects</a>
-                    </div>
-                </div>
-            </div>
+     
             <div class="dropdown   header-setting">
-                <a class="nav-link icon" data-toggle="dropdown">
+                <a class="nav-link icon" data-toggle="dropdown" href="#">
                     <i class="fe fe-settings"></i><span class="nav-span">Settings <i class="fa fa-angle-down ml-1 fs-18"></i></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
                     <a class="dropdown-item" href="#">
-                        Multi Pages
+                        User Management
                     </a>
                     <a class="dropdown-item" href="#">
-                        Mail Settings
+                        Workplan Management
                     </a>
                     <a class="dropdown-item" href="#">
-                        Default Settings
+                        Rates Configurations
                     </a>
-                    <a class="dropdown-item" href="#">
-                        Documentation
-                    </a>
-                    <div class="text-left pr-5 pl-5 p-2  border-top">
-                        <a href="#" class="">Updated</a>
-                    </div>
+               
                 </div>
+            </div>
+                   <div class="dropdown  header-option">
+                <a class="nav-link icon">
+                    <i class="fe fe-clock"></i> <span class="nav-span">Check In</span>
+                </a>
+               
             </div>
             <div class="d-flex order-lg-2 ml-auto">
                 <a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="fa fa-search"></i></a>
@@ -135,15 +115,11 @@
                         <a class="dropdown-item" href="#">
                             <i class="dropdown-icon mdi mdi-account-outline "></i> Profile
                         </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="dropdown-icon  mdi mdi-settings"></i> Settings
-                        </a>
+                     
                         <a class="dropdown-item" href="#">
                             <i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
                         </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
-                        </a>
+                     
                         <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
