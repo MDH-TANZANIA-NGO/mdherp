@@ -37,6 +37,12 @@
 <!-- Skin css-->
     {{ Html::style(url('mdh/css/skins.css')) }}
 
+
+{{-- Date picker --}}
+{{ Html::style(url('mdh/plugins/date-picker/date-picker.css')) }} 
+
+<!-- Select2 css -->
+{{ Html::style(url('mdh/plugins/select2/select2.min.css')) }} 
 </head>
 
 <body class="app sidebar-mini">
@@ -127,6 +133,22 @@
 
 <!-- Custom js-->
 {!! Html::script(url('mdh/js/custom.js')) !!}
+
+
+<!-- Datepicker js -->
+{!! Html::script(url('mdh/plugins/date-picker/date-picker.js')) !!}
+{!! Html::script(url('mdh/plugins/date-picker/jquery-ui.js')) !!}
+{!! Html::script(url('mdh/plugins/input-mask/jquery.maskedinput.js')) !!}
+
+<!--Select2 js -->
+{!! Html::script(url('mdh/plugins/select2/select2.full.min.js')) !!}
+{!! Html::script(url('mdh/plugins/js/select2.js')) !!}
+
+
+<!-- File uploads js -->
+ <script src="../../assets/plugins/fileupload/js/dropify.js"></script>
+<script src="../../assets/js/filupload.js"></script>
+
 
 </body>
 </html>
