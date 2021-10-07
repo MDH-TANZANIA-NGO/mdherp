@@ -108,9 +108,33 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
                         <div class="text-center">
-                            <a href="#" class="dropdown-item text-center user pb-0">{{{Auth::user()->first_name}}}</a>
+
+
+                            {{-- <a href="#" class="dropdown-item text-center user pb-0">{{{Auth::user()->first_name}}}</a>
                             <span class="text-center user-semi-title text-dark">{{{Auth::user()->email}}}</span>
                             <div class="dropdown-divider"></div>
+
+ --}}
+
+                            @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            
+                        <a href="#" class="dropdown-item text-center user pb-0">{{{Auth::user()->first_name}}}</a>
+                        <span class="text-center user-semi-title text-dark">{{{Auth::user()->email}}}</span>
+                        <div class="dropdown-divider"></div>
+
+                                
+                        @endguest
+
+
                         </div>
                         <a class="dropdown-item" href="#">
                             <i class="dropdown-icon mdi mdi-account-outline "></i> Profile
