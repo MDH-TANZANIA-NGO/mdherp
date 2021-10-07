@@ -3,10 +3,10 @@
         <div class="d-flex">
             <a id="horizontal-navtoggle" class="animated-arrow hor-toggle"><span></span></a><!-- sidebar-toggle-->
             <a class="header-brand" href="index.html">
-                <img src="mdh/images/brand/logo.png" class="header-brand-img desktop-lgo" alt="Clont logo">
-                <img src="mdh/images/brand/logo1.png" class="header-brand-img dark-logo" alt="Clont logo">
-                <img src="mdh/images/brand/favicon.png" class="header-brand-img mobile-logo" alt="Clont logo">
-                <img src="mdh/images/brand/favicon1.png" class="header-brand-img darkmobile-logo" alt="Clont logo">
+                <img src="mdh/images/brand/logo.png" class="header-brand-img desktop-lgo" alt="mdh logo">
+                <img src="mdh/images/brand/logo1.png" class="header-brand-img dark-logo" alt="mdh logo">
+                <img src="mdh/images/brand/favicon.png" class="header-brand-img mobile-logo" alt="mdh logo">
+                <img src="mdh/images/brand/favicon1.png" class="header-brand-img darkmobile-logo" alt="mdh logo">
             </a>
             <div class="dropdown   side-nav" >
                 <a aria-label="Hide Sidebar" class="app-sidebar__toggle nav-link icon mt-1" data-toggle="sidebar" href="#">
@@ -37,14 +37,14 @@
             </div>
             <div class="dropdown   header-setting">
                 <a class="nav-link icon" data-toggle="dropdown">
-                    <i class="fe fe-settings"></i><span class="nav-span">Settings <i class="fa fa-angle-down ml-1 fs-18"></i></span>
+                    <i class="fe fe-settings"></i><span class="nav-span">Admin Settings <i class="fa fa-angle-down ml-1 fs-18"></i></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
                     <a class="dropdown-item" href="#">
-                        Multi Pages
+                        Users Settings
                     </a>
                     <a class="dropdown-item" href="#">
-                        Mail Settings
+                        Profile Settings
                     </a>
                     <a class="dropdown-item" href="#">
                         Default Settings

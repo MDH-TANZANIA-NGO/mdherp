@@ -1,9 +1,9 @@
 <aside class="app-sidebar comb-sidebar">
     <div class="app-sidebar__user">
         <div class="dropdown user-pro-body text-center">
-             <div class="user-pic">
+             <!-- <div class="user-pic">
                 <p>EMR</p>
-            </div>
+            </div> -->
            <!-- <div class="user-info">
                 <h6 class=" mb-1 text-dark">John Thomson</h6>
                 <span class="text-muted app-sidebar__user-name text-sm">App Developer</span>
