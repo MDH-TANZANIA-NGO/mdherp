@@ -26,7 +26,7 @@
                                                             {{-- <th>Photo</th> --}}
                                                             <th class="max-width">Full Name</th>
                                                             <th class="sortable">Join Date</th>
-                                                            <th> Activate/Deactivate</th>
+                                                            <th>Status</th>
                                                             <th>Actions</th>
                                                         </tr>
                                                     </thead>
@@ -155,7 +155,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="text-center">
-                                            <button class="btn btn-primary btn-block" type="button" data-toggle="modal" data-target="#user-form-modal">New User</button>
+                                           <button onclick="location.href='{{ url('userregister') }}'" class="btn btn-primary btn-block" type="button" >New User</button>
                                         </div>
                                         <div class="mt-4">
                                             
