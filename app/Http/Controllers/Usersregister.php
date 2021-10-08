@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Userslist extends Controller
+class Usersregister extends Controller
 {
     public function __construct()
     {
@@ -14,10 +14,6 @@ class Userslist extends Controller
 
     public function index()
     {
-        return view('users.userslist');
+        return view('users.userregister');
     }
-
-
-
-
 }

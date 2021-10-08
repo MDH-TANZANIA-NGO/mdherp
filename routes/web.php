@@ -14,15 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcomepage');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-<<<<<<< Updated upstream
-=======
 
 Route::get('/userslist', 'Userslist@index')->name('userslist');
-Route::get('/updateuser', 'updateuser@index')->name('updateuser');
->>>>>>> Stashed changes
+Route::get('/userregister', 'Usersregister@index')->name('userregister');

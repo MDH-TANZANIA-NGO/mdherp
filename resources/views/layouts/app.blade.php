@@ -5,12 +5,12 @@
     <!-- Meta data -->
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-    <meta content="Clont - Bootstrap Webapp Responsive Dashboard Simple Admin Panel Premium HTML5 Template" name="description">
+    <meta content="MDH - ERP" name="description">
     <meta content="Spruko Technologies Private Limited" name="author">
     <meta name="keywords" content="Admin, Admin Template, Dashboard, Responsive, Admin Dashboard, Bootstrap, Bootstrap 4, Clean, Backend, Jquery, Modern, Web App, Admin Panel, Ui, Premium Admin Templates, Flat, Admin Theme, Ui Kit, Bootstrap Admin, Responsive Admin, Application, Template, Admin Themes, Dashboard Template"/>
 
     <!-- Title -->
-    <title>Clont - Bootstrap Webapp Responsive Dashboard Simple Admin Panel Premium HTML5 Template</title>
+    <title>MDH - ERP</title>
 
     <!--Favicon -->
     <link rel="icon" href="mdh/images/brand/favicon.ico" type="image/x-icon"/>
@@ -92,7 +92,7 @@
         <div class="container">
             <div class="row align-items-center flex-row-reverse">
                 <div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">
-                    Copyright © 2019 <a href="#">Clont</a>. Designed by <a href="#">Spruko Technologies Pvt.Ltd</a> All rights reserved.
+                    Copyright © 2021 <a href="mdh.or.tz">MDH</a>. All rights reserved.
                 </div>
             </div>
         </div>
