@@ -136,7 +136,7 @@
 
 
                         </div>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{route('updateuser')}}">
                             <i class="dropdown-icon mdi mdi-account-outline "></i> Profile
                         </a>
                      
