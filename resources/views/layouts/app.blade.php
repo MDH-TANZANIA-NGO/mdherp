@@ -76,7 +76,10 @@
             {{--                @include('includes.page_header')--}}
             <!--End Page header-->
 
-                @yield('content')
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xl-12" style="margin-top: -70px">
+                    @yield('content')
+                </div>
+
 
             </div>
 
