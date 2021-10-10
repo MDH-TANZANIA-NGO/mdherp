@@ -29,10 +29,13 @@
 <!-- P-scroll bar css-->
 {{ Html::style(url('mdh/plugins/p-scrollbar/p-scrollbar.css')) }}
 
-<!---Icons css-->
-{{ Html::style(url('mdh/plugins/web-fonts/icons.css')) }}
-{{ Html::style(url('mdh/plugins/web-fonts/font-awesome/font-awesome.min.css')) }}
-{{ Html::style(url('mdh/plugins/web-fonts/plugin.css')) }}
+<!-- Data table css -->
+    {{ Html::style(url('mdh/plugins/datatable/dataTables.bootstrap4.min.css')) }}
+
+    <!---Icons css-->
+    {{ Html::style(url('mdh/plugins/web-fonts/icons.css')) }}
+    {{ Html::style(url('mdh/plugins/web-fonts/font-awesome/font-awesome.min.css')) }}
+    {{ Html::style(url('mdh/plugins/web-fonts/plugin.css')) }}
 
 <!-- Skin css-->
     {{ Html::style(url('mdh/css/skins.css')) }}
@@ -49,7 +52,7 @@
 <div class="page comb-page">
     <div class="page-main">
 
-        @if(!access()->guest())
+    @if(!access()->guest())
         {{--Header--}}
         @include('includes.navigation.header')
         {{--Header closed--}}
@@ -102,6 +105,11 @@
 
 <!-- Jquery js-->
 {!! Html::script(url('mdh/js/vendors/jquery-3.4.0.min.js')) !!}
+
+<!-- Data tables js-->
+{!! Html::script(url('mdh/plugins/datatable/jquery.dataTables.min.js')) !!}
+{!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}
+{!! Html::script(url('mdh/js/datatables.js')) !!}
 
 <!-- Bootstrap4 js-->
 {!! Html::script(url('mdh/plugins/bootstrap/popper.min.js')) !!}
