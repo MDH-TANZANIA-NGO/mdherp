@@ -49,6 +49,7 @@
 <div class="page comb-page">
     <div class="page-main">
 
+        @if(!access()->guest())
         {{--Header--}}
         @include('includes.navigation.header')
         {{--Header closed--}}
@@ -56,20 +57,21 @@
         <!--aside open-->
         @include('includes.navigation.aside')
         <!--aside closed-->
+        @endif
 
         <div class="app-content page-body">
 
             <!-- Horizontal-menu -->
-{{--            @include('includes.navigation.horizontal')--}}
-            <!-- Horizontal-menu end -->
+        {{--            @include('includes.navigation.horizontal')--}}
+        <!-- Horizontal-menu end -->
 
             {{--main body--}}
 
             <div class="side-app">
 
                 <!--Page header-->
-{{--                @include('includes.page_header')--}}
-                <!--End Page header-->
+            {{--                @include('includes.page_header')--}}
+            <!--End Page header-->
 
                 @yield('content')
 
@@ -91,7 +93,7 @@
 {{--            </div>--}}
 {{--        </div>--}}
 {{--    </footer>--}}
-    <!-- End Footer-->
+<!-- End Footer-->
 
 </div>
 
