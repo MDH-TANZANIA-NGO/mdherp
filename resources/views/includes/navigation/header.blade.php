@@ -128,7 +128,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
                         <div class="text-center">
-                            <a href="#" class="dropdown-item text-center user pb-0">John Thomson</a>
+                            <a href="#" class="dropdown-item text-center user pb-0">{{ access()->user()->full_name_formatted }}</a>
                             <span class="text-center user-semi-title text-dark">App Developer</span>
                             <div class="dropdown-divider"></div>
                         </div>
