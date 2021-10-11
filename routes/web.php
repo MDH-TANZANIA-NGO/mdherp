@@ -23,6 +23,7 @@ Route::get('/', function () {
 
 Route::group(/*['middleware' => 'csrf'],*/['namespace' => 'Web','middleware' => ['web']], function () {
     includeRouteFiles(__DIR__.'/web/');
+//    return view('welcomepage');
 });
 
 Auth::routes();
@@ -30,3 +31,8 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/userslist', 'Userslist@index')->name('userslist');
+Route::get('/userregister', 'Usersregister@index')->name('userregister');
+Route::get('/updateuser', 'updateuser@index')->name('updateuser');
