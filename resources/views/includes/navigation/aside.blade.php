@@ -1,13 +1,7 @@
 <aside class="app-sidebar comb-sidebar">
     <div class="app-sidebar__user">
         <div class="dropdown user-pro-body text-center">
-            <div class="user-pic">
-                <img src="mdh/images/users/16.jpg" alt="user-img" class="avatar-xl rounded-circle mb-1">
-            </div>
-            <div class="user-info">
-                <h6 class=" mb-1 text-dark">John Thomson</h6>
-                <span class="text-muted app-sidebar__user-name text-sm">App Developer</span>
-            </div>
+    
             <div class="sidebar-navs mt-3">
                 <ul class="nav nav-pills nav-pills-circle" id="tabs_3" role="tablist">
 {{--                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Settings">--}}
@@ -20,11 +14,7 @@
 {{--                            <i class="fe fe-mail"></i>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
-                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Followers">
-                        <a class="nav-link border h-6  m-2" id="tab23" data-toggle="tab" href="#tabs_2_3" role="tab" >
-                            <i class="fe fe-users"></i>
-                        </a>
-                    </li>
+                
                 </ul>
             </div>
         </div>

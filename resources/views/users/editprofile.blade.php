@@ -14,7 +14,7 @@
 													<img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="mdh/images/users/user.png" >
 												</li>
 												<li class="text-center">
-													<h4 class="text-capitalize mt-3 mb-0">{{{Auth::user()->first_name}}}</h4>
+													<h4 class="text-capitalize mt-3 mb-0">{{{Auth::user()->full_name_formatted}}}</h4>
 													<p class="text-muted text-capitalize">MDH Staff</p>
 												</li>
 												<li>
@@ -22,7 +22,7 @@
 												</li>
 												<li><br></li>
 												<li>
-                                                    <table class="table table-hover card-table table-striped table-vcenter table-outline text-nowrap">
+                                                    <table class="table   table-striped  table-outline text-nowrap">
                                                     
                                                         <tbody>
                                                             <tr><td>Active since:20-09-2021 </td></tr>
@@ -48,8 +48,9 @@
                                                 <ul class="nav panel-tabs">
                                                     <li class=""><a href="#tab1" class="active" data-toggle="tab">Details</a></li>
                                                     <li><a href="#tab2" data-toggle="tab">Supervision</a></li>
-                                                    <li><a href="#tab3" data-toggle="tab">Permissions</a></li>
-                                                    <li><a href="#tab4" data-toggle="tab">Audit</a></li>
+                                                    <li><a href="#tab3" data-toggle="tab">Workflow</a></li>
+                                                    <li><a href="#tab4" data-toggle="tab">Permissions</a></li>
+                                                    <li><a href="#tab5" data-toggle="tab">Audit</a></li>
                                                 </ul>
                                             </div>
                                         </div>

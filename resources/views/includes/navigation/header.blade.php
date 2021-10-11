@@ -132,7 +132,7 @@
                             <span class="text-center user-semi-title text-dark">App Developer</span>
                             <div class="dropdown-divider"></div>
                         </div>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{Route('updateuser')}}">
                             <i class="dropdown-icon mdi mdi-account-outline "></i> Profile
                         </a>
 {{--                        <a class="dropdown-item" href="#">--}}

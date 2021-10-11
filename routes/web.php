@@ -29,4 +29,6 @@ Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/updateuser', 'updateuser@index' )->name('updateuser');
+
 
