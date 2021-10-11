@@ -181,7 +181,70 @@
                                                    
                                                 </div>
                                                 <div class="tab-pane  " id="tab2">
-                                                   
+                                       
+
+                                                    <div class="card-body">
+                                                        <form action="">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Select Employee</label>
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" placeholder="Search for...">
+                                                                    <span class="input-group-append">
+                                                                        <button class="btn btn-primary" type="button">Select!</button>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <div class="table-responsive">
+                                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="wd-15p">Fullname</th>
+                                                                    <th class="wd-15p">Designation</th>
+                                                                    <th class="wd-20p">Action</th>
+                                                              
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Elinipendo Mziray</td>
+                                                                    <td>IT CUM Software Developmer</td>
+                                                                    <td><div class="btn-group align-top">
+                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
+                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                                    </div></td>
+                                                                  
+                                                                <tr>
+                                                                    <td>Elinipendo Mziray</td>
+                                                                    <td>IT CUM Software Developmer</td>
+                                                                    <td><div class="btn-group align-top">
+                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
+                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                                    </div></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Elinipendo Mziray</td>
+                                                                    <td>IT CUM Software Developmer</td>
+                                                                    <td><div class="btn-group align-top">
+                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
+                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                                    </div></td>
+                                                                </tr>
+                                                             
+                                                                <tr>
+                                                                    <td>Elinipendo Mziray</td>
+                                                                    <td>IT CUM Software Developmer</td>
+                                                                    <td><div class="btn-group align-top">
+                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
+                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
+                                                                    </div></td>
+                                                                </tr>
+                                                           
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    </div>
+                                                    <!-- table-wrapper -->
                                                     {{-- content to be displayed --}}
 
                                                     
@@ -193,6 +256,49 @@
                                                 <div class="tab-pane " id="tab4">
                                               {{-- content to be displayed --}}
                                                 </div>
+                                                <div class="tab-pane " id="tab5">
+                                                    {{-- content to be displayed --}}
+                                                    <div class="card-body">
+                                                        
+                                                        <div class="table-responsive">
+                                                            <table class="table card-table table-vcenter text-nowrap">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="wd-15p">Action</th>
+                                                                    <th class="wd-15p">Date Perfomed</th>
+                                                                    <th class="wd-20p">IP Address</th>
+                                                              
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Create Requisition</td>
+                                                                    <td>2018/03/12</td>
+                                                                    <td>192.168.1.200</td>
+                                                                  
+                                                                <tr>
+                                                                    <td>Approve Requisition</td>
+                                                                    <td>2018/03/12</td>
+                                                                    <td>192.168.1.200</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Apply Safari Advance</td>
+                                                                    <td>2018/03/12</td>
+                                                                    <td>192.168.1.200</td>
+                                                                </tr>
+                                                             
+                                                                <tr>
+                                                                    <td>Submit LPO</td>
+                                                                    <td>2018/03/12</td>
+                                                                    <td>192.168.1.200</td>
+                                                                </tr>
+                                                           
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    </div>
+                                                    <!-- table-wrapper -->
+                                                      </div>
                                             </div>
                                         </div>
                                  
