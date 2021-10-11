@@ -3,17 +3,17 @@
         <div class="d-flex">
             <a id="horizontal-navtoggle" class="animated-arrow hor-toggle"><span></span></a><!-- sidebar-toggle-->
             <a class="header-brand" href="index.html">
-                <img src="mdh/images/brand/logo.png" class="header-brand-img desktop-lgo" alt="Clont logo">
-                <img src="mdh/images/brand/logo1.png" class="header-brand-img dark-logo" alt="Clont logo">
-                <img src="mdh/images/brand/favicon.png" class="header-brand-img mobile-logo" alt="Clont logo">
-                <img src="mdh/images/brand/favicon1.png" class="header-brand-img darkmobile-logo" alt="Clont logo">
+                <img src="{{ assert('mdh/images/brand/logo.png') }}" class="header-brand-img desktop-lgo" alt="Clont logo">
+                <img src="{{ assert('mdh/images/brand/logo.png') }}" class="header-brand-img dark-logo" alt="Clont logo">
+                <img src="{{ assert('mdh/images/brand/logo.png') }}" class="header-brand-img mobile-logo" alt="Clont logo">
+                <img src="{{ assert('mdh/images/brand/logo.png') }}" class="header-brand-img darkmobile-logo" alt="Clont logo">
             </a>
             <div class="dropdown   side-nav" >
                 <a aria-label="Hide Sidebar" class="app-sidebar__toggle nav-link icon mt-1" data-toggle="sidebar" href="#">
                     <i class="fe fe-align-left"></i>
                 </a><!-- sidebar-toggle-->
             </div>
-     
+
             <div class="dropdown   header-setting">
                 <a class="nav-link icon" data-toggle="dropdown" href="#">
                     <i class="fe fe-settings"></i><span class="nav-span">Settings <i class="fa fa-angle-down ml-1 fs-18"></i></span>
@@ -28,14 +28,14 @@
                     <a class="dropdown-item" href="#">
                         Rates Configurations
                     </a>
-               
+
                 </div>
             </div>
                    <div class="dropdown  header-option">
                 <a class="nav-link icon">
                     <i class="fe fe-clock"></i> <span class="nav-span">Check In</span>
                 </a>
-               
+
             </div>
             <div class="d-flex order-lg-2 ml-auto">
                 <a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="fa fa-search"></i></a>
@@ -131,12 +131,12 @@
                                 </li>
                             @endif
                         @else
-                            
+
                         <a href="#" class="dropdown-item text-center user pb-0">{{{Auth::user()->first_name}}}</a>
                         <span class="text-center user-semi-title text-dark">{{{Auth::user()->email}}}</span>
                         <div class="dropdown-divider"></div>
 
-                                
+
                         @endguest
 
 
@@ -144,15 +144,15 @@
                         <a class="dropdown-item" href="{{route('updateuser')}}">
                             <i class="dropdown-icon mdi mdi-account-outline "></i> Profile
                         </a>
-                     
+
                         <a class="dropdown-item" href="#">
                             <i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
                         </a>
-                     
+
                         <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
-                        
+
                             <i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

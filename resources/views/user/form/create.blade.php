@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('content')
 
+    <div class="row mt-5">
+        <div class="col-xl-12 col-lg-12 col-md-12"></div>
+    </div>
+
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12">
             <form class="card">

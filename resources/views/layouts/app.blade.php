@@ -42,21 +42,21 @@
 
 
 {{-- Date picker --}}
-{{ Html::style(url('mdh/plugins/date-picker/date-picker.css')) }} 
+{{ Html::style(url('mdh/plugins/date-picker/date-picker.css')) }}
 
 <!-- Select2 css -->
-{{ Html::style(url('mdh/plugins/select2/select2.min.css')) }} 
+{{ Html::style(url('mdh/plugins/select2/select2.min.css')) }}
 </head>
 
 <body class="app sidebar-mini">
 
 <!---Global-loader-->
 <div id="global-loader" >
-    <img src="mdh/images/svgs/loader.svg" alt="loader">
+    <img src=" {{ asset('mdh/images/svgs/loader.svg') }}" alt="loader">
 </div>
 
 <div class="page comb-page">
-    <div class="page-main">
+    <div class="page-main"  style="background-color: #f5f5f5">
 
     @if(!access()->guest())
         {{--Header--}}
@@ -82,7 +82,7 @@
             {{--                @include('includes.page_header')--}}
             <!--End Page header-->
 
-                <div class="col-md-12 col-lg-12 col-sm-12 col-xl-12" style="margin-top: -70px">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xl-12">
                     @yield('content')
                 </div>
 
@@ -95,19 +95,6 @@
         </div><!-- end app-content-->
     </div>
 
-    <!--Footer-->
-<<<<<<< HEAD
-{{--    <footer class="footer">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row align-items-center flex-row-reverse">--}}
-{{--                <div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">--}}
-{{--                    Copyright © 2019 <a href="#">Clont</a>. Designed by <a href="#">Spruko Technologies Pvt.Ltd</a> All rights reserved.--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </footer>--}}
-<!-- End Footer-->
-=======
     <footer class="footer">
         <div class="container">
             <div class="row align-items-center flex-row-reverse">
@@ -118,7 +105,6 @@
         </div>
     </footer>
     <!-- End Footer-->
->>>>>>> emziray
 
 </div>
 
