@@ -15,7 +15,7 @@ use phpDocumentor\Reflection\Types\This;
  * @package App\Repositories\Sysdef
  * @description Use this class with care, could break the system.
  * Controls all the data dictionaries of the system.
- * @author Erick M. Chrysostom <e.chrysostom@nextbyte.co.tz>
+ * @author Hamis Hamis
  */
 class CodeValueRepository extends BaseRepository
 {

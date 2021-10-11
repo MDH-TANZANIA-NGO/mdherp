@@ -45,86 +45,8 @@ class CodesTableSeeder extends Seeder
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'taf_extra',
-                    'lang' => 'taf_extra',
-                    'is_system_defined' => 1,
-                ),
-            4 =>
-                array (
-                    'id' => 5,
-                    'name' => 'separate',
-                    'lang' => 'separate',
-                    'is_system_defined' => 1,
-                ),
-            5 =>
-                array (
-                    'id' => 6,
-                    'name' => 'icap_transport',
-                    'lang' => 'icap_transport',
-                    'is_system_defined' => 1,
-                ),
-            6 =>
-                array (
-                    'id' => 7,
-                    'name' => 'icap_accommodation',
-                    'lang' => 'icap_accommodation',
-                    'is_system_defined' => 1,
-                ),
-            7 =>
-                array (
-                    'id' => 8,
-                    'name' => 'taf_trip',
-                    'lang' => 'Taf Trip',
-                    'is_system_defined' => 1,
-                ),
-            8 =>
-                array (
-                    'id' => 9,
-                    'name' => 'separate_dividend',
-                    'lang' => 'separate_dividend',
-                    'is_system_defined' => 1,
-                ),
-            9 =>
-                array (
-                    'id' => 10,
-                    'name' => 'separate_dividend_classification',
-                    'lang' => 'separate_dividend_classification',
-                    'is_system_defined' => 1,
-                ),
-            10 =>
-                array (
-                    'id' => 11,
-                    'name' => 'title',
-                    'lang' => 'title',
-                    'is_system_defined' => 1,
-                ),
-            11 =>
-                array (
-                    'id' => 12,
-                    'name' => 'expense',
-                    'lang' => 'expense',
-                    'is_system_defined' => 1,
-                ),
-
-                12 =>
-                array (
-                    'id' => 13,
-                    'name' => 'cov_cec_payment_type',
-                    'lang' => 'cov_cec_payment_type',
-                    'is_system_defined' => 1,
-                ),
-                13 =>
-                array(
-                    'id' => 14,
-                    'name' => 'leave_type',
-                    'lang' => 'leave_type',
-                    'is_system_defined' => 1,
-                ),
-                14 =>
-                array(
-                    'id' => 15,
-                    'name' => 'timesheet',
-                    'lang' => 'timesheet',
+                    'name' => 'marital_status',
+                    'lang' => 'marital_status',
                     'is_system_defined' => 1,
                 ),
 

@@ -26,6 +26,8 @@
                 <li><a class="slide-item"  href="#"><span>Budget</span></a></li>
                 <li><a class="slide-item"  href="#"><span>Activities</span></a></li>
                 <li><a class="slide-item"  href="#"><span>Travel</span></a></li>
+            </ul>
+        </li>
 
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-monitor"></i><span class="side-menu__label">Business Requisition</span><i class="angle fa fa-angle-right"></i></a>
