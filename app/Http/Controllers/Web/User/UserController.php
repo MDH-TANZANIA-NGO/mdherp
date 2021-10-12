@@ -3,10 +3,22 @@
 namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\System\RegionRepository;
+use App\Repositories\Unit\DesignationRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    protected $designations;
+    protected $regions;
+
+    public function __construct()
+    {
+        $this->designations = (new DesignationRepository());
+        $this->regions = (new RegionRepository());
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +36,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.form.create');
+        return view('user.form.create')
+            ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
+            ->with('marital', code_value()->query()->where('code_id',3)->pluck('name','id'))
+            ->with('designations', $this->designations->getActiveForSelect())
+            ->with('regions', $this->regions->forSelect());
     }
 
     /**

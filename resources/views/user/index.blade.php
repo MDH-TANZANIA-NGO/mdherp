@@ -10,6 +10,13 @@
                         <li><a href="#tab6" data-toggle="tab" class="">De-active <span class="badge badge-danger">5</span></a></li>
                     </ul>
                 </div>
+
+                <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
+                    <div class="btn-group mb-0">
+                        <a href="{{ route('user.create') }}"> <i class="fa fa-plus mr-2"></i>Add Staff</a>
+                    </div>
+                </div>
+
             </div>
             <div class="panel-body tabs-menu-body">
                 <div class="tab-content">
