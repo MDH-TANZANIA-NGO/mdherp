@@ -6,7 +6,7 @@
             <a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon fe fe-monitor"></i><span class="side-menu__label">Workspace</span></a>
         </li>
 
-        <li><a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon fe fe-inbox"></i><span class="side-menu__label">Incoming Requests</span></a></li>
+        <li><a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon fe fe-inbox"></i><span class="side-menu__label">New Requests</span></a></li>
         <li><a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon fe fe-monitor"></i><span class="side-menu__label">Responded Requests</span></a></li>
         <li><a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon fe fe-monitor"></i><span class="side-menu__label">Actioned Request</span></a></li>
 
