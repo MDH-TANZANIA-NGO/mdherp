@@ -48,15 +48,15 @@
 {{ Html::style(url('mdh/plugins/select2/select2.min.css')) }}
 </head>
 
-<body class="app sidebar-mini">
+<body class="app sidebar-mini" style="background-color: #f5f5f5">
 
 <!---Global-loader-->
 <div id="global-loader" >
     <img src=" {{ asset('mdh/images/svgs/loader.svg') }}" alt="loader">
 </div>
 
-<div class="page comb-page">
-    <div class="page-main"  style="background-color: #f5f5f5">
+<div class="page comb-page" style="background-color: #f5f5f5">
+    <div class="page-main" style="background-color: #f5f5f5">
 
     @if(!access()->guest())
         {{--Header--}}
@@ -82,7 +82,7 @@
             {{--                @include('includes.page_header')--}}
             <!--End Page header-->
 
-                <div class="col-md-12 col-lg-12 col-sm-12 col-xl-12">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xl-12" style="margin-top: -40px">
                     @yield('content')
                 </div>
 
@@ -95,15 +95,15 @@
         </div><!-- end app-content-->
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="row align-items-center flex-row-reverse">
-                <div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">
-                    Copyright © 2021 <a href="mdh.or.tz">MDH</a>. All rights reserved.
-                </div>
-            </div>
-        </div>
-    </footer>
+{{--    <footer class="footer">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row align-items-center flex-row-reverse">--}}
+{{--                <div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">--}}
+{{--                    Copyright © 2021 <a href="mdh.or.tz">MDH</a>. All rights reserved.--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </footer>--}}
     <!-- End Footer-->
 
 </div>
