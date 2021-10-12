@@ -37,7 +37,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
          $this->projects->store($request->all());
-         return redirect()->back();
+         return redirect()->back()->with('success','Project Created Successfully');
     }
 
     /**
@@ -62,7 +62,7 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $this->projects->update($request->all(), $project);
-        return redirect()->back();
+        return redirect()->back()->with('success','Project Updated Successfully');
     }
 
     /**
@@ -75,6 +75,6 @@ class ProjectController extends Controller
     public function activate(Request $request, Project $project)
     {
         $this->projects->activate($request->all(), $project);
-        return redirect()->back();
+        return redirect()->back()->with('success','Project Activated Successfully');
     }
 }
