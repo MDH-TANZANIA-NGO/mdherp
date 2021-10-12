@@ -3,10 +3,8 @@
         <div class="d-flex">
             <a id="horizontal-navtoggle" class="animated-arrow hor-toggle"><span></span></a><!-- sidebar-toggle-->
             <a class="header-brand" href="index.html">
-                <img src="{{ assert('mdh/images/brand/logo.png') }}" class="header-brand-img desktop-lgo" alt="Clont logo">
-                <img src="{{ assert('mdh/images/brand/logo.png') }}" class="header-brand-img dark-logo" alt="Clont logo">
-                <img src="{{ assert('mdh/images/brand/logo.png') }}" class="header-brand-img mobile-logo" alt="Clont logo">
-                <img src="{{ assert('mdh/images/brand/logo.png') }}" class="header-brand-img darkmobile-logo" alt="Clont logo">
+                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img desktop-lgo" alt="mdh logo">
+                
             </a>
             <div class="dropdown   side-nav" >
                 <a aria-label="Hide Sidebar" class="app-sidebar__toggle nav-link icon mt-1" data-toggle="sidebar" href="#">
@@ -108,19 +106,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
                         <div class="text-center">
-<<<<<<< HEAD
-                            <a href="#" class="dropdown-item text-center user pb-0">{{ access()->user()->full_name_formatted }}</a>
-                            <span class="text-center user-semi-title text-dark">App Developer</span>
-=======
-
-
-                            {{-- <a href="#" class="dropdown-item text-center user pb-0">{{{Auth::user()->first_name}}}</a>
-                            <span class="text-center user-semi-title text-dark">{{{Auth::user()->email}}}</span>
->>>>>>> emziray
-                            <div class="dropdown-divider"></div>
-
- --}}
-
+                            
                             @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -132,7 +118,7 @@
                             @endif
                         @else
 
-                        <a href="#" class="dropdown-item text-center user pb-0">{{{Auth::user()->first_name}}}</a>
+                        <a href="#" class="dropdown-item text-center user pb-0">{{ access()->user()->full_name_formatted }}</a>
                         <span class="text-center user-semi-title text-dark">{{{Auth::user()->email}}}</span>
                         <div class="dropdown-divider"></div>
 
