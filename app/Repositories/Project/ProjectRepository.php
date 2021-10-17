@@ -27,7 +27,8 @@ class ProjectRepository extends BaseRepository
             'start_year' => $inputs['start_year'],
             'description' => $inputs['description'],
             'fund' => $inputs['fund'],
-            'title' => $inputs['title']
+            'title' => $inputs['title'],
+            'code' => $inputs['code']
         ];
     }
 
