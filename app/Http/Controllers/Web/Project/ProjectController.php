@@ -38,7 +38,8 @@ class ProjectController extends Controller
     public function store(/*ProjectRequest*/ Request $request)
     {
          $this->projects->store($request->all());
-         return redirect()->back()->with('success','Project Created Successfully');
+         alert()->success('Project Created Successfully','success');
+         return redirect()->back();
     }
 
     /**

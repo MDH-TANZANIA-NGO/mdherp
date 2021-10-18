@@ -35,7 +35,6 @@
                 <li><a class="slide-item"  href="{{ route('project.index') }}"><span>Project</span></a></li>
                 <li><a class="slide-item"  href="#"><span>Program Area</span></a></li>
                 <li><a class="slide-item"  href="#"><span>Activities</span></a></li>
-                <li><a class="slide-item"  href="#"><span>Budget</span></a></li>
             </ul>
         </li>
 

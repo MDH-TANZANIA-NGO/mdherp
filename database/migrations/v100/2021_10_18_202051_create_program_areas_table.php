@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectsTable extends Migration
+class CreateProgramAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('program_areas', function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('project_type_cv_id');
-            $table->char('code', '50');
-            $table->string('title');
+            $table->unsignedBigInteger('project_id');
+            $table->string('code')->unique();
             $table->longText('description');
-            $table->date('start_year');
-            $table->date('end_year');
-//            $table->decimal('fund', 15,2)->default('0.00');
-            $table->date('extension_year')->nullable();
             $table->boolean('isactive')->default(true);
             $table->uuid('uuid');
             $table->softDeletes();
@@ -37,6 +32,6 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('program_areas');
     }
 }
