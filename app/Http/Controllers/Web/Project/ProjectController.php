@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Project;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Project\Traits\ProjectDatatables;
+use App\Http\Requests\Project\ProjectRequest;
 use App\Models\Project\Project;
 use App\Repositories\Project\ProjectRepository;
 use Illuminate\Http\Request;
@@ -31,10 +32,10 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ProjectRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(/*ProjectRequest*/ Request $request)
     {
          $this->projects->store($request->all());
          return redirect()->back()->with('success','Project Created Successfully');
