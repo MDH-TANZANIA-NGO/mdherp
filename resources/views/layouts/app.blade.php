@@ -46,6 +46,7 @@
 {{--<!-- Select2 css -->--}}
 {{--{{ Html::style(url('mdh/plugins/select2/select2.min.css')) }}--}}
 
+    @stack('before-styles')
 
     <link href="mdh/css/style.css" rel="stylesheet" />
 
@@ -78,6 +79,8 @@
 
     <!-- Skin css-->
     <link href="mdh/css/skins.css" rel="stylesheet" />
+
+    @stack('after-styles')
 
 
 
@@ -201,7 +204,7 @@
 {{-- <script src="mdh/plugins/fileupload/js/dropify.js"></script>--}}
 {{--<script src="mdh/js/filupload.js"></script>--}}
 
-
+@stack('before-scripts')
 <!-- Jquery js-->
 <script src="mdh/js/vendors/jquery-3.4.0.min.js"></script>
 
@@ -245,6 +248,9 @@
 <!-- File uploads js -->
 <script src="mdh/plugins/fileupload/js/dropify.js"></script>
 <script src="mdh/js/filupload.js"></script>
+
+@stack('after-scripts')
+
 
 <!-- Custom js-->
 <script src="mdh/js/custom.js"></script>
