@@ -12,7 +12,23 @@ class ProjectRepository extends BaseRepository
 
     public function getQuery()
     {
-        return $this->query();
+        return $this->query()->select([
+            DB::raw('projects.code AS code'),
+            DB::raw('projects.title AS title'),
+            DB::raw('projects.description AS description'),
+            DB::raw('projects.start_year AS start_year'),
+            DB::raw('projects.end_year AS end_year'),
+            DB::raw('projects.isactive AS status'),
+            DB::raw('code_values.name AS type'),
+            DB::raw('projects.uuid AS uuid'),
+            DB::raw('projects.created_at AS created_at'),
+        ])
+            ->join('code_values','code_values.id','projects.project_type_cv_id');
+    }
+
+    public function getActive()
+    {
+        return $this->getQuery();
     }
 
     /**
