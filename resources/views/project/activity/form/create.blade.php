@@ -1,4 +1,4 @@
-{!! Form::open(['route' => 'program_area.store', 'method' => 'post',]) !!}
+{!! Form::open(['route' => 'activity.store', 'method' => 'post',]) !!}
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
     <div class="card">
@@ -6,9 +6,15 @@
             <div class="row">
 
                 <div class="col-3">
-                    {!! Form::label('project', __("label.project"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::select('project', $projects, null,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
-                    {!! $errors->first('project', '<span class="badge badge-danger">:message</span>') !!}
+                    {!! Form::label('program_area', __("label.program_area"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('program_area', $program_areas, null,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! $errors->first('program_area', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+
+                <div class="col-3">
+                    {!! Form::label('code', __("label.code"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::text('code', null, ['class' => 'form-control', 'required']) !!}
+                    {!! $errors->first('code', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
                 <div class="col-3">
@@ -28,7 +34,7 @@
             </div>
 
             <div class="row">
-                <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Store new Program Area </button>
+                <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Create Activity </button>
             </div>
 
         </div>

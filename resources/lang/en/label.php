@@ -20,6 +20,7 @@ return [
         'index' => 'Applicant',
         'details' => 'Applicant details',
     ],
+    'program_area' => 'Program Area',
     'code' => 'Code',
     'start_year' => 'Start Date',
     'end_year' => 'End Date',
