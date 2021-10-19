@@ -40,13 +40,12 @@
         {{ Html::style(url('mdh/plugins/web-fonts/font-awesome/font-awesome.min.css')) }}
         {{ Html::style(url('mdh/plugins/web-fonts/plugin.css')) }}
 
+<!-- Select2 css -->
+{{ Html::style(url('mdh/plugins/select2/select2.min.css')) }}
+
     <!-- Skin css-->
         {{ Html::style(url('mdh/css/skins.css')) }}
 
-
-
-    <!-- Select2 css -->
-    {{ Html::style(url('mdh/plugins/select2/select2.min.css')) }}
 
 {{--    <link href="mdh/css/style.css" rel="stylesheet" />--}}
 
@@ -224,7 +223,7 @@
 
 <!--Select2 js -->
 {!! Html::script(url('mdh/plugins/select2/select2.full.min.js')) !!}
-{!! Html::script(url('mdh/plugins/js/select2.js')) !!}
+{!! Html::script(url('mdh/js/select2.js')) !!}
 
 <!-- Timepicker js -->
 <script src="mdh/plugins/time-picker/jquery.timepicker.js"></script>

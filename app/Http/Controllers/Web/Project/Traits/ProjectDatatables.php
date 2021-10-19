@@ -19,7 +19,13 @@ trait ProjectDatatables
         return DataTables::of($tafs)
             ->addIndexColumn()
             ->editColumn('description', function ($query) {
-                return substr($query->description, 0, 100)."...";
+                return substr($query->description, 0, 50)."...";
+            })
+            ->editColumn('type', function ($query) {
+                $return = '<span class="badge badge-info">'.$query->type.'</span>';
+                if($query->type_id != config('mdh.project.with_region'))
+                    $return = '<span class="badge badge-success">'.$query->type.'</span>';
+                return $return;
             })
             ->editColumn('created_at', function ($query) {
                 return [
@@ -30,7 +36,7 @@ trait ProjectDatatables
             ->addColumn('action', function($query) {
                 return '<a href="'.route('project.show', $query->uuid).'">View</a>';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','type'])
             ->make(true);
     }
 }
