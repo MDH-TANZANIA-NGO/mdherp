@@ -4,25 +4,29 @@ namespace App\Http\Controllers\Web\Project;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Project\ProgramAreaRepository;
+use App\Repositories\Project\ProjectRepository;
 use Illuminate\Http\Request;
 
 class ProgramAreaController extends Controller
 {
     protected $program_areas;
+    protected $projects;
 
     public function __construct()
     {
         $this->program_areas = (new ProgramAreaRepository());
+        $this->projects = (new ProjectRepository());
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('project.program_area.index')
+            ->with('projects', $this->projects->getAll()->pluck('title','id'));
     }
 
     /**
@@ -39,11 +43,12 @@ class ProgramAreaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->program_areas->store($request->all());
+        return redirect()->back();
     }
 
     /**

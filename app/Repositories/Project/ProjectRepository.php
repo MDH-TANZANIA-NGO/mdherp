@@ -18,6 +18,7 @@ class ProjectRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
+            DB::raw('projects.id AS id'),
             DB::raw('projects.code AS code'),
             DB::raw('projects.title AS title'),
             DB::raw('projects.description AS description'),

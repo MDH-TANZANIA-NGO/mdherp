@@ -16,7 +16,7 @@ class CreateProgramAreasTable extends Migration
         Schema::create('program_areas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id');
-            $table->string('code')->unique();
+            $table->string('title');
             $table->longText('description');
             $table->boolean('isactive')->default(true);
             $table->uuid('uuid');
