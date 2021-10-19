@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="row  mb-3">
-        <span class="col-12 font-weight-bold">PROGRAM AREA: {{ $project->title }}</span>
+        <span class="col-12 font-weight-bold">PROGRAM AREA: {{ $program_area->title }}</span>
     </div>
     <div class="row">
         <div class="card-body">

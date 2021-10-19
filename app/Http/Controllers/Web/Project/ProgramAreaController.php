@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Web\Project;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Project\Traits\ProgramAreaDatatables;
+use App\Models\Project\ProgramArea;
 use App\Repositories\Project\ProgramAreaRepository;
 use App\Repositories\Project\ProjectRepository;
 use Illuminate\Http\Request;
 
 class ProgramAreaController extends Controller
 {
+    use ProgramAreaDatatables;
+
     protected $program_areas;
     protected $projects;
 
@@ -55,11 +59,14 @@ class ProgramAreaController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        $program_area = $this->program_areas->findByUuid($uuid);
+        return view('project.program_area.show')
+            ->with('program_area', $program_area)
+            ->with('projects', $this->projects->getAll()->pluck('title','id'));
     }
 
     /**
@@ -80,9 +87,10 @@ class ProgramAreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        $this->program_areas->update($uuid, $request->all());
+        return redirect()->back();
     }
 
     /**
