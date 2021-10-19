@@ -1,0 +1,12 @@
+.required_asterik:after {
+    content: '*';
+    color: red;
+    padding-left: 5px;
+}
+
+/*input:required+label::after,*/
+/*select:required+label::after,*/
+/*textarea:required+label::after {*/
+/*    content: " *";*/
+/*    color: #e32;*/
+/*}*/

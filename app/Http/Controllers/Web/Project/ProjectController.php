@@ -4,18 +4,23 @@ namespace App\Http\Controllers\Web\Project;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Project\Traits\ProjectDatatables;
+use App\Http\Requests\Project\ProjectRequest;
 use App\Models\Project\Project;
 use App\Repositories\Project\ProjectRepository;
+use App\Repositories\System\RegionRepository;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
     use ProjectDatatables;
+
     protected $projects;
+    protected $regions;
 
     public function __construct()
     {
         $this->projects = (new ProjectRepository());
+        $this->regions = (new RegionRepository());
     }
 
     /**
@@ -25,19 +30,22 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('project.index');
+        return view('project.index')
+            ->with('types', code_value()->query()->where('code_id', 5)->pluck('name','id'))
+            ->with('regions', $this->regions->getAll()->pluck('name','id'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ProjectRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ProjectRequest $request)
     {
          $this->projects->store($request->all());
-         return redirect()->back()->with('success','Project Created Successfully');
+         alert()->success('Project Created Successfully','success');
+         return redirect()->back();
     }
 
     /**
@@ -49,7 +57,10 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         return view('project.show')
-            ->with('project', $project);
+            ->with('project', $project)
+            ->with('types', code_value()->query()->where('code_id', 5)->pluck('name','id'))
+            ->with('regions', $this->regions->getAll()->pluck('name','id'))
+            ->with('project_region', $project->regions()->pluck('regions.id')->toArray());
     }
 
     /**

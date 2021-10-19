@@ -49,6 +49,13 @@ class CodesTableSeeder extends Seeder
                     'lang' => 'marital_status',
                     'is_system_defined' => 1,
                 ),
+            4 =>
+                array (
+                    'id' => 5,
+                    'name' => 'Project Type',
+                    'lang' => 'project_type',
+                    'is_system_defined' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("codes");

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnsIsactiveAndExtensionYearOnProjectsTable extends Migration
+class CreateProjectRegionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddColumnsIsactiveAndExtensionYearOnProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::table('projects', function (Blueprint $table) {
-            $table->date('extension_year')->nullable();
-            $table->boolean('isactive')->default(false);
+        Schema::create('project_region', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('project_id');
+            $table->unsignedSmallInteger('region_id');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +28,6 @@ class AddColumnsIsactiveAndExtensionYearOnProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::table('projects', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('project_region');
     }
 }
