@@ -5,7 +5,6 @@
         <th class="wd-20p">CODE</th>
         <th class="wd-20p">TITLE</th>
         <th class="wd-20p">DESCRIPTION</th>
-        <th class="wd-20p">PROJECT</th>
         <th class="wd-20p">PROGRAM AREA</th>
         <th class="wd-25p">REGISTERED DATE</th>
     </tr>
@@ -29,7 +28,6 @@
                     { data: 'code', name: 'activities.code', searchable: true},
                     { data: 'title', name: 'activities.title', searchable: true},
                     { data: 'description', name: 'activities.description', searchable: true},
-                    { data: 'project_title', name: 'projects.title', searchable: true},
                     { data: 'program_area_title', name: 'program_areas.title', searchable: true},
                     { data: {_: 'created_at.display',sort: 'created_at.timestamp'}, name: 'created_at', searchable: false },
                     { data: 'action', name: 'action', searchable: false },

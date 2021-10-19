@@ -19,9 +19,11 @@ class ProgramAreaRepository extends BaseRepository
             DB::raw('program_areas.isactive AS status'),
             DB::raw('program_areas.created_at AS created_at'),
             DB::raw('program_areas.uuid AS uuid'),
-            DB::raw('projects.title AS project_title'),
+            DB::raw('count(projects.id) AS project_count'),
         ])
-            ->join('projects','projects.id','program_areas.project_id');
+            ->join('program_area_project','program_area_project.program_area_id','program_areas.id')
+            ->join('projects','projects.id','program_area_project.project_id')
+            ->groupBy(['program_areas.id','program_areas.title','program_areas.description','program_areas.isactive','program_areas.created_at','program_areas.uuid']);
     }
 
     public function getActive()
@@ -37,7 +39,7 @@ class ProgramAreaRepository extends BaseRepository
     public function inputsProcessor($inputs)
     {
         return [
-            'project_id' => $inputs['project'],
+//            'project_id' => $inputs['project'],
             'description' => $inputs['description'],
             'title' => $inputs['title'],
         ];
@@ -51,7 +53,9 @@ class ProgramAreaRepository extends BaseRepository
     public function store($inputs)
     {
         return DB::transaction(function () use($inputs){
-            return $this->query()->create($this->inputsProcessor($inputs));
+            $program_area = $this->query()->create($this->inputsProcessor($inputs));
+            $program_area->projects()->sync($inputs['projects']);
+            return $program_area;
         });
     }
 
@@ -65,7 +69,9 @@ class ProgramAreaRepository extends BaseRepository
     {
         $program_area = $this->findByUuid($uuid);
         return DB::transaction(function () use($inputs, $program_area){
-            return $program_area->update($this->inputsProcessor($inputs));
+            $program_area->update($this->inputsProcessor($inputs));
+            $program_area->projects()->sync($inputs['projects']);
+            return $program_area;
         });
     }
 }

@@ -5,9 +5,10 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-3">
+                <div class="col-6">
                     {!! Form::label('project', __("label.project"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::select('project', $projects, null,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+{{--                    {!! Form::select('project', $projects, null,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}--}}
+                    {!! Form::select('projects[]', $projects, [], ['class' =>'form-control select2 custom-select', 'multiple','required']) !!}
                     {!! $errors->first('project', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 

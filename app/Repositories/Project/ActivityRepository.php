@@ -21,11 +21,9 @@ class ActivityRepository extends BaseRepository
             DB::raw('activities.title AS title'),
             DB::raw('activities.description AS description'),
             DB::raw('activities.uuid AS uuid'),
-            DB::raw('projects.title AS project_title'),
             DB::raw('program_areas.title AS program_area_title'),
         ])
-            ->join('program_areas','program_areas.id','activities.program_area_id')
-            ->join('projects','projects.id','program_areas.project_id');
+            ->join('program_areas','program_areas.id','activities.program_area_id');
     }
 
     /**

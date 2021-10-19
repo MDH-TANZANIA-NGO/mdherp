@@ -1,13 +1,13 @@
-{!! Form::open(['route' => ['program_area.update', $program_area], 'method' => 'put',]) !!}
+{!! Form::open(['route' => ['program_area.update', $program_area], 'method' => 'PUT',]) !!}
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
     <div class="card">
         <div class="card-body">
             <div class="row">
 
-                <div class="col-3">
+                <div class="col-6">
                     {!! Form::label('project', __("label.project"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::select('project', $projects, $program_area->project_id,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! Form::select('projects[]', $projects, $program_area_projects, ['class' =>'form-control select2 custom-select', 'multiple','required']) !!}
                     {!! $errors->first('project', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
@@ -28,7 +28,7 @@
             </div>
 
             <div class="row">
-                <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Update Program Area </button>
+                <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Store new Program Area </button>
             </div>
 
         </div>
