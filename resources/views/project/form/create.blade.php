@@ -1,6 +1,3 @@
-
-
-
 {!! Form::open(['route' => 'project.store', 'method' => 'post',]) !!}
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">

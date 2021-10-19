@@ -21,6 +21,7 @@ trait ProjectRelationship
      */
     public function regions()
     {
-        return $this->hasManyThrough(Region::class,ProjectRegion::class,'project_id','region_id','id','id');
+//        return $this->hasManyThrough(Region::class,ProjectRegion::class,'project_id','region_id','id','id');
+        return $this->belongsToMany(Region::class)->withPivot('id','name');
     }
 }

@@ -47,6 +47,10 @@
         {{ Html::style(url('mdh/css/skins.css')) }}
 
 
+    <!-- Custom css -->
+        {{ Html::style(url('mdh/css/custom.css')) }}
+
+
 {{--    <link href="mdh/css/style.css" rel="stylesheet" />--}}
 
 {{--    <!--Horizontal css -->--}}

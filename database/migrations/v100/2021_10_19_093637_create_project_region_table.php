@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectRegionsTable extends Migration
+class CreateProjectRegionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateProjectRegionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_regions', function (Blueprint $table) {
+        Schema::create('project_region', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id');
             $table->unsignedSmallInteger('region_id');
@@ -28,6 +28,6 @@ class CreateProjectRegionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_regions');
+        Schema::dropIfExists('project_region');
     }
 }

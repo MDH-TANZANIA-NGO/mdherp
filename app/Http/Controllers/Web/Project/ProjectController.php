@@ -57,7 +57,10 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         return view('project.show')
-            ->with('project', $project);
+            ->with('project', $project)
+            ->with('types', code_value()->query()->where('code_id', 5)->pluck('name','id'))
+            ->with('regions', $this->regions->getAll()->pluck('name','id'))
+            ->with('project_region', $project->regions()->pluck('regions.id')->toArray());
     }
 
     /**

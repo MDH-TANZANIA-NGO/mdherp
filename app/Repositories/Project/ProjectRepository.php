@@ -12,6 +12,9 @@ class ProjectRepository extends BaseRepository
 {
     const MODEL = Project::class;
 
+    /**
+     * @return mixed
+     */
     public function getQuery()
     {
         return $this->query()->select([
@@ -25,10 +28,10 @@ class ProjectRepository extends BaseRepository
             DB::raw('code_values.id AS type_id'),
             DB::raw('projects.uuid AS uuid'),
             DB::raw('projects.created_at AS created_at'),
-            DB::raw('count(project_regions.id) AS regions_count')
+            DB::raw('count(project_region.id) AS regions_count')
         ])
             ->join('code_values','code_values.id','projects.project_type_cv_id')
-            ->leftjoin('project_regions','project_regions.project_id','projects.id')
+            ->leftjoin('project_region','project_region.project_id','projects.id')
             ->groupBy([
                 'projects.id',
                 'projects.code',
@@ -43,6 +46,10 @@ class ProjectRepository extends BaseRepository
             ]);
     }
 
+    /**
+     * Get All Active Projects
+     * @return mixed
+     */
     public function getActive()
     {
         return $this->getQuery();
@@ -75,26 +82,9 @@ class ProjectRepository extends BaseRepository
     {
         return DB::transaction(function () use($inputs){
             $project = $this->query()->create($this->inputsProcessor($inputs));
-            $this->attachToRegion($project, $inputs['regions']);
+            if(isset($inputs['regions']))
+            $project->regions()->sync($inputs['regions']);
             return $project;
-        });
-    }
-
-    /**
-     * Attach Project to region
-     * @param Project $project
-     * @param $regions
-     * @return mixed
-     */
-    public function attachToRegion(Project $project, $regions)
-    {
-        return DB::transaction(function () use ($project,$regions){
-            foreach ($regions as $region){
-                ProjectRegion::query()->create([
-                    'project_id' => $project->id,
-                    'region_id' => $region,
-                ]);
-            }
         });
     }
 
@@ -107,7 +97,10 @@ class ProjectRepository extends BaseRepository
     public function update($inputs, Project $project)
     {
         return DB::transaction(function () use($inputs, $project){
-            return $project->update($this->inputsProcessor($inputs));
+            $project->update($this->inputsProcessor($inputs));
+            if(isset($inputs['regions']))
+                $project->regions()->sync($inputs['regions']);
+            return $project;
         });
     }
 
