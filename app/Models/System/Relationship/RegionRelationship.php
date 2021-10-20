@@ -9,6 +9,7 @@
 namespace App\Models\System\Relationship;
 
 use App\Models\None\None;
+use App\Models\Project\Project;
 use App\Models\System\Region;
 use App\Models\System\Zone;
 use App\Models\Taf\Taf;
@@ -38,5 +39,10 @@ trait RegionRelationship
     public function none()
     {
         return $this->hasMany(None::class);
+    }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)->withPivot('id','title','description','start_year','end_year');
     }
 }

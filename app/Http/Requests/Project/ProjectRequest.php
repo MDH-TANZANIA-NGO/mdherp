@@ -27,12 +27,12 @@ class ProjectRequest extends FormRequest
         {
             case "POST":
                 return [
-                    'code' => 'required|unique:projects',
-                    'title' => 'required|unique:projects',
-                    'description' => 'required',
-                    'start_year' => 'required|date',
-                    'end_year' => 'required|date|after:start_year',
-                    'fund' => 'required'
+//                    'code' => 'required|unique:projects',
+//                    'title' => 'required|unique:projects',
+//                    'description' => 'required',
+//                    'start_year' => 'required|date',
+//                    'end_year' => 'required|date',
+//                    'fund' => 'required'
                 ];
                 break;
         }

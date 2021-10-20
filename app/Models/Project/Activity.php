@@ -7,7 +7,7 @@ use App\Models\Project\Traits\Attribute\ActivityAttribute;
 use App\Models\Project\Traits\Relationship\ActivityRelationship;
 use Illuminate\Database\Eloquent\Model;
 
-class Activities extends BaseModel
+class Activity extends BaseModel
 {
     use ActivityAttribute, ActivityRelationship;
 }

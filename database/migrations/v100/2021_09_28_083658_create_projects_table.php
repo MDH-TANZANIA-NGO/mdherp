@@ -15,12 +15,15 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->smallInteger('project_type_cv_id');
             $table->char('code', '50');
             $table->string('title');
             $table->longText('description');
             $table->date('start_year');
             $table->date('end_year');
-            $table->decimal('fund', 15,2)->default('0.00');
+//            $table->decimal('fund', 15,2)->default('0.00');
+            $table->date('extension_year')->nullable();
+            $table->boolean('isactive')->default(true);
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
