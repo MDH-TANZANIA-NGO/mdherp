@@ -7,15 +7,15 @@
 
                 <div class="col-6" >
                     <label class="form-label">Project Code</label>
-                    <input type="text" class="form-control" name="code" placeholder="eg G6767878-f" required>
+                    <input type="text" class="form-control" name="code" placeholder="ie. AK2" required>
                     @error('code')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
                 </div>
 
                 <div class="col-6">
-                    <label class="form-label">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="eg Community 5" required>
+                    <label class="form-label">Project Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="ie. AFYA Kwanza" required>
                     @error('title')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
@@ -29,7 +29,7 @@
             <div class="row">
 
                 <div class="col-6">
-                    <label class="form-label">Type</label>
+                    <label class="form-label">Project Type</label>
                     {!! Form::select('type', $types, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                     @error('type')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="col-6 hidden" id="region_holder">
-                    <label class="form-label">Region(s)</label>
+                    <label class="form-label">Select Region(s)</label>
                     {!! Form::select('regions[]', $regions, null, ['class' =>'form-control select2 custom-select', 'multiple','disabled','required']) !!}
                 </div>
                 @error('regions')
@@ -84,7 +84,7 @@
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Description {{--<span class="form-label-small">56/100</span>--}}</label>
-                    <textarea class="form-control" name="description" rows="2" placeholder="Enter descriptions.." required></textarea>
+                    <textarea class="form-control" name="description" rows="2" placeholder="Enter project descriptions..." required></textarea>
                 </div>
                 @error('description')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
