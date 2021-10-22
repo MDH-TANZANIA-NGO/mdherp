@@ -14,7 +14,7 @@
                 </a><!-- sidebar-toggle-->
             </div>
 
-            <div class="dropdown   header-setting">
+            {{-- <div class="dropdown   header-setting">
                 <a class="nav-link icon" data-toggle="dropdown" href="#">
                     <i class="fe fe-settings"></i><span class="nav-span">Settings <i class="fa fa-angle-down ml-1 fs-18"></i></span>
                 </a>
@@ -30,7 +30,7 @@
                     </a>
 
                 </div>
-            </div>
+            </div> --}}
                    <div class="dropdown  header-option">
                 <a class="nav-link icon">
                     <i class="fe fe-clock"></i> <span class="nav-span">Check In</span>
@@ -53,7 +53,7 @@
                         <i class="fe fe-minimize"></i>
                     </a>
                 </div>
-                <div class="dropdown    header-notify">
+                {{-- <div class="dropdown    header-notify">
                     <a class="nav-link icon" data-toggle="dropdown">
                         <i class="fe fe-bell"></i>
                         <span class="pulse "></span>
@@ -99,7 +99,7 @@
                             <a href="#" class="">View All Notifications</a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="dropdown ">
                     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 										<span>
@@ -133,9 +133,9 @@
                             <i class="dropdown-icon mdi mdi-account-outline "></i> Profile
                         </a>
 
-                        <a class="dropdown-item" href="#">
+                        {{-- <a class="dropdown-item" href="#">
                             <i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
-                        </a>
+                        </a> --}}
 
                         <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();

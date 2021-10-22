@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="row">
 
-                <div class="col-3" >
+                <div class="col-6" >
                     <label class="form-label">Project Code</label>
                     <input type="text" class="form-control" name="code" placeholder="eg G6767878-f" required>
                     @error('code')
@@ -13,13 +13,20 @@
                     @enderror
                 </div>
 
-                <div class="col-3">
+                <div class="col-6">
                     <label class="form-label">Title</label>
                     <input type="text" class="form-control" name="title" placeholder="eg Community 5" required>
                     @error('title')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
                 </div>
+
+                
+            </div>
+
+            &nbsp;
+
+            <div class="row">
 
                 <div class="col-6">
                     <label class="form-label">Type</label>
@@ -28,6 +35,15 @@
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
                 </div>
+
+                <div class="col-6 hidden" id="region_holder">
+                    <label class="form-label">Region(s)</label>
+                    {!! Form::select('regions[]', $regions, null, ['class' =>'form-control select2 custom-select', 'multiple','disabled','required']) !!}
+                </div>
+                @error('regions')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                @enderror
+
             </div>
 
             &nbsp;
@@ -66,19 +82,6 @@
             &nbsp;
 
             <div class="row">
-                
-                <div class="col-6 hidden" id="region_holder">
-                    <label class="form-label">Region(s)</label>
-                    {!! Form::select('regions[]', $regions, null, ['class' =>'form-control select2 custom-select', 'multiple','disabled','required']) !!}
-                </div>
-                @error('regions')
-                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                @enderror
-            </div>
-
-          
-
-            <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Description {{--<span class="form-label-small">56/100</span>--}}</label>
                     <textarea class="form-control" name="description" rows="2" placeholder="Enter descriptions.." required></textarea>
@@ -96,7 +99,7 @@
                     <div style="text-align: center;">
                 
                 <button type="submit" class="btn btn-azure"  >Create Project </button>
-                
+
                     </div>
                 </div>
                 

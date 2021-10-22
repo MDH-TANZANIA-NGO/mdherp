@@ -24,9 +24,12 @@
         <div class="card-body">
             <div class="row">
 
+                <div class="col-12" >
+
             <div class="table-responsive">
                 @include('project.datatables.all')
             </div>
+                </div>
         </div>
         </div>
     </div>
