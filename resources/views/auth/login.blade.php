@@ -72,4 +72,4 @@
 {{--</div>--}}
 {{--@endsection--}}
 
-@include('welcome')
+@include('welcomepage')
