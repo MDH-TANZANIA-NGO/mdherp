@@ -21,9 +21,15 @@ class ActivityRepository extends BaseRepository
             DB::raw('activities.title AS title'),
             DB::raw('activities.description AS description'),
             DB::raw('activities.uuid AS uuid'),
+            DB::raw('sub_programs.title AS sub_program_title'),
             DB::raw('program_areas.title AS program_area_title'),
+            DB::raw("string_agg(DISTINCT projects.title, ',') as project_list"),
         ])
-            ->join('program_areas','program_areas.id','activities.program_area_id');
+            ->join('sub_programs','sub_programs.id', 'activities.sub_program_id')
+            ->join('program_areas','program_areas.id','sub_programs.program_area_id')
+            ->join('program_area_project','program_area_project.program_area_id','program_areas.id')
+            ->join('projects','projects.id','program_area_project.project_id')
+            ->groupBy('activities.id','activities.code','activities.title','activities.description','activities.uuid','program_areas.title','sub_programs.title');
     }
 
     /**
@@ -42,7 +48,7 @@ class ActivityRepository extends BaseRepository
     public function inputsProcessor($inputs)
     {
         return [
-            'program_area_id' => $inputs['program_area'],
+            'sub_program_id' => $inputs['sub_program'],
             'description' => $inputs['description'],
             'title' => $inputs['title'],
             'code' => $inputs['code'],

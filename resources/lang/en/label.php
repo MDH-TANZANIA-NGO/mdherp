@@ -21,6 +21,7 @@ return [
         'details' => 'Applicant details',
     ],
     'program_area' => 'Program Area',
+    'sub_program' => 'Sub Program',
     'code' => 'Code',
     'start_year' => 'Start Date',
     'end_year' => 'End Date',
