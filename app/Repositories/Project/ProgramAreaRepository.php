@@ -19,7 +19,7 @@ class ProgramAreaRepository extends BaseRepository
             DB::raw('program_areas.isactive AS status'),
             DB::raw('program_areas.created_at AS created_at'),
             DB::raw('program_areas.uuid AS uuid'),
-            DB::raw('count(projects.id) AS project_count'),
+            DB::raw("string_agg(DISTINCT projects.title, ',') as project_list"),
         ])
             ->join('program_area_project','program_area_project.program_area_id','program_areas.id')
             ->join('projects','projects.id','program_area_project.project_id')
