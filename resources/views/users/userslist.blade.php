@@ -1,307 +1,252 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    
-                <div class="row flex-lg-nowrap">
-                    <div class="col">
-                        <div class="row flex-lg-nowrap">
-                            <div class="col mb-3">
-                                <div class="e-panel card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Users List</h3>
-                                        <div class="card-options ">
-                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="e-table">
-                                            <div class="table-responsive table-lg mt-3">
-                                                <table class="table table-bordered border-top">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="align-top">
-                                                            </th>
-                                                            {{-- <th>Photo</th> --}}
-                                                            <th class="max-width">Full Name</th>
-                                                            <th class="sortable">Join Date</th>
-                                                            <th>Status</th>
-                                                            <th>Actions</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="align-middle">
-                                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                                                                    <input type="checkbox" class="custom-control-input" id="item-1">
-                                                                    <label class="custom-control-label" for="item-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            {{-- <td class="align-middle text-center">
-                                                                <span class="avatar brround avatar-md d-block" style="background-image: url(../../assets/images/users/2.jpg)"></span>
-                                                            </td> --}}
-                                                            <td class="text-nowrap align-middle">Frank Omary</td>
-                                                            <td class="text-nowrap align-middle"><span>01 OCT 2021</span></td>
-                                                            <td class="text-center align-middle">
-                                                                <label class="custom-switch">
-                                                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                                    <span class="custom-switch-indicator"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                <div class="btn-group align-top">
-                                                                    <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                    {{-- <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button> --}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="align-middle">
-                                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                                                                    <input type="checkbox" class="custom-control-input" id="item-2">
-                                                                    <label class="custom-control-label" for="item-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            {{-- <td class="align-middle text-center">
-                                                                <span class="avatar brround avatar-md d-block" style="background-image: url(../../assets/images/users/13.jpg)"></span>
-                                                            </td> --}}
-                                                            <td class="text-nowrap align-middle">Moses Kehengu</td>
-                                                            <td class="text-nowrap align-middle"><span>01 Oct 2021</span></td>
-                                                            <td class="text-center align-middle">
-                                                                <label class="custom-switch">
-                                                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                                    <span class="custom-switch-indicator"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                <div class="btn-group align-top">
-                                                                    <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                    {{-- <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button> --}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="align-middle">
-                                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                                                                    <input type="checkbox" class="custom-control-input" id="item-3">
-                                                                    <label class="custom-control-label" for="item-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            {{-- <td class="align-middle text-center">
-                                                                <span class="avatar brround avatar-md d-block" style="background-image: url(../../assets/images/users/3.jpg)"></span>
-                                                            </td> --}}
-                                                            <td class="text-nowrap align-middle">Kelvin Kiritta</td>
-                                                            <td class="text-nowrap align-middle"><span>27 Jan 2018</span></td>
-                                                            <td class="text-center align-middle">
-                                                                <label class="custom-switch">
-                                                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                                    <span class="custom-switch-indicator"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                <div class="btn-group align-top">
-                                                                    <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                    {{-- <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button> --}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="align-middle">
-                                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                                                                    <input type="checkbox" class="custom-control-input" id="item-4">
-                                                                    <label class="custom-control-label" for="item-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            {{-- <td class="align-middle text-center">
-                                                                <span class="avatar brround avatar-md d-block" style="background-image: url(../../assets/images/users/14.jpg)"></span>
-                                                            </td> --}}
-                                                            <td class="text-nowrap align-middle">Lameck Machumi</td>
-                                                            <td class="text-nowrap align-middle"><span>20 Jan 2011</span></td>
-                                                            <td class="text-center align-middle">
-                                                                <label class="custom-switch">
-                                                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                                    <span class="custom-switch-indicator"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                <div class="btn-group align-top">
-                                                                    <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                    {{-- <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button> --}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="d-flex justify-content-center">
-                                                <ul class="pagination mt-3 mb-0">
-                                                    <li class="disabled page-item"><a href="#" class="page-link">‹</a></li>
-                                                    <li class="active page-item"><a href="#" class="page-link">1</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">›</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">»</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 mb-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="text-center">
-                                           <button onclick="location.href='{{ url('userregister') }}'" class="btn btn-primary btn-block" type="button" >New User</button>
-                                        </div>
-                                        <div class="mt-4">
-                                            
-                                            <div class="form-group">
-                                                <label>Search by Name:</label>
-                                                <div><input class="form-control w-100" type="text" placeholder="Name" value=""></div>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <label>Status:</label>
-                                            <div class="px-2">
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" class="custom-control-input" name="user-status" id="users-status-disabled">
-                                                    <label class="custom-control-label" for="users-status-disabled">Disabled</label>
-                                                </div>
-                                            </div>
-                                            <div class="px-2">
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" class="custom-control-input" name="user-status" id="users-status-active">
-                                                    <label class="custom-control-label" for="users-status-active">Active</label>
-                                                </div>
-                                            </div>
-                                            <div class="px-2">
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" class="custom-control-input" name="user-status" id="users-status-any" checked="">
-                                                    <label class="custom-control-label" for="users-status-any">Any</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-3 col-lg-5 col-md-12">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="inner-all">
+                        <form>
+                            <ul class="list-unstyled">
+                                <label>Workflow</label>
+                                <li class="text-center">
+
+                                <select class="form-control">
+
+                                    <option>Select workflow</option>
+                                    <option>Procurement Workflow</option>
+                                    <option>Direct Workflow</option>
+                                    <option>Utility Workflow</option>
+                                </select>
+                                </li>
+                                <br>
+                                <li>
+                                    <a href="" class="btn btn-primary text-center btn-block">Get Info</a>
+                                </li>
+                             <br>
+                            </ul>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card panel-theme rounded shadow">
+                <div class="card-header">
+                    <div class="float-left">
+                        <h3 class="card-title">Contact</h3>
+                    </div>
+                    <div class="card-options text-right">
+                        <a href="#" class="btn btn-sm btn-primary mr-2"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="btn btn-sm btn-primary mr-2"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-google-plus"></i></a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="card-body no-padding rounded">
+                    <ul class="list-group no-margin">
+                        <li class="list-group-item"><i class="fa fa-envelope mr-4"></i> support@demo.com</li>
+                        <li class="list-group-item"><i class="fa fa-globe mr-4"></i> www.support.com</li>
+                        <li class="list-group-item"><i class="fa fa-phone mr-4"></i> +125 5826 3658 </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-7 col-md-12">
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-6">
+                    mamam
+                    </div>
+                    <div class="col-6">
+                        <br>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class=" mb-1 ">Income Budget</p>
+                                <h2 class="mb-1">4500,00<span class="fs-12 text-muted ml-1">this month</span></h2>
+                                <span class="mb-1 text-muted"><span class="text-danger"><i class="fa fa-caret-down  mr-1"></i> 43.2</span> vs $56,699 than last month</span>
+                                <div class="progress progress-xs mt-3">
+                                    <div class="progress-bar bg-primary" style="width: 78%"></div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- User Form Modal -->
-                        <div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal" aria-hidden="true" style="display: none;">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Edit User</h5>
-                                        <button type="button" class="close" data-dismiss="modal">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="py-1">
-                                            <form class="form" novalidate="">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>First Name</label>
-                                                                    <input class="form-control" type="text" name="first_ame" placeholder="First Name" value="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>Last Name</label>
-                                                                    <input class="form-control" type="text" name="last_name" placeholder="Last Name" value="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>Email</label>
-                                                                    <input class="form-control" type="email" placeholder="initials@mdh.or.tz">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col mb-3">
-                                                                <div class="form-group">
-                                                                    <label>About</label>
-                                                                    <textarea class="form-control" rows="5" placeholder="User's Biography"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {{-- <div class="row">
-                                                     <div class="col-12 col-sm-6 mb-3">
-                                                        <div class="mb-2"><b>Change Password</b></div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>Current Password</label>
-                                                                    <input class="form-control" type="password" placeholder="••••••">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>New Password</label>
-                                                                    <input class="form-control" type="password" placeholder="••••••">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                                                                    <input class="form-control" type="password" placeholder="••••••">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> 
-                                                    <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                                        <div class="mb-2"><b>Keeping in Touch</b></div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                            <label>Email Notifications</label>
-                                                                <div class="custom-controls-stacked px-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                                                        <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                                                        <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                                                        <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
-                                                <div class="row">
-                                                    <div class="col d-flex justify-content-end">
-                                                    <button class="btn btn-primary" type="submit">Save Changes</button>
-                                                    </div>
-                                                    <div class="col d-flex justify-content">
-                                                        <button class="btn btn-info" type="submit">Reset Password</button>
-                                                        </div>
-                                                </div>
-                                            </form>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header pt-5 pb-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Message">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-group card-list-group">
+                            <li class="list-group-item py-5">
+                                <div class="media m-0">
+                                    <div class="media-object avatar brround avatar-md mr-4" style="background-image: url(../../assets/images/users/9.jpg)"></div>
+                                    <div class="media-body d-block">
+                                        <div class="media-heading">
+                                            <small class="float-right text-muted">4 min</small>
+                                            <h5>George Mestayer</h5>
                                         </div>
+                                        <div>
+                                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet
+                                        </div>
+                                        <ul class="media-list">
+                                            <li class="media mt-4">
+                                                <div class="media-object brround avatar mr-4" style="background-image: url(../../assets/images/users/7.jpg)"></div>
+                                                <div class="media-body">
+                                                    Holley Corby:
+                                                    I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item py-5">
+                                <div class="media m-0">
+                                    <div class="media-object avatar brround avatar-md mr-4" style="background-image: url(../../assets/images/users/10.jpg)"></div>
+                                    <div class="media-body">
+                                        <div class="media-heading">
+                                            <small class="float-right text-muted">34 min</small>
+                                            <h5>George Mestayer</h5>
+                                        </div>
+                                        <div>
+                                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus</div>
+                                        <ul class="media-list">
+                                            <li class="media mt-4">
+                                                <div class="media-object brround avatar mr-4" style="background-image: url(../../assets/images/users/2.jpg)"></div>
+                                                <div class="media-body">
+                                                    Art Langner:
+                                                    master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class=" " id="profile-log-switch">
+                                <div class="fade show active " >
+                                    <div class="table-responsive border ">
+                                        <table class="table row table-borderless w-100 m-0 ">
+                                            <tbody class="col-lg-6 p-0">
+                                            <tr>
+                                                <td><strong>Full Name :</strong> John Thomson </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Location :</strong> USA</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Languages :</strong> English, German, Spanish.</td>
+                                            </tr>
+                                            </tbody>
+                                            <tbody class="col-lg-6 p-0">
+                                            <tr>
+                                                <td><strong>Website :</strong> Clont.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Email :</strong> georgemestayer@Clont.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Phone :</strong> +125 254 3562 </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row mt-5 profie-img">
+                                        <div class="col-md-12">
+                                            <div class="media-heading">
+                                                <h5><strong>Biography</strong></h5>
+                                            </div>
+                                            <p>
+                                                Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus</p>
+                                            <p >because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.</p>
+                                        </div>
+                                        <img class="img-fluid rounded w-25 h-25 m-2" src="../../assets/images/photos/8.jpg " alt="banner image">
+                                        <img class="img-fluid rounded w-25 h-25 m-2" src="../../assets/images/photos/10.jpg" alt="banner image ">
+                                        <img class="img-fluid rounded w-25 h-25 m-2" src="../../assets/images/photos/11.jpg" alt="banner image ">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-               
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Projects</h3>
+                            <div class="card-options ">
+                                <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table card-table table-vcenter border text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>Project Name</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Price</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr>
+                                        <td><a href="store.html" class="text-inherit">Untrammelled prevents </a></td>
+                                        <td>28 May 2018</td>
+                                        <td><span class="status-icon bg-success"></span> Completed</td>
+                                        <td>$56,908</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="store.html" class="text-inherit">Untrammelled prevents</a></td>
+                                        <td>12 June 2018</td>
+                                        <td><span class="status-icon bg-danger"></span> On going</td>
+                                        <td>$45,087</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="store.html" class="text-inherit">Untrammelled prevents</a></td>
+                                        <td>12 July 2018</td>
+                                        <td><span class="status-icon bg-warning"></span> Pending</td>
+                                        <td>$60,123</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="store.html" class="text-inherit">Untrammelled prevents</a></td>
+                                        <td>14 June 2018</td>
+                                        <td><span class="status-icon bg-warning"></span> Pending</td>
+                                        <td>$70,435</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="store.html" class="text-inherit">Untrammelled prevents</a></td>
+                                        <td>25 June 2018</td>
+                                        <td><span class="status-icon bg-success"></span> Completed</td>
+                                        <td>$15,987</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    </div>
+    </div><!-- end app-content-->
+
 @endsection

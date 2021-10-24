@@ -32,6 +32,7 @@
                 <li><a class="slide-item"  href="{{ route('project.index') }}"><span>Project</span></a></li>
                 <li><a class="slide-item"  href="{{ route('program_area.index') }}"><span>Program Area</span></a></li>
                 <li><a class="slide-item"  href="{{ route('activity.index') }}"><span>Activities</span></a></li>
+                <li><a class="slide-item"  href="{{ route('userregister') }}"><span>Budget</span></a></li>
             </ul>
         </li>
 

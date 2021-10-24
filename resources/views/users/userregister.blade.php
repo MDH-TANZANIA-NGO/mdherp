@@ -1,74 +1,126 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="col-lg-12 col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Register New User</h3>
-                <div class="card-options ">
-                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+    <form class="card">
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Activity</label>
+                        <select class="form-control select2 custom-select" data-placeholder="Choose one">
+                            <option label="Choose one">
+                            </option>
+                            <option value="1">HTS</option>
+                            <option value="2">Data Collection</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <label class="form-label">Enter First Name</label>
-                    <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Fiscal Year</label>
+                        <select class="form-control select2 custom-select" data-placeholder="Choose one">
+                            <option label="Choose one">
+                            </option>
+                            <option value="1">2012</option>
+                            <option value="2">2021</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                        <label class="form-label">Enter Last Name</label>
-                        <input type="text" class="form-control" name="last_name" placeholder="Last Name">
-                </div>
 
-                <div class="form-group ">
-                    <label class="form-label">Choose Gender</label>
-                    <select class="form-control select2 custom-select select2-hidden-accessible" data-placeholder="Choose one" tabindex="-1" aria-hidden="true">
-                        <option label="Choose one">
-                        </option>
-                        <option value="1">Male</option>
-                        <option value="2">Female</option>
-                        
-                    </select>
-                </div>
 
-                
 
-                <div class="form-group">
-                    <label class="form-label">Enter Phone Number </label>
-                    <input type="number" class="form-control" name="phone" placeholder="i.e 0653000000">
-                </div>
 
-                <div class="form-group">
-                    <label class="form-label">Valid Email</label>
-                    <input type="text" class="form-control is-valid state-valid" name="email" placeholder="example@mdh.or.tz">
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label class="form-label">Output unit</label>
+                        <input type="text" placeholder="unit" class="form-control">
+                    </div>
                 </div>
-
-                <div class="form-group ">
-                    <label class="form-label">Enter Designation</label>
-                    <select class="form-control select2 custom-select select2-hidden-accessible" data-placeholder="Choose one" tabindex="-1" aria-hidden="true">
-                        <option label="Choose one">
-                        </option>
-                        <option value="1">HR manager</option>
-                        <option value="2">Health Informatics</option>
-                        <option value="2">Software Developer</option>
-                        
-                    </select>
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap">
+                        <thead >
+                        <tr>
+                            <th>Region</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Tabora</td>
+                            <td><input type="number" class="form-control" placeholder="Amount"></td>
+                        </tr>
+                        <tr>
+                            <td>Geita</td>
+                            <td><input type="number" class="form-control" placeholder="Amount"></td>
+                        </tr>
+                        <tr>
+                            <td>Dar es salaam</td>
+                            <td><input type="number" class="form-control" placeholder="Amount"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-                
-                <div class="form-group">
-                    <label class="form-label">Enter Hired Date</label>
-                    <input type="date" class="form-control" name="employed_date" placeholder="">
-                </div>
-
-                <div class="btn-list text-right">
-                    <a href="#" class="btn btn-primary">Register</a>
-                </div>
+                <!-- table-responsive -->
+                <button type="submit" class="btn btn-primary" style="margin-left:40%;">Submit </button>
 
             </div>
         </div>
+
+    </form>
+
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-12" >
+
+                    <div class="table-responsive">
+                        <table id="all_projects" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th class="wd-15p">Activity</th>
+                                <th class="wd-15p">AMOUNT</th>
+                                <th class="wd-20p">REGIONS</th>
+                                <th class="wd-15p">FISCAL YEAR</th>
+                                <th class="wd-10p">ACTION</th>
+                            </tr>
+                            </thead>
+                        </table>
+                        @push('after-scripts')
+                            <script>
+                                $(document).ready(function () {
+
+                                    $("#all_projects").DataTable({
+                                        // processing: true,
+                                        // serverSide: true,
+                                        destroy: true,
+                                        retrieve: true,
+                                        "responsive": true,
+                                        "autoWidth": false,
+                                        ajax: '{{ route('project.datatable.all') }}',
+                                        columns: [
+                                            { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                                            { data: 'code', name: 'projects.code', searchable: true},
+                                            { data: 'title', name: 'projects.title', searchable: true},
+                                            { data: 'type', name: 'code_values.name', searchable: true},
+                                            { data: 'regions_count', name: 'regions_count', searchable: true},
+                                            // { data: 'description', name: 'projects.description', searchable: true},
+                                            { data: 'start_year', name: 'projects.start_year', searchable: true},
+                                            { data: 'end_year', name: 'projects.end_year.', searchable: true },
+                                            // { data: {_: 'created_at.display',sort: 'created_at.timestamp'}, name: 'created_at', searchable: false },
+                                            { data: 'action', name: 'action', searchable: false },
+                                        ]
+                                    });
+                                })
+                            </script>
+                        @endpush
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 @endsection
+
