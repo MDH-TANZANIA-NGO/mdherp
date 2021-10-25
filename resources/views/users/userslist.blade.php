@@ -35,14 +35,17 @@
                                 </li>
                                 <br>
                                 <label>Activity</label>
-                                <li class="text-center">
+                                <li>
 
-                                    <select class="form-control">
+                                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
+                                        <optgroup label="Mountain Time Zone">
+                                            <option value="AZ">HTS</option>
+                                            <option value="CO">TA Data cleaning</option>
+                                            <option value="ID">DQI</option>
+                                            <option value="MT">Net Gain</option>
+                                            <option value="NM">TDM</option>
+                                        </optgroup>
 
-                                        <option>Select Activity</option>
-                                        <option>HTS</option>
-                                        <option>Data Collection</option>
-                                        <option>Training</option>
                                     </select>
                                 </li>
                                 <br>
@@ -140,12 +143,119 @@
 
             </div>
 
-            <div class="row">
 
-            </div>
         </div>
-    </div>
 
+    </div>
+    <div class="row">
+        <form  method="post" class="card">
+            <div class="card-header">
+                <h3 class="card-title">Select2 elements</h3>
+                <div class="card-options ">
+                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                </div>
+            </div>
+            <div class="card-body ">
+                <div class="form-group ">
+                    <label class="form-label">Beast</label>
+                    <select class="form-control select2 custom-select" data-placeholder="Choose one">
+                        <option label="Choose one">
+                        </option>
+                        <option value="1">Chuck Testa</option>
+                        <option value="2">Sage Cattabriga-Alosa</option>
+                        <option value="3">Nikola Tesla</option>
+                        <option value="4">Cattabriga-Alosa</option>
+                        <option value="5">Nikola Alosa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Basic Select2</label>
+                    <select class="form-control select2" data-placeholder="Choose one (with optgroup)">
+                        <optgroup label="Mountain Time Zone">
+                            <option value="AZ">Arizona</option>
+                            <option value="CO">Colorado</option>
+                            <option value="ID">Idaho</option>
+                            <option value="MT">Montana</option><option value="NE">Nebraska</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="UT">Utah</option>
+                            <option value="WY">Wyoming</option>
+                        </optgroup>
+                        <optgroup label="Central Time Zone">
+                            <option value="AL">Alabama</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TX">Texas</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="WI">Wisconsin</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"> Select2 with search box</label>
+                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
+                        <optgroup label="Mountain Time Zone">
+                            <option value="AZ">Arizona</option>
+                            <option value="CO">Colorado</option>
+                            <option value="ID">Idaho</option>
+                            <option value="MT">Montana</option><option value="NE">Nebraska</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="UT">Utah</option>
+                            <option value="WY">Wyoming</option>
+                        </optgroup>
+                        <optgroup label="Central Time Zone">
+                            <option value="AL">Alabama</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TX">Texas</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="WI">Wisconsin</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Users list</label>
+                    <select class="form-control select2" data-placeholder="Choose Browser" multiple>
+                        <option value="Firefox">
+                            Firefox
+                        </option>
+                        <option value="Chrome selected">
+                            Chrome
+                        </option>
+                        <option value="Safari">
+                            Safari
+                        </option>
+                        <option selected value="Opera">
+                            Opera
+                        </option>
+                        <option value="Internet Explorer">
+                            Internet Explorer
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
     </div>
     </div><!-- end app-content-->
 
