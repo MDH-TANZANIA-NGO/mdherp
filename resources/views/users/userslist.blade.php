@@ -59,16 +59,18 @@
                     </div>
                 </div>
             </div>
-{{--            <div class="card panel-theme rounded shadow">--}}
-{{--                <div class="card-header">--}}
-{{--                    <div class="float-left">--}}
-{{--                        <h3 class="card-title">Contact</h3>--}}
-{{--                    </div>--}}
+            <div class="card panel-theme rounded shadow">
+                <div class="card-header">
+                    <div class="float-left">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Add Location</button>
+                    </div>
+                    <div class="card-options text-right">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong1">Add Attachment</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
 
-{{--                    <div class="clearfix"></div>--}}
-{{--                </div>--}}
-{{--               --}}
-{{--            </div>--}}
+            </div>
         </div>
         <div class="col-xl-9 col-lg-7 col-md-8">
 
@@ -147,116 +149,144 @@
         </div>
 
     </div>
+
+    <!-- Row-->
     <div class="row">
-        <form  method="post" class="card">
-            <div class="card-header">
-                <h3 class="card-title">Select2 elements</h3>
-                <div class="card-options ">
-                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="table-responsive push">
+                        <table class="table table-bordered table-hover">
+                            <tr class=" ">
+                                <th class="text-center " style="width: 1%"></th>
+                                <th>Location</th>
+                                <th class="text-center" style="width: 10%">Output Unit</th>
+                                <th class="text-right" style="width: 10%">Numeric Output</th>
+                                <th class="text-right" style="width: 10%">Available Budget</th>
+                                <th class="text-right" style="width: 12%">Requested Amount</th>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>
+                                <td>
+                                    <p class="font-w600 mb-1">Ilala DC</p>
+                                    <div class="text-muted">To do HTS and TDM</div>
+                                </td>
+                                <td class="text-center">Laptops</td>
+                                <td class="text-right">7</td>
+                                <td class="text-right">1000000</td>
+                                <td class="text-right">100000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>
+                                <td>
+                                    <p class="font-w600 mb-1">Ilala DC</p>
+                                    <div class="text-muted">To do HTS and TDM</div>
+                                </td>
+                                <td class="text-center">Laptops</td>
+                                <td class="text-right">7</td>
+                                <td class="text-right">1000000</td>
+                                <td class="text-right">100000</td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="5" class="font-w600 text-right">Total Amount ($)</td>
+                                <td class="text-right">$50.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="font-weight-bold text-uppercase text-right">Total Amount (TZS)</td>
+                                <td class="font-weight-bold text-right">450.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" class="text-right">
+                                    <button type="button" class="btn btn-success" onClick="javascript:window.print();"><i class="si si-folder"></i> Save</button>
+                                    <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-share-alt"></i> Submit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+{{--                    <p class="text-muted text-center">Thank you very much for doing business with us. We look forward to working with you again!</p>--}}
                 </div>
             </div>
-            <div class="card-body ">
-                <div class="form-group ">
-                    <label class="form-label">Beast</label>
-                    <select class="form-control select2 custom-select" data-placeholder="Choose one">
-                        <option label="Choose one">
-                        </option>
-                        <option value="1">Chuck Testa</option>
-                        <option value="2">Sage Cattabriga-Alosa</option>
-                        <option value="3">Nikola Tesla</option>
-                        <option value="4">Cattabriga-Alosa</option>
-                        <option value="5">Nikola Alosa</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Basic Select2</label>
-                    <select class="form-control select2" data-placeholder="Choose one (with optgroup)">
-                        <optgroup label="Mountain Time Zone">
-                            <option value="AZ">Arizona</option>
-                            <option value="CO">Colorado</option>
-                            <option value="ID">Idaho</option>
-                            <option value="MT">Montana</option><option value="NE">Nebraska</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="UT">Utah</option>
-                            <option value="WY">Wyoming</option>
-                        </optgroup>
-                        <optgroup label="Central Time Zone">
-                            <option value="AL">Alabama</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TX">Texas</option>
-                            <option value="TN">Tennessee</option>
-                            <option value="WI">Wisconsin</option>
-                        </optgroup>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label"> Select2 with search box</label>
-                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
-                        <optgroup label="Mountain Time Zone">
-                            <option value="AZ">Arizona</option>
-                            <option value="CO">Colorado</option>
-                            <option value="ID">Idaho</option>
-                            <option value="MT">Montana</option><option value="NE">Nebraska</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="UT">Utah</option>
-                            <option value="WY">Wyoming</option>
-                        </optgroup>
-                        <optgroup label="Central Time Zone">
-                            <option value="AL">Alabama</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TX">Texas</option>
-                            <option value="TN">Tennessee</option>
-                            <option value="WI">Wisconsin</option>
-                        </optgroup>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Users list</label>
-                    <select class="form-control select2" data-placeholder="Choose Browser" multiple>
-                        <option value="Firefox">
-                            Firefox
-                        </option>
-                        <option value="Chrome selected">
-                            Chrome
-                        </option>
-                        <option value="Safari">
-                            Safari
-                        </option>
-                        <option selected value="Opera">
-                            Opera
-                        </option>
-                        <option value="Internet Explorer">
-                            Internet Explorer
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
+    <!-- End row-->
     </div>
     </div><!-- end app-content-->
+
+
+{{--    forms models--}}
+
+    <!--Add Location Modal-->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Location</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+<label>Council</label>
+                      <select class="form-control" >
+                          <optgroup label="Mountain Time Zone">
+                              <option value="AZ">HTS</option>
+                              <option value="CO">TA Data cleaning</option>
+                              <option value="ID">DQI</option>
+                              <option value="MT">Net Gain</option>
+                              <option value="NM">TDM</option>
+                          </optgroup>
+
+                      </select>
+                      <br>
+                      <label>Amount</label>
+                      <input type="number" class="form-control">
+                      <br>
+                      <label>Numeric Output</label>
+                      <input type="number" class="form-control">
+                      <br>
+                      <label>Output unit</label>
+                      <input type="text" disabled class="form-control" value="Participant">
+                      <br>
+                      <label>Description</label>
+                      <textarea class="form-control"></textarea>
+                  </form>
+
+                          </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Add Location Modal-->
+    <div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Attachment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
