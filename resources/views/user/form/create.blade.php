@@ -86,12 +86,6 @@
                                 {!! Form::select('project', [], null, ['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
                             </div>
                         </div>
-                        <div class=" col-md-4">
-                            <div class="form-group ">
-                                <label class="form-label">Sub Program(s)</label>
-                                {!! Form::select('sub_program', [], null, ['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
-                            </div>
-                        </div>
                         <button type="submit" class="btn btn-primary" style="margin-left:40%;">Register</button>
 
                     </div>
@@ -137,27 +131,6 @@
                             $project_select.attr('disabled',true);
                             $project_select.attr('required',false);
                             $sub_program_select.attr('disabled',true);
-                        }
-                    });
-            }
-
-            $project_select.change(function (event){
-               event.preventDefault();
-               $projects = [];
-               $projects.push($(this).val());
-                $sub_program_select
-               fetch_sub_program($projects);
-            });
-
-            function fetch_sub_program(project_ids){
-                $.get("{{ route('sub_program.by_project') }}", { project_ids: project_ids},
-                    function(data, status){
-                        if(data.length > 0){
-                            $sub_program_select.find('option').remove();
-                            $.each(data, function(key, result) {
-                                let $option = "<option value='"+result.id+"'>"+result.title+"</option>";
-                                $sub_program_select.append($option);
-                            });
                         }
                     });
             }

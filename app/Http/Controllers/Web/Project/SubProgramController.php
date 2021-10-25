@@ -78,7 +78,8 @@ class SubProgramController extends Controller
      */
     public function byProject(Request $request)
     {
-        Log::info($request->only('project_ids'));
+        Log::info(json_decode($request->only('project_ids')));
+//        Log::info($this->sub_programs->getByProject(json_encode($request->only('project_ids'),true)));
 //        return response()->json($this->sub_programs->getByProject($request->only('project_ids')));
     }
 }
