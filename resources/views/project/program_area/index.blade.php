@@ -15,24 +15,20 @@
         </div>
 
         
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
     
-    <div class="col-lg-12 col-md-12"> 
-        <div class="card">    
-            <div class="card-body"> 
-                <div class="row"> 
-                    <div class="col-12" >         
+                   
 
             <div class="table-responsive">
                 @include('project.program_area.datatables.all')
             </div>
-                    </div>
                 </div>
-
             </div>
 
         </div>
-
-    </div>                
+                        
                 
 
 @endsection

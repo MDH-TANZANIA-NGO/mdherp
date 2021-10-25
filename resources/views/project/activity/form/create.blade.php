@@ -13,17 +13,19 @@
 
                 <div class="col-3">
                     {!! Form::label('code', __("label.code"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::text('code', null, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::text('code', null, ['class' => 'form-control','placeholder' =>'Enter Activites Code','required']) !!}
                     {!! $errors->first('code', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
-                <div class="col-3">
+                <div class="col-6">
                     {!! Form::label('title', __("label.title"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::text('title', null, ['class' => 'form-control','placeholder' =>'Enter Activites Decriptions', 'required']) !!}
                     {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
             </div>
+
+            &nbsp;
 
             <div class="row">
                 <div class="col-12 mt-1">
@@ -33,8 +35,14 @@
                 </div>
             </div>
 
+            &nbsp;
+
             <div class="row">
-                <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Create Activity </button>
+                <div class="col-12">
+                    <div style="text-align: center;">
+                <button type="submit" class="btn btn-azure">Create Activity </button>
+                    </div>
+                </div>
             </div>
 
         </div>
