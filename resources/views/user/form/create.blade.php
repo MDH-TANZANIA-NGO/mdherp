@@ -86,6 +86,12 @@
                                 {!! Form::select('project', [], null, ['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
                             </div>
                         </div>
+                        <div class=" col-md-4">
+                            <div class="form-group ">
+                                <label class="form-label">Sub Program(s)</label>
+                                {!! Form::select('sub_program', [], null, ['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary" style="margin-left:40%;">Register</button>
 
                     </div>
@@ -102,27 +108,60 @@
         $(document).ready(function (){
             let $region_select = $("select[name='region']");
             let $project_select = $("select[name='project']");
+            let $sub_program_select = $("select[name='sub_program']");
+            let $projects = [];
 
             $region_select.change(function (event){
                 event.preventDefault();
-                $.get("{{ route('project.by_region') }}", { region_id: $(this).val()},
+                fetch_projects($(this).val());
+            });
+
+            function fetch_projects(region_id){
+                $.get("{{ route('project.by_region') }}", { region_id: region_id},
                     function(data, status){
                         if(data.length > 0){
+
                             $project_select.find('option').remove();
                             $.each(data, function(key, result) {
+                                $projects.push(result.id);
                                 let $option = "<option value='"+result.id+"'>"+result.title+"</option>";
                                 $project_select.append($option);
                             });
-
                             $project_select.attr('disabled',false);
-                            $project_select.attr('required',true)
+                            $project_select.attr('required',true);
+                            $sub_program_select.attr('disabled',false);
+                            /*call sub program function*/
+                            // fetch_sub_program()
                         }else{
                             $project_select.find('option').remove();
                             $project_select.attr('disabled',true);
                             $project_select.attr('required',false);
+                            $sub_program_select.attr('disabled',true);
                         }
                     });
+            }
+
+            $project_select.change(function (event){
+               event.preventDefault();
+               $projects = [];
+               $projects.push($(this).val());
+                $sub_program_select
+               fetch_sub_program($projects);
             });
+
+            function fetch_sub_program(project_ids){
+                $.get("{{ route('sub_program.by_project') }}", { project_ids: project_ids},
+                    function(data, status){
+                        if(data.length > 0){
+                            $sub_program_select.find('option').remove();
+                            $.each(data, function(key, result) {
+                                let $option = "<option value='"+result.id+"'>"+result.title+"</option>";
+                                $sub_program_select.append($option);
+                            });
+                        }
+                    });
+            }
+
         });
     </script>
 @endpush

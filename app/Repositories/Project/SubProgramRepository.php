@@ -76,4 +76,9 @@ class SubProgramRepository extends BaseRepository
             return $subProgram->update($this->inputsProcessor($inputs));
         });
     }
+
+    public function getByProject($project_ids)
+    {
+        return $this->getQuery()->whereIn('projects.id',$project_ids)->get();
+    }
 }

@@ -5,6 +5,7 @@ Route::group(['namespace' => 'Project', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('{subProgram}/show', 'SubProgramController@show')->name('show');
     Route::put('{subProgram}/update', 'SubProgramController@update')->name('update');
     Route::put('{subProgram}/activate', 'SubProgramController@activate')->name('activate');
+    Route::get('/by-project', 'SubProgramController@byProject')->name('by_project');
 
     /**
      * Datatables
