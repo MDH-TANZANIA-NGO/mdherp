@@ -117,4 +117,17 @@ class ProjectRepository extends BaseRepository
             return $project->update(['isactive' => $inputs['activate']]);
         });
     }
+
+    public function getByRegion($region_id)
+    {
+        return $this->query()->select([
+            'projects.id AS id',
+            'projects.title AS title'
+        ])
+            ->leftjoin('project_region','project_region.project_id','projects.id')
+            ->leftjoin('regions','regions.id','project_region.region_id')
+            ->where('regions.id', $region_id)
+            ->get();
+    }
+
 }
