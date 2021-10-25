@@ -4,6 +4,11 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
+                <span class="col-12 text-center font-weight-bold">ACTIVITY: {{ $activity->title }}</span>
+                </div>
+
+                &nbsp;
+            <div class="row">
 
                 <div class="col-3">
                     {!! Form::label('sub_program', __("label.sub_program"),['class'=>'form-label','required_asterik']) !!}
@@ -17,13 +22,15 @@
                     {!! $errors->first('code', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
-                <div class="col-3">
+                <div class="col-6">
                     {!! Form::label('title', __("label.title"),['class'=>'form-label','required_asterik']) !!}
                     {!! Form::text('title', $activity->title, ['class' => 'form-control', 'required']) !!}
                     {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
             </div>
+
+            &nbsp;
 
             <div class="row">
                 <div class="col-12 mt-1">
@@ -33,8 +40,15 @@
                 </div>
             </div>
 
+            &nbsp;
+
+
             <div class="row">
+                <div class="col-12">
+                    <div style="text-align: center;">
                 <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Update Activity </button>
+            </div>
+                </div>
             </div>
 
         </div>
