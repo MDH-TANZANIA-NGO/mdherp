@@ -58,20 +58,20 @@
 {{--                                    <option value="2">Male</option>--}}
 {{--                                </select>--}}
 
-                                {!! Form::select('region', $gender, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                                {!! Form::select('gender', $gender, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group ">
                                 <label class="form-label">Marital Status</label>
-                                {!! Form::select('region', $marital, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                                {!! Form::select('marital', $marital, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group ">
                                 <label class="form-label">Designation</label>
-                                {!! Form::select('region', $designations, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                                {!! Form::select('designation', $designations, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -81,7 +81,10 @@
                             </div>
                         </div>
                         <div class=" col-md-4">
-
+                            <div class="form-group ">
+                                <label class="form-label">Project(s)</label>
+                                {!! Form::select('project', [], null, ['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary" style="margin-left:40%;">Register</button>
 
@@ -93,3 +96,33 @@
     </div>
 
 @endsection
+
+@push('after-scripts')
+    <script>
+        $(document).ready(function (){
+            let $region_select = $("select[name='region']");
+            let $project_select = $("select[name='project']");
+
+            $region_select.change(function (event){
+                event.preventDefault();
+                $.get("{{ route('project.by_region') }}", { region_id: $(this).val()},
+                    function(data, status){
+                        if(data.length > 0){
+                            $project_select.find('option').remove();
+                            $.each(data, function(key, result) {
+                                let $option = "<option value='"+result.id+"'>"+result.title+"</option>";
+                                $project_select.append($option);
+                            });
+
+                            $project_select.attr('disabled',false);
+                            $project_select.attr('required',true)
+                        }else{
+                            $project_select.find('option').remove();
+                            $project_select.attr('disabled',true);
+                            $project_select.attr('required',false);
+                        }
+                    });
+            });
+        });
+    </script>
+@endpush
