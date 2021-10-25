@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="col-12 mt-1">
                     {!! Form::label('description', __("label.description"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::textarea('description', $project->description, ['class' => 'form-control', 'required','row'=>'2']) !!}
+                    {!! Form::textarea('description', $project->description, ['class' => 'form-control', 'required','rows'=>'3']) !!}
                     {!! $errors->first('description', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
             </div>

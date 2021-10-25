@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Project\Traits\ActivityDatatables;
 use App\Models\Project\Activity;
 use App\Repositories\Project\ActivityRepository;
-use App\Repositories\Project\ProgramAreaRepository;
+use App\Repositories\Project\SubProgramRepository;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -14,12 +14,12 @@ class ActivityController extends Controller
     use ActivityDatatables;
 
     protected $activities;
-    protected $program_areas;
+    protected $sub_programs;
 
     public function __construct()
     {
         $this->activities = (new ActivityRepository());
-        $this->program_areas = (new ProgramAreaRepository());
+        $this->sub_programs = (new SubProgramRepository());
     }
 
     /**
@@ -30,7 +30,7 @@ class ActivityController extends Controller
     public function index()
     {
         return view('project.activity.index')
-            ->with('program_areas', $this->program_areas->getActive()->pluck('title','id'));
+            ->with('program_areas', $this->sub_programs->getActive()->pluck('title','id'));
     }
 
     /**
@@ -65,7 +65,7 @@ class ActivityController extends Controller
     {
         return view('project.activity.show')
             ->with('activity', $activity)
-            ->with('program_areas', $this->program_areas->getActive()->pluck('title','id'));
+            ->with('sub_programs', $this->sub_programs->getActive()->pluck('title','id'));
     }
 
     /**

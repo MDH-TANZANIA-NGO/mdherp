@@ -3,12 +3,13 @@
 namespace App\Repositories\Project;
 
 use App\Models\Project\Activity;
+use App\Models\Project\SubProgram;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
-class ActivityRepository extends BaseRepository
+class SubProgramRepository extends BaseRepository
 {
-    const MODEL = Activity::class;
+    const MODEL = SubProgram::class;
 
     /**
      * @return mixed
@@ -16,20 +17,17 @@ class ActivityRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
-            DB::raw('activities.id AS id'),
-            DB::raw('activities.code AS code'),
-            DB::raw('activities.title AS title'),
-            DB::raw('activities.description AS description'),
-            DB::raw('activities.uuid AS uuid'),
-            DB::raw('sub_programs.title AS sub_program_title'),
+            DB::raw('sub_programs.id AS id'),
+            DB::raw('sub_programs.title AS title'),
+            DB::raw('sub_programs.description AS description'),
+            DB::raw('sub_programs.uuid AS uuid'),
             DB::raw('program_areas.title AS program_area_title'),
             DB::raw("string_agg(DISTINCT projects.title, ',') as project_list"),
         ])
-            ->join('sub_programs','sub_programs.id', 'activities.sub_program_id')
             ->join('program_areas','program_areas.id','sub_programs.program_area_id')
             ->join('program_area_project','program_area_project.program_area_id','program_areas.id')
             ->join('projects','projects.id','program_area_project.project_id')
-            ->groupBy('activities.id','activities.code','activities.title','activities.description','activities.uuid','program_areas.title','sub_programs.title');
+            ->groupBy('sub_programs.id','sub_programs.title','sub_programs.description','sub_programs.uuid','program_areas.title');
     }
 
     /**
@@ -48,10 +46,9 @@ class ActivityRepository extends BaseRepository
     public function inputsProcessor($inputs)
     {
         return [
-            'sub_program_id' => $inputs['sub_program'],
+            'program_area_id' => $inputs['program_area'],
             'description' => $inputs['description'],
             'title' => $inputs['title'],
-            'code' => $inputs['code'],
         ];
     }
 
@@ -69,14 +66,14 @@ class ActivityRepository extends BaseRepository
 
     /**
      * Store new Activity
-     * @param Activity $activity
+     * @param SubProgram $subProgram
      * @param $inputs
      * @return mixed
      */
-    public function update(Activity $activity, $inputs)
+    public function update(SubProgram $subProgram, $inputs)
     {
-        return DB::transaction(function () use($activity, $inputs){
-            return $activity->update($this->inputsProcessor($inputs));
+        return DB::transaction(function () use($subProgram, $inputs){
+            return $subProgram->update($this->inputsProcessor($inputs));
         });
     }
 }
