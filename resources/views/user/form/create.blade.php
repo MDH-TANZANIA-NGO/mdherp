@@ -26,7 +26,7 @@
                         <div class="col-sm-6 col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Last Name</label>
-                                <input type="email" class="form-control" placeholder="Last Name">
+                                <input type="text" class="form-control" placeholder="Last Name">
                             </div>
                         </div>
 

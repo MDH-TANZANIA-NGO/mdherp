@@ -1,307 +1,292 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    
-                <div class="row flex-lg-nowrap">
-                    <div class="col">
-                        <div class="row flex-lg-nowrap">
-                            <div class="col mb-3">
-                                <div class="e-panel card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Users List</h3>
-                                        <div class="card-options ">
-                                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="e-table">
-                                            <div class="table-responsive table-lg mt-3">
-                                                <table class="table table-bordered border-top">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="align-top">
-                                                            </th>
-                                                            {{-- <th>Photo</th> --}}
-                                                            <th class="max-width">Full Name</th>
-                                                            <th class="sortable">Join Date</th>
-                                                            <th>Status</th>
-                                                            <th>Actions</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="align-middle">
-                                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                                                                    <input type="checkbox" class="custom-control-input" id="item-1">
-                                                                    <label class="custom-control-label" for="item-1"></label>
-                                                                </div>
-                                                            </td>
-                                                            {{-- <td class="align-middle text-center">
-                                                                <span class="avatar brround avatar-md d-block" style="background-image: url(../../assets/images/users/2.jpg)"></span>
-                                                            </td> --}}
-                                                            <td class="text-nowrap align-middle">Frank Omary</td>
-                                                            <td class="text-nowrap align-middle"><span>01 OCT 2021</span></td>
-                                                            <td class="text-center align-middle">
-                                                                <label class="custom-switch">
-                                                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                                    <span class="custom-switch-indicator"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                <div class="btn-group align-top">
-                                                                    <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                    {{-- <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button> --}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="align-middle">
-                                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                                                                    <input type="checkbox" class="custom-control-input" id="item-2">
-                                                                    <label class="custom-control-label" for="item-2"></label>
-                                                                </div>
-                                                            </td>
-                                                            {{-- <td class="align-middle text-center">
-                                                                <span class="avatar brround avatar-md d-block" style="background-image: url(../../assets/images/users/13.jpg)"></span>
-                                                            </td> --}}
-                                                            <td class="text-nowrap align-middle">Moses Kehengu</td>
-                                                            <td class="text-nowrap align-middle"><span>01 Oct 2021</span></td>
-                                                            <td class="text-center align-middle">
-                                                                <label class="custom-switch">
-                                                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                                    <span class="custom-switch-indicator"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                <div class="btn-group align-top">
-                                                                    <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                    {{-- <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button> --}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="align-middle">
-                                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                                                                    <input type="checkbox" class="custom-control-input" id="item-3">
-                                                                    <label class="custom-control-label" for="item-3"></label>
-                                                                </div>
-                                                            </td>
-                                                            {{-- <td class="align-middle text-center">
-                                                                <span class="avatar brround avatar-md d-block" style="background-image: url(../../assets/images/users/3.jpg)"></span>
-                                                            </td> --}}
-                                                            <td class="text-nowrap align-middle">Kelvin Kiritta</td>
-                                                            <td class="text-nowrap align-middle"><span>27 Jan 2018</span></td>
-                                                            <td class="text-center align-middle">
-                                                                <label class="custom-switch">
-                                                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                                    <span class="custom-switch-indicator"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                <div class="btn-group align-top">
-                                                                    <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                    {{-- <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button> --}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="align-middle">
-                                                                <div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                                                                    <input type="checkbox" class="custom-control-input" id="item-4">
-                                                                    <label class="custom-control-label" for="item-4"></label>
-                                                                </div>
-                                                            </td>
-                                                            {{-- <td class="align-middle text-center">
-                                                                <span class="avatar brround avatar-md d-block" style="background-image: url(../../assets/images/users/14.jpg)"></span>
-                                                            </td> --}}
-                                                            <td class="text-nowrap align-middle">Lameck Machumi</td>
-                                                            <td class="text-nowrap align-middle"><span>20 Jan 2011</span></td>
-                                                            <td class="text-center align-middle">
-                                                                <label class="custom-switch">
-                                                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                                    <span class="custom-switch-indicator"></span>
-                                                                </label>
-                                                            </td>
-                                                            <td class="text-center align-middle">
-                                                                <div class="btn-group align-top">
-                                                                    <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                    {{-- <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button> --}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="d-flex justify-content-center">
-                                                <ul class="pagination mt-3 mb-0">
-                                                    <li class="disabled page-item"><a href="#" class="page-link">‹</a></li>
-                                                    <li class="active page-item"><a href="#" class="page-link">1</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">›</a></li>
-                                                    <li class="page-item"><a href="#" class="page-link">»</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 mb-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="text-center">
-                                           <button onclick="location.href='{{ url('userregister') }}'" class="btn btn-primary btn-block" type="button" >New User</button>
-                                        </div>
-                                        <div class="mt-4">
-                                            
-                                            <div class="form-group">
-                                                <label>Search by Name:</label>
-                                                <div><input class="form-control w-100" type="text" placeholder="Name" value=""></div>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <label>Status:</label>
-                                            <div class="px-2">
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" class="custom-control-input" name="user-status" id="users-status-disabled">
-                                                    <label class="custom-control-label" for="users-status-disabled">Disabled</label>
-                                                </div>
-                                            </div>
-                                            <div class="px-2">
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" class="custom-control-input" name="user-status" id="users-status-active">
-                                                    <label class="custom-control-label" for="users-status-active">Active</label>
-                                                </div>
-                                            </div>
-                                            <div class="px-2">
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" class="custom-control-input" name="user-status" id="users-status-any" checked="">
-                                                    <label class="custom-control-label" for="users-status-any">Any</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-3 col-lg-5 col-md-12">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="inner-all">
+                        <form>
+                            <ul class="list-unstyled">
+                                <label>Workflow</label>
+                                <li class="text-center">
+
+                                <select class="form-control">
+
+                                    <option>Select workflow</option>
+                                    <option>Procurement Workflow</option>
+                                    <option>Direct Workflow</option>
+                                    <option>Utility Workflow</option>
+                                </select>
+                                </li>
+                                <br>
+                                <label>Project</label>
+                                <li class="text-center">
+
+                                    <select class="form-control">
+
+                                        <option>Select project</option>
+                                        <option>Afya Kwanza</option>
+                                        <option>D4H</option>
+                                        <option>Afya Jumuishi</option>
+                                    </select>
+                                </li>
+                                <br>
+                                <label>Activity</label>
+                                <li>
+
+                                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
+                                        <optgroup label="Mountain Time Zone">
+                                            <option value="AZ">HTS</option>
+                                            <option value="CO">TA Data cleaning</option>
+                                            <option value="ID">DQI</option>
+                                            <option value="MT">Net Gain</option>
+                                            <option value="NM">TDM</option>
+                                        </optgroup>
+
+                                    </select>
+                                </li>
+                                <br>
+                                <li>
+                                    <a href="" class="btn btn-primary text-center btn-block">Get Info</a>
+                                </li>
+                             <br>
+                            </ul>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card panel-theme rounded shadow">
+                <div class="card-header">
+                    <div class="float-left">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Add Location</button>
+                    </div>
+                    <div class="card-options text-right">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong1">Add Attachment</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-7 col-md-8">
+
+            <div class="card">
+                <div class="col-xs-12 col-sm-6 col-lg-12">
+                    <div class="offer offer-success">
+                        <div class="shape">
+                            <div class="shape-text">
+
                             </div>
                         </div>
+                        <div class="offer-content">
+                            <h3 class="lead">
+                                Afya Kwanza
+                            </h3>
+                            <p class="mb-0">
+                                2.3.5 To facilitate SI and TA in Data  all other activities must be set here so as user can understand the feeling.
 
-                        <!-- User Form Modal -->
-                        <div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal" aria-hidden="true" style="display: none;">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Edit User</h5>
-                                        <button type="button" class="close" data-dismiss="modal">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="py-1">
-                                            <form class="form" novalidate="">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>First Name</label>
-                                                                    <input class="form-control" type="text" name="first_ame" placeholder="First Name" value="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>Last Name</label>
-                                                                    <input class="form-control" type="text" name="last_name" placeholder="Last Name" value="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>Email</label>
-                                                                    <input class="form-control" type="email" placeholder="initials@mdh.or.tz">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col mb-3">
-                                                                <div class="form-group">
-                                                                    <label>About</label>
-                                                                    <textarea class="form-control" rows="5" placeholder="User's Biography"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {{-- <div class="row">
-                                                     <div class="col-12 col-sm-6 mb-3">
-                                                        <div class="mb-2"><b>Change Password</b></div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>Current Password</label>
-                                                                    <input class="form-control" type="password" placeholder="••••••">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>New Password</label>
-                                                                    <input class="form-control" type="password" placeholder="••••••">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                                                                    <input class="form-control" type="password" placeholder="••••••">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> 
-                                                    <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                                        <div class="mb-2"><b>Keeping in Touch</b></div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                            <label>Email Notifications</label>
-                                                                <div class="custom-controls-stacked px-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                                                        <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                                                        <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                                                                    </div>
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                                                        <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
-                                                <div class="row">
-                                                    <div class="col d-flex justify-content-end">
-                                                    <button class="btn btn-primary" type="submit">Save Changes</button>
-                                                    </div>
-                                                    <div class="col d-flex justify-content">
-                                                        <button class="btn btn-info" type="submit">Reset Password</button>
-                                                        </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </p>
                         </div>
                     </div>
-               
+                </div>
+                <div class="row">
+
+                    <div class="col-6">
+                        <div class="card-body">
+                            <div class="list-group">
+                                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">Workflow</h5>
+                                    </div>
+                                    <p class="mb-1">Direct Workflow</p>
+                                </div>
+
+
+                                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">Sub Program Area</h5>
+                                    </div>
+                                    <p class="mb-1">HTS</p>
+                                </div>
+                                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">Numeric Output</h5>
+                                    </div>
+                                    <p class="mb-1">30</p>
+                                </div>
+                                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">Output unit</h5>
+                                    </div>
+                                    <p class="mb-1">Viral loads</p>
+                                </div>
+
+
+                            </div>
+                    </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item justify-content-between"><b>Budget </b><span class="badgetext badge badge-primary badge-pill" style="font-size: larger">$14,000,000</span></li>
+                                <li class="list-group-item justify-content-between" ><b>Actual </b><span class="badgetext badge badge-default badge-pill" style="font-size: larger">$0</span></li>
+                                <li class="list-group-item justify-content-between"><b>Commitment </b><span class="badgetext badge badge-default badge-pill" style="font-size: larger">$0</span></li>
+                                <li class="list-group-item justify-content-between"><b>Reprogrammed </b><span class="badgetext badge badge-default badge-pill" style="font-size: larger">$0</span></li>
+                                <li class="list-group-item justify-content-between"><b>Pipeline </b><span class="badgetext badge badge-default badge-pill" style="font-size: larger">$0</span></li>
+                                <li class="list-group-item justify-content-between"><b>Available Budget </b><span class="badgetext badge badge-success badge-pill" style="font-size: larger">$14,000</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
     </div>
-</div>
+
+    <!-- Row-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="table-responsive push">
+                        <table class="table table-bordered table-hover">
+                            <tr class=" ">
+                                <th class="text-center " style="width: 1%"></th>
+                                <th>Location</th>
+                                <th class="text-center" style="width: 10%">Output Unit</th>
+                                <th class="text-right" style="width: 10%">Numeric Output</th>
+                                <th class="text-right" style="width: 10%">Available Budget</th>
+                                <th class="text-right" style="width: 12%">Requested Amount</th>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>
+                                <td>
+                                    <p class="font-w600 mb-1">Ilala DC</p>
+                                    <div class="text-muted">To do HTS and TDM</div>
+                                </td>
+                                <td class="text-center">Laptops</td>
+                                <td class="text-right">7</td>
+                                <td class="text-right">1000000</td>
+                                <td class="text-right">100000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>
+                                <td>
+                                    <p class="font-w600 mb-1">Ilala DC</p>
+                                    <div class="text-muted">To do HTS and TDM</div>
+                                </td>
+                                <td class="text-center">Laptops</td>
+                                <td class="text-right">7</td>
+                                <td class="text-right">1000000</td>
+                                <td class="text-right">100000</td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="5" class="font-w600 text-right">Total Amount ($)</td>
+                                <td class="text-right">$50.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="font-weight-bold text-uppercase text-right">Total Amount (TZS)</td>
+                                <td class="font-weight-bold text-right">450.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" class="text-right">
+                                    <button type="button" class="btn btn-success" onClick="javascript:window.print();"><i class="si si-folder"></i> Save</button>
+                                    <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-share-alt"></i> Submit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+{{--                    <p class="text-muted text-center">Thank you very much for doing business with us. We look forward to working with you again!</p>--}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End row-->
+    </div>
+    </div><!-- end app-content-->
+
+
+{{--    forms models--}}
+
+    <!--Add Location Modal-->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Location</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+<label>Council</label>
+                      <select class="form-control" >
+                          <optgroup label="Mountain Time Zone">
+                              <option value="AZ">HTS</option>
+                              <option value="CO">TA Data cleaning</option>
+                              <option value="ID">DQI</option>
+                              <option value="MT">Net Gain</option>
+                              <option value="NM">TDM</option>
+                          </optgroup>
+
+                      </select>
+                      <br>
+                      <label>Amount</label>
+                      <input type="number" class="form-control">
+                      <br>
+                      <label>Numeric Output</label>
+                      <input type="number" class="form-control">
+                      <br>
+                      <label>Output unit</label>
+                      <input type="text" disabled class="form-control" value="Participant">
+                      <br>
+                      <label>Description</label>
+                      <textarea class="form-control"></textarea>
+                  </form>
+
+                          </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Add Location Modal-->
+    <div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Attachment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection

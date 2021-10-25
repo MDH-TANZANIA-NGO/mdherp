@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if(access()->guest()) {
-        return view('welcome');
+        return view('welcomepage');
     }else{
         return redirect()->route('workspace.invoke');
     }

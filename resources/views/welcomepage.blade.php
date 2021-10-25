@@ -10,18 +10,15 @@
 		<meta name="keywords" content="Admin, Admin Template, Dashboard, Responsive, Admin Dashboard, Bootstrap, Bootstrap 4, Clean, Backend, Jquery, Modern, Web App, Admin Panel, Ui, Premium Admin Templates, Flat, Admin Theme, Ui Kit, Bootstrap Admin, Responsive Admin, Application, Template, Admin Themes, Dashboard Template"/>
 
 		<!-- Title -->
-		<title>MDH - ERP</title>
+		<title>{{ config("app.name") }}</title>
 
-		<!--Favicon -->
-		<link rel="icon" href="../../mdh/images/brand/favicon.ico" type="image/x-icon"/>
+	    <!-- Style css -->
+{{ Html::style(url('mdh/css/style.css')) }}
 
-		<!-- Style css -->
-		<link href="../../mdh/css/style.css" rel="stylesheet" />
-
-		<!---Icons css-->
-		<link href="../../mdh/plugins/web-fonts/icons.css" rel="stylesheet" />
-		<link href="../../mdh/plugins/web-fonts/font-awesome/font-awesome.min.css" rel="stylesheet">
-		<link href="../../mdh/plugins/web-fonts/plugin.css" rel="stylesheet" />
+<!---Icons css-->
+    {{ Html::style(url('mdh/plugins/web-fonts/icons.css')) }}
+    {{ Html::style(url('mdh/plugins/web-fonts/font-awesome/font-awesome.min.css')) }}
+    {{ Html::style(url('mdh/plugins/web-fonts/plugin.css')) }}
 
 	</head>
 

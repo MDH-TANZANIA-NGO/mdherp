@@ -6,18 +6,15 @@
             <a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon fe fe-monitor"></i><span class="side-menu__label">Workspace</span></a>
         </li>
 
-        <li><a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon fe fe-inbox"></i><span class="side-menu__label">Incoming Requests</span></a></li>
-        <li><a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon fe fe-monitor"></i><span class="side-menu__label">Responded Requests</span></a></li>
-        <li><a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon fe fe-monitor"></i><span class="side-menu__label">Actioned Request</span></a></li>
+        <li><a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon ion-archive"></i><span class="side-menu__label">Incoming Requests</span></a></li>
+        <li><a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon ion-reply"></i><span class="side-menu__label">Responded Requests</span></a></li>
+        <li><a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon ion-reply-all"></i><span class="side-menu__label">Actioned Request</span></a></li>
 
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User Management</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('user.index') }}"><span>Staff</span></a></li>
-{{--                <li><a class="slide-item" href="index2.html"><span>Dashboard 02</span></a></li>--}}
-{{--                <li><a class="slide-item" href="index3.html"><span>Dashboard 03</span></a></li>--}}
-{{--                <li><a class="slide-item" href="index4.html"><span>Dashboard 04</span></a></li>--}}
-{{--                <li><a class="slide-item" href="index5.html"><span>Dashboard 05</span></a></li>--}}
+
             </ul>
         </li>
         <li class="slide">
@@ -36,6 +33,7 @@
                 <li><a class="slide-item"  href="{{ route('program_area.index') }}"><span>Program Area</span></a></li>
                 <li><a class="slide-item"  href="{{ route('sub_program.index') }}"><span>Sub Program</span></a></li>
                 <li><a class="slide-item"  href="{{ route('activity.index') }}"><span>Activities</span></a></li>
+                <li><a class="slide-item"  href="{{ route('userregister') }}"><span>Budget</span></a></li>
             </ul>
         </li>
 

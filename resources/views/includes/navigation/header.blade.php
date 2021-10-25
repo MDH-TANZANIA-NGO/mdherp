@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <div class="d-flex">
             <a id="horizontal-navtoggle" class="animated-arrow hor-toggle"><span></span></a><!-- sidebar-toggle-->
-            <a class="header-brand" href="index.html">
-                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img desktop-lgo" alt="Clont logo">
-                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img dark-logo" alt="Clont logo">
-                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img mobile-logo" alt="Clont logo">
-                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img darkmobile-logo" alt="Clont logo">
+            <a class="header-brand" href="{{route('workspace.invoke')}}">
+                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img desktop-lgo" alt="MDH logo">
+                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img dark-logo" alt="MDH logo">
+                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img mobile-logo" alt="MDH logo">
+                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img darkmobile-logo" alt="MDH logo">
             </a>
             <div class="dropdown   side-nav" >
                 <a aria-label="Hide Sidebar" class="app-sidebar__toggle nav-link icon mt-1" data-toggle="sidebar" href="#">
@@ -14,7 +14,7 @@
                 </a><!-- sidebar-toggle-->
             </div>
 
-            <div class="dropdown   header-setting">
+            {{-- <div class="dropdown   header-setting">
                 <a class="nav-link icon" data-toggle="dropdown" href="#">
                     <i class="fe fe-settings"></i><span class="nav-span">Settings <i class="fa fa-angle-down ml-1 fs-18"></i></span>
                 </a>
@@ -30,7 +30,7 @@
                     </a>
 
                 </div>
-            </div>
+            </div> --}}
                    <div class="dropdown  header-option">
                 <a class="nav-link icon">
                     <i class="fe fe-clock"></i> <span class="nav-span">Check In</span>
@@ -53,7 +53,7 @@
                         <i class="fe fe-minimize"></i>
                     </a>
                 </div>
-                <div class="dropdown    header-notify">
+                {{-- <div class="dropdown    header-notify">
                     <a class="nav-link icon" data-toggle="dropdown">
                         <i class="fe fe-bell"></i>
                         <span class="pulse "></span>
@@ -99,7 +99,7 @@
                             <a href="#" class="">View All Notifications</a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="dropdown ">
                     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 										<span>
@@ -108,19 +108,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
                         <div class="text-center">
-<<<<<<< HEAD
-                            <a href="#" class="dropdown-item text-center user pb-0">{{ access()->user()->full_name_formatted }}</a>
-                            <span class="text-center user-semi-title text-dark">App Developer</span>
-=======
-
-
-                            {{-- <a href="#" class="dropdown-item text-center user pb-0">{{{Auth::user()->first_name}}}</a>
-                            <span class="text-center user-semi-title text-dark">{{{Auth::user()->email}}}</span>
->>>>>>> emziray
-                            <div class="dropdown-divider"></div>
-
- --}}
-
+                            
                             @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -132,7 +120,7 @@
                             @endif
                         @else
 
-                        <a href="#" class="dropdown-item text-center user pb-0">{{{Auth::user()->first_name}}}</a>
+                        <a href="#" class="dropdown-item text-center user pb-0">{{ access()->user()->full_name_formatted }}</a>
                         <span class="text-center user-semi-title text-dark">{{{Auth::user()->email}}}</span>
                         <div class="dropdown-divider"></div>
 
@@ -145,9 +133,9 @@
                             <i class="dropdown-icon mdi mdi-account-outline "></i> Profile
                         </a>
 
-                        <a class="dropdown-item" href="#">
+                        {{-- <a class="dropdown-item" href="#">
                             <i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
-                        </a>
+                        </a> --}}
 
                         <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
