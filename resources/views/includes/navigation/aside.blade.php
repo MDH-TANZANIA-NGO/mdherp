@@ -23,9 +23,10 @@
                 <li><a class="slide-item"  href=""><span>Roles</span></a></li>
                 <li><a class="slide-item"  href="#"><span>Permissions</span></a></li>
 {{--                <li><a class="slide-item"  href="#"><span>Workflow</span></a></li>--}}
-                <li><a class="slide-item"  href="#"><span>Travel</span></a></li>
+                <li><a class="slide-item"  href="#"><span>Perdiem Rates</span></a></li>
             </ul>
         </li>
+
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-activity"></i><span class="side-menu__label">Project Settings</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
@@ -40,6 +41,7 @@
             <ul class="slide-menu">
                 <li><a class="slide-item"  href=""><span>Fiscal Year</span></a></li>
                 <li><a class="slide-item"  href="{{route('userregister')}}"><span>Budget</span></a></li>
+
             </ul>
         </li>
 
