@@ -35,7 +35,7 @@
                 <div class="col-md-4">
                     <div class="form-group ">
                         <label class="form-label">Output unit</label>
-                        <input type="text" placeholder="unit" class="form-control">
+                        <input type="text" placeholder="unit" class="form-control" disabled>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -44,20 +44,24 @@
                         <tr>
                             <th>Region</th>
                             <th>Amount</th>
+                            <th>Numeric Output</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>Tabora</td>
                             <td><input type="number" class="form-control" placeholder="Amount"></td>
+                            <td><input type="number" class="form-control" placeholder="Numeric Output"></td>
                         </tr>
                         <tr>
                             <td>Geita</td>
                             <td><input type="number" class="form-control" placeholder="Amount"></td>
+                            <td><input type="number" class="form-control" placeholder="Numeric Output"></td>
                         </tr>
                         <tr>
                             <td>Dar es salaam</td>
                             <td><input type="number" class="form-control" placeholder="Amount"></td>
+                            <td><input type="number" class="form-control" placeholder="Numeric Output"></td>
                         </tr>
                         </tbody>
                     </table>
