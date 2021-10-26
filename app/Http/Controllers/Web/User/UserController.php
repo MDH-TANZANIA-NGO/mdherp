@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Access\UserRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DesignationRepository;
 use Illuminate\Http\Request;
@@ -12,11 +13,13 @@ class UserController extends Controller
 
     protected $designations;
     protected $regions;
+    protected $users;
 
     public function __construct()
     {
         $this->designations = (new DesignationRepository());
         $this->regions = (new RegionRepository());
+        $this->users = (new UserRepository());
     }
 
     /**
@@ -47,11 +50,12 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->users->store($request->all());
+        return redirect()->back();
     }
 
     /**
