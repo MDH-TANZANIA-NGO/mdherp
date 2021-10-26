@@ -6,6 +6,7 @@ use App\Models\Project\Activity;
 use App\Models\Project\SubProgram;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SubProgramRepository extends BaseRepository
 {
@@ -75,5 +76,10 @@ class SubProgramRepository extends BaseRepository
         return DB::transaction(function () use($subProgram, $inputs){
             return $subProgram->update($this->inputsProcessor($inputs));
         });
+    }
+
+    public function getByProject($project_ids)
+    {
+        return $this->getQuery()->whereIn('projects.id',$project_ids)->get();
     }
 }

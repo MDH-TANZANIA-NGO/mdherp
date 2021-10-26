@@ -8,6 +8,7 @@ use App\Models\Project\SubProgram;
 use App\Repositories\Project\ProgramAreaRepository;
 use App\Repositories\Project\SubProgramRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SubProgramController extends Controller
 {
@@ -72,13 +73,13 @@ class SubProgramController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function byProject(Request $request)
     {
-        //
+        Log::info(json_decode($request->only('project_ids')));
+//        Log::info($this->sub_programs->getByProject(json_encode($request->only('project_ids'),true)));
+//        return response()->json($this->sub_programs->getByProject($request->only('project_ids')));
     }
 }
