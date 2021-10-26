@@ -2,12 +2,16 @@
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
     <div class="card">
-        <div class="card-body">
-            <div class="row">
+        <div class="card-header">
+            <div class="row text-center">
                 <span class="col-12 text-center font-weight-bold">ACTIVITY: {{ $activity->title }}</span>
                 </div>
+            {{-- <h3 class="card-title">hey</h3> --}}
+        </div>
+        <div class="card-body">
+            
 
-                &nbsp;
+              
             <div class="row">
 
                 <div class="col-3">
