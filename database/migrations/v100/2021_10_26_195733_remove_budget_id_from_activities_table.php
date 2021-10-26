@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRequisitionsTable extends Migration
+class RemoveBudgetIdFromActivitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateRequisitionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('requisitions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('activities', function (Blueprint $table) {
+            $table->dropColumn('budget_id');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateRequisitionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requisitions');
+        Schema::table('activities', function (Blueprint $table) {
+            $table->unsignedBigInteger('budget_id');
+        });
     }
 }
