@@ -62,10 +62,10 @@
             <div class="card panel-theme rounded shadow">
                 <div class="card-header">
                     <div class="float-left">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">Add Location</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong"><i class="fe fe-map-pin mr-2"></i>Location</button>
                     </div>
                     <div class="card-options text-right">
-                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong1">Add Attachment</button>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong1"><i class="fe fe-paperclip mr-2"></i>Attachment</button>
                     </div>
                     <div class="clearfix"></div>
                 </div>

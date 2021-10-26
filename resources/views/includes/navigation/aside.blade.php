@@ -26,13 +26,7 @@
                 <li><a class="slide-item"  href="#"><span>Perdiem Rates</span></a></li>
             </ul>
         </li>
-        <li class="slide">
-            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-credit-card"></i><span class="side-menu__label">Budget Settings</span><i class="angle fa fa-angle-right"></i></a>
-            <ul class="slide-menu">
-                <li><a class="slide-item"  href=""><span>Fiscal Year</span></a></li>
-                <li><a class="slide-item"  href="{{route('userregister')}}"><span>Budget</span></a></li>
-            </ul>
-        </li>
+
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-activity"></i><span class="side-menu__label">Project Settings</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
@@ -40,6 +34,14 @@
                 <li><a class="slide-item"  href="{{ route('program_area.index') }}"><span>Program Area</span></a></li>
                 <li><a class="slide-item"  href="{{ route('sub_program.index') }}"><span>Sub Program</span></a></li>
                 <li><a class="slide-item"  href="{{ route('activity.index') }}"><span>Activities</span></a></li>
+            </ul>
+        </li>
+        <li class="slide">
+            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-credit-card"></i><span class="side-menu__label">Budget Settings</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item"  href=""><span>Fiscal Year</span></a></li>
+                <li><a class="slide-item"  href="{{route('userregister')}}"><span>Budget</span></a></li>
+
             </ul>
         </li>
 
