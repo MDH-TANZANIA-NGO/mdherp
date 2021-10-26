@@ -152,61 +152,106 @@
 
     <!-- Row-->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-lg-12">
             <div class="card">
 
                 <div class="card-body">
-
-                    <div class="table-responsive push">
-                        <table class="table table-bordered table-hover">
-                            <tr class=" ">
-                                <th class="text-center " style="width: 1%"></th>
-                                <th>Location</th>
-                                <th class="text-center" style="width: 10%">Output Unit</th>
-                                <th class="text-right" style="width: 10%">Numeric Output</th>
-                                <th class="text-right" style="width: 10%">Available Budget</th>
-                                <th class="text-right" style="width: 12%">Requested Amount</th>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>
-                                <td>
-                                    <p class="font-w600 mb-1">Ilala DC</p>
-                                    <div class="text-muted">To do HTS and TDM</div>
-                                </td>
-                                <td class="text-center">Laptops</td>
-                                <td class="text-right">7</td>
-                                <td class="text-right">1000000</td>
-                                <td class="text-right">100000</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>
-                                <td>
-                                    <p class="font-w600 mb-1">Ilala DC</p>
-                                    <div class="text-muted">To do HTS and TDM</div>
-                                </td>
-                                <td class="text-center">Laptops</td>
-                                <td class="text-right">7</td>
-                                <td class="text-right">1000000</td>
-                                <td class="text-right">100000</td>
-                            </tr>
-
-
-                            <tr>
-                                <td colspan="5" class="font-w600 text-right">Total Amount ($)</td>
-                                <td class="text-right">$50.00</td>
-                            </tr>
-                            <tr>
-                                <td colspan="5" class="font-weight-bold text-uppercase text-right">Total Amount (TZS)</td>
-                                <td class="font-weight-bold text-right">450.00</td>
-                            </tr>
-                            <tr>
-                                <td colspan="6" class="text-right">
-                                    <button type="button" class="btn btn-success" onClick="javascript:window.print();"><i class="si si-folder"></i> Save</button>
-                                    <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-share-alt"></i> Submit</button>
-                                </td>
-                            </tr>
-                        </table>
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="expanel expanel-success">
+                            <div class="expanel-heading clearfix">Panel title (with table inside)
+                                <div class="float-right">
+                                    <button class="btn btn-sm btn-success" type="button" data-toggle="collapse" data-target="#collapse03"
+                                            aria-expanded="false" aria-controls="collapse03"><i class="fa fa-bars"></i></button>
+                                </div>
+                            </div>
+                            <div class="expanel-body collapse" id="collapse03">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Username</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="table-responsive push">
+                            <table class="table table-bordered table-hover">
+                                <tr class=" ">
+                                    <th class="text-center " style="width: 1%"></th>
+                                    <th>Location</th>
+                                    <th class="text-center" style="width: 10%">Output Unit</th>
+                                    <th class="text-right" style="width: 10%">Numeric Output</th>
+                                    <th class="text-right" style="width: 10%">Available Budget</th>
+                                    <th class="text-right" style="width: 12%">Requested Amount</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>
+                                    <td>
+                                        <p class="font-w600 mb-1">Ilala DC</p>
+                                        <div class="text-muted">To do HTS and TDM</div>
+                                    </td>
+                                    <td class="text-center">Laptops</td>
+                                    <td class="text-right">7</td>
+                                    <td class="text-right">1000000</td>
+                                    <td class="text-right">100000</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>
+                                    <td>
+                                        <p class="font-w600 mb-1">Ilala DC</p>
+                                        <div class="text-muted">To do HTS and TDM</div>
+                                    </td>
+                                    <td class="text-center">Laptops</td>
+                                    <td class="text-right">7</td>
+                                    <td class="text-right">1000000</td>
+                                    <td class="text-right">100000</td>
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="5" class="font-w600 text-right">Total Amount ($)</td>
+                                    <td class="text-right">$50.00</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="font-weight-bold text-uppercase text-right">Total Amount (TZS)</td>
+                                    <td class="font-weight-bold text-right">450.00</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" class="text-right">
+                                        <button type="button" class="btn btn-success" onClick="javascript:window.print();"><i class="si si-folder"></i> Save</button>
+                                        <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-share-alt"></i> Submit</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 {{--                    <p class="text-muted text-center">Thank you very much for doing business with us. We look forward to working with you again!</p>--}}
                 </div>
             </div>
