@@ -34,6 +34,7 @@
                 <li><a class="slide-item"  href="{{ route('program_area.index') }}"><span>Program Area</span></a></li>
                 <li><a class="slide-item"  href="{{ route('sub_program.index') }}"><span>Sub Program</span></a></li>
                 <li><a class="slide-item"  href="{{ route('activity.index') }}"><span>Activities</span></a></li>
+                <li><a class="slide-item"  href="{{ route('output_unit.index') }}"><span>Output Units</span></a></li>
             </ul>
         </li>
         <li class="slide">

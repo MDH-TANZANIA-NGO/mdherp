@@ -23,6 +23,12 @@
                     {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
+                <div class="col-3">
+                    {!! Form::label('output_unit', __("label.output_unit"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('output_unit', $output_unit, null,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! $errors->first('output_unit', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+
             </div>
 
             <div class="row">

@@ -14,8 +14,7 @@ trait ProjectDatatables
      */
     public function allDatatable()
     {
-        $tafs = $this->projects->getActive();
-        return DataTables::of($tafs)
+        return DataTables::of($this->projects->getActive())
             ->addIndexColumn()
             ->editColumn('description', function ($query) {
                 return substr($query->description, 0, 50)."...";

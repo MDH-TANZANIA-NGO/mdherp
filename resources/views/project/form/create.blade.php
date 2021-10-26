@@ -21,7 +21,7 @@
                     @enderror
                 </div>
 
-                
+
             </div>
 
             &nbsp;
@@ -97,12 +97,12 @@
 
                 <div class="col-12">
                     <div style="text-align: center;">
-                
+
                 <button type="submit" class="btn btn-azure"  >Create Project </button>
 
                     </div>
                 </div>
-                
+
             </div>
 
         </div>

@@ -16,7 +16,9 @@ class CreateOutputUnitsTable extends Migration
         Schema::create('output_units', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
+            $table->uuid('uuid');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Project\Traits\ActivityDatatables;
 use App\Models\Project\Activity;
 use App\Repositories\Project\ActivityRepository;
+use App\Repositories\Project\OutputUnitRepository;
 use App\Repositories\Project\SubProgramRepository;
 use Illuminate\Http\Request;
 
@@ -15,11 +16,13 @@ class ActivityController extends Controller
 
     protected $activities;
     protected $sub_programs;
+    protected $output_units;
 
     public function __construct()
     {
         $this->activities = (new ActivityRepository());
         $this->sub_programs = (new SubProgramRepository());
+        $this->output_units = (new OutputUnitRepository());
     }
 
     /**
@@ -30,7 +33,8 @@ class ActivityController extends Controller
     public function index()
     {
         return view('project.activity.index')
-            ->with('program_areas', $this->sub_programs->getActive()->pluck('title','id'));
+            ->with('program_areas', $this->sub_programs->getActive()->pluck('title','id'))
+            ->with('output_unit', $this->output_units->getActive()->pluck('title','id'));
     }
 
     /**
@@ -65,7 +69,8 @@ class ActivityController extends Controller
     {
         return view('project.activity.show')
             ->with('activity', $activity)
-            ->with('sub_programs', $this->sub_programs->getActive()->pluck('title','id'));
+            ->with('sub_programs', $this->sub_programs->getActive()->pluck('title','id'))
+            ->with('output_unit', $this->output_units->getActive()->pluck('title','id'));
     }
 
     /**

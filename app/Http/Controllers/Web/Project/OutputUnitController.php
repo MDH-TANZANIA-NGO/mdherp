@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Project;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Project\Traits\OutputUnitDatatables;
+use App\Models\Project\OutputUnit;
 use App\Repositories\Project\OutputUnitRepository;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class OutputUnitController extends Controller
      */
     public function index()
     {
-        //
+        return view('project.output_unit.index');
     }
 
     /**
@@ -42,22 +43,24 @@ class OutputUnitController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->output_units->store($request->all());
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param OutputUnit $outputUnit
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        return view('project.output_unit.show')
+            ->with('output_unit', $this->output_units->findByUuid($uuid));
     }
 
     /**
@@ -74,13 +77,14 @@ class OutputUnitController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param $uuid
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        $this->output_units->update($uuid, $request->all());
+        return redirect()->back();
     }
 
     /**
