@@ -110,7 +110,12 @@ return [
         'index' => 'Name',
         'first' => 'First name',
         'last' => 'Last name',
+        'middle' => 'Middle name'
     ],
+    'dob' => 'Date of Birth',
+    'gender' => 'Gender',
+    'phone' => 'Phone',
+    'marital' => 'Marital status',
     'number' => 'Number',
     'password' => [
         'index' => 'Password',

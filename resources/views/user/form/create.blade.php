@@ -12,21 +12,21 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                {!! Form::label('first_name', __("label.first_name"),['class'=>'form-label','required_asterik']) !!}
+                                {!! Form::label('first_name', __("label.name.first"),['class'=>'form-label','required_asterik']) !!}
                                 {!! Form::text('first_name',old('first_name'),['class' => 'form-control', 'placeholder' => '','required']) !!}
                                 {!! $errors->first('first_name', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="form-group">
-                                {!! Form::label('middle_name', __("label.middle_name"),['class'=>'form-label','required_asterik']) !!}
+                                {!! Form::label('middle_name', __("label.name.middle"),['class'=>'form-label','required_asterik']) !!}
                                 {!! Form::text('middle_name',old('middle_name'),['class' => 'form-control', 'placeholder' => '','required']) !!}
                                 {!! $errors->first('middle_name', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="form-group">
-                                {!! Form::label('last_name', __("label.last_name"),['class'=>'form-label','required_asterik']) !!}
+                                {!! Form::label('last_name', __("label.name.last"),['class'=>'form-label','required_asterik']) !!}
                                 {!! Form::text('last_name',old('last_name'),['class' => 'form-control', 'placeholder' => '','required']) !!}
                                 {!! $errors->first('last_name', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
@@ -84,9 +84,9 @@
                         </div>
                         <div class=" col-md-4">
                             <div class="form-group ">
-                                {!! Form::label('project', __("label.project"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::select('project', [], null, ['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
-                                {!! $errors->first('project', '<span class="badge badge-danger">:message</span>') !!}
+                                {!! Form::label('projects', __("label.project"),['class'=>'form-label','required_asterik']) !!}
+                                {!! Form::select('projects[]', [], null, ['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
+                                {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary" style="margin-left:40%;">Register</button>
@@ -104,7 +104,7 @@
     <script>
         $(document).ready(function (){
             let $region_select = $("select[name='region']");
-            let $project_select = $("select[name='project']");
+            let $project_select = $("select[name='projects[]']");
             let $sub_program_select = $("select[name='sub_program']");
             let $projects = [];
 

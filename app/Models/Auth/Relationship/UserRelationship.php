@@ -5,6 +5,7 @@ namespace App\Models\Auth\Relationship;
 use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
 use App\Models\Auth\SupervisorUser;
+use App\Models\Project\Project;
 use App\Models\System\CodeValue;
 use App\Models\System\Region;
 use App\Models\Taf\Taf;
@@ -71,11 +72,6 @@ trait UserRelationship
         return $this->belongsToMany(WfDefinition::class, 'user_wf_definition');
     }
 
-    public function tafs()
-    {
-        return $this->hasMany(Taf::class);
-    }
-
     public function designation()
     {
         return $this->belongsTo(Designation::class);
@@ -84,5 +80,10 @@ trait UserRelationship
     public function assignedSupervisor()
     {
         return $this->hasOne(SupervisorUser::class,'user_id','id')->first();
+    }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)->withTimestamps();
     }
 }
