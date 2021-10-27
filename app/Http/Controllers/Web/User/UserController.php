@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\User\Datatables\UserDatatables;
+use App\Models\Auth\User;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DesignationRepository;
@@ -10,7 +12,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
+    use UserDatatables;
     protected $designations;
     protected $regions;
     protected $users;
@@ -61,12 +63,13 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function profile(User $user)
     {
-        //
+        return view('user.profile.view_profile')
+            ->with('user', $user);
     }
 
     /**
