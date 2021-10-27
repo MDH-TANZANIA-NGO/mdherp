@@ -23,6 +23,7 @@ class UserRepository extends BaseRepository
             'designation_id' => $inputs['designation'],
             'region_id' => $inputs['region'],
             'marital_status_cv_id' => $inputs['marital'],
+            'password' => config('app.key'),
         ];
     }
 
@@ -30,6 +31,8 @@ class UserRepository extends BaseRepository
     {
         return DB::transaction(function () use ($inputs){
             $user = $this->query()->create($this->processInputs($inputs));
+            $user->projects()->sync($inputs['projects']);
+            return $user;
         });
     }
 }

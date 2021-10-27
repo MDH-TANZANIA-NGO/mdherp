@@ -4,10 +4,9 @@ namespace App\Models\Auth\Attribute;
 
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
-use App\Models\Hotspot\Hotspot;
 use App\Repositories\Access\UserRepository;
+use App\Services\Phone\PhoneFormatter;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 trait UserAttribute
 {
@@ -31,6 +30,15 @@ trait UserAttribute
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = ucwords(trim($value));
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function setPhoneAttribute($value){
+        $this->attributes['phone'] = (new PhoneFormatter($value))->phone;
     }
 
     public function getResourceNameModifiedAttribute()
