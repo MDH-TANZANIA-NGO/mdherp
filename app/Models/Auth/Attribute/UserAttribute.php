@@ -58,7 +58,7 @@ trait UserAttribute
         $this->attributes['othernames'] = ucwords(trim($value));
     }
 
-    public function getFullnameAttribute() {
+    public function getFullNameAttribute() {
         return ucfirst($this->last_name) . ", " . ucfirst($this->first_name);
     }
 
