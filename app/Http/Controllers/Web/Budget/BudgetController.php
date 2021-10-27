@@ -1,25 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Web\User;
+namespace App\Http\Controllers\Web\Budget;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Access\UserRepository;
-use App\Repositories\System\RegionRepository;
-use App\Repositories\Unit\DesignationRepository;
+use App\Http\Controllers\Web\Budget\Traits\BudgetDatatables;
+use App\Repositories\Budget\BudgetRepository;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class BudgetController extends Controller
 {
+    use BudgetDatatables;
 
-    protected $designations;
-    protected $regions;
-    protected $users;
+    protected $budgets;
 
     public function __construct()
     {
-        $this->designations = (new DesignationRepository());
-        $this->regions = (new RegionRepository());
-        $this->users = (new UserRepository());
+        $this->budgets = (new BudgetRepository());
     }
 
     /**
@@ -29,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        //
     }
 
     /**
@@ -39,23 +35,18 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.form.create')
-            ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
-            ->with('marital', code_value()->query()->where('code_id',3)->pluck('name','id'))
-            ->with('designations', $this->designations->getActiveForSelect())
-            ->with('regions', $this->regions->forSelect());
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->users->store($request->all());
-        return redirect()->back();
+        //
     }
 
     /**

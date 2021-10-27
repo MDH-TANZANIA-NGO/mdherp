@@ -2,12 +2,12 @@
 
 namespace App\Models\Project\Traits\Relationship;
 
-use App\Models\Project\Budget;
+use App\Models\Project\OutputUnit;
 
 trait ActivityRelationship
 {
-    public function budgets()
+    public function outputUnit()
     {
-        return $this->morphMany(Budget::class,'budgetable');
+        return $this->belongsTo(OutputUnit::class);
     }
 }

@@ -3,38 +3,30 @@
 namespace App\Http\Controllers\Web\Project;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\Project\Traits\ActivityDatatables;
-use App\Models\Project\Activity;
-use App\Repositories\Project\ActivityRepository;
+use App\Http\Controllers\Web\Project\Traits\OutputUnitDatatables;
+use App\Models\Project\OutputUnit;
 use App\Repositories\Project\OutputUnitRepository;
-use App\Repositories\Project\SubProgramRepository;
 use Illuminate\Http\Request;
 
-class ActivityController extends Controller
+class OutputUnitController extends Controller
 {
-    use ActivityDatatables;
+    use OutputUnitDatatables;
 
-    protected $activities;
-    protected $sub_programs;
     protected $output_units;
 
     public function __construct()
     {
-        $this->activities = (new ActivityRepository());
-        $this->sub_programs = (new SubProgramRepository());
         $this->output_units = (new OutputUnitRepository());
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('project.activity.index')
-            ->with('program_areas', $this->sub_programs->getActive()->pluck('title','id'))
-            ->with('output_unit', $this->output_units->getActive()->pluck('title','id'));
+        return view('project.output_unit.index');
     }
 
     /**
@@ -55,22 +47,20 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        $this->activities->store($request->all());
+        $this->output_units->store($request->all());
         return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Activity $activity
+     * @param OutputUnit $outputUnit
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Activity $activity)
+    public function show($uuid)
     {
-        return view('project.activity.show')
-            ->with('activity', $activity)
-            ->with('sub_programs', $this->sub_programs->getActive()->pluck('title','id'))
-            ->with('output_unit', $this->output_units->getActive()->pluck('title','id'));
+        return view('project.output_unit.show')
+            ->with('output_unit', $this->output_units->findByUuid($uuid));
     }
 
     /**
@@ -88,12 +78,12 @@ class ActivityController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Activity $activity
+     * @param $uuid
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Activity $activity)
+    public function update(Request $request, $uuid)
     {
-        $this->activities->update($activity, $request->all());
+        $this->output_units->update($uuid, $request->all());
         return redirect()->back();
     }
 

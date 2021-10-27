@@ -10,10 +10,10 @@
     <meta name="keywords" content="Admin, Admin Template, Dashboard, Responsive, Admin Dashboard, Bootstrap, Bootstrap 4, Clean, Backend, Jquery, Modern, Web App, Admin Panel, Ui, Premium Admin Templates, Flat, Admin Theme, Ui Kit, Bootstrap Admin, Responsive Admin, Application, Template, Admin Themes, Dashboard Template"/>
 
     <!-- Title -->
-    <title>MDH - ERP</title>
+{{--    <title>MDH - ERP</title>--}}
 
     <!--Favicon -->
-    <link rel="icon" href="mdh/images/brand/favicon.ico" type="image/x-icon"/>
+{{--    <link rel="icon" href="mdh/images/brand/favicon.ico" type="image/x-icon"/>--}}
 
     @stack('before-styles')
 

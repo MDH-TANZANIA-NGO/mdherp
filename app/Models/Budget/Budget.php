@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Project;
+namespace App\Models\Budget;
 
 use App\Models\BaseModel;
-use App\Models\Project\Traits\Attribute\BudgetAttribute;
-use App\Models\Project\Traits\Relationship\BudgetRelationship;
+use App\Models\Budget\Traits\Attribute\BudgetAttribute;
+use App\Models\Budget\Traits\Relationship\BudgetRelationship;
 use Illuminate\Database\Eloquent\Model;
 
 class Budget extends BaseModel
