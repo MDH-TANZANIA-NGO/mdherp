@@ -18,6 +18,9 @@
                 <div class="row text-center">
                     <span class="col-12 text-center font-weight-bold">Register Project</span>
                     </div>
+                    <div class="card-options ">
+                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                    </div>
                 
             </div>
             <div class="card-body">
