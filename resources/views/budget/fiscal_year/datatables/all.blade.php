@@ -1,19 +1,23 @@
-<table id="all_projects" class="table table-striped table-bordered" style="width:100%">
-    <thead>
-    <tr>
-        <th class="wd-15p">#</th>
-        <th class="wd-15p">CODE</th>
-        <th class="wd-20p">TITLE</th>
-        <th class="wd-20p">TYPE</th>
-        <th class="wd-20p"># REGIONS</th>
-        {{-- <th class="wd-20p">DESCRIPTION</th> --}}
-        <th class="wd-15p">START YEAR</th>
-        <th class="wd-10p">END YEAR</th>
-        {{-- <th class="wd-25p">REGISTERED DATE</th> --}}
-        <th class="wd-10p">ACTION</th>
-    </tr>
-    </thead>
-</table>
+<div class="row">
+    <div class="col-12">
+        <table id="all_projects" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+            <tr>
+                <th class="wd-15p">#</th>
+                <th class="wd-15p">CODE</th>
+                <th class="wd-20p">TITLE</th>
+                <th class="wd-20p">TYPE</th>
+                <th class="wd-20p"># REGIONS</th>
+                {{-- <th class="wd-20p">DESCRIPTION</th> --}}
+                <th class="wd-15p">START YEAR</th>
+                <th class="wd-10p">END YEAR</th>
+                {{-- <th class="wd-25p">REGISTERED DATE</th> --}}
+                <th class="wd-10p">ACTION</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 @push('after-scripts')
     <script>
         $(document).ready(function () {

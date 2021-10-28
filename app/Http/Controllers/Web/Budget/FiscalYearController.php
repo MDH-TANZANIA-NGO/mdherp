@@ -21,11 +21,11 @@ class FiscalYearController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('budget.fiscal_year.index');
     }
 
     /**
@@ -42,11 +42,12 @@ class FiscalYearController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->fiscal_years->store($request->all());
+        return redirect()->back();
     }
 
     /**
