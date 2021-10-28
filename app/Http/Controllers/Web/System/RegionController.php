@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\System;
+namespace App\Http\Controllers\Web\System;
 
 use App\Repositories\System\RegionRepository;
 use Illuminate\Http\Request;
@@ -29,11 +29,12 @@ class RegionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function byActivity()
     {
-        //
+        $regions = $this->regions->getByActivity(request()->only('activity_id'));
+        return response()->json($regions);
     }
 
     /**
