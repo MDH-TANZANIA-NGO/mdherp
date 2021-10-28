@@ -1,18 +1,14 @@
 <div class="row">
     <div class="col-12">
-        <table id="all_projects" class="table table-striped table-bordered" style="width:100%">
+        <table id="all_fiscal_year" class="table table-striped table-bordered" style="width:100%">
             <thead>
             <tr>
                 <th class="wd-15p">#</th>
-                <th class="wd-15p">CODE</th>
-                <th class="wd-20p">TITLE</th>
-                <th class="wd-20p">TYPE</th>
-                <th class="wd-20p"># REGIONS</th>
-                {{-- <th class="wd-20p">DESCRIPTION</th> --}}
-                <th class="wd-15p">START YEAR</th>
-                <th class="wd-10p">END YEAR</th>
-                {{-- <th class="wd-25p">REGISTERED DATE</th> --}}
-                <th class="wd-10p">ACTION</th>
+                <th class="wd-20p">{{ __('label.title') }}</th>
+                <th class="wd-20p">{{ __('label.start_date') }}</th>
+                <th class="wd-20p">{{ __('label.end_date') }}</th>
+                <th class="wd-20p">{{ __('label.status') }}</th>
+                <th class="wd-10p">MORE</th>
             </tr>
             </thead>
         </table>
@@ -22,24 +18,20 @@
     <script>
         $(document).ready(function () {
 
-            $("#all_projects").DataTable({
+            $("#all_fiscal_year").DataTable({
                 // processing: true,
                 // serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('project.datatable.all') }}',
+                ajax: '{{ route('fiscal_year.datatable.all') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'code', name: 'projects.code', searchable: true},
-                    { data: 'title', name: 'projects.title', searchable: true},
-                    { data: 'type', name: 'code_values.name', searchable: true},
-                    { data: 'regions_count', name: 'regions_count', searchable: true},
-                    // { data: 'description', name: 'projects.description', searchable: true},
-                    { data: 'start_year', name: 'projects.start_year', searchable: true},
-                    { data: 'end_year', name: 'projects.end_year.', searchable: true },
-                    // { data: {_: 'created_at.display',sort: 'created_at.timestamp'}, name: 'created_at', searchable: false },
+                    { data: 'title', name: 'fiscal_year.title', searchable: true},
+                    { data: 'from_at', name: 'fiscal_year.from_at', searchable: true},
+                    { data: 'to_at', name: 'fiscal_year.to_at', searchable: true},
+                    { data: 'status', name: 'fiscal_year.active', searchable: true},
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

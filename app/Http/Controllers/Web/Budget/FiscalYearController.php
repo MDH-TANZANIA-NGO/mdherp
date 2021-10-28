@@ -54,11 +54,12 @@ class FiscalYearController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        return view('budget.fiscal_year.forms.edit')
+            ->with('fiscal_year', $this->fiscal_years->findByUuid($uuid));
     }
 
     /**

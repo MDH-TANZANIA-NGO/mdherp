@@ -11,6 +11,22 @@ class FiscalYearRepository extends BaseRepository
 {
     const MODEL = FiscalYear::class;
 
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('fiscal_years.title AS title'),
+            DB::raw('fiscal_years.from_at AS from_at'),
+            DB::raw('fiscal_years.to_at AS to_at'),
+            DB::raw('fiscal_years.active AS active'),
+            DB::raw('fiscal_years.uuid AS uuid'),
+        ]);
+    }
+
+    public function getActive()
+    {
+        return $this->getQuery();
+    }
+
     /**
      * Inputs Processor
      * @param $inputs
