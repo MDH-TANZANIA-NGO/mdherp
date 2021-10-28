@@ -78,11 +78,12 @@ class FiscalYearController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        $this->fiscal_years->update($uuid, $request->all());
+        return redirect()->back();
     }
 
     /**

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web\Budget;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Budget\Traits\BudgetDatatables;
 use App\Repositories\Budget\BudgetRepository;
+use App\Repositories\Budget\FiscalYearRepository;
+use App\Repositories\Project\ActivityRepository;
 use Illuminate\Http\Request;
 
 class BudgetController extends Controller
@@ -12,20 +14,26 @@ class BudgetController extends Controller
     use BudgetDatatables;
 
     protected $budgets;
+    protected $activities;
+    protected $fiscal_years;
 
     public function __construct()
     {
         $this->budgets = (new BudgetRepository());
+        $this->activities = (new ActivityRepository());
+        $this->fiscal_years = (new FiscalYearRepository());
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('budget.budget.index')
+            ->with('activities', $this->activities->getActive()->pluck('code_title','id'))
+            ->with('fiscal_years', $this->fiscal_years->getActive()->pluck('title', 'id'));
     }
 
     /**

@@ -14,6 +14,7 @@ class FiscalYearRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
+            DB::raw('fiscal_years.id AS id'),
             DB::raw('fiscal_years.title AS title'),
             DB::raw('fiscal_years.from_at AS from_at'),
             DB::raw('fiscal_years.to_at AS to_at'),
@@ -38,6 +39,7 @@ class FiscalYearRepository extends BaseRepository
             'title' => $inputs['title'],
             'from_at' => $inputs['from_at'],
             'to_at' => $inputs['to_at'],
+            'active' => $inputs['active'] ?? false,
         ];
     }
 
