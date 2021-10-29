@@ -21,11 +21,11 @@ class FiscalYearController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('budget.fiscal_year.index');
     }
 
     /**
@@ -42,22 +42,24 @@ class FiscalYearController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->fiscal_years->store($request->all());
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        return view('budget.fiscal_year.forms.edit')
+            ->with('fiscal_year', $this->fiscal_years->findByUuid($uuid));
     }
 
     /**
@@ -76,11 +78,12 @@ class FiscalYearController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        $this->fiscal_years->update($uuid, $request->all());
+        return redirect()->back();
     }
 
     /**

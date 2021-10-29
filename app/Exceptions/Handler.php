@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use GuzzleHttp\Exception\ClientException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -55,6 +59,21 @@ class Handler extends ExceptionHandler
 
             return redirect('/');
 
+        }
+
+        if ($exception instanceof GeneralException) {
+            if (request()->ajax())
+                return response()->json(['success' => false, 'message' => $exception->getMessage()]);
+            return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
+        }
+        if ($exception instanceof WorkflowException) {
+            if (request()->ajax())
+                return response()->json(['success' => false, 'message' => $exception->getMessage()]);
+            return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
+        }
+
+        if ($exception instanceof NotFoundHttpException) {
+            return response()->view('errors.400', [], 400);
         }
 
         return parent::render($request, $exception);

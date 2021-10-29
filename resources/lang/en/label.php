@@ -116,6 +116,9 @@ return [
     'gender' => 'Gender',
     'phone' => 'Phone',
     'marital' => 'Marital status',
+    'start_date' => 'Start date',
+    'end_date' => 'End date',
+    'fiscal_year' => 'Fiscal Year',
     'number' => 'Number',
     'password' => [
         'index' => 'Password',

@@ -84,4 +84,24 @@ class RegionRepository extends BaseRepository
             ->whereNotIn('id', User::query()->select('region_id')->where('user_account_cv_id',config('icap.office_cvid'))->pluck('region_id'))
             ->pluck('name', 'id');
     }
+
+    public function getByActivity($activity_id)
+    {
+        return $this->query()->select([
+            DB::raw('regions.id AS id'),
+            DB::raw('regions.name AS name'),
+        ])
+            ->join('project_region','project_region.region_id','regions.id')
+            ->join('projects','projects.id', 'project_region.project_id')
+            ->join('program_area_project', 'program_area_project.project_id','projects.id')
+            ->join('program_areas','program_areas.id','program_area_project.program_area_id')
+            ->join('sub_programs','sub_programs.program_area_id','program_areas.id')
+            ->join('activities','activities.sub_program_id','sub_program_area.id')
+            ->groupBy('regions.id')
+            ->where('activities.id',$activity_id)
+            ->get();
+    }
+
+
+
 }
