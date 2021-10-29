@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Web\Requisition;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Requisition\RequisitionRequest;
 use App\Models\Project\ProjectUser;
+use App\Models\Requisition\Requisition;
 use App\Repositories\Project\ActivityRepository;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -29,7 +31,34 @@ class RequisitionController extends Controller
     }
 
     public function index(){
-        ///return ['name' => "William Mussa"]; it works
-        return ['regions' => $this->regions->all(), 'projects' => $this->projects->getAll(),'districts' => $this->districts->getAll(), 'activities' => $this->activities->getAll()];
+        $userID = Auth::id();
+        return ['requisition' => $this->requisitions->getRequisitionsByUserID()];
+    }
+    public function show(Requisition $requisition){
+        return ['requisition', $requisition];
+    }
+
+    public function create(){
+        $userID = Auth::id();
+        return ['regions' => $this->regions->all(), 'projects' => $this->projects->getUserProjects($userID)];
+    }
+
+    public function getDistricts($region_id){
+        return ['districts' => $this->districts->getByRegion($region_id)];
+    }
+
+    public function getProjectActivities($projectID){
+        return ['activities' => $this->activities->getProjectActivities($projectID)];
+    }
+
+    public function store(RequisitionRequest $request){
+        $this->requisitions->store($request->all());
+        alert()->success('Requisition Created Successfully','success');
+        return redirect()->back();
+    }
+
+    public function update(Request $request, Requisition $requisition){
+        $this->requisitions->update($request->all(), $requisition);
+        return redirect()->back()->with('success','Requisition Updated Successfully');
     }
 }
