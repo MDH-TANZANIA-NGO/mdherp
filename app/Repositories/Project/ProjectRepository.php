@@ -130,4 +130,16 @@ class ProjectRepository extends BaseRepository
             ->get();
     }
 
+    public function getUserProjects($user_id)
+    {
+        return $this->query()->select([
+            'projects.id AS id',
+            'projects.title AS title'
+        ])
+            ->leftjoin('project_user','project_user.project_id','projects.id')
+            ->leftjoin('users','users.id','project_user.user_id')
+            ->where('users.id', $user_id)
+            ->get();
+    }
+
 }
