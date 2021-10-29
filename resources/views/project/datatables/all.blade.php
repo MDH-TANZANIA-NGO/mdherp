@@ -14,7 +14,6 @@
     </tr>
     </thead>
 </table>
-
 @push('after-scripts')
     <script>
         $(document).ready(function () {

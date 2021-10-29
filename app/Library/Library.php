@@ -262,3 +262,13 @@ if (!function_exists('setActive')) {
         return \Illuminate\Support\Facades\Request::is($path . '*') ? 'active' :  '';
     }
 }
+
+if (!function_exists('true_false_pluck')) {
+    function true_false_pluck()
+    {
+        return [
+            true => 'Active',
+            false => 'In-Active'
+        ];
+    }
+}

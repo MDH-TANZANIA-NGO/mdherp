@@ -9,7 +9,7 @@
         <th class="wd-20p">SUB PROGRAM</th>
         <th class="wd-20p">PROGRAM AREA</th>
         <th class="wd-20p">PROJECT(S)</th>
-        <th class="wd-25p">REGISTERED DATE</th>
+        <th class="wd-25p">ACTION</th>
     </tr>
     </thead>
 </table>
@@ -35,7 +35,7 @@
                     { data: 'sub_program_title', name: 'sub_programs.title', searchable: true},
                     { data: 'program_area_title', name: 'program_areas.title', searchable: true},
                     { data: 'project_list', name: 'projects.title', searchable: true},
-                    { data: {_: 'created_at.display',sort: 'created_at.timestamp'}, name: 'created_at', searchable: false },
+                    // { data: {_: 'created_at.display',sort: 'created_at.timestamp'}, name: 'created_at', searchable: false },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

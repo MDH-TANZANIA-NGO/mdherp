@@ -3,23 +3,28 @@
 namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\User\Datatables\UserDatatables;
+use App\Models\Auth\User;
 use App\Repositories\Access\UserRepository;
+use App\Repositories\Project\ProjectRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DesignationRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
+    use UserDatatables;
     protected $designations;
     protected $regions;
     protected $users;
+    protected $projects;
 
     public function __construct()
     {
         $this->designations = (new DesignationRepository());
         $this->regions = (new RegionRepository());
         $this->users = (new UserRepository());
+        $this->projects = (new ProjectRepository());
     }
 
     /**
@@ -35,7 +40,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -61,12 +66,17 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function profile(User $user)
     {
-        //
+        return view('user.profile.view_profile')
+            ->with('user', $user)
+            ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
+            ->with('marital', code_value()->query()->where('code_id',3)->pluck('name','id'))
+            ->with('designations', $this->designations->getActiveForSelect())
+            ->with('regions', $this->regions->forSelect());
     }
 
     /**
