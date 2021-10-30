@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
                 'email' => config('mdh.email'),
                 'first_name' => 'admin',
                 'last_name' => 'admin',
-                'phone' => '0000000000',
+                'phone' => '+255712123456',
                 'password' => bcrypt(config('mdh.password')),
                 'gender_cv_id' => 6,
 //                'isactive' => 1,
