@@ -5,7 +5,7 @@
         <th class="wd-20p">TITLE</th>
         <th class="wd-20p">DESCRIPTION</th>
         <th class="wd-20p"># PROJECT(S)</th>
-        <th class="wd-25p">REGISTERED DATE</th>
+        <th class="wd-25p">ACTION</th>
     </tr>
     </thead>
 </table>
@@ -27,7 +27,7 @@
                     { data: 'title', name: 'program_area.title', searchable: true},
                     { data: 'description', name: 'program_area.description', searchable: true},
                     { data: 'project_list', name: 'projects.title', searchable: true},
-                    { data: {_: 'created_at.display',sort: 'created_at.timestamp'}, name: 'created_at', searchable: false },
+                    // { data: {_: 'created_at.display',sort: 'created_at.timestamp'}, name: 'created_at', searchable: false },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

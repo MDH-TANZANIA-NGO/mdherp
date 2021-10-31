@@ -2,6 +2,17 @@
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
     <div class="card">
+
+        <div class="card-header" style="background-color: rgb(238, 241, 248)">
+            <div class="row text-center">
+                <span class="col-12 text-center font-weight-bold">Register Activity</span>
+            </div>
+            <div class="card-options ">
+                <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+            </div>
+            
+        </div>
+
         <div class="card-body">
             <div class="row">
 
@@ -13,13 +24,13 @@
 
                 <div class="col-3">
                     {!! Form::label('code', __("label.code"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::text('code', null, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::text('code', null, ['class' => 'form-control','placeholder' =>'Enter Activites Code','required']) !!}
                     {!! $errors->first('code', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
-                <div class="col-3">
+                <div class="col-6">
                     {!! Form::label('title', __("label.title"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::text('title', null, ['class' => 'form-control','placeholder' =>'Enter Activites Decriptions', 'required']) !!}
                     {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
@@ -31,6 +42,8 @@
 
             </div>
 
+            &nbsp;
+
             <div class="row">
                 <div class="col-12 mt-1">
                     {!! Form::label('description', __("label.description"),['class'=>'form-label','required_asterik']) !!}
@@ -39,8 +52,14 @@
                 </div>
             </div>
 
+            &nbsp;
+
             <div class="row">
-                <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Create Activity </button>
+                <div class="col-12">
+                    <div style="text-align: center;">
+                <button type="submit" class="btn btn-azure">Create Activity </button>
+                    </div>
+                </div>
             </div>
 
         </div>

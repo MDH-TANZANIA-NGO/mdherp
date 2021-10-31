@@ -20,6 +20,7 @@ class ActivityRepository extends BaseRepository
             DB::raw('activities.code AS code'),
             DB::raw('activities.title AS title'),
             DB::raw('activities.description AS description'),
+            DB::raw("concat_ws(' : ',activities.code, activities.description )AS code_title"),
             DB::raw('activities.uuid AS uuid'),
             DB::raw('output_units.title AS output_unit_title'),
             DB::raw('sub_programs.title AS sub_program_title'),

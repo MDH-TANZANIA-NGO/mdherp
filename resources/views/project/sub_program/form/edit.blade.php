@@ -2,7 +2,16 @@
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
     <div class="card">
-        <div class="card-body">
+        <div class="card-header" style="background-color: rgb(238, 241, 248)">
+            <div class="row text-center">
+
+        <div class="row">
+            <span class="col-12 text-center font-weight-bold">PROGRAM AREA: {{ $sub_program->title }}</span>
+            </div>
+            </div>
+        </div>
+
+        <div class="card-body">                
             <div class="row">
 
                 <div class="col-3">
@@ -19,6 +28,8 @@
 
             </div>
 
+            &nbsp;
+
             <div class="row">
                 <div class="col-12 mt-1">
                     {!! Form::label('description', __("label.description"),['class'=>'form-label','required_asterik']) !!}
@@ -26,9 +37,17 @@
                     {!! $errors->first('description', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
             </div>
+            &nbsp;
 
             <div class="row">
-                <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Update Sub Program </button>
+            <div class="col-12">
+                <div style="text-align: center;">
+
+            
+                <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Update</button>
+            </div>
+
+                </div>
             </div>
 
         </div>

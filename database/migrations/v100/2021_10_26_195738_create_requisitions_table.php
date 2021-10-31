@@ -21,7 +21,7 @@ class CreateRequisitionsTable extends Migration
             $table->decimal('requested_amount');
             $table->unsignedBigInteger('district_id');
             $table->integer('numerical_output');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->tinyInteger('type');
             $table->softDeletes();
             $table->timestamps();

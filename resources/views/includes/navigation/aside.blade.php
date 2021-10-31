@@ -13,8 +13,8 @@
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User Management</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
-                <li><a class="slide-item"  href="{{ route('user.index') }}"><span>Staff</span></a></li>
-
+                <li><a class="slide-item"  href="{{ route('user.index') }}"><span>List</span></a></li>
+                <li><a class="slide-item"  href="{{ route('user.create') }}"><span>Register</span></a></li>
             </ul>
         </li>
         <li class="slide">
@@ -40,8 +40,8 @@
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-credit-card"></i><span class="side-menu__label">Budget Settings</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
-                <li><a class="slide-item"  href=""><span>Fiscal Year</span></a></li>
-                <li><a class="slide-item"  href="{{route('userregister')}}"><span>Budget</span></a></li>
+                <li><a class="slide-item"  href="{{ route('fiscal_year.index') }}"><span>Fiscal Year</span></a></li>
+                <li><a class="slide-item"  href="{{ route('budget.index') }}"><span>Budget</span></a></li>
 
             </ul>
         </li>

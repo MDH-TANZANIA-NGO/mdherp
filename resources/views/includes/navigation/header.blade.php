@@ -103,7 +103,7 @@
                 <div class="dropdown ">
                     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 										<span>
-											<img src="mdh/images/users/16.jpg" alt="img" class="avatar avatar-md brround">
+											<img src="{{ asset('mdh/images/users/16.jpg') }}" alt="img" class="avatar avatar-md brround">
 										</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
@@ -121,7 +121,7 @@
                         @else
 
                         <a href="#" class="dropdown-item text-center user pb-0">{{ access()->user()->full_name_formatted }}</a>
-                        <span class="text-center user-semi-title text-dark">{{{Auth::user()->email}}}</span>
+                        <span class="text-center user-semi-title text-dark">{{{access()->user()->email}}}</span>
                         <div class="dropdown-divider"></div>
 
 

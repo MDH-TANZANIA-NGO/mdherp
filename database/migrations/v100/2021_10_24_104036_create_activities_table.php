@@ -20,6 +20,7 @@ class CreateActivitiesTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->uuid('uuid');
+            $table->unsignedBigInteger('budget_id');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -32,7 +32,8 @@ class RequisitionController extends Controller
 
     public function index(){
         $userID = Auth::id();
-        return ['requisition' => $this->requisitions->getRequisitionsByUserID( $userID)];
+        return ['requisition' => $this->requisitions->getRequisitionsByUserID($userID)];
+
     }
     public function show(Requisition $requisition){
         return ['requisition', $requisition];
