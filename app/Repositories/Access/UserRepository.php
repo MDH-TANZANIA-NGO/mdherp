@@ -55,11 +55,11 @@ class UserRepository extends BaseRepository
                 DB::raw("users.isactive as isactive"),
                 DB::raw("users.uuid as uuid"),
                 DB::raw("users.email as email"),
-                DB::raw("users.fingerprint_length as fingerprint_length"),
-                DB::raw("users.fingerprint_data as fingerprint_data"),
+//                DB::raw("users.fingerprint_length as fingerprint_length"),
+//                DB::raw("users.fingerprint_data as fingerprint_data"),
             ])
             ->leftjoin('regions', 'regions.id', 'users.region_id')
-            ->leftjoin('code_values', 'code_values.id', 'users.user_gender_cv_id')
+            ->leftjoin('code_values', 'code_values.id', 'users.gender_cv_id')
             ->leftjoin('designations', 'designations.id', 'users.designation_id')
             ->leftjoin('units', 'units.id', 'designations.unit_id');
 //            ->where('users.user_account_cv_id', '!=', $this->user_account_cv_id);
@@ -87,7 +87,7 @@ class UserRepository extends BaseRepository
                 DB::raw("users.deleted_at as deleted_at"),
             ])
             ->join('regions', 'regions.id', 'users.region_id')
-            ->leftjoin('code_values', 'code_values.id', 'users.user_gender_cv_id')
+            ->leftjoin('code_values', 'code_values.id', 'users.gender_cv_id')
             ->leftjoin('designations', 'designations.id', 'users.designation_id')
             ->leftjoin('units', 'units.id', 'designations.unit_id')
             ->where('users.email', $email);
