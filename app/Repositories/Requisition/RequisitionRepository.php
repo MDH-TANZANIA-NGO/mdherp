@@ -29,7 +29,7 @@ class RequisitionRepository extends BaseRepository {
 
 
         ])
-            ->join('activities', 'activities.id', 'requisitions.activities_id')
+            ->join('activities', 'activities.id', 'requisitions.activity_id')
             ->join('users', 'users.id', 'requisitions.user_id')
             ->join('districts', 'districts.id', 'requisitions.district_id')
             ->groupBy([
@@ -106,7 +106,7 @@ class RequisitionRepository extends BaseRepository {
             DB::raw('requisitions.created_at AS created_at'),
             DB::raw('requisitions.type AS type'),
         ])
-            ->join('activities', 'activities.id', 'requisitions.activities_id')
+            ->join('activities', 'activities.id', 'requisitions.activity_id')
             ->join('users', 'users.id', 'requisitions.user_id')
             ->join('districts', 'districts.id', 'requisitions.district_id')
             ->where('users.id', $userID)
@@ -115,6 +115,7 @@ class RequisitionRepository extends BaseRepository {
                 'requisitions.description',
                 'activities.title',
                 'users.first_name',
+                'users.last_name',
                 'districts.name',
                 'requisitions.requested_amount',
                 'requisitions.numerical_output',
