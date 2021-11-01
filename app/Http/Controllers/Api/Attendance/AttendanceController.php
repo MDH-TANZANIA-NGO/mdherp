@@ -64,6 +64,7 @@ class AttendanceController extends BaseController
             'checkout_latitude' => $fields['checkout_latitude'],
             'checkout_longitude' => $fields['checkout_longitude'],
             'checkout_location' => $fields['checkout_location'],
+            'description' => $fields['description']
         ]);
 
         return $this->sendResponse($attendance, "Attendance created successfully");
@@ -79,7 +80,7 @@ class AttendanceController extends BaseController
     {
         $user_attendances = DB::table("attendances")
             ->selectRaw('user_id, checkin_time, checkin_latitude, checkin_longitude, checkin_location
-            , checkout_time, checkout_latitude, checkout_longitude, checkout_location')
+            , checkout_time, checkout_latitude, checkout_longitude, checkout_location, description')
             ->where('user_id', $id)
             ->orderBy('attendances.checkin_time', 'ASC')
             ->paginate(20);
