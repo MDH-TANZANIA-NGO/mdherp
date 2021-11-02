@@ -26,8 +26,6 @@ class RequisitionRepository extends BaseRepository {
             DB::raw('requisitions.status AS status'),
             DB::raw('requisitions.created_at AS created_at'),
             DB::raw('requisitions.type AS type'),
-
-
         ])
             ->join('activities', 'activities.id', 'requisitions.activities_id')
             ->join('users', 'users.id', 'requisitions.user_id')
@@ -80,8 +78,7 @@ class RequisitionRepository extends BaseRepository {
      */
     public function store($inputs){
         return DB::transaction(function () use($inputs){
-            $requisition = $this->query()->create($this->inputsProcessor($inputs));
-            return $requisition;
+           return $this->query()->create($this->inputsProcessor($inputs));
         });
     }
     public function update($inputs, Requisition $requisition)
