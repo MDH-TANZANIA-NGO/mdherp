@@ -106,4 +106,20 @@ class ActivityRepository extends BaseRepository
             ->groupBy('activities.id','activities.code','activities.title','activities.description','activities.uuid','output_units.title','program_areas.title','sub_programs.title')
             ->get();
     }
+
+    public function getActivityRegions($activity_id){
+        return $this->query()->select([
+            DB::raw('regions.id AS id'),
+            DB::raw('regions.name AS name'),
+        ])
+            ->from('activities')
+            ->join('sub_programs','sub_programs.id', 'activities.sub_program_id')
+            ->join('program_areas','program_areas.id','sub_programs.program_area_id')
+            ->join('program_area_project','program_area_project.program_area_id','program_areas.id')
+            ->join('projects','projects.id','program_area_project.project_id')
+            ->join('project_region', 'project_region.project_id', 'projects.id' )
+            ->join('regions', 'regions.id', 'project_region.region_id')
+            ->where('activities.id', $activity_id)
+            ->get();
+    }
 }
