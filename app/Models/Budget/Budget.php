@@ -10,13 +10,4 @@ use Illuminate\Database\Eloquent\Model;
 class Budget extends BaseModel
 {
     use BudgetAttribute, BudgetRelationship;
-
-    public function format(){
-        return [
-            'uuid' => $this->uuid,
-            'fiscal year' => $this->fiscalYear()->title,
-            'activity' => $this->activity()->title,
-            'amount' => $this->amount
-       ];
-    }
 }
