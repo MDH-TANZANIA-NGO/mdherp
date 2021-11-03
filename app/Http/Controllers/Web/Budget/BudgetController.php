@@ -56,7 +56,6 @@ class BudgetController extends Controller
     public function store(Request $request)
     {
         $this->budgets->store($request->all());
-        //chances are even the subBudget could be saved here together with the budget
         alert()->success('Budget Created Successfully','success');
         return redirect()->back();
     }
