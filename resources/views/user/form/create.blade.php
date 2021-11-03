@@ -13,21 +13,21 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {!! Form::label('first_name', __("label.name.first"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::text('first_name',old('first_name'),['class' => 'form-control', 'placeholder' => '','required']) !!}
+                                {!! Form::text('first_name',old('first_name'),['class' => 'form-control', 'placeholder' => 'ie. John','required']) !!}
                                 {!! $errors->first('first_name', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="form-group">
                                 {!! Form::label('middle_name', __("label.name.middle"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::text('middle_name',old('middle_name'),['class' => 'form-control', 'placeholder' => '','required']) !!}
+                                {!! Form::text('middle_name',old('middle_name'),['class' => 'form-control', 'placeholder' => 'ie. Someone','required']) !!}
                                 {!! $errors->first('middle_name', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="form-group">
                                 {!! Form::label('last_name', __("label.name.last"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::text('last_name',old('last_name'),['class' => 'form-control', 'placeholder' => '','required']) !!}
+                                {!! Form::text('last_name',old('last_name'),['class' => 'form-control', 'placeholder' => 'ie. Doe','required']) !!}
                                 {!! $errors->first('last_name', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
@@ -42,14 +42,14 @@
                         <div class="col-sm-6 col-md-4">
                             <div class="form-group">
                                 {!! Form::label('email', __("label.email"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::email('email',old('email'),['class' => 'form-control', 'placeholder' => '','required']) !!}
+                                {!! Form::email('email',old('email'),['class' => 'form-control', 'placeholder' => 'ie. initials@mdh.or.tz','required']) !!}
                                 {!! $errors->first('email', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="form-group">
                                 {!! Form::label('phone', __("label.phone"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::text('phone',old('phone'),['class' => 'form-control', 'placeholder' => '','required']) !!}
+                                {!! Form::number('phone',old('phone'),['class' => 'form-control', 'placeholder' => 'ie. 0712311311','required']) !!}
                                 {!! $errors->first('phone', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
