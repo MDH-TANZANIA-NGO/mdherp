@@ -66,7 +66,8 @@ class ProgramAreaController extends Controller
         $program_area = $this->program_areas->findByUuid($uuid);
         return view('project.program_area.show')
             ->with('program_area', $program_area)
-            ->with('projects', $this->projects->getAll()->pluck('title','id'));
+            ->with('projects', $this->projects->getAll()->pluck('title','id'))
+            ->with('program_area_projects', $program_area->projects()->pluck('projects.id')->toArray());
     }
 
     /**

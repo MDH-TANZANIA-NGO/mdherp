@@ -2,13 +2,22 @@
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
     <div class="card">
+        <div class="card-header" style="background-color: rgb(238, 241, 248)">
+            <div class="row text-center">
+                <span class="col-12 text-center font-weight-bold">ACTIVITY: {{ $activity->title }}</span>
+                </div>
+            {{-- <h3 class="card-title">hey</h3> --}}
+        </div>
         <div class="card-body">
+            
+
+              
             <div class="row">
 
                 <div class="col-3">
-                    {!! Form::label('program_area', __("label.program_area"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::select('program_area', $program_areas, $activity->program_area_id,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
-                    {!! $errors->first('program_area', '<span class="badge badge-danger">:message</span>') !!}
+                    {!! Form::label('sub_program', __("label.sub_program"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('sub_program', $sub_programs, $activity->sub_program_id,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! $errors->first('sub_program', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
                 <div class="col-3">
@@ -17,13 +26,21 @@
                     {!! $errors->first('code', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
-                <div class="col-3">
+                <div class="col-6">
                     {!! Form::label('title', __("label.title"),['class'=>'form-label','required_asterik']) !!}
                     {!! Form::text('title', $activity->title, ['class' => 'form-control', 'required']) !!}
                     {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
+                <div class="col-3">
+                    {!! Form::label('output_unit', __("label.output_unit"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('output_unit', $output_unit, $activity->output_unit_id,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! $errors->first('output_unit', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+
             </div>
+
+            &nbsp;
 
             <div class="row">
                 <div class="col-12 mt-1">
@@ -33,8 +50,15 @@
                 </div>
             </div>
 
+            &nbsp;
+
+
             <div class="row">
+                <div class="col-12">
+                    <div style="text-align: center;">
                 <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Update Activity </button>
+            </div>
+                </div>
             </div>
 
         </div>

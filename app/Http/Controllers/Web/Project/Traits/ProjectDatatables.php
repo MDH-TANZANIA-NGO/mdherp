@@ -9,14 +9,12 @@ use Yajra\DataTables\DataTables;
 trait ProjectDatatables
 {
     /**
-     * get access user rejected
      * @return mixed
      * @throws \Exception
      */
     public function allDatatable()
     {
-        $tafs = $this->projects->getActive();
-        return DataTables::of($tafs)
+        return DataTables::of($this->projects->getActive())
             ->addIndexColumn()
             ->editColumn('description', function ($query) {
                 return substr($query->description, 0, 50)."...";

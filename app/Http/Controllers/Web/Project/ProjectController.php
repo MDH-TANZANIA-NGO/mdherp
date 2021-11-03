@@ -88,4 +88,13 @@ class ProjectController extends Controller
         $this->projects->activate($request->all(), $project);
         return redirect()->back()->with('success','Project Activated Successfully');
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function byRegion(Request $request)
+    {
+        return response()->json($this->projects->getByRegion($request->only('region_id')));
+    }
 }

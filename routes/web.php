@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if(access()->guest()) {
-        return view('welcome');
+        return view('welcomepage');
     }else{
         return redirect()->route('workspace.invoke');
     }
@@ -31,7 +31,6 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 
-//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/userslist', 'Userslist@index')->name('userslist');
 Route::get('/userregister', 'Usersregister@index')->name('userregister');
