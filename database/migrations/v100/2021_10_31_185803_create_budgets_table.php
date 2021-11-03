@@ -16,11 +16,10 @@ class CreateBudgetsTable extends Migration
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('fiscal_year_id');
-            $table->unsignedSmallInteger('region_id');
             $table->unsignedBigInteger('activity_id');
-            $table->integer('numeric_output')->default(0);
+            $table->unsignedSmallInteger('activity_id');
+            $table->string('code');
             $table->decimal('amount', 15,2)->nullable();
-            $table->boolean('active');
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();

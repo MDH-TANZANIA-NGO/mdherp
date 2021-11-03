@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Budget;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Budget\Traits\BudgetDatatables;
+use App\Models\Budget\Budget;
 use App\Repositories\Budget\BudgetRepository;
 use App\Repositories\Budget\FiscalYearRepository;
 use App\Repositories\Project\ActivityRepository;
@@ -31,9 +32,10 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        return view('budget.budget.index')
-            ->with('activities', $this->activities->getActive()->pluck('code_title','id'))
-            ->with('fiscal_years', $this->fiscal_years->getActive()->pluck('title', 'id'));
+        return ['budgets' => $this->budgets->all()];
+//        return view('budget.budget.index')
+//            ->with('activities', $this->activities->getActive()->pluck('code_title','id'))
+//            ->with('fiscal_years', $this->fiscal_years->getActive()->pluck('title', 'id'));
     }
 
     /**
@@ -43,7 +45,11 @@ class BudgetController extends Controller
      */
     public function create()
     {
-        //
+        return ['activity' => $this->activities->all(), 'financial_years' => $this->fiscal_years->all()];
+    }
+
+    public function byRegion($activityID){
+        return ['regions' => $this->activities->getActivityRegions($activityID)];
     }
 
     /**
@@ -54,7 +60,10 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->budgets->store($request->all());
+        //chances are even the subBudget could be saved here together with the budget
+        alert()->success('Budget Created Successfully','success');
+        return redirect()->back();
     }
 
     /**
@@ -63,9 +72,9 @@ class BudgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Budget $budget)
     {
-        //
+        return ['budget' => $budget];
     }
 
     /**
@@ -86,9 +95,10 @@ class BudgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Budget $budget)
     {
-        //
+        $this->budgets->update($request->all(), $budget);
+        return redirect()->back()->with('success','Budget Updated Successfully');
     }
 
     /**
