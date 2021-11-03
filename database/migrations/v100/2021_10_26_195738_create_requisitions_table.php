@@ -25,6 +25,13 @@ class CreateRequisitionsTable extends Migration
             $table->tinyInteger('type');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('activity_id')->references('id')->on('activities')
+                ->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('restrict');
+            $table->foreign('district_id')->references('id')->on('districts')
+                ->onDelete('restrict');
         });
     }
 
