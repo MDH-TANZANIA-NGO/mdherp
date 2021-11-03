@@ -32,10 +32,9 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        return ['budgets' => $this->budgets->all()];
-//        return view('budget.budget.index')
-//            ->with('activities', $this->activities->getActive()->pluck('code_title','id'))
-//            ->with('fiscal_years', $this->fiscal_years->getActive()->pluck('title', 'id'));
+        return view('budget.budget.index')
+            ->with('activities', $this->activities->getActive()->pluck('code_title','id'))
+            ->with('fiscal_years', $this->fiscal_years->getActive()->pluck('title', 'id'));
     }
 
     /**
@@ -45,11 +44,7 @@ class BudgetController extends Controller
      */
     public function create()
     {
-        return ['activity' => $this->activities->all(), 'financial_years' => $this->fiscal_years->all()];
-    }
 
-    public function byRegion($activityID){
-        return ['regions' => $this->activities->getActivityRegions($activityID)];
     }
 
     /**

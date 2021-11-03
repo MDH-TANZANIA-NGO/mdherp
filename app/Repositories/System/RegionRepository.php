@@ -96,8 +96,8 @@ class RegionRepository extends BaseRepository
             ->join('program_area_project', 'program_area_project.project_id','projects.id')
             ->join('program_areas','program_areas.id','program_area_project.program_area_id')
             ->join('sub_programs','sub_programs.program_area_id','program_areas.id')
-            ->join('activities','activities.sub_program_id','sub_program_area.id')
-            ->groupBy('regions.id')
+            ->join('activities','activities.sub_program_id','sub_programs.id')
+            ->groupBy('regions.id','regions.name')
             ->where('activities.id',$activity_id)
             ->get();
     }

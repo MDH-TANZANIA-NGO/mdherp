@@ -29,10 +29,11 @@ class ProjectRepository extends BaseRepository
             DB::raw('code_values.id AS type_id'),
             DB::raw('projects.uuid AS uuid'),
             DB::raw('projects.created_at AS created_at'),
-            DB::raw('count(project_region.id) AS regions_count')
+            DB::raw("string_agg(DISTINCT regions.name, ',') AS regions_count")
         ])
             ->join('code_values','code_values.id','projects.project_type_cv_id')
             ->leftjoin('project_region','project_region.project_id','projects.id')
+            ->leftjoin('regions','regions.id', 'project_region.id')
             ->groupBy([
                 'projects.id',
                 'projects.code',
@@ -43,7 +44,7 @@ class ProjectRepository extends BaseRepository
                 'code_values.name',
                 'code_values.id',
                 'projects.uuid',
-                'projects.created_at'
+                'projects.created_at',
             ]);
     }
 
