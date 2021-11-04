@@ -55,7 +55,7 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-        $this->budgets->store($request->all());
+        $this->budgets->processStore($request->all());
         alert()->success('Budget Created Successfully','success');
         return redirect()->back();
     }
