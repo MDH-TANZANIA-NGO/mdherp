@@ -8,11 +8,12 @@
                     <table id="budgets_table" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                         <tr>
-                            <th class="wd-15p">Activity</th>
-                            <th class="wd-15p">AMOUNT</th>
-                            <th class="wd-20p">REGIONS</th>
+                            <th class="wd-15p">#</th>
+                            <th class="wd-15p">ACTIVITY</th>
                             <th class="wd-15p">FISCAL YEAR</th>
-                            <th class="wd-10p">ACTION</th>
+                            <th class="wd-20p">{{ __('label.region') }}</th>
+                            <th class="wd-15p">NUMERIC OUTPUT</th>
+                            <th class="wd-15p">{{ __('label.total_amount') }}</th>
                         </tr>
                         </thead>
                     </table>
@@ -33,18 +34,14 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('project.datatable.all') }}',
+                ajax: '{{ route('budget.datatable.all_active') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'code', name: 'projects.code', searchable: true},
-                    { data: 'title', name: 'projects.title', searchable: true},
-                    { data: 'type', name: 'code_values.name', searchable: true},
-                    { data: 'regions_count', name: 'regions_count', searchable: true},
-                    // { data: 'description', name: 'projects.description', searchable: true},
-                    { data: 'start_year', name: 'projects.start_year', searchable: true},
-                    { data: 'end_year', name: 'projects.end_year.', searchable: true },
-                    // { data: {_: 'created_at.display',sort: 'created_at.timestamp'}, name: 'created_at', searchable: false },
-                    { data: 'action', name: 'action', searchable: false },
+                    { data: 'activity_title', name: 'activities.title', searchable: true},
+                    { data: 'fiscal_year', name: 'fiscal_years.title', searchable: true},
+                    { data: 'region_list', name: 'regions.name', searchable: true},
+                    { data: 'numeric_output_sum', name: 'numeric_output_sum', searchable: true},
+                    { data: 'total_amount', name: 'total_amount', searchable: true},
                 ]
             });
         })

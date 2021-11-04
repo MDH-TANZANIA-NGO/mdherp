@@ -20,7 +20,10 @@ class FiscalYearRepository extends BaseRepository
             DB::raw('fiscal_years.to_at AS to_at'),
             DB::raw('fiscal_years.active AS active'),
             DB::raw('fiscal_years.uuid AS uuid'),
-        ]);
+            DB::raw('sum(budgets.amount) AS total_amount'),
+        ])
+            ->leftJoin('budgets','budgets.fiscal_year_id','fiscal_years.id')
+            ->groupBy('fiscal_years.id');
     }
 
     public function getActive()

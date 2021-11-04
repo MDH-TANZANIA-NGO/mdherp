@@ -7,6 +7,7 @@
                 <th class="wd-20p">{{ __('label.title') }}</th>
                 <th class="wd-20p">{{ __('label.start_date') }}</th>
                 <th class="wd-20p">{{ __('label.end_date') }}</th>
+                <th class="wd-20p">{{ __('label.total_amount') }}</th>
                 <th class="wd-20p">{{ __('label.status') }}</th>
                 <th class="wd-10p">MORE</th>
             </tr>
@@ -31,6 +32,7 @@
                     { data: 'title', name: 'fiscal_year.title', searchable: true},
                     { data: 'from_at', name: 'fiscal_year.from_at', searchable: true},
                     { data: 'to_at', name: 'fiscal_year.to_at', searchable: true},
+                    { data: 'total_amount', name: 'total_amount', searchable: true},
                     { data: 'status', name: 'fiscal_year.active', searchable: true},
                     { data: 'action', name: 'action', searchable: false },
                 ]

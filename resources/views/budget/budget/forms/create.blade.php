@@ -1,4 +1,4 @@
-{!! Form::open() !!}
+{!! Form::open(['route' => 'budget.store','method'=>'POST']) !!}
 <div class="card-body">
     <div class="row">
         <div class="col-md-8">
@@ -30,38 +30,6 @@
                 </tbody>
             </table>
         </div>
-
-        {!! Form::hidden('regions[]',null) !!}
-
-    {{--            <div class="table-responsive">--}}
-    {{--                <table class="table card-table table-vcenter text-nowrap">--}}
-    {{--                    <thead >--}}
-    {{--                    <tr>--}}
-    {{--                        <th>Region</th>--}}
-    {{--                        <th>Amount</th>--}}
-    {{--                        <th>Numeric Output</th>--}}
-    {{--                    </tr>--}}
-    {{--                    </thead>--}}
-    {{--                    <tbody>--}}
-    {{--                    <tr>--}}
-    {{--                        <td>Tabora</td>--}}
-    {{--                        <td><input type="number" class="form-control" placeholder="Amount"></td>--}}
-    {{--                        <td><input type="number" class="form-control" placeholder="Numeric Output"></td>--}}
-    {{--                    </tr>--}}
-    {{--                    <tr>--}}
-    {{--                        <td>Geita</td>--}}
-    {{--                        <td><input type="number" class="form-control" placeholder="Amount"></td>--}}
-    {{--                        <td><input type="number" class="form-control" placeholder="Numeric Output"></td>--}}
-    {{--                    </tr>--}}
-    {{--                    <tr>--}}
-    {{--                        <td>Dar es salaam</td>--}}
-    {{--                        <td><input type="number" class="form-control" placeholder="Amount"></td>--}}
-    {{--                        <td><input type="number" class="form-control" placeholder="Numeric Output"></td>--}}
-    {{--                    </tr>--}}
-    {{--                    </tbody>--}}
-    {{--                </table>--}}
-    {{--            </div>--}}
-    <!-- table-responsive -->
         <button type="submit" class="btn btn-primary" style="margin-left:40%;">Submit </button>
 
 
@@ -76,7 +44,6 @@
             let $activity_select = $("select[name='activity']");
             let $additional_inputs = $("#additional_inputs");
             let $regions = $("input[name='regions[]']");
-            let $region_array = [];
 
             $activity_select.change(function (event) {
                 event.preventDefault();
@@ -89,10 +56,8 @@
                     $additional_inputs.empty();
                     if(data.length > 0){
                         $.each(data, function (i){
-                            $region_array.push(data[i].id);
                             draw_form(data, i)
                         });
-                        $regions.val($region_array);
                     }else{
 
                     }
@@ -103,6 +68,7 @@
             {
                 $additional_inputs.append("<tr>"+
                     "<td>"+data[i].name+"</td>" +
+                    '<td>'+'<input name="regions[]" type="hidden" value="'+data[i].id+'">'+'</td>'+
                     '<td>'+'<input name="amount'+data[i].id+'" type="number" class="form-control" placeholder="Amount" required>'+'</td>'+
                     '<td>'+'<input name="output'+data[i].id+'" type="number" class="form-control" placeholder="Numeric Output" required>'+'</td>'+
                     "</tr>")
