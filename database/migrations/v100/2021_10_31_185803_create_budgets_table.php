@@ -17,14 +17,12 @@ class CreateBudgetsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('fiscal_year_id');
             $table->unsignedBigInteger('activity_id');
+            $table->unsignedSmallInteger('region_id');
             $table->string('code');
-            $table->decimal('amount');
+            $table->decimal('amount', 15,2)->nullable();
+            $table->uuid('uuid');
+            $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('fiscal_year_id')->references('id')->on('fiscal_years')
-                ->onDelete('restrict');
-            $table->foreign('activity_id')->references('id')->on('activities')
-                ->onDelete('restrict');
         });
     }
 
