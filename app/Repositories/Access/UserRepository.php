@@ -12,31 +12,31 @@ class UserRepository extends BaseRepository
 
     protected $user_account_cv_id = 9;
 
-    /**
-     * @return mixed
-     */
-    public function getQuery()
-    {
-        return $this->query()
-            ->select([
-                DB::raw("users.id AS user_id"),
-                DB::raw("concat_ws(' ', users.first_name, users.last_name) as name"),
-                DB::raw("code_values.name as gender"),
-                DB::raw('users.phone as phone'),
-                DB::raw("concat_ws(' ', units.name, designations.name) as designation"),
-                DB::raw('regions.name as region'),
-                DB::raw("users.isactive as isactive"),
-                DB::raw("users.uuid as uuid"),
-                DB::raw("users.email as email"),
-//                DB::raw("users.fingerprint_length as fingerprint_length"),
-//                DB::raw("users.fingerprint_data as fingerprint_data"),
-            ])
-            ->leftjoin('regions', 'regions.id', 'users.region_id')
-            ->leftjoin('code_values', 'code_values.id', 'users.gender_cv_id')
-            ->leftjoin('designations', 'designations.id', 'users.designation_id')
-            ->leftjoin('units', 'units.id', 'designations.unit_id');
-//            ->where('users.user_account_cv_id', '!=', $this->user_account_cv_id);
-    }
+//    /**
+//     * @return mixed
+//     */
+//    public function getQuery()
+//    {
+//        return $this->query()
+//            ->select([
+//                DB::raw("users.id AS user_id"),
+//                DB::raw("concat_ws(' ', users.first_name, users.last_name) as name"),
+//                DB::raw("code_values.name as gender"),
+//                DB::raw('users.phone as phone'),
+//                DB::raw("concat_ws(' ', units.name, designations.name) as designation"),
+//                DB::raw('regions.name as region'),
+//                DB::raw("users.isactive as isactive"),
+//                DB::raw("users.uuid as uuid"),
+//                DB::raw("users.email as email"),
+////                DB::raw("users.fingerprint_length as fingerprint_length"),
+////                DB::raw("users.fingerprint_data as fingerprint_data"),
+//            ])
+//            ->leftjoin('regions', 'regions.id', 'users.region_id')
+//            ->leftjoin('code_values', 'code_values.id', 'users.gender_cv_id')
+//            ->leftjoin('designations', 'designations.id', 'users.designation_id')
+//            ->leftjoin('units', 'units.id', 'designations.unit_id');
+////            ->where('users.user_account_cv_id', '!=', $this->user_account_cv_id);
+//    }
 
     public function getUserByEmail($email)
     {
@@ -189,7 +189,6 @@ class UserRepository extends BaseRepository
      * @param User $user
      * @return mixed
      */
-    public function UpdateIsActivate(User $user)
     private function processInputs($inputs)
     {
         return [
