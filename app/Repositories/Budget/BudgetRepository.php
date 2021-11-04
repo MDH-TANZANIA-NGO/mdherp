@@ -10,44 +10,24 @@ class BudgetRepository extends BaseRepository
 {
     const MODEL = Budget::class;
 
-    /**
-     *return mixed
-     */
-   public function all(){
-       return Budget::with(['activity', 'fiscalYear'])
-           ->get();
-   }
-
-    /**
-     * Inputs Processor
-     * @param $inputs
-     * @return array
-     */
-    public function inputsProcessor($inputs)
+    public function processStore($inputs)
     {
-        return [
-            'fiscal_year_id' => $inputs['fiscal_year_id'],
-            'activity_id' => $inputs['activity_id'],
-            'code' => $inputs['code'],
-            'amount' => $inputs['amount'],
-        ];
+        foreach ($inputs['regions'] as $region){
+            $input = [
+                'fiscal_year_id' => $inputs['fiscal_year'],
+                'region_id' => $inputs['region'.$region],
+                'activity_id' => $inputs['activity'],
+                'numeric_output' => $inputs['numeric_output'.$region],
+                'amount' => $inputs['amount'.$region],
+            ];
+            $this->store($input);
+        }
     }
 
-    /**
-     * Store new Project
-     * @param $inputs
-     * @return mixed
-     */
-    public function store($inputs){
-        return DB::transaction(function () use($inputs){
-            return $this->query()->create($this->inputsProcessor($inputs));
-        });
-    }
-    public function update($inputs, Budget $budget)
+    public function store($input)
     {
-        return DB::transaction(function () use($inputs, $budget){
-            $budget->update($this->inputsProcessor($inputs));
-            return $budget;
+        return DB::transaction(function() use ($input){
+            $this->query()->store($input);
         });
     }
 }
