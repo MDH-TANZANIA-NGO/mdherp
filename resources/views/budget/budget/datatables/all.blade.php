@@ -13,7 +13,6 @@
                             <th class="wd-15p">FISCAL YEAR</th>
                             <th class="wd-20p">REGIONS</th>
                             <th class="wd-15p">AMOUNT</th>
-                            <th class="wd-10p">ACTION</th>
                         </tr>
                         </thead>
                     </table>
@@ -41,7 +40,6 @@
                     { data: 'fiscal_year', name: 'fiscal_years.title', searchable: true},
                     { data: 'region_list', name: 'regions.name', searchable: true},
                     { data: 'total_amount', name: 'total_amount', searchable: true},
-                    { data: 'action', name: 'action', searchable: false },
                 ]
             });
         })
