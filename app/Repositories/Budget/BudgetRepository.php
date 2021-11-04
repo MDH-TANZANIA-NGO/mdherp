@@ -16,6 +16,7 @@ class BudgetRepository extends BaseRepository
             DB::raw('activities.title AS activity_title'),
             DB::raw('SUM(budgets.amount) AS total_amount'),
             DB::raw('fiscal_years.title AS fiscal_year'),
+            DB::raw('SUM(budgets.numeric_output) AS numeric_output_sum'),
             DB::raw("string_agg(DISTINCT regions.name, ',') as region_list"),
         ])
             ->join('activities','activities.id','budgets.activity_id')

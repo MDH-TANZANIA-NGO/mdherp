@@ -11,8 +11,9 @@
                             <th class="wd-15p">#</th>
                             <th class="wd-15p">ACTIVITY</th>
                             <th class="wd-15p">FISCAL YEAR</th>
-                            <th class="wd-20p">REGIONS</th>
-                            <th class="wd-15p">AMOUNT</th>
+                            <th class="wd-20p">{{ __('label.region') }}</th>
+                            <th class="wd-15p">NUMERIC OUTPUT</th>
+                            <th class="wd-15p">{{ __('label.total_amount') }}</th>
                         </tr>
                         </thead>
                     </table>
@@ -39,6 +40,7 @@
                     { data: 'activity_title', name: 'activities.title', searchable: true},
                     { data: 'fiscal_year', name: 'fiscal_years.title', searchable: true},
                     { data: 'region_list', name: 'regions.name', searchable: true},
+                    { data: 'numeric_output_sum', name: 'numeric_output_sum', searchable: true},
                     { data: 'total_amount', name: 'total_amount', searchable: true},
                 ]
             });
