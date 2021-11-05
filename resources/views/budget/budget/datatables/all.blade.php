@@ -42,6 +42,7 @@
                     { data: 'region_list', name: 'regions.name', searchable: true},
                     { data: 'numeric_output_sum', name: 'numeric_output_sum', searchable: true},
                     { data: 'total_amount', name: 'total_amount', searchable: true},
+                    { data: 'action', name: 'action', searchable: false},
                 ]
             });
         })
