@@ -12,6 +12,6 @@ Route::group(['namespace' => 'Budget', 'middleware' => ['web', 'auth'], 'prefix'
      * Datatables
      */
     Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
-        Route::get('all', 'BudgetController@allDatatable')->name('all');
+        Route::get('all-active', 'BudgetController@allActiveDatatable')->name('all_active');
     });
 });

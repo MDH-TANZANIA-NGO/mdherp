@@ -16,6 +16,9 @@ trait FiscalYearDatatables
     {
         return DataTables::of($this->fiscal_years->getActive())
             ->addIndexColumn()
+            ->editColumn('total_amount', function ($query) {
+                return number_2_format($query->total_amount). '/=';
+            })
             ->addColumn('status', function ($query) {
                 return $query->active?"<span class='badge badge-success'/>ACTIVE</span>" : "<span class='badge badge-danger'/>DE-ACTIVE</span>";
             })

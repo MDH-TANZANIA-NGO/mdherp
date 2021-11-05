@@ -18,8 +18,9 @@ class CreateBudgetsTable extends Migration
             $table->unsignedBigInteger('fiscal_year_id');
             $table->unsignedBigInteger('activity_id');
             $table->unsignedSmallInteger('region_id');
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->decimal('amount', 15,2)->nullable();
+            $table->boolean('active')->default(true);
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
