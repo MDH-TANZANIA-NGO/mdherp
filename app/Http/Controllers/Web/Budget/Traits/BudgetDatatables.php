@@ -15,6 +15,9 @@ trait BudgetDatatables
     {
         return DataTables::of($this->budgets->getAllActive())
             ->addIndexColumn()
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('activity.show_fiscal_year', [$query->activity_uuid,$query->fiscal_year_uuid]).'">View</a>';
+            })
             ->make(true);
     }
 }
