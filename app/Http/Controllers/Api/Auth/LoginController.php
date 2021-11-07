@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Api\Auth\Traits\AuthenticationTrait;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class AuthenticationController extends BaseController
+class LoginController extends BaseController
 {
     use AuthenticationTrait;
 //    use ApiResponser;
@@ -31,10 +33,9 @@ class AuthenticationController extends BaseController
 
 
     // this method  logout users by removing tokens
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->user()->tokens()->delete();
-
+        $request->user()->token()->revoke();
         $success['state'] = 'Logout';
         return $this->sendResponse($success,'User Logout Successfully');
     }

@@ -14,7 +14,9 @@ use OwenIt\Auditing\Auditable;
 use Webpatser\Uuid\Uuid;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use App\Notifications\Auth\ResetPasswordNotification;
-use Laravel\Sanctum\HasApiTokens;
+//use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
+
 class User extends Authenticatable implements AuditableContract
 {
     use HasApiTokens, Notifiable, UserAccess, UserRelationship, UserAttribute, Auditable, SoftDeletes;

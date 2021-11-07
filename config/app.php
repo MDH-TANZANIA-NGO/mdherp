@@ -168,6 +168,7 @@ return [
         OwenIt\Auditing\AuditingServiceProvider::class,
         App\Providers\AccessServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Application Service Providers...

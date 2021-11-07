@@ -243,4 +243,13 @@ class UserRepository extends BaseRepository
             ->where('active', false);
     }
 
+    /**
+     *
+     * @return mixed
+     */
+    public function getApiAuth()
+    {
+        return $this->getQuery()->where('users.id',access()->id())->first();
+    }
+
 }
