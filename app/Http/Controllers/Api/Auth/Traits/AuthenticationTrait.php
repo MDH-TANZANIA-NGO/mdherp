@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api\Auth\Traits;
 use App\Models\Auth\User;
 use App\Repositories\Access\UserRepository;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 trait AuthenticationTrait
@@ -45,7 +47,7 @@ trait AuthenticationTrait
             $return = $this->sendError('Account De-activated', NULL);
         }else{
 
-            $access_token =  $user->createToken('access_token')->plainTextToken;
+            $access_token =  $user->createToken('access_token')->accessToken;
             $success['user'] = $user->api_auth;
             $success['token'] =[
                 'token_type' => 'Bearer',

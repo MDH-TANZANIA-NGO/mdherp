@@ -243,4 +243,42 @@ class UserRepository extends BaseRepository
             ->where('active', false);
     }
 
+    /**
+     *
+     * @return mixed
+     */
+    public function getApiAuth()
+    {
+        return $this->getUserQuery()->where('users.id',access()->id())->first();
+    }
+
+    public function getUserQuery()
+    {
+        return $this->query()->select([
+            DB::raw('users.id AS user_id'),
+            DB::raw('users.identity_number As identity_number'),
+            DB::raw("CONCAT_WS(' ', users.first_name,users.last_name) AS full_name"),
+            DB::raw('users.first_name AS first_name'),
+            DB::raw('users.last_name AS last_name'),
+            DB::raw('users.gender_cv_id as gender_cv_id'),
+            DB::raw('code_values.name as marital_status'),
+            DB::raw('users.user_account_cv_id'),
+            DB::raw('users.email AS email'),
+            DB::raw('users.phone AS phone'),
+            DB::raw('users.uuid AS uuid'),
+            DB::raw('users.dob as dob'),
+            DB::raw('users.employed_date as employed_date'),
+            DB::raw('regions.name AS region'),
+            DB::raw("CONCAT_WS(' ', units.name, designations.name) AS designation"),
+            DB::raw("string_agg(DISTINCT projects.title, ',') as project_list"),
+        ])
+            ->leftJoin('code_values', 'code_values.id', 'users.marital_status_cv_id')
+            ->leftJoin('regions','regions.id', 'users.region_id')
+            ->leftJoin('designations','designations.id','users.designation_id')
+            ->leftJoin('units','units.id','designations.unit_id')
+            ->leftJoin('project_user','project_user.user_id','users.id')
+            ->leftJoin('projects','projects.id','project_user.project_id')
+            ->groupBy('users.id','users.first_name','users.last_name','units.name','designations.name','users.phone','users.uuid','regions.name', 'code_values.id');
+    }
+
 }
