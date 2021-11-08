@@ -35,10 +35,10 @@
                         </div>
 
                         {{-- toggle switch  --}}
-                        <div class="material-switch pull-right">
+                        {{-- <div class="material-switch pull-right">
                             <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
                             <label for="someSwitchOptionSuccess" class="label-success"></label>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="margin-left:40%;">Register</button>
