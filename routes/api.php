@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', 'Api\Auth\AuthenticationController@login');
+Route::post('login', 'Api\Auth\LoginController@login');
 
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/user', function(Request $request) {
-        return $request->user();
-    });
+Route::group(['middleware' => 'auth:api'], function () {
+//    Route::get('/user', function(Request $request) {
+//        return $request->user();
+//    });
     Route::post('attendance/store', 'Api\Attendance\AttendanceController@store');
     Route::get('{user}/attendances', 'Api\Attendance\AttendanceController@show');
-    Route::post('/logout', 'Api\Auth\AuthenticationController@logout');
+    Route::post('/logout', 'Api\Auth\LoginController@logout');
 });

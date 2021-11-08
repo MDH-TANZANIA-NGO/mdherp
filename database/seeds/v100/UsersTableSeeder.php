@@ -4,6 +4,7 @@ use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Illuminate\Database\Seeder;
 
+
 class UsersTableSeeder extends Seeder
 {
     use DisableForeignKeys, TruncateTable;
@@ -26,7 +27,7 @@ class UsersTableSeeder extends Seeder
                 'phone' => '+255712123456',
                 'password' => bcrypt(config('mdh.password')),
                 'gender_cv_id' => 6,
-//                'isactive' => 1,
+                'isactive' => 1,
             ]);
             $this->enableForeignKeys("users");
 
