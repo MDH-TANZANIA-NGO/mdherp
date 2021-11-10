@@ -24,7 +24,7 @@ class CreateFleetsTable extends Migration
             $table->string('origin_country');
             $table->string('fuel_type');
             $table->integer('engine_size');
-            $table->integer('chasis_no');
+            $table->string('chasis_no');
             $table->string('vehicle_reg_no');
             $table->string('driver');
             $table->string('isactive');

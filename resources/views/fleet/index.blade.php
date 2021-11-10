@@ -7,16 +7,12 @@
                 <div class="tabs-menu1 ">
                     <!-- Tabs -->
                     <ul class="nav panel-tabs">
-                        <li class=""><a href="#tab5" class="active" data-toggle="tab">Active{{-- <span class="badge badge-success">20</span>--}}</a></li>
-                        <li><a href="#tab6" data-toggle="tab" class="">Inactive {{--<span class="badge badge-danger">5</span>--}}</a></li>
+                        <li class=""><a href="#tab5" class="active" data-toggle="tab">Active Vehicles{{-- <span class="badge badge-success">20</span>--}}</a></li>
+                        <li><a href="#tab6" data-toggle="tab" class="">Inactive Vehicles {{--<span class="badge badge-danger">5</span>--}}</a></li>
                     </ul>
                 </div>
 
-                <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
-                    <div class="btn-group mb-0">
-                        <a href="{{ route('user.create') }}"> <i class="fa fa-plus mr-2"></i>Add Staff</a>
-                    </div>
-                </div>
+
 
             </div>
             <div class="panel-body tabs-menu-body">
