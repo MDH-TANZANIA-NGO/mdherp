@@ -17,6 +17,15 @@
                 <li><a class="slide-item"  href="{{ route('user.create') }}"><span>Register</span></a></li>
             </ul>
         </li>
+
+        <li class="slide">
+            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon mdi mdi-car"></i><span class="side-menu__label">Fleet Management</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item"  href="{{ route('fleet.index') }}"><span>Fleet List</span></a></li>
+                <li><a class="slide-item"  href="#"><span>Fleet Register</span></a></li>
+            </ul>
+        </li>
+
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-settings"></i><span class="side-menu__label">System Settings</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
