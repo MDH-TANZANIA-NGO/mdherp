@@ -13,7 +13,7 @@
 
 </a>
 
-<a href="">
+<a href="{{route('fleet.index')}}">
     <div class="card" style="width: 15%; align-content: center">
         <div class="card-body text-center">
             <div class="h2 m-0"><i class="mdi mdi-car text-blue"></i> </div>
