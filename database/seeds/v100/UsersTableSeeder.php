@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
                 'phone' => '+255712123456',
                 'password' => bcrypt(config('mdh.password')),
                 'gender_cv_id' => 6,
-                'isactive' => 1,
+                'active' => 1,
             ]);
             $this->enableForeignKeys("users");
 
