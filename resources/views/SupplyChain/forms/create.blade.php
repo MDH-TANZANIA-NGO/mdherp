@@ -6,7 +6,7 @@
 
         <div class="card-header" style="background-color: rgb(238, 241, 248)">
             <div class="row text-center">
-                <span class="col-12 text-center font-weight-bold">Receive Goods</span>
+                <span class="col-12 text-center font-weight-bold">New Stock</span>
             </div>
 
             <div class="card-options ">
@@ -20,16 +20,41 @@
             <div class="row">
 
                 <div class="col-6" >
-                    <label class="form-label">Title</label>
-                    <input type="text" class="form-control" name="code" placeholder="ie. Laptops" required>
-                    @error('title')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                    @enderror
+                    <label class="form-label">Expense ID</label>
+                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
+                        <optgroup label="Mountain Time Zone">
+                            <option value="AZ">Arizona</option>
+                            <option value="CO">Colorado</option>
+                            <option value="ID">Idaho</option>
+                            <option value="MT">Montana</option><option value="NE">Nebraska</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="UT">Utah</option>
+                            <option value="WY">Wyoming</option>
+                        </optgroup>
+                        <optgroup label="Central Time Zone">
+                            <option value="AL">Alabama</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TX">Texas</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="WI">Wisconsin</option>
+                        </optgroup>
+                    </select>
                 </div>
 
                 <div class="col-6">
-                    <label class="form-label">Quantity</label>
-                    <input type="number" class="form-control" name="title" placeholder="ie. 10.5" required>
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="i.e Laptops" required>
                     @error('title')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
@@ -58,8 +83,48 @@
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
                 </div>
-                <div class="col-6">
-                    <label class="form-label"> Send To</label>
+{{--                <div class="col-6">--}}
+{{--                    <label class="form-label"> Send To</label>--}}
+{{--                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">--}}
+{{--                        <optgroup label="Mountain Time Zone">--}}
+{{--                            <option value="AZ">Arizona</option>--}}
+{{--                            <option value="CO">Colorado</option>--}}
+{{--                            <option value="ID">Idaho</option>--}}
+{{--                            <option value="MT">Montana</option><option value="NE">Nebraska</option>--}}
+{{--                            <option value="NM">New Mexico</option>--}}
+{{--                            <option value="ND">North Dakota</option>--}}
+{{--                            <option value="UT">Utah</option>--}}
+{{--                            <option value="WY">Wyoming</option>--}}
+{{--                        </optgroup>--}}
+{{--                        <optgroup label="Central Time Zone">--}}
+{{--                            <option value="AL">Alabama</option>--}}
+{{--                            <option value="AR">Arkansas</option>--}}
+{{--                            <option value="IL">Illinois</option>--}}
+{{--                            <option value="IA">Iowa</option>--}}
+{{--                            <option value="KS">Kansas</option>--}}
+{{--                            <option value="KY">Kentucky</option>--}}
+{{--                            <option value="LA">Louisiana</option>--}}
+{{--                            <option value="MN">Minnesota</option>--}}
+{{--                            <option value="MS">Mississippi</option>--}}
+{{--                            <option value="MO">Missouri</option>--}}
+{{--                            <option value="OK">Oklahoma</option>--}}
+{{--                            <option value="SD">South Dakota</option>--}}
+{{--                            <option value="TX">Texas</option>--}}
+{{--                            <option value="TN">Tennessee</option>--}}
+{{--                            <option value="WI">Wisconsin</option>--}}
+{{--                        </optgroup>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+
+                <div class="col-sm-3">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" class="form-control" name="quantity" placeholder="i.e 10" required>
+                    @error('quantity')
+                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                    @enderror
+                </div>
+                <div class="col-sm-3">
+                    <label class="form-label">Unit</label>
                     <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
                         <optgroup label="Mountain Time Zone">
                             <option value="AZ">Arizona</option>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGoodsUnitsTable extends Migration
+class CreateStockUnitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateGoodsUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('goods_units', function (Blueprint $table) {
+        Schema::create('stock_units', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->longText('description');
+            $table->string('abbreviation');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateGoodsUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('goods_units');
+        Schema::dropIfExists('stock_units');
     }
 }

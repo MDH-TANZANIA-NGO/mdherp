@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGoodsAllocationsTable extends Migration
+class CreateStockAllocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateGoodsAllocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('goods_allocations', function (Blueprint $table) {
+        Schema::create('stock_allocations', function (Blueprint $table) {
             $table->id();
+            $table->string('stock_id');
             $table->smallInteger('region_id');
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ class CreateGoodsAllocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('goods_allocations');
+        Schema::dropIfExists('stock_allocations');
     }
 }

@@ -22,7 +22,12 @@ return view('/SupplyChain.index');
     public function create(){
         return view('SupplyChain.create');
     }
+//configure stock unit
 
+    public function stockUnit(){
+
+        return view('/SupplyChain.units.index');
+    }
 //    Store data inserted from goods form
 
     public function  store(Request $request){
@@ -34,6 +39,8 @@ return view('/SupplyChain.index');
             'unit_id' => 'required',
             'date_received'=> 'required'
         ]);
+
+
 
         Good::create($request-> all());
         return redirect()->route('SupplyChain.index')->with('success', 'Good Received Successfully');
