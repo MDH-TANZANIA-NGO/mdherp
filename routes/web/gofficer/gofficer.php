@@ -1,15 +1,15 @@
 <?php
-Route::group(['namespace' => 'Budget', 'middleware' => ['web', 'auth'], 'prefix' => 'fiscal-years', 'as' => 'fiscal_year.'], function () {
-    Route::get('', 'FiscalYearController@index')->name('index');
-    Route::post('store', 'FiscalYearController@store')->name('store');
-    Route::get('{uuid}/show', 'FiscalYearController@show')->name('show');
-    Route::put('{uuid}/update', 'FiscalYearController@update')->name('update');
-    Route::put('{uuid}/activate', 'FiscalYearController@activate')->name('activate');
+Route::group(['namespace' => 'GOfficer', 'middleware' => ['web', 'auth'], 'prefix' => 'government-officers', 'as' => 'g_officer.'], function () {
+    Route::get('', 'GOfficerController@index')->name('index');
+    Route::post('store', 'GOfficerController@store')->name('store');
+    Route::get('{uuid}/show', 'GOfficerController@show')->name('show');
+    Route::put('{uuid}/update', 'GOfficerController@update')->name('update');
+    Route::put('{uuid}/activate', 'GOfficerController@activate')->name('activate');
 
     /**
      * Datatables
      */
     Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
-        Route::get('all', 'FiscalYearController@allDatatable')->name('all');
+        Route::get('all', 'GOfficerController@allDatatable')->name('all');
     });
 });

@@ -47,6 +47,8 @@
 
             </ul>
         </li>
-
+        <li>
+            <a class="side-menu__item" href="{{ route('general.invoke') }}"><i class="side-menu__icon fe fe-triangle"></i><span class="side-menu__label">General Settings</span></a>
+        </li>
     </ul>
 </aside>

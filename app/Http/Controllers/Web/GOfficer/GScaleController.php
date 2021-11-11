@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\GOfficer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\GOfficer\Datatables\GScaleDatatables;
+use App\Http\Requests\GOfficer\GScaleRequest;
 use App\Repositories\GOfficer\GScaleRepository;
 use Illuminate\Http\Request;
 
@@ -21,21 +22,11 @@ class GScaleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('gofficer.gscale.index');
     }
 
     /**
@@ -44,9 +35,10 @@ class GScaleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GScaleRequest $request)
     {
-        //
+        $this->g_scales->store($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -55,9 +47,10 @@ class GScaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        return view('gofficer.gscale.form.edit')
+            ->with('g_scale', $this->g_scales->findByUuid($uuid));
     }
 
     /**
@@ -78,9 +71,10 @@ class GScaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        $this->g_scales->update($uuid, $request);
+        return redirect()->back();
     }
 
     /**
