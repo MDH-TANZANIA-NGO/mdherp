@@ -1,4 +1,4 @@
-<table id="all_projects" class="table table-striped table-bordered" style="width:100%">
+<table id="all_scales" class="table table-striped table-bordered" style="width:100%">
     <thead>
     <tr>
         <th class="wd-15p">#</th>
@@ -13,7 +13,7 @@
     <script>
         $(document).ready(function () {
 
-            $("#all_projects").DataTable({
+            $("#all_scales").DataTable({
                 destroy: true,
                 retrieve: true,
                 "responsive": true,

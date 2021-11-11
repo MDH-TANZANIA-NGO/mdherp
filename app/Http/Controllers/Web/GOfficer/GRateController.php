@@ -42,22 +42,24 @@ class GRateController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->g_rates->store($request->all());
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        return view('gofficer.grate.form.edit')
+            ->with('g_rate', $this->g_rates->findByUuid($uuid));
     }
 
     /**
@@ -76,11 +78,12 @@ class GRateController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        $this->g_rates->update($uuid, $request->all());
+        return redirect()->back();
     }
 
     /**

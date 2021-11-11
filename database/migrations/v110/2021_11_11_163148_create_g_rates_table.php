@@ -16,6 +16,8 @@ class CreateGRatesTable extends Migration
         Schema::create('g_rates', function (Blueprint $table) {
             $table->id();
             $table->decimal('amount', 15,2)->nullable();
+            $table->uuid('uuid');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -1,4 +1,6 @@
-{!! Form::open(['route' => ['output_unit.update', $output_unit], 'method' => 'put',]) !!}
+@extends('layouts.app')
+@section('content')
+{!! Form::open(['route' => ['g_rate.update', $g_rate], 'method' => 'put',]) !!}
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
     <div class="card">
@@ -7,7 +9,7 @@
 
                 <div class="col-3 mx-auto">
                     <label class="form-label">Title</label>
-                    {!! Form::text('title',$output_unit->title,['class' => 'form-control', 'required']) !!}
+                    {!! Form::number('amount',$g_rate->amount,['class' => 'form-control', 'required']) !!}
                     @error('title')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
@@ -28,8 +30,9 @@
         </div>
     </div>
 </div>
-
 {!! Form::close() !!}
+    @endsection
+
 
 
 
