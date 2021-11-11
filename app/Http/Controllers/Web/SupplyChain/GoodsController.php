@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Web\SupplyChain;
 
-
 use App\Http\Controllers\Controller;
+use App\Models\SupplyChain\stock_unit;
 use App\Repositories\System\RegionRepository;
 use Illuminate\Http\Request;
 
@@ -28,22 +28,27 @@ return view('/SupplyChain.index');
 
         return view('/SupplyChain.units.index');
     }
+
+
 //    Store data inserted from goods form
 
     public function  store(Request $request){
 
-        $request -> validate([
 
-            'title' => 'required',
-            'quantity'=> 'required',
-            'unit_id' => 'required',
-            'date_received'=> 'required'
-        ]);
+    }
+
+    public function storeUnit(Request $request){
 
 
+        $stock_unit = new stock_unit();
 
-        Good::create($request-> all());
-        return redirect()->route('SupplyChain.index')->with('success', 'Good Received Successfully');
+        $stock_unit->title = request('title');
+        $stock_unit->abbreviation = request('abbreviation');
+
+        $stock_unit->save();
+
+        return redirect()->back();
+
     }
 
 }

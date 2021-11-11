@@ -7,6 +7,7 @@ Route::group(['namespace' => 'SupplyChain', 'middleware' => ['web', 'auth'], 'pr
 });
 Route::group(['namespace' => 'SupplyChain', 'middleware' => ['web', 'auth'], 'prefix' => 'stock-unit', 'as' => 'unit.'], function () {
     Route::get('', 'GoodsController@stockUnit')->name('unit');
+    Route::post('store', 'GoodsController@storeUnit')->name('store');
 
 
 });

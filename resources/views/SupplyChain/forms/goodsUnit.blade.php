@@ -1,4 +1,4 @@
-{!! Form::open(['route' => 'project.store', 'method' => 'post',]) !!}
+{!! Form::open(['route' => 'unit.store', 'method' => 'post',]) !!}
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
     <div class="card">
@@ -21,7 +21,7 @@
 
                 <div class="col-6" >
                     <label class="form-label">Title</label>
-                   <input type="text" class="form-control" name="title" placeholder="Title">
+                   <input type="text" class="form-control" name="title" placeholder="Kilogram">
                 </div>
 
                 <div class="col-6">

@@ -18,7 +18,7 @@
 
         </div>
         <div class="col-4 col-sm-4 col-lg-3">
-            <a href="{{route('good.index')}}">
+            <a href="{{route('stock.index')}}">
                 <div class="card">
                     <div class="card-body text-center">
                         <div class="h2 m-0"><i class="mdi mdi-barcode multiple-outline text-primary"></i></div>
