@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\GOfficer;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\GOfficer\Datatables\GScaleDatatables;
 use App\Http\Requests\GOfficer\GScaleRequest;
+use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\GOfficer\GScaleRepository;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,12 @@ class GScaleController extends Controller
     use GScaleDatatables;
 
     protected $g_scales;
+    protected $g_rates;
 
     public function __construct()
     {
         $this->g_scales = (new GScaleRepository());
+        $this->g_rates = (new GRateRepository());
     }
 
     /**
@@ -26,7 +29,8 @@ class GScaleController extends Controller
      */
     public function index()
     {
-        return view('gofficer.gscale.index');
+        return view('gofficer.gscale.index')
+            ->with('g_rates', $this->g_rates->getForPluck());
     }
 
     /**
@@ -54,17 +58,6 @@ class GScaleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -80,11 +73,11 @@ class GScaleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $g_rate_id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function getForDualList()
     {
-        //
+        return response()->json($this->g_scales->getForDualList());
     }
 }

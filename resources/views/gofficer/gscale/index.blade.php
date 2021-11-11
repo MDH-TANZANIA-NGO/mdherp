@@ -57,4 +57,6 @@
         </div>
     </div>
 
+    @include('gofficer.assignment.index')
+
 @endsection

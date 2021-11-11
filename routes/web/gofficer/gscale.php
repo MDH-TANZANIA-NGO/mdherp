@@ -6,6 +6,8 @@ Route::group(['namespace' => 'GOfficer', 'middleware' => ['web', 'auth'], 'prefi
     Route::put('{uuid}/update', 'GScaleController@update')->name('update');
     Route::put('{uuid}/activate', 'GScaleController@activate')->name('activate');
 
+    Route::get('for-g-rate', 'GScaleController@getForDualList')->name('g_rate');
+
     /**
      * Datatables
      */

@@ -13,6 +13,7 @@ class GRateRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
+            DB::raw('g_rates.id AS id'),
             DB::raw('g_rates.amount AS amount'),
             DB::raw('g_rates.created_at AS created_at'),
             DB::raw('g_rates.uuid AS uuid'),
@@ -22,6 +23,11 @@ class GRateRepository extends BaseRepository
     public function getActive()
     {
         return $this->getQuery();
+    }
+
+    public function getForPluck()
+    {
+        return $this->getActive()->pluck('amount','id');
     }
 
     /**

@@ -24,6 +24,20 @@ class GScaleRepository extends BaseRepository
         return $this->getQuery();
     }
 
+    public function getForDualList()
+    {
+        return $this->query()->select([
+            DB::raw('g_scales.id AS id'),
+            DB::raw('g_scales.title AS title'),
+            DB::raw('g_scales.uuid AS uuid'),
+            DB::raw('g_rates.id AS g_rate_id'),
+        ])
+            ->leftjoin('g_rate_scale','g_rate_scale.g_scale_id','g_scales.id')
+            ->leftjoin('g_rates','g_rates.id','g_rate_scale.g_rate_id')
+            ->groupBy('g_scales.id','g_rates.id')
+            ->get();
+    }
+
     /**
      * Inputs Processor
      * @param $inputs
