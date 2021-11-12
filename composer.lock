@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d162eeea324a61dccc086922a374770",
+    "content-hash": "b593b99f0362ab2c4ce396b7a1d9a0a7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6743,6 +6743,10 @@
                 "jquery",
                 "laravel"
             ],
+            "support": {
+                "issues": "https://github.com/yajra/laravel-datatables/issues",
+                "source": "https://github.com/yajra/laravel-datatables/tree/v9.18.2"
+            },
             "funding": [
                 {
                     "url": "https://www.paypal.me/yajra",
