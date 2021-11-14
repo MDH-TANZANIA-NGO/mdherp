@@ -30,6 +30,20 @@ class GRateRepository extends BaseRepository
         return $this->getActive()->pluck('amount','id');
     }
 
+    public function getActiveRate()
+    {
+        return $this->query()->select([
+            DB::raw('g_rates.id AS id'),
+            DB::raw('g_rates.amount AS amount'),
+            DB::raw('g_rates.created_at AS created_at'),
+            DB::raw('g_rates.uuid AS uuid'),
+            DB::raw("string_agg(DISTINCT g_scales.title, ',') AS g_scale_titles"),
+        ])
+            ->leftjoin('g_rate_scale','g_rate_scale.g_rate_id','g_rates.id')
+            ->leftjoin('g_scales','g_rate_scale.g_scale_id','g_scale.id')
+            ->groupBy('g_rates.id');
+    }
+
     /**
      * Inputs Processor
      * @param $inputs

@@ -2,8 +2,8 @@
     <thead>
     <tr>
         <th class="wd-15p">#</th>
-        <th class="wd-20p">Amount</th>
-{{--         <th class="wd-25p">REGISTERED DATE</th>--}}
+        <th class="wd-20p">AMOUNT</th>
+{{--         <th class="wd-25p">TITLE</th>--}}
         <th class="wd-10p">ACTION</th>
     </tr>
     </thead>
@@ -24,7 +24,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'amount', name: 'g_rates.amount', searchable: true},
-                    // { data: {_: 'created_at.display',sort: 'created_at.timestamp'}, name: 'created_at', searchable: false },
+                    // { data: 'g_scale_title', name: 'g_scale_title', searchable: true},
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
