@@ -58,11 +58,13 @@ class GOfficerController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($uuid)
     {
-        //
+        return view('gofficer.gofficer.form.edit')
+            ->with('g_officer',$this->g_officers->findByUuid($uuid))
+            ->with('g_scales', $this->g_scales->getActiveForPluck());
     }
 
     /**
