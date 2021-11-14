@@ -15,7 +15,7 @@
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('user.index') }}"><span>List</span></a></li>
                 <li><a class="slide-item"  href="{{ route('user.create') }}"><span>Register</span></a></li>
-                <li><a class="slide-item"  href="{{ route('user.create') }}"><span>External users</span></a></li>
+                <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>External users</span></a></li>
             </ul>
         </li>
         <li class="slide">

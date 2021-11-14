@@ -13,6 +13,7 @@ class GScaleRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
+            DB::raw('g_scales.id AS id'),
             DB::raw('g_scales.title AS title'),
             DB::raw('g_scales.created_at AS created_at'),
             DB::raw('g_scales.uuid AS uuid'),
@@ -22,6 +23,11 @@ class GScaleRepository extends BaseRepository
     public function getActive()
     {
         return $this->getQuery();
+    }
+
+    public function getActiveForPluck()
+    {
+        return $this->getQuery()->pluck('g_scales.title','g_scales.id');
     }
 
     public function getForDualList()

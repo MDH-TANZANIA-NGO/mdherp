@@ -3,18 +3,18 @@
 
 
     <div class="row  mb-3">
-        <span class="col-12 text-center font-weight-bold">Register Output Units</span>
+        <span class="col-12 text-center font-weight-bold">External Users</span>
     </div>
 
 
-    @include('project.output_unit.form.create')
+    @include('gofficer.gofficer.form.create')
 
 
     {{-- Datatable starts here --}}
 
 
     <div class="row  mb-3">
-        <span class="col-12 text-center font-weight-bold">List Output Units</span>
+        <span class="col-12 text-center font-weight-bold">List Users</span>
     </div>
 
 
@@ -27,7 +27,7 @@
                 <div class="col-12" >
 
             <div class="table-responsive">
-                @include('project.output_unit.datatables.all')
+                @include('gofficer.gofficer.datatables.all')
             </div>
                 </div>
         </div>

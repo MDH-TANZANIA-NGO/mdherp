@@ -2,8 +2,11 @@
     <thead>
     <tr>
         <th class="wd-15p">#</th>
-        <th class="wd-20p">TITLE</th>
-         <th class="wd-25p">REGISTERED DATE</th>
+        <th class="wd-20p">NAMES</th>
+        <th class="wd-25p">EMAIL</th>
+        <th class="wd-10p">PHONE</th>
+        <th class="wd-25p">PAY SCALE</th>
+        <th class="wd-25p">SCALE AMOUNT</th>
         <th class="wd-10p">ACTION</th>
     </tr>
     </thead>
@@ -20,11 +23,14 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('output_unit.datatable.all') }}',
+                ajax: '{{ route('g_officer.datatable.all') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'title', name: 'output_units.title', searchable: true},
-                    { data: {_: 'created_at.display',sort: 'created_at.timestamp'}, name: 'created_at', searchable: false },
+                    { data: 'names', name: 'names', searchable: true},
+                    { data: 'email', name: 'g_officers.email', searchable: true},
+                    { data: 'phone', name: 'g_officers.phone', searchable: true},
+                    { data: 'g_scale_title', name: 'g_scales.title', searchable: true},
+                    { data: 'g_rate_amount', name: 'g_rates.amount', searchable: true},
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

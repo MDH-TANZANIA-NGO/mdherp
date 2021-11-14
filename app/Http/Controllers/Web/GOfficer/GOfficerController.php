@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\GOfficer;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerDatatables;
 use App\Repositories\GOfficer\GOfficerRepository;
+use App\Repositories\GOfficer\GScaleRepository;
 use Illuminate\Http\Request;
 
 class GOfficerController extends Controller
@@ -12,20 +13,23 @@ class GOfficerController extends Controller
     use GOfficerDatatables;
 
     protected $g_officers;
+    protected $g_scales;
 
     public function __construct()
     {
         $this->g_officers = (new GOfficerRepository());
+        $this->g_scales = (new GScaleRepository());
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('gofficer.gofficer.index')
+            ->with('g_scales', $this->g_scales->getActiveForPluck());
     }
 
     /**
@@ -42,11 +46,12 @@ class GOfficerController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->g_officers->store($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -76,11 +81,12 @@ class GOfficerController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        //
+        $this->g_officers->update($uuid, $request->all());
+        return redirect()->back();
     }
 
     /**
