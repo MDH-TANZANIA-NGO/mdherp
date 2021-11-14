@@ -68,4 +68,18 @@ class GRateRepository extends BaseRepository
         });
     }
 
+    /**
+     * @param $inputs
+     * @return mixed
+     */
+    public function assignRate($inputs)
+    {
+        return DB::transaction(function () use ($inputs){
+            if(isset($inputs['scales'])){
+                $rate = $this->find($inputs['rate']);
+                $rate->scales()->sync($inputs['scales']);
+            }
+        });
+    }
+
 }

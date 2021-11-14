@@ -37,7 +37,7 @@ class GScaleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(GScaleRequest $request)
     {
@@ -49,7 +49,7 @@ class GScaleController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($uuid)
     {
@@ -62,7 +62,7 @@ class GScaleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $uuid)
     {
@@ -80,4 +80,5 @@ class GScaleController extends Controller
     {
         return response()->json($this->g_scales->getForDualList());
     }
+
 }

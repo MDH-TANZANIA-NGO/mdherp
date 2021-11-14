@@ -5,6 +5,7 @@ Route::group(['namespace' => 'GOfficer', 'middleware' => ['web', 'auth'], 'prefi
     Route::get('{uuid}/show', 'GRateController@show')->name('show');
     Route::put('{uuid}/update', 'GRateController@update')->name('update');
     Route::put('{uuid}/activate', 'GRateController@activate')->name('activate');
+    Route::post('assign-rate', 'GRateController@assignRate')->name('assign');
 
     /**
      * Datatables

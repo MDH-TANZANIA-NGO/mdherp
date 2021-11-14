@@ -8,6 +8,6 @@ trait GRateRelationship
 {
     public function scales()
     {
-        return $this->belongsToMany(GScale::class,'g_rate_scale','g_scale_id','id')->withTimestamps();
+        return $this->belongsToMany(GScale::class,'g_rate_scale')->withTimestamps();
     }
 }
