@@ -30,5 +30,10 @@ class FleetController extends Controller
         return view('fleet.forms.create');
     }
 
+    public function store()
+    {
+        //store here
+    }
+
 }
 

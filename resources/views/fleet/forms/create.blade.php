@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
+    {!! Form::open(['route' => 'fleet.store', 'method' => 'post',]) !!}
+
+    @csrf
+
     <div class="col-lg-12 col-md-12">
 
         <div class="card">
@@ -15,8 +20,6 @@
                 </div>
 
             </div>
-
-
 
                 <div class="card-body">
                     <div class="row">
@@ -176,5 +179,7 @@
 
         </div>
     </div>
+
+    {!! Form::close() !!}
 
 @endsection
