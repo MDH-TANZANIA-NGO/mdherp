@@ -15,6 +15,7 @@
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('user.index') }}"><span>List</span></a></li>
                 <li><a class="slide-item"  href="{{ route('user.create') }}"><span>Register</span></a></li>
+                <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>External users</span></a></li>
             </ul>
         </li>
 
@@ -33,6 +34,7 @@
                 <li><a class="slide-item"  href="#"><span>Permissions</span></a></li>
 {{--                <li><a class="slide-item"  href="#"><span>Workflow</span></a></li>--}}
                 <li><a class="slide-item"  href="#"><span>Perdiem Rates</span></a></li>
+                <li><a class="slide-item"  href="{{route('unit.unit')}}"><span>Stock Units</span></a></li>
             </ul>
         </li>
 
@@ -54,6 +56,8 @@
 
             </ul>
         </li>
-
+        <li>
+            <a class="side-menu__item" href="{{ route('general.invoke') }}"><i class="side-menu__icon fe fe-triangle"></i><span class="side-menu__label">General Settings</span></a>
+        </li>
     </ul>
 </aside>
