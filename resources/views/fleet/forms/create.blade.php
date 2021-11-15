@@ -174,6 +174,22 @@
 
                     </div>
 
+{{--                    @if($message = session::get('success'))--}}
+
+{{--                    <div class="row">--}}
+
+{{--                        <div class="col-12">--}}
+{{--                            <div class="alert alert-success" style="text-align: center;">--}}
+
+{{--                        {{$message}}--}}
+
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                    </div>--}}
+
+{{--                    @endif--}}
+
                 </div>
 
 
