@@ -24,18 +24,38 @@
                 <div class="card-body">
                     <div class="row">
 
-                        <div class="col-4" >
+                        <div class="col-4"  >
                             <label class="form-label">Vehicle Type</label>
-                            <input type="text" class="form-control" name="vehicle_type" placeholder="" required>
-                            @error('code')
+                            <select class="form-control select2-show-search" id="vtype" data-placeholder="Choose one" name="vehicle_type" required>
+                                <option label="Choose one"></option>
+                                <option value="Car">Car</option>
+                                <option value="Motor Bike">Motor bike</option>
+                                <option value="Bajaji">Bajaji</option>
+
+                            </select>
+                            @error('vtype')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                             @enderror
                         </div>
 
                         <div class="col-4">
+
                             <label class="form-label">Vehicle Maker</label>
-                            <input type="text" class="form-control" name="maker" placeholder="ie. Toyota" required>
-                            @error('title')
+
+                            <select id="vmaker" class="form-control select2-show-search" data-placeholder="Choose one" name="maker" required>
+                                <option label="Choose one"></option>
+                                <option value="Toyota">Toyota</option>
+                                <option value="Nissan">Nissan</option>
+                                <option value="Land Rover">Land Rover</option>
+                                <option value="Volks Wagen">Volks Wagen</option>
+                                <option value="Bajaji">Bajaji</option>
+                                <option value="SanLG">SanLG</option>
+                                <option value="Toyo">Toyo</option>
+                                <option></option>
+
+                            </select>
+
+                            @error('vmaker')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                             @enderror
                         </div>
@@ -150,17 +170,20 @@
 
                         <div class="col-4" >
                             <label class="form-label">Vehicle Status</label>
-                            <input type="text" class="form-control" name="isactive" placeholder="" required>
-                            @error('code')
+{{--                            <input type="text" class="form-control" name="isactive" placeholder="" required>--}}
+                            <select class="form-control select2 custom-select" id="active" data-placeholder="Choose one" name="isactive" required>
+                                <option label="Choose Status"></option>
+                                <option value="Active">Active</option>
+                                <option value="InActive">InActive</option>
+
+                            </select>
+                            @error('active')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                             @enderror
                         </div>
 
 
                     </div>
-                    &nbsp;
-
-                    &nbsp;
 
                     <div class="row">
 
@@ -198,4 +221,7 @@
 
     {!! Form::close() !!}
 
+
+
 @endsection
+
