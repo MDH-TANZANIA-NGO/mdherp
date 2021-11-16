@@ -9,4 +9,6 @@ use App\Models\Requisition\Equipment\Traits\Relationship\EquipmentRelationship;
 class Equipment extends BaseModel
 {
     use EquipmentAttribute, EquipmentRelationship;
+
+    protected $table = 'equipments';
 }

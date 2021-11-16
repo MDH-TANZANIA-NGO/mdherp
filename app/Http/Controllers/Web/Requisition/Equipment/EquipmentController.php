@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Requisition\Equipment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Requisition\Equipment\EquipmentRequest;
 use App\Repositories\Requisition\Equipment\EquipmentRepository;
 use App\Repositories\Requisition\Equipment\EquipmentTypeRepository;
 use Illuminate\Http\Request;
@@ -31,25 +32,15 @@ class EquipmentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * z
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EquipmentRequest $request)
     {
-        //
+        $this->equipments->store($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -81,9 +72,10 @@ class EquipmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EquipmentRequest $request, $uuid)
     {
-        //
+        $this->equipments->update($uuid, $request->all);
+        return redirect()->back();
     }
 
     /**

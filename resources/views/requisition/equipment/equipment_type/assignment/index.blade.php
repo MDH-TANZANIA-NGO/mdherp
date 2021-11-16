@@ -6,7 +6,7 @@
     <div class="col-12">
         <div class="form-group">
             <label>{{ __('RATES') }}</label>
-            {!! Form::select('rate',[],old('rate'),['class'=>'form-control','placeholder' => 'Select Rate']) !!}
+            {!! Form::select('rate',$equipment_type_pluck,null,['class'=>'form-control','placeholder' => 'Select Rate']) !!}
         </div>
 
         <div class="form-group">

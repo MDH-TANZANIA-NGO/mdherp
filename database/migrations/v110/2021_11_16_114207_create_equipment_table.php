@@ -13,7 +13,7 @@ class CreateEquipmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('equipment', function (Blueprint $table) {
+        Schema::create('equipments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('equipment_type_id');
             $table->string('title')->unique();
@@ -33,6 +33,6 @@ class CreateEquipmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('equipment');
+        Schema::dropIfExists('equipments');
     }
 }

@@ -13,7 +13,7 @@ class EquipmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,24 @@ class EquipmentRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        switch($this->method())
+        {
+            case 'POST':
+                return [
+                    'equipment_type' => 'required',
+                    'title' => 'required:unique:requisition',
+                    'specs' => 'required',
+                    'price_from' => 'required',
+                    'price_to' => 'required',
+                ];
+            case 'PUT':
+                return [
+                    'equipment_type' => 'required',
+                    'title' => 'required',
+                    'specs' => 'required',
+                    'price_from' => 'required',
+                    'price_to' => 'required',
+                ];
+        }
     }
 }
