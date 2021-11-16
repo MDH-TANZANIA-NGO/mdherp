@@ -26,7 +26,8 @@ class EquipmentController extends Controller
     public function index()
     {
         return view('requisition.equipment.index')
-            ->with('equipment_types', $this->equipment_types->getForPluck());
+            ->with('equipment_type_pluck', $this->equipment_types->getForPluck())
+            ->with('equipment_types', $this->equipment_types->getAll());
     }
 
     /**

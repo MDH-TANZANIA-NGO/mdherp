@@ -33,7 +33,7 @@ class EquipmentTypeRepository extends BaseRepository
     public function store($inputs)
     {
         return DB::transaction(function () use ($inputs){
-            return $this->store($this->inputProcessor($inputs));
+            return $this->query()->create($this->inputProcessor($inputs));
         });
     }
 
