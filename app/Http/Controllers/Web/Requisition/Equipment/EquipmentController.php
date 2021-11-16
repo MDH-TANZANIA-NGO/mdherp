@@ -1,32 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\Requisition\Equipment;
+namespace App\Http\Controllers\Web\Requisition\Equipment;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Requisition\Equipment\EquipmentRepository;
 use App\Repositories\Requisition\Equipment\EquipmentTypeRepository;
 use Illuminate\Http\Request;
 
-class EquipmentTypeController extends Controller
+class EquipmentController extends Controller
 {
+    protected $equipments;
     protected $equipment_types;
 
     public function __construct()
     {
+        $this->equipments = (new EquipmentRepository());
         $this->equipment_types = (new EquipmentTypeRepository());
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('requisition.equipment.index')
+            ->with('equipment_types', $this->equipment_types->getForPluck());
     }
 
     /**
      * Show the form for creating a new resource.
+     * z
      *
      * @return \Illuminate\Http\Response
      */

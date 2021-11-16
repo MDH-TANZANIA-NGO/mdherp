@@ -1,5 +1,5 @@
 <?php
-Route::group(['namespace' => 'Project', 'middleware' => ['web', 'auth'], 'prefix' => 'activities', 'as' => 'activity.'], function () {
+Route::group(['namespace' => 'Requisition\Equipment', 'middleware' => ['web', 'auth'], 'prefix' => 'equipments', 'as' => 'equipment.'], function () {
     Route::get('', 'EquipmentController@index')->name('index');
     Route::post('store', 'EquipmentController@store')->name('store');
     Route::get('{activity}/show', 'EquipmentController@show')->name('show');

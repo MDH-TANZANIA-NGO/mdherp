@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Requisition\Equipment;
+namespace App\Http\Controllers\Web\Requisition\Equipment;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Requisition\Equipment\EquipmentRepository;
+use App\Http\Requests\Requisition\Equipment\EquipmentTypeRequest;
+use App\Repositories\Requisition\Equipment\EquipmentTypeRepository;
 use Illuminate\Http\Request;
 
-class EquipmentController extends Controller
+class EquipmentTypeController extends Controller
 {
-    protected $equipments;
+    protected $equipment_types;
 
     public function __construct()
     {
-        $this->equipments = (new EquipmentRepository());
+        $this->equipment_types = (new EquipmentTypeRepository());
     }
 
     /**
@@ -22,7 +23,7 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -41,9 +42,10 @@ class EquipmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EquipmentTypeRequest $request)
     {
-        //
+        $this->equipment_types->store($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -73,11 +75,12 @@ class EquipmentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EquipmentTypeRequest $request, $uuid)
     {
-        //
+        $this->equipment_types->update($uuid, $request->all());
+        return redirect()->back();
     }
 
     /**

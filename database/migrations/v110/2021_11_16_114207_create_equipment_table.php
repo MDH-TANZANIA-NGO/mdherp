@@ -15,6 +15,13 @@ class CreateEquipmentTable extends Migration
     {
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('equipment_type_id');
+            $table->string('title')->unique();
+            $table->longText('specs');
+            $table->decimal('price_range_from', 15,2)->nullable();
+            $table->decimal('price_range_to', 15,2)->nullable();
+            $table->uuid('uuid');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

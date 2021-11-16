@@ -13,7 +13,7 @@ class EquipmentTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,18 @@ class EquipmentTypeRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        switch ($this->method())
+        {
+            case 'POST':
+                return [
+                    'title' => 'required|unique:equipment_types'
+                ];
+                break;
+            case 'PUT':
+                return [
+                    'title' => 'required'
+                ];
+                break;
+        }
     }
 }
