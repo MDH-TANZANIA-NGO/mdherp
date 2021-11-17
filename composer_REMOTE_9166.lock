@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aae18e6a260e57062ec5fbad68743745",
+    "content-hash": "b593b99f0362ab2c4ce396b7a1d9a0a7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6743,6 +6743,10 @@
                 "jquery",
                 "laravel"
             ],
+            "support": {
+                "issues": "https://github.com/yajra/laravel-datatables/issues",
+                "source": "https://github.com/yajra/laravel-datatables/tree/v9.18.2"
+            },
             "funding": [
                 {
                     "url": "https://www.paypal.me/yajra",
@@ -7177,56 +7181,6 @@
                 "test"
             ],
             "time": "2020-07-09T08:09:16+00:00"
-        },
-        {
-            "name": "jason-guru/laravel-make-repository",
-            "version": "0.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jason-guru/laravel-make-repository.git",
-                "reference": "693d3d189c0b19262a896eb888c3a7b870a2de43"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jason-guru/laravel-make-repository/zipball/693d3d189c0b19262a896eb888c3a7b870a2de43",
-                "reference": "693d3d189c0b19262a896eb888c3a7b870a2de43",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "JasonGuru\\LaravelMakeRepository\\RepositoryServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "JasonGuru\\LaravelMakeRepository\\": "src/"
-                },
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "G Jason Sharma",
-                    "email": "g.jason.sharma@gmail.com"
-                }
-            ],
-            "description": "A simple package to create a make:repository command for Laravel 5+",
-            "support": {
-                "issues": "https://github.com/jason-guru/laravel-make-repository/issues",
-                "source": "https://github.com/jason-guru/laravel-make-repository/tree/0.0.3"
-            },
-            "time": "2020-10-24T13:21:42+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -9044,53 +8998,6 @@
                 }
             ],
             "time": "2020-09-28T06:39:44+00:00"
-        },
-        {
-            "name": "theanik/laravel-more-command",
-            "version": "v1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/theanik/laravel-more-command.git",
-                "reference": "aab76744edd18f3fdff240bf8bdd08daf9640985"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/theanik/laravel-more-command/zipball/aab76744edd18f3fdff240bf8bdd08daf9640985",
-                "reference": "aab76744edd18f3fdff240bf8bdd08daf9640985",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Theanik\\LaravelMoreCommand\\LaravelMoreCommandProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Theanik\\LaravelMoreCommand\\": "src/"
-                },
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anwar Hossain Anik",
-                    "email": "anwar.anik33@gmail.com"
-                }
-            ],
-            "description": "Create a Repository and Service class and trait using Artisan CLI",
-            "support": {
-                "issues": "https://github.com/theanik/laravel-more-command/issues",
-                "source": "https://github.com/theanik/laravel-more-command/tree/v1.2.0"
-            },
-            "time": "2021-06-15T16:46:38+00:00"
         },
         {
             "name": "theseer/tokenizer",

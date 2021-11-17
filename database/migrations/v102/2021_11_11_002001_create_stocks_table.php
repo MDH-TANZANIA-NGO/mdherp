@@ -21,6 +21,7 @@ class CreateStocksTable extends Migration
             $table->longText('description');
             $table->date('date_received');
             $table->decimal('quantity', 15,2)->default('0.00');
+            $table->string('uuid');
             $table->softDeletes();
             $table->timestamps();
         });

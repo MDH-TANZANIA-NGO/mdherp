@@ -34,7 +34,7 @@
                 <li><a class="slide-item"  href="#"><span>Permissions</span></a></li>
 {{--                <li><a class="slide-item"  href="#"><span>Workflow</span></a></li>--}}
                 <li><a class="slide-item"  href="#"><span>Perdiem Rates</span></a></li>
-                <li><a class="slide-item"  href="{{route('unit.unit')}}"><span>Stock Units</span></a></li>
+
             </ul>
         </li>
 

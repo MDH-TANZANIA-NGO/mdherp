@@ -3,14 +3,24 @@
 namespace App\Http\Controllers\Web\SupplyChain;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\SupplyChain\Traits\stock_unitDatatable;
 use App\Models\SupplyChain\stock_unit;
+use App\Repositories\SupplyChain\stockUnitRepository;
 use App\Repositories\System\RegionRepository;
 use Illuminate\Http\Request;
 
 class GoodsController extends Controller
 {
+use stock_unitDatatable;
 
 //        Display List of all goods
+    protected $stock_units;
+
+    public function __construct(stockUnitRepository $stock_units)
+    {
+        $this->stock_units = $stock_units;
+    }
+
     public function index(){
 //        $goods = Good::latest()->paginate(5);
 
@@ -32,10 +42,6 @@ return view('/SupplyChain.index');
 
 //    Store data inserted from goods form
 
-    public function  store(Request $request){
-
-
-    }
 
     public function storeUnit(Request $request){
 
@@ -50,6 +56,9 @@ return view('/SupplyChain.index');
         return redirect()->back();
 
     }
+
+
+
 
 }
 

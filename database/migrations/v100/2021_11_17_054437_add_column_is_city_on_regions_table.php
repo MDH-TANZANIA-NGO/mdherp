@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStockUnitsTable extends Migration
+class AddColumnIsCityOnRegionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateStockUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('stock_units', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('abbreviation');
-            $table->string('uuid');
-            $table->timestamps();
+        //
+        Schema::table('regions', function (Blueprint $table) {
+            $table->boolean('is_city')->nullable();
         });
     }
 
@@ -29,6 +26,6 @@ class CreateStockUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stock_units');
+        //
     }
 }
