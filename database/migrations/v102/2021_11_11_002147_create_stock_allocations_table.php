@@ -17,6 +17,7 @@ class CreateStockAllocationsTable extends Migration
             $table->id();
             $table->string('stock_id');
             $table->smallInteger('region_id');
+            $table->string('uuid');
             $table->timestamps();
         });
     }
