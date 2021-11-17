@@ -29,7 +29,8 @@
                                 <br>
                                 <label>Activity</label>
                                 <li>
-                                    {!! Form::select('activity',[],null,['class' => 'form-control select2-show-search','placeholder' => 'select','disabled']) !!}
+{{--                                    {!! Form::select('activity',[],null,['class' => 'form-control select2-show-search','placeholder' => 'select','disabled']) !!}--}}
+                                    <select name="activity" class="form-control select2-show-search" disabled></select>
                                 </li>
                                 <br>
                                 <li>
@@ -321,18 +322,38 @@
     <script>
         $(document).ready(function (){
             let $requisition_type_select = $("select[name='requisition_type']");
-            let $project = $("select[name='project']");
-            let $activity = $("select[name='activity']");
+            let $project_select = $("select[name='project']");
+            let $activity_select = $("select[name='activity']");
             let $get_info_button = $("#get_info");
 
             $requisition_type_select.change(function (event){
                 event.preventDefault();
-                $project.attr('disabled', false);
+                $project_select.attr('disabled', false);
             });
-            $project.change(function (event){
+            $project_select.change(function (event){
                 event.preventDefault();
-                $activity.attr('disabled', false);
+                let $project_id = $(this).val();
+                let $user_id = "{{ access()->id() }}";
+                let $region_id = "{{ access()->user()->region_id }}";
+                fetch_activities($user_id, $region_id, $project_id);
+                $activity_select.attr('disabled', false);
             });
+
+            function fetch_activities(user_id,region_id,project_id){
+                $.get("{{ route('activity.json_filter') }}", { user_id: user_id,region_id: region_id, project_id: project_id},
+                    function(data, status){
+                    console.log(data)
+                        if(data.length > 0){
+                            $activity_select.find('option').remove();
+                            $.each(data, function(key, result) {
+                                let $option = "<option value='"+result.id+"'>"+result.title+"</option>";
+                                $activity_select.append($option);
+                            });
+                        }else{
+
+                        }
+                    });
+            }
 
             // if($requisition_type_select.val() && $project.val()){
             //     $get_info_button.removeAttr('disabled', false);
@@ -340,35 +361,35 @@
             //     $get_info_button.attr('disabled', true);
             // }
 
-            $get_info_button.click(function (event){
-                event.preventDefault();
+            // $get_info_button.click(function (event){
+            //     event.preventDefault();
+            //
+            // });
 
-            });
+            {{--function fetch_projects(region_id){--}}
+            {{--    $.get("{{ route('project.by_region') }}", { region_id: region_id},--}}
+            {{--        function(data, status){--}}
+            {{--            if(data.length > 0){--}}
 
-            function fetch_projects(region_id){
-                $.get("{{ route('project.by_region') }}", { region_id: region_id},
-                    function(data, status){
-                        if(data.length > 0){
-
-                            $project_select.find('option').remove();
-                            $.each(data, function(key, result) {
-                                $projects.push(result.id);
-                                let $option = "<option value='"+result.id+"'>"+result.title+"</option>";
-                                $project_select.append($option);
-                            });
-                            $project_select.attr('disabled',false);
-                            $project_select.attr('required',true);
-                            $sub_program_select.attr('disabled',false);
-                            /*call sub program function*/
-                            // fetch_sub_program()
-                        }else{
-                            $project_select.find('option').remove();
-                            $project_select.attr('disabled',true);
-                            $project_select.attr('required',false);
-                            $sub_program_select.attr('disabled',true);
-                        }
-                    });
-            }
+            {{--                $project_select.find('option').remove();--}}
+            {{--                $.each(data, function(key, result) {--}}
+            {{--                    $projects.push(result.id);--}}
+            {{--                    let $option = "<option value='"+result.id+"'>"+result.title+"</option>";--}}
+            {{--                    $project_select.append($option);--}}
+            {{--                });--}}
+            {{--                $project_select.attr('disabled',false);--}}
+            {{--                $project_select.attr('required',true);--}}
+            {{--                $sub_program_select.attr('disabled',false);--}}
+            {{--                /*call sub program function*/--}}
+            {{--                // fetch_sub_program()--}}
+            {{--            }else{--}}
+            {{--                $project_select.find('option').remove();--}}
+            {{--                $project_select.attr('disabled',true);--}}
+            {{--                $project_select.attr('required',false);--}}
+            {{--                $sub_program_select.attr('disabled',true);--}}
+            {{--            }--}}
+            {{--        });--}}
+            {{--}--}}
 
 
         });

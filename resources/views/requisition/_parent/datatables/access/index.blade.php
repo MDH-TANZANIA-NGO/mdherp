@@ -4,8 +4,8 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#tab5" class="active" data-toggle="tab">Requested{{-- <span class="badge badge-success">20</span>--}}</a></li>
-                    <li><a href="#tab6" data-toggle="tab" class="">Rejected {{--<span class="badge badge-danger">5</span>--}}</a></li>
+{{--                    <li class=""><a href="#tab5" class="active" data-toggle="tab">Requested--}}{{-- <span class="badge badge-success">20</span>--}}{{--</a></li>--}}
+                    <li><a href="#tab6" data-toggle="tab" class="active">Rejected {{--<span class="badge badge-danger">5</span>--}}</a></li>
                     <li><a href="#tab6" data-toggle="tab" class="">Approved {{--<span class="badge badge-danger">5</span>--}}</a></li>
                     <li><a href="#tab6" data-toggle="tab" class="">Saved {{--<span class="badge badge-danger">5</span>--}}</a></li>
                 </ul>
@@ -20,29 +20,29 @@
         </div>
         <div class="panel-body tabs-menu-body">
             <div class="tab-content">
-                <div class="tab-pane active" id="tab5">
+{{--                <div class="tab-pane active" id="tab5">--}}
 
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="active_users" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th class="wd-15p">#</th>
-                                    <th class="wd-15p">First name</th>
-                                    <th class="wd-15p">Last name</th>
-                                    <th class="wd-20p">Email</th>
-                                    <th class="wd-20p">Position</th>
-                                    <th class="wd-15p">Region</th>
-                                    <th class="wd-10p">Projects</th>
-                                    <th class="wd-25p">Action</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
+{{--                    <div class="card-body">--}}
+{{--                        <div class="table-responsive">--}}
+{{--                            <table id="active_users" class="table table-striped table-bordered" style="width:100%">--}}
+{{--                                <thead>--}}
+{{--                                <tr>--}}
+{{--                                    <th class="wd-15p">#</th>--}}
+{{--                                    <th class="wd-15p">First name</th>--}}
+{{--                                    <th class="wd-15p">Last name</th>--}}
+{{--                                    <th class="wd-20p">Email</th>--}}
+{{--                                    <th class="wd-20p">Position</th>--}}
+{{--                                    <th class="wd-15p">Region</th>--}}
+{{--                                    <th class="wd-10p">Projects</th>--}}
+{{--                                    <th class="wd-25p">Action</th>--}}
+{{--                                </tr>--}}
+{{--                                </thead>--}}
+{{--                            </table>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                </div>
-                <div class="tab-pane" id="tab6">
+{{--                </div>--}}
+                <div class="tab-pane active" id="tab6">
 
                     <div class="card-body">
                         <div class="table-responsive">
@@ -50,13 +50,12 @@
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">#</th>
-                                    <th class="wd-15p">First name</th>
-                                    <th class="wd-15p">Last name</th>
-                                    <th class="wd-20p">Email</th>
-                                    <th class="wd-20p">Position</th>
-                                    <th class="wd-15p">Region</th>
-                                    <th class="wd-10p">Projects</th>
-                                    <th class="wd-25p"></th>
+                                    <th class="wd-15p">NUMBER</th>
+                                    <th class="wd-15p">TYPE</th>
+                                    <th class="wd-20p">ITEMS LIST</th>
+                                    <th class="wd-25p">AMOUNT</th>
+                                    <th class="wd-25p">APPLIED DATE</th>
+                                    <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
                             </table>
