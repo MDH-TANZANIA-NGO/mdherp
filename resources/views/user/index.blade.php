@@ -7,7 +7,7 @@
                     <!-- Tabs -->
                     <ul class="nav panel-tabs">
                         <li class=""><a href="#tab5" class="active" data-toggle="tab">Active{{-- <span class="badge badge-success">20</span>--}}</a></li>
-                        <li><a href="#tab6" data-toggle="tab" class="">De-active {{--<span class="badge badge-danger">5</span>--}}</a></li>
+                        <li><a href="#tab6" data-toggle="tab" class="">Inactive {{--<span class="badge badge-danger">5</span>--}}</a></li>
                     </ul>
                 </div>
 
@@ -34,7 +34,7 @@
                                         <th class="wd-20p">Position</th>
                                         <th class="wd-15p">Region</th>
                                         <th class="wd-10p">Projects</th>
-                                        <th class="wd-25p">More</th>
+                                        <th class="wd-25p">Action</th>
                                     </tr>
                                     </thead>
                                 </table>

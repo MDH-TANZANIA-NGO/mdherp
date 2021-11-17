@@ -33,6 +33,12 @@
                             {!! Form::select('active', true_false_pluck(), $fiscal_year->active,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                             {!! $errors->first('active', '<span class="badge badge-danger">:message</span>') !!}
                         </div>
+
+                        {{-- toggle switch  --}}
+                        {{-- <div class="material-switch pull-right">
+                            <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionSuccess" class="label-success"></label>
+                        </div> --}}
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="margin-left:40%;">Register</button>

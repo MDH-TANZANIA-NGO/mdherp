@@ -2,7 +2,8 @@
 @section('content')
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12">
-        {!! Form::open(['route' => 'g_officer.store','class'=>'card']) !!}
+        {!! Form::open(['route' => ['g_officer.update',$g_officer],'method' => 'put','class'=>'card']) !!}
+{{--        {!! Form::open(['route' => 'g_officer.update','class'=>'card']) !!}--}}
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4">
@@ -41,9 +42,21 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="margin-left:40%;">Register</button>
+
 
             </div>
+
+            <div class="row" style="align-items: center">
+
+                <div class="col-md-12" >
+                    <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="margin-left:40%;">Update</button>
+                    <a href="{{ route('g_officer.index') }}" class="btn btn-success">Return</a>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
         {!! Form::close() !!}

@@ -23,7 +23,7 @@
         "propaganistas/laravel-phone": "^4.2",
         "uxweb/sweet-alert": "^2.0",
         "webpatser/laravel-uuid": "^3.0",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "^9.18"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

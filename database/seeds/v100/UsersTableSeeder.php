@@ -24,10 +24,10 @@ class UsersTableSeeder extends Seeder
                 'email' => config('mdh.email'),
                 'first_name' => 'admin',
                 'last_name' => 'admin',
-                'phone' => '+255758698022',
+                'phone' => '+255712123456',
                 'password' => bcrypt(config('mdh.password')),
                 'gender_cv_id' => 6,
-//                'isactive' => 1,
+                'active' => 1,
             ]);
             $this->enableForeignKeys("users");
 
