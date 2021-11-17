@@ -48,7 +48,7 @@
                     <div class="col-12" >
 
                         <div class="table-responsive">
-                            @include('requisition.equipment.equipment_type.datatables.all')
+                            @include('requisition.equipment.datatables.all')
                         </div>
                     </div>
                 </div>
@@ -74,6 +74,6 @@
 {{--        </div>--}}
 {{--    </div>--}}
 
-    @include('requisition.equipment.equipment_type.assignment.index')
+{{--    @include('requisition.equipment.equipment_type.assignment.index')--}}
 
 @endsection

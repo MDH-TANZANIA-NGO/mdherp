@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/debug', function () {
+    return view('debug');
+});
+
 Route::get('/', function () {
     if(access()->guest()) {
         return view('welcomepage');

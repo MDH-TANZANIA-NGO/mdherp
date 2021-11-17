@@ -21,8 +21,8 @@
             <a href="{{route('equipment.index')}}">
                 <div class="card">
                     <div class="card-body text-center">
-                        <div class="h2 m-0"><i class="mdi mdi-cash multiple-outline text-primary"></i></div>
-                        <div class="text-muted mb-0">Government Perdm Rates</div>
+                        <div class="h2 m-0"><i class="mdi mdi-window-open multiple-outline text-primary"></i></div>
+                        <div class="text-muted mb-0">Equipments</div>
                     </div>
                 </div>
             </a>

@@ -34,12 +34,13 @@ class RequisitionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
         return view('requisition._parent.form.create')
-            ->with('requisition_types', $this->requisition_types->getAll()->pluck('name','id'));
+            ->with('requisition_types', $this->requisition_types->getAll()->pluck('title','id'))
+            ->with('projects', $this->projects->getAccessUserProjectsPluck());
     }
 
     /**

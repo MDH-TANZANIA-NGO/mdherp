@@ -17,10 +17,16 @@ class EquipmentRepository extends BaseRepository
             DB::raw('equipments.title AS title'),
             DB::raw('equipments.price_range_from AS price_range_from'),
             DB::raw('equipments.price_range_to AS price_range_to'),
+            DB::raw('equipments.specs AS specs'),
             DB::raw('equipments.uuid AS uuid'),
-            DB::raw('equipment_type.name AS equipment_name'),
+            DB::raw('equipment_types.title AS equipment_title'),
         ])
             ->join('equipment_types','equipment_types.id','equipments.equipment_type_id');
+    }
+
+    public function getForDatatables()
+    {
+        return $this->getQuery();
     }
 
     public function inputsProcessor($inputs)
