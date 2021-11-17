@@ -15,6 +15,7 @@ class CreateRequisitionTypesTable extends Migration
     {
         Schema::create('requisition_types', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->timestamps();
         });
     }

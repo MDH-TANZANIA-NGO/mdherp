@@ -3,16 +3,22 @@
 namespace App\Http\Controllers\Web\Requisition;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\Requisition\RequisitionType\RequisitionTypeRepository;
 use Illuminate\Http\Request;
 
 class RequisitionController extends Controller
 {
     protected $requisitions;
+    protected $requisition_types;
+    protected $projects;
 
     public function __construct()
     {
         $this->requisitions = (new RequisitionRepository());
+        $this->requisition_types = (new RequisitionTypeRepository());
+        $this->projects = (new ProjectRepository());
     }
 
     /**
@@ -22,7 +28,7 @@ class RequisitionController extends Controller
      */
     public function index()
     {
-        return view('requisition.index');
+        return view('requisition._parent.index');
     }
 
     /**
@@ -32,7 +38,8 @@ class RequisitionController extends Controller
      */
     public function create()
     {
-        //
+        return view('requisition._parent.form.create')
+            ->with('requisition_types', $this->requisition_types->getAll()->pluck('name','id'));
     }
 
     /**
