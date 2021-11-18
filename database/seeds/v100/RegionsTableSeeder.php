@@ -29,6 +29,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 4,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>true,
             ),
             1 =>
             array (
@@ -39,6 +40,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 2,
                 'isactive' => true,
                 'exceptional' =>true,
+                'is_city'=>true,
             ),
             2 =>
             array (
@@ -49,6 +51,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 1,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>true,
             ),
             3 =>
             array (
@@ -59,6 +62,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 3,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             4 =>
             array (
@@ -69,6 +73,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 5,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             5 =>
             array (
@@ -79,6 +84,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 3,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             6 =>
             array (
@@ -89,6 +95,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 5,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             7 =>
             array (
@@ -99,6 +106,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 1,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             8 =>
             array (
@@ -109,6 +117,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 4,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             9 =>
             array (
@@ -119,6 +128,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 6,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             10 =>
             array (
@@ -129,6 +139,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 4,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             11 =>
             array (
@@ -139,6 +150,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 3,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             12 =>
             array (
@@ -149,6 +161,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 5,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>true,
             ),
             13 =>
             array (
@@ -159,6 +172,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 2,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             14 =>
             array (
@@ -169,6 +183,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 6,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             15 =>
             array (
@@ -179,6 +194,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 3,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>true,
             ),
             16 =>
             array (
@@ -189,6 +205,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 5,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             17 =>
             array (
@@ -199,6 +216,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 2,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             18 =>
             array (
@@ -209,6 +227,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 2,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             19 =>
             array (
@@ -219,6 +238,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 2,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             20 =>
             array (
@@ -229,6 +249,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 5,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             21 =>
             array (
@@ -239,6 +260,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 6,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             22 =>
             array (
@@ -249,6 +271,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 3,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             23 =>
             array (
@@ -259,6 +282,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 3,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             24 =>
             array (
@@ -269,6 +293,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 1,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             25 =>
             array (
@@ -279,6 +304,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 1,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             26 =>
             array (
@@ -289,6 +315,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 4,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             27 =>
             array (
@@ -299,6 +326,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 2,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>true,
             ),
             28 =>
             array (
@@ -309,6 +337,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 2,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>true,
             ),
             29 =>
             array (
@@ -319,6 +348,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 2,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>true,
             ),
             30 =>
             array (
@@ -329,6 +359,7 @@ class RegionsTableSeeder extends Seeder
                 'zone_id' => 5,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>false,
             ),
             31 =>
             array (
@@ -339,6 +370,7 @@ class RegionsTableSeeder extends Seeder
                 'hasc' => NULL,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>true,
             ),
             32 =>
             array (
@@ -349,6 +381,7 @@ class RegionsTableSeeder extends Seeder
                 'hasc' => NULL,
                 'isactive' => true,
                 'exceptional' =>false,
+                'is_city'=>true,
             ),
         ));
         $this->enableForeignKeys("regions");
