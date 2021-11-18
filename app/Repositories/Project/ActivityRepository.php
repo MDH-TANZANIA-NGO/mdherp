@@ -83,4 +83,17 @@ class ActivityRepository extends BaseRepository
             return $activity->update($this->inputsProcessor($inputs));
         });
     }
+
+    public function getActivities($user_id, $region_id, $project_id)
+    {
+        return $this->getQuery()
+            ->join('project_user','project_user.project_id','projects.id')
+            ->join('users','users.id','project_user.user_id')
+            ->join('project_region','project_region.project_id','projects.id')
+            ->join('regions','regions.id','project_region.region_id')
+            ->where('users.id', $user_id)
+            ->where('regions.id', $region_id)
+            ->where('projects.id',$project_id)
+            ->get();
+    }
 }

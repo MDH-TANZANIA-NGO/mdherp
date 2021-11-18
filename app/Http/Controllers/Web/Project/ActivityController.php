@@ -101,10 +101,11 @@ class ActivityController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function getActivitiesJson(Request $request)
     {
-        //
+        $activities =$this->activities->getActivities($request->only('user_id'),$request->only('region_id'),$request->only('project_id'));
+        return response()->json($activities);
     }
 }

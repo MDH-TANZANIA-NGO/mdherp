@@ -10,3 +10,7 @@
 /*    content: " *";*/
 /*    color: #e32;*/
 /*}*/
+
+.hidden {
+    display: none;
+}
