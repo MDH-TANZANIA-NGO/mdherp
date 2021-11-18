@@ -84,6 +84,44 @@ class ActivityRepository extends BaseRepository
         });
     }
 
+    public function getQueryTwo()
+    {
+        return $this->query()->select([
+            DB::raw('activities.id AS id'),
+            DB::raw('activities.code AS code'),
+            DB::raw('activities.title AS title'),
+            DB::raw('activities.description AS description'),
+            DB::raw("concat_ws(' : ',activities.code, activities.description )AS code_title"),
+            DB::raw('activities.uuid AS uuid'),
+            DB::raw('output_units.title AS output_unit_title'),
+            DB::raw('sub_programs.title AS sub_program_title'),
+            DB::raw('program_areas.title AS program_area_title'),
+            DB::raw("string_agg(DISTINCT projects.title, ',') as project_list"),
+            DB::raw('budgets.numeric_output AS numeric_output'),
+            DB::raw('budgets.amount AS budget_amount'),
+        ])
+            ->join('output_units','output_units.id','activities.output_unit_id')
+            ->join('sub_programs','sub_programs.id', 'activities.sub_program_id')
+            ->join('program_areas','program_areas.id','sub_programs.program_area_id')
+            ->join('program_area_project','program_area_project.program_area_id','program_areas.id')
+            ->join('projects','projects.id','program_area_project.project_id')
+            ->join('budgets','budgets.activity_id','activities.id')
+            ->join('fiscal_years','fiscal_years.id','budgets.fiscal_year_id')
+            ->groupBy('activities.id','activities.code','activities.title','activities.description','activities.uuid','output_units.title','program_areas.title','sub_programs.title','budgets.numeric_output','budgets.amount');
+    }
+
+    public function getSubQuery($activity_id, $project_id, $region_id)
+    {
+        return $this->getQueryTwo()
+            ->join('project_region','project_region.project_id','projects.id')
+            ->join('regions','regions.id','project_region.region_id')
+            ->where('budgets.active', true)
+            ->where('regions.id', $region_id)
+            ->where('projects.id',$project_id)
+            ->where('activities.id', $activity_id)
+            ->get();
+    }
+
     public function getActivities($user_id, $region_id, $project_id)
     {
         return $this->getQuery()
