@@ -6,7 +6,7 @@ Route::group(['namespace' => 'Project', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('{activity}/show/{uuid}/fiscal-year', 'ActivityController@show')->name('show_fiscal_year');
     Route::put('{activity}/update', 'ActivityController@update')->name('update');
     Route::put('{activity}/activate', 'ActivityController@activate')->name('activate');
-    Route::put('{activity}/activate', 'ActivityController@activate')->name('activate');
+    Route::get('json-filer', 'ActivityController@getActivitiesJson')->name('json_filter');
 
     /**
      * Datatables
