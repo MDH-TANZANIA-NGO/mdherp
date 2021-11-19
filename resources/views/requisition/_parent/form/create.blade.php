@@ -65,10 +65,10 @@
                             </div>
                         </div>
                         <div class="offer-content">
-                            <h3 class="lead">
+                            <h3 class="lead" id="project_title">
                                 Afya Kwanza
                             </h3>
-                            <p class="mb-0">
+                            <p class="mb-0" id="activity_title">
                                 2.3.5 To facilitate SI and TA in Data  all other activities must be set here so as user can understand the feeling.
 
                             </p>
@@ -82,9 +82,9 @@
                             <div class="list-group">
                                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">Workflow</h5>
+                                        <h5 class="mb-1">Requisition Type</h5>
                                     </div>
-                                    <p class="mb-1">Direct Workflow</p>
+                                    <p class="mb-1" id="requisition">Direct Workflow</p>
                                 </div>
 
 
@@ -92,19 +92,19 @@
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">Sub Program Area</h5>
                                     </div>
-                                    <p class="mb-1">HTS</p>
+                                    <p class="mb-1" id="sub_program">HTS</p>
                                 </div>
                                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">Numeric Output</h5>
                                     </div>
-                                    <p class="mb-1">30</p>
+                                    <p class="mb-1" id="numeric_output">30</p>
                                 </div>
                                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">Output unit</h5>
                                     </div>
-                                    <p class="mb-1">Viral loads</p>
+                                    <p class="mb-1" id="output_unit">Viral loads</p>
                                 </div>
 
 
@@ -114,12 +114,24 @@
                     <div class="col-6">
                         <div class="card-body">
                             <ul class="list-group">
-                                <li class="list-group-item justify-content-between"><b>Budget </b><span class="badgetext badge badge-primary badge-pill" style="font-size: larger">$14,000,000</span></li>
-                                <li class="list-group-item justify-content-between" ><b>Actual </b><span class="badgetext badge badge-default badge-pill" style="font-size: larger">$0</span></li>
-                                <li class="list-group-item justify-content-between"><b>Commitment </b><span class="badgetext badge badge-default badge-pill" style="font-size: larger">$0</span></li>
-                                <li class="list-group-item justify-content-between"><b>Reprogrammed </b><span class="badgetext badge badge-default badge-pill" style="font-size: larger">$0</span></li>
-                                <li class="list-group-item justify-content-between"><b>Pipeline </b><span class="badgetext badge badge-default badge-pill" style="font-size: larger">$0</span></li>
-                                <li class="list-group-item justify-content-between"><b>Available Budget </b><span class="badgetext badge badge-success badge-pill" style="font-size: larger">$14,000</span></li>
+                                <li class="list-group-item justify-content-between">
+                                    <b>Budget </b><span class="badgetext badge badge-primary badge-pill" id="budget" style="font-size: larger">$14,000,000</span>
+                                </li>
+                                <li class="list-group-item justify-content-between" >
+                                    <b>Actual </b><span class="badgetext badge badge-default badge-pill" id="actual" style="font-size: larger">$0</span>
+                                </li>
+                                <li class="list-group-item justify-content-between">
+                                    <b>Commitment </b><span class="badgetext badge badge-default badge-pill" id="commitment" style="font-size: larger">$0</span>
+                                </li>
+                                <li class="list-group-item justify-content-between">
+                                    <b>Reprogrammed </b><span class="badgetext badge badge-default badge-pill" id="reprogrammed" style="font-size: larger">$0</span>
+                                </li>
+                                <li class="list-group-item justify-content-between">
+                                    <b>Pipeline </b><span class="badgetext badge badge-default badge-pill" id="pipeline" style="font-size: larger">$0</span>
+                                </li>
+                                <li class="list-group-item justify-content-between">
+                                    <b>Available Budget </b><span class="badgetext badge badge-success badge-pill" id="available" style="font-size: larger">$14,000</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -326,6 +338,19 @@
             let $activity_select = $("select[name='activity']");
             let $get_info_button = $("#get_info");
 
+            let $project_title = $("#project_title");
+            let $activity_title = $("#activity_title");
+            let $requisition = $("#requisition");
+            let $sub_program = $("#sub_program");
+            let $numeric_output = $("#numeric_output");
+            let $output_unit = $("#output_unit");
+            let $budget = $("#budget");
+            let $actual = $("#actual");
+            let $commitment = $("#commitment");
+            let $reprogrammed = $("#reprogrammed");
+            let $pipeline = $("#pipeline");
+            let $available = $("#available");
+
             $requisition_type_select.change(function (event){
                 event.preventDefault();
                 $project_select.attr('disabled', false);
@@ -363,19 +388,37 @@
                 let $region_id = "{{ access()->user()->region_id }}";
                 let $fiscal_year = null;
 
+                //clear output
+                clearOutput();
+
                 fetch_activity_details($requisition_type_id,$project_id,$activity_id,$region_id,$fiscal_year);
             });
 
         function fetch_activity_details(requisition_type_id,project_id,activity_id,region_id,fiscal_year){
             $.get("{{ route('requisition.get_json') }}", { requisition_type_id: requisition_type_id,project_id: project_id, activity_id: activity_id, region_id: region_id, fiscal_year: fiscal_year},
                 function(data, status){
-                    console.log(data)
                     if(data.length > 0){
 
                     }else{
 
                     }
                 });
+        }
+
+        function clearOutput()
+        {
+            $project_title.text('');
+            $activity_title.text('');
+            $requisition.text('');
+            $sub_program.text('');
+            $numeric_output.text('');
+            $output_unit.text('');
+            $budget.text('');
+            $actual.text('');
+            $commitment.text('');
+            $reprogrammed.text('');
+            $pipeline.text('');
+            $available.text('');
         }
 
             // if($requisition_type_select.val() && $project.val()){
