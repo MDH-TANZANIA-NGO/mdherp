@@ -9,7 +9,7 @@
 
             <div class="card-header" style="background-color: rgb(238, 241, 248)">
                 <div class="row text-center">
-                    <span class="col-12 text-center font-weight-bold">List of Projects</span>
+                    <span class="col-12 text-center font-weight-bold">Stock Units</span>
                 </div>
 
                 <div class="card-options ">
