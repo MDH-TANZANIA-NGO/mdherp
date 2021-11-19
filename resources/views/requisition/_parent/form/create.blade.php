@@ -65,13 +65,8 @@
                             </div>
                         </div>
                         <div class="offer-content">
-                            <h3 class="lead" id="project_title">
-                                Afya Kwanza
-                            </h3>
-                            <p class="mb-0" id="activity_title">
-                                2.3.5 To facilitate SI and TA in Data  all other activities must be set here so as user can understand the feeling.
-
-                            </p>
+                            <h3 class="lead" id="project_title"></h3>
+                            <p class="mb-0" id="activity_title"></p>
                         </div>
                     </div>
                 </div>
@@ -84,7 +79,7 @@
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">Requisition Type</h5>
                                     </div>
-                                    <p class="mb-1" id="requisition">Direct Workflow</p>
+                                    <p class="mb-1" id="requisition"></p>
                                 </div>
 
 
@@ -92,19 +87,19 @@
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">Sub Program Area</h5>
                                     </div>
-                                    <p class="mb-1" id="sub_program">HTS</p>
+                                    <p class="mb-1" id="sub_program"></p>
                                 </div>
                                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">Numeric Output</h5>
                                     </div>
-                                    <p class="mb-1" id="numeric_output">30</p>
+                                    <p class="mb-1" id="numeric_output"></p>
                                 </div>
                                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">Output unit</h5>
                                     </div>
-                                    <p class="mb-1" id="output_unit">Viral loads</p>
+                                    <p class="mb-1" id="output_unit"></p>
                                 </div>
 
 
@@ -115,22 +110,22 @@
                         <div class="card-body">
                             <ul class="list-group">
                                 <li class="list-group-item justify-content-between">
-                                    <b>Budget </b><span class="badgetext badge badge-primary badge-pill" id="budget" style="font-size: larger">$14,000,000</span>
+                                    <b>Budget </b><span class="badgetext badge badge-primary badge-pill" id="budget" style="font-size: larger"></span>
                                 </li>
                                 <li class="list-group-item justify-content-between" >
-                                    <b>Actual </b><span class="badgetext badge badge-default badge-pill" id="actual" style="font-size: larger">$0</span>
+                                    <b>Actual </b><span class="badgetext badge badge-default badge-pill" id="actual" style="font-size: larger"></span>
                                 </li>
                                 <li class="list-group-item justify-content-between">
-                                    <b>Commitment </b><span class="badgetext badge badge-default badge-pill" id="commitment" style="font-size: larger">$0</span>
+                                    <b>Commitment </b><span class="badgetext badge badge-default badge-pill" id="commitment" style="font-size: larger"></span>
                                 </li>
                                 <li class="list-group-item justify-content-between">
-                                    <b>Reprogrammed </b><span class="badgetext badge badge-default badge-pill" id="reprogrammed" style="font-size: larger">$0</span>
+                                    <b>Reprogrammed </b><span class="badgetext badge badge-default badge-pill" id="reprogrammed" style="font-size: larger"></span>
                                 </li>
                                 <li class="list-group-item justify-content-between">
-                                    <b>Pipeline </b><span class="badgetext badge badge-default badge-pill" id="pipeline" style="font-size: larger">$0</span>
+                                    <b>Pipeline </b><span class="badgetext badge badge-default badge-pill" id="pipeline" style="font-size: larger"></span>
                                 </li>
                                 <li class="list-group-item justify-content-between">
-                                    <b>Available Budget </b><span class="badgetext badge badge-success badge-pill" id="available" style="font-size: larger">$14,000</span>
+                                    <b>Available Budget </b><span class="badgetext badge badge-success badge-pill" id="available" style="font-size: larger"></span>
                                 </li>
                             </ul>
                         </div>
@@ -397,10 +392,22 @@
         function fetch_activity_details(requisition_type_id,project_id,activity_id,region_id,fiscal_year){
             $.get("{{ route('requisition.get_json') }}", { requisition_type_id: requisition_type_id,project_id: project_id, activity_id: activity_id, region_id: region_id, fiscal_year: fiscal_year},
                 function(data, status){
-                    if(data.length > 0){
-
+                    if(data){
+                        console.log(data)
+                        $project_title.text(data.project);
+                        $activity_title.text(data.activity)
+                        $requisition.text(data.requisition_type)
+                        $sub_program.text(data.sub_program_area)
+                        $numeric_output.text(data.numeric_output)
+                        $output_unit.text(data.output_unit)
+                        $budget.text(data.budget)
+                        $actual.text(data.actual)
+                        $commitment.text(data.commitment)
+                        // $reprogrammed.text(data.)
+                        $pipeline.text(data.pipeline)
+                        $available.text(data.available_budget)
                     }else{
-
+                        clearOutput();
                     }
                 });
         }
