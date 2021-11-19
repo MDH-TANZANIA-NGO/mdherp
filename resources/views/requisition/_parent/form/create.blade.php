@@ -355,6 +355,29 @@
                     });
             }
 
+            $activity_select.change(function (event){
+                event.preventDefault();
+                let $requisition_type_id = $requisition_type_select.val();
+                let $project_id = $project_select.val();
+                let $activity_id = $(this).val();
+                let $region_id = "{{ access()->user()->region_id }}";
+                let $fiscal_year = null;
+
+                fetch_activity_details($requisition_type_id,$project_id,$activity_id,$region_id,$fiscal_year);
+            });
+
+        function fetch_activity_details(requisition_type_id,project_id,activity_id,region_id,fiscal_year){
+            $.get("{{ route('requisition.get_json') }}", { requisition_type_id: requisition_type_id,project_id: project_id, activity_id: activity_id, region_id: region_id, fiscal_year: fiscal_year},
+                function(data, status){
+                    console.log(data)
+                    if(data.length > 0){
+
+                    }else{
+
+                    }
+                });
+        }
+
             // if($requisition_type_select.val() && $project.val()){
             //     $get_info_button.removeAttr('disabled', false);
             // }else{
