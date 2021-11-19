@@ -29,16 +29,7 @@
 
             </div>
 
-            &nbsp;
 
-
-
-            &nbsp;
-
-
-
-
-            &nbsp;
             <div class="row">
 
                 <div class="col-12">
@@ -61,12 +52,12 @@
 @push('after-styles')
     {{ Html::style(url('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css')) }}
 @endpush
-{!! Form::open([ 'method'=>'POST']) !!}
+{!! Form::open([ 'route' => 'mdh-rates.assign','method'=>'POST']) !!}
 <div class="row mt-4">
     <div class="col-12">
         <div class="form-group">
             <label>{{ __('Allocate Rate') }}</label>
-            {!! Form::select('rate',$mdh_rate,old('rate'),['class'=>'form-control','placeholder' => 'Select Rate']) !!}
+            {!! Form::select('rate',$mdh_rates,old('rate'),['class'=>'form-control','placeholder' => 'Select Rate']) !!}
         </div>
 
         <div class="form-group">
@@ -110,7 +101,7 @@
                         }
                         $rates_list.append("<option value=" + item.id + " " + $check_if_selected + ">" + item.name + "</option>");
                     });
-                    $rates_list.trigger('bootstrapDualListbox.refresh', true);
+                    $rates_list.trigger('bootstrapDualListbox.refresh', false);
                 });
 
             });
