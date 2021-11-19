@@ -1,4 +1,4 @@
-{!! Form::open(['route' => 'project.store', 'method' => 'post',]) !!}
+{!! Form::open(['route' => 'stock.store', 'method' => 'post',]) !!}
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
     <div class="card">
@@ -21,7 +21,7 @@
 
                 <div class="col-6" >
                     <label class="form-label">Expense ID</label>
-                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
+                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)" name="expense_id">
                         <optgroup label="Mountain Time Zone">
                             <option value="AZ">Arizona</option>
                             <option value="CO">Colorado</option>
@@ -53,8 +53,8 @@
                 </div>
 
                 <div class="col-6">
-                    <label class="form-label">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="i.e Laptops" required>
+                    <label class="form-label">Item Name</label>
+                    <input type="text" class="form-control" name="title" placeholder="i.e Laptops" required >
                     @error('title')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
@@ -77,7 +77,7 @@
                             <div class="input-group-text">
                                 <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                             </div>
-                        </div><input class="form-control" name="start_year" type="date" min="1997-01-01" required>
+                        </div><input class="form-control" name="date_received" type="date" min="1997-01-01" required>
                     </div>
                     @error('start_year')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -125,7 +125,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label class="form-label">Unit</label>
-                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
+                    <select class="form-control select2-show-search" name="unit_id" data-placeholder="Choose one (with searchbox)">
                         @foreach($units as $row)
                             <option value="{{$row->id}}">{{$row->abbreviation}}</option>
 
@@ -167,29 +167,6 @@
 
 {!! Form::close() !!}
 
-@push('after-scripts')
-    <script>
-        $(document).ready(function () {
-            let $type_input = $("select[name='type']");
-            let $region_holder = $("#region_holder");
-            let $region_input = $("select[name='regions[]']");
-
-            $region_holder.hide();
-
-            $type_input.change(function (event){
-                event.preventDefault();
-                let $value = $(this).val();
-                if($value === "{{ config('mdh.project.with_region') }}"){
-                    $region_holder.show()
-                    $region_input.attr('disabled',false);
-                }else{
-                    $region_holder.hide();
-                    $region_input.attr('disabled',true);
-                }
-            });
-        });
-    </script>
-@endpush
 
 
 

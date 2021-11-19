@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\SupplyChain;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\SupplyChain\Traits\stock_unitDatatable;
+use App\Models\SupplyChain\stock;
 use App\Models\SupplyChain\stock_unit;
 use App\Repositories\SupplyChain\stockUnitRepository;
 use App\Repositories\System\RegionRepository;
@@ -25,6 +26,19 @@ use stock_unitDatatable;
 //        $goods = Good::latest()->paginate(5);
             $units = stock_unit::all();
 return view('/SupplyChain.index', ['units'=>$units]);
+
+    }
+    public function storeStock(Request $request){
+        $stock = new stock();
+        $stock-> expense_id = request('expense_id');
+        $stock->title= request('title');
+        $stock-> unit_id = request('unit_id');
+        $stock-> description = request('description');
+        $stock-> date_received = request('date_received');
+        $stock-> quantity = request('quantity');
+        $stock->save();
+
+        return redirect()->back();
 
     }
 
