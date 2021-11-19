@@ -23,8 +23,8 @@ use stock_unitDatatable;
 
     public function index(){
 //        $goods = Good::latest()->paginate(5);
-
-return view('/SupplyChain.index');
+            $units = stock_unit::all();
+return view('/SupplyChain.index', ['units'=>$units]);
 
     }
 
