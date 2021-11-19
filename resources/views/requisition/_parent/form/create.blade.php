@@ -346,7 +346,7 @@
                         if(data.length > 0){
                             $activity_select.find('option').remove();
                             $.each(data, function(key, result) {
-                                let $option = "<option value='"+result.id+"'>"+result.title+"</option>";
+                                let $option = "<option value='"+result.id+"'>"+result.code+" - "+result.title+"</option>";
                                 $activity_select.append($option);
                             });
                         }else{
