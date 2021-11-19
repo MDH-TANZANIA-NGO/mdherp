@@ -91,11 +91,20 @@ class RequisitionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $requisition_type_id
+     * @param $project_id
+     * @param $activity_id
+     * @param $region_id
+     * @param $fiscal_year
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function getResultsJson(Request $request)
     {
-        //
+        $requisition_type_id = $request->only('requisition_type_id');
+        $project_id = $request->only('project_id');
+        $activity_id = $request->only('activity_id');
+        $region_id = $request->only('region_id');
+        $fiscal_year = $request->only('fiscal_year');
+        return response()->json($this->requisitions->getResults($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year));
     }
 }

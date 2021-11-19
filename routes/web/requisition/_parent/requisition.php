@@ -9,6 +9,8 @@ Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'pr
     Route::put('{activity}/activate', 'RequisitionController@activate')->name('activate');
     Route::put('{activity}/activate', 'RequisitionController@activate')->name('activate');
 
+    Route::get('get-json', 'RequisitionController@getResultsJson')->name('get_json');
+
     /**
      * Datatables
      */
