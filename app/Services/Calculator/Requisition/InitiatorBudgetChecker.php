@@ -4,6 +4,7 @@ namespace App\Services\Calculator\Requisition;
 
 use App\Models\Requisition\RequisitionType\RequisitionType;
 use App\Repositories\Project\ActivityRepository;
+use App\Repositories\Requisition\RequisitionType\RequisitionTypeRepository;
 
 trait InitiatorBudgetChecker
 {
@@ -12,7 +13,7 @@ trait InitiatorBudgetChecker
         return [
             'project' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->project_list,
             'activity' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->code_title,
-//            'requisition_type' => $this->requisition($requisition_type_id)->title,
+            'requisition_type' => $this->requisition($requisition_type_id)->title,
             'sub_program_area' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->sub_program_title,
             'numeric_output' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->numeric_output,
             'output_unit' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->output_unit_title,
@@ -31,7 +32,7 @@ trait InitiatorBudgetChecker
 
     public function requisition($requisition_type_id)
     {
-        return RequisitionType::query()->findOrFail($requisition_type_id);
+        return (new RequisitionTypeRepository())->query()->where('id',$requisition_type_id)->first();
     }
 
 }
