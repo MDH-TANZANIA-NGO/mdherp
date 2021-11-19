@@ -26,6 +26,7 @@ class DistrictsTableSeeder extends Seeder
                 'region_id' => 1,
                 'name' => 'Meru',
                 'separate_id' => null,
+
             ),
             1 =>
             array (
@@ -33,6 +34,7 @@ class DistrictsTableSeeder extends Seeder
                 'region_id' => 1,
                 'name' => 'Arusha City',
                 'separate_id' => null,
+
             ),
             2 =>
             array (
