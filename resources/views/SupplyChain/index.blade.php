@@ -1,5 +1,5 @@
 @extends('layouts.app')
 @section('content')
 
-    @include('SupplyChain.forms.create')
+    @include('SupplyChain.datatables.stocks')
 @endsection
