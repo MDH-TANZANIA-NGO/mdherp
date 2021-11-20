@@ -19,33 +19,12 @@
         </div>
         <div class="panel-body tabs-menu-body">
             <div class="tab-content">
-                {{--                <div class="tab-pane active" id="tab5">--}}
 
-                {{--                    <div class="card-body">--}}
-                {{--                        <div class="table-responsive">--}}
-                {{--                            <table id="active_users" class="table table-striped table-bordered" style="width:100%">--}}
-                {{--                                <thead>--}}
-                {{--                                <tr>--}}
-                {{--                                    <th class="wd-15p">#</th>--}}
-                {{--                                    <th class="wd-15p">First name</th>--}}
-                {{--                                    <th class="wd-15p">Last name</th>--}}
-                {{--                                    <th class="wd-20p">Email</th>--}}
-                {{--                                    <th class="wd-20p">Position</th>--}}
-                {{--                                    <th class="wd-15p">Region</th>--}}
-                {{--                                    <th class="wd-10p">Projects</th>--}}
-                {{--                                    <th class="wd-25p">Action</th>--}}
-                {{--                                </tr>--}}
-                {{--                                </thead>--}}
-                {{--                            </table>--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-
-                {{--                </div>--}}
                 <div class="tab-pane active" id="tab6">
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="diactive_users" class="table table-striped table-bordered" style="width:100%">
+                            <table id="received_stocks" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">#</th>
@@ -70,7 +49,7 @@
     <script>
         $(document).ready(function () {
 
-            $("#active_users").DataTable({
+            $("#received_stocks").DataTable({
                 // processing: true,
                 // serverSide: true,
                 destroy: true,
