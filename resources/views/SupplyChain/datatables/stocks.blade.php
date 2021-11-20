@@ -56,15 +56,13 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '',
+                ajax: '{{route('stock.datatable.all')}}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'first_name', name: 'users.first_name', searchable: true},
-                    { data: 'last_name', name: 'users.last_name', searchable: true},
-                    { data: 'email', name: 'users.email', searchable: true},
-                    { data: 'designation', name: 'unit.name', searchable: true},
-                    { data: 'region', name: 'regions.name', searchable: true},
-                    { data: 'project_list', name: 'projects.title', searchable: true },
+                    { data: 'expense_id', name: 'stocks.expense_id', searchable: true},
+                    { data: 'title', name: 'stocks.title', searchable: true},
+                    { data: 'quantity', name: 'stocks.quantity', searchable: true},
+                    { data: 'date_received', name: 'stocks.date_received', searchable: true},
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

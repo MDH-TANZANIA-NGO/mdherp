@@ -3,12 +3,22 @@
 namespace App\Http\Controllers\Web\SupplyChain;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\SupplyChain\Traits\stockDatatable;
 use App\Models\SupplyChain\stock;
 use App\Models\SupplyChain\stock_unit;
+use App\Repositories\SupplyChain\stockRepository;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
+   protected $stocks;
+   use stockDatatable;
+
+    public function __construct()
+    {
+        $this->stocks = (new stockRepository());
+    }
+
 
     public function index(){
 
@@ -26,7 +36,7 @@ class StockController extends Controller
         $stock-> quantity = request('quantity');
         $stock->save();
 
-        return redirect()->back();
+        return view('/SupplyChain.index');
 
     }
 

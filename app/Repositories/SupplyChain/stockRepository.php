@@ -3,8 +3,10 @@
 namespace App\Repositories\SupplyChain;
 
 use App\Models\SupplyChain\stock;
+use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
-class stockRepository
+class stockRepository extends BaseRepository
 {
     const MODEL = stock::class;
     public function __construct()
@@ -17,7 +19,7 @@ class stockRepository
             DB::raw('stocks.title AS title'),
             DB::raw('stocks.expense_id AS expense_id'),
             DB::raw('stocks.quantity AS quantity'),
-            DB::raw('stocks.description AS description'),
+            DB::raw('stocks.date_received AS date_received'),
         ]);
 
 

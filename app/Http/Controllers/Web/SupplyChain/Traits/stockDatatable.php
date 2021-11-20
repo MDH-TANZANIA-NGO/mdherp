@@ -9,7 +9,7 @@ use Yajra\DataTables\DataTables;
 trait stockDatatable
 {
 
-    public function allDatatableStocks()
+    public function allStocks()
     {
         return DataTables::of($this->stocks->allstocks())
             ->addIndexColumn()
