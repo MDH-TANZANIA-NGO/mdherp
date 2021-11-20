@@ -72,7 +72,7 @@ class RequisitionController extends Controller
     {
         return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
-            ->with('items', $requisition->items())
+            ->with('items', $requisition->items)
             ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
             ->with('districts', $this->districts->getForPluck());
     }
