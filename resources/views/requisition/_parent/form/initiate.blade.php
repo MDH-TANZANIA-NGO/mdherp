@@ -21,17 +21,18 @@
                                     </thead>
 
                                     <tbody>
+                                    {!! Form::open() !!}
                                     <tr>
                                         <td class="text-center"><span style="color: red"></span></td>
                                         <td>{!! Form::select('equipment_id',$equipments,null,['class'=>'form-control', 'placeholder'=>'Select']) !!}</td>
                                         <td class="text-center" id="equipment_type"></td>
                                         <td class="text-left" id="specs"></td>
                                         <td class="text-right">
-                                            <input type="number" name="requested_amount" class="form-control" placeholder=""/>
-                                            <span class="badge badge-danger hidden" id="amount_alert"></span>
+                                            <input type="number" name="requested_amount" class="form-control" placeholder="" />
                                         </td>
                                         <td><button type="submit" class="btn btn-primary">Add</button></td>
                                     </tr>
+                                    {!! Form::close() !!}
 {{--                                    <tr>--}}
 {{--                                        <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>--}}
 {{--                                        <td>--}}
@@ -83,13 +84,16 @@
             $equipment_id.change(function (event){
                 event.preventDefault();
                 let $equipment = $(this).val();
-                console.log($equipment);
+                $requested_amount.attr('min', '');
+                $requested_amount.attr('max', '');
                 $.get("{{ route('equipment.get_by_id') }}", { equipment_id: $equipment},
                     function(data, status){
                         if(data){
                             $equipment_type.text(data.equipment_title)
                             $specs.text(data.specs)
-                            $requested_amount.attr('placeholder', data.price_range_from +' - ' +data.price_range_to )
+                            $requested_amount.attr('placeholder', data.price_range_from +' - ' +data.price_range_to)
+                            $requested_amount.attr('min', data.price_range_from)
+                            $requested_amount.attr('max', data.price_range_to)
                         }else{
                             $equipment_type.text('');
                             $specs.text('');
