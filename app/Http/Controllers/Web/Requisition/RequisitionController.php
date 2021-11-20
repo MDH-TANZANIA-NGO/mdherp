@@ -107,4 +107,9 @@ class RequisitionController extends Controller
         $fiscal_year = $request->only('fiscal_year');
         return response()->json($this->requisitions->getResults($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year));
     }
+
+    public function detailed(){
+
+        return view('requisition._parent.detailed');
+    }
 }
