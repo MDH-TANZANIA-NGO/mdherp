@@ -16,6 +16,7 @@
             <div class="card ">
                 <div class="card-body">
                     <div class="inner-all">
+                        {!! Form::open(['route' => 'requisition.store', 'method'=>'POST']) !!}
                             <ul class="list-unstyled">
                                 <label>Requisition Type</label>
                                 <li class="text-center">
@@ -34,10 +35,13 @@
                                 </li>
                                 <br>
                                 <li>
-                                    <button type="button" class="btn btn-primary text-center btn-block" id="get_info">Get Info</button>
+                                    {!! Form::hidden('region_id', access()->user()->region_id) !!}
+                                    {!! Form::hidden('budget_id', null) !!}
+                                    <button type="submit" class="btn btn-primary text-center btn-block" id="get_info">initiate</button>
                                 </li>
                              <br>
                             </ul>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
@@ -331,6 +335,7 @@
             let $requisition_type_select = $("select[name='requisition_type']");
             let $project_select = $("select[name='project']");
             let $activity_select = $("select[name='activity']");
+            let $budget_id_input = $("input[name='budget_id']");
             let $get_info_button = $("#get_info");
 
             let $project_title = $("#project_title");
@@ -393,19 +398,19 @@
             $.get("{{ route('requisition.get_json') }}", { requisition_type_id: requisition_type_id,project_id: project_id, activity_id: activity_id, region_id: region_id, fiscal_year: fiscal_year},
                 function(data, status){
                     if(data){
-                        console.log(data)
                         $project_title.text(data.project);
-                        $activity_title.text(data.activity)
-                        $requisition.text(data.requisition_type)
-                        $sub_program.text(data.sub_program_area)
-                        $numeric_output.text(data.numeric_output)
-                        $output_unit.text(data.output_unit)
-                        $budget.text(data.budget)
-                        $actual.text(data.actual)
-                        $commitment.text(data.commitment)
+                        $activity_title.text(data.activity);
+                        $requisition.text(data.requisition_type);
+                        $sub_program.text(data.sub_program_area);
+                        $numeric_output.text(data.numeric_output);
+                        $output_unit.text(data.output_unit);
+                        $budget.text(data.budget);
+                        $actual.text(data.actual);
+                        $commitment.text(data.commitment);
                         // $reprogrammed.text(data.)
-                        $pipeline.text(data.pipeline)
-                        $available.text(data.available_budget)
+                        $pipeline.text(data.pipeline);
+                        $available.text(data.available_budget);
+                        $budget_id_input.val(data.budget_id);
                     }else{
                         clearOutput();
                     }
@@ -426,6 +431,7 @@
             $reprogrammed.text('');
             $pipeline.text('');
             $available.text('');
+            $budget_id_input.empty();
         }
 
             // if($requisition_type_select.val() && $project.val()){
