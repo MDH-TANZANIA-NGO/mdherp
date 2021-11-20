@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Web\Requisition;
 
 use App\Http\Controllers\Controller;
+use App\Models\Requisition\Requisition;
 use App\Repositories\Project\ProjectRepository;
+use App\Repositories\Requisition\Equipment\EquipmentRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\RequisitionType\RequisitionTypeRepository;
 use Illuminate\Http\Request;
@@ -13,12 +15,14 @@ class RequisitionController extends Controller
     protected $requisitions;
     protected $requisition_types;
     protected $projects;
+    protected $equipments;
 
     public function __construct()
     {
         $this->requisitions = (new RequisitionRepository());
         $this->requisition_types = (new RequisitionTypeRepository());
         $this->projects = (new ProjectRepository());
+        $this->equipments = (new EquipmentRepository());
     }
 
     /**
@@ -47,11 +51,25 @@ class RequisitionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $requisition = $this->requisitions->store($request->all());
+        return redirect()->route('requisition.initiate',[$requisition]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function initiate(Requisition $requisition)
+    {
+        return view('requisition._parent.form.initiate')
+            ->with('requisition', $requisition)
+            ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'));
     }
 
     /**
@@ -60,18 +78,7 @@ class RequisitionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function show(Requisition $requisition)
     {
         //
     }

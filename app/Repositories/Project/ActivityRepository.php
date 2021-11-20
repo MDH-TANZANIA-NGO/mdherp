@@ -99,6 +99,7 @@ class ActivityRepository extends BaseRepository
             DB::raw("string_agg(DISTINCT projects.title, ',') as project_list"),
             DB::raw('budgets.numeric_output AS numeric_output'),
             DB::raw('budgets.amount AS budget_amount'),
+            DB::raw('budgets.id AS budget_id'),
         ])
             ->join('output_units','output_units.id','activities.output_unit_id')
             ->join('sub_programs','sub_programs.id', 'activities.sub_program_id')
@@ -107,7 +108,8 @@ class ActivityRepository extends BaseRepository
             ->join('projects','projects.id','program_area_project.project_id')
             ->join('budgets','budgets.activity_id','activities.id')
             ->join('fiscal_years','fiscal_years.id','budgets.fiscal_year_id')
-            ->groupBy('activities.id','activities.code','activities.title','activities.description','activities.uuid','output_units.title','program_areas.title','sub_programs.title','budgets.numeric_output','budgets.amount');
+            ->groupBy('activities.id','activities.code','activities.title','activities.description',
+                'activities.uuid','output_units.title','program_areas.title','sub_programs.title','budgets.numeric_output','budgets.amount','budgets.id');
     }
 
     public function getSubQuery($activity_id, $project_id, $region_id)
