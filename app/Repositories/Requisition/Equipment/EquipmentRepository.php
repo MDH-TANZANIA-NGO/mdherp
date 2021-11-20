@@ -29,6 +29,11 @@ class EquipmentRepository extends BaseRepository
         return $this->getQuery();
     }
 
+    public function getById($inputs)
+    {
+        return $this->getQuery()->where('equipments.id', $inputs['equipment_id'])->first();
+    }
+
     public function inputsProcessor($inputs)
     {
         return [

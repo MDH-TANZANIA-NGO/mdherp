@@ -11,12 +11,12 @@
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                     <tr class="">
-                                        <th class="text-center">#</th>
-                                        <th>Equipment</th>
-                                        <th class="text-center">Equipment Type</th>
-                                        <th class="text-center" >Specification/description</th>
-                                        <th class="text-right" >Request Amount</th>
-                                        {{--                                        <th class="text-right" style="width: 12%">Requested Amount</th>--}}
+                                        <th class="text-center" style="width: 5%">#</th>
+                                        <th style="width: 20%">Equipment</th>
+                                        <th class="text-center" style="width: 10%">Equipment Type</th>
+                                        <th class="text-center"  style="width: 40%">Specification/description</th>
+                                        <th class="text-right"  style="width: 20%">Request Amount</th>
+                                        <th class="text-right" style="width: 5%">Action</th>
                                     </tr>
                                     </thead>
 
@@ -26,7 +26,11 @@
                                         <td>{!! Form::select('equipment_id',$equipments,null,['class'=>'form-control', 'placeholder'=>'Select']) !!}</td>
                                         <td class="text-center" id="equipment_type"></td>
                                         <td class="text-left" id="specs"></td>
-                                        <td class="text-right" id="requested_amount"></td>
+                                        <td class="text-right">
+                                            <input type="number" name="requested_amount" class="form-control" placeholder=""/>
+                                            <span class="badge badge-danger hidden" id="amount_alert"></span>
+                                        </td>
+                                        <td><button type="submit" class="btn btn-primary">Add</button></td>
                                     </tr>
 {{--                                    <tr>--}}
 {{--                                        <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>--}}
@@ -70,7 +74,30 @@
 @push('after-scripts')
     <script>
         $(document).ready(function (){
+            let $equipment_id = $("select[name='equipment_id']");
+            let $equipment_type = $("#equipment_type");
+            let $specs = $("#specs");
+            let $requested_amount = $("input[name='requested_amount']");
 
+
+            $equipment_id.change(function (event){
+                event.preventDefault();
+                let $equipment = $(this).val();
+                console.log($equipment);
+                $.get("{{ route('equipment.get_by_id') }}", { equipment_id: $equipment},
+                    function(data, status){
+                        if(data){
+                            $equipment_type.text(data.equipment_title)
+                            $specs.text(data.specs)
+                            $requested_amount.attr('placeholder', data.price_range_from +' - ' +data.price_range_to )
+                        }else{
+                            $equipment_type.text('');
+                            $specs.text('');
+                            $requested_amount.empty();
+                        }
+                });
+
+            });
         });
     </script>
 @endpush
