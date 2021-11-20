@@ -5,8 +5,7 @@ Route::group(['namespace' => 'Requisition\Equipment', 'middleware' => ['web', 'a
     Route::get('{activity}/show', 'EquipmentController@show')->name('show');
     Route::get('{activity}/show/{uuid}/fiscal-year', 'EquipmentController@show')->name('show_fiscal_year');
     Route::put('{activity}/update', 'EquipmentController@update')->name('update');
-    Route::put('{activity}/activate', 'EquipmentController@activate')->name('activate');
-    Route::put('{activity}/activate', 'EquipmentController@activate')->name('activate');
+    Route::get('get-by-id', 'EquipmentController@getById')->name('get_by_id');
 
     /**
      * Datatables
