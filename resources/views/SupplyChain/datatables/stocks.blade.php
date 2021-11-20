@@ -4,10 +4,9 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    {{--                    <li class=""><a href="#tab5" class="active" data-toggle="tab">Requested--}}{{-- <span class="badge badge-success">20</span>--}}{{--</a></li>--}}
-                    <li><a href="#tab6" data-toggle="tab" class="active">Received {{--<span class="badge badge-danger">5</span>--}}</a></li>
-                    <li><a href="#tab6" data-toggle="tab" class="">Confirmed {{--<span class="badge badge-danger">5</span>--}}</a></li>
-                    <li><a href="#tab6" data-toggle="tab" class="">Waiting Confirmation {{--<span class="badge badge-danger">5</span>--}}</a></li>
+                    <li><a href="#tab6" data-toggle="tab" class="active">Received <span class="badge badge-primary">5</span></a></li>
+                    <li><a href="#tab6" data-toggle="tab" class="">Confirmed <span class="badge badge-success">4</span></a></li>
+                    <li><a href="#tab6" data-toggle="tab" class="">Waiting Confirmation <span class="badge badge-warning">1</span></a></li>
                 </ul>
             </div>
 
