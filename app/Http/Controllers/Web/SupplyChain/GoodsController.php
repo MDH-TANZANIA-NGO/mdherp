@@ -24,8 +24,8 @@ use stock_unitDatatable;
 
     public function index(){
 //        $goods = Good::latest()->paginate(5);
-            $units = stock_unit::all();
-return view('/SupplyChain.index', ['units'=>$units]);
+
+return view('/SupplyChain.index');
 
     }
     public function storeStock(Request $request){
@@ -44,7 +44,8 @@ return view('/SupplyChain.index', ['units'=>$units]);
 
 //    Shows the form for new received goods
     public function create(){
-        return view('SupplyChain.create');
+        $units = stock_unit::all();
+        return view('SupplyChain.forms.create', ['units'=>$units]);
     }
 //configure stock unit
 

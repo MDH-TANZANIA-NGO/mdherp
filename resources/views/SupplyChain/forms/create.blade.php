@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 {!! Form::open(['route' => 'stock.store', 'method' => 'post',]) !!}
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
@@ -165,7 +167,12 @@
     </div>
 </div>
 
+
 {!! Form::close() !!}
+
+@endsection
+
+
 
 
 
