@@ -15,7 +15,7 @@
                                         <th style="width: 20%">Equipment</th>
                                         <th class="text-center" style="width: 10%">Equipment Type</th>
                                         <th class="text-center"  style="width: 40%">Specification/description</th>
-                                        <th class="text-right"  style="width: 20%">Request Amount</th>
+                                        <th class="text-right"  style="width: 20%">Quantity / Request Amount</th>
                                         <th class="text-right" style="width: 5%">Action</th>
                                     </tr>
                                     </thead>
@@ -26,9 +26,25 @@
                                         <td class="text-center"><span style="color: red"></span></td>
                                         <td>{!! Form::select('equipment_id',$equipments,null,['class'=>'form-control', 'placeholder'=>'Select']) !!}</td>
                                         <td class="text-center" id="equipment_type"></td>
-                                        <td class="text-left" id="specs"></td>
+                                        <td class="text-left">
+                                            <div id="specs"></div>
+                                            <hr>
+                                            <div>
+                                                <label>Why you are procure this item</label>
+                                                <textarea name="" id="" class="form-control" cols="30" rows="10"></textarea>
+                                            </div>
+                                        </td>
                                         <td class="text-right">
-                                            <input type="number" name="requested_amount" class="form-control" placeholder="" />
+
+                                            <div>
+                                                <label>Quantity</label>
+                                                <input type="number" name="quantity" class="form-control" placeholder="" />
+                                            </div>
+
+                                            <div>
+                                                <label>Amount</label>
+                                                <input type="number" name="requested_amount" class="form-control" placeholder="" />
+                                            </div>
                                         </td>
                                         <td><button type="submit" class="btn btn-primary">Add</button></td>
                                     </tr>
