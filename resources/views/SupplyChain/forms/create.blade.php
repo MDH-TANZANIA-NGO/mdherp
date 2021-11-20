@@ -1,4 +1,6 @@
-{!! Form::open(['route' => 'project.store', 'method' => 'post',]) !!}
+@extends('layouts.app')
+@section('content')
+{!! Form::open(['route' => 'stock.store', 'method' => 'post',]) !!}
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">
     <div class="card">
@@ -21,7 +23,7 @@
 
                 <div class="col-6" >
                     <label class="form-label">Expense ID</label>
-                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
+                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)" name="expense_id">
                         <optgroup label="Mountain Time Zone">
                             <option value="AZ">Arizona</option>
                             <option value="CO">Colorado</option>
@@ -53,8 +55,8 @@
                 </div>
 
                 <div class="col-6">
-                    <label class="form-label">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="i.e Laptops" required>
+                    <label class="form-label">Item Name</label>
+                    <input type="text" class="form-control" name="title" placeholder="i.e Laptops" required >
                     @error('title')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
@@ -77,7 +79,7 @@
                             <div class="input-group-text">
                                 <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                             </div>
-                        </div><input class="form-control" name="start_year" type="date" min="1997-01-01" required>
+                        </div><input class="form-control" name="date_received" type="date" min="1997-01-01" required>
                     </div>
                     @error('start_year')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -125,34 +127,11 @@
                 </div>
                 <div class="col-sm-3">
                     <label class="form-label">Unit</label>
-                    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
-                        <optgroup label="Mountain Time Zone">
-                            <option value="AZ">Arizona</option>
-                            <option value="CO">Colorado</option>
-                            <option value="ID">Idaho</option>
-                            <option value="MT">Montana</option><option value="NE">Nebraska</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="UT">Utah</option>
-                            <option value="WY">Wyoming</option>
-                        </optgroup>
-                        <optgroup label="Central Time Zone">
-                            <option value="AL">Alabama</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TX">Texas</option>
-                            <option value="TN">Tennessee</option>
-                            <option value="WI">Wisconsin</option>
-                        </optgroup>
+                    <select class="form-control select2-show-search" name="unit_id" data-placeholder="Choose one (with searchbox)">
+                        @foreach($units as $row)
+                            <option value="{{$row->id}}">{{$row->abbreviation}}</option>
+
+                        @endforeach
                     </select>
                 </div>
 
@@ -188,31 +167,13 @@
     </div>
 </div>
 
+
 {!! Form::close() !!}
 
-@push('after-scripts')
-    <script>
-        $(document).ready(function () {
-            let $type_input = $("select[name='type']");
-            let $region_holder = $("#region_holder");
-            let $region_input = $("select[name='regions[]']");
+@endsection
 
-            $region_holder.hide();
 
-            $type_input.change(function (event){
-                event.preventDefault();
-                let $value = $(this).val();
-                if($value === "{{ config('mdh.project.with_region') }}"){
-                    $region_holder.show()
-                    $region_input.attr('disabled',false);
-                }else{
-                    $region_holder.hide();
-                    $region_input.attr('disabled',true);
-                }
-            });
-        });
-    </script>
-@endpush
+
 
 
 
