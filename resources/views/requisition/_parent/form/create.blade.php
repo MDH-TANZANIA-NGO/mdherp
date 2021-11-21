@@ -34,6 +34,15 @@
                                     <select name="activity" class="form-control select2-show-search" disabled></select>
                                 </li>
                                 <br>
+                                <label>Direct Workflow Category</label>
+                                <li>
+                                    {{--                                    {!! Form::select('activity',[],null,['class' => 'form-control select2-show-search','placeholder' => 'select','disabled']) !!}--}}
+                                    <select name="d_category" class="form-control select2-show-search" >
+                                        <option>Travelling</option>
+                                        <option>Training</option>
+                                    </select>
+                                </li>
+                                <br>
                                 <li>
                                     {!! Form::hidden('region_id', access()->user()->region_id) !!}
                                     {!! Form::hidden('budget_id', null) !!}
