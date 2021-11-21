@@ -68,6 +68,7 @@ class RequisitionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
+    public function initiate(Requisition $requisition)
     {
         return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
