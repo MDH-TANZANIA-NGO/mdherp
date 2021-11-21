@@ -4,4 +4,9 @@ Route::group(['namespace' => 'Requisition\Travelling', 'middleware' => ['web', '
     Route::post('store', 'travellingController@store')->name('store');
     Route::get('create','travellingController@create')->name('create');
 
+
+    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+        Route::get('all', 'travellingController@allDatatable')->name('all');
+    });
 });
+

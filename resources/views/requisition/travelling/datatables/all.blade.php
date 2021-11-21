@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table card-table table-vcenter text-nowrap table-primary" >
+                    <table class="table card-table table-vcenter text-nowrap table-primary" id="travellingCosts">
                         <thead  class="bg-primary text-white">
                         <tr >
                             <th class="text-white">ID</th>
@@ -25,63 +25,7 @@
                             <th class="text-white">Action</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Joan Powell</td>
-                            <td>10</td>
-                            <td>90,000</td>
-                            <td>150,870</td>
-                            <td>200,000</td>
-                            <td>200,000</td>
-                            <td>200,000</td>
-                            <td><a href="#">Edit</a><a href="#">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Gavin Gibson</td>
-                            <td>10</td>
-                            <td>90,000</td>
-                            <td>150,870</td>
-                            <td>200,000</td>
-                            <td>200,000</td>
-                            <td>200,000</td>
-                            <td><a href="#">Edit</a><a href="#">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Julian Kerr</td>
-                            <td>10</td>
-                            <td>90,000</td>
-                            <td>150,870</td>
-                            <td>200,000</td>
-                            <td>200,000</td>
-                            <td>200,000</td>
-                            <td><a href="#">Edit</a><a href="#">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>Cedric Kelly</td>
-                            <td>10</td>
-                            <td>90,000</td>
-                            <td>150,870</td>
-                            <td>200,000</td>
-                            <td>200,000</td>
-                            <td>200,000</td>
-                            <td><a href="#">Edit</a><a href="#">Delete</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>Samantha May</td>
-                            <td>10</td>
-                            <td>90,000</td>
-                            <td>150,870</td>
-                            <td>200,000</td>
-                            <td>200,000</td>
-                            <td>200,000</td>
-                            <td><a href="#">Edit</a><a href="#">Delete</a></td>
-                        </tr>
-                        </tbody>
+
                     </table>
                 </div>
                 <!-- table-responsive -->
@@ -90,3 +34,31 @@
     </div>
 </div>
 <!--End  Row -->
+
+@push('after-scripts')
+    <script>
+        $(document).ready(function () {
+
+            $("#travellingCosts").DataTable({
+                // processing: true,
+                // serverSide: true,
+                destroy: true,
+                retrieve: true,
+                "responsive": true,
+                "autoWidth": false,
+                ajax: '{{ route('travelling.datatable.all') }}',
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                    { data: 'user_id', name: 'travelling_costs.user_id', searchable: true},
+                    { data: 'no_days', name: 'travelling_costs.no_days', searchable: true},
+                    { data: 'perdiem_rate', name: 'travelling_costs.perdiem_rate', searchable: true},
+                    { data: 'accomodation', name: 'travelling_costs.accomodation', searchable: true},
+                    { data: 'transportation', name: 'travelling_costs.transportation', searchable: true},
+                    { data: 'other_cost', name: 'travelling_costs.other_cost', searchable: true },
+                    { data: 'total_amount', name: 'travelling_costs.total_amount', searchable: true },
+                    { data: 'action', name: 'action', searchable: false },
+                ]
+            });
+        })
+    </script>
+@endpush

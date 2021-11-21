@@ -3,19 +3,22 @@
 namespace App\Http\Controllers\Web\Requisition\Travelling;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Requisition\Travelling\Traits\travellingCostsDatatable;
 use App\Models\Auth\User;
 use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Travelling\travelling_cost;
 use App\Models\System\District;
+use App\Repositories\Requisition\Travelling\travellingRepository;
 use Illuminate\Http\Request;
 
 class travellingController extends Controller
 {
+    use travellingCostsDatatable;
     protected $travelling_costs;
 
     public function __construct()
     {
-
+        $this->travelling_costs = (new travellingRepository());
     }
 
     public function index()
