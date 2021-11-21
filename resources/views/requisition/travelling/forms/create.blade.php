@@ -28,68 +28,23 @@
                         <tbody>
                         <tr>
                             <td>	 <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
-                                    <optgroup label="Mountain Time Zone">
-                                        <option value="AZ">Arizona</option>
-                                        <option value="CO">Colorado</option>
-                                        <option value="ID">Idaho</option>
-                                        <option value="MT">Montana</option><option value="NE">Nebraska</option>
-                                        <option value="NM">New Mexico</option>
-                                        <option value="ND">North Dakota</option>
-                                        <option value="UT">Utah</option>
-                                        <option value="WY">Wyoming</option>
-                                    </optgroup>
-                                    <optgroup label="Central Time Zone">
-                                        <option value="AL">Alabama</option>
-                                        <option value="AR">Arkansas</option>
-                                        <option value="IL">Illinois</option>
-                                        <option value="IA">Iowa</option>
-                                        <option value="KS">Kansas</option>
-                                        <option value="KY">Kentucky</option>
-                                        <option value="LA">Louisiana</option>
-                                        <option value="MN">Minnesota</option>
-                                        <option value="MS">Mississippi</option>
-                                        <option value="MO">Missouri</option>
-                                        <option value="OK">Oklahoma</option>
-                                        <option value="SD">South Dakota</option>
-                                        <option value="TX">Texas</option>
-                                        <option value="TN">Tennessee</option>
-                                        <option value="WI">Wisconsin</option>
-                                    </optgroup>
+                                    @foreach($user_id as $user_id)
+                                        <option value="{{$user_id->id}}">{{$user_id->first_name}} {{$user_id->last_name}}</option>
+
+                                    @endforeach
                                 </select></td>
                             <td><input type="number" class="form-control" placeholder="No days"></td>
                             <td>	 <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
-                                    <optgroup label="Mountain Time Zone">
-                                        <option value="AZ">Arizona</option>
-                                        <option value="CO">Colorado</option>
-                                        <option value="ID">Idaho</option>
-                                        <option value="MT">Montana</option><option value="NE">Nebraska</option>
-                                        <option value="NM">New Mexico</option>
-                                        <option value="ND">North Dakota</option>
-                                        <option value="UT">Utah</option>
-                                        <option value="WY">Wyoming</option>
-                                    </optgroup>
-                                    <optgroup label="Central Time Zone">
-                                        <option value="AL">Alabama</option>
-                                        <option value="AR">Arkansas</option>
-                                        <option value="IL">Illinois</option>
-                                        <option value="IA">Iowa</option>
-                                        <option value="KS">Kansas</option>
-                                        <option value="KY">Kentucky</option>
-                                        <option value="LA">Louisiana</option>
-                                        <option value="MN">Minnesota</option>
-                                        <option value="MS">Mississippi</option>
-                                        <option value="MO">Missouri</option>
-                                        <option value="OK">Oklahoma</option>
-                                        <option value="SD">South Dakota</option>
-                                        <option value="TX">Texas</option>
-                                        <option value="TN">Tennessee</option>
-                                        <option value="WI">Wisconsin</option>
-                                    </optgroup>
+                                    @foreach($districts as $districts)
+                                        <option value="{{$districts->id}}">{{$districts->name}}</option>
+
+                                    @endforeach
                                 </select></td>
                             <td>	    <select class="form-control select2-show-search" data-placeholder="Choose one (with searchbox)">
-                                    <option>90,000</option>
-                                    <option>75,000</option>
-                                    <option>60,000</option>
+                                    @foreach($mdh_rates as $mdh_rates)
+                                        <option value="{{$mdh_rates->amount}}">{{$mdh_rates->amount}}</option>
+
+                                    @endforeach
                                 </select></td>
                             <td> <input type="number" class="form-control" placeholder="100,000"></td>
                             <td><input type="number" class="form-control" placeholder="100,000"></td>
