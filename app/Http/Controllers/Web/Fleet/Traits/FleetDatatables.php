@@ -17,6 +17,7 @@ trait FleetDatatables
         return DataTables::of($this->fleets->getAllFleets())
             ->addIndexColumn()
             ->addColumn('action', function($query) {
+//                return '<a href="#" class="alert alert-success">View</a>';
                 return '<a href="#">View</a>';
             })
             ->make(true);

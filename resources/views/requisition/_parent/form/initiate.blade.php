@@ -54,12 +54,20 @@
 
                                         <div>
                                             <label>Amount</label>
+<<<<<<< HEAD
                                             <div>TZS {{ number_2_format($item->amount) }}</div>
+=======
+                                            <div>${{ number_2_format($item->amount) }}</div>
+>>>>>>> frank
                                         </div>
 
                                         <div>
                                             <label>Total Amount</label>
+<<<<<<< HEAD
                                             <div>TZS {{ number_2_format($item->total_amount) }}</div>
+=======
+                                            <div>${{ number_2_format($item->total_amount) }}</div>
+>>>>>>> frank
                                         </div>
                                     </td>
                                     <td><button type="submit" class="btn btn-primary">Edit</button></td>

@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="col-12">
-                    <label class="form-label">Title</label>
+                    <label class="form-label">Specifications</label>
                     {!! Form::textarea('specs',null,['class' => 'form-control textarea', 'required']) !!}
                     @error('specs')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>

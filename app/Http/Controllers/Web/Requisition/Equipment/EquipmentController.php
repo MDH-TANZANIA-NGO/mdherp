@@ -85,9 +85,12 @@ class EquipmentController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
+    public function getById(Request $request)
     {
         //
+        return response()->json($this->equipments->getById($request->all()));
     }
 }

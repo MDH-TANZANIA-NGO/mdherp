@@ -6,7 +6,7 @@
         <span class="col-12 text-center font-weight-bold">Register Title</span>
     </div>
     @include('gofficer.gscale.form.create')
-    {{-- Datatable starts here --}}
+     Datatable starts here
     <div class="row  mb-3">
         <span class="col-12 text-center font-weight-bold">List Title</span>
     </div>

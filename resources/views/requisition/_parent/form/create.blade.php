@@ -16,6 +16,7 @@
             <div class="card ">
                 <div class="card-body">
                     <div class="inner-all">
+                        {!! Form::open(['route' => 'requisition.store', 'method'=>'POST']) !!}
                             <ul class="list-unstyled">
                                 <label>Requisition Type</label>
                                 <li class="text-center">
@@ -34,25 +35,17 @@
                                 </li>
                                 <br>
                                 <li>
-                                    <button type="button" class="btn btn-primary text-center btn-block" id="get_info">Get Info</button>
+                                    {!! Form::hidden('region_id', access()->user()->region_id) !!}
+                                    {!! Form::hidden('budget_id', null) !!}
+                                    <button type="submit" class="btn btn-primary text-center btn-block" id="get_info">initiate</button>
                                 </li>
                              <br>
                             </ul>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
-{{--            <div class="card panel-theme rounded shadow">--}}
-{{--                <div class="card-header">--}}
-{{--                    <div class="float-left">--}}
-{{--                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong"><i class="fe fe-map-pin mr-2"></i>Location</button>--}}
-{{--                    </div>--}}
-{{--                    <div class="card-options text-right">--}}
-{{--                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong1"><i class="fe fe-paperclip mr-2"></i>Attachment</button>--}}
-{{--                    </div>--}}
-{{--                    <div class="clearfix"></div>--}}
-{{--                </div>--}}
 
-{{--            </div>--}}
         </div>
         <div class="col-xl-9 col-lg-7 col-md-8">
 
@@ -139,189 +132,6 @@
 
     </div>
 
-    <!-- Row-->
-{{--    <div class="row">--}}
-{{--        <div class="col-md-12 col-lg-12">--}}
-{{--            <div class="card">--}}
-
-{{--                <div class="card-body">--}}
-{{--                    <div class="row">--}}
-{{--                    <div class="col-md-6">--}}
-{{--                        <div class="expanel expanel-success">--}}
-{{--                            <div class="expanel-heading clearfix">Panel title (with table inside)--}}
-{{--                                <div class="float-right">--}}
-{{--                                    <button class="btn btn-sm btn-success" type="button" data-toggle="collapse" data-target="#collapse03"--}}
-{{--                                            aria-expanded="false" aria-controls="collapse03"><i class="fa fa-bars"></i></button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="expanel-body collapse" id="collapse03">--}}
-{{--                                <table class="table">--}}
-{{--                                    <thead>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>#</th>--}}
-{{--                                        <th>First Name</th>--}}
-{{--                                        <th>Last Name</th>--}}
-{{--                                        <th>Username</th>--}}
-{{--                                    </tr>--}}
-{{--                                    </thead>--}}
-{{--                                    <tbody>--}}
-{{--                                    <tr>--}}
-{{--                                        <th scope="row">1</th>--}}
-{{--                                        <td>Mark</td>--}}
-{{--                                        <td>Otto</td>--}}
-{{--                                        <td>@mdo</td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <th scope="row">2</th>--}}
-{{--                                        <td>Jacob</td>--}}
-{{--                                        <td>Thornton</td>--}}
-{{--                                        <td>@fat</td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <th scope="row">3</th>--}}
-{{--                                        <td>Larry</td>--}}
-{{--                                        <td>the Bird</td>--}}
-{{--                                        <td>@twitter</td>--}}
-{{--                                    </tr>--}}
-{{--                                    </tbody>--}}
-{{--                                </table>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-6">--}}
-{{--                        <div class="table-responsive push">--}}
-{{--                            <table class="table table-bordered table-hover">--}}
-{{--                                <tr class=" ">--}}
-{{--                                    <th class="text-center " style="width: 1%"></th>--}}
-{{--                                    <th>Location</th>--}}
-{{--                                    <th class="text-center" style="width: 10%">Output Unit</th>--}}
-{{--                                    <th class="text-right" style="width: 10%">Numeric Output</th>--}}
-{{--                                    <th class="text-right" style="width: 10%">Available Budget</th>--}}
-{{--                                    <th class="text-right" style="width: 12%">Requested Amount</th>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>--}}
-{{--                                    <td>--}}
-{{--                                        <p class="font-w600 mb-1">Ilala DC</p>--}}
-{{--                                        <div class="text-muted">To do HTS and TDM</div>--}}
-{{--                                    </td>--}}
-{{--                                    <td class="text-center">Laptops</td>--}}
-{{--                                    <td class="text-right">7</td>--}}
-{{--                                    <td class="text-right">1000000</td>--}}
-{{--                                    <td class="text-right">100000</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <td class="text-center"><span style="color: red"><i class="fa fa-trash-o"></i></span></td>--}}
-{{--                                    <td>--}}
-{{--                                        <p class="font-w600 mb-1">Ilala DC</p>--}}
-{{--                                        <div class="text-muted">To do HTS and TDM</div>--}}
-{{--                                    </td>--}}
-{{--                                    <td class="text-center">Laptops</td>--}}
-{{--                                    <td class="text-right">7</td>--}}
-{{--                                    <td class="text-right">1000000</td>--}}
-{{--                                    <td class="text-right">100000</td>--}}
-{{--                                </tr>--}}
-
-
-{{--                                <tr>--}}
-{{--                                    <td colspan="5" class="font-w600 text-right">Total Amount ($)</td>--}}
-{{--                                    <td class="text-right">$50.00</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <td colspan="5" class="font-weight-bold text-uppercase text-right">Total Amount (TZS)</td>--}}
-{{--                                    <td class="font-weight-bold text-right">450.00</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <td colspan="6" class="text-right">--}}
-{{--                                        <button type="button" class="btn btn-success" onClick="javascript:window.print();"><i class="si si-folder"></i> Save</button>--}}
-{{--                                        <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-share-alt"></i> Submit</button>--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                            </table>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                    <p class="text-muted text-center">Thank you very much for doing business with us. We look forward to working with you again!</p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-    <!-- End row-->
-    </div>
-    </div><!-- end app-content-->
-
-
-{{--    forms models--}}
-
-    <!--Add Location Modal-->
-{{--    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">--}}
-{{--        <div class="modal-dialog" role="document">--}}
-{{--            <div class="modal-content">--}}
-{{--                <div class="modal-header">--}}
-{{--                    <h5 class="modal-title" id="exampleModalLongTitle">Add Location</h5>--}}
-{{--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                        <span aria-hidden="true">&times;</span>--}}
-{{--                    </button>--}}
-{{--                </div>--}}
-{{--                <div class="modal-body">--}}
-{{--                  <form>--}}
-{{--<label>Council</label>--}}
-{{--                      <select class="form-control" >--}}
-{{--                          <optgroup label="Mountain Time Zone">--}}
-{{--                              <option value="AZ">HTS</option>--}}
-{{--                              <option value="CO">TA Data cleaning</option>--}}
-{{--                              <option value="ID">DQI</option>--}}
-{{--                              <option value="MT">Net Gain</option>--}}
-{{--                              <option value="NM">TDM</option>--}}
-{{--                          </optgroup>--}}
-
-{{--                      </select>--}}
-{{--                      <br>--}}
-{{--                      <label>Amount</label>--}}
-{{--                      <input type="number" class="form-control">--}}
-{{--                      <br>--}}
-{{--                      <label>Numeric Output</label>--}}
-{{--                      <input type="number" class="form-control">--}}
-{{--                      <br>--}}
-{{--                      <label>Output unit</label>--}}
-{{--                      <input type="text" disabled class="form-control" value="Participant">--}}
-{{--                      <br>--}}
-{{--                      <label>Description</label>--}}
-{{--                      <textarea class="form-control"></textarea>--}}
-{{--                  </form>--}}
-
-{{--                          </div>--}}
-{{--                <div class="modal-footer">--}}
-{{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
-{{--                    <button type="button" class="btn btn-primary">Submit</button>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-
-    <!--Add Location Modal-->
-{{--    <div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">--}}
-{{--        <div class="modal-dialog" role="document">--}}
-{{--            <div class="modal-content">--}}
-{{--                <div class="modal-header">--}}
-{{--                    <h5 class="modal-title" id="exampleModalLongTitle">Add Attachment</h5>--}}
-{{--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                        <span aria-hidden="true">&times;</span>--}}
-{{--                    </button>--}}
-{{--                </div>--}}
-{{--                <div class="modal-body">--}}
-{{--                    <form>--}}
-
-{{--                    </form>--}}
-
-{{--                </div>--}}
-{{--                <div class="modal-footer">--}}
-{{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
-{{--                    <button type="button" class="btn btn-primary">Submit</button>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
 
 @endsection
 
@@ -331,6 +141,7 @@
             let $requisition_type_select = $("select[name='requisition_type']");
             let $project_select = $("select[name='project']");
             let $activity_select = $("select[name='activity']");
+            let $budget_id_input = $("input[name='budget_id']");
             let $get_info_button = $("#get_info");
 
             let $project_title = $("#project_title");
@@ -393,19 +204,19 @@
             $.get("{{ route('requisition.get_json') }}", { requisition_type_id: requisition_type_id,project_id: project_id, activity_id: activity_id, region_id: region_id, fiscal_year: fiscal_year},
                 function(data, status){
                     if(data){
-                        console.log(data)
                         $project_title.text(data.project);
-                        $activity_title.text(data.activity)
-                        $requisition.text(data.requisition_type)
-                        $sub_program.text(data.sub_program_area)
-                        $numeric_output.text(data.numeric_output)
-                        $output_unit.text(data.output_unit)
-                        $budget.text(data.budget)
-                        $actual.text(data.actual)
-                        $commitment.text(data.commitment)
+                        $activity_title.text(data.activity);
+                        $requisition.text(data.requisition_type);
+                        $sub_program.text(data.sub_program_area);
+                        $numeric_output.text(data.numeric_output);
+                        $output_unit.text(data.output_unit);
+                        $budget.text(data.budget);
+                        $actual.text(data.actual);
+                        $commitment.text(data.commitment);
                         // $reprogrammed.text(data.)
-                        $pipeline.text(data.pipeline)
-                        $available.text(data.available_budget)
+                        $pipeline.text(data.pipeline);
+                        $available.text(data.available_budget);
+                        $budget_id_input.val(data.budget_id);
                     }else{
                         clearOutput();
                     }
@@ -426,6 +237,7 @@
             $reprogrammed.text('');
             $pipeline.text('');
             $available.text('');
+            $budget_id_input.empty();
         }
 
             // if($requisition_type_select.val() && $project.val()){
