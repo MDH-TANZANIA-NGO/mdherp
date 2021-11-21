@@ -8,6 +8,7 @@ use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Requisition\Equipment\EquipmentRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\RequisitionType\RequisitionTypeRepository;
+use App\Repositories\System\DistrictRepository;
 use Illuminate\Http\Request;
 
 class RequisitionController extends Controller
@@ -16,6 +17,7 @@ class RequisitionController extends Controller
     protected $requisition_types;
     protected $projects;
     protected $equipments;
+    protected $districts;
 
     public function __construct()
     {
@@ -23,6 +25,7 @@ class RequisitionController extends Controller
         $this->requisition_types = (new RequisitionTypeRepository());
         $this->projects = (new ProjectRepository());
         $this->equipments = (new EquipmentRepository());
+        $this->districts = (new DistrictRepository());
     }
 
     /**
@@ -69,7 +72,9 @@ class RequisitionController extends Controller
     {
         return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
-            ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'));
+            ->with('items', $requisition->items)
+            ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
+            ->with('districts', $this->districts->getForPluck());
     }
 
     /**
