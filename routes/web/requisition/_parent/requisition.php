@@ -3,6 +3,7 @@ Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'pr
     Route::get('', 'RequisitionController@index')->name('index');
     Route::get('create', 'RequisitionController@create')->name('create');
     Route::post('store', 'RequisitionController@store')->name('store');
+    Route::get('{requisition}/initiate', 'RequisitionController@initiate')->name('initiate');
     Route::get('{activity}/show', 'RequisitionController@show')->name('show');
     Route::get('{activity}/show/{uuid}/fiscal-year', 'RequisitionController@show')->name('show_fiscal_year');
     Route::put('{activity}/update', 'RequisitionController@update')->name('update');
