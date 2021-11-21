@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-{{--    @include('requisition._parent.datatables.access.index')--}}
-    <h1>Travelling</h1>
+    @include('requisition.travelling.datatables.all')
+    @include('requisition.travelling.forms.create')
 
 @endsection
