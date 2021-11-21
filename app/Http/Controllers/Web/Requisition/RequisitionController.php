@@ -54,27 +54,21 @@ class RequisitionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
         $requisition = $this->requisitions->store($request->all());
         return redirect()->route('requisition.initiate',[$requisition]);
     }
 
     /**
-     * Display the specified resource.
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
     {
-        //
         return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
@@ -83,13 +77,11 @@ class RequisitionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
     public function show(Requisition $requisition)
     {
         //
