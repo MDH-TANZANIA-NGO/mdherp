@@ -74,6 +74,7 @@
 
                                             <div>${{ number_2_format($item->total_amount) }}</div>
 >>>>>>> frank
+
                                         </div>
                                     </td>
                                     <td><button type="submit" class="btn btn-primary">Edit</button></td>
