@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @if($items->count() > 0)
+
     <div class="row mb-4">
         <div class="col-12">
             <a class="btn btn-primary float-right" href="{{ route('logout') }}"
@@ -14,6 +16,7 @@
             </form>
         </div>
     </div>
+    @endif
 
     <div class="row">
 

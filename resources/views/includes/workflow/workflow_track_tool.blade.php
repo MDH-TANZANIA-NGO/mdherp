@@ -3,13 +3,12 @@
 
     <div class="col">
         <div class="accordion" id="accordion">
-            <div class="card card-default" style="background-color: #f5f5f5">
+            <div class="card card-default" style="background-color: #fff">
                 <div class="card-header">
                     <h4 class="card-title m-0">
                         <a class="accordion-toggle" style="color: #000" data-toggle="collapse"
-                           data-parent="#accordion" href="#collapse1Two"><i class="fas fa-list"> </i>
-                            {{ __('label.workflow.index') }}
-                            <i class="fas fa-chevron-right"> </i> {!! $wf_track->wfDefinition->wfModule->name !!}</a>
+                           data-parent="#accordion" href="#collapse1Two"><i class="fas fa-eye"> </i>
+                             {!! $wf_track->wfDefinition->wfModule->name !!}</a> {{ __('label.workflow.index') }}
                     </h4>
                 </div>
                 <div id="collapse1Two" class="collapse">
@@ -17,7 +16,7 @@
                         @foreach($completed_tracks as $track)
                         <div class="row">
                             <div class="col-sm-2">Level</div>
-                            <div class="col-sm-9">{{ number_format($track->wfDefinition->level, 1) }}</div>
+                            <div class="col-sm-9">{{ $track->wfDefinition->level }}</div>
                             <div class="col-sm-2">Designation</div>
                             <div class="col-sm-9">
                                 {{ $track->users->designation->unit->name }} {{ $track->users->designation->name }}
