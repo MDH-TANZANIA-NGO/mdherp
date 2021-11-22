@@ -5,6 +5,8 @@ Route::group(['namespace' => 'User', 'middleware' => ['web', 'auth'], 'prefix' =
     Route::post('store', 'UserController@store')->name('store');
     Route::get('{user}/profile', 'UserController@profile')->name('profile');
 
+    Route::post('{user}/update-workflow-definitions', 'UserController@updateWfDefinition')->name("update_definitions");
+
 
     /**
      * Datatables
