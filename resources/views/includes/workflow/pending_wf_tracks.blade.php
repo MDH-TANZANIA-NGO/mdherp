@@ -4,10 +4,10 @@
     <table class="table table-striped table-bordered" id="pending_datatable" style="background-color: #f5f5f5">
         <tbody>
         <tr>
-            <th>DESIGNATION</th>
+            <th>TITLE</th>
             <th>LEVEL</th>
-            <th>DESCRIPTION</th>
-            <th>COMMENT</th>
+            <th>INSTRUCTION</th>
+            <th>COMMENTS</th>
             <th>AGING DAY(S)</th>
 
         </tr>
