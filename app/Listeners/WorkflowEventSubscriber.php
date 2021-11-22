@@ -86,7 +86,7 @@ class WorkflowEventSubscriber
                         /*check levels*/
                         switch ($level){
                             case 1: //Applicant level
-                                $requisition->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                                $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
 //                                $supervisor_id = access()->user()->assignedSupervisor()->supervisor_id;
 //                                $data['next_user_id'] = $supervisor_id;
                                 break;
