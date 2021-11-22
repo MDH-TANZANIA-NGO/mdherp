@@ -14,6 +14,11 @@ Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'pr
      * Datatables
      */
     Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
-        Route::get('processing', 'RequisitionController@processingDatatable')->name('processing');
+        Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
+            Route::get('processing', 'RequisitionController@AccessProcessingDatatable')->name('processing');
+            Route::get('rejected', 'RequisitionController@AccessRejectedDatatable')->name('rejected');
+            Route::get('approved', 'RequisitionController@AccessApprovedDatatable')->name('approved');
+            Route::get('saved', 'RequisitionController@AccessSavedDatatable')->name('saved');
+        });
     });
 });

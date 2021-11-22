@@ -14,6 +14,64 @@ class RequisitionRepository extends BaseRepository
 
     const MODEL = Requisition::class;
 
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('requisitions.id AS id'),
+            DB::raw('requisitions.number AS number'),
+            DB::raw('requisition_types.title AS type_title'),
+            DB::raw('requisitions.amount AS amount'),
+            DB::raw('requisitions.uuid AS uuid'),
+            DB::raw('requisitions.created_at AS created_at'),
+            DB::raw('projects.title AS project_title'),
+            DB::raw('activities.title AS activity_title'),
+        ])
+            ->join('requisition_types', 'requisition_types.id','requisitions.requisition_type_id')
+            ->join('projects','projects.id', 'requisitions.project_id')
+            ->join('activities','activities.id','requisitions.activity_id')
+            ->join('users','users.id', 'requisitions.user_id');
+    }
+
+    public function getAccessProcessingDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('requisitions.wf_done', 0)
+            ->where('requisitions.done', true)
+            ->where('requisitions.rejected', false)
+            ->where('users.id', access()->id());
+    }
+
+    public function getAccessRejectedDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('requisitions.wf_done', 0)
+            ->where('requisitions.done', true)
+            ->where('requisitions.rejected', true)
+            ->where('users.id', access()->id());
+    }
+
+    public function getAccessProvedDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('requisitions.wf_done', 1)
+            ->where('requisitions.done', true)
+            ->where('requisitions.rejected', false)
+            ->where('users.id', access()->id());
+    }
+
+    public function getAccessSavedDatatable()
+    {
+        return $this->getQuery()
+            ->whereDoesntHave('wfTracks')
+            ->where('requisitions.wf_done', 0)
+            ->where('requisitions.done', false)
+            ->where('requisitions.rejected', false)
+            ->where('users.id', access()->id());
+    }
+
     /**
      * @param $requisition_type_id
      * @param $project_id
