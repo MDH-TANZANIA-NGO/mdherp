@@ -20,43 +20,14 @@ trait Number
     {
         switch ($model->getTable())
         {
-            case 'tafs':
+            case 'requisitions':
                 #generate Reference number
-                $reference = "ICAPTAFNUM";
+                $reference = "REQNUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "ICAP/TAF/".$year."/".$value;
+                $number = "MDH-R-".$year.$value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
-
-            case 'tbers' :
-                #generate Reference number
-                $reference = "ICAPTBERNUM";
-                $year = $this->year();
-                $value = $this->getSysDefCurrentValue($reference);
-                $number = "ICAP/TBER/".$year."/".$value;
-                return $this->getSpecific($model, $reference, $value, $number);
-                break;
-
-                case 'cov_cec_monthly_payments' :
-                    #generate Reference number
-                    $reference = "ICAPCOVCECPAYNUM";
-                    $year = $this->year();
-                    $value = $this->getSysDefCurrentValue($reference);
-                    $number = "ICAP/CCMP/".$year."/".$value;
-                    return $this->getSpecific($model, $reference, $value, $number);
-                    break;
-
-                    case 'leaves' : 
-                        #generate Reference number
-                        $reference = "ICAPLENUM";
-                        $year = $this->year();
-                        $value = $this->year();
-                        $value = $this->getSysDefCurrentValue($reference);
-                        $number = "ICAP/LE/".$year."/".$value;
-                        return $this->getSpecific($model, $reference, $value, $number);
-                        break;
-    
                 default:
                     throw new GeneralException(__('exceptions.general.number_not_set'));
                     break;
