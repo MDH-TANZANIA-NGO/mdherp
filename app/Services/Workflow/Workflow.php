@@ -6,6 +6,7 @@ use App\Events\Sockets\BroadcastWorkflowUpdated;
 use App\Exceptions\WorkflowException;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\Report\ReportRepository;
+use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\taf\TafRepository;
 use App\Repositories\Tber\TberRepository;
 use App\Repositories\Leave\LeaveRepository;
@@ -371,30 +372,10 @@ class Workflow
         switch ($this->wf_module_group_id) {
             case 1:
                 /*TAF*/
-                $taf_repo = (new TafRepository());
-                $taf = $taf_repo->find($resourceId);
-                $taf->wfTracks()->save($wfTrack);
+                $requisition_repo = (new RequisitionRepository());
+                $requisition = $requisition_repo->find($resourceId);
+                $requisition->wfTracks()->save($wfTrack);
                 break;
-            case 2:
-                /*TBER*/
-                $tber_repo = (new TberRepository());
-                $tber = $tber_repo->find($resourceId);
-                $tber->wfTracks()->save($wfTrack);
-                break;
-
-            case 4:
-                /*Cov Cec Monthly Payment*/
-                $cov_cec_monthly_payment_repo = (new CovCecMonthlyPaymentRepository());
-                $cov_cec = $cov_cec_monthly_payment_repo->find($resourceId);
-                $cov_cec->wfTracks()->save($wfTrack);
-                break;
-
-                case 5:
-                    /*TBER*/
-                    $leave_repo = (new LeaveRepository());
-                    $leave = $leave_repo->find($resourceId);
-                    $leave->wfTracks()->save($wfTrack);
-                    break;
         }
     }
 

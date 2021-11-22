@@ -5,6 +5,7 @@ namespace App\Models\Auth\Attribute;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Repositories\Access\UserRepository;
+use App\Repositories\Unit\DesignationRepository;
 use App\Services\Phone\PhoneFormatter;
 use Carbon\Carbon;
 
@@ -44,6 +45,11 @@ trait UserAttribute
     public function getResourceNameModifiedAttribute()
     {
         return $this->full_name." | ".$this->uni;
+    }
+
+    public function getDesignationTitleAttribute()
+    {
+        return (new DesignationRepository())->getDesignationById($this->designation_id)->name;
     }
 
 
