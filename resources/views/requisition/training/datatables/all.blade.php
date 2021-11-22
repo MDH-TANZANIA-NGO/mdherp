@@ -39,8 +39,6 @@
         $(document).ready(function () {
 
             $("#travellingCosts").DataTable({
-                // processing: true,
-                // serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
