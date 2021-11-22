@@ -9,6 +9,7 @@ use App\Repositories\Access\UserRepository;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DesignationRepository;
+use App\Repositories\Workflow\WfModuleGroupRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -18,6 +19,7 @@ class UserController extends Controller
     protected $regions;
     protected $users;
     protected $projects;
+    protected $wf_module_groups;
 
     public function __construct()
     {
@@ -25,6 +27,7 @@ class UserController extends Controller
         $this->regions = (new RegionRepository());
         $this->users = (new UserRepository());
         $this->projects = (new ProjectRepository());
+        $this->wf_module_groups = (new WfModuleGroupRepository());
     }
 
     /**
@@ -76,7 +79,8 @@ class UserController extends Controller
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
             ->with('marital', code_value()->query()->where('code_id',3)->pluck('name','id'))
             ->with('designations', $this->designations->getActiveForSelect())
-            ->with('regions', $this->regions->forSelect());
+            ->with('regions', $this->regions->forSelect())
+            ->with('wf_module_groups', $this->wf_module_groups->getAll());
     }
 
     /**
@@ -111,5 +115,23 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return void
+     */
+    public function updateWfDefinition(Request $request, User $user)
+    {
+        if(isset($request['definitions'])){
+            $user->wfDefinitions()->sync($request['definitions']);
+        }else{
+            $user->wfDefinitions()->detach();
+        }
+        alert()->success(__('notifications.user.workflow'), __('notifications.user.title'));
+        return redirect()->back();
     }
 }
