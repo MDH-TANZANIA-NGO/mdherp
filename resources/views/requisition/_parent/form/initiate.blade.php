@@ -52,7 +52,7 @@
                                 </tr>
                                 </thead>
 
-                        
+
 
                                 <tbody>
                                 @foreach($items as $key => $item)
