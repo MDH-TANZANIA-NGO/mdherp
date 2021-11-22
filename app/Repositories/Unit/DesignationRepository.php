@@ -31,6 +31,11 @@ class DesignationRepository extends BaseRepository
             ->join('units', 'units.id', 'designations.unit_id');
     }
 
+    public function getDesignationById($id)
+    {
+        return $this->getQueryDesignationUnit()->where('designations.id', $id)->first();
+    }
+
     public function getActive()
     {
         return $this->getQuery()->where('isactive', 1);

@@ -3,15 +3,7 @@
 namespace App\Listeners;
 
 use App\Exceptions\WorkflowException;
-use App\Models\Cov_Cec_Payment_Module\CovCecMonthlyPayment;
-use App\Models\Tber\Tber;
-use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
-use App\Models\Leave\Leave;
-use App\Repositories\taf\TafRepository;
-use App\Repositories\Tber\TberRepository;
-use App\Repositories\Leave\LeaveRepository;
-use App\Repositories\Leave\LeaveDateRepository;                                      
-use App\Repositories\Workflow\WfTrackRepository;
+use App\Repositories\Requisition\RequisitionRepository;
 use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
 use App\Services\Workflow\Traits\WorkflowUserSelector;
 use App\Services\Workflow\Workflow;
@@ -88,70 +80,15 @@ class WorkflowEventSubscriber
             ];
 
             switch ($wf_module_id){
-                case 1: //TAF
-                    $taf_repo = (new TafRepository());
-                    $taf = $taf_repo->find($resource_id);
-
-                    /*check if trips are not done / finished*/
-                    if  (checkIfTripsAreDone($taf)){
-                        throw new WorkflowException('Please complete all the trips');
-                    }
-                    /*check levels*/
-                    switch ($level){
-                        case 1: //Applicant level
-                            $taf_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
-                            $supervisor_id = $taf_repo->find($resource_id)->supervisor_id;
-                            $data['next_user_id'] = $supervisor_id;
-                            break;
-//                        case 5: //Accountant receivable level
-//                            $taf_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign, $input);
-//                            break;
-                    }
-                    break;
-                case 2:
-                    /*TBER*/
-                    $tber = Tber::query()->find($resource_id);
-
-                    /*check levels*/
-                    switch ($level){
-                        case 1: //
-                            $this->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
-                            $supervisor_id = $tber->supervisor_id ? $tber->supervisor_id : access()->user()->assignedSupervisor()->supervisor_id;
-                            $data['next_user_id'] = $supervisor_id;
-                            break;
-                        case 4:
-                            $this->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
-                            break;
-                    }
-                    break;
-
-
-                case 4:
-                    /*Cov Cec Monthly Payment*/
-                    $cov_cec_monthly_payment = CovCecMonthlyPayment::query()->find($resource_id);
-                    /*check levels*/
-                    switch ($level){
-                        case 1: //
-                            /*check if trips are not done / finished*/
-                            if  (documents($cov_cec_monthly_payment, 3)->count() == 0){
-                                throw new WorkflowException('Please Upload supporting document before proceed');
-                            }
-
-                            (new CovCecMonthlyPaymentRepository())->processWorkflowLevelsAction($resource_id,$wf_module_id, $level, $sign,['current_level' => $current_level]);
-                            $data['next_user_id'] = $this->nextUserSelector($workflow->nextDefinition($sign), $cov_cec_monthly_payment->region_id);
-                            break;
-                    }
-                    break;
-
-                    case 5: //Leave
-                        $leave_repo = (new LeaveRepository());
-                        $leave = $leave_repo->find($resource_id);
+                    case 1:
+                        $requisition_repo = (new RequisitionRepository());
+                        $requisition = $requisition_repo->find($resource_id);
                         /*check levels*/
                         switch ($level){
                             case 1: //Applicant level
-                                $leave_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
-                                $supervisor_id = access()->user()->assignedSupervisor()->supervisor_id;
-                                $data['next_user_id'] = $supervisor_id;
+                                $requisition->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+//                                $supervisor_id = access()->user()->assignedSupervisor()->supervisor_id;
+//                                $data['next_user_id'] = $supervisor_id;
                                 break;
                         }
                         break;
@@ -163,25 +100,9 @@ class WorkflowEventSubscriber
             /* Process for specific resource on workflow completion */
             switch ($wf_module_id) {
                 case 1:
-                    $taf = (new TafRepository())->find($resource_id);
+                    $taf = (new RequisitionRepository())->find($resource_id);
                     $this->updateWfDone($taf);
                     break;
-
-                case 2:
-                    $tber = Tber::query()->find($resource_id);
-                    $this->updateWfDone($tber);
-                    break;
-                case 4:
-                    $cov_cec_monthly_payment = (new CovCecMonthlyPaymentRepository())->find($resource_id);
-                    $this->updateWfDone($cov_cec_monthly_payment);
-                    break;
-
-                    case 5:
-                        $leave = Leave::query()->find($resource_id);
-                        (new LeaveDateRepository())->store($leave);
-                        $this->updateWfDone($leave);
-                        break;
-
             }
         }
     }
@@ -216,24 +137,8 @@ class WorkflowEventSubscriber
 
         switch ($wf_module_id) {
             case 1:
-                /*TAF*/
-                (new TafRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign);
+                (new RequisitionRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign);
                 break;
-            case 2:
-
-                /*TBER*/
-                $this->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level,$level, $sign);
-                break;
-
-            case 4:
-                /*Cov Cec Monthly Payment*/
-                (new CovCecMonthlyPaymentRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
-                break;
-
-                case 5:
-                    /*Leave*/
-                    (new LeaveRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
-                    break;
         }
     }
 
@@ -266,6 +171,6 @@ class WorkflowEventSubscriber
     {
         $model->update(['wf_done' => 1, 'wf_done_date' => Carbon::now()]);
     }
-    
-   
+
+
 }

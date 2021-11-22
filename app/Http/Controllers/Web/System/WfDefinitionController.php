@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\System;
+namespace App\Http\Controllers\Web\System;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Workflow\WfDefinitionRepository;
