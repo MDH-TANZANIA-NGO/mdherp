@@ -36,7 +36,7 @@
                                 </tr>
                                 </thead>
 
-                                </div>
+                        
 
                                 <tbody>
                                 @foreach($items as $key => $item)
