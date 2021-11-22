@@ -2,7 +2,7 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <p class="text-center">{{ $requisition->number }}</p>
+            <p class="text-center" style="font-size: 18px"><b>{{ $requisition->number }}</b></p>
         </div>
     </div>
     <!-- start: page -->
