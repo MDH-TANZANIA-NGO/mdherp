@@ -14,6 +14,6 @@ Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'pr
      * Datatables
      */
     Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
-        Route::get('all', 'RequisitionController@allDatatable')->name('all');
+        Route::get('processing', 'RequisitionController@processingDatatable')->name('processing');
     });
 });
