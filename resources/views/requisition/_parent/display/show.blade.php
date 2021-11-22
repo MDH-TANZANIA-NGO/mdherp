@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+    <div class="row">
+        <div class="col-12">
+            <p class="text-center">{{ $requisition->number }}</p>
+        </div>
+    </div>
     <!-- start: page -->
     <div class="row">
         <div class="col-lg-12">
@@ -7,10 +12,10 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-
-        </div>
-    </div>
+    @switch($requisition->requisition_type_id)
+        @case(1)
+        @include('requisition.procurement.details',['items' => $requisition->items])
+        @break
+    @endswitch
 
 @endsection
