@@ -20,7 +20,7 @@ trait Number
     {
         switch ($model->getTable())
         {
-            case 'tafs':
+            case 'requisitions':
                 #generate Reference number
                 $reference = "REQNUM";
                 $year = $this->year();
