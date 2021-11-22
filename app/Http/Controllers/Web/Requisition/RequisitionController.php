@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Requisition;
 
 use App\Events\NewWorkflow;
+use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
 use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
 use App\Models\Requisition\Requisition;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class RequisitionController extends Controller
 {
+    use RequisitionDatatables;
     protected $requisitions;
     protected $requisition_types;
     protected $projects;

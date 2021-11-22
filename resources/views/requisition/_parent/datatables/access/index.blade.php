@@ -4,8 +4,8 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-{{--                    <li class=""><a href="#tab5" class="active" data-toggle="tab">Requested--}}{{-- <span class="badge badge-success">20</span>--}}{{--</a></li>--}}
-                    <li><a href="#tab6" data-toggle="tab" class="active">Rejected {{--<span class="badge badge-danger">5</span>--}}</a></li>
+                    <li class=""><a href="#tab6" class="active" data-toggle="tab">Requested <span class="badge badge-primary">20</span></a></li>
+                    <li><a href="#tab6" data-toggle="tab" class="">Rejected {{--<span class="badge badge-danger">5</span>--}}</a></li>
                     <li><a href="#tab6" data-toggle="tab" class="">Approved {{--<span class="badge badge-danger">5</span>--}}</a></li>
                     <li><a href="#tab6" data-toggle="tab" class="">Saved {{--<span class="badge badge-danger">5</span>--}}</a></li>
                 </ul>

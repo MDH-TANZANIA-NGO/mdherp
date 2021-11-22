@@ -91,23 +91,7 @@
                 $(nRow).click(function() {
                     switch(aData['module_group_id']) {
                         case 1: /*TAF*/
-                            window.open(base_url + "/tafs/" + aData['resource_uuid'] + '/overview' , "_blank");
-                            break;
-                        case 2: /*TBER*/
-                            window.open(base_url + "/tbers/" + aData['resource_uuid'] + '/overview' , "_blank");
-                            break;
-                        case 4: /*COV CEC*/
-                            window.open(base_url + "/cov-and-cec-payment-module/" + aData['resource_uuid'] + '/view' ,
-                                "_blank");
-                            break;
-                        case 5: /*LEAVE*/
-                            window.open(base_url + "/leaves/" + aData['resource_uuid'] + '/view' , "_blank");
-                            break;
-                        case 6: /*TIMESHEET*/
-                            window.open(base_url + "/timesheets/" + aData['resource_uuid'] + '/view' , "_blank");
-                            break;
-                        case 7: /*PURCHASE REQUISITION*/
-                            window.open(base_url + "/procurements/purchase-requisitions/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/requisitions/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
                         default:
                             break;
