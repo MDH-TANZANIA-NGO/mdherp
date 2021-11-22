@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Requisition;
 
+use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Models\Requisition\Requisition;
 use App\Repositories\Project\ProjectRepository;
@@ -10,6 +11,7 @@ use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\RequisitionType\RequisitionTypeRepository;
 use App\Repositories\System\DistrictRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RequisitionController extends Controller
 {
@@ -85,7 +87,26 @@ class RequisitionController extends Controller
      */
     public function show(Requisition $requisition)
     {
-        //
+//        $purchase_requisition = $this->purchase_requisitions->findByUuid($uuid);
+//        /* Check workflow */
+//        $wf_module_group_id = 7;
+//        $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $purchase_requisition->id);
+//        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $purchase_requisition->id, 'type' => $wf_module->type]);
+//        $check_workflow = $workflow->checkIfHasWorkflow();
+//        $current_wf_track = $workflow->currentWfTrack();
+//        $wf_module_id = $workflow->wf_module_id;
+//        $current_level = $workflow->currentLevel();
+//        $can_edit_resource = $this->wf_tracks->canEditResource($purchase_requisition, $current_level, $workflow->wf_definition_id);
+//        return view('procurement.purchase_requisition.display.view')
+//            ->with('purchase_requisition', $purchase_requisition)
+//            ->with('current_level', $current_level)
+//            ->with('current_wf_track', $current_wf_track)
+//            ->with('can_edit_resource', $can_edit_resource)
+//            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($purchase_requisition))
+//            ->with('components', $this->components->getActive()->pluck('name', 'id'))
+//            ->with('purchase_requisition_types', $this->purchase_requisition_types->getActivePluck());
+//            ->with('users', $this->users->getAllPluck())
+
     }
 
     /**
@@ -93,11 +114,18 @@ class RequisitionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function submit(Requisition $requisition)
     {
-        //
+        DB::transaction(function () use ($requisition){
+            $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
+            $wf_module_group_id = 1;
+            $type = 1;
+            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $type],[],['next_user_id' => []]));
+        });
+        alert()->success(__('Submitted Successfully'), __('Purchase Requisition'));
+        return redirect()->route('procurement.purchase_requisition.show', $requisition->uuid);
     }
 
     /**

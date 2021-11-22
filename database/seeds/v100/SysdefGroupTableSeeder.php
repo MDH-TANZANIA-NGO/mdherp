@@ -19,7 +19,7 @@ class SysdefGroupTableSeeder extends Seeder
         $this->disableForeignKeys("sysdef_groups");
         $this->delete('sysdef_groups');
 
-        /*\DB::table('sysdef_groups')->insert(array (
+        \DB::table('sysdef_groups')->insert(array (
             0 =>
                 array (
                     'id' => 1,
@@ -28,7 +28,7 @@ class SysdefGroupTableSeeder extends Seeder
 
                 ),
 
-        ));*/
+        ));
         $this->enableForeignKeys("sysdef_groups");
 
     }
