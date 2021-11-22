@@ -43,65 +43,7 @@
                     </div>
 
                 </div>
-            </div>
-        </div>
 
-        <div class="panel-body tabs-menu-body">
-            <div class="tab-content">
-                <div class="tab-pane" id="rejected">
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="access_rejected" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th class="wd-15p">#</th>
-                                    <th class="wd-15p">NUMBER</th>
-                                    <th class="wd-15p">TYPE</th>
-                                    <th class="wd-15p">PROJECT</th>
-                                    <th class="wd-15p">ACTIVITY</th>
-                                    <th class="wd-25p">AMOUNT</th>
-                                    <th class="wd-25p">APPLIED DATE</th>
-                                    <th class="wd-25p">ACTION</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="panel-body tabs-menu-body">
-            <div class="tab-content">
-                <div class="tab-pane" id="approved">
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="access_approved" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th class="wd-15p">#</th>
-                                    <th class="wd-15p">NUMBER</th>
-                                    <th class="wd-15p">TYPE</th>
-                                    <th class="wd-15p">PROJECT</th>
-                                    <th class="wd-15p">ACTIVITY</th>
-                                    <th class="wd-25p">AMOUNT</th>
-                                    <th class="wd-25p">APPLIED DATE</th>
-                                    <th class="wd-25p">ACTION</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="panel-body tabs-menu-body">
-            <div class="tab-content">
                 <div class="tab-pane" id="saved">
 
                     <div class="card-body">
@@ -124,9 +66,55 @@
                     </div>
 
                 </div>
+
+                <div class="tab-pane" id="approved">
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="access_approved" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th class="wd-15p">#</th>
+                                    <th class="wd-15p">NUMBER</th>
+                                    <th class="wd-15p">TYPE</th>
+                                    <th class="wd-15p">PROJECT</th>
+                                    <th class="wd-15p">ACTIVITY</th>
+                                    <th class="wd-25p">AMOUNT</th>
+                                    <th class="wd-25p">APPLIED DATE</th>
+                                    <th class="wd-25p">ACTION</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="tab-pane" id="rejected">
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="access_rejected" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th class="wd-15p">#</th>
+                                    <th class="wd-15p">NUMBER</th>
+                                    <th class="wd-15p">TYPE</th>
+                                    <th class="wd-15p">PROJECT</th>
+                                    <th class="wd-15p">ACTIVITY</th>
+                                    <th class="wd-25p">AMOUNT</th>
+                                    <th class="wd-25p">APPLIED DATE</th>
+                                    <th class="wd-25p">ACTION</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
-
     </div>
 </div>
 
