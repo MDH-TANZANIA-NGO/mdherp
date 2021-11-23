@@ -2,14 +2,14 @@
 @section('content')
 
 
-    <div class="card-header text-center" style="background-color: rgb(238, 241, 248)">
-        <div class="row text-center">
+    <div class="align-content-center" style="background-color: rgb(238, 241, 248); height: 40px;">
+        <div class="row text-center" style="font-size: large">
             <span class="col-12 text-center font-weight-bold"><b>Requisition No.  {{ $requisition->number }}</b></span>
         </div>
     </div>
 
 
-{{--    <div class="row">--}}
+{{--    <div class="row" >--}}
 {{--        <div class="col-12">--}}
 {{--            <p class="text-center" style="font-size: 18px"><b>{{ $requisition->number }}</b></p>--}}
 {{--        </div>--}}
