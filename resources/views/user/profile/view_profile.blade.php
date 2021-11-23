@@ -224,6 +224,7 @@
                                                 </div>
                                                 <div class="tab-pane " id="tab3">
                                               {{-- content to be displayed --}}
+                                                    @include('system.workflow.definition_assignment',['user' => $user, 'wf_module_groups'])
                                                 </div>
                                                 <div class="tab-pane " id="tab4">
                                               {{-- content to be displayed --}}
