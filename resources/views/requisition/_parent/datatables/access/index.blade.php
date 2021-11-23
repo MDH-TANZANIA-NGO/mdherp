@@ -22,8 +22,8 @@
 
         </div>
 
-        <div class="panel-body tabs-menu-body">
-            <div class="tab-content" style="background-color:#FFFFFF">
+        <div class="panel-body tabs-menu-body" style="background-color:#FFFFFF">
+            <div class="tab-content">
                 <div class="tab-pane active" id="processing">
 
                     <div class="card-body">
