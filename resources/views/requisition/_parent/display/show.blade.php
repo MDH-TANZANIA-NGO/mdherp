@@ -4,7 +4,7 @@
 
     <div class="align-content-center" style="background-color: rgb(238, 241, 248); height: 40px;">
         <div class="row text-center" style="font-size: large">
-            <span class="col-12 text-center font-weight-bold"><b>Requisition No.  {{ $requisition->number }}</b></span>
+            <span class="col-12 text-center font-weight-bold" style="margin-top: 10px"><b>Requisition No.  {{ $requisition->number }}</b></span>
         </div>
     </div>
 
