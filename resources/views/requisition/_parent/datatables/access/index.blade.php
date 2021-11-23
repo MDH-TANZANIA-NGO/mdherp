@@ -1,12 +1,15 @@
 <div class="card-body p-6">
     <div class="panel panel-primary">
-        <div class=" tab-menu-heading">
+
+
+
+        <div class=" tab-menu-heading card-header" style="background-color: rgb(238, 241, 248)">
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">Requested <span class="badge badge-primary">20</span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Rejected {{--<span class="badge badge-danger">5</span>--}}</a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved {{--<span class="badge badge-danger">5</span>--}}</a></li>
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">Requested <span class="badge badge-primary">*</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">*</span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">*</span></a></li>
                     <li><a href="#saved" data-toggle="tab" class="">Saved {{--<span class="badge badge-danger">5</span>--}}</a></li>
                 </ul>
             </div>
@@ -20,10 +23,11 @@
         </div>
 
         <div class="panel-body tabs-menu-body">
-            <div class="tab-content">
+            <div class="tab-content" style="background-color:#FFFFFF">
                 <div class="tab-pane active" id="processing">
 
                     <div class="card-body">
+
                         <div class="table-responsive">
                             <table id="access_processing" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
@@ -40,6 +44,7 @@
                                 </thead>
                             </table>
                         </div>
+
                     </div>
 
                 </div>
@@ -115,6 +120,9 @@
 
             </div>
         </div>
+
+
+
     </div>
 </div>
 
