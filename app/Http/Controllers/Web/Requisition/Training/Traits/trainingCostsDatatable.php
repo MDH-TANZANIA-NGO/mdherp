@@ -3,21 +3,28 @@
 namespace App\Http\Controllers\Web\Requisition\Training\Traits;
 
 use App\Http\Controllers\Controller;
+use App\Models\Requisition\Training\requisition_training_cost;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 trait trainingCostsDatatable
 {
     //
-    public function alldatatable()
+    public function alldatatable(Request  $request)
     {
-        return DataTables::of($this->training_costs->training())
-            ->addIndexColumn()
-            ->addColumn('action', function($query) {
-//                return '<a href="'.route('stock_unit.show', $query->uuid).'">View</a>';
-                return '<a href="#">View</a>';
-            })
-//            ->rawColumns(['action'])
-            ->make(true);
+        if ($request->ajax()) {
+            $data = requisition_training_cost::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+
+                    $btn = '<a href="#">View</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('training.index');
     }
 }

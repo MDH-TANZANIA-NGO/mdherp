@@ -16,6 +16,9 @@
         @case(1)
         @include('requisition.procurement.details',['items' => $requisition->items])
         @break
+        @case(2)
+        @include('requisition.Direct.training.index',['items' => $requisition->items])
+        @break
     @endswitch
 
 @endsection

@@ -3,7 +3,7 @@
     <div class="col-md-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">TRAINING COSTS</h3>
+{{--                <h3 class="card-title">TRAINING COSTS</h3>--}}
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
@@ -37,8 +37,8 @@
 @push('after-scripts')
     <script>
         $(document).ready(function () {
-
             $("#travellingCosts").DataTable({
+
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
@@ -46,12 +46,12 @@
                 ajax: '{{ route('training.datatable.all') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'user_id', name: 'training_costs.user_id', searchable: true},
-                    { data: 'no_days', name: 'training_costs.no_days', searchable: true},
-                    { data: 'perdiem_rate', name: 'training_costs.perdiem_rate', searchable: true},
-                    { data: 'transportation', name: 'training_costs.transportation', searchable: true},
-                    { data: 'other_cost', name: 'training_costs.other_cost', searchable: true },
-                    { data: 'total_amount', name: 'training_costs.total_amount', searchable: true },
+                    { data: 'first_name' , name: 'g_officers.first_name', searchable: true},
+                    { data: 'no_days', name: 'requisition_training_costs.no_days', searchable: true},
+                    { data: 'perdiem_rate_id', name: 'requisition_training_costs.perdiem_rate_id', searchable: true},
+                    { data: 'transportation', name: 'requisition_training_costs.transportation', searchable: true},
+                    { data: 'other_cost', name: 'requisition_training_costs.other_cost', searchable: true },
+                    { data: 'total_amount', name: 'requisition_training_costs.total_amount', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

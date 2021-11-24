@@ -20,6 +20,8 @@
 <!-- Style css -->
     {{ Html::style(url('mdh/css/style.css')) }}
 
+{{--    text editor--}}
+{{ Html::style(url('mdh/plugins/wysiwyag/richtext.css')) }}
 
         <!-- Date Picker css -->
     {!! Html::script(url('mdh/plugins/date-picker/date-picker.css')) !!}
@@ -249,6 +251,8 @@
 <!-- Sweet Alert -->
 {!! Html::script(url('mdh/js/sweet-alert.js')) !!}
 
+{!! Html::script(url('mdh/plugins/wysiwyag/jquery.richtext.js')) !!}
+{!! Html::script(url('mdh/js/form-editor.js')) !!}
 @stack('after-scripts')
 
 

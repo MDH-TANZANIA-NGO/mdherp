@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web\Requisition;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
+use App\Repositories\GOfficer\GOfficerRepository;
+use App\Repositories\GOfficer\GRateRepository;
 use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
 use App\Models\Requisition\Requisition;
@@ -25,6 +27,8 @@ class RequisitionController extends Controller
     protected $equipments;
     protected $districts;
     protected $wf_tracks;
+    protected $gofficer;
+    protected $grate;
 
     public function __construct()
     {
@@ -34,6 +38,8 @@ class RequisitionController extends Controller
         $this->equipments = (new EquipmentRepository());
         $this->districts = (new DistrictRepository());
         $this->wf_tracks = (new WfTrackRepository());
+        $this->gofficer = (new GOfficerRepository());
+        $this->grate = (new GRateRepository());
     }
 
     /**
@@ -82,7 +88,9 @@ class RequisitionController extends Controller
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
             ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
-            ->with('districts', $this->districts->getForPluck());
+            ->with('districts', $this->districts->getForPluck())
+            ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
+            ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'));
     }
 
     /**
