@@ -8,6 +8,7 @@ use App\Models\Auth\User;
 use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Travelling\travelling_cost;
 use App\Models\System\District;
+use App\Repositories\MdhRates\mdhRatesRepository;
 use App\Repositories\Requisition\Travelling\travellingRepository;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,11 @@ class travellingController extends Controller
 {
     use travellingCostsDatatable;
     protected $travelling_costs;
+    protected $mdh_rates;
 
     public function __construct()
     {
+        $this->mdh_rates = (new mdhRatesRepository());
         $this->travelling_costs = (new travellingRepository());
     }
 
@@ -35,35 +38,14 @@ class travellingController extends Controller
     public function create()
     {
         $user_id = User::all();
-        return view('requisition.travelling.forms.create',['user_id'=>$user_id]);
+        return view('requisition.travelling.forms.create')
+            ;
 
     }
 
-    public function store( Request $request)
+    public function store( Request $request, Request $requisition)
     {
-        $travelling = new travelling_cost();
-        $other_cost = request('other_cost');
-        $no_days = request('no_days');
-        $perdiem_rate = request('perdiem_rate');
-        $district_id = request('district_id');
-        $transportation = request('transportation');
-        $accomodation = request('accomodation');
-        $total_perdiem_rate = $perdiem_rate * $no_days;
-        $total_accomodation = $accomodation * $no_days;
-        $total_amount =  $other_cost + $transportation + $total_perdiem_rate + $total_accomodation;
-
-
-        $travelling-> user_id = request('user_id');
-        $travelling->district_id= $district_id;
-        $travelling-> perdiem_rate = $perdiem_rate;
-        $travelling-> accomodation = $accomodation;
-        $travelling-> no_days = $no_days;
-        $travelling-> transportation = $transportation;
-        $travelling-> other_cost = $other_cost;
-        $travelling->total_amount = $total_amount;
-
-        $travelling->save();
-
+        $this->travelling_costs->store($requisition, $request->all());
         return redirect()->back();
 
     }

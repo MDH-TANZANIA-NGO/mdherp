@@ -5,6 +5,8 @@ namespace App\Models\Requisition\Traits\Relaltionship;
 use App\Models\Auth\User;
 use App\Models\Requisition\Item\RequisitionItem;
 use App\Models\Requisition\RequisitionType\RequisitionType;
+use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Workflow\WfTrack;
 
 trait RequisitionRelationship
@@ -21,6 +23,14 @@ trait RequisitionRelationship
     public function items()
     {
         return $this->hasMany(RequisitionItem::class,'requisition_id','id')->orderBy('id');
+    }
+    public function travellingCost()
+    {
+        return $this->hasMany(requisition_travelling_cost::class,'requisition_id','id')->orderBy('id');
+    }
+    public function trainingCost()
+    {
+        return $this->hasMany(requisition_training_cost::class,'requisition_id','id')->orderBy('id');
     }
 
     /**

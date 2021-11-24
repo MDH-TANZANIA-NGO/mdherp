@@ -2,16 +2,20 @@
 
 namespace App\Repositories\Requisition\Travelling;
 
+use App\Models\Requisition\Requisition;
+use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Requisition\Travelling\travelling_cost;
 use App\Repositories\BaseRepository;
+use App\Repositories\MdhRates\mdhRatesRepository;
 use Illuminate\Support\Facades\DB;
 
 class travellingRepository extends BaseRepository
 {
-    const MODEL = travelling_cost::class;
+    const MODEL = requisition_travelling_cost::class;
+    protected $mdh_rates;
     public function __construct()
     {
-
+        $this->mdh_rates= (new mdhRatesRepository());
     }
 
     public function travelling(){
@@ -30,5 +34,23 @@ class travellingRepository extends BaseRepository
 
 
 
+    }
+    public function inputProcess($inputs)
+    {
+        return [
+            'traveller_id' => $inputs['user_id'],
+            'district_id' => $inputs['district_id'],
+            'no_days' => $inputs['no_days'],
+            'amount' => $inputs['requested_amount'],
+            'total_amount' => $inputs['quantity'] * $inputs['requested_amount']
+        ];
+    }
+
+    public function store(Requisition $requisition, $inputs)
+    {
+        return DB::transaction(function () use ($requisition, $inputs){
+            $travelling_costs = $requisition->trainingCost()->create($this->inputProcess($inputs));
+
+        });
     }
 }
