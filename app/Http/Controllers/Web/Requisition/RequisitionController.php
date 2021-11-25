@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Requisition;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
+use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
@@ -33,6 +34,7 @@ class RequisitionController extends Controller
     protected $grate;
     protected $mdh_rates;
     protected $users;
+    protected $requisition_type_category;
 
     public function __construct()
     {
@@ -46,6 +48,7 @@ class RequisitionController extends Controller
         $this->grate = (new GRateRepository());
         $this->mdh_rates = (new mdhRatesRepository());
         $this->users = (new UserRepository());
+        $this->requisition_type_category = (new requisition_type_category());
     }
 
     /**
@@ -67,7 +70,8 @@ class RequisitionController extends Controller
     {
         return view('requisition._parent.form.create')
             ->with('requisition_types', $this->requisition_types->getAll()->pluck('title','id'))
-            ->with('projects', $this->projects->getAccessUserProjectsPluck());
+            ->with('projects', $this->projects->getAccessUserProjectsPluck())
+            ->with('requisition_type_category', $this->requisition_type_category->get()->pluck('name', 'id'));
     }
 
     /**

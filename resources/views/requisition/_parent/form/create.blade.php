@@ -34,14 +34,12 @@
                                     <select name="activity" class="form-control select2-show-search" disabled></select>
                                 </li>
                                 <br>
-                                <label>Direct Workflow Category</label>
-                                <li>
-                                    {{--                                    {!! Form::select('activity',[],null,['class' => 'form-control select2-show-search','placeholder' => 'select','disabled']) !!}--}}
-                                    <select name="d_category" class="form-control select2-show-search" >
-                                        <option>Travelling</option>
-                                        <option>Training</option>
-                                    </select>
-                                </li>
+                               <div class="typee" id="typoo" style="display: none">
+                                   <label>Requisition Type Category</label>
+                                   <li>
+                                       {!! Form::select('requisition_type_category',$requisition_type_category,null,['class' => 'form-control','placeholder' => 'select']) !!}
+                                   </li>
+                               </div>
                                 <br>
                                 <li>
                                     {!! Form::hidden('region_id', access()->user()->region_id) !!}
@@ -148,6 +146,7 @@
     <script>
         $(document).ready(function (){
             let $requisition_type_select = $("select[name='requisition_type']");
+            let $requisition_type_category_select = $("select[name='requisition_type_category']");
             let $project_select = $("select[name='project']");
             let $activity_select = $("select[name='activity']");
             let $budget_id_input = $("input[name='budget_id']");
@@ -170,6 +169,15 @@
                 event.preventDefault();
                 $project_select.attr('disabled', false);
             });
+            $requisition_type_select.change(function (event){
+                if (this.value == '2'){
+                    $("#typoo").show();
+                }
+                else {
+                    $("#typoo").hide();
+                }
+            });
+
             $project_select.change(function (event){
                 event.preventDefault();
                 let $project_id = $(this).val();

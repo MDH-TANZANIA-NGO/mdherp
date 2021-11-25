@@ -25,7 +25,13 @@
 
         @break
         @case(2)
-        @include('requisition.Direct.travelling.index',['items' => $requisition->items])
+        @if($requisition->requisition_type_category == 1)
+            @include('requisition.Direct.travelling.index',['items' => $requisition->items])
+
+        @elseif($requisition->requisition_type_category == 2)
+            @include('requisition.Direct.training.index',['items' => $requisition->items])
+
+            @endif
         @break
     @endswitch
 

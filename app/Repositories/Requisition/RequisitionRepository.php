@@ -90,6 +90,7 @@ class RequisitionRepository extends BaseRepository
         return [
             'user_id' => access()->id(),
             'requisition_type_id' => $inputs['requisition_type'],
+            'requisition_type_category' => $inputs['requisition_type_category'],
             'project_id' => $inputs['project'],
             'activity_id' => $inputs['activity'],
             'region_id' => $inputs['region_id'],
