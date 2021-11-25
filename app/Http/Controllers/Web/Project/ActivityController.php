@@ -32,6 +32,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
+        //dd($this->activities->getAll());
         return view('project.activity.index')
             ->with('program_areas', $this->sub_programs->getActive()->pluck('title','id'))
             ->with('output_unit', $this->output_units->getActive()->pluck('title','id'));

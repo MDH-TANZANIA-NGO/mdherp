@@ -1,12 +1,12 @@
 <?php
 Route::group(['namespace' => 'Requisition\Travelling', 'middleware' => ['web', 'auth'], 'prefix' => 'travelling', 'as' => 'travelling.'], function () {
-    Route::get('', 'RequestTravellingController@index')->name('index');
-    Route::post('store', 'RequestTravellingController@store')->name('store');
-    Route::get('create','RequestTravellingController@create')->name('create');
+    Route::get('', 'RequestTravellingCostController@index')->name('index');
+    Route::post('requisitions/{requisition}/store', 'RequestTravellingCostController@store')->name('store');
+    Route::get('create','RequestTravellingCostController@create')->name('create');
 
 
     Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
-        Route::get('all', 'RequestTravellingController@allDatatable')->name('all');
+        Route::get('all', 'RequestTravellingCostController@allDatatable')->name('all');
     });
 });
 

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Web\Requisition;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
+use App\Repositories\Access\UserRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
+use App\Repositories\MdhRates\mdhRatesRepository;
 use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
 use App\Models\Requisition\Requisition;
@@ -29,6 +31,8 @@ class RequisitionController extends Controller
     protected $wf_tracks;
     protected $gofficer;
     protected $grate;
+    protected $mdh_rates;
+    protected $users;
 
     public function __construct()
     {
@@ -40,6 +44,8 @@ class RequisitionController extends Controller
         $this->wf_tracks = (new WfTrackRepository());
         $this->gofficer = (new GOfficerRepository());
         $this->grate = (new GRateRepository());
+        $this->mdh_rates = (new mdhRatesRepository());
+        $this->users = (new UserRepository());
     }
 
     /**
@@ -84,13 +90,21 @@ class RequisitionController extends Controller
      */
     public function initiate(Requisition $requisition)
     {
+       /*$mdh = $this->mdh_rates->getForPluck();
+
+      echo json_encode($mdh);*/
+
+
+
         return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
             ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
             ->with('districts', $this->districts->getForPluck())
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
-            ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'));
+            ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
+            ->with('mdh_rates',$this->mdh_rates->getForPluck())
+            ->with('users', $this->users->getUserQuery()->pluck('email', 'user_id'));
     }
 
     /**

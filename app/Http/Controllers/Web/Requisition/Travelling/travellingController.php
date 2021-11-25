@@ -29,6 +29,7 @@ class travellingController extends Controller
         $user_id = User::all();
         $districts = District::all();
         $mdh_rates = mdh_rate::all();
+        dd($mdh_rates);
         return view('requisition.travelling.index',['user_id'=>$user_id,
             'districts'=>$districts,
             'mdh_rates'=>$mdh_rates]);

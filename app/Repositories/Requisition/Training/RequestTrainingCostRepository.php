@@ -12,12 +12,7 @@ class RequestTrainingCostRepository
 {
     const MODEL = requisition_training_cost::class;
 
-    protected $grate;
 
-    public function __construct()
-    {
-        $this->grate = (new GRateRepository());
-    }
 
     public function inputProcess($inputs)
     {
@@ -39,7 +34,8 @@ class RequestTrainingCostRepository
     public function store(Requisition $requisition, $inputs)
     {
         return DB::transaction(function () use ($requisition, $inputs){
-            $trainingCost = $requisition->trainingCost()->create($this->inputProcess($inputs));
+            $trainingItemCost = $requisition->trainingCost()->create($this->inputProcess($inputs));
+//            $trainingItemCost->districts()->sync($inputs['districts']);
 
         });
     }

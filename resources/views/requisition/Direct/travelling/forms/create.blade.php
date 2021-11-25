@@ -1,4 +1,4 @@
-{!! Form::open(['route' => 'training.store', 'method' => 'post',]) !!}
+{!! Form::open(['route' => ['travelling.store',$requisition], 'method' => 'POST']) !!}
 <!-- Row -->
 <div class="row">
     <div class="col-md-12 col-lg-12">
@@ -27,18 +27,10 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>	{!! Form::select('user_id',$gofficer, null, ['class' => 'form-control select2-show-search', 'required']) !!}</td>
+                            <td>	{!! Form::select('traveller_uid',$users, null, ['class' => 'form-control select2-show-search', 'required']) !!}</td>
                             <td><input type="number" class="form-control" name="no_days" placeholder="No days" required = "required"></td>
-                            <td>{!! Form::select('district_id',$districts, null, ['class' => 'form-control select2-show-search', 'required']) !!}</td>
-                            <td>
-<select>
-    @foreach($mdh_rates AS $mdh_rates)
-        <option value="{{$mdh_rates->amount}}">{{$mdh_rates->amount}}</option>
-    @endforeach
-</select>
-
-{{--                                {!! Form::select('perdiem_rate',$grate, null,['class' => 'form-control select2-show-search', 'required']) !!}--}}
-                            </td>
+                            <td> {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','required']) !!}</td>
+                            <td>{!! Form::select('perdiem_rate_id',$mdh_rates, null,['class' => 'form-control select2-show-search', 'required']) !!}</td>
                             <td><input type="number" class="form-control" name="accommodation" placeholder="100,000" required = "required"></td>
                             <td><input type="number" class="form-control" name="transportation" placeholder="100,000" required = "required"></td>
                             <td><input type="number" class="form-control" name="other_cost" placeholder="100,000" required = "required"></td>
@@ -46,7 +38,7 @@
                         </tr>
                         <tr>
                             <lable><strong>Description</strong></lable><br>
-                            {!! Form::textarea('description', null, ['class' => 'content2', 'required']) !!}<br></tr>
+                            {!! Form::textarea('description', null, ['class' => 'form-control', 'required']) !!}<br></tr>
 
 
 
