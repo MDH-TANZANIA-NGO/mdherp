@@ -1,4 +1,4 @@
-{!! Form::open(['route' => 'training.store', 'method' => 'post',]) !!}
+{!! Form::open(['route' => ['training.store',$requisition], 'method' => 'POST']) !!}
 <!-- Row -->
 <div class="row">
     <div class="col-md-12 col-lg-12">
@@ -26,17 +26,18 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>	{!! Form::select('user_id',$gofficer, null, ['class' => 'form-control select2-show-search', 'required']) !!}</td>
+                            <td>	{!! Form::select('participant_id',$gofficer, null, ['class' => 'form-control select2-show-search', 'required']) !!}</td>
                             <td><input type="number" class="form-control" name="no_days" placeholder="No days" required = "required"></td>
                             <td>{!! Form::select('district_id',$districts, null, ['class' => 'form-control select2-show-search', 'required']) !!}</td>
-                            <td>{!! Form::select('perdiem_rate',$grate, null,['class' => 'form-control select2-show-search', 'required']) !!}</td>
+                            <td>{!! Form::select('perdiem_rate_id',$grate, null,['class' => 'form-control select2-show-search', 'required']) !!}</td>
                             <td><input type="number" class="form-control" name="transportation" placeholder="100,000" required = "required"></td>
                             <td><input type="number" class="form-control" name="other_cost" placeholder="100,000" required = "required"></td>
                             <td><button type="submit" class="btn btn-outline-info" >Add</button> </td>
                         </tr>
                         <tr>
+{{--                            <input type="number" value="{{$requisition->id}}" name="requisition_id" >--}}
                             <lable><strong>Description</strong></lable><br>
-                            {!! Form::textarea('description', null, ['class' => 'content2', 'required']) !!}<br></tr>
+                            {!! Form::textarea('description', null, ['class' => 'form-control', 'required']) !!}<br></tr>
 
 
 
