@@ -25,6 +25,14 @@ class RequisitionTypesTableSeeder extends Seeder
                     'created_at' => NULL,
                     'updated_at' => NULL,
                 ),
+            1 =>
+                array (
+                    'id' => 2,
+                    'title' => 'Directs Requisition',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                ),
+
         ));
 
         $this->enableForeignKeys('requisition_types');
