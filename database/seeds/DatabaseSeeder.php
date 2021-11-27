@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(WfModuleGroupsTableSeeder::class);
         $this->call(WfModulesTableSeeder::class);
         $this->call(WfDefinitionsTableSeeder::class);
+        $this->call(RequisitionTypeCategoriesTableSeeder::class);
         DB::commit();
     }
 }

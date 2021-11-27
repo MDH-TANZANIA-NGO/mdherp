@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Database\TruncateTable;
 use Database\DisableForeignKeys;
 
-class RequisitionTypesTableSeeder extends Seeder
+class RequisitionTypeCategoriesTableSeeder extends Seeder
 {
     use DisableForeignKeys, TruncateTable;
     /**
@@ -14,27 +14,29 @@ class RequisitionTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->disableForeignKeys('requisition_types');
-        $this->delete('requisition_types');
+        $this->disableForeignKeys('requisition_type_categories');
+        $this->delete('requisition_type_categories');
 
-        \DB::table('requisition_types')->insert(array (
+        \DB::table('requisition_type_categories')->insert(array (
             0 =>
                 array (
                     'id' => 1,
-                    'title' => 'Procurement Requisition',
+                    'requisition_type_id' => 2,
+                    'name' => 'Traveling',
                     'created_at' => NULL,
                     'updated_at' => NULL,
                 ),
             1 =>
-                array (
+            array (
                     'id' => 2,
-                    'title' => 'Direct Requisition',
+                    'requisition_type_id' => 2,
+                    'name' => 'Training',
                     'created_at' => NULL,
                     'updated_at' => NULL,
                 ),
 
         ));
 
-        $this->enableForeignKeys('requisition_types');
+        $this->enableForeignKeys('requisition_type_categories');
     }
 }
