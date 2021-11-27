@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if($items->count() > 0)
+    @if($items->count() > 0 )
 
     <div class="row mb-4">
         <div class="col-12">
@@ -16,6 +16,7 @@
             </form>
         </div>
     </div>
+
     @endif
 
     <div class="row">
@@ -106,10 +107,25 @@
                         </div>
                     </div>
 {{--                </div>--}}
+
+    @elseif($travellingCost->count()>0)
+
+        <div class="row mb-4">
+            <div class="col-12">
+                <a class="btn btn-primary float-right" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();if(confirm('Are you sure you want to send it for approval')){document.getElementById('submit_requisition_form').submit()}">
+
+                    <i class="dropdown-icon mdi  mdi-logout-variant" style="color: #fff"></i> Submit for approval
+                </a>
+                <form id="submit_requisition_form" action="{{ route('requisition.submit',$requisition) }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+
             </div>
         </div>
 
-    </div>
+    @endif
+
 
     <div class="row">
         <div class="card" >
@@ -193,7 +209,23 @@
         </div>
     </div>
             </div>
+
         </div>
+    @switch($requisition->requisition_type_id)
+        @case(1)
+       @include('requisition.procurement.forms.create',['items'=>$requisition->items])
+
+        @break
+        @case(2)
+        @if($requisition->requisition_type_category == 1)
+            @include('requisition.Direct.travelling.index',['items' => $requisition->items])
+
+        @elseif($requisition->requisition_type_category == 2)
+            @include('requisition.Direct.training.index',['items' => $requisition->items])
+
+            @endif
+        @break
+    @endswitch
 
 @endsection
 

@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Web\Requisition;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
+use App\Models\Requisition\RequisitionType\requisition_type_category;
+use App\Repositories\Access\UserRepository;
+use App\Repositories\GOfficer\GOfficerRepository;
+use App\Repositories\GOfficer\GRateRepository;
+use App\Repositories\MdhRates\mdhRatesRepository;
 use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
 use App\Models\Requisition\Requisition;
@@ -25,6 +30,11 @@ class RequisitionController extends Controller
     protected $equipments;
     protected $districts;
     protected $wf_tracks;
+    protected $gofficer;
+    protected $grate;
+    protected $mdh_rates;
+    protected $users;
+    protected $requisition_type_category;
 
     public function __construct()
     {
@@ -34,6 +44,11 @@ class RequisitionController extends Controller
         $this->equipments = (new EquipmentRepository());
         $this->districts = (new DistrictRepository());
         $this->wf_tracks = (new WfTrackRepository());
+        $this->gofficer = (new GOfficerRepository());
+        $this->grate = (new GRateRepository());
+        $this->mdh_rates = (new mdhRatesRepository());
+        $this->users = (new UserRepository());
+        $this->requisition_type_category = (new requisition_type_category());
     }
 
     /**
@@ -55,7 +70,8 @@ class RequisitionController extends Controller
     {
         return view('requisition._parent.form.create')
             ->with('requisition_types', $this->requisition_types->getAll()->pluck('title','id'))
-            ->with('projects', $this->projects->getAccessUserProjectsPluck());
+            ->with('projects', $this->projects->getAccessUserProjectsPluck())
+            ->with('requisition_type_category', $this->requisition_type_category->get()->pluck('name', 'id'));
     }
 
     /**
@@ -67,7 +83,10 @@ class RequisitionController extends Controller
     public function store(Request $request)
     {
         $requisition = $this->requisitions->store($request->all());
-        return redirect()->route('requisition.initiate',[$requisition]);
+        $mdh_rates = $this->mdh_rates->getForPluck();
+        return redirect()->route('requisition.initiate',[$requisition])
+            ->with('mdh_rates',$mdh_rates->all());
+
     }
 
     /**
@@ -78,11 +97,22 @@ class RequisitionController extends Controller
      */
     public function initiate(Requisition $requisition)
     {
+       /*$mdh = $this->mdh_rates->getForPluck();
+
+      echo json_encode($mdh);*/
+
+
+
         return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
+            ->with('travellingCost',$requisition->travellingCost())
             ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
-            ->with('districts', $this->districts->getForPluck());
+            ->with('districts', $this->districts->getForPluck())
+            ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
+            ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
+            ->with('mdh_rates',$this->mdh_rates->getForPluck())
+            ->with('users', $this->users->getUserQuery()->pluck('email', 'user_id'));
     }
 
     /**
@@ -148,5 +178,10 @@ class RequisitionController extends Controller
         $region_id = $request->only('region_id');
         $fiscal_year = $request->only('fiscal_year');
         return response()->json($this->requisitions->getResults($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year));
+    }
+
+    public function detailed(){
+
+        return view('requisition._parent.detailed');
     }
 }
