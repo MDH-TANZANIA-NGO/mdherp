@@ -23,9 +23,11 @@ class RequisitionRepository extends BaseRepository
             DB::raw('requisitions.amount AS amount'),
             DB::raw('requisitions.uuid AS uuid'),
             DB::raw('requisitions.created_at AS created_at'),
+            DB::raw('requisition_travelling_costs.id AS requisition_travelling_cost_id'),
             DB::raw('projects.title AS project_title'),
             DB::raw('activities.title AS activity_title'),
         ])
+            ->join('requisition_travelling_costs','requisition_travelling_costs.requisition_id','requisitions.id')
             ->join('requisition_types', 'requisition_types.id','requisitions.requisition_type_id')
             ->join('projects','projects.id', 'requisitions.project_id')
             ->join('activities','activities.id','requisitions.activity_id')

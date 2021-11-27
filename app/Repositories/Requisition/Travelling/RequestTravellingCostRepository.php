@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Requisition\Travelling;
 
+use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +18,10 @@ class RequestTravellingCostRepository
     public function inputProcess($inputs)
     {
 
+    $perdiem_id = $inputs['perdiem_rate_id'];
+    $perdiem_amount = $perdiem_id->mdh_rates;
         return [
-
+            'perdiem_total_amount'=> $perdiem_amount,
             'traveller_uid' => $inputs['traveller_uid'],
             'description' => $inputs['description'],
             'district_id'=> $inputs['district_id'],

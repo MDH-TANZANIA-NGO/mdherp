@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class mdh_rate extends BaseModel
 {
     //
+    public function travellingPerdiemAmount(){
+
+        return $this->hasMany('requisition_travelling_costs','perdiem_rate_id','id');
+    }
+
 }

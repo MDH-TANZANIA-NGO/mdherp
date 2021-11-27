@@ -83,7 +83,10 @@ class RequisitionController extends Controller
     public function store(Request $request)
     {
         $requisition = $this->requisitions->store($request->all());
-        return redirect()->route('requisition.initiate',[$requisition]);
+        $mdh_rates = $this->mdh_rates->getForPluck();
+        return redirect()->route('requisition.initiate',[$requisition])
+            ->with('mdh_rates',$mdh_rates->all());
+
     }
 
     /**
@@ -103,6 +106,7 @@ class RequisitionController extends Controller
         return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
+            ->with('travellingCost',$requisition->travellingCost())
             ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
             ->with('districts', $this->districts->getForPluck())
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
