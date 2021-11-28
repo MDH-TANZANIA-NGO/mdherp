@@ -131,7 +131,13 @@ class RequisitionController extends Controller
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
-            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($requisition));
+            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($requisition))
+            ->with('items', $requisition->items)
+            ->with('travelling_costs',$requisition->travellingCost)
+            ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
+            ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
+            ->with('mdh_rates',$this->mdh_rates->getForPluck())
+            ->with('users', $this->users->getUserQuery()->pluck('email', 'user_id'));
     }
 
     /**

@@ -21,7 +21,7 @@
                                 <th class="text-center" style="width: 10%">Equipment Type</th>
                                 <th class="text-center"  style="width: 40%">Specification/description</th>
                                 <th class="text-right"  style="width: 20%">Quantity / Request Amount</th>
-{{--                                <th class="text-right" style="width: 5%">Action</th>--}}
+                                @if($can_edit_resource)<th class="text-right" style="width: 5%">Action</th>@endif
                             </tr>
                             </thead>
 
@@ -65,7 +65,7 @@
                                             <div>${{ number_2_format($item->total_amount) }}</div>
                                         </div>
                                     </td>
-{{--                                    <td><button type="submit" class="btn btn-primary">Edit</button></td>--}}
+                                    @if($can_edit_resource)<td><a href="{{ route('requisition_item.edit',[$item,'view']) }}" class="btn btn-primary">Edit</a></td>@endif
                                 </tr>
                             @endforeach
                             </tbody>
