@@ -12,19 +12,19 @@ trait WorkflowResourceModificationStageTrait
     {
         $allow = false;
         switch($model->getTable()){
-            /*Cov Cec Monthly Payment Module*/
-            case 'cov_cec_monthly_payments':
+            /*requisitions Module*/
+            case 'requisitions':
                 switch ($pending_level){
                     case 1: //Applicant level
                         if($model->user_id == access()->id()){
                             $allow = true;
                         }
                         break;
-                    case 3: //Level 3
-                        if(access()->hasWorkflowDefinitionProvided($wf_definition)){
-                            $allow = true;
-                        }
-                        break;
+//                    case 3: //Level 3
+//                        if(access()->hasWorkflowDefinitionProvided($wf_definition)){
+//                            $allow = true;
+//                        }
+//                        break;
                 }
                 break;
         }
