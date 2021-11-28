@@ -31,6 +31,7 @@
 
         @switch($requisition->requisition_type_category)
             @case(1)
+
             @include('requisition.Direct.travelling.index',['items' => $requisition->items])
             @break
 
