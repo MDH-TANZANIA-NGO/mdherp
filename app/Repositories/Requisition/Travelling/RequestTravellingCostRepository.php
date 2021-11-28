@@ -19,10 +19,10 @@ class RequestTravellingCostRepository
     {
 
     $perdiem_id = $inputs['perdiem_rate_id'];
-
-    $perdiem_amount = mdh_rate::query()->find($perdiem_id)->travellingPerdiemAmount()->first()->amount;
+        $perdiem_total_amount = (mdh_rate::query()->find($perdiem_id)->amount  * $inputs['no_days']);
+        $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'] + ($inputs['accommodation'] * $inputs['no_days']);
         return [
-            'perdiem_total_amount'=> $perdiem_amount,
+            'perdiem_total_amount'=> $perdiem_total_amount,
             'traveller_uid' => $inputs['traveller_uid'],
             'description' => $inputs['description'],
             'district_id'=> $inputs['district_id'],
@@ -31,16 +31,19 @@ class RequestTravellingCostRepository
             'transportation' => $inputs['transportation'],
             'accommodation' => $inputs['accommodation'],
             'other_cost' => $inputs['other_cost'],
-//            'perdiem_rate_id_total_amount' =>$inputs['no_days'] *  $inputs['perdiem_rate_id'],
-            'total_amount' =>  $inputs['transportation'] + $inputs['other_cost']
+            'total_amount' =>  $total_amount,
         ];
     }
 
+    /**
+     * @param Requisition $requisition
+     * @param $inputs
+     * @return mixed
+     */
     public function store(Requisition $requisition, $inputs)
     {
         return DB::transaction(function () use ($requisition, $inputs){
-            $travellingItemCost = $requisition->travellingCost()->create($this->inputProcess($inputs));
-//            $travellingItemCost->districts()->sync($inputs['districts']);
+            return $requisition->travellingCost()->create($this->inputProcess($inputs));
         });
     }
 }
