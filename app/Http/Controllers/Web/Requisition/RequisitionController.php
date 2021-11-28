@@ -97,16 +97,10 @@ class RequisitionController extends Controller
      */
     public function initiate(Requisition $requisition)
     {
-       /*$mdh = $this->mdh_rates->getForPluck();
-
-      echo json_encode($mdh);*/
-
-
-
         return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
-            ->with('travellingCost',$requisition->travellingCost())
+            ->with('travelling_costs',$requisition->travellingCost)
             ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
             ->with('districts', $this->districts->getForPluck())
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))

@@ -28,7 +28,17 @@
         @include('requisition.procurement.details',['items' => $requisition->items])
         @break
         @case(2)
-        @include('requisition.Direct.travelling.index',['items' => $requisition->items])
+
+        @switch($requisition->requisition_type_category)
+            @case(1)
+{{--            travelling--}}
+            @break
+
+            @case(2)
+{{--                    training--}}
+            @break
+        @endswitch
+
         @break
     @endswitch
 
