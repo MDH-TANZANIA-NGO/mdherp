@@ -3,6 +3,8 @@
 namespace App\Models\Requisition\Traits\Relaltionship;
 
 use App\Models\Auth\User;
+use App\Models\Project\Activity;
+use App\Models\Project\Project;
 use App\Models\Requisition\Item\RequisitionItem;
 use App\Models\Requisition\RequisitionType\RequisitionType;
 use App\Models\Requisition\Training\requisition_training_cost;
@@ -47,6 +49,16 @@ trait RequisitionRelationship
     public function documents()
     {
 //        return $this->morphToMany(Document::class, 'resource', 'document_resource')->withPivot('id', 'name', 'description', 'ext', 'size', 'mime','is_active','parent','created_at')->orderBy('document_id', "ASC");
+    }
+
+    public function activity()
+    {
+        return $this->belongsTo(Activity::class);
+
+    }
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
     }
 
 }

@@ -117,6 +117,7 @@ class RequisitionController extends Controller
      */
     public function show(Requisition $requisition)
     {
+
         /* Check workflow */
         $wf_module_group_id = 1;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $requisition->id);

@@ -7,16 +7,16 @@
                 <h3 class="card-title">REQUISITION SUMMARY</h3>
             </div>
             <div class="card-body">
-                @if(access()->user())
+                @if($requisition->user_id==access()->id())
                 <div class="">
-                    <h4 class="mb-1">Hi <strong>{{ access()->user()->full_name_formatted }}</strong>,</h4>
-                    You have requested Amount of <strong>$450.00</strong> (USD) which is equivalent to <strong>900,000</strong> (TZS) for activity:
-                    <p>AK1.1.1- Purchase Laptops & supplies to facilitate scale up of PMD, Community data needs for program monitoring</p>
+                    <h4 class="mb-1">Hi <strong>{{ $requisition->user->full_name_formatted }}</strong>,</h4>
+                    You have requested Amount of <strong>{{$requisition->amount}}</strong> (TZS) for activity:
+                    <p>{{$requisition->activity->title}}</p>
                 </div>
                 @else
 
                     <div class="">
-                        <p>AK1.1.1- Purchase Laptops & supplies to facilitate scale up of PMD, Community data needs for program monitoring</p>
+                        <p>{{$requisition->activity->title}}</p>
                     </div>
                 @endif
 
@@ -24,8 +24,8 @@
                 <div class="row pt-4">
                     <div class="col-lg-6 ">
                         <address>
-                            <strong>Project name: </strong><span class="text-primary" >Afya Kwanza</span><br>
-                            <strong>Sub Program area:</strong>  <span class="text-primary" >C&T NSD 01 </span><br>
+                            <strong>Project name: </strong><span class="text-primary" >{{$requisition->project->title}}</span><br>
+                            <strong>Sub Program area:</strong>  <span class="text-primary" >{{$requisition->activity->subprogram->programArea->title}}</span><br>
                             <strong>Numeric Output: </strong> <span class="text-primary" >200</span><br>
                             <strong>Output unit:</strong> <span class="text-primary" >  Pieces</span><br>
                         </address>
@@ -46,7 +46,7 @@
                             <td>
                                 <p class="font-w600 mb-1">Elinipendo Mziray</p>
                                 <div class="text-muted">Data collection</div>
-                                <div class="nn" style="color: green"><i class="fe fe-map-pin"></i> Nzega, Igunga</div>
+                                <div class="nn" style="color: green"><i class="fe fe-map-pin"></i> Nzega</div>
                             </td>
                             <td class="text-center">10</td>
                             <td class="text-right">60,000</td>
@@ -74,7 +74,7 @@
                         </tr>
                     </table>
                 </div>
-               
+
             </div>
         </div>
     </div>
