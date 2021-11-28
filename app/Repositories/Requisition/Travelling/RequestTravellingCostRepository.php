@@ -19,7 +19,8 @@ class RequestTravellingCostRepository
     {
 
     $perdiem_id = $inputs['perdiem_rate_id'];
-    $perdiem_amount = $perdiem_id->mdh_rates;
+
+    $perdiem_amount = mdh_rate::query()->find($perdiem_id)->travellingPerdiemAmount()->first()->amount;
         return [
             'perdiem_total_amount'=> $perdiem_amount,
             'traveller_uid' => $inputs['traveller_uid'],
