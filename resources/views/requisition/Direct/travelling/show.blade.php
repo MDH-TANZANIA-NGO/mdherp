@@ -23,7 +23,7 @@
                         <tr>
                             <td>
                                 <p class="font-w600 mb-1">{{ $cost->user->full_name_formatted }}</p>
-                                <div class="text-muted">Data collection</div>
+                                <div class="text-muted">{{$cost->description}}</div>
                                 <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{ $cost->district->name }}</div>
                             </td>
                             <td class="text-center">{{ $cost->no_days }}</td>
@@ -44,7 +44,7 @@
                             <td class="font-weight-bold text-right">{{ $requisition->amount }}</td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="text-right">
+                            <td colspan="7" class="text-right">
 {{--                                <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-folder-alt"></i> Save </button>--}}
 {{--                                <button type="button" class="btn btn-secondary" onClick="javascript:window.print();"><i class="si si-paper-plane"></i> Submit</button>--}}
                                 <button type="button" class="btn btn-info" onClick="javascript:window.print();"><i class="si si-printer"></i> Print </button>
