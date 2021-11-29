@@ -3,6 +3,7 @@
 namespace App\Models\Requisition\Training\Traits\Relationship;
 
 use App\Models\Auth\User;
+use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\GRate;
 use App\Models\Requisition\Requisition;
 use App\Models\System\District;
@@ -21,7 +22,7 @@ trait RequisitionTrainingCostRelationship {
 
     public function user()
     {
-        return $this->belongsTo(User::class,'participant_uid','id');
+        return $this->belongsTo(GOfficer::class,'participant_uid','id');
     }
 
     public function gRate()

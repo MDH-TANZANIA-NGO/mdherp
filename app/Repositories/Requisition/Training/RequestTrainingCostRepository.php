@@ -21,7 +21,7 @@ class RequestTrainingCostRepository
         $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'];
         return [
             'peridem_rate_amount'=> $inputs['perdiem_rate_id'],
-            'participant_uid' => $inputs['participant_id'],
+            'participant_uid' => $inputs['participant_uid'],
             'description' => $inputs['description'],
             'district_id'=> $inputs['district_id'],
             'no_days' => $inputs['no_days'],
