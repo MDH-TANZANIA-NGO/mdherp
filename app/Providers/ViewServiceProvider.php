@@ -25,5 +25,6 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(['*'], 'App\Http\View\Composers\WfTrack\WfTrackComposer');
+        View::composer(['*'], 'App\Http\View\Composers\Requisition\RequisitionComposer');
     }
 }
