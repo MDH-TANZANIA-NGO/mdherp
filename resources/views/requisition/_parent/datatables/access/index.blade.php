@@ -35,7 +35,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
-                                    <th class="wd-15p">PROJECT</th>
+{{--                                    <th class="wd-15p">PROJECT</th>--}}
                                     <th class="wd-15p">ACTIVITY</th>
                                     <th class="wd-25p">AMOUNT</th>
                                     <th class="wd-25p">APPLIED DATE</th>
@@ -59,7 +59,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
-                                    <th class="wd-15p">PROJECT</th>
+{{--                                    <th class="wd-15p">PROJECT</th>--}}
                                     <th class="wd-15p">ACTIVITY</th>
                                     <th class="wd-25p">AMOUNT</th>
                                     <th class="wd-25p">APPLIED DATE</th>
@@ -82,7 +82,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
-                                    <th class="wd-15p">PROJECT</th>
+{{--                                    <th class="wd-15p">PROJECT</th>--}}
                                     <th class="wd-15p">ACTIVITY</th>
                                     <th class="wd-25p">AMOUNT</th>
                                     <th class="wd-25p">APPLIED DATE</th>
@@ -105,7 +105,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
-                                    <th class="wd-15p">PROJECT</th>
+{{--                                    <th class="wd-15p">PROJECT</th>--}}
                                     <th class="wd-15p">ACTIVITY</th>
                                     <th class="wd-25p">AMOUNT</th>
                                     <th class="wd-25p">APPLIED DATE</th>
@@ -142,7 +142,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'requisitions.number', searchable: true},
                     { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    { data: 'project_title', name: 'projects.title', searchable: true},
+                    // { data: 'project_title', name: 'projects.title', searchable: true},
                     { data: 'activity_title', name: 'activities.title', searchable: true},
                     { data: 'amount', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
@@ -161,7 +161,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'requisitions.number', searchable: true},
                     { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    { data: 'project_title', name: 'projects.title', searchable: true},
+                    // { data: 'project_title', name: 'projects.title', searchable: true},
                     { data: 'activity_title', name: 'activities.title', searchable: true},
                     { data: 'amount', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
@@ -180,7 +180,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'requisitions.number', searchable: true},
                     { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    { data: 'project_title', name: 'projects.title', searchable: true},
+                    // { data: 'project_title', name: 'projects.title', searchable: true},
                     { data: 'activity_title', name: 'activities.title', searchable: true},
                     { data: 'amount', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
@@ -199,7 +199,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'requisitions.number', searchable: true},
                     { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    { data: 'project_title', name: 'projects.title', searchable: true},
+                    // { data: 'project_title', name: 'projects.title', searchable: true},
                     { data: 'activity_title', name: 'activities.title', searchable: true},
                     { data: 'amount', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
