@@ -219,6 +219,16 @@ class RequisitionRepository extends BaseRepository
             case 1:
                 $total_amount = $requisition->items()->sum('total_amount');
                 break;
+            case 2:
+                switch ($requisition->requisition_type_category)
+                {
+                    case 1:
+                        $total_amount = $requisition->travellingCost()->sum('total_amount');
+                     break;
+                    case 2:
+                        $total_amount = $requisition->trainingCost()->sum('total_amount');
+                }
+                break;
         }
         return $total_amount;
     }
