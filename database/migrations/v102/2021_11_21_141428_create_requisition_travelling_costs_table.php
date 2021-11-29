@@ -13,9 +13,9 @@ class CreateTravellingCostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('travelling_costs', function (Blueprint $table) {
+        Schema::create('requisition_travelling_costs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('requisitioin_id');
+            $table->bigInteger('requisition_id');
             $table->bigInteger('user_id');
             $table->smallInteger('no_days');
             $table->bigInteger('mdh_rate_id');
@@ -35,6 +35,6 @@ class CreateTravellingCostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('travelling_costs');
+
     }
 }
