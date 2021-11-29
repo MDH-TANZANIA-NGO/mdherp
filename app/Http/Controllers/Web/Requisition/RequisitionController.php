@@ -101,12 +101,13 @@ class RequisitionController extends Controller
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
             ->with('travelling_costs',$requisition->travellingCost)
+            ->with('training_costs', $requisition->trainingCost)
             ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
             ->with('districts', $this->districts->getForPluck())
-            ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
+            ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('names', 'id'))
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
             ->with('mdh_rates',$this->mdh_rates->getForPluck())
-            ->with('users', $this->users->getUserQuery()->pluck('email', 'user_id'));
+            ->with('users', $this->users->getQuery()->pluck('name', 'user_id'));
     }
 
     /**
@@ -117,6 +118,7 @@ class RequisitionController extends Controller
      */
     public function show(Requisition $requisition)
     {
+
         /* Check workflow */
         $wf_module_group_id = 1;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $requisition->id);

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if($items->count() > 0 or $travelling_costs->count() > 0)
+    @if($items->count() > 0 or $travelling_costs->count() > 0 or $training_costs->count() > 0)
 
     <div class="row mb-4">
         <div class="col-12">
@@ -31,6 +31,7 @@
 
         @switch($requisition->requisition_type_category)
             @case(1)
+
             @include('requisition.Direct.travelling.index',['items' => $requisition->items])
             @break
 

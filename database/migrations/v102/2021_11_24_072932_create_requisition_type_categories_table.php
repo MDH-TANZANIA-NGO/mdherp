@@ -18,6 +18,7 @@ class CreateRequisitionTypeCategoriesTable extends Migration
             $table->bigInteger('request_type_id');
             $table->string('name');
             $table->timestamps();
+
         });
     }
 

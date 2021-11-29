@@ -8,11 +8,11 @@
             </div>
             <div class="card-body">
                 @if($requisition->user_id==access()->id())
-                    <div class="">
-                        <h4 class="mb-1">Hi <strong>{{ $requisition->user->full_name_formatted }}</strong>,</h4>
-                        You have requested Amount of <strong>{{$requisition->amount}}</strong> (TZS) for activity:
-                        <p>{{$requisition->activity->title}}</p>
-                    </div>
+                <div class="">
+                    <h4 class="mb-1">Hi <strong>{{ $requisition->user->full_name_formatted }}</strong>,</h4>
+                    You have requested Amount of <strong>{{$requisition->amount}}</strong> (TZS) for activity:
+                    <p>{{$requisition->activity->title}}</p>
+                </div>
                 @else
 
                     <div class="">
@@ -67,8 +67,8 @@
                         </tr>
                         <tr>
                             <td colspan="6" class="text-right">
-                                {{--                                <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-folder-alt"></i> Save </button>--}}
-                                {{--                                <button type="button" class="btn btn-secondary" onClick="javascript:window.print();"><i class="si si-paper-plane"></i> Submit</button>--}}
+{{--                                <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-folder-alt"></i> Save </button>--}}
+{{--                                <button type="button" class="btn btn-secondary" onClick="javascript:window.print();"><i class="si si-paper-plane"></i> Submit</button>--}}
                                 <button type="button" class="btn btn-info" onClick="javascript:window.print();"><i class="si si-printer"></i> Print </button>
                             </td>
                         </tr>

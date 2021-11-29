@@ -32,10 +32,13 @@
         @switch($requisition->requisition_type_category)
             @case(1)
 {{--            travelling--}}
+
+            @include('requisition.Direct.travelling.show')
             @break
 
             @case(2)
 {{--                    training--}}
+            @include('requisition.Direct.training.show')
             @break
         @endswitch
 
