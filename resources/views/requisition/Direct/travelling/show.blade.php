@@ -40,7 +40,7 @@
 {{--                            <td class="text-right">240,000.00</td>--}}
 {{--                        </tr>--}}
                         <tr>
-                            <td colspan="6" class="font-weight-bold text-uppercase text-right">Total USD</td>
+                            <td colspan="6" class="font-weight-bold text-uppercase text-right">Total </td>
                             <td class="font-weight-bold text-right">{{ $requisition->amount }}</td>
                         </tr>
                         <tr>

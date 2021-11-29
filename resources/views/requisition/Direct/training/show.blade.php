@@ -46,11 +46,11 @@
 {{--                            <td class="text-right">240,000.00</td>--}}
 {{--                        </tr>--}}
                         <tr>
-                            <td colspan="6" class="font-weight-bold text-uppercase text-right">Total USD</td>
+                            <td colspan="6" class="font-weight-bold text-uppercase text-right">Total </td>
                             <td class="font-weight-bold text-right">{{ $requisition->amount  }}</td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="text-right">
+                            <td colspan="7" class="text-right">
                                 {{--                                <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-folder-alt"></i> Save </button>--}}
                                 {{--                                <button type="button" class="btn btn-secondary" onClick="javascript:window.print();"><i class="si si-paper-plane"></i> Submit</button>--}}
                                 <button type="button" class="btn btn-info" onClick="javascript:window.print();"><i class="si si-printer"></i> Print </button>
