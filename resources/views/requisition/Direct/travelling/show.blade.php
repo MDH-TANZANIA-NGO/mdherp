@@ -24,11 +24,7 @@
                             <td>
                                 <p class="font-w600 mb-1">{{ $cost->user->full_name_formatted }}</p>
                                 <div class="text-muted">Data collection</div>
-                                <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>
-                                    @foreach($cost->districts as $district)
-                                        {{ $district->name }},
-                                    @endforeach
-                                </div>
+                                <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{ $cost->district->name }}</div>
                             </td>
                             <td class="text-center">{{ $cost->no_days }}</td>
                             <td class="text-right">{{ $cost->mdhRate->amount }}</td>
