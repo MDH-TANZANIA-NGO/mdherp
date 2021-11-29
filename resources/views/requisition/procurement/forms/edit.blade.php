@@ -14,7 +14,7 @@
                 </thead>
 
                 <tbody>
-                {!! Form::open(['route' => ['requisition_item.update',$item,$send], 'method' => 'POST']) !!}
+                {!! Form::open(['route' => ['requisition_item.update',$item,$send], 'method' => 'PUT']) !!}
                 <tr>
                     <td class="text-center"><span style="color: red"></span></td>
                     <td>{!! Form::select('equipment_id',$equipments,$item->equipment_id,['class'=>'form-control', 'placeholder'=>'Select','required']) !!}
@@ -44,6 +44,14 @@
                             <label>Amount</label>
                             <input type="number" name="requested_amount" value="{{ $item->amount }}" class="form-control" placeholder="" required />
                         </div>
+
+
+                        <div>
+                            <label>Amount</label>
+                            <button type="submit" class="btn btn-success"> Update</button>
+                        </div>
+
+
                     </td>
                 </tr>
                 {!! Form::close() !!}

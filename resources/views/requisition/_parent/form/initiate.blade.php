@@ -21,8 +21,9 @@
 
     @switch($requisition->requisition_type_id)
         @case(1)
-
-        @include('requisition.procurement.items.details')
+        @if($items->count() > 0)
+            @include('requisition.procurement.items.details')
+        @endif
         @include('requisition.procurement.forms.create',['items'=>$requisition->items])
 
         @break
