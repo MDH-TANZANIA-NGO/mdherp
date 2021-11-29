@@ -28,7 +28,7 @@
                             <tr>
                                 <th>{{ $key + 1 }}</th>
                                 <td>
-                                    <p class="font-w600 mb-1">{{ $training->user->last_name }}</p>
+                                    <p class="font-w600 mb-1">{{ $training->user->first_name }} {{ $training->user->last_name }}</p>
                                     <div class="text-muted">{{$training->description}}</div>
                                     <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{ $training->district->name }}</div>
                                 </td>
