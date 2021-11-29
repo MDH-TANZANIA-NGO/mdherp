@@ -15,11 +15,12 @@ class CreateTravellingCostsTable extends Migration
     {
         Schema::create('travelling_costs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('expense_id');
+            $table->bigInteger('requisitioin_id');
             $table->bigInteger('user_id');
             $table->smallInteger('no_days');
-            $table->bigInteger('perdiem_rate');
-            $table->bigInteger('accomodation');
+            $table->bigInteger('mdh_rate_id');
+            $table->decimal('total_perdiem_amount');
+            $table->bigInteger('accommodation');
             $table->bigInteger('transportation');
             $table->bigInteger('other_cost');
             $table->bigInteger('total_amount');
