@@ -36,8 +36,9 @@ class RequestTrainingCostRepository
     public function store(Requisition $requisition, $inputs)
     {
         return DB::transaction(function () use ($requisition, $inputs){
-            return $requisition->trainingCost()->create($this->inputProcess($inputs));
-
+            $requisition->trainingCost()->create($this->inputProcess($inputs));
+            $requisition->updatingTotalAmount();
+            return $requisition;
         });
     }
 }

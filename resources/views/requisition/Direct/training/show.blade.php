@@ -7,63 +7,47 @@
                 <h3 class="card-title">REQUISITION SUMMARY</h3>
             </div>
             <div class="card-body">
-                @if($requisition->user_id==access()->id())
-                    <div class="">
-                        <h4 class="mb-1">Hi <strong>{{ $requisition->user->full_name_formatted }}</strong>,</h4>
-                        You have requested Amount of <strong>{{$requisition->amount}}</strong> (TZS) for activity:
-                        <p>{{$requisition->activity->title}}</p>
-                    </div>
-                @else
-
-                    <div class="">
-                        <p>{{$requisition->activity->title}}</p>
-                    </div>
-                @endif
-
-                <div class="dropdown-divider"></div>
-                <div class="row pt-4">
-                    <div class="col-lg-6 ">
-                        <address>
-                            <strong>Project name: </strong><span class="text-primary" >{{$requisition->project->title}}</span><br>
-                            <strong>Sub Program area:</strong>  <span class="text-primary" >{{$requisition->activity->subprogram->programArea->title}}</span><br>
-                            <strong>Numeric Output: </strong> <span class="text-primary" >200</span><br>
-                            <strong>Output unit:</strong> <span class="text-primary" >  Pieces</span><br>
-                        </address>
-                    </div>
 
                 </div>
                 <div class="table-responsive push">
                     <table class="table table-bordered table-hover">
+                        <thead>
                         <tr class=" ">
-                            <th>Traveller's Info</th>
-                            <th class="text-center" style="width: 1%">Days</th>
-                            <th class="text-right" style="width: 1%">Perdiem</th>
-                            <th class="text-right" style="width: 1%">Accomodation</th>
-                            <th class="text-right" style="width: 1%">Transportation</th>
-                            <th class="text-right" style="width: 1%">Others</th>
+                            <th  class="text-center">ID</th>
+                            <th  class="text-center">Participant</th>
+                            <th  class="text-center">Days</th>
+                            <th  class="text-center">Perdiem</th>
+                            <th  class="text-center">Transport</th>
+                            <th  class="text-center">Others</th>
+                            <th  class="text-center">Total</th>
                         </tr>
-                        <tr>
-                            <td>
-                                <p class="font-w600 mb-1">Elinipendo Mziray</p>
-                                <div class="text-muted">Data collection</div>
-                                <div class="nn" style="color: green"><i class="fe fe-map-pin"></i> Nzega</div>
-                            </td>
-                            <td class="text-center">10</td>
-                            <td class="text-right">60,000</td>
-                            <td class="text-right">200,000</td>
-                            <td class="text-right">60,000</td>
-                            <td class="text-right">200,000</td>
-                        </tr>
+                        </thead>
+                        <tbody>
 
+                        @foreach($trainings as $key => $training)
+                            <tr>
+                                <th>{{ $key + 1 }}</th>
+                                <td>
+                                    <p class="font-w600 mb-1">{{ $training->user->full_name_formatted }}</p>
+                                    <div class="text-muted">{{$training->description}}</div>
+                                    <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{ $training->district->name }}</div>
+                                </td>
+                                <th class="text-right">{{ $training->no_days }}</th>
+                                <th class="text-right">{{ $training->gRate->amount }}</th>
+                                <th class="text-right">{{ $training->transportation }}</th>
+                                <th class="text-right">{{ $training->other_cost }}</th>
+                                <th class="text-right">{{ $training->total_amount }}</th>
+                            </tr>
+                        @endforeach
+                        </tbody>
 
-
+{{--                        <tr>--}}
+{{--                            <td colspan="5" class="font-w600 text-right">Total TZS</td>--}}
+{{--                            <td class="text-right">240,000.00</td>--}}
+{{--                        </tr>--}}
                         <tr>
-                            <td colspan="5" class="font-w600 text-right">Total TZS</td>
-                            <td class="text-right">240,000.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="font-weight-bold text-uppercase text-right">Total USD</td>
-                            <td class="font-weight-bold text-right">$120.00</td>
+                            <td colspan="6" class="font-weight-bold text-uppercase text-right">Total USD</td>
+                            <td class="font-weight-bold text-right">{{ $requisition->amount  }}</td>
                         </tr>
                         <tr>
                             <td colspan="6" class="text-right">
