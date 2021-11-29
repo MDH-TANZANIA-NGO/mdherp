@@ -227,6 +227,7 @@ class RequisitionRepository extends BaseRepository
                      break;
                     case 2:
                         $total_amount = $requisition->trainingCost()->sum('total_amount');
+                        break;
                 }
                 break;
         }
