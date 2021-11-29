@@ -19,4 +19,25 @@ trait RequisitionAttribute
     {
         return (new RequisitionRepository())->updatingTotalAmount($this);
     }
+
+    public function getNumericOutputUnitAttribute()
+    {
+        return $this->activity->budgets()->where('region_id',$this->region_id)->where('active',true)->first()->numeric_output;
+    }
+
+    public function getProgramAreaTitleAttribute()
+    {
+        return $this->activity->subprogram->programArea->title;
+    }
+
+    public function getProjectTitleAttribute()
+    {
+        return $this->project->title;
+    }
+
+    public function getOutputUnitTitleAttribute()
+    {
+        return $this->activity->outputUnit->title;
+    }
+
 }
