@@ -10,7 +10,7 @@ trait travellingCostsDatatable
 {
     public function alldatatable()
     {
-        return DataTables::of($this->travelling_costs->travelling())
+        return DataTables::of($this->travellingCost->getQuery())
             ->addIndexColumn()
             ->addColumn('action', function($query) {
 //                return '<a href="'.route('stock_unit.show', $query->uuid).'">View</a>';
