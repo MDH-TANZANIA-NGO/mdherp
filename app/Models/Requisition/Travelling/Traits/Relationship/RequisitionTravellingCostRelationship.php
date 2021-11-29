@@ -16,10 +16,10 @@ trait RequisitionTravellingCostRelationship {
 
     public function districts()
     {
-        return $this->belongsToMany(District::class, 'requisition_item_districts')->withTimestamps();
+        return $this->belongsToMany(District::class, 'requisition_travelling_cost_districts','requisition_travelling_cost_id','district_id')->withTimestamps();
     }
-    public function users()
+    public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class, "traveller_uid", 'id');
     }
 }

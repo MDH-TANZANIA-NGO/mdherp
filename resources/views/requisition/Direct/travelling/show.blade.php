@@ -21,9 +21,13 @@
                         @foreach($travelling_costs as $cost)
                         <tr>
                             <td>
-                                <p class="font-w600 mb-1">Elinipendo Mziray</p>
+                                <p class="font-w600 mb-1">{{ $cost->user->full_name_formatted }}</p>
                                 <div class="text-muted">Data collection</div>
-                                <div class="nn" style="color: green"><i class="fe fe-map-pin"></i> Nzega</div>
+                                <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>
+                                    @foreach($cost->districts as $district)
+                                        {{ $district->name }},
+                                    @endforeach
+                                </div>
                             </td>
                             <td class="text-center">{{ $cost->no_days }}</td>
                             <td class="text-right">60,000</td>
@@ -39,7 +43,7 @@
                         </tr>
                         <tr>
                             <td colspan="5" class="font-weight-bold text-uppercase text-right">Total USD</td>
-                            <td class="font-weight-bold text-right">$120.00</td>
+                            <td class="font-weight-bold text-right">{{ $requisition->amount }}</td>
                         </tr>
                         <tr>
                             <td colspan="6" class="text-right">
