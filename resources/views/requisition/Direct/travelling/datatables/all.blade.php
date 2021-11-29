@@ -27,9 +27,10 @@
                             <th>{{ $key + 1 }}</th>
                             <th>{{ $cost->user->full_name_formatted }}</th>
                             <th>{{ $cost->no_days }}</th>
+                            <th>{{ $cost->perdiem_total_amount }}</th>
                             <th>{{ $cost->accommodation }}</th>
                             <th>{{ $cost->transportation }}</th>
-                            <th>{{ $cost->other_cost }}</th>
+
                             <th>{{ $cost->other_cost }}</th>
                             <th>{{ $cost->total_amount }}</th>
                             <th><a href="" class="btn btn-primary">Edit</a> </th>
