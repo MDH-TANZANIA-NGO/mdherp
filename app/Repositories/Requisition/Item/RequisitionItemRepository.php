@@ -27,6 +27,8 @@ class RequisitionItemRepository extends BaseRepository
         return DB::transaction(function () use ($requisition, $inputs){
             $item = $requisition->items()->create($this->inputProcess($inputs));
             $item->districts()->sync($inputs['districts']);
+            $requisition->updatingTotalAmount();
+            return $requisition;
         });
     }
 
@@ -36,6 +38,8 @@ class RequisitionItemRepository extends BaseRepository
         return DB::transaction(function () use ($item, $inputs){
             $item->update($this->inputProcess($inputs));
             $item->districts()->sync($inputs['districts']);
+            $item->requisition->updatingTotalAmount();
+            return $item;
         });
     }
 
