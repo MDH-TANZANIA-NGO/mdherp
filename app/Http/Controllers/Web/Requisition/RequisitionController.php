@@ -101,6 +101,7 @@ class RequisitionController extends Controller
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
             ->with('travelling_costs',$requisition->travellingCost)
+            ->with('training_costs', $requisition->trainingCost)
             ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
             ->with('districts', $this->districts->getForPluck())
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('names', 'id'))
