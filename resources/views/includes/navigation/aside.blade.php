@@ -39,7 +39,7 @@
         </li>
 
         <li class="slide">
-            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-activity"></i><span class="side-menu__label">Project Settings</span><i class="angle fa fa-angle-right"></i></a>
+            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-wrench"></i><span class="side-menu__label">Project Settings</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('project.index') }}"><span>Project</span></a></li>
                 <li><a class="slide-item"  href="{{ route('program_area.index') }}"><span>Program Area</span></a></li>
@@ -57,7 +57,7 @@
             </ul>
         </li>
         <li>
-            <a class="side-menu__item" href="{{ route('general.invoke') }}"><i class="side-menu__icon fe fe-triangle"></i><span class="side-menu__label">General Settings</span></a>
+            <a class="side-menu__item" href="{{ route('general.invoke') }}"><i class="side-menu__icon fa fa-cogs"></i><span class="side-menu__label">General Settings</span></a>
         </li>
     </ul>
 </aside>

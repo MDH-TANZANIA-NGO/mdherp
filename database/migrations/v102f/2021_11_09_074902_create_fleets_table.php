@@ -28,6 +28,7 @@ class CreateFleetsTable extends Migration
             $table->string('vehicle_reg_no');
             $table->string('driver');
             $table->string('isactive');
+            $table->string('deleted_at')->nullable();
             $table->timestamps();
         });
     }
