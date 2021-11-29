@@ -8,40 +8,26 @@
         </div>
     </div>
 
-
-{{--    <div class="row" >--}}
-{{--        <div class="col-12">--}}
-{{--            <p class="text-center" style="font-size: 18px"><b>{{ $requisition->number }}</b></p>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-
-
     <!-- start: page -->
     <div class="row">
         <div class="col-lg-12">
             @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
         </div>
     </div>
-
+    @include('requisition._parent.includes.general_summary')
     @switch($requisition->requisition_type_id)
         @case(1)
         @include('requisition.procurement.details',['items' => $requisition->items])
         @break
         @case(2)
-
         @switch($requisition->requisition_type_category)
             @case(1)
-{{--            travelling--}}
-
             @include('requisition.Direct.travelling.show')
             @break
-
             @case(2)
-{{--                    training--}}
             @include('requisition.Direct.training.show')
             @break
         @endswitch
-
         @break
     @endswitch
 
