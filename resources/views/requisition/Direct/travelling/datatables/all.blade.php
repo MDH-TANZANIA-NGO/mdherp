@@ -49,13 +49,13 @@
                 ajax: '{{ route('travelling.datatable.all') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'user_id', name: 'travelling_costs.user_id', searchable: true},
-                    { data: 'no_days', name: 'travelling_costs.no_days', searchable: true},
-                    { data: 'perdiem_rate', name: 'travelling_costs.perdiem_rate', searchable: true},
-                    { data: 'accomodation', name: 'travelling_costs.accomodation', searchable: true},
-                    { data: 'transportation', name: 'travelling_costs.transportation', searchable: true},
-                    { data: 'other_cost', name: 'travelling_costs.other_cost', searchable: true },
-                    { data: 'total_amount', name: 'travelling_costs.total_amount', searchable: true },
+                    { data: 'user_id', name: 'requisition_travelling_costs.user_id', searchable: true},
+                    { data: 'no_days', name: 'requisition_travelling_costs.no_days', searchable: true},
+                    { data: 'perdiem_rate', name: 'requisition_travelling_costs.perdiem', searchable: true},
+                    { data: 'accommodation', name: 'requisition_travelling_costs.accommodation', searchable: true},
+                    { data: 'transportation', name: 'requisition_travelling_costs.transportation', searchable: true},
+                    { data: 'other_cost', name: 'requisition_travelling_costs.others', searchable: true },
+                    { data: 'total_amount', name: 'requisition_travelling_costs.total_amount', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

@@ -14,6 +14,19 @@ class RequestTravellingCostRepository
     {
         //
     }
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('requisition_travelling_costs.id AS id'),
+            DB::raw('requisition_travelling_costs.traveller_uid AS traveller_uid'),
+            DB::raw('requisition_travelling_costs.no_days AS no_days'),
+            DB::raw('requisition_travelling_costs.perdiem_total_amount AS perdiem_total_amount'),
+            DB::raw('requisition_travelling_costs.accommodation AS accommodation'),
+            DB::raw('requisition_travelling_costs.transportation AS transportation'),
+            DB::raw('requisition_travelling_costs.other_cost AS other_cost'),
+            DB::raw('requisition_travelling_costs.total_amount AS total_amount'),
+        ]);
+    }
 
     public function inputProcess($inputs)
     {

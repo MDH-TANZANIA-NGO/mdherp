@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Requisition\Travelling;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Requisition\Travelling\Traits\travellingCostsDatatable;
 use App\Models\Requisition\Requisition;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
@@ -12,6 +13,8 @@ use Illuminate\Http\Request;
 class RequestTravellingCostController extends Controller
 {
     //
+    use travellingCostsDatatable;
+
     protected $mdh_staff;
     protected $mdh_rates;
     protected $travellingCost;
