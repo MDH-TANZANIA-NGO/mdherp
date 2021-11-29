@@ -204,6 +204,15 @@ class RequisitionRepository extends BaseRepository
 
     public function updatingTotalAmount(Requisition $requisition)
     {
+        return DB::transaction(function () use ($requisition){
+            return $requisition->update([
+                'amount' => $this->getTotalAmountToUpdate($requisition),
+            ]);
+        });
+    }
+
+    public function getTotalAmountToUpdate(Requisition $requisition)
+    {
         $total_amount = null;
         switch($requisition->requisition_type_id)
         {
@@ -211,12 +220,7 @@ class RequisitionRepository extends BaseRepository
                 $total_amount = $requisition->items()->sum('total_amount');
                 break;
         }
-
-        return DB::transaction(function () use ($requisition, $total_amount){
-            return $requisition->update([
-                'amount' => $total_amount,
-            ]);
-        });
+        return $total_amount;
     }
 
 }
