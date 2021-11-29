@@ -56,7 +56,9 @@ class RequestTravellingCostRepository
     public function store(Requisition $requisition, $inputs)
     {
         return DB::transaction(function () use ($requisition, $inputs){
-            return $requisition->travellingCost()->create($this->inputProcess($inputs));
+            $requisition->travellingCost()->create($this->inputProcess($inputs));
+            $requisition->updatingTotalAmount();
+            return $requisition;
         });
     }
 }

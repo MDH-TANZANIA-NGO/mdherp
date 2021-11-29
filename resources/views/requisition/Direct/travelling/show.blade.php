@@ -35,10 +35,10 @@
                         </tr>
                         @endforeach
 
-                        <tr>
-                            <td colspan="6" class="font-w600 text-right">Total TZS</td>
-                            <td class="text-right">240,000.00</td>
-                        </tr>
+{{--                        <tr>--}}
+{{--                            <td colspan="6" class="font-w600 text-right">Total TZS</td>--}}
+{{--                            <td class="text-right">240,000.00</td>--}}
+{{--                        </tr>--}}
                         <tr>
                             <td colspan="6" class="font-weight-bold text-uppercase text-right">Total USD</td>
                             <td class="font-weight-bold text-right">{{ $requisition->amount }}</td>
