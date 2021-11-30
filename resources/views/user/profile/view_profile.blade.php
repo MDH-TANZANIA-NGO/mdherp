@@ -169,7 +169,7 @@
                                                     </form>
 
                                                 </div>
-                                                <div class="tab-pane  " id="tab2">
+                                              <div class="tab-pane  " id="tab2">
                                                     <div class="card-body">
                                                         <form action="">
                                                             <div class="form-group">
@@ -237,6 +237,7 @@
 
 
                                                 </div>
+
                                                 <div class="tab-pane " id="tab3">
                                               {{-- content to be displayed --}}
                                                     @include('system.workflow.definition_assignment',['user' => $user, 'wf_module_groups'])
@@ -296,3 +297,9 @@
                         </div>
 
 @endsection
+
+{{--<div class="form-group">--}}
+{{--    <select name="scales[]" class="rates_list" multiple="multiple">--}}
+
+{{--    </select>--}}
+{{--</div>--}}
