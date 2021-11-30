@@ -26,7 +26,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>	{!! Form::select('participant_id',$gofficer, null, ['class' => 'form-control select2-show-search', 'required']) !!}</td>
+                            <td>	{!! Form::select('participant_uid',$gofficer, null, ['class' => 'form-control select2-show-search', 'required']) !!}</td>
                             <td><input type="number" class="form-control" name="no_days" placeholder="No days" required = "required"></td>
                             <td>{!! Form::select('district_id',$districts, null, ['class' => 'form-control select2-show-search', 'required']) !!}</td>
                             <td>{!! Form::select('perdiem_rate_id',$grate, null,['class' => 'form-control select2-show-search', 'required']) !!}</td>

@@ -136,6 +136,7 @@ class RequisitionController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($requisition))
             ->with('items', $requisition->items)
             ->with('travelling_costs',$requisition->travellingCost)
+            ->with('training_costs', $requisition->trainingCost)
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
             ->with('mdh_rates',$this->mdh_rates->getForPluck())

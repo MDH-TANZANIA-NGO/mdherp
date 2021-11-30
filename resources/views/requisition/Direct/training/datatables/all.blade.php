@@ -7,14 +7,13 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table card-table table-vcenter text-nowrap table-primary" id="travellingCosts">
-                        <thead  class="bg-primary text-white">
+                    <table class="table card-table table-vcenter text-nowrap" id="travellingCosts">
+                        <thead  class="bg-secondary text-white">
                         <tr >
                             <th class="text-white">ID</th>
-                            <th class="text-white">Travellor</th>
+                            <th class="text-white">Participant</th>
                             <th class="text-white">Days</th>
-                            <th class="text-white">Meals & Incidentals</th>
-                            <th class="text-white">Accomodation</th>
+                            <th class="text-white">Perdiem</th>
                             <th class="text-white">Transport</th>
                             <th class="text-white">Others</th>
                             <th class="text-white">Total</th>
@@ -22,20 +21,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($travelling_costs as $key => $cost)
+                        @foreach($training_costs as $key => $cost)
                             <tr>
                                 <th>{{ $key + 1 }}</th>
                                 <th>{{ $cost->user->full_name_formatted }}</th>
                                 <th>{{ $cost->no_days }}</th>
-                                <th>{{ $cost->accommodation }}</th>
+                                <th>{{ $cost->gRate->amount }}</th>
                                 <th>{{ $cost->transportation }}</th>
-                                <th>{{ $cost->other_cost }}</th>
                                 <th>{{ $cost->other_cost }}</th>
                                 <th>{{ $cost->total_amount }}</th>
                                 <th><a href="" class="btn btn-primary">Edit</a> </th>
                             </tr>
-                        </tbody>
                         @endforeach
+                        </tbody>
                     </table>
                 </div>
                 <!-- table-responsive -->

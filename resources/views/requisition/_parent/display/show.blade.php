@@ -25,7 +25,7 @@
             @include('requisition.Direct.travelling.show')
             @break
             @case(2)
-            @include('requisition.Direct.training.show')
+            @include('requisition.Direct.training.show',['trainings' => $training_costs])
             @break
         @endswitch
         @break

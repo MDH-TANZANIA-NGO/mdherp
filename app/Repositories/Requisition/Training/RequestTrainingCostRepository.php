@@ -21,7 +21,7 @@ class RequestTrainingCostRepository
         $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'];
         return [
             'peridem_rate_amount'=> $inputs['perdiem_rate_id'],
-            'participant_uid' => $inputs['participant_id'],
+            'participant_uid' => $inputs['participant_uid'],
             'description' => $inputs['description'],
             'district_id'=> $inputs['district_id'],
             'no_days' => $inputs['no_days'],
@@ -36,8 +36,9 @@ class RequestTrainingCostRepository
     public function store(Requisition $requisition, $inputs)
     {
         return DB::transaction(function () use ($requisition, $inputs){
-            return $requisition->trainingCost()->create($this->inputProcess($inputs));
-
+            $requisition->trainingCost()->create($this->inputProcess($inputs));
+            $requisition->updatingTotalAmount();
+            return $requisition;
         });
     }
 }
