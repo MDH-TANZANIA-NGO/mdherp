@@ -12,7 +12,7 @@
                     <form id="form">
                         <div class="list-group">
                             <div class="list-group-item py-3" data-acc-step>
-                                <h5 class="mb-0" data-acc-title>Name &amp; Email</h5>
+                                <h5 class="mb-0" data-acc-title>Initial Details</h5>
                                 <div data-acc-content>
                                     <div class="my-3">
 &nbsp;
