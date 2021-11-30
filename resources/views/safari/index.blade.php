@@ -19,68 +19,32 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
+                                                    <label class="form-label">Choose Requisition Number</label>
+                                                    <select name="country" id="select-countries" class="form-control custom-select" required>
+                                                        <option value="" data-data="" selected="">Requisition No.</option>
+                                                        <option value="1" data-data="">MDH-R-211</option>
+                                                        <option value="2" data-data="">MDH-R-231</option>
+                                                        <option value="3" data-data="">MDH-R-345</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
 
-                                                    <label>Telephone:</label>
-                                                    <input type="text" name="telephone" class="form-control" />
+                                                    <label class="form-label">Name Of Travelling Official:</label>
+                                                    <input type="text" disabled name="" value="" class="form-control" placeholder="Frank Omary"/>
 
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
 
-                                                    <label>Telephone:</label>
-                                                    <input type="text" name="telephone" class="form-control" />
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-
-                                                    <label>Telephone:</label>
-                                                    <input type="text" name="telephone" class="form-control" />
+                                                    <label class="form-label">Traveling To:</label>
+                                                    <input type="text" disabled name="" value="" class="form-control" placeholder="Tabora" />
 
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-
-                                                    <label>Telephone:</label>
-                                                    <input type="text" name="telephone" class="form-control" />
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-
-                                                    <label>Telephone:</label>
-                                                    <input type="text" name="telephone" class="form-control" />
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-
-                                                    <label>Telephone:</label>
-                                                    <input type="text" name="telephone" class="form-control" />
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-{{--                                        <div class="form-group">--}}
-{{--                                            <label>Name:</label>--}}
-{{--                                            <input type="text" name="name" class="form-control" />--}}
-{{--                                        </div>--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label>Email:</label>--}}
-{{--                                            <input type="text" name="email" class="form-control" />--}}
-{{--                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
