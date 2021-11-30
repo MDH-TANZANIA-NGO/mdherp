@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header" style="background-color: rgb(152, 186, 217)">
                 <h3 class="card-title">REQUISITION SUMMARY</h3>
             </div>
             <div class="card-body">
@@ -19,6 +19,7 @@
                 @endif
 
                 <div class="dropdown-divider"></div>
+
                 <div class="row pt-4">
                     <div class="col-lg-6 ">
                         <address>

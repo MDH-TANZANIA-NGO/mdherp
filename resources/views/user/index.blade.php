@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @section('content')
+
     <div class="card-body p-6">
         <div class="panel panel-primary">
-            <div class=" tab-menu-heading">
-                <div class="tabs-menu1 ">
+            <div class=" tab-menu-heading card-header" style="background-color: rgb(238, 241, 248)">
+                <div class="tabs-menu1 " >
                     <!-- Tabs -->
                     <ul class="nav panel-tabs">
                         <li class=""><a href="#tab5" class="active" data-toggle="tab">Active{{-- <span class="badge badge-success">20</span>--}}</a></li>
@@ -13,12 +14,12 @@
 
                 <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                     <div class="btn-group mb-0">
-                        <a href="{{ route('user.create') }}"> <i class="fa fa-plus mr-2"></i>Add Staff</a>
+                        <a href="{{ route('user.create') }}"> <i class="fa fa-user-plus mr-2"></i>Add Staff</a>
                     </div>
                 </div>
 
             </div>
-            <div class="panel-body tabs-menu-body">
+            <div class="panel-body tabs-menu-body" style="background-color:#FFFFFF">
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab5">
 
@@ -68,6 +69,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
 
 @push('after-scripts')

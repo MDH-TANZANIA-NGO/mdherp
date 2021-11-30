@@ -11,7 +11,7 @@
 										<div class="inner-all">
 											<ul class="list-unstyled">
 												<li class="text-center border-bottom-0">
-													<img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="mdh/images/users/user.png" >
+													<img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="{{URL::asset('mdh/images/users/login.png')}}" >
 												</li>
 												<li class="text-center">
 													<h4 class="text-capitalize mt-3 mb-0">{{{Auth::user()->full_name_formatted}}}</h4>
@@ -23,25 +23,25 @@
 												<li><br></li>
 												<li>
                                                     <table class="table   table-striped  table-outline text-nowrap">
-                                                    
+
                                                         <tbody>
                                                             <tr><td>Active since:20-09-2021 </td></tr>
                                                             <tr><td>Last Update: 05-10-2021</td></tr>
                                                             <tr><td>Supervior: Isack Laizer</td></tr>
                                                         </tbody>
-                                                    </table> 
+                                                    </table>
 												</li>
 											</ul>
 										</div>
 									</div>
 								</div>
-							
+
 							</div>
 							<div class="col-xl-9 col-lg-7 col-md-12">
-								
-									
+
+
 								<div class="card">
-                                    
+
                                         <div class="tab-menu-heading">
                                             <div class="tabs-menu ">
                                                 <!-- Tabs -->
@@ -58,7 +58,7 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane active " id="tab1">
                                                     <form class="card">
-                                                
+
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="col-md-4">
@@ -79,7 +79,7 @@
                                                                         <input type="email" class="form-control" placeholder="Last Name">
                                                                     </div>
                                                                 </div>
-                                                         
+
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label class="form-label">Date of Birth</label>
@@ -173,15 +173,15 @@
                                                                     </div>
                                                                 </div>
                                                                 <button type="submit" class="btn btn-primary" style="margin-left:40%;">Update Profile</button>
-                                                      
+
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </form>
-                                                   
+
                                                 </div>
                                                 <div class="tab-pane  " id="tab2">
-                                       
+
 
                                                     <div class="card-body">
                                                         <form action="">
@@ -202,7 +202,7 @@
                                                                     <th class="wd-15p">Fullname</th>
                                                                     <th class="wd-15p">Designation</th>
                                                                     <th class="wd-20p">Action</th>
-                                                              
+
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -213,7 +213,7 @@
                                                                         <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
                                                                         <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
                                                                     </div></td>
-                                                                  
+
                                                                 <tr>
                                                                     <td>Elinipendo Mziray</td>
                                                                     <td>IT CUM Software Developmer</td>
@@ -230,7 +230,7 @@
                                                                         <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
                                                                     </div></td>
                                                                 </tr>
-                                                             
+
                                                                 <tr>
                                                                     <td>Elinipendo Mziray</td>
                                                                     <td>IT CUM Software Developmer</td>
@@ -239,7 +239,7 @@
                                                                         <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
                                                                     </div></td>
                                                                 </tr>
-                                                           
+
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -247,8 +247,8 @@
                                                     <!-- table-wrapper -->
                                                     {{-- content to be displayed --}}
 
-                                                    
-                                                    
+
+
                                                 </div>
                                                 <div class="tab-pane " id="tab3">
                                               {{-- content to be displayed --}}
@@ -259,7 +259,7 @@
                                                 <div class="tab-pane " id="tab5">
                                                     {{-- content to be displayed --}}
                                                     <div class="card-body">
-                                                        
+
                                                         <div class="table-responsive">
                                                             <table class="table card-table table-vcenter text-nowrap">
                                                             <thead>
@@ -267,7 +267,7 @@
                                                                     <th class="wd-15p">Action</th>
                                                                     <th class="wd-15p">Date Perfomed</th>
                                                                     <th class="wd-20p">IP Address</th>
-                                                              
+
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -275,7 +275,7 @@
                                                                     <td>Create Requisition</td>
                                                                     <td>2018/03/12</td>
                                                                     <td>192.168.1.200</td>
-                                                                  
+
                                                                 <tr>
                                                                     <td>Approve Requisition</td>
                                                                     <td>2018/03/12</td>
@@ -286,13 +286,13 @@
                                                                     <td>2018/03/12</td>
                                                                     <td>192.168.1.200</td>
                                                                 </tr>
-                                                             
+
                                                                 <tr>
                                                                     <td>Submit LPO</td>
                                                                     <td>2018/03/12</td>
                                                                     <td>192.168.1.200</td>
                                                                 </tr>
-                                                           
+
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -301,8 +301,8 @@
                                                       </div>
                                             </div>
                                         </div>
-                                 
-									
+
+
 								</div>
                             </div>
                         </div>

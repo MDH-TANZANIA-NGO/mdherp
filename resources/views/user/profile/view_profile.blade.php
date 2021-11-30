@@ -11,7 +11,7 @@
 										<div class="inner-all">
 											<ul class="list-unstyled">
 												<li class="text-center border-bottom-0">
-													<img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="mdh/images/users/user.png" >
+													<img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="{{URL::asset('mdh/images/users/login.png')}}" height="100" width="100" >
 												</li>
 												<li class="text-center">
 													<h4 class="text-capitalize mt-3 mb-0">{{{$user->full_name_formatted}}}</h4>
@@ -21,28 +21,45 @@
 													<a href="" class="btn btn-primary text-center btn-block"><i class="fe fe-unlock mr-2"></i>Reset Password</a>
 												</li>
 												<li><br></li>
+
 												<li>
                                                     <table class="table   table-striped  table-outline text-nowrap">
 
                                                         <tbody>
-                                                            <tr><td>Active since:20-09-2021 </td></tr>
+                                                            <tr><td>Active since:20-09-2020 </td></tr>
                                                             <tr><td>Last Update: 05-10-2021</td></tr>
                                                             <tr><td>Supervior: Isack Laizer</td></tr>
+                                                            <tr><td>
+                                                                    Deactivate
+
+                                                                    <div class="material-switch pull-right">
+                                                                        <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox">
+                                                                        <label for="someSwitchOptionDanger" class="label-danger" style="margin-top: 15px"></label>
+                                                                    </div>
+
+
+
+                                                                </td></tr>
                                                         </tbody>
+
+
+
                                                     </table>
 												</li>
 											</ul>
+
 										</div>
 									</div>
 								</div>
 
 							</div>
+
 							<div class="col-xl-9 col-lg-7 col-md-12">
 
 
 								<div class="card">
 
-                                        <div class="tab-menu-heading">
+                                        <div class="tab-menu-heading" style="background-color: rgb(238, 241, 248)">
                                             <div class="tabs-menu ">
                                                 <!-- Tabs -->
                                                 <ul class="nav panel-tabs">
@@ -153,8 +170,6 @@
 
                                                 </div>
                                                 <div class="tab-pane  " id="tab2">
-
-
                                                     <div class="card-body">
                                                         <form action="">
                                                             <div class="form-group">
