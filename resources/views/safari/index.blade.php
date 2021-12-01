@@ -112,7 +112,7 @@
                                                 <div class="card-header" style="background-color: rgb(152, 186, 217)">
                                                     <h3 class="card-title">Travel Summary</h3>
                                                     <div class="card-options ">
-                                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+{{--                                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>--}}
 {{--                                                        <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
                                                     </div>
                                                 </div>
@@ -121,23 +121,36 @@
                                                         <thead>
                                                         <tr>
                                                             <th>SN</th>
-                                                            <th>Travel</th>
-                                                            <th>Position</th>
-                                                            <th>Salary</th>
+                                                            <th>Travellor</th>
+                                                            <th>Days</th>
+                                                            <th>Destination</th>
+                                                            <th>Perdiem Rate</th>
+                                                            <th>Accommodation</th>
+                                                            <th>Transport</th>
+                                                            <th>Others</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
                                                         <tr>
                                                             <th scope="row">1</th>
-                                                            <td>Joan Powell</td>
-                                                            <td>Associate Developer</td>
-                                                            <td>$450,870</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">2</th>
-                                                            <td>Gavin Gibson</td>
-                                                            <td>Account manager</td>
-                                                            <td>$230,540</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
                                                         </tr>
 
                                                         </tbody>
