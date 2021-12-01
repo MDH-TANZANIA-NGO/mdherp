@@ -4,10 +4,10 @@
     <div class="col">
         <div class="accordion" id="accordion">
             <div class="card card-default" style="background-color: #fff">
-                <div class="card-header">
+                <div class="card-header" style="background-color: rgb(152, 186, 217)">
                     <h4 class="card-title m-0">
                         <a class="accordion-toggle" style="color: #000" data-toggle="collapse"
-                           data-parent="#accordion" href="#collapse1Two"><i class="fas fa-eye"> </i>
+                           data-parent="#accordion" href="#collapse1Two"><i class="fa fa-bars"></i>
                              {!! $wf_track->wfDefinition->wfModule->name !!}</a> {{ __('label.workflow.index') }}
                     </h4>
                 </div>
@@ -23,9 +23,9 @@
                             </div>
                             <div class="col-sm-2">Name</div>
                             <div class="col-sm-9">{{ $track->users->full_name }}</div>
-                            <div class="col-sm-12">comment</div>
+                            <div class="col-sm-12">Comment</div>
                             <div class="col-sm-12"><p class="alert" style="border: 1px solid #000; background-color:
-                            #fff;
+                            rgb(238, 241, 248);
                             color: #000; display:
                             inline-block;
                             margin-top:5px; margin-bottom:

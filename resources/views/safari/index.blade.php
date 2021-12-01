@@ -71,7 +71,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="form-label">Main Objectives <span class="form-label-small">56/100</span></label>
+                                                    <label class="form-label">Main Objectives <span class="form-label-small"></span></label>
                                                     <textarea class="form-control" name="" rows="7" placeholder="Write your main objectives.." style="margin-top: 0px; margin-bottom: 0px; height: 179px;"></textarea>
                                                 </div>
                                             </div>
