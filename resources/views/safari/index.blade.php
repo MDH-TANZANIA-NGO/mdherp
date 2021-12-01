@@ -103,20 +103,52 @@
                                 <h5 class="mb-0" data-acc-title>Travel Payment Breakdown</h5>
                                 <div data-acc-content>
                                     <div class="my-3">
+                                        &nbsp;
                                         <div class="form-group">
-                                            <label>Credit card:</label>
-                                            <input type="text" name="card" class="form-control">
-                                        </div>
-                                        <div class="form-group form-row">
-                                            <div class="col-sm-4">
-                                                <label>Expiry:</label>
-                                                <input type="text" name="expiry" class="form-control">
+
+{{--                                            table starts--}}
+
+                                            <div class="card">
+                                                <div class="card-header" style="background-color: rgb(152, 186, 217)">
+                                                    <h3 class="card-title">Travel Summary</h3>
+                                                    <div class="card-options ">
+                                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+{{--                                                        <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
+                                                    </div>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table class="table card-table table-vcenter text-nowrap">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>SN</th>
+                                                            <th>Travel</th>
+                                                            <th>Position</th>
+                                                            <th>Salary</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>Joan Powell</td>
+                                                            <td>Associate Developer</td>
+                                                            <td>$450,870</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>Gavin Gibson</td>
+                                                            <td>Account manager</td>
+                                                            <td>$230,540</td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- table-responsive -->
                                             </div>
-                                            <div class="col-sm-4">
-                                                <label>CVV:</label>
-                                                <input type="text" name="cvv" class="form-control">
-                                            </div>
+
+{{--                                            table ends--}}
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
