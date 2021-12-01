@@ -17,7 +17,7 @@
                                     <div class="my-3">
 &nbsp;
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="form-label">Choose Requisition Number</label>
                                                     <select name="country" id="select-countries" class="form-control custom-select" required>
@@ -28,7 +28,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
 
                                                     <label class="form-label">Name Of Travelling Official:</label>
@@ -36,11 +36,62 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
 
                                                     <label class="form-label">Traveling To:</label>
                                                     <input type="text" disabled name="" value="" class="form-control" placeholder="Tabora" />
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Amount Requested:</label>
+
+                                                    <div class="input-icon">
+												<span class="input-icon-addon">
+													<i class="">Tshs:</i>
+												</span>
+                                                        <input type="number" disabled name="" value="" class="form-control" placeholder="700000">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item py-3" data-acc-step>
+                                <h5 class="mb-0" data-acc-title>Scope of work</h5>
+                                <div data-acc-content>
+                                    <div class="my-3">
+                                        &nbsp;
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Main Objectives <span class="form-label-small">56/100</span></label>
+                                                    <textarea class="form-control" name="" rows="7" placeholder="Write your main objectives.." style="margin-top: 0px; margin-bottom: 0px; height: 179px;"></textarea>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+
+                                                    <label class="form-label">Travel Date:</label>
+                                                    <input type="date" name="" value="" class="form-control" />
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+
+                                                    <label class="form-label">Return Date:</label>
+                                                    <input type="date" name="" value="" class="form-control" />
 
                                                 </div>
                                             </div>
@@ -49,22 +100,7 @@
                                 </div>
                             </div>
                             <div class="list-group-item py-3" data-acc-step>
-                                <h5 class="mb-0" data-acc-title>Contact</h5>
-                                <div data-acc-content>
-                                    <div class="my-3">
-                                        <div class="form-group">
-                                            <label>Telephone:</label>
-                                            <input type="text" name="telephone" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Mobile:</label>
-                                            <input type="text" name="mobile" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="list-group-item py-3" data-acc-step>
-                                <h5 class="mb-0" data-acc-title>Payment</h5>
+                                <h5 class="mb-0" data-acc-title>Travel Payment Breakdown</h5>
                                 <div data-acc-content>
                                     <div class="my-3">
                                         <div class="form-group">
