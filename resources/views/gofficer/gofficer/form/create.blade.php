@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group ">
-                        {!! Form::label('g_scale', __("Scale"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::label('g_scale', __("Title"),['class'=>'form-label','required_asterik']) !!}
                         {!! Form::select('g_scale', $g_scales, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                         {!! $errors->first('g_scale', '<span class="badge badge-danger">:message</span>') !!}
                     </div>

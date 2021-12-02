@@ -9,6 +9,7 @@ use App\Models\Project\Project;
 use App\Models\System\CodeValue;
 use App\Models\System\Region;
 use App\Models\Taf\Taf;
+use App\Models\Unit\Department;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\WfDefinition;
 use App\Models\Workflow\WfTrack;
@@ -85,5 +86,10 @@ trait UserRelationship
     public function projects()
     {
         return $this->belongsToMany(Project::class)->withTimestamps();
+    }
+
+    public function department()
+    {
+        return $this->hasOne(Department::class);
     }
 }
