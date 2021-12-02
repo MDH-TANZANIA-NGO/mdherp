@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Database\TruncateTable;
 use Database\DisableForeignKeys;
 
-class DepartmentsTableSeeder extends Seeder
+class DeTableSeeder extends Seeder
 {
     use TruncateTable, DisableForeignKeys;
     /**
@@ -57,8 +57,8 @@ class DepartmentsTableSeeder extends Seeder
             6 =>
                 array (
                     'id' => 7,
-                    'title' => 'Human Resource and Administration',
-                    'initial' => 'HRADM',
+                    'title' => 'Administration',
+                    'initial' => 'ADM',
                 )
         ));
         $this->enableForeignKeys("departments");
