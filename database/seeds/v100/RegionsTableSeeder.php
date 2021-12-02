@@ -22,7 +22,7 @@ class RegionsTableSeeder extends Seeder
         \DB::table('regions')->insert(array (
             0 =>
                 array (
-                    'id' => 2,
+                    'id' => 1,
                     'name' => 'HQ',
                     'country_id' => 1,
                     'hasc' => 'TZ.AS',
