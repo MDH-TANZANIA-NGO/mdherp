@@ -34,8 +34,15 @@
                 <div class="col-md-4">
                     <div class="form-group ">
                         {!! Form::label('g_scale', __("Title"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::select('g_scale', $g_scales, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                        {!! Form::select('g_scale', $g_scales, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                         {!! $errors->first('g_scale', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        {!! Form::label('regions', __("Region"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::select('region_id', $regions, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                        {!! $errors->first('region_id', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
 

@@ -22,10 +22,13 @@ class GOfficerRepository extends BaseRepository
             DB::raw('g_officers.uuid AS uuid'),
             DB::raw('g_scales.title AS g_scale_title'),
             DB::raw('g_rates.amount AS g_rate_amount'),
+            DB::raw('g_officers.region_id AS region_id'),
+            DB::raw('regions.name AS region_name'),
         ])
             ->leftjoin('g_scales','g_scales.id','g_officers.g_scale_id')
             ->leftjoin('g_rate_scale','g_rate_scale.g_scale_id','g_scales.id')
-            ->leftjoin('g_rates','g_rates.id','g_rate_scale.g_rate_id');
+            ->leftjoin('g_rates','g_rates.id','g_rate_scale.g_rate_id')
+            ->leftjoin('regions', 'regions.id', 'g_officers.region_id');
     }
 
     public function getActive()
@@ -41,6 +44,7 @@ class GOfficerRepository extends BaseRepository
             'email' => $inputs['email'],
             'phone' => $inputs['phone'],
             'g_scale_id' => $inputs['g_scale'],
+            'region_id' => $inputs['region_id'],
         ];
     }
 

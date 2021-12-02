@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerDatatables;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GScaleRepository;
+use App\Repositories\System\RegionRepository;
 use Illuminate\Http\Request;
 
 class GOfficerController extends Controller
@@ -14,11 +15,13 @@ class GOfficerController extends Controller
 
     protected $g_officers;
     protected $g_scales;
+    protected $regions;
 
     public function __construct()
     {
         $this->g_officers = (new GOfficerRepository());
         $this->g_scales = (new GScaleRepository());
+        $this->regions = (new RegionRepository());
     }
 
     /**
@@ -29,7 +32,8 @@ class GOfficerController extends Controller
     public function index()
     {
         return view('gofficer.gofficer.index')
-            ->with('g_scales', $this->g_scales->getActiveForPluck());
+            ->with('g_scales', $this->g_scales->getActiveForPluck())
+            ->with('regions', $this->regions->getQuery()->pluck('name','id'));
     }
 
     /**
@@ -64,7 +68,8 @@ class GOfficerController extends Controller
     {
         return view('gofficer.gofficer.form.edit')
             ->with('g_officer',$this->g_officers->findByUuid($uuid))
-            ->with('g_scales', $this->g_scales->getActiveForPluck());
+            ->with('g_scales', $this->g_scales->getActiveForPluck())
+            ->with('regions', $this->regions->getQuery()->pluck('name','id'));
     }
 
     /**

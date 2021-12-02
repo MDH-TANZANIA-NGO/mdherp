@@ -6,7 +6,7 @@
         <th class="wd-25p">EMAIL</th>
         <th class="wd-10p">PHONE</th>
         <th class="wd-25p">PAY SCALE</th>
-        <th class="wd-25p">SCALE AMOUNT</th>
+        <th class="wd-25p">REGION</th>
         <th class="wd-10p">ACTION</th>
     </tr>
     </thead>
@@ -30,7 +30,7 @@
                     { data: 'email', name: 'g_officers.email', searchable: true},
                     { data: 'phone', name: 'g_officers.phone', searchable: true},
                     { data: 'g_scale_title', name: 'g_scales.title', searchable: true},
-                    { data: 'g_rate_amount', name: 'g_rates.amount', searchable: true},
+                    { data: 'region_name', name: 'regions.name', searchable: true},
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
