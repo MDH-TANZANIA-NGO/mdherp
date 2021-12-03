@@ -405,6 +405,28 @@ class UnitsTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
+            35 =>
+                array (
+                    'id' => 36,
+                    'name' => 'Grants and Compliance',
+                    'title' => 'GC',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            36 =>
+                array (
+                    'id' => 37,
+                    'name' => 'Senior IT',
+                    'title' => 'GC',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
 
 //            20 =>
 //                array (
