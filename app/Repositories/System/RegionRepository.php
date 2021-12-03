@@ -86,13 +86,8 @@ class RegionRepository extends BaseRepository
             ->pluck('name', 'id');
     }
 
-    public function getByActivity($inputs)
+    public function getByActivity($activity_id)
     {
-//        Log::info($activity_id);
-//        Log::info($this->query()->select([
-//            DB::raw('regions.id AS id'),
-//            DB::raw('regions.name AS name'),
-//        ])->get());
         return $this->query()->select([
             DB::raw('regions.id AS id'),
             DB::raw('regions.name AS name'),
@@ -104,7 +99,7 @@ class RegionRepository extends BaseRepository
             ->join('sub_programs','sub_programs.program_area_id','program_areas.id')
             ->join('activities','activities.sub_program_id','sub_programs.id')
             ->groupBy('regions.id','regions.name')
-            ->where('activities.id',$inputs['activity_id'])
+            ->where('activities.id',$activity_id)
             ->get();
     }
 
