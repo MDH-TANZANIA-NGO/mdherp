@@ -11,6 +11,7 @@ use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\Workflow\WfModuleGroupRepository;
 use Illuminate\Http\Request;
+use UxWeb\SweetAlert\SweetAlert;
 
 class UserController extends Controller
 {
@@ -80,7 +81,8 @@ class UserController extends Controller
             ->with('marital', code_value()->query()->where('code_id',3)->pluck('name','id'))
             ->with('designations', $this->designations->getActiveForSelect())
             ->with('regions', $this->regions->forSelect())
-            ->with('wf_module_groups', $this->wf_module_groups->getAll());
+            ->with('wf_module_groups', $this->wf_module_groups->getAll())
+            ->with('projects', $this->projects->getActiveForPluck());
     }
 
     /**
@@ -99,11 +101,13 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $this->users->update($user, $request->all());
+        alert()->success('Updated Successfully', $user->full_name_formatted);
+        return redirect()->back();
     }
 
     /**
@@ -131,6 +135,7 @@ class UserController extends Controller
         }else{
             $user->wfDefinitions()->detach();
         }
+        SweetAlert::success('wow','wow');
         alert()->success(__('notifications.user.workflow'), __('notifications.user.title'));
         return redirect()->back();
     }

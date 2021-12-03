@@ -93,8 +93,8 @@
 
 <body class="app sidebar-mini" style="background-color: #f5f5f5">
 
-@include('vendor.sweet.alert')
-
+{{--@include('vendor.sweet.alert')--}}
+@include('sweet::alert')
 <!---Global-loader-->
 <div id="global-loader" >
     <img src=" {{ asset('mdh/images/svgs/loader.svg') }}" alt="loader">
@@ -249,7 +249,7 @@
 <script src="mdh/js/filupload.js"></script>
 
 <!-- Sweet Alert -->
-{!! Html::script(url('mdh/js/sweet-alert.js')) !!}
+{!! Html::script(url('mdh/plugins/sweet-alert/sweetalert.min.js')) !!}
 
 {!! Html::script(url('mdh/plugins/wysiwyag/jquery.richtext.js')) !!}
 {!! Html::script(url('mdh/js/form-editor.js')) !!}

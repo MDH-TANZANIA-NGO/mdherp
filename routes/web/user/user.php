@@ -4,6 +4,7 @@ Route::group(['namespace' => 'User', 'middleware' => ['web', 'auth'], 'prefix' =
     Route::get('create', 'UserController@create')->name('create');
     Route::post('store', 'UserController@store')->name('store');
     Route::get('{user}/profile', 'UserController@profile')->name('profile');
+    Route::put('{user}/update', 'UserController@update')->name('update');
 
     Route::post('{user}/update-workflow-definitions', 'UserController@updateWfDefinition')->name("update_definitions");
 
