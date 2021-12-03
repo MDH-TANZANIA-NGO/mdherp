@@ -34,6 +34,7 @@ class RegionController extends Controller
      */
     public function byActivity()
     {
+        Log::warning(\request()->all());
         $regions = $this->regions->getByActivity(request()->only('activity_id'));
         Log::info($regions);
         return response()->json($regions);
