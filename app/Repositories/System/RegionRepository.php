@@ -88,10 +88,11 @@ class RegionRepository extends BaseRepository
 
     public function getByActivity($activity_id)
     {
-        Log::info($this->query()->select([
-            DB::raw('regions.id AS id'),
-            DB::raw('regions.name AS name'),
-        ])->get());
+        Log::info($activity_id);
+//        Log::info($this->query()->select([
+//            DB::raw('regions.id AS id'),
+//            DB::raw('regions.name AS name'),
+//        ])->get());
         return $this->query()->select([
             DB::raw('regions.id AS id'),
             DB::raw('regions.name AS name'),
