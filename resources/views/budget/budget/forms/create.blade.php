@@ -50,6 +50,12 @@
                 get_regions($(this).val());
             })
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
 
             function get_regions(region_id){
                 $.get("{{ route('region.by_activity') }}", { activity_id: region_id}, function(data, status){
