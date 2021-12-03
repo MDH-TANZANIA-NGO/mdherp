@@ -6,6 +6,7 @@ use App\Models\Auth\User;
 use App\Models\System\Region;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RegionRepository extends BaseRepository
 {
@@ -87,6 +88,11 @@ class RegionRepository extends BaseRepository
 
     public function getByActivity($activity_id)
     {
+        Log::info($activity_id);
+//        Log::info($this->query()->select([
+//            DB::raw('regions.id AS id'),
+//            DB::raw('regions.name AS name'),
+//        ])->get());
         return $this->query()->select([
             DB::raw('regions.id AS id'),
             DB::raw('regions.name AS name'),

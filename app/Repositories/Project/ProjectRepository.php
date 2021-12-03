@@ -160,4 +160,13 @@ class ProjectRepository extends BaseRepository
 
     }
 
+    public function getActiveForPluck()
+    {
+        return $this->query()->select([
+            DB::raw('projects.id AS id'),
+            DB::raw('projects.title AS title'),
+            ])
+            ->get()->pluck('title','id');
+    }
+
 }

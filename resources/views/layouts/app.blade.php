@@ -8,7 +8,7 @@
     <meta content="MDH - ERP" name="description">
     <meta content="Spruko Technologies Private Limited" name="author">
     <meta name="keywords" content="Admin, Admin Template, Dashboard, Responsive, Admin Dashboard, Bootstrap, Bootstrap 4, Clean, Backend, Jquery, Modern, Web App, Admin Panel, Ui, Premium Admin Templates, Flat, Admin Theme, Ui Kit, Bootstrap Admin, Responsive Admin, Application, Template, Admin Themes, Dashboard Template"/>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Title -->
 {{--    <title>MDH - ERP</title>--}}
 
@@ -93,8 +93,8 @@
 
 <body class="app sidebar-mini" style="background-color: #f5f5f5">
 
-@include('vendor.sweet.alert')
-
+{{--@include('vendor.sweet.alert')--}}
+@include('sweet::alert')
 <!---Global-loader-->
 <div id="global-loader" >
     <img src=" {{ asset('mdh/images/svgs/loader.svg') }}" alt="loader">
@@ -249,7 +249,7 @@
 <script src="mdh/js/filupload.js"></script>
 
 <!-- Sweet Alert -->
-{!! Html::script(url('mdh/js/sweet-alert.js')) !!}
+{!! Html::script(url('mdh/plugins/sweet-alert/sweetalert.min.js')) !!}
 
 {!! Html::script(url('mdh/plugins/wysiwyag/jquery.richtext.js')) !!}
 {!! Html::script(url('mdh/js/form-editor.js')) !!}

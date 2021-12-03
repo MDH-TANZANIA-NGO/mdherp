@@ -32,8 +32,11 @@ class RegionController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function byActivity()
+    public function byActivity(Request $request)
     {
+        Log::alert($request->all());
+        Log::warning(\request()->all());
+        Log::warning(request()->all());
         $regions = $this->regions->getByActivity(request()->only('activity_id'));
         Log::info($regions);
         return response()->json($regions);

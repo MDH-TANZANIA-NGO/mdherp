@@ -50,10 +50,19 @@
                 get_regions($(this).val());
             })
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
 
             function get_regions(region_id){
                 $.get("{{ route('region.by_activity') }}", { activity_id: region_id}, function(data, status){
                     $additional_inputs.empty();
+                    console.log(region_id);
+                    console.log(data.length);
+                    console.log(data);
                     if(data.length > 0){
                         $.each(data, function (i){
                             draw_form(data, i)

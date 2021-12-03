@@ -76,6 +76,7 @@
                                                 <div class="tab-pane active " id="tab1">
                                                     <form class="card">
 
+                                                        {!! Form::open(['route' => ['user.update', $user],'method' => 'PUT']) !!}
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="col-md-4">
@@ -137,24 +138,24 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group ">
                                                                         {!! Form::label('designation', __("label.designation"),['class'=>'form-label','required_asterik']) !!}
-                                                                        {!! Form::select('designation', $designations, $user->designation_id, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                                                                        {!! Form::select('designation', $designations, $user->designation_id, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                                                                         {!! $errors->first('designation', '<span class="badge badge-danger">:message</span>') !!}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group ">
                                                                         {!! Form::label('region', __("label.region"),['class'=>'form-label','required_asterik']) !!}
-                                                                        {!! Form::select('region', $regions, $user->region_id, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                                                                        {!! Form::select('region', $regions, $user->region_id, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                                                                         {!! $errors->first('region', '<span class="badge badge-danger">:message</span>') !!}
                                                                     </div>
                                                                 </div>
-{{--                                                                <div class="col-md-4">--}}
-{{--                                                                    <div class="form-group ">--}}
-{{--                                                                        {!! Form::label('projects', __("label.project"),['class'=>'form-label','required_asterik']) !!}--}}
-{{--                                                                        {!! Form::select('projects[]', [], null, ['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}--}}
-{{--                                                                        {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-12 col-sm-12 col-lg-12 col-xl-12 col-md-12">
+                                                                    <div class="form-group ">
+                                                                        {!! Form::label('projects', __("label.project").'(s)',['class'=>'form-label','required_asterik']) !!}
+                                                                        {!! Form::select('projects[]', $projects, access()->user()->projects()->pluck('projects.id'), ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']) !!}
+                                                                        {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
+                                                                    </div>
+                                                                </div>
 {{--                                                                <div class=" col-md-4">--}}
 {{--                                                                    <div class="form-group">--}}
 {{--                                                                        <label class="form-label">Postal Code</label>--}}
@@ -165,6 +166,7 @@
 
                                                             </div>
                                                         </div>
+                                                        {!! Form::close() !!}
 
                                                     </form>
 
