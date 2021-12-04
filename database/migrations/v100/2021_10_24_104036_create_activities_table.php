@@ -17,7 +17,7 @@ class CreateActivitiesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('sub_program_id');
             $table->char('code', '50');
-            $table->string('title');
+            $table->longText('title');
             $table->longText('description');
             $table->uuid('uuid');
             $table->unsignedBigInteger('budget_id');
