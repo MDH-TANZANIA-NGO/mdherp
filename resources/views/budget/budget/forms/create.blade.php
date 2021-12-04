@@ -21,7 +21,8 @@
             <table class="table card-table table-vcenter text-nowrap" id="additional_table">
                 <thead >
                 <tr>
-                    <th>Region</th>
+                    <th colspan="2">Regions</th>
+{{--                    <th>Region</th>--}}
                     <th>Amount</th>
                     <th>Numeric Output</th>
                 </tr>
