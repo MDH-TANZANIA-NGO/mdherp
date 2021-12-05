@@ -680,6 +680,94 @@ class UnitsTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
+            60 =>
+                array (
+                    'id' => 61,
+                    'name' => 'Senior Monitoring and Evaluation',
+                    'title' => 'SME.',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            61 =>
+                array (
+                    'id' => 62,
+                    'name' => 'Monitoring and Evaluation',
+                    'title' => 'ME.',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            62 =>
+                array (
+                    'id' => 63,
+                    'name' => 'Senior Finance and Administration',
+                    'title' => 'SFA.',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            63 =>
+                array (
+                    'id' => 64,
+                    'name' => 'Statistician',
+                    'title' => 'S.',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            64 =>
+                array (
+                    'id' => 65,
+                    'name' => 'Regional Maternal & Child Health',
+                    'title' => 'RMCH.',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            65 =>
+                array (
+                    'id' => 66,
+                    'name' => 'MAT',
+                    'title' => 'MAT.',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            66 =>
+                array (
+                    'id' => 67,
+                    'name' => 'Lab & Supply Chain',
+                    'title' => 'LSC.',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            67 =>
+                array (
+                    'id' => 68,
+                    'name' => 'Menengitis Prevention',
+                    'title' => 'MP.',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
 
 
 
