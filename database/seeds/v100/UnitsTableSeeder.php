@@ -541,7 +541,7 @@ class UnitsTableSeeder extends Seeder
                 array (
                     'id' => 48,
                     'name' => 'Procurement  ',
-                    'title' => 'P.',
+                    'title' => 'PO.',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2021-03-10 16:32:27',
