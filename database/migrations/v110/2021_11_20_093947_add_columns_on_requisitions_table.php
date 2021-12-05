@@ -14,8 +14,8 @@ class AddColumnsOnRequisitionsTable extends Migration
     public function up()
     {
         Schema::table('requisitions', function (Blueprint $table) {
-            $table->unsignedBigInteger('budget_id');
-            $table->unsignedBigInteger('user_id');
+//            $table->unsignedBigInteger('budget_id');
+//            $table->unsignedBigInteger('user_id');
         });
     }
 
