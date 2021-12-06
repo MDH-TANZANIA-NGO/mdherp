@@ -50,6 +50,7 @@
         @break
 
     @endswitch
+    @endif
 
 @endsection
 
