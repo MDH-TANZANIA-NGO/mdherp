@@ -195,7 +195,7 @@ class RequisitionRepository extends BaseRepository
         return DB::transaction(function () use ($requisition){
             return $requisition->update([
                 'done' => 1,
-                   
+
 //                'supervisor_id' => null,
                 'number' => $this->generateNumber($requisition)
             ]);
