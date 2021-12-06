@@ -119,8 +119,8 @@ class UserRepository extends BaseRepository
             ]);
             $this->assignRoleAndAttachPermissions($user, $input);
             $user->wfDefinitions()->attach(1);
-            $reset_link = $this->resetLink($user);
-            $user->notify(new ResetPasswordNotification($reset_link));
+//            $reset_link = $this->resetLink($user);
+//            $user->notify(new ResetPasswordNotification($reset_link));
             return $user;
         });
     }
