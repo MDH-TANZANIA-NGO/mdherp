@@ -93,8 +93,8 @@ class ProjectController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function byRegion(Request $request)
+    public function byRegion(Request $request, $id)
     {
-        return response()->json($this->projects->getByRegion($request->only('region_id')));
+        return response()->json($this->projects->getByRegion($id));
     }
 }
