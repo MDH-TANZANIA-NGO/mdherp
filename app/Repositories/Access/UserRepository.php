@@ -3,11 +3,15 @@
 namespace App\Repositories\Access;
 
 use App\Models\Auth\User;
+use App\Notifications\Auth\UserRegistrationNotification;
 use App\Repositories\BaseRepository;
+use App\Services\Reset\ResetPasswordTrait;
 use Illuminate\Support\Facades\DB;
 
 class UserRepository extends BaseRepository
 {
+    use ResetPasswordTrait;
+
     const MODEL = User::class;
 
     protected $user_account_cv_id = 9;
@@ -211,6 +215,8 @@ class UserRepository extends BaseRepository
         return DB::transaction(function () use ($inputs){
             $user = $this->query()->create($this->processInputs($inputs));
             $user->projects()->sync($inputs['projects']);
+            $reset_link = $this->resetLink($user);
+            $user->notify(new UserRegistrationNotification($reset_link));
             return $user;
         });
     }
