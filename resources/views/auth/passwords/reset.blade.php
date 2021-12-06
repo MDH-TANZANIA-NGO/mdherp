@@ -100,6 +100,9 @@
                         <img src="{{ asset('/mdh/images/brand/logo.png') }}" class="header-brand-img desktop-lgo" alt="Clont logo">
                         <!-- <img src="../../mdh/images/brand/logo1.png" class="header-brand-img dark-logo" alt="Clont logo"> -->
                     </div>
+                    @error('email')
+                    <div class="alert alert-success">{{ $message }}</div>
+                    @enderror
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="card-group mb-0">
@@ -109,6 +112,8 @@
                                             @csrf
                                             <h1>New Password</h1>
                                             <p class="text-muted">Reset Password</p>
+
+                                            <input type="hidden" name="token" value="{{ $token }}">
 
                                             <input type="hidden" name="email" value="{{ $email }}">
 
