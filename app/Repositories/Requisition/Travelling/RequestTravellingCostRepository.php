@@ -31,20 +31,30 @@ class RequestTravellingCostRepository
     public function inputProcess($inputs)
     {
 
+        $from = $inputs['from'];
+        $to = $inputs['to'];
+        $datetime1 = new \DateTime($from);
+        $datetime2 = new  \DateTime($to);
+        $interval = $datetime1->diff($datetime2);
+        $days = $interval->format('%a');
+
     $perdiem_id = $inputs['perdiem_rate_id'];
-        $perdiem_total_amount = (mdh_rate::query()->find($perdiem_id)->amount  * $inputs['no_days']);
-        $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'] + ($inputs['accommodation'] * $inputs['no_days']);
+        $perdiem_total_amount = (mdh_rate::query()->find($perdiem_id)->amount  * $days);
+        $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'] + ($inputs['accommodation'] * $days);
         return [
             'perdiem_total_amount'=> $perdiem_total_amount,
             'traveller_uid' => $inputs['traveller_uid'],
-            'description' => $inputs['description'],
+//            'description' => $inputs['description'],
             'district_id'=> $inputs['district_id'],
-            'no_days' => $inputs['no_days'],
+            'no_days' => $days,
             'perdiem_rate_id' => $inputs['perdiem_rate_id'],
             'transportation' => $inputs['transportation'],
             'accommodation' => $inputs['accommodation'],
             'other_cost' => $inputs['other_cost'],
+            'from' => $from,
+            'to' => $to,
             'total_amount' =>  $total_amount,
+
         ];
     }
 

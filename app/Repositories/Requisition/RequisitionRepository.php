@@ -87,6 +87,7 @@ class RequisitionRepository extends BaseRepository
 
     public function inputProcess($inputs)
     {
+//        $description = $inputs['description'];
         return [
             'user_id' => access()->id(),
             'requisition_type_id' => $inputs['requisition_type'],
@@ -194,6 +195,7 @@ class RequisitionRepository extends BaseRepository
         return DB::transaction(function () use ($requisition){
             return $requisition->update([
                 'done' => 1,
+                    'description'=> $this->inputProcess('description'),
 //                'supervisor_id' => null,
                 'number' => $this->generateNumber($requisition)
             ]);
