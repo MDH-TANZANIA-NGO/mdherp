@@ -10,7 +10,7 @@
             <div class="card-options ">
                 <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
             </div>
-            
+
         </div>
 
         <div class="card-body">
@@ -18,7 +18,7 @@
 
                 <div class="col-4">
                     {!! Form::label('sub_program', __("label.sub_program"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::select('sub_program', $program_areas, null,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! Form::select('sub_program', $program_areas, null,['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                     {!! $errors->first('sub_program', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
@@ -31,14 +31,14 @@
 
                 <div class="col-4">
                     {!! Form::label('output_unit', __("label.output_unit"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::select('output_unit', $output_unit, null,['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! Form::select('output_unit', $output_unit, null,['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                     {!! $errors->first('output_unit', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
             </div>
             &nbsp;
             <div class="row">
-                
+
                 <div class="col-12">
                     {!! Form::label('title', __("label.title"),['class'=>'form-label','required_asterik']) !!}
                     {!! Form::text('title', null, ['class' => 'form-control','placeholder' =>'Enter Activity Title', 'required']) !!}

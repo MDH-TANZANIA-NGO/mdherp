@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Database\TruncateTable;
 use Database\DisableForeignKeys;
 
-class DeTableSeeder extends Seeder
+class DepartmentsTableSeeder extends Seeder
 {
     use TruncateTable, DisableForeignKeys;
     /**

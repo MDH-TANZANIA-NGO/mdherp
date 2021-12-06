@@ -24,7 +24,7 @@
                         <div id="specs">{{ $item->equipment->specs }}</div>
                         <hr>
                         <div>
-                            <label>Reason to procure</label>
+                            <label>Description</label>
                             <textarea name="reason" id="" class="form-control" cols="30" rows="10" required>{{ $item->reason }}</textarea>
                         </div>
                         <hr>

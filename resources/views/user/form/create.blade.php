@@ -71,14 +71,14 @@
                         <div class="col-md-4">
                             <div class="form-group ">
                                 {!! Form::label('designation', __("label.designation"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::select('designation', $designations, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                                {!! Form::select('designation', $designations, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                                 {!! $errors->first('designation', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group ">
                                 {!! Form::label('region', __("label.region"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::select('region', $regions, null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                                {!! Form::select('region', $regions, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                                 {!! $errors->first('region', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>

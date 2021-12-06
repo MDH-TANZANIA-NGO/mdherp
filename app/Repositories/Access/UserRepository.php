@@ -215,6 +215,21 @@ class UserRepository extends BaseRepository
         });
     }
 
+    /**
+     * Update User
+     * @param User $user
+     * @param $inputs
+     * @return mixed
+     */
+    public function update(User $user, $inputs)
+    {
+        return DB::transaction(function () use ($user, $inputs){
+            $user->update($this->processInputs($inputs));
+            $user->projects()->sync($inputs['projects']);
+            return $user;
+        });
+    }
+
     public function getQuery()
     {
         return $this->query()->select([

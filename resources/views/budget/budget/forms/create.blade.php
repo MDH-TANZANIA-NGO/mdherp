@@ -4,7 +4,7 @@
         <div class="col-md-8">
             <div class="form-group">
                 {!! Form::label('activity', __("label.activity"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::select('activity', $activities, old('activity'),['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                {!! Form::select('activity', $activities, old('activity'),['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                 {!! $errors->first('activity', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>
@@ -21,7 +21,8 @@
             <table class="table card-table table-vcenter text-nowrap" id="additional_table">
                 <thead >
                 <tr>
-                    <th>Region</th>
+                    <th colspan="2">Regions</th>
+{{--                    <th>Region</th>--}}
                     <th>Amount</th>
                     <th>Numeric Output</th>
                 </tr>
@@ -50,9 +51,9 @@
                 get_regions($(this).val());
             })
 
-
-            function get_regions(region_id){
-                $.get("{{ route('region.by_activity') }}", { activity_id: region_id}, function(data, status){
+            function get_regions(activity_id){
+                let $route = base_url+'/regions/'+activity_id+'/activity';
+                $.get($route, function(data, status){
                     $additional_inputs.empty();
                     if(data.length > 0){
                         $.each(data, function (i){

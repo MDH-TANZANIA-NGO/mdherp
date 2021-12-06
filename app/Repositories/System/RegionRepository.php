@@ -6,6 +6,7 @@ use App\Models\Auth\User;
 use App\Models\System\Region;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RegionRepository extends BaseRepository
 {

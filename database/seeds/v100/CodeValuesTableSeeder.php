@@ -112,7 +112,7 @@ class CodeValuesTableSeeder extends Seeder
                 array (
                     'id' => 9,
                     'code_id' => 3,
-                    'name' => 'Marred',
+                    'name' => 'Married',
                     'lang' => NULL,
                     'description' => '',
                     'reference' => 'MMR',
@@ -167,7 +167,7 @@ class CodeValuesTableSeeder extends Seeder
                 array (
                     'id' => 14,
                     'code_id' => 5,
-                    'name' => 'specific',
+                    'name' => 'above sites',
                     'lang' => NULL,
                     'description' => 'This should not assigned a region',
                     'reference' => 'PTS',

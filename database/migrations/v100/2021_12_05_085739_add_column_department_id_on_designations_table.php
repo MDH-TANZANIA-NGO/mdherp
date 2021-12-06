@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnsOnRequisitionsTable extends Migration
+class AddColumnDepartmentIdOnDesignationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddColumnsOnRequisitionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('requisitions', function (Blueprint $table) {
-//            $table->unsignedBigInteger('budget_id');
-//            $table->unsignedBigInteger('user_id');
+        //
+        //
+        Schema::table('designations', function (Blueprint $table) {
+            $table->biginteger('department_id')->nullable();
         });
     }
 
@@ -26,8 +27,6 @@ class AddColumnsOnRequisitionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('requisitions', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }
