@@ -29,6 +29,18 @@
             </a>
 
         </div>
+
+        <div class="col-4 col-sm-4 col-lg-3">
+            <a href="{{route('programactivity.index')}}">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="h2 m-0"><i class="fe fe-activity multiple-outline text-primary" ></i></div>
+                        <div class="text-muted mb-0">Program Activities</div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
 {{--        <div class="col-4 col-sm-4 col-lg-3">--}}
 {{--            <a href="{{route('userslist')}}">--}}
 {{--                <div class="card">--}}
