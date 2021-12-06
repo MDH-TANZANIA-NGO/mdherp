@@ -117,7 +117,7 @@ class BaseRepository
 
     public function forSelect()
     {
-        return $this->query()->where('active', 1)->pluck('name', 'id');
+        return $this->query()->where('isactive', 1)->pluck('name', 'id');
     }
 
     public function done()
