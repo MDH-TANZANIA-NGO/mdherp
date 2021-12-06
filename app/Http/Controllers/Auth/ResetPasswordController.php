@@ -50,6 +50,7 @@ class ResetPasswordController extends Controller
         event(new PasswordReset($user));
 
 //        $this->guard()->login($user);
+        access()->logout();
 
         return redirect()->route('startup');
 
