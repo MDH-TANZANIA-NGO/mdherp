@@ -6,6 +6,7 @@ use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Project\Project;
+use App\Models\Project\SubProgram;
 use App\Models\System\CodeValue;
 use App\Models\System\Region;
 use App\Models\Taf\Taf;
@@ -85,5 +86,10 @@ trait UserRelationship
     public function projects()
     {
         return $this->belongsToMany(Project::class)->withTimestamps();
+    }
+
+    public function subProgram()
+    {
+        return $this->belongsToMany(SubProgram::class, 'sub_program_user');
     }
 }

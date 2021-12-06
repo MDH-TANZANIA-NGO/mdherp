@@ -135,7 +135,13 @@ class UserController extends Controller
         }else{
             $user->wfDefinitions()->detach();
         }
-        SweetAlert::success('wow','wow');
+        alert()->success(__('notifications.user.workflow'), __('notifications.user.title'));
+        return redirect()->back();
+    }
+
+    public function assignSubProgramArea(Request $request, $uuid)
+    {
+        $this->users->assignSubProgramArea($uuid, $request->all());
         alert()->success(__('notifications.user.workflow'), __('notifications.user.title'));
         return redirect()->back();
     }
