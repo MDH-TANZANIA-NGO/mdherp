@@ -101,7 +101,7 @@
                         <!-- <img src="../../mdh/images/brand/logo1.png" class="header-brand-img dark-logo" alt="Clont logo"> -->
                     </div>
                     @error('email')
-                    <div class="alert alert-success">{{ $message }}</div>
+                    <div class="alert alert-info">{{ $message }}</div>
                     @enderror
                     <div class="row justify-content-center">
                         <div class="col-md-8">
