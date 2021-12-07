@@ -6,10 +6,10 @@ use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Project\Project;
+use App\Models\Project\SubProgram;
 use App\Models\System\CodeValue;
 use App\Models\System\Region;
 use App\Models\Taf\Taf;
-use App\Models\Unit\Department;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\WfDefinition;
 use App\Models\Workflow\WfTrack;
@@ -88,8 +88,8 @@ trait UserRelationship
         return $this->belongsToMany(Project::class)->withTimestamps();
     }
 
-    public function department()
+    public function subProgram()
     {
-        return $this->hasOne(Department::class);
+        return $this->belongsToMany(SubProgram::class, 'sub_program_user');
     }
 }

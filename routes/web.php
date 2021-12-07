@@ -23,7 +23,7 @@ Route::get('/', function () {
     }else{
         return redirect()->route('workspace.invoke');
     }
-});
+})->name('startup');
 
 Route::group(/*['middleware' => 'csrf'],*/['namespace' => 'Web','middleware' => ['web']], function () {
     includeRouteFiles(__DIR__.'/web/');

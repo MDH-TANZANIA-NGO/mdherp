@@ -5,6 +5,7 @@ namespace App\Repositories\Access;
 use App\Models\Auth\User;
 use App\Notifications\Auth\UserRegistrationNotification;
 use App\Repositories\BaseRepository;
+use App\Repositories\Project\SubProgramRepository;
 use App\Services\Reset\ResetPasswordTrait;
 use Illuminate\Support\Facades\DB;
 
@@ -300,6 +301,20 @@ class UserRepository extends BaseRepository
             ->leftJoin('project_user','project_user.user_id','users.id')
             ->leftJoin('projects','projects.id','project_user.project_id')
             ->groupBy('users.id','users.first_name','users.last_name','units.name','designations.name','users.phone','users.uuid','regions.name', 'code_values.id');
+    }
+
+    public function forSelect()
+    {
+        return $this->getQuery()->pluck('name', 'user_id');
+    }
+
+    public function assignSubProgramArea($uuid, $inputs)
+    {
+        return DB::transaction(function () use ($uuid, $inputs){
+            //TODO detach
+            $sub_program = (new SubProgramRepository())->findByUuid($uuid);
+            return $sub_program->users()->attach($inputs['user']);
+        });
     }
 
 }

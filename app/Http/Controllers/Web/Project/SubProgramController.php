@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Project\Traits\SubProgramDatatables;
 use App\Models\Project\SubProgram;
+use App\Repositories\Access\UserRepository;
 use App\Repositories\Project\ProgramAreaRepository;
 use App\Repositories\Project\SubProgramRepository;
 use Illuminate\Http\Request;
@@ -16,11 +17,13 @@ class SubProgramController extends Controller
 
     protected $sub_programs;
     protected $program_areas;
+    protected $users;
 
     public function __construct()
     {
         $this->sub_programs = (new SubProgramRepository());
         $this->program_areas = (new ProgramAreaRepository());
+        $this->users = (new UserRepository());
     }
 
     /**
@@ -56,7 +59,8 @@ class SubProgramController extends Controller
     {
         return view('project.sub_program.show')
             ->with('sub_program',$subProgram)
-            ->with('program_areas', $this->program_areas->getActive()->pluck('title','id'));
+            ->with('program_areas', $this->program_areas->getActive()->pluck('title','id'))
+            ->with('users', $this->users->forSelect());
     }
 
     /**
