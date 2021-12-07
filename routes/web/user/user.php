@@ -8,6 +8,8 @@ Route::group(['namespace' => 'User', 'middleware' => ['web', 'auth'], 'prefix' =
 
     Route::post('{user}/update-workflow-definitions', 'UserController@updateWfDefinition')->name("update_definitions");
 
+    Route::post('{uuid}/attach-sub-program', 'UserController@assignSubProgramArea')->name("attach_sub_program");
+
 
     /**
      * Datatables

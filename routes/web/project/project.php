@@ -5,7 +5,7 @@ Route::group(['namespace' => 'Project', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('{project}/show', 'ProjectController@show')->name('show');
     Route::put('{project}/update', 'ProjectController@update')->name('update');
     Route::put('{project}/activate', 'ProjectController@activate')->name('activate');
-    Route::get('/region', 'ProjectController@byRegion')->name('by_region');
+    Route::get('{id}/region', 'ProjectController@byRegion')->name('by_region');
 
     /**
      * Datatables

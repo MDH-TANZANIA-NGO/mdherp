@@ -30,7 +30,7 @@ class RequisitionTypeCategoriesTableSeeder extends Seeder
             array (
                     'id' => 2,
                     'requisition_type_id' => 2,
-                    'name' => 'Training',
+                    'name' => 'Training and others',
                     'created_at' => NULL,
                     'updated_at' => NULL,
                 ),

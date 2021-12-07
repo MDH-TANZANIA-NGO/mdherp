@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <div class="card-body">                
+        <div class="card-body">
             <div class="row">
 
                 <div class="col-3">
@@ -43,7 +43,7 @@
             <div class="col-12">
                 <div style="text-align: center;">
 
-            
+
                 <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Update</button>
             </div>
 
@@ -55,3 +55,46 @@
 </div>
 
 {!! Form::close() !!}
+
+
+{!! Form::open(['route' => ['user.attach_sub_program',$sub_program], 'method' => 'post',]) !!}
+<div class="col-lg-12 col-md-12">
+    <div class="card">
+        <div class="card-header" style="background-color: rgb(238, 241, 248)">
+            <div class="row text-center">
+
+                <div class="row">
+                    <span class="col-12 text-center font-weight-bold">User</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-12">
+                    {!! Form::label('user', __("label.program_area"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('user', $users, $sub_program->users()->first() ? $sub_program->users()->first()->id : null,['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! $errors->first('user', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+
+            </div>
+
+            &nbsp;
+            <div class="row">
+                <div class="col-12">
+                    <div style="text-align: center;">
+
+
+                        <button type="submit" class="btn btn-azure" style="margin-top: 5px; margin-left: 10px">Assign</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{!! Form::close() !!}
+

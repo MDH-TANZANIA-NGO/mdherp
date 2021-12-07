@@ -14,6 +14,15 @@
             <form id="submit_requisition_form" action="{{ route('requisition.submit',$requisition) }}" method="POST" class="d-none">
                 @csrf
             </form>
+            @if($travelling_costs->count() > 0)
+
+                <form id="submit_requisition_form" action="{{ route('requisition.submit',$requisition) }}" method="POST" class="d-none">
+                    @csrf
+                    {!! Form::textarea('description', null, ['class' => 'form-control', 'required']) !!}
+                </form>
+
+            @endif
+
         </div>
     </div>
 
