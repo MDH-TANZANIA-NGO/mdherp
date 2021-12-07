@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Requisition;
 
 use App\Events\NewWorkflow;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Repositories\Access\UserRepository;
@@ -156,7 +157,11 @@ class RequisitionController extends Controller
             $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
             $wf_module_group_id = 1;
             $type = 1;
-            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $type],[],['next_user_id' => null]));
+            $next_user = $requisition->activity->subProgram->users()->first();
+            if(!$next_user){
+                throw new GeneralException('Sub Program Area Manager not assigned');
+            }
+            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $type],[],['next_user_id' => $next_user->id]));
         });
 
         alert()->success(__('Submitted Successfully'), __('Purchase Requisition'));

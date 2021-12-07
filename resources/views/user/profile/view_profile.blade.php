@@ -156,6 +156,13 @@
                                                                         {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-12 col-sm-12 col-lg-12 col-xl-12 col-md-12">
+                                                                    <div class="form-group ">
+                                                                        {!! Form::label('projects', __("program manager").'(s)',['class'=>'form-label','required_asterik']) !!}
+                                                                        <input type="checkbox" class="form-control">
+                                                                        {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
+                                                                    </div>
+                                                                </div>
 {{--                                                                <div class=" col-md-4">--}}
 {{--                                                                    <div class="form-group">--}}
 {{--                                                                        <label class="form-label">Postal Code</label>--}}

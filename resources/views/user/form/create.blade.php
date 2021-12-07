@@ -114,7 +114,8 @@
             });
 
             function fetch_projects(region_id){
-                $.get("{{ route('project.by_region') }}", { region_id: region_id},
+                let $url = base_url+'/projects/'+region_id+'/region';
+                $.get($url, { region_id: region_id},
                     function(data, status){
                         if(data.length > 0){
 
