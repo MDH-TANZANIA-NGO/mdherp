@@ -24,8 +24,6 @@
 
     @endif
 
-    @if($travelling_costs->count())
-
     @switch($requisition->requisition_type_id)
         @case(1)
         @if($items->count() > 0)
@@ -50,7 +48,6 @@
         @break
 
     @endswitch
-    @endif
 
 @endsection
 
