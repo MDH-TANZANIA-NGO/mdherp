@@ -4,24 +4,20 @@
 
     @if($items->count() > 0 or $travelling_costs->count() > 0 or $training_costs->count() > 0)
 
+
     <div class="row mb-4">
         <div class="col-12">
+
             <a class="btn btn-primary float-right" href="{{ route('logout') }}"
                onclick="event.preventDefault();if(confirm('Are you sure you want to send it for approval')){document.getElementById('submit_requisition_form').submit()}">
 
                 <i class="dropdown-icon mdi  mdi-logout-variant" style="color: #fff"></i> Submit for approval
             </a>
+
             <form id="submit_requisition_form" action="{{ route('requisition.submit',$requisition) }}" method="POST" class="d-none">
                 @csrf
             </form>
-            @if($travelling_costs->count() > 0)
 
-                <form id="submit_requisition_form" action="{{ route('requisition.submit',$requisition) }}" method="POST" class="d-none">
-                    @csrf
-                    {!! Form::textarea('description', null, ['class' => 'form-control', 'required']) !!}
-                </form>
-
-            @endif
 
         </div>
     </div>
