@@ -2,8 +2,8 @@
 <div class="row">
     <div class="col-md-12 col-lg-12">
         <div class="card">
-            <div class="card-header">
-                {{--                <h3 class="card-title">TRAVELLING COSTS</h3>--}}
+            <div class="card-header" style="background-color: rgb(238, 241, 248)">
+                                <h3 class="card-title">Summary</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -11,7 +11,7 @@
                         <thead  class="bg-secondary text-white">
                         <tr >
                             <th class="text-white">ID</th>
-                            <th class="text-white">Participant</th>
+                            <th class="text-white">Participants</th>
                             <th class="text-white">Days</th>
                             <th class="text-white">Perdiem</th>
                             <th class="text-white">Transport</th>

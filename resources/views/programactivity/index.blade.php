@@ -6,7 +6,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header" style="background-color: rgb(238, 241, 248)">
-                    <h3 class="card-title">Safari Advance Form</h3>
+                    <h3 class="card-title">Program Activity</h3>
                 </div>
                 <div class="card-body">
                     <form id="form">
@@ -15,7 +15,7 @@
                                 <h5 class="mb-0" data-acc-title>Initial Details</h5>
                                 <div data-acc-content>
                                     <div class="my-3">
-&nbsp;
+                                        &nbsp;
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
@@ -31,16 +31,16 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
 
-                                                    <label class="form-label">Name Of Travelling Official:</label>
-                                                    <input type="text" disabled name="" value="" class="form-control" placeholder="Frank Omary"/>
+                                                    <label class="form-label">Training Venue:</label>
+                                                    <input type="text"  name="" value="" class="form-control" placeholder="Gold Crest Hall"/>
 
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
 
-                                                    <label class="form-label">Traveling To:</label>
-                                                    <input type="text" disabled name="" value="" class="form-control" placeholder="Tabora" />
+                                                    <label class="form-label">Location:</label>
+                                                    <input type="text"  name="" value="" class="form-control" placeholder="Mwanza" />
 
                                                 </div>
                                             </div>
@@ -106,14 +106,14 @@
                                         &nbsp;
                                         <div class="form-group">
 
-{{--                                            table starts--}}
+                                            {{--                                            table starts--}}
 
                                             <div class="card">
                                                 <div class="card-header" style="background-color: rgb(152, 186, 217)">
                                                     <h3 class="card-title">Travel Summary</h3>
                                                     <div class="card-options ">
-{{--                                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>--}}
-{{--                                                        <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
+                                                        {{--                                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>--}}
+                                                        {{--                                                        <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
                                                     </div>
                                                 </div>
                                                 <div class="table-responsive">
@@ -150,7 +150,7 @@
                                                 <!-- table-responsive -->
                                             </div>
 
-{{--                                            table ends--}}
+                                            {{--                                            table ends--}}
                                         </div>
 
                                     </div>
