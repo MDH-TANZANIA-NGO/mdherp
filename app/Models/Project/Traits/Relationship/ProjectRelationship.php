@@ -2,6 +2,7 @@
 
 namespace App\Models\Project\Traits\Relationship;
 
+use App\Models\Auth\User;
 use App\Models\Project\Budget;
 use App\Models\Project\ProgramArea;
 use App\Models\Project\ProgramAreaProject;
@@ -29,6 +30,11 @@ trait ProjectRelationship
     public function programArea()
     {
         return $this->belongsToMany(ProgramArea::class,'program_area_project');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 
 }

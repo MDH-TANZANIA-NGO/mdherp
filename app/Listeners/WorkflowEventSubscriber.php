@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
@@ -82,13 +83,15 @@ class WorkflowEventSubscriber
             switch ($wf_module_id){
                     case 1:
                         $requisition_repo = (new RequisitionRepository());
-                        $requisition = $requisition_repo->find($resource_id);
                         /*check levels*/
                         switch ($level){
                             case 1: //Applicant level
                                 $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
-//                                $supervisor_id = access()->user()->assignedSupervisor()->supervisor_id;
-//                                $data['next_user_id'] = $supervisor_id;
+                                $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
+                                break;
+                            case 2:
+                                $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                                $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
                                 break;
                         }
                         break;
