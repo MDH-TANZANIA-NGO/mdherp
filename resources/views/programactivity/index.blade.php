@@ -31,16 +31,16 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
 
-                                                    <label class="form-label">Name Of Travelling Official:</label>
-                                                    <input type="text" disabled name="" value="" class="form-control" placeholder="Frank Omary"/>
+                                                    <label class="form-label">Training Venue:</label>
+                                                    <input type="text"  name="" value="" class="form-control" placeholder="Gold Crest Hall"/>
 
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
 
-                                                    <label class="form-label">Traveling To:</label>
-                                                    <input type="text" disabled name="" value="" class="form-control" placeholder="Tabora" />
+                                                    <label class="form-label">Location:</label>
+                                                    <input type="text"  name="" value="" class="form-control" placeholder="Mwanza" />
 
                                                 </div>
                                             </div>
