@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DesignationsTableSeeder::class);
         $this->call(UnitGroupsTableSeeder::class);
         $this->call(UnitsTableSeeder::class);
+        $this->call(DepartmentsTableSeeder::class);
         $this->call(SysdefsTableSeeder::class);
         $this->call(RegionsTableSeeder::class);
         $this->call(ZonesTableSeeder::class);
