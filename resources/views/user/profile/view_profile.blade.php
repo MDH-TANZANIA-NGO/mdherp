@@ -14,7 +14,7 @@
 													<img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="{{URL::asset('mdh/images/users/login.png')}}" height="100" width="100" >
 												</li>
 												<li class="text-center">
-													<h4 class="text-capitalize mt-3 mb-0">{{{$user->full_name_formatted}}}</h4>
+													<h4 class="text-capitalize mt-3 mb-0">{{$user->full_name_formatted}}</h4>
 													<p class="text-muted text-capitalize">MDH Staff</p>
 												</li>
 												<li>
@@ -74,9 +74,8 @@
                                         <div class="panel-body tabs-menu-body">
                                             <div class="tab-content">
                                                 <div class="tab-pane active " id="tab1">
-                                                    <form class="card">
 
-                                                        {!! Form::open(['route' => ['user.update', $user],'method' => 'PUT']) !!}
+                                                        {!! Form::open(['route' => ['user.update', $user],'method' => 'PUT','class' => 'card']) !!}
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="col-md-4">
@@ -86,12 +85,13 @@
                                                                         {!! $errors->first('first_name', '<span class="badge badge-danger">:message</span>') !!}
                                                                     </div>
                                                                 </div>
-{{--                                                                <div class="col-sm-6 col-md-4">--}}
-{{--                                                                    <div class="form-group">--}}
-{{--                                                                        <label class="form-label">Middle Name</label>--}}
-{{--                                                                        <input type="text" class="form-control" placeholder="Middle Name" >--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-sm-6 col-md-4">
+                                                                    <div class="form-group">
+                                                                        {!! Form::label('middle_name', __("label.name.middle"),['class'=>'form-label','required_asterik']) !!}
+                                                                        {!! Form::text('middle_name',$user->middle_name,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                                                                        {!! $errors->first('middle_name', '<span class="badge badge-danger">:message</span>') !!}
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-sm-6 col-md-4">
                                                                     <div class="form-group">
                                                                         {!! Form::label('last_name', __("label.name.last"),['class'=>'form-label','required_asterik']) !!}
@@ -156,26 +156,18 @@
                                                                         {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-12 col-sm-12 col-lg-12 col-xl-12 col-md-12">
-                                                                    <div class="form-group ">
-                                                                        {!! Form::label('projects', __("program manager").'(s)',['class'=>'form-label','required_asterik']) !!}
-                                                                        <input type="checkbox" class="form-control">
-                                                                        {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
-                                                                    </div>
-                                                                </div>
 {{--                                                                <div class=" col-md-4">--}}
 {{--                                                                    <div class="form-group">--}}
 {{--                                                                        <label class="form-label">Postal Code</label>--}}
 {{--                                                                        <input type="number" class="form-control" placeholder="ZIP Code">--}}
 {{--                                                                    </div>--}}
 {{--                                                                </div>--}}
-                                                                <button type="submit" class="btn btn-primary" style="margin-left:40%;">Update Profile</button>
+{{--                                                                <button type="submit" class="btn btn-primary" style="margin-left:40%;">Update Profile</button>--}}
+                                                                {!! Form::submit('Update Profile',['class' => 'btn btn-primary']) !!}
 
                                                             </div>
                                                         </div>
                                                         {!! Form::close() !!}
-
-                                                    </form>
 
                                                 </div>
                                               <div class="tab-pane  " id="tab2">

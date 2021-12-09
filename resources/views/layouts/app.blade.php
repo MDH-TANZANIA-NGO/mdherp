@@ -236,8 +236,8 @@
 {!! Html::script(url('mdh/js/select2.js')) !!}
 
 <!-- Timepicker js -->
-<script src="mdh/plugins/time-picker/jquery.timepicker.js"></script>
-<script src="mdh/plugins/time-picker/toggles.min.js"></script>
+{{--<script src="mdh/plugins/time-picker/jquery.timepicker.js"></script>--}}
+{{--<script src="mdh/plugins/time-picker/toggles.min.js"></script>--}}
 
 <!-- Datepicker js -->
 {!! Html::script(url('mdh/plugins/date-picker/date-picker.js')) !!}
@@ -245,8 +245,8 @@
 {!! Html::script(url('mdh/plugins/input-mask/jquery.maskedinput.js')) !!}
 
 <!-- File uploads js -->
-<script src="mdh/plugins/fileupload/js/dropify.js"></script>
-<script src="mdh/js/filupload.js"></script>
+{{--<script src="mdh/plugins/fileupload/js/dropify.js"></script>--}}
+{{--<script src="mdh/js/filupload.js"></script>--}}
 
 <!-- Sweet Alert -->
 {!! Html::script(url('mdh/plugins/sweet-alert/sweetalert.min.js')) !!}

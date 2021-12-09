@@ -7,6 +7,7 @@ use App\Repositories\BaseRepository;
 use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RequisitionRepository extends BaseRepository
 {
