@@ -10,6 +10,7 @@ use App\Repositories\Access\UserRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
+use App\Repositories\System\RegionRepository;
 use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
 use App\Models\Requisition\Requisition;
@@ -36,6 +37,7 @@ class RequisitionController extends Controller
     protected $mdh_rates;
     protected $users;
     protected $requisition_type_category;
+    protected $regions;
 
     public function __construct()
     {
@@ -50,6 +52,7 @@ class RequisitionController extends Controller
         $this->mdh_rates = (new mdhRatesRepository());
         $this->users = (new UserRepository());
         $this->requisition_type_category = (new requisition_type_category());
+        $this->regions = (new RegionRepository());
     }
 
     /**
@@ -72,7 +75,8 @@ class RequisitionController extends Controller
         return view('requisition._parent.form.create')
             ->with('requisition_types', $this->requisition_types->getAll()->pluck('title','id'))
             ->with('projects', $this->projects->getAccessUserProjectsPluck())
-            ->with('requisition_type_category', $this->requisition_type_category->get()->pluck('name', 'id'));
+            ->with('requisition_type_category', $this->requisition_type_category->get()->pluck('name', 'id'))
+            ->with('regions', $this->regions->forSelect());
     }
 
     /**
