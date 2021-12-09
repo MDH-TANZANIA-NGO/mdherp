@@ -23,7 +23,7 @@
                                     {!! Form::select('requisition_type',$requisition_types,null,['class' => 'form-control','placeholder' => 'select']) !!}
                                 </li>
                                 <br>
-                                <div class="form-group" {{ access()->user()->region_id == 1 ? "style='display: none'" : '' }} >
+                                <div class="form-group" style="display: {{ access()->user()->region_id == 1 ? 'block' : 'none' }}" >
                                     <label>Region</label>
                                     <li>
                                         {!! Form::select('region',$regions,null,['class' => 'form-control','placeholder' => 'select','disabled']) !!}
