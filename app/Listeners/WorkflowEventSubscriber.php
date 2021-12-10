@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
 use App\Services\Workflow\Traits\WorkflowUserSelector;
@@ -83,15 +84,30 @@ class WorkflowEventSubscriber
             switch ($wf_module_id){
                     case 1:
                         $requisition_repo = (new RequisitionRepository());
+                        $requisition = $requisition_repo->find($resource_id);
                         /*check levels*/
                         switch ($level){
                             case 1: //Applicant level
                                 $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
+
+                                $email_resource = (object)[
+                                    'link' =>  route('requisition.show',$requisition),
+                                    'subject' => $requisition->typle->title." Requisition Need your Approval",
+                                    'message' => $requisition->typle->title." Requisition ".$requisition->number.' need your approval'
+                                ];
+                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
                             case 2:
                                 $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
+
+                                $email_resource = (object)[
+                                    'link' =>  route('requisition.show',$requisition),
+                                    'subject' => $requisition->typle->title." Requisition Need your Approval",
+                                    'message' => $requisition->typle->title." Requisition ".$requisition->number.' need your approval'
+                                ];
+                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
                         }
                         break;
@@ -103,8 +119,14 @@ class WorkflowEventSubscriber
             /* Process for specific resource on workflow completion */
             switch ($wf_module_id) {
                 case 1:
-                    $taf = (new RequisitionRepository())->find($resource_id);
-                    $this->updateWfDone($taf);
+                    $requisition = (new RequisitionRepository())->find($resource_id);
+                    $this->updateWfDone($requisition);
+                    $email_resource = [
+                        'link' =>  route('requisition.show',$requisition),
+                        'subject' => $requisition->typle->title." Requisition ".$requisition->number." Approved Successfully",
+                        'message' => 'These Application has been Approved successfully'
+                    ];
+                    $requisition->user->notify(new WorkflowNotification($email_resource));
                     break;
             }
         }
