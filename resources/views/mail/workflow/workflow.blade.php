@@ -408,7 +408,7 @@
                                                         <tr>
                                                             <td align="center">
                                                                 <a href="{{ $resource->link }}" class="f-fallback
-                                                                button" target="_blank">View {{ $resource->name }}</a>
+                                                                button" target="_blank">Click here to view</a>
                                                             </td>
                                                         </tr>
                                                     </table>

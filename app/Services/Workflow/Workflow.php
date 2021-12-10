@@ -4,6 +4,10 @@ namespace App\Services\Workflow;
 
 use App\Events\Sockets\BroadcastWorkflowUpdated;
 use App\Exceptions\WorkflowException;
+use App\Models\Auth\User;
+use App\Models\Workflow\WfDefinition;
+use App\Models\Workflow\WfModule;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\Report\ReportRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -353,6 +357,22 @@ class Workflow
                 $this->updateResourceType($wf_track);
             }
 
+            //Send mail notification
+            switch($this->wf_module_id)
+            {
+                case 1:
+                    $requisition_repo = (new RequisitionRepository());
+                    $requisition = $requisition_repo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('requisition.show',$requisition),
+                        'subject' => $requisition->type->title." Requisition Need your Approval",
+                        'message' => $requisition->type->title." Requisition ".$requisition->number.' need your approval'
+                    ];
+                    User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
+                    break;
+
+            }
+
 
 
         }
@@ -371,7 +391,7 @@ class Workflow
         //$moduleGroupId = $wfTrack->wfDefinition->wfModule->wfModuleGroup->id;
         switch ($this->wf_module_group_id) {
             case 1:
-                /*TAF*/
+                /*Requisition*/
                 $requisition_repo = (new RequisitionRepository());
                 $requisition = $requisition_repo->find($resourceId);
                 $requisition->wfTracks()->save($wfTrack);

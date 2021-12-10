@@ -93,8 +93,8 @@ class WorkflowEventSubscriber
 
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),
-                                    'subject' => $requisition->typle->title." Requisition Need your Approval",
-                                    'message' => $requisition->typle->title." Requisition ".$requisition->number.' need your approval'
+                                    'subject' => $requisition->type->title." Need your Approval",
+                                    'message' => $requisition->type->title." ".$requisition->number.' need your approval'
                                 ];
                                 User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
@@ -104,8 +104,8 @@ class WorkflowEventSubscriber
 
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),
-                                    'subject' => $requisition->typle->title." Requisition Need your Approval",
-                                    'message' => $requisition->typle->title." Requisition ".$requisition->number.' need your approval'
+                                    'subject' => $requisition->type->title." Need your Approval",
+                                    'message' => $requisition->type->title." ".$requisition->number.' need your approval'
                                 ];
                                 User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
@@ -123,7 +123,7 @@ class WorkflowEventSubscriber
                     $this->updateWfDone($requisition);
                     $email_resource = [
                         'link' =>  route('requisition.show',$requisition),
-                        'subject' => $requisition->typle->title." Requisition ".$requisition->number." Approved Successfully",
+                        'subject' => $requisition->type->title." ".$requisition->number." Approved Successfully",
                         'message' => 'These Application has been Approved successfully'
                     ];
                     $requisition->user->notify(new WorkflowNotification($email_resource));
