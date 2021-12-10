@@ -2,16 +2,19 @@
 
 namespace App\Repositories\Requisition;
 
+use App\Models\Auth\User;
 use App\Models\Requisition\Requisition;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
 use App\Services\Generator\Number;
+use App\Services\Workflow\Traits\WorkflowUserSelector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class RequisitionRepository extends BaseRepository
 {
-    use InitiatorBudgetChecker, Number;
+    use InitiatorBudgetChecker, Number, WorkflowUserSelector;
 
     const MODEL = Requisition::class;
 
@@ -143,27 +146,41 @@ class RequisitionRepository extends BaseRepository
     }
 
     /**
-     * Process Workflow
      * @param $resource_id
      * @param $wf_module_id
      * @param $current_level
      * @param int $sign
      * @param array $inputs
-     * @return void
+     * @throws \App\Exceptions\GeneralException
      */
     public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign=0, array $inputs=[])
     {
+        $requisition = $this->find($resource_id);
         $applicant_level = $this->getApplicantLevel($wf_module_id);
         $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
 //        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
         switch($current_level){
             case $applicant_level:
                 $this->updateRejected($resource_id, $sign);
-                /*Action on country director level*/
-//                $this->sendApprovalNotification($report, $wf_definition->user);
+
+                $email_resource = (object)[
+                    'link' =>  route('requisition.show',$requisition),
+                    'subject' => $requisition->typle->title." Requisition Has been revised to your level",
+                    'message' => $requisition->typle->title." Requisition ".$requisition->number.' need modification.. Please do the need and send it back for approval'
+                ];
+                User::query()->find($requisition->user_id)->notify(new WorkflowNotification($email_resource));
+
                 break;
             case $head_of_dept_level:
                 $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' =>  route('requisition.show',$requisition),
+                    'subject' => $requisition->typle->title." Requisition Has been revised to your level",
+                    'message' => $requisition->typle->title." Requisition ".$requisition->number.' need modification.. Please do the need and send it back for approval'
+                ];
+                User::query()->find($this->nextUserSelector($wf_module_id,$resource_id,$current_level))->notify(new WorkflowNotification($email_resource));
+
                 break;
         }
     }
