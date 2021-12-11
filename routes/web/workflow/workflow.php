@@ -43,4 +43,6 @@ Route::group(['namespace' => 'System', 'prefix' => 'workflow', 'as' => 'workflow
     Route::get('permit-approval', 'WorkflowController@permitApproval')->name('permit_approval');
     Route::get('permit-approval/get', 'WorkflowController@getPermitApproval')->name('permit_approval.get');
 
+    Route::post('{wf_track}/recall', 'WorkflowController@recall')->name('recall');
+
 });

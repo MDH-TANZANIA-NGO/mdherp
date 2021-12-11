@@ -14,6 +14,17 @@
         </a>
     @endif
 
+    {{--action button--}}
+    @if($wf_track->checkIfHasRightToRecallToPreviousWfTrack())
+        <a href='#' class='btn btn-warning' onclick="event.preventDefault();if(confirm('Are you sure you want to recall this application')){document.getElementById('workflow_recall_form').submit()}" >
+            {{ __('label.recall') }}
+        </a>
+
+        <form id="workflow_recall_form" action="{{ route('workflow.recall',$previous_wf_track) }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    @endif
+
 
     {{--Workflow modals--}}
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

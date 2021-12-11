@@ -296,6 +296,7 @@ class workflowController extends Controller
         $wf_done = isset($resource->wf_done) ? $resource->wf_done : 0;
         $resource_id = $wf_track->resource_id;
         $workflow = new Workflow(['wf_module_id' => $wf_track->wfDefinition->wfModule->id, 'resource_id' => $resource_id]);
+        $previous_wf_track = $workflow->previousWfTrack();
         $wf_module = $wf_track->wfDefinition->wfModule;
         $wf_module_group_id = $wf_module->wf_module_group_id;
         $wf_definition = $wf_track->wfDefinition;
@@ -342,7 +343,8 @@ class workflowController extends Controller
             ->with('completed_tracks', $completed_tracks)
             ->with('pending_tracks', $pending_tracks)
             ->with('wf_done',$wf_done)
-            ->with('next_users', $next_users);
+            ->with('next_users', $next_users)
+            ->with('previous_wf_track', $previous_wf_track);
     }
 
 
@@ -791,6 +793,13 @@ class workflowController extends Controller
     {
         return view('system.workflow.setting.index')
             ->with('wf_modules', $this->wf_modules->getAllActive());
+    }
+
+    public function recall(WfTrack $wfTrack)
+    {
+        $this->wf_tracks->recall($wfTrack);
+        alert()->success(__('Action has been done successfully. now application is on your level. please processed'), __('Workflow Recall'));
+        return redirect()->back();
     }
 
 

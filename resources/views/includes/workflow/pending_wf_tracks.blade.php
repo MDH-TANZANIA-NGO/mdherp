@@ -20,7 +20,8 @@
                 <td >{!! $pending_track->level_with_narration_budge  !!}</td>
                 <th>{!! $pending_track->wfDefinition->description  !!}</th>
 {{--                <td >{!! $pending_track->comment !!}</td>--}}
-                <td >{!! $pending_track->comment_formatted !!}</td>
+{{--                <td >{!! $pending_track->comment_formatted !!}</td>--}}
+                <td >{!! $pending_track->comments !!}</td>
                 <th>{!! $pending_track->getAgingDays() !!}</th>
 
             </tr>

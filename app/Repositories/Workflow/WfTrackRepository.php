@@ -1239,7 +1239,18 @@ class WfTrackRepository extends BaseRepository
         return $last_wf_track->user_id;
     }
 
-
-
+    public function recall(WfTrack $wfTrack)
+    {
+        return DB::transaction(function () use ($wfTrack){
+            //delete current Track
+            $this->query()->where('parent_id', $wfTrack->id)->delete();
+            //update previous track to have current status
+            $wfTrack->update([
+                'status' => 0,
+                'forward_date' => null,
+                'comments' => null
+            ]);
+        });
+    }
 
 }

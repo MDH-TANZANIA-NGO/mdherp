@@ -7,6 +7,7 @@ use App\Exceptions\WorkflowException;
 use App\Models\Auth\User;
 use App\Models\Workflow\WfDefinition;
 use App\Models\Workflow\WfModule;
+use App\Models\Workflow\WfTrack;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\Report\ReportRepository;
@@ -245,6 +246,17 @@ class Workflow
     {
         $wfTrack = $this->currentWfTrack();
         return $wfTrack->id;
+    }
+
+    public function previousWfTrack()
+    {
+        return WfTrack::query()->where('parent_id',$this->currentWfTrack()->parent_id)->first();
+    }
+
+
+    public function canRecall()
+    {
+        return $this->previousWfTrack()->user_id == access()->id() ?? true;
     }
 
 

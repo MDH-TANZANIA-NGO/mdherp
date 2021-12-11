@@ -197,6 +197,18 @@ trait WfTrackAttribute
         }
     }
 
+    /**
+     * check if user has rights to recall the workflow
+     * @return bool
+     * @throws \App\Exceptions\GeneralException
+     */
+    public function checkIfHasRightToRecallToPreviousWfTrack()
+    {
+        $workflow = new Workflow(['wf_module_id' => $this->wfDefinition->wfModule->id, 'resource_id' => $this->resource_id]);
+        return $workflow->canRecall();
+    }
+
+
     /*Getting Previous Comment*/
     public function getCommentAttribute()
     {
