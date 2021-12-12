@@ -159,6 +159,7 @@ class RequisitionRepository extends BaseRepository
         $applicant_level = $this->getApplicantLevel($wf_module_id);
         $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
 //        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
+//        if($requisition->rejected){}
         switch($current_level){
             case $applicant_level:
                 $this->updateRejected($resource_id, $sign);
@@ -250,6 +251,50 @@ class RequisitionRepository extends BaseRepository
                 }
         }
         return $total_amount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQueryExtended($project_id, $activity_id, $region_id)
+    {
+        return $this->query()
+            ->join('projects','projects.id', 'requisitions.project_id')
+            ->join('budgets','budgets.id','requisitions.budget_id')
+            ->join('activities','activities.id','budgets.activity_id')
+            ->join('regions','regions.id','budgets.region_id')
+            ->join('fiscal_years','fiscal_years.id','budgets.fiscal_year_id')
+            ->where('projects.id', $project_id)
+            ->where('budgets.activity_id', $activity_id)
+            ->where('regions.id', $region_id);
+    }
+
+    /**
+     * @param $project_id
+     * @param $activity_id
+     * @param $region_id
+     * @return mixed
+     */
+    public function getSumOnPipeline($project_id, $activity_id, $region_id)
+    {
+        return $this->getQueryExtended($project_id, $activity_id, $region_id)
+            ->where('fiscal_years.active', true)
+            ->where('requisitions.wf_done', 0)
+            ->where('requisitions.done', true);
+    }
+
+    /**
+     * @param $project_id
+     * @param $activity_id
+     * @param $region_id
+     * @return mixed
+     */
+    public function getCommitment($project_id, $activity_id, $region_id)
+    {
+        return $this->getQueryExtended($project_id, $activity_id, $region_id)
+            ->where('fiscal_years.active', true)
+            ->where('requisitions.wf_done', 1)
+            ->where('requisitions.done', true);
     }
 
 }

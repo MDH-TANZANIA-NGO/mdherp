@@ -51,16 +51,16 @@ trait WorkflowUserSelector
                         break;
 
                     case 2:
-                        $next_user = $requisition->project->users()
-                            ->where('users.region_id', $requisition->region_id)
-                            ->where('users.designation_id', 82)
-                            ->where('users.active',true)
-                            ->orderBy('id','DESC')
-                            ->first();
-                        if(!$next_user){
-                            throw new GeneralException('Regional Project Manager not assigned');
-                        }
-                        $user_id = $next_user->id;
+//                        $next_user = $requisition->project->users()
+//                            ->where('users.region_id', $requisition->region_id)
+//                            ->where('users.designation_id', 82)
+//                            ->where('users.active',true)
+//                            ->orderBy('id','DESC')
+//                            ->first();
+//                        if(!$next_user){
+//                            throw new GeneralException('Regional Project Manager not assigned');
+//                        }
+//                        $user_id = $next_user->id;
                         break;
                 }
                 break;

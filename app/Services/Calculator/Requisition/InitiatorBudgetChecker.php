@@ -4,6 +4,7 @@ namespace App\Services\Calculator\Requisition;
 
 use App\Models\Requisition\RequisitionType\RequisitionType;
 use App\Repositories\Project\ActivityRepository;
+use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\RequisitionType\RequisitionTypeRepository;
 use Illuminate\Support\Facades\Log;
 
@@ -21,8 +22,8 @@ trait InitiatorBudgetChecker
             'budget' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->budget_amount,
             'budget_id' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->budget_id,
             'actual' => null,
-            'commitment' => null,
-            'pipeline' => null,
+            'commitment' => $this->commitment($project_id, $activity_id, $region_id),
+            'pipeline' => $this->pipeline($project_id, $activity_id, $region_id),
             'available budget' => null,
         ];
     }
@@ -35,6 +36,15 @@ trait InitiatorBudgetChecker
     public function requisition($requisition_type_id)
     {
         return (new RequisitionTypeRepository())->query()->where('id',$requisition_type_id)->first();
+    }
+
+    public function pipeline($project_id, $activity_id, $region_id)
+    {
+        return (new RequisitionRepository())->getSumOnPipeline($project_id, $activity_id, $region_id)->sum('requisitions.amount');
+    }
+    public function commitment($project_id, $activity_id, $region_id)
+    {
+        return (new RequisitionRepository())->getCommitment($project_id, $activity_id, $region_id)->sum('requisitions.amount');
     }
 
 }

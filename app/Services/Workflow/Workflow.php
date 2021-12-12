@@ -250,7 +250,7 @@ class Workflow
 
     public function previousWfTrack()
     {
-        return WfTrack::query()->where('parent_id',$this->currentWfTrack()->parent_id)->first();
+        return WfTrack::query()->where('id',$this->currentWfTrack()->parent_id)->first();
     }
 
 
@@ -380,7 +380,7 @@ class Workflow
                         'subject' => $requisition->type->title." Requisition Need your Approval",
                         'message' => $requisition->type->title." Requisition ".$requisition->number.' need your approval'
                     ];
-                    User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
+//                    User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
                     break;
 
             }

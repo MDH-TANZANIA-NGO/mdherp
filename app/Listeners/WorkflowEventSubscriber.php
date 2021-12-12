@@ -99,7 +99,7 @@ class WorkflowEventSubscriber
                                 User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
                             case 2:
-                                $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+//                                $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
 
                                 $email_resource = (object)[
@@ -121,7 +121,7 @@ class WorkflowEventSubscriber
                 case 1:
                     $requisition = (new RequisitionRepository())->find($resource_id);
                     $this->updateWfDone($requisition);
-                    $email_resource = [
+                    $email_resource = (object)[
                         'link' =>  route('requisition.show',$requisition),
                         'subject' => $requisition->type->title." ".$requisition->number." Approved Successfully",
                         'message' => 'These Application has been Approved successfully'
