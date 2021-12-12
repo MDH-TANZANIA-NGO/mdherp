@@ -259,6 +259,8 @@
             $.get("{{ route('requisition.get_json') }}", { requisition_type_id: requisition_type_id,project_id: project_id, activity_id: activity_id, region_id: region_id, fiscal_year: fiscal_year},
                 function(data, status){
                     if(data){
+
+                        let $available_budget = data.actual-data.pipeline;
                         $project_title.text(data.project);
                         $activity_title.text(data.activity);
                         $requisition.text(data.requisition_type);
@@ -270,7 +272,7 @@
                         $commitment.text(data.commitment);
                         // $reprogrammed.text(data.)
                         $pipeline.text(data.pipeline);
-                        $available.text(data.available_budget);
+                        $available.text($available_budget);
                         $budget_id_input.val(data.budget_id);
                     }else{
                         clearOutput();

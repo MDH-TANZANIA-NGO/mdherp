@@ -3,6 +3,7 @@
 namespace App\Models\Requisition\Traits\Relaltionship;
 
 use App\Models\Auth\User;
+use App\Models\Budget\Budget;
 use App\Models\Project\Activity;
 use App\Models\Project\Project;
 use App\Models\Requisition\Item\RequisitionItem;
@@ -59,6 +60,11 @@ trait RequisitionRelationship
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function budget()
+    {
+        return $this->belongsTo(Budget::class);
     }
 
 }

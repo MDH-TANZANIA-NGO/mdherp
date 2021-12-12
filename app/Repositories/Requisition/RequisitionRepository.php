@@ -297,4 +297,13 @@ class RequisitionRepository extends BaseRepository
             ->where('requisitions.done', true);
     }
 
+    public function processComplete(Requisition $requisition)
+    {
+        return DB::transaction(function () use ($requisition){
+            $requisition->budget->update([
+                'actual_amount' => $requisition->budget->actual_amount - $requisition->amount,
+            ]);
+        });
+    }
+
 }

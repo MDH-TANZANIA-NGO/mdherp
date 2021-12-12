@@ -21,7 +21,7 @@ trait InitiatorBudgetChecker
             'output_unit' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->output_unit_title,
             'budget' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->budget_amount,
             'budget_id' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->budget_id,
-            'actual' => null,
+            'actual' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->budget_actual_amount,
             'commitment' => $this->commitment($project_id, $activity_id, $region_id),
             'pipeline' => $this->pipeline($project_id, $activity_id, $region_id),
             'available budget' => null,

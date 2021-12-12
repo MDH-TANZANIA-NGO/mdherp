@@ -99,6 +99,7 @@ class ActivityRepository extends BaseRepository
             DB::raw("string_agg(DISTINCT projects.title, ',') as project_list"),
             DB::raw('budgets.numeric_output AS numeric_output'),
             DB::raw('budgets.amount AS budget_amount'),
+            DB::raw('budgets.actual_amount AS budget_actual_amount'),
             DB::raw('budgets.id AS budget_id'),
         ])
             ->join('output_units','output_units.id','activities.output_unit_id')

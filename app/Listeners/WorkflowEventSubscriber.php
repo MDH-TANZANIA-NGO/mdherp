@@ -119,8 +119,10 @@ class WorkflowEventSubscriber
             /* Process for specific resource on workflow completion */
             switch ($wf_module_id) {
                 case 1:
-                    $requisition = (new RequisitionRepository())->find($resource_id);
+                    $requisition_repo = (new RequisitionRepository());
+                    $requisition = $requisition_repo->find($resource_id);
                     $this->updateWfDone($requisition);
+                    $requisition_repo->processComplete($requisition);
                     $email_resource = (object)[
                         'link' =>  route('requisition.show',$requisition),
                         'subject' => $requisition->type->title." ".$requisition->number." Approved Successfully",
