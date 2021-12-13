@@ -9,6 +9,7 @@ use App\Models\Auth\User;
 use App\Models\Workflow\UserWfDefinition;
 use App\Models\Workflow\WfDefinition;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\Workflow\WfDefinitionRepository;
 use Illuminate\Support\Facades\DB;
 
 trait WorkflowUserSelector
@@ -64,17 +65,12 @@ trait WorkflowUserSelector
                         $user_id = $next_user->id;
                         break;
 
-//                    case 3:
-//                        $next_user = $requisition->project->users()
-//                            ->where('users.region_id', $requisition->region_id)
-//                            ->where('users.designation_id', 82)
-//                            ->where('users.active',true)
-//                            ->orderBy('id','DESC')
-//                            ->first();
-//                        if(!$next_user){
-//                            throw new GeneralException('Regional Project Manager not assigned');
-//                        }
-//                        $user_id = $next_user->id;
+                    case 3:
+                        $next_user = (new WfDefinitionRepository())->getUser($wf_module_id, 4);
+                        if(!$next_user){
+                            throw new GeneralException('Deputy Director not assigned');
+                        }
+                        $user_id = $next_user->id;
                         break;
                 }
                 break;

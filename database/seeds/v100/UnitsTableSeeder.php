@@ -790,6 +790,18 @@ class UnitsTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
+            70 =>
+                array (
+                    'id' => 71,
+                    'name' => 'Director',
+                    'title' => 'Director.',
+                    'unit_group_id' => '1',
+                    'isactive' => '0',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+
 
 
 

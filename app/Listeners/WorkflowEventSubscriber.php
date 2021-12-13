@@ -107,8 +107,20 @@ class WorkflowEventSubscriber
                                     'subject' => $requisition->typeCategory->title." Need your Approval",
                                     'message' => $requisition->typeCategory->title." ".$requisition->number.' need your approval'
                                 ];
-                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
+                                case 3:
+                                $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
+
+                                $email_resource = (object)[
+                                    'link' =>  route('requisition.show',$requisition),
+                                    'subject' => $requisition->typeCategory->title." Need your Approval",
+                                    'message' => $requisition->typeCategory->title." ".$requisition->number.' need your approval'
+                                ];
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                                break;
+
+
                         }
                         break;
                 case 2:

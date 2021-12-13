@@ -94,8 +94,8 @@ class WfDefinitionsTableSeeder extends Seeder
             array (
                 'id' => 4,
                 'level' => '4',
-                'unit_id' => '31',
-                'designation_id' => '61',
+                'unit_id' => '71',
+                'designation_id' => '122',
                 'description' => 'Verify Requisition',
                 'msg_next' => 'Request for Endorsement',
                 'wf_module_id' => '1',
