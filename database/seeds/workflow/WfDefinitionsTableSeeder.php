@@ -25,8 +25,8 @@ class WfDefinitionsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'level' => '1',
-                'unit_id' => 33,
-                'designation_id' => 63,
+                'unit_id' => 69,
+                'designation_id' => 121,
                 'description' => 'Request Requisition',
                 'msg_next' => 'Request for review',
                 'wf_module_id' => '1',
@@ -48,8 +48,8 @@ class WfDefinitionsTableSeeder extends Seeder
             array (
                 'id' => 2,
                 'level' => '2',
-                'unit_id' => '32',
-                'designation_id' => '62',
+                'unit_id' => 70,
+                'designation_id' => 122,
                 'description' => 'Review Requisition',
                 'msg_next' => 'Request for authorisation',
                 'wf_module_id' => '1',
@@ -71,8 +71,8 @@ class WfDefinitionsTableSeeder extends Seeder
             array (
                 'id' => 3,
                 'level' => '3',
-                'unit_id' => '41',
-                'designation_id' => '82',
+                'unit_id' => 41,
+                'designation_id' => 82,
                 'description' => 'Authorize Requisition',
                 'msg_next' => 'Request for verification',
                 'wf_module_id' => '1',
