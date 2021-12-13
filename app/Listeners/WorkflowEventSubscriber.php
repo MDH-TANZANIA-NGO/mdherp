@@ -101,7 +101,6 @@ class WorkflowEventSubscriber
                             case 2:
 //                                $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
-                                dd($data['next_user_id']);
 
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),
