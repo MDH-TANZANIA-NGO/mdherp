@@ -128,7 +128,7 @@ class WorkflowEventSubscriber
                     $requisition_repo->processComplete($requisition);
                     $email_resource = (object)[
                         'link' =>  route('requisition.show',$requisition),
-                        'subject' => $requisition->type->title." ".$requisition->number." Approved Successfully",
+                        'subject' => $requisition->typeCategory->title." ".$requisition->number." Approved Successfully",
                         'message' => 'These Application has been Approved successfully'
                     ];
                     $requisition->user->notify(new WorkflowNotification($email_resource));
