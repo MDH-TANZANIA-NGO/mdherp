@@ -7,6 +7,7 @@ namespace App\Services\Workflow\Traits;
 use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
 use App\Models\Workflow\UserWfDefinition;
+use App\Models\Workflow\WfDefinition;
 use App\Repositories\Requisition\RequisitionRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -61,6 +62,19 @@ trait WorkflowUserSelector
                             throw new GeneralException('Regional Project Manager not assigned');
                         }
                         $user_id = $next_user->id;
+                        break;
+
+//                    case 3:
+//                        $next_user = $requisition->project->users()
+//                            ->where('users.region_id', $requisition->region_id)
+//                            ->where('users.designation_id', 82)
+//                            ->where('users.active',true)
+//                            ->orderBy('id','DESC')
+//                            ->first();
+//                        if(!$next_user){
+//                            throw new GeneralException('Regional Project Manager not assigned');
+//                        }
+//                        $user_id = $next_user->id;
                         break;
                 }
                 break;

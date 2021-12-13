@@ -36,8 +36,8 @@ class BudgetRepository extends BaseRepository
                 'activity_id' => $inputs['activity'],
                 'numeric_output' => $inputs['output'.$region],
                 'amount' => $inputs['amount'.$region],
+                'actual_amount' => $inputs['amount'.$region],
             ];
-//            dd($input);
             $this->store($input);
         }
     }
