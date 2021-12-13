@@ -93,8 +93,8 @@ class WorkflowEventSubscriber
 
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),
-                                    'subject' => $requisition->type->title." Need your Approval",
-                                    'message' => $requisition->type->title." ".$requisition->number.' need your approval'
+                                    'subject' => $requisition->typeCategory->title." Need your Approval",
+                                    'message' => $requisition->typeCategory->title." ".$requisition->number.' need your approval'
                                 ];
                                 User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
@@ -104,8 +104,8 @@ class WorkflowEventSubscriber
 
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),
-                                    'subject' => $requisition->type->title." Need your Approval",
-                                    'message' => $requisition->type->title." ".$requisition->number.' need your approval'
+                                    'subject' => $requisition->typeCategory->title." Need your Approval",
+                                    'message' => $requisition->typeCategory->title." ".$requisition->number.' need your approval'
                                 ];
                                 User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
