@@ -100,6 +100,7 @@ class RequisitionRepository extends BaseRepository
             'activity_id' => $inputs['activity'],
             'region_id' => $inputs['region_id'],
             'budget_id' => $inputs['budget_id'],
+            'type' => access()->user()->designation_id == 13 ? 2 : 1,
         ];
     }
 

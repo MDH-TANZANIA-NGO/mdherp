@@ -160,12 +160,11 @@ class RequisitionController extends Controller
         DB::transaction(function () use ($requisition){
             $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
             $wf_module_group_id = 1;
-            $type = 1;
             $next_user = $requisition->activity->subProgram->users()->first();
             if(!$next_user){
                 throw new GeneralException('Sub Program Area Manager not assigned');
             }
-            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $type],[],['next_user_id' => $next_user->id]));
+            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $requisition->type],[],['next_user_id' => $next_user->id]));
         });
 
         alert()->success(__('Submitted Successfully'), __('Purchase Requisition'));
