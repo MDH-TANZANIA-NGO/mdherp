@@ -111,6 +111,9 @@ class WorkflowEventSubscriber
                                 break;
                         }
                         break;
+                case 2:
+
+                    break;
             }
 
             $workflow->forward($data);
@@ -118,7 +121,7 @@ class WorkflowEventSubscriber
             /* Workflow completed */
             /* Process for specific resource on workflow completion */
             switch ($wf_module_id) {
-                case 1:
+                case 1: case 2:
                     $requisition_repo = (new RequisitionRepository());
                     $requisition = $requisition_repo->find($resource_id);
                     $this->updateWfDone($requisition);
