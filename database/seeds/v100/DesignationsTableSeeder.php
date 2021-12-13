@@ -168,7 +168,7 @@ class DesignationsTableSeeder extends Seeder
                 array (
                     'id' => 13,
                     'unit_id' => 5,
-                    'name' => 'Officer',
+                    'name' => 'Assistance',
                     'short_name' => 'CEO',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
@@ -1461,6 +1461,18 @@ class DesignationsTableSeeder extends Seeder
                     'deleted_at' => NULL,
                     'isactive' => 1,
                     'department_id'=>4,
+                ),
+            120 =>
+                array (
+                    'id' => 13,
+                    'unit_id' => 5,
+                    'name' => '',
+                    'short_name' => 'CEO',
+                    'created_at' => '2020-07-08 20:16:49',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'department_id'=>1,
                 ),
 
 

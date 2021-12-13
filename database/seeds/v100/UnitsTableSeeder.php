@@ -67,7 +67,7 @@ class UnitsTableSeeder extends Seeder
             4 =>
                 array (
                     'id' => 5,
-                    'name' => 'Chief Executive',
+                    'name' => 'Chief Executive Officer',
                     'title' => 'CEO',
                     'unit_group_id' => '1',
                     'isactive' => '1',
