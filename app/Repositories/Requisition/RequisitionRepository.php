@@ -180,7 +180,7 @@ class RequisitionRepository extends BaseRepository
                     'subject' => $requisition->type->title." Has been revised to your level",
                     'message' => $requisition->type->title." ".$requisition->number.' need modification.. Please do the need and send it back for approval'
                 ];
-                User::query()->find($this->nextUserSelector($wf_module_id,$resource_id,$current_level))->notify(new WorkflowNotification($email_resource));
+                User::query()->find($requisition->user_id)->notify(new WorkflowNotification($email_resource));
 
                 break;
         }
