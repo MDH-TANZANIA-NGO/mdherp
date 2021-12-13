@@ -51,7 +51,7 @@
                                 <li>
                                     {!! Form::hidden('region_id', access()->user()->region_id) !!}
                                     {!! Form::hidden('budget_id', null) !!}
-                                    <button type="submit" class="btn btn-primary text-center btn-block" id="get_info">initiate</button>
+                                    <button type="submit" class="btn btn-primary text-center btn-block hidden" id="get_info">initiate</button>
                                 </li>
                              <br>
                             </ul>
@@ -274,8 +274,14 @@
                         $pipeline.text(data.pipeline);
                         $available.text($available_budget);
                         $budget_id_input.val(data.budget_id);
+
+                        if($available_budget != 0){
+                            $get_info_button.removeClass('hidden');
+                        }
+
                     }else{
                         clearOutput();
+                        $get_info_button.addClass('hidden');
                     }
                 });
         }

@@ -768,6 +768,28 @@ class UnitsTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
+            68 =>
+                array (
+                    'id' => 69,
+                    'name' => 'Applicant',
+                    'title' => 'APP.',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            69 =>
+                array (
+                    'id' => 70,
+                    'name' => 'Program Area',
+                    'title' => 'Program Area.',
+                    'unit_group_id' => '1',
+                    'isactive' => '1',
+                    'created_at' => '2021-03-10 16:32:27',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
 
 
 
