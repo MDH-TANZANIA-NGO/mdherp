@@ -168,7 +168,7 @@ class RequisitionController extends Controller
                     if(!$next_user_id){
                         throw new GeneralException('Sub Program Area Manager not assigned');
                     }
-                    $next_user = $next_user_id;
+                    $next_user = $next_user_id->id;
                     break;
             }
             event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $requisition->type],[],['next_user_id' => $next_user]));
