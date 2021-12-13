@@ -1351,14 +1351,14 @@ class DesignationsTableSeeder extends Seeder
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
-                    'isactive' => 1,
+                    'isactive' => 0,
                 ),
             121 =>
                 array (
                     'id' => 122,
                     'unit_id' => 70,
                     'name' => 'Manager',
-                    'short_name' => 'APP',
+                    'short_name' => 'APPM',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
