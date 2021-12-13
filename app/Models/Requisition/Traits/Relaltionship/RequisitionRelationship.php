@@ -18,7 +18,7 @@ trait RequisitionRelationship
     {
         return $this->belongsTo(User::class);
     }
-    public function type()
+    public function typeCategory()
     {
         return $this->belongsTo(RequisitionType::class,'requisition_type_id','id');
     }
