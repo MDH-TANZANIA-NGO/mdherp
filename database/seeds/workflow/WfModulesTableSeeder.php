@@ -30,10 +30,24 @@ class WfModulesTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'isactive' => '1',
                 'type' => '1',
-                'description' => 'Requisition Approval Processess',
+                'description' => 'Requisition Approval Process',
                 'allow_repeat' => 0,
                 'allow_decline' => 0,
             ),
+            1 =>
+                array (
+                    'id' => 2,
+                    'name' => 'Requisition Form For Seniors ',
+                    'wf_module_group_id' => '1',
+                    'created_at' => '2021-12-13 12:36:03',
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => '2',
+                    'description' => 'Requisition Approval Process for Seniors',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
         ));
 
         $this->enableForeignKeys('wf_modules');
