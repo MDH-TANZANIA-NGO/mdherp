@@ -160,6 +160,54 @@ class WfDefinitionsTableSeeder extends Seeder
 //                'assign_next_user' => 0,
                 ),
 
+            //Senior
+            6 =>
+                array (
+                    'id' => 7,
+                    'level' => '1',
+                    'unit_id' => 69,
+                    'designation_id' => 121,
+                    'description' => 'Request Requisition',
+                    'msg_next' => 'Request for review',
+                    'wf_module_id' => '2',
+                    'active' => '1',
+                    'allow_rejection' => 1,
+                    'allow_repeat_participate' => 0,
+                    'created_at' => '2021-11-22 10:15:25',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'is_approval' => 0,
+                    'has_next_start_optional' => 0,
+                    'is_optional' => 0,
+                    'can_close' => 0,
+                    'action_description' => 'Request',
+                    'status_description' => 'Requested',
+//                'assign_next_user' => 0,
+                ),
+            7 =>
+                array (
+                    'id' => 8,
+                    'level' => '2',
+                    'unit_id' => 5,
+                    'designation_id' => 13,
+                    'description' => 'Approve Requisition',
+                    'msg_next' => 'End Requisition',
+                    'wf_module_id' => '2',
+                    'active' => '1',
+                    'allow_rejection' => 1,
+                    'allow_repeat_participate' => 0,
+                    'created_at' => '2021-11-22 10:15:25',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'is_approval' => 0,
+                    'has_next_start_optional' => 0,
+                    'is_optional' => 0,
+                    'can_close' => 1,
+                    'action_description' => 'Approve',
+                    'status_description' => 'Approved',
+//                'assign_next_user' => 0,
+                ),
+
 
         ));
 

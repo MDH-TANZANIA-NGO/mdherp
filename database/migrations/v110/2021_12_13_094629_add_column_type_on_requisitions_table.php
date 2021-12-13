@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnActualAmountOnBudgetsTable extends Migration
+class AddColumnTypeOnRequisitionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnActualAmountOnBudgetsTable extends Migration
      */
     public function up()
     {
-        Schema::table('budgets', function (Blueprint $table) {
-            $table->decimal('actual_amount', 15,2)->nullable();
+        Schema::table('requisitions', function (Blueprint $table) {
+            $table->smallInteger('type')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddColumnActualAmountOnBudgetsTable extends Migration
      */
     public function down()
     {
-        Schema::table('budgets', function (Blueprint $table) {
+        Schema::table('requisitions', function (Blueprint $table) {
             //
         });
     }
