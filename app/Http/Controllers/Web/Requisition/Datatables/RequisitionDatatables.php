@@ -84,7 +84,7 @@ trait RequisitionDatatables
                 return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.initiate', $query->uuid).'">View</a>';
+                return '<a href="'.route('requisition.addDescription', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

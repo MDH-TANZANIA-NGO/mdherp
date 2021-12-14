@@ -2,7 +2,9 @@
 Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'prefix' => 'requisitions', 'as' => 'requisition.'], function () {
     Route::get('', 'RequisitionController@index')->name('index');
     Route::get('create', 'RequisitionController@create')->name('create');
+    Route::get('{requisition}/addDescription', 'RequisitionController@addDescription')->name('addDescription');
     Route::post('store', 'RequisitionController@store')->name('store');
+    Route::post('{requisition}/description', 'RequisitionController@description')->name('description');
     Route::get('{requisition}/initiate', 'RequisitionController@initiate')->name('initiate');
     Route::post('{requisition}/submit', 'RequisitionController@submit')->name('submit');
     Route::get('{requisition}/show', 'RequisitionController@show')->name('show');

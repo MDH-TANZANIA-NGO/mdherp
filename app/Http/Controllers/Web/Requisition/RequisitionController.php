@@ -22,6 +22,7 @@ use App\Repositories\System\DistrictRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Input\Input;
 
 class RequisitionController extends Controller
 {
@@ -87,11 +88,16 @@ class RequisitionController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $requisition = $this->requisitions->store($request->all());
         $mdh_rates = $this->mdh_rates->getForPluck();
-        return redirect()->route('requisition.initiate',[$requisition])
-            ->with('mdh_rates',$mdh_rates->all());
+        return redirect()->route('requisition.addDescription',[$requisition]);
 
+    }
+    public function addDescription(Requisition $requisition)
+    {
+        return view('requisition.description.forms.create')
+            ->with('requisition', $requisition);
     }
 
     /**
@@ -198,8 +204,20 @@ class RequisitionController extends Controller
         return response()->json($this->requisitions->getResults($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year));
     }
 
+    public function description(Request $request, Requisition $requisition)
+    {
+        $mdh_rates = $this->mdh_rates->getForPluck();
+        $description = $request->input('description');
+        $uuid = $request->input('uuid');
+        DB::update('update requisitions set description = ? where uuid = ?',[$description,$uuid]);
+
+        return redirect()->route('requisition.initiate',[$requisition])
+            ->with('mdh_rates',$mdh_rates->all());
+    }
     public function detailed(){
 
         return view('requisition._parent.detailed');
     }
+
+
 }
