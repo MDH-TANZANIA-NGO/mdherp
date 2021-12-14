@@ -37,11 +37,11 @@
 
         @switch($requisition->requisition_type_category)
             @case(1)
-            @include('requisition.Direct.travelling.index',['items' => $requisition->items])
+            @include('requisition.description.forms.create',['items' => $requisition->items])
             @break
 
             @case(2)
-            @include('requisition.Direct.training.index',['items' => $requisition->items])
+            @include('requisition.description.forms.create',['items' => $requisition->items])
             @break
         @endswitch
 
