@@ -185,6 +185,9 @@
 </div>
 <!--End  Row -->
 </div>
+
+
+@include('requisition.Direct.training.datatables.all')
 @else
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#largeModal" style="margin-left: 45%; " id="scheddule">Schedule Event</button>
 
