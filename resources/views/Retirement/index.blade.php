@@ -55,25 +55,48 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6" >
-                <div class="form-group">
-                    <label class="form-label">Country</label>
-                    <select name="country" id="select-countries" class="form-control custom-select">
-                        <option value="br" data-data="{&quot;image&quot;: &quot;./../../assets/images/flags/br.svg&quot;}">Brazil</option>
-                        <option value="cz" data-data="{&quot;image&quot;: &quot;./../../assets/images/flags/cz.svg&quot;}">Czech Republic</option>
-                        <option value="de" data-data="{&quot;image&quot;: &quot;./../../assets/images/flags/de.svg&quot;}">Germany</option>
-                        <option value="pl" data-data="{&quot;image&quot;: &quot;./../../assets/images/flags/pl.svg&quot;}" selected="">Poland</option>
-                    </select>
-                </div>
-                    </div>
-                    <div class="col-md-6" >
-                <div class="form-group">
-                    <label class="form-label">Input group</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="">
+                    <div class="col-md-12" >
+                        <div class="card">
+                            <div class="card-header" style="background-color: rgb(152, 186, 217)">
+                                <h3 class="card-title">Travel Summary</h3>
+                                <div class="card-options ">
 
-                    </div>
-                </div>
+
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table card-table table-vcenter text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Travellor</th>
+                                        <th>Days</th>
+                                        <th>Destination</th>
+                                        <th>Perdiem Rate</th>
+                                        <th>Accommodation</th>
+                                        <th>Transport</th>
+                                        <th>Others</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- table-responsive -->
+                        </div>
                     </div>
 
                 </div>
@@ -82,19 +105,9 @@
                     <div class="col-md-6" >
 
                 <div class="form-group">
-                    <label class="form-label">Input group buttons</label>
+                    <label class="form-label">Amount Requested & Approved</label>
                     <div class="input-group">
-                        <input type="text" class="form-control">
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-primary">Action</button>
-                            <button data-toggle="dropdown" type="button" class="btn btn-primary dropdown-toggle"></button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="javascript:void(0)">News</a>
-                                <a class="dropdown-item" href="javascript:void(0)">Messages</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)">Edit Profile</a>
-                            </div>
-                        </div>
+                        <input type="number" class="form-control" placeholder="Tshs: 700000" disabled>
                     </div>
                 </div>
                     </div>
@@ -102,15 +115,12 @@
                     <div class="col-md-6" >
 
                 <div class="form-group">
-                    <label class="form-label">Separated inputs</label>
-                    <div class="row gutters-xs">
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                        </div>
-                        <span class="col-auto">
-													<button class="btn btn-secondary" type="button"><i class="fe fe-search"></i></button>
-												</span>
-                    </div>
+                    <label class="form-label">Amount Paid</label>
+
+                    <input type="number" class="form-control" placeholder="">
+
+
+
                 </div>
                         </div>
 
