@@ -4,7 +4,7 @@
 
     <div class="col-lg-12 col-md-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header" style="background-color: rgb(238, 241, 248)">
                 <h3 class="card-title">Retirement Form</h3>
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
