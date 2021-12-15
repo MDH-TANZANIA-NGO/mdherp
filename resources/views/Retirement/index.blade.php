@@ -5,17 +5,48 @@
     <div class="col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Form elements</h3>
+                <h3 class="card-title">Retirement Form</h3>
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
 {{--                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
                 </div>
             </div>
+
             <div class="card-body">
-                <div class="form-group">
-                    <label class="form-label">Invalid Number</label>
-                    <input type="text" class="form-control is-invalid state-invalid" name="example-text-input-invalid" placeholder="Invalid Number..">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Choose Requisition number for retirement</label>
+                            <select name="country" id="select-countries" class="form-control custom-select" required="">
+                                <option value="" data-data="" selected="">Requisition No.</option>
+                                <option value="1" data-data="">MDH-R-211</option>
+                                <option value="2" data-data="">MDH-R-231</option>
+                                <option value="3" data-data="">MDH-R-345</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            <label class="form-label">Travel Date:</label>
+                            <input type="date" name="" value="" class="form-control">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            <label class="form-label">Return Date:</label>
+                            <input type="date" name="" value="" class="form-control">
+
+                        </div>
+                    </div>
+
                 </div>
+
+                <div class="row">
+                    <div class="col-md-6" >
                 <div class="form-group">
                     <label class="form-label">Country</label>
                     <select name="country" id="select-countries" class="form-control custom-select">
@@ -25,6 +56,8 @@
                         <option value="pl" data-data="{&quot;image&quot;: &quot;./../../assets/images/flags/pl.svg&quot;}" selected="">Poland</option>
                     </select>
                 </div>
+                    </div>
+                    <div class="col-md-6" >
                 <div class="form-group">
                     <label class="form-label">Input group</label>
                     <div class="input-group">
@@ -34,6 +67,13 @@
 												</span>
                     </div>
                 </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6" >
+
                 <div class="form-group">
                     <label class="form-label">Input group buttons</label>
                     <div class="input-group">
@@ -50,6 +90,10 @@
                         </div>
                     </div>
                 </div>
+                    </div>
+
+                    <div class="col-md-6" >
+
                 <div class="form-group">
                     <label class="form-label">Separated inputs</label>
                     <div class="row gutters-xs">
@@ -61,33 +105,29 @@
 												</span>
                     </div>
                 </div>
-                <div class="form-group">
-
-                    <div class="input-icon">
-												<span class="input-icon-addon">
-													<i class="fe fe-user"></i>
-												</span>
-                        <input type="text" class="form-control" placeholder="Username">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">ZIP Code</label>
-                    <div class="row gutters-sm">
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Search for...">
                         </div>
-                        <span class="col-auto align-self-center">
-													<span class="form-help" data-toggle="popover" data-placement="top" data-content="<p>ZIP Code must be US or CDN format. You can use an extended ZIP+4 code to determine address more accurately.</p>
-													<p class='mb-0'><a href=''>USP ZIP codes lookup tools</a></p>
-													" data-original-title="" title="">?</span>
-												</span>
-                    </div>
+
                 </div>
+
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+                            <label class="form-label">Message <span class="form-label-small">56/100</span></label>
+                            <textarea class="form-control" name="example-textarea-input" rows="7" placeholder="text here.."></textarea>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6" >
                 <div class="form-group">
                     <div class="form-label">Bootstrap's Custom File Input</div>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" name="example-file-input-custom">
                         <label class="custom-file-label">Choose file</label>
+                    </div>
+                </div>
                     </div>
                 </div>
 
