@@ -1,5 +1,78 @@
 @if($requisition->training()->count() > 0)
-<!-- Row -->
+
+{{--    <div class="row" >--}}
+{{--        <div class="col-md-6">--}}
+{{--            <div class="form-group">--}}
+{{--                {!! Form::label('from', __("Start Date"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                {!! Form::date('from',null,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'from', 'disabled']) !!}--}}
+{{--                {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="col-md-6">--}}
+{{--            <div class="form-group">--}}
+{{--                {!! Form::label('to', __("End Date"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                {!! Form::date('to',null,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'to', 'disabled']) !!}--}}
+{{--                {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="col-md-6">--}}
+{{--            <div class="form-group">--}}
+{{--         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#largeModal"  id="scheddule">Edit Schedule </button>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+
+{{--    <div class="schedule" id="schedule">--}}
+{{--        <!-- Large Modal -->--}}
+{{--        <div id="largeModal" class="modal fade">--}}
+{{--            <div class="modal-dialog modal-lg" role="document">--}}
+{{--                <div class="modal-content ">--}}
+{{--                    <div class="modal-header pd-x-20">--}}
+{{--                        <h6 class="modal-title">Schedule Event</h6>--}}
+{{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                            <span aria-hidden="true">&times;</span>--}}
+{{--                        </button>--}}
+{{--                    </div>--}}
+{{--                    <div class="modal-body pd-20">--}}
+{{--                        {!! Form::open(['route' => ['training.storeTraining',$requisition]]) !!}--}}
+{{--                        <div class="row">--}}
+{{--                            {!! Form::number('requisition_id', $requisition->id,['class' => 'form-control', 'required', 'hidden']) !!}--}}
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    {!! Form::label('from', __("Start Date"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                                    {!! Form::date('from',null,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'from']) !!}--}}
+{{--                                    {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    {!! Form::label('to', __("End Date"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                                    {!! Form::date('to',null,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'to']) !!}--}}
+{{--                                    {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    {!! Form::label('destination', __("Destination"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                                    {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','required']) !!}--}}
+{{--                                    {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div><!-- modal-body -->--}}
+{{--                    <div class="modal-footer">--}}
+{{--                        <button type="submit" class="btn btn-primary">Save changes</button>--}}
+{{--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div><!-- modal-dialog -->--}}
+{{--            {!! Form::close() !!}--}}
+{{--        </div><!-- modal -->--}}
+{{--    </div>--}}
+
+
+
+    <!-- Row -->
 <div class="row">
 
     <div class="col-md-6 col-lg-6">
@@ -68,15 +141,15 @@
                     <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
                 </div>
             </div>
-            {!! Form::open(['route' => ['training.store',$requisition]]) !!}
+            {!! Form::open(['route' => ['training.storeTrainingItems',$requisition]]) !!}
             <div class="card-body">
                 <div class="row">
 
                     <div class="col-md-12">
                         <div class="form-group">
                             {!! Form::label('item_name', __("Item Name"),['class'=>'form-label','required_asterik']) !!}
-                            {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}
-                            {!! $errors->first('name', '<span class="badge badge-danger">:message</span>') !!}
+                            {!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}
+                            {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
                         </div>
                     </div>
 
@@ -88,8 +161,9 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        {!! Form::number('requisition_id', $requisition->id,['class' => 'form-control', 'required', 'hidden']) !!}
                         <div class="form-group">
-                            {!! Form::label('unit_proce', __("Unit Price"),['class'=>'form-label','required_asterik']) !!}
+                            {!! Form::label('unit_price', __("Unit Price"),['class'=>'form-label','required_asterik']) !!}
                             {!! Form::number('unit_price', null,['class' => 'form-control', 'required']) !!}
                             {!! $errors->first('unit_price', '<span class="badge badge-danger">:message</span>') !!}
                         </div>

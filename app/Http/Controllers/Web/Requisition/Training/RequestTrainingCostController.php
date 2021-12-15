@@ -7,6 +7,7 @@ use App\Http\Requests\Requisition\Training\RequisitionTrainingCostRequest;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\Requisition\Training\requisition_training_item;
 use App\Models\Requisition\Training\training;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
@@ -64,6 +65,19 @@ class RequestTrainingCostController extends Controller
         $training-> disctrict_id = request('district_id');
         $training-> from = request('from');
         $training-> to = request('to');
+        $training->save();
+
+        return redirect()->back();
+    }
+    public function storeTrainingItems(Request $request)
+    {
+        $training = new requisition_training_item();
+        $training-> requisition_id = request('requisition_id');
+        $training-> title = request('title');
+        $training-> unit_price = request('unit_price');
+        $training-> unit = request('unit');
+        $total_price = request('unit_price') * request('unit');
+        $training->total_amount = $total_price;
         $training->save();
 
         return redirect()->back();
