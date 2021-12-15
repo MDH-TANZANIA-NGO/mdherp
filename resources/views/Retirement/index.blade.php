@@ -15,18 +15,27 @@
             <div class="card-body">
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label class="form-label">Choose Requisition number for retirement</label>
+                            <label class="form-label">Requisition number for retirement</label>
                             <select name="country" id="select-countries" class="form-control custom-select" required="">
-                                <option value="" data-data="" selected="">Requisition No.</option>
+                                <option value="" data-data="" selected="">Choose</option>
                                 <option value="1" data-data="">MDH-R-211</option>
                                 <option value="2" data-data="">MDH-R-231</option>
                                 <option value="3" data-data="">MDH-R-345</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3" >
+                        <div class="form-group">
+                            <label class="form-label">Destination</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Tabora" disabled>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
 
                             <label class="form-label">Travel Date:</label>
@@ -34,7 +43,7 @@
 
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
 
                             <label class="form-label">Return Date:</label>
@@ -61,10 +70,8 @@
                 <div class="form-group">
                     <label class="form-label">Input group</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-append">
-													<button class="btn btn-primary" type="button">Go!</button>
-												</span>
+                        <input type="text" class="form-control" placeholder="">
+
                     </div>
                 </div>
                     </div>
