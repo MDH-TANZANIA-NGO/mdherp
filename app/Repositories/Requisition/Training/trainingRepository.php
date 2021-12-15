@@ -24,7 +24,7 @@ class trainingRepository extends BaseRepository
         return $this->query()->select([
             DB::raw('requisition_trainings.id AS id'),
             DB::raw('requisition_trainings.requisition_id AS requisition_id'),
-            DB::raw('requisition_trainings.disctrict_id AS district_id'),
+            DB::raw('requisition_trainings.district_id AS district_id'),
             DB::raw('requisition_trainings.from AS from'),
             DB::raw('requisition_trainings.to AS to'),
             DB::raw('requisitions.id AS requisition_ID'),

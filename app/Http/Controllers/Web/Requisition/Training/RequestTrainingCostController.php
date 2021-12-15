@@ -62,7 +62,7 @@ class RequestTrainingCostController extends Controller
     {
         $training = new requisition_training();
         $training-> requisition_id = request('requisition_id');
-        $training-> disctrict_id = request('district_id');
+        $training-> district_id = request('district_id');
         $training-> from = request('from');
         $training-> to = request('to');
         $training->save();
