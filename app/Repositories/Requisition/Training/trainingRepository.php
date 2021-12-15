@@ -2,7 +2,9 @@
 
 namespace App\Repositories\Requisition\Training;
 
+use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\Requisition\Training\training;
 use App\Models\Requisition\Training\training_cost;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class trainingRepository extends BaseRepository
 {
 //    const MODEL = training_cost::class;
-        const MODEL = requisition_training_cost::class;
+        const MODEL = requisition_training::class;
     public function __construct()
     {
         //
@@ -20,33 +22,17 @@ class trainingRepository extends BaseRepository
     {
 
         return $this->query()->select([
-            DB::raw('requisition_training_costs.no_days AS no_days'),
-            DB::raw('requisition_training_costs.transportation AS transportation'),
-            DB::raw('requisition_training_costs.perdiem_rate_id AS perdiem_rate_id'),
-            DB::raw('requisition_training_costs.perdiem_rate_total_amount AS perdiem_rate_total_amount'),
-            DB::raw('requisition_training_costs.other_cost AS other_cost'),
-            DB::raw('requisition_training_costs.total_amount AS total_amount'),
-            DB::raw('requisition_training_costs.district_id AS district_id'),
-            DB::raw('requisition_training_costs.participant_uid AS participant_uid'),
-            DB::raw('g_officers.id AS userID'),
-            DB::raw('g_officers.first_name AS first_name'),
-            DB::raw('g_officers.last_name AS last_name'),
-            DB::raw('MAX(requisition_training_costs.requisition_id) AS recent_requisition_id'),
+            DB::raw('requisition_trainings.id AS id'),
+            DB::raw('requisition_trainings.requisition_id AS requisition_id'),
+            DB::raw('requisition_trainings.disctrict_id AS district_id'),
+            DB::raw('requisition_trainings.from AS from'),
+            DB::raw('requisition_trainings.to AS to'),
+            DB::raw('requisitions.id AS requisition_ID'),
 
 
 
-        ])->leftjoin('g_officers','g_officers.id','requisition_training_costs.participant_uid')
-            ->groupBy(['requisition_training_costs.no_days',
-                        'requisition_training_costs.transportation',
-                        'requisition_training_costs.perdiem_rate_total_amount',
-                        'requisition_training_costs.other_cost',
-                        'requisition_training_costs.total_amount',
-                        'requisition_training_costs.district_id',
-                        'requisition_training_costs.participant_uid',
-                        'g_officers.id',
-                        'g_officers.first_name',
-                        'g_officers.last_name'
-                ]);
+
+        ])->join('requisitions','requisitions.id','requisition_trainings.requisition_id');
     }
 
     public function inputsProcessor($inputs)

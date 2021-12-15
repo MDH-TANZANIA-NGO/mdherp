@@ -8,6 +8,7 @@ use App\Models\Project\Activity;
 use App\Models\Project\Project;
 use App\Models\Requisition\Item\RequisitionItem;
 use App\Models\Requisition\RequisitionType\RequisitionType;
+use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Workflow\WfTrack;
@@ -35,7 +36,10 @@ trait RequisitionRelationship
     {
         return $this->hasMany(requisition_training_cost::class,'requisition_id','id')->orderBy('id');
     }
-
+public function training()
+{
+    return $this->hasMany(requisition_training::class);
+}
     /**
      * @return mixed
      */

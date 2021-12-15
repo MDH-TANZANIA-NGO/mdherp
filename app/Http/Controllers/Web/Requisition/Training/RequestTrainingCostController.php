@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Web\Requisition\Training;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Requisition\Training\RequisitionTrainingCostRequest;
 use App\Models\Requisition\Requisition;
+use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\Requisition\Training\training;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
@@ -54,5 +56,16 @@ class RequestTrainingCostController extends Controller
     public function update(){
 
 
+    }
+    public function storeTraining(Request $request)
+    {
+        $training = new requisition_training();
+        $training-> requisition_id = request('requisition_id');
+        $training-> disctrict_id = request('district_id');
+        $training-> from = request('from');
+        $training-> to = request('to');
+        $training->save();
+
+        return redirect()->back();
     }
 }

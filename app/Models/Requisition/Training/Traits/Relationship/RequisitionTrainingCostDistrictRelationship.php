@@ -2,6 +2,7 @@
 
 namespace App\Models\Requisition\Training\Traits\Relationship;
 
+use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\System\District;
@@ -19,4 +20,5 @@ trait RequisitionTrainingCostDistrictRelationship
     {
         return $this->belongsTo(District::class);
     }
+
 }

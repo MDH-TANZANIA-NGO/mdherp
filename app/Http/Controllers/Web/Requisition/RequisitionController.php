@@ -10,6 +10,7 @@ use App\Repositories\Access\UserRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
+use App\Repositories\Requisition\Training\trainingRepository;
 use App\Repositories\System\RegionRepository;
 use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
@@ -39,6 +40,7 @@ class RequisitionController extends Controller
     protected $users;
     protected $requisition_type_category;
     protected $regions;
+    protected $requisition_training;
 
     public function __construct()
     {
@@ -54,6 +56,7 @@ class RequisitionController extends Controller
         $this->users = (new UserRepository());
         $this->requisition_type_category = (new requisition_type_category());
         $this->regions = (new RegionRepository());
+        $this->requisition_training = (new trainingRepository());
     }
 
     /**
@@ -108,6 +111,7 @@ class RequisitionController extends Controller
      */
     public function initiate(Requisition $requisition)
     {
+
         return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
@@ -118,7 +122,8 @@ class RequisitionController extends Controller
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('names', 'id'))
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
             ->with('mdh_rates',$this->mdh_rates->getForPluck())
-            ->with('users', $this->users->getQuery()->pluck('name', 'user_id'));
+            ->with('users', $this->users->getQuery()->pluck('name', 'user_id'))
+            ->with('requisition_training', $this->requisition_training->training()->pluck('from','to','id'));
     }
 
     /**

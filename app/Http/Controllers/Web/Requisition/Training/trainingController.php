@@ -9,6 +9,7 @@ use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\GRate;
 use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\Requisition\Training\training;
 use App\Models\Requisition\Training\training_cost;
 use App\Models\System\District;
 use App\Repositories\GOfficer\GOfficerRepository;
@@ -98,6 +99,16 @@ class trainingController extends Controller
         return view('requisition.training.index',['user_id'=>$user_id,
             'districts'=>$districts,
             'mdh_rates'=>$mdh_rates]);
+    }
+    public function storeTraining(Request $request)
+    {
+        $training = new training();
+        $training-> requisition_id = request('requisition_id');
+        $training-> from = request('from');
+        $training-> to = request('to');
+        $training->save();
+
+        return redirect()->back();
     }
 
 }
