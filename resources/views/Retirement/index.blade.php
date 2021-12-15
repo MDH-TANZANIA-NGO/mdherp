@@ -129,7 +129,7 @@
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label class="form-label">Message <span class="form-label-small">56/100</span></label>
+                            <label class="form-label">Activity Report <span class="form-label-small">56/100</span></label>
                             <textarea class="form-control" name="example-textarea-input" rows="7" placeholder="text here.."></textarea>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                 <div class="row">
                     <div class="col-md-6" >
                 <div class="form-group">
-                    <div class="form-label">Bootstrap's Custom File Input</div>
+                    <div class="form-label">Receipt Upload</div>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" name="example-file-input-custom">
                         <label class="custom-file-label">Choose file</label>
