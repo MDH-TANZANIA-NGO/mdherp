@@ -119,20 +119,23 @@
                                 <li class="list-group-item justify-content-between">
                                     <b>Budget </b><span class="badgetext badge badge-primary badge-pill" id="budget" style="font-size: larger"></span>
                                 </li>
+
+                                <li class="list-group-item justify-content-between">
+                                    <b>Reprogrammed Funds</b><span class="badgetext badge badge-default badge-pill" id="reprogrammed" style="font-size: larger"></span>
+                                </li>
+
                                 <li class="list-group-item justify-content-between" >
-                                    <b>Actual </b><span class="badgetext badge badge-default badge-pill" id="actual" style="font-size: larger"></span>
+                                    <b>Actual Expenditure</b><span class="badgetext badge badge-default badge-pill" id="actual" style="font-size: larger"></span>
                                 </li>
                                 <li class="list-group-item justify-content-between">
                                     <b>Commitment </b><span class="badgetext badge badge-default badge-pill" id="commitment" style="font-size: larger"></span>
                                 </li>
-                                <li class="list-group-item justify-content-between">
-                                    <b>Reprogrammed </b><span class="badgetext badge badge-default badge-pill" id="reprogrammed" style="font-size: larger"></span>
-                                </li>
+
                                 <li class="list-group-item justify-content-between">
                                     <b>Pipeline </b><span class="badgetext badge badge-default badge-pill" id="pipeline" style="font-size: larger"></span>
                                 </li>
                                 <li class="list-group-item justify-content-between">
-                                    <b>Available Budget </b><span class="badgetext badge badge-success badge-pill" id="available" style="font-size: larger"></span>
+                                    <b>Available Fund </b><span class="badgetext badge badge-success badge-pill" id="available" style="font-size: larger"></span>
                                 </li>
                             </ul>
                         </div>
