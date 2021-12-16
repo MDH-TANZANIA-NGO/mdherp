@@ -88,7 +88,11 @@
             <div class="card-body">
                 {!! Form::open(['route' => ['training.store',$requisition]]) !!}
                 <div class="row">
-                    {{--                        {!! Form::number('from',$requisition->from,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'from']) !!}--}}
+{{--                                            {!! Form::number('from',$training->from,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'from']) !!}--}}
+                    @foreach($training AS $training)
+                      <input type="date" name="from" value="{{$training->from}}" hidden>
+                        <input type="date" name="to" value="{{$training->to}}" hidden>
+                           @endforeach
                     <div class="col-md-6">
                         <div class="form-group">
                             {!! Form::label('participant', __("Participant Name"),['class'=>'form-label','required_asterik']) !!}

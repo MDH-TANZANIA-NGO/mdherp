@@ -128,8 +128,8 @@ class RequisitionController extends Controller
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
             ->with('mdh_rates',$this->mdh_rates->getForPluck())
             ->with('users', $this->users->getQuery()->pluck('name', 'user_id'))
-            ->with('requisition_training', $this->requisition_training->training()->pluck('from','to','id'))
-            ->with('requisition_training_items', $requisition->trainingItems);
+            ->with('requisition_training_items', $requisition->trainingItems)
+            ->with('training', $requisition->training);
     }
 
     /**

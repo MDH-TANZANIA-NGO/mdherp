@@ -16,15 +16,22 @@ class RequestTrainingCostRepository
 
     public function inputProcess($inputs)
     {
+        $from = $inputs['from'];
+        $to = $inputs['to'];
+        $datetime1 = new \DateTime($from);
+        $datetime2 = new  \DateTime($to);
+        $interval = $datetime1->diff($datetime2);
+        $days = $interval->format('%a');
+
         $perdiem_id = $inputs['perdiem_rate_id'];
-        $perdiem_total_amount = (GRate::query()->find($perdiem_id)->amount  * $inputs['no_days']);
+        $perdiem_total_amount = (GRate::query()->find($perdiem_id)->amount  * $days);
         $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'];
         return [
             'peridem_rate_amount'=> $inputs['perdiem_rate_id'],
             'participant_uid' => $inputs['participant_uid'],
-            'description' => $inputs['description'],
-            'district_id'=> $inputs['district_id'],
-            'no_days' => $inputs['no_days'],
+//            'description' => $inputs['description'],
+//            'district_id'=> $inputs['district_id'],
+            'no_days' => $days,
             'perdiem_rate_id' => $inputs['perdiem_rate_id'],
             'transportation' => $inputs['transportation'],
             'other_cost' => $inputs['other_cost'],
