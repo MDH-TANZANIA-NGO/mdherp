@@ -4,6 +4,7 @@ namespace App\Repositories\Requisition\Training;
 
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\Requisition\Training\requisition_training_item;
 use App\Models\Requisition\Training\training;
 use App\Models\Requisition\Training\training_cost;
 use App\Repositories\BaseRepository;

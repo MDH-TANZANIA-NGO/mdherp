@@ -6,10 +6,12 @@ use App\Events\NewWorkflow;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
+use App\Models\Requisition\Training\requisition_training_item;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
+use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
 use App\Repositories\Requisition\Training\trainingRepository;
 use App\Repositories\System\RegionRepository;
 use App\Services\Workflow\Workflow;
@@ -41,6 +43,7 @@ class RequisitionController extends Controller
     protected $requisition_type_category;
     protected $regions;
     protected $requisition_training;
+    protected $requisition_training_items;
 
     public function __construct()
     {
@@ -57,6 +60,8 @@ class RequisitionController extends Controller
         $this->requisition_type_category = (new requisition_type_category());
         $this->regions = (new RegionRepository());
         $this->requisition_training = (new trainingRepository());
+        $this->requisition_training_items = (new RequisitionTrainingItemsRepository());
+
     }
 
     /**
@@ -123,7 +128,8 @@ class RequisitionController extends Controller
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
             ->with('mdh_rates',$this->mdh_rates->getForPluck())
             ->with('users', $this->users->getQuery()->pluck('name', 'user_id'))
-            ->with('requisition_training', $this->requisition_training->training()->pluck('from','to','id'));
+            ->with('requisition_training', $this->requisition_training->training()->pluck('from','to','id'))
+            ->with('requisition_training_items', $requisition->trainingItems);
     }
 
     /**

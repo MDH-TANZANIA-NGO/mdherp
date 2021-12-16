@@ -146,21 +146,17 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @foreach($requisition_training_items as $items)
                     <tr>
 
-                        <td>Elinipendo Joshua Mziray</td>
-                        <td>10</td>
-                        <td>120,000</td>
-                        <td>30,000</td>
+                        <td>{{$items->title}}</td>
+                        <td>{{$items->unit}}</td>
+                        <td>{{$items->unit_price}}</td>
+                        <td>{{$items->total_amount}}</td>
                         <td><button type="submit" class="btn btn-outline-info">Remove</button></td>
                     </tr>
-                    <tr>
-                        <td>Joan Powell</td>
-                        <td>10</td>
-                        <td>120,000</td>
-                        <td>10,000</td>
-                        <td><button type="submit" class="btn btn-outline-info">Remove</button></td>
-                    </tr>
+
+                    @endforeach
 
                     </tbody>
                 </table>
