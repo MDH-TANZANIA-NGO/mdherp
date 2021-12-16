@@ -12,6 +12,7 @@ use App\Models\Requisition\Training\training;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
+use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
 use Illuminate\Http\Request;
 
 class RequestTrainingCostController extends Controller
@@ -19,6 +20,7 @@ class RequestTrainingCostController extends Controller
     protected $gofficers;
     protected $grates;
     protected $trainingCost;
+    protected $training;
 
 
     public function __construct()
@@ -26,6 +28,7 @@ class RequestTrainingCostController extends Controller
         $this->gofficers = (new GOfficerRepository());
         $this->grates = (new GRateRepository());
         $this->trainingCost = (new RequestTrainingCostRepository());
+        $this->training = (new RequisitionTrainingItemsRepository());
     }
 
     public function index(){
@@ -58,7 +61,7 @@ class RequestTrainingCostController extends Controller
 
 
     }
-    public function storeTraining(Request $request)
+    public function storeTraining(Requisition $requisition,Request $request)
     {
         $training = new requisition_training();
         $training-> requisition_id = request('requisition_id');
@@ -67,19 +70,14 @@ class RequestTrainingCostController extends Controller
         $training-> to = request('to');
         $training->save();
 
-        return redirect()->back();
-    }
-    public function storeTrainingItems(Request $request)
-    {
-        $training = new requisition_training_item();
-        $training-> requisition_id = request('requisition_id');
-        $training-> title = request('title');
-        $training-> unit_price = request('unit_price');
-        $training-> unit = request('unit');
-        $total_price = request('unit_price') * request('unit');
-        $training->total_amount = $total_price;
-        $training->save();
 
         return redirect()->back();
+    }
+
+    public function storeTrainingItems(Request $request, Requisition $requisition){
+
+        $this->training->store($requisition, $request->all());
+        return redirect()->back();
+
     }
 }

@@ -162,7 +162,8 @@ class RequisitionController extends Controller
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
             ->with('mdh_rates',$this->mdh_rates->getForPluck())
-            ->with('users', $this->users->getUserQuery()->pluck('email', 'user_id'));
+            ->with('users', $this->users->getUserQuery()->pluck('email', 'user_id'))
+            ->with('trainingItems', $requisition->trainingItems);
     }
 
     /**

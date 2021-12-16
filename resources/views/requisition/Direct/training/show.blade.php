@@ -8,8 +8,9 @@
             </div>
             <div class="card-body">
 
-                </div>
+
                 <div class="table-responsive push">
+                    <h3 class="card-title">PARTICIPANTS LIST</h3>
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr class=" ">
@@ -29,8 +30,8 @@
                                 <th>{{ $key + 1 }}</th>
                                 <td>
                                     <p class="font-w600 mb-1">{{ $training->user->first_name }} {{ $training->user->last_name }}</p>
-                                    <div class="text-muted">{{$training->description}}</div>
-                                    <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{ $training->district->name }}</div>
+{{--                                    <div class="text-muted">{{$training->description}}</div>--}}
+{{--                                    <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{ $training->district->name }}</div>--}}
                                 </td>
                                 <th class="text-right">{{ $training->no_days }}</th>
                                 <th class="text-right">{{ $training->gRate->amount }}</th>
@@ -45,23 +46,63 @@
 {{--                            <td colspan="5" class="font-w600 text-right">Total TZS</td>--}}
 {{--                            <td class="text-right">240,000.00</td>--}}
 {{--                        </tr>--}}
-                        <tr>
-                            <td colspan="6" class="font-weight-bold text-uppercase text-right">Total </td>
-                            <td class="font-weight-bold text-right">{{ $requisition->amount  }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="7" class="text-right">
-                                {{--                                <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-folder-alt"></i> Save </button>--}}
-                                {{--                                <button type="button" class="btn btn-secondary" onClick="javascript:window.print();"><i class="si si-paper-plane"></i> Submit</button>--}}
-                                <button type="button" class="btn btn-info" onClick="javascript:window.print();"><i class="si si-printer"></i> Print </button>
-                            </td>
-                        </tr>
+{{--                        <tr>--}}
+{{--                            <td colspan="6" class="font-weight-bold text-uppercase text-right">Total </td>--}}
+{{--                            <td class="font-weight-bold text-right">{{ $requisition->amount  }}</td>--}}
+{{--                        </tr>--}}
+
                     </table>
                 </div>
+                <br>
+                <hr>
+            <div class="table-responsive push">
+                <h3 class="card-title">ITEMS LIST</h3>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr class=" ">
+                        <th  class="text-center">ID</th>
+                        <th  class="text-center">Item Title</th>
+                        <th  class="text-center">Units</th>
+                        <th  class="text-center">Unit Price</th>
+                        <th  class="text-center">Total Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($trainingItems as $key => $items)
+                        <tr>
+                            <th>{{ $key + 1 }}</th>
+                            <td>
+                                <p class="font-w600 mb-1">{{ $items->title}}</p>
+                                {{--                                    <div class="text-muted">{{$training->description}}</div>--}}
+                                {{--                                    <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{ $training->district->name }}</div>--}}
+                            </td>
+                            <th class="text-right">{{ $items->unit }}</th>
+                            <th class="text-right">{{ $items->unit_price }}</th>
+                            <th class="text-right">{{ $items->total_amount }}</th>
+                        </tr>
+                    @endforeach
+                    </tbody>
+
+                    {{--                        <tr>--}}
+                    {{--                            <td colspan="5" class="font-w600 text-right">Total TZS</td>--}}
+                    {{--                            <td class="text-right">240,000.00</td>--}}
+                    {{--                        </tr>--}}
+                    <tr>
+                        <td colspan="4" class="font-weight-bold text-uppercase text-right">Grand Total </td>
+                        <td class="font-weight-bold text-right">{{ $requisition->amount  }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="text-right">
+                            {{--                                <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-folder-alt"></i> Save </button>--}}
+                            {{--                                <button type="button" class="btn btn-secondary" onClick="javascript:window.print();"><i class="si si-paper-plane"></i> Submit</button>--}}
+                            <button type="button" class="btn btn-info" onClick="javascript:window.print();"><i class="si si-printer"></i> Print </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
             </div>
         </div>
     </div>
 </div>
-
-

@@ -87,6 +87,7 @@
 
             <div class="card-body">
                 {!! Form::open(['route' => ['training.store',$requisition]]) !!}
+
                 <div class="row">
 {{--                                            {!! Form::number('from',$training->from,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'from']) !!}--}}
                     @foreach($training AS $training)
@@ -165,7 +166,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        {!! Form::number('requisition_id', $requisition->id,['class' => 'form-control', 'required', 'hidden']) !!}
+{{--                        {!! Form::number('requisition_id', $requisition->id,['class' => 'form-control', 'required' ,'hidden']) !!}--}}
                         <div class="form-group">
                             {!! Form::label('unit_price', __("Unit Price"),['class'=>'form-label','required_asterik']) !!}
                             {!! Form::number('unit_price', null,['class' => 'form-control', 'required']) !!}

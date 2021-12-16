@@ -4,6 +4,7 @@ namespace App\Models\Requisition\Traits\Relaltionship;
 
 use App\Models\Auth\User;
 use App\Models\Budget\Budget;
+use App\Models\GOfficer\GOfficer;
 use App\Models\Project\Activity;
 use App\Models\Project\Project;
 use App\Models\Requisition\Item\RequisitionItem;
@@ -43,8 +44,9 @@ trait RequisitionRelationship
     }
     public function trainingItems()
     {
-        return $this->hasMany(requisition_training_item::class);
+        return $this->hasMany(requisition_training_item::class, 'requisition_id', 'id')->orderBy('id');
     }
+
     /**
      * @return mixed
      */

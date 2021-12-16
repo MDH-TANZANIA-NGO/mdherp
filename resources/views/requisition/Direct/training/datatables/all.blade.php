@@ -96,24 +96,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    @foreach($training_costs as $participants)
+                        <tr>
 
-                        <td>Elinipendo Joshua Mziray</td>
-                        <td>10</td>
-                        <td>120,000</td>
-                        <td>30,000</td>
-                        <td>10,000</td>
-                        <td><button type="submit" class="btn btn-outline-info">Remove</button></td>
-                    </tr>
-                    <tr>
-                        <td>Joan Powell</td>
-                        <td>10</td>
-                        <td>120,000</td>
-                        <td>30,000</td>
-                        <td>10,000</td>
-                        <td><button type="submit" class="btn btn-outline-info">Remove</button></td>
-                    </tr>
+                            <td>{{$participants->user->first_name}} {{$participants->user->last_name}}</td>
+                            <td>{{$participants->no_days}}</td>
+                            <td>{{$participants->perdiem_total_amount}}</td>
+                            <td>{{$participants->transportation}}</td>
+                            <td>{{$participants->other_cost}}</td>
+                            <td><button type="submit" class="btn btn-outline-info">Remove</button></td>
+                        </tr>
 
+                    @endforeach
                     </tbody>
                 </table>
             </div>

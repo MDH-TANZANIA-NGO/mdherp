@@ -3,6 +3,7 @@
 namespace App\Repositories\Requisition\Training;
 
 use App\Models\BaseModel;
+use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training_item;
 use Illuminate\Support\Facades\DB;
 
@@ -29,5 +30,23 @@ class RequisitionTrainingItemsRepository extends BaseModel
 
         ])->join('requisitions','requisitions.id','requisition_training_items.requisition_id');
 
+    }
+    public function inputProcess($input)
+    {
+        return [
+//            'requisition_id' => $input['requisition_id'],
+            'title' => $input['title'],
+            'unit' => $input['unit'],
+            'unit_price' => $input['unit_price'],
+            'total_amount' => $input['unit'] * $input['unit_price']
+        ];
+    }
+    public function store(Requisition $requisition, $inputs)
+    {
+        return DB::transaction(function () use ($requisition, $inputs){
+            $requisition->trainingItems()->create($this->inputProcess($inputs));
+            $requisition->updatingTotalAmount();
+            return $requisition;
+        });
     }
 }

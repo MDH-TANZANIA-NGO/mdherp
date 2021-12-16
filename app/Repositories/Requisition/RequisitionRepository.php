@@ -247,7 +247,9 @@ class RequisitionRepository extends BaseRepository
                         $total_amount = $requisition->travellingCost()->sum('total_amount');
                         break;
                     case 2:
-                        $total_amount = $requisition->trainingCost()->sum('total_amount');
+                        $total_amount1 = $requisition->trainingCost()->sum('total_amount');
+                        $total_amount2 = $requisition->trainingItems()->sum('total_amount');
+                        $total_amount = $total_amount1 + $total_amount2 ;
                         break;
                 }
         }

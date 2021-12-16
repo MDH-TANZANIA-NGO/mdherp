@@ -31,6 +31,7 @@ class RequestTrainingCostRepository
             'participant_uid' => $inputs['participant_uid'],
 //            'description' => $inputs['description'],
 //            'district_id'=> $inputs['district_id'],
+        'perdiem_total_amount' => $perdiem_total_amount,
             'no_days' => $days,
             'perdiem_rate_id' => $inputs['perdiem_rate_id'],
             'transportation' => $inputs['transportation'],
