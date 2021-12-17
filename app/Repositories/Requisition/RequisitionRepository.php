@@ -161,7 +161,7 @@ class RequisitionRepository extends BaseRepository
         $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
 //        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
 //        if($requisition->rejected){}
-        switch($current_level){
+        switch($inputs['rejected_level'] ?? $current_level){
             case $applicant_level:
                 $this->updateRejected($resource_id, $sign);
 
@@ -170,7 +170,7 @@ class RequisitionRepository extends BaseRepository
                     'subject' => $requisition->typeCategory->title." Has been revised to your level",
                     'message' => $requisition->typeCategory->title." ".$requisition->number.' need modification.. Please do the need and send it back for approval'
                 ];
-                User::query()->find($requisition->user_id)->notify(new WorkflowNotification($email_resource));
+//                User::query()->find($requisition->user_id)->notify(new WorkflowNotification($email_resource));
 
                 break;
             case $head_of_dept_level:

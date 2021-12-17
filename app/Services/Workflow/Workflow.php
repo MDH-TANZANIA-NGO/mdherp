@@ -474,6 +474,19 @@ class Workflow
         } else {
             $level = $this->nextLevel();
             $insert['wf_definition_id'] = $this->nextDefinition($input['sign']);
+            //check if there is previous level
+            if($this->previousWfTrack()){
+                //if previous level was rejected
+                if($this->previousWfTrack()->status == 2){
+                    $level = $this->previousWfTrack()->wfDefinition->level;
+                    $insert['wf_definition_id'] = $this->previousWfTrack()->wf_definition_id;
+                    $insert['user_id'] = $this->previousWfTrack()->user_id;
+                }else{
+                    $level = $this->nextLevel();
+                }
+            }
+//            $level = $this->nextLevel();
+//            $insert['wf_definition_id'] = $this->nextDefinition($input['sign']);
         }
         //round robin can be implemented Here
         event(new BroadcastWorkflowUpdated($this->wf_module_id, $this->resource_id, $level));
