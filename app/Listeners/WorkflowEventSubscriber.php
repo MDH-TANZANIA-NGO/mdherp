@@ -96,7 +96,7 @@ class WorkflowEventSubscriber
                                     'subject' => $requisition->typeCategory->title." Need your Approval",
                                     'message' => $requisition->typeCategory->title." ".$requisition->number.' need your approval'
                                 ];
-                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
                             case 2:
 //                                $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
@@ -143,7 +143,7 @@ class WorkflowEventSubscriber
                         'subject' => $requisition->typeCategory->title." ".$requisition->number." Approved Successfully",
                         'message' => 'These Application has been Approved successfully'
                     ];
-//                    $requisition->user->notify(new WorkflowNotification($email_resource));
+                    $requisition->user->notify(new WorkflowNotification($email_resource));
                     break;
             }
         }
