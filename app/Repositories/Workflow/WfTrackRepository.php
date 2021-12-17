@@ -1253,4 +1253,12 @@ class WfTrackRepository extends BaseRepository
         });
     }
 
+    public function resumeFromWfDone(WfTrack $wfTrack)
+    {
+        return DB::transaction(function () use ($wfTrack){
+            $wfTrack->resource->update(['wf_done' => 0, 'wf_done_date' => null ]);
+            $wfTrack->update(['status' => 0, 'comments' => null, 'forward_date' => null ]);
+        });
+    }
+
 }

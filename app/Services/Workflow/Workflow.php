@@ -196,11 +196,6 @@ class Workflow
         return $this->wf_definition->getNextDefinition($this->wf_module_id, $this->wf_definition_id, $sign);
     }
 
-
-
-
-
-
     /**
      * @param $level
      * @return mixed
@@ -237,8 +232,6 @@ class Workflow
         return $this->wf_track->getNextWftrackByParentId($current_track_id);
     }
 
-
-
     /**
      * @return mixed
      */
@@ -258,8 +251,6 @@ class Workflow
     {
         return $this->previousWfTrack()->user_id == access()->id() ?? true;
     }
-
-
 
     /**
      * @param $level

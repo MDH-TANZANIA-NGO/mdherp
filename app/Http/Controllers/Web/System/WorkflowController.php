@@ -803,4 +803,10 @@ class workflowController extends Controller
     }
 
 
+    public function resumeFromWfDone(WfTrack $wfTrack)
+    {
+        $this->wf_tracks->resumeFromWfDone($wfTrack);
+        alert()->success(__('Action has been done successfully. now application is on your level. please processed'), __('Workflow Recall'));
+        return redirect()->back();
+    }
 }

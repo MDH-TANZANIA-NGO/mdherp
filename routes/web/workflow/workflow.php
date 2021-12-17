@@ -45,4 +45,6 @@ Route::group(['namespace' => 'System', 'prefix' => 'workflow', 'as' => 'workflow
 
     Route::post('{wf_track}/recall', 'WorkflowController@recall')->name('recall');
 
+    Route::post('{wf_track}/resume-from-wf-done', 'WorkflowController@resumeFromWfDone')->name('resume_from_wf_done');
+
 });
