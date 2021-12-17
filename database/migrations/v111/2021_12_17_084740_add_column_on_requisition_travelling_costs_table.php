@@ -15,6 +15,7 @@ class AddColumnOnRequisitionTravellingCostsTable extends Migration
     {
         //
         Schema::table('requisition_travelling_costs', function (Blueprint $table) {
+            $table->date('from')->nullable();
             $table->date('to')->nullable();
             $table->decimal('perdiem_rate',15,2)->nullable();
             $table->decimal('ontransit',15,2)->nullable();
