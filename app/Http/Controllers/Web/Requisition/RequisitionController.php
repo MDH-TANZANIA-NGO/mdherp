@@ -25,6 +25,7 @@ use App\Repositories\System\DistrictRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Location;
 use Symfony\Component\Console\Input\Input;
 
 class RequisitionController extends Controller
@@ -45,6 +46,7 @@ class RequisitionController extends Controller
     protected $requisition_training;
     protected $requisition_training_items;
 
+
     public function __construct()
     {
         $this->requisitions = (new RequisitionRepository());
@@ -61,6 +63,7 @@ class RequisitionController extends Controller
         $this->regions = (new RegionRepository());
         $this->requisition_training = (new trainingRepository());
         $this->requisition_training_items = (new RequisitionTrainingItemsRepository());
+
 
     }
 

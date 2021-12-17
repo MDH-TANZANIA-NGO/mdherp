@@ -17,13 +17,13 @@
                         {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="form-group">
-                        {!! Form::label('perdiem_rate', __("Perdiem Rate"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::select('perdiem_rate_id',$mdh_rates, null,['class' => 'form-control select2-show-search', 'required']) !!}
-                        {!! $errors->first('perdiem_rate_id', '<span class="badge badge-danger">:message</span>') !!}
-                    </div>
-                </div>
+{{--                <div class="col-sm-6 col-md-4">--}}
+{{--                    <div class="form-group">--}}
+{{--                        {!! Form::label('perdiem_rate', __("Perdiem Rate"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                        {!! Form::select('perdiem_rate_id',$mdh_rates, null,['class' => 'form-control select2-show-search', 'required']) !!}--}}
+{{--                        {!! $errors->first('perdiem_rate_id', '<span class="badge badge-danger">:message</span>') !!}--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
 
 

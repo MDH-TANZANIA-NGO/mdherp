@@ -45,4 +45,5 @@ trait RegionRelationship
     {
         return $this->belongsToMany(Project::class)->withPivot('id','title','description','start_year','end_year');
     }
+
 }

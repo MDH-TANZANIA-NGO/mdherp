@@ -27,7 +27,7 @@
                                 <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{ $cost->district->name }}</div>
                             </td>
                             <td class="text-center">{{ $cost->no_days }}</td>
-                            <td class="text-right">{{ $cost->mdhRate->amount }}</td>
+                            <td class="text-right">{{ $cost->perdiem_total_amount }}</td>
                             <td class="text-right">{{ $cost->accommodation }}</td>
                             <td class="text-right">{{ $cost->transportation }}</td>
                             <td class="text-right">{{ $cost->other_cost }}</td>

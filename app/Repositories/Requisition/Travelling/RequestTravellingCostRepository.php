@@ -2,9 +2,12 @@
 
 namespace App\Repositories\Requisition\Travelling;
 
+use App\Models\Auth\User;
 use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
+use App\Models\System\District;
+use App\Models\System\Region;
 use Illuminate\Support\Facades\DB;
 
 class RequestTravellingCostRepository
@@ -30,32 +33,63 @@ class RequestTravellingCostRepository
 
     public function inputProcess($inputs)
     {
-
+        $destination_region = District::query()->find($inputs['district_id'])->region_id;
+        $traveller_region_id = User::query()->find($inputs['traveller_uid'])->region_id;
+        $region_status = Region::query()->find($destination_region)->is_city;
         $from = $inputs['from'];
         $to = $inputs['to'];
         $datetime1 = new \DateTime($from);
         $datetime2 = new  \DateTime($to);
         $interval = $datetime1->diff($datetime2);
         $days = $interval->format('%a');
+        $accommodation = $inputs['accommodation'];
 
-    $perdiem_id = $inputs['perdiem_rate_id'];
-        $perdiem_total_amount = (mdh_rate::query()->find($perdiem_id)->amount  * $days);
-        $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'] + ($inputs['accommodation'] * $days);
+        if ($destination_region == $traveller_region_id){
+            $perdiem_rate = 60000;
+            $ontransit = 0;
+            $perdiem_total_amount = $perdiem_rate *$days;
+            $accommodation = $accommodation * $days;
+            $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'] + $accommodation;
+
+        }
+        else{
+                if ($region_status == 'TRUE'){
+                    $perdiem_rate = 90000;
+                    $perdiem_total_amount = $perdiem_rate *($days-2);
+                    $ontransit = ($perdiem_rate * (0.75)) * 2;
+                    $accommodation = $accommodation * ($days);
+                    $total_amount = $perdiem_total_amount + $ontransit + $inputs['transportation'] + $inputs['other_cost'] + $accommodation;
+
+                }
+                else{
+
+                    $perdiem_rate = 75000;
+                    $perdiem_total_amount = $perdiem_rate *($days-2);
+                    $accommodation = $accommodation * ($days);
+                    $ontransit = ($perdiem_rate * (0.75)) * 2;
+                    $total_amount = $perdiem_total_amount + $ontransit + $inputs['transportation'] + $inputs['other_cost'] + $accommodation;
+
+                }
+
+        }
+
         return [
             'perdiem_total_amount'=> $perdiem_total_amount,
             'traveller_uid' => $inputs['traveller_uid'],
-//            'description' => $inputs['description'],
             'district_id'=> $inputs['district_id'],
             'no_days' => $days,
-            'perdiem_rate_id' => $inputs['perdiem_rate_id'],
+            'ontransit'=> $ontransit,
             'transportation' => $inputs['transportation'],
-            'accommodation' => $inputs['accommodation'],
+            'accommodation' => $accommodation,
             'other_cost' => $inputs['other_cost'],
             'from' => $from,
             'to' => $to,
             'total_amount' =>  $total_amount,
 
         ];
+
+
+
     }
 
     /**

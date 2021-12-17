@@ -16,6 +16,7 @@ class RequestTrainingCostRepository
 
     public function inputProcess($inputs)
     {
+
         $from = $inputs['from'];
         $to = $inputs['to'];
         $datetime1 = new \DateTime($from);

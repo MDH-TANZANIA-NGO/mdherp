@@ -33,6 +33,7 @@ class RequisitionTrainingItemsRepository extends BaseModel
     }
     public function inputProcess($input)
     {
+
         return [
 //            'requisition_id' => $input['requisition_id'],
             'title' => $input['title'],
