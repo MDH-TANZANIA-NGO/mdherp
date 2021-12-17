@@ -11,4 +11,12 @@ class SafariController extends Controller
     {
         return view('safari.index');
     }
+    public  function  create()
+    {
+        return view('safari.forms.initiate');
+    }
+    public  function  initiate()
+    {
+        return view('safari.forms.create');
+    }
 }
