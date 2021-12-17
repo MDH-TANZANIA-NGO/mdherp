@@ -161,7 +161,7 @@ class RequisitionRepository extends BaseRepository
         $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
 //        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
 //        if($requisition->rejected){}
-        switch($current_level){
+        switch($inputs['rejected_level'] ?? $current_level){
             case $applicant_level:
                 $this->updateRejected($resource_id, $sign);
 
