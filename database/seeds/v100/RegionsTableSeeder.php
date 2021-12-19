@@ -20,20 +20,10 @@ class RegionsTableSeeder extends Seeder
         $this->delete('regions');
 
         \DB::table('regions')->insert(array (
+
             0 =>
-                array (
-                    'id' => 1,
-                    'name' => 'HQ',
-                    'country_id' => 1,
-                    'hasc' => 'TZ.AS',
-                    'zone_id' => 4,
-                    'isactive' => true,
-                    'exceptional' =>false,
-                    'is_city'=>true,
-                ),
-            1 =>
             array (
-                'id' => 2,
+                'id' => 1,
                 'name' => 'Arusha',
                 'country_id' => 1,
                 'hasc' => 'TZ.AS',
@@ -42,9 +32,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>true,
             ),
-            2 =>
+            1 =>
             array (
-                'id' => 3,
+                'id' => 2,
                 'name' => 'Dar es Salaam',
                 'country_id' => 1,
                 'hasc' => 'TZ.DS',
@@ -53,9 +43,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>true,
                 'is_city'=>true,
             ),
-            3 =>
+            2 =>
             array (
-                'id' => 4,
+                'id' => 3,
                 'name' => 'Dodoma',
                 'country_id' => 1,
                 'hasc' => 'TZ.DO',
@@ -64,9 +54,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>true,
             ),
-            4 =>
+            3 =>
             array (
-                'id' => 5,
+                'id' => 4,
                 'name' => 'Geita',
                 'country_id' => 1,
                 'hasc' => 'TZ.GE',
@@ -75,9 +65,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            5 =>
+            4 =>
             array (
-                'id' => 6,
+                'id' => 5,
                 'name' => 'Iringa',
                 'country_id' => 1,
                 'hasc' => 'TZ.IG',
@@ -86,9 +76,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            6 =>
+            5 =>
             array (
-                'id' => 7,
+                'id' => 6,
                 'name' => 'Kagera',
                 'country_id' => 1,
                 'hasc' => 'TZ.KG',
@@ -97,9 +87,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            7 =>
+            6 =>
             array (
-                'id' => 8,
+                'id' => 7,
                 'name' => 'Katavi',
                 'country_id' => 1,
                 'hasc' => 'TZ.KA',
@@ -108,9 +98,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            8 =>
+            7 =>
             array (
-                'id' => 9,
+                'id' => 8,
                 'name' => 'Kigoma',
                 'country_id' => 1,
                 'hasc' => 'TZ.KM',
@@ -119,9 +109,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            9 =>
+            8 =>
             array (
-                'id' => 10,
+                'id' => 9,
                 'name' => 'Kilimanjaro',
                 'country_id' => 1,
                 'hasc' => 'TZ.KL',
@@ -130,9 +120,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            10 =>
+            9 =>
             array (
-                'id' => 11,
+                'id' => 10,
                 'name' => 'Lindi',
                 'country_id' => 1,
                 'hasc' => 'TZ.LI',
@@ -141,9 +131,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            11 =>
+            10 =>
             array (
-                'id' => 12,
+                'id' => 11,
                 'name' => 'Manyara',
                 'country_id' => 1,
                 'hasc' => 'TZ.MY',
@@ -152,9 +142,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            12 =>
+            11 =>
             array (
-                'id' => 13,
+                'id' => 12,
                 'name' => 'Mara',
                 'country_id' => 1,
                 'hasc' => 'TZ.MA',
@@ -163,9 +153,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            13 =>
+            12 =>
             array (
-                'id' => 14,
+                'id' => 13,
                 'name' => 'Mbeya',
                 'country_id' => 1,
                 'hasc' => 'TZ.MB',
@@ -174,9 +164,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>true,
             ),
-            14 =>
+            13 =>
             array (
-                'id' => 15,
+                'id' => 14,
                 'name' => 'Morogoro',
                 'country_id' => 1,
                 'hasc' => 'TZ.MO',
@@ -185,9 +175,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            15 =>
+            14 =>
             array (
-                'id' => 16,
+                'id' => 15,
                 'name' => 'Mtwara',
                 'country_id' => 1,
                 'hasc' => 'TZ.MT',
@@ -196,9 +186,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            16 =>
+            15 =>
             array (
-                'id' => 17,
+                'id' => 16,
                 'name' => 'Mwanza',
                 'country_id' => 1,
                 'hasc' => 'TZ.MZ',
@@ -207,9 +197,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>true,
             ),
-            17 =>
+            16 =>
             array (
-                'id' => 18,
+                'id' => 17,
                 'name' => 'Njombe',
                 'country_id' => 1,
                 'hasc' => 'TZ.NJ',
@@ -218,9 +208,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            18 =>
+            17 =>
             array (
-                'id' => 19,
+                'id' => 18,
                 'name' => 'Pemba North',
                 'country_id' => 1,
                 'hasc' => 'TZ.PN',
@@ -229,9 +219,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            19 =>
+            18 =>
             array (
-                'id' => 20,
+                'id' => 19,
                 'name' => 'Pemba South',
                 'country_id' => 1,
                 'hasc' => 'TZ.PS',
@@ -240,9 +230,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            20 =>
+            19 =>
             array (
-                'id' => 21,
+                'id' => 20,
                 'name' => 'Pwani',
                 'country_id' => 1,
                 'hasc' => 'TZ.PW',
@@ -251,9 +241,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            21 =>
+            20 =>
             array (
-                'id' => 22,
+                'id' => 21,
                 'name' => 'Rukwa',
                 'country_id' => 1,
                 'hasc' => 'TZ.RU',
@@ -262,9 +252,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            22 =>
+            21 =>
             array (
-                'id' => 23,
+                'id' => 22,
                 'name' => 'Ruvuma',
                 'country_id' => 1,
                 'hasc' => 'TZ.RV',
@@ -273,9 +263,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            23 =>
+            22 =>
             array (
-                'id' => 24,
+                'id' => 23,
                 'name' => 'Shinyanga',
                 'country_id' => 1,
                 'hasc' => 'TZ.SY',
@@ -284,9 +274,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            24 =>
+            23 =>
             array (
-                'id' => 25,
+                'id' => 24,
                 'name' => 'Simiyu',
                 'country_id' => 1,
                 'hasc' => 'TZ.SI',
@@ -295,9 +285,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            25 =>
+            24 =>
             array (
-                'id' => 26,
+                'id' => 25,
                 'name' => 'Singida',
                 'country_id' => 1,
                 'hasc' => 'TZ.SD',
@@ -306,9 +296,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            26 =>
+            25 =>
             array (
-                'id' => 27,
+                'id' => 26,
                 'name' => 'Tabora',
                 'country_id' => 1,
                 'hasc' => 'TZ.TB',
@@ -317,9 +307,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            27 =>
+            26 =>
             array (
-                'id' => 28,
+                'id' => 27,
                 'name' => 'Tanga',
                 'country_id' => 1,
                 'hasc' => 'TZ.TN',
@@ -328,9 +318,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            28 =>
+            27 =>
             array (
-                'id' => 29,
+                'id' => 28,
                 'name' => 'Zanzibar North',
                 'country_id' => 1,
                 'hasc' => 'TZ.ZN',
@@ -339,9 +329,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>true,
             ),
-            29 =>
+            28 =>
             array (
-                'id' => 30,
+                'id' => 29,
                 'name' => 'Zanzibar South and Central',
                 'country_id' => 1,
                 'hasc' => 'TZ.ZS',
@@ -350,9 +340,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>true,
             ),
-            30 =>
+            29 =>
             array (
-                'id' => 31,
+                'id' => 30,
                 'name' => 'Zanzibar Urban West',
                 'country_id' => 1,
                 'hasc' => 'TZ.ZW',
@@ -361,9 +351,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>true,
             ),
-            31 =>
+            30 =>
             array (
-                'id' => 32,
+                'id' => 31,
                 'name' => 'Songwe',
                 'country_id' => 1,
                 'hasc' => NULL,
@@ -372,9 +362,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>false,
             ),
-            32 =>
+            31 =>
             array (
-                'id' => 33,
+                'id' => 32,
                 'name' => 'Unguja South',
                 'country_id' => 1,
                 'zone_id' => 2,
@@ -383,9 +373,9 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>true,
             ),
-            33 =>
+            32 =>
             array (
-                'id' => 34,
+                'id' => 33,
                 'name' => 'Unguja North',
                 'country_id' => 1,
                 'zone_id' => 2,
@@ -394,6 +384,17 @@ class RegionsTableSeeder extends Seeder
                 'exceptional' =>false,
                 'is_city'=>true,
             ),
+            33 =>
+                array (
+                    'id' => 34,
+                    'name' => 'HQ',
+                    'country_id' => 1,
+                    'zone_id' => 2,
+                    'hasc' => NULL,
+                    'isactive' => true,
+                    'exceptional' =>false,
+                    'is_city'=>true,
+                ),
         ));
         $this->enableForeignKeys("regions");
 
