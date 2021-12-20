@@ -127,7 +127,7 @@ class RequestTravellingCostRepository extends BaseRepository
     }
     public function getPluckRequisitionNo()
     {
-        return $this->getRequisitionFilter()->pluck('requisitions.number','requisition_travelling_costs.id');
+        return $this->getRequisitionFilter()->pluck('requisitions.number','requisition_travelling_costs.id', 'requisition_travelling_costs.traveller_uid' );
 
     }
 
