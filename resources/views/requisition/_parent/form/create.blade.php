@@ -271,8 +271,8 @@
                         $numeric_output.text(data.numeric_output);
                         $output_unit.text(data.output_unit);
                         $budget.text(data.budget);
-                        $actual.text(data.actual);
-                        $commitment.text(data.commitment);
+                        $actual.text(data.commitment);
+                        $commitment.text(data.actual);
                         // $reprogrammed.text(data.)
                         $pipeline.text(data.pipeline);
                         $available.text($available_budget);
