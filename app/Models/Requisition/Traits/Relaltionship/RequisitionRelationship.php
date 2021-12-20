@@ -14,6 +14,7 @@ use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Workflow\WfTrack;
+use App\SafariAdvance;
 
 trait RequisitionRelationship
 {
@@ -45,6 +46,11 @@ trait RequisitionRelationship
     public function trainingItems()
     {
         return $this->hasMany(requisition_training_item::class, 'requisition_id', 'id')->orderBy('id');
+    }
+
+    public function safariAdvance()
+    {
+        return $this->hasMany(SafariAdvance::class);
     }
 
     /**
