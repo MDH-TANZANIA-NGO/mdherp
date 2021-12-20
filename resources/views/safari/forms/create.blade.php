@@ -9,7 +9,36 @@
                     <h3 class="card-title">Request Summary</h3>
                 </div>
                 <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table card-table table-vcenter text-nowrap">
+                            <thead >
+                            <tr>
 
+                                <th>Name</th>
+                                <th>Duration</th>
+                                <th>Perdiem</th>
+                                <th>Transport</th>
+                                <th>Others</th>
+                                <th>Ontransit</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($details as $participants)
+                                <tr>
+
+                                    <td>{{$participants->traveller_uid}}</td>
+                                    <td>{{$participants->no_days}}</td>
+                                    <td>{{$participants->perdiem_total_amount}}</td>
+                                    <td>{{$participants->transportation}}</td>
+                                    <td>{{$participants->other_cost}}</td>
+                                    <td><button type="submit" class="btn btn-outline-info">Remove</button></td>
+                                </tr>
+
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- table-responsive -->
                 </div>
             </div>
         </div>
@@ -27,7 +56,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 {!! Form::label('item_name', __("Scope of Work"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::textarea('title', $user_id, ['class' => 'form-control', 'required']) !!}
+                                {!! Form::textarea('title', null, ['class' => 'form-control', 'required']) !!}
                                 {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>

@@ -28,13 +28,20 @@ class SafariController extends Controller
 
     public  function  create()
     {
-//        dd($this->travellingCost->getPluckRequisitionNo());
+        return view('safari.forms.create')
+
+            ->with('details', $this->travellingCost->getRequisition());
+
+
+    }
+    public  function  initiate()
+    {
 
         return view('safari.forms.initiate')
             ->with('travelling_costs', $this->travellingCost->getPluckRequisitionNo());
     }
-    public  function  initiate()
+    public function store()
     {
-        return view('safari.forms.create');
+        return redirect()->route('safari.create');
     }
 }

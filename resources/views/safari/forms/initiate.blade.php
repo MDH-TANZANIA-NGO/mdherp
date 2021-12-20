@@ -9,7 +9,7 @@
                     <h3 class="card-title">Initiate Safari</h3>
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['route' => ['safari.initiate']]) !!}
+                    {!! Form::open(['route' => ['safari.store']]) !!}
                     <div class="card-body">
                         <div class="row">
 

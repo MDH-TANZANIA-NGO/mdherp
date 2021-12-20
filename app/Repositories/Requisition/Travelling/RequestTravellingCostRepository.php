@@ -6,6 +6,7 @@ use App\Models\Auth\User;
 use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
+use App\Models\Requisition\Travelling\Traits\Relationship\RequisitionTravellingCostRelationship;
 use App\Models\System\District;
 use App\Models\System\Region;
 use App\Repositories\BaseRepository;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class RequestTravellingCostRepository extends BaseRepository
 {
+
     const MODEL = requisition_travelling_cost::class;
     public function __construct()
     {
