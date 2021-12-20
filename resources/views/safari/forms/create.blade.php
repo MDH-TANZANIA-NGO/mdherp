@@ -27,7 +27,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 {!! Form::label('item_name', __("Scope of Work"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::textarea('title', null, ['class' => 'form-control', 'required']) !!}
+                                {!! Form::textarea('title', $user_id, ['class' => 'form-control', 'required']) !!}
                                 {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>

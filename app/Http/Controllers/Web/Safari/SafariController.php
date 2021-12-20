@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\web\Safari;
 
 use App\Http\Controllers\Controller;
+use App\Models\Auth\User;
 use App\Models\Requisition\Requisition;
 use App\Repositories\Requisition\RequisitionRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SafariController extends Controller
 {
@@ -23,8 +25,10 @@ class SafariController extends Controller
     }
     public  function  create(Requisition $requisition)
     {
+
+
         return view('safari.forms.initiate')
-            ->with('requisition', $this->requisition->getQuery());
+            ->with('requisition', $requisition);
     }
     public  function  initiate()
     {
