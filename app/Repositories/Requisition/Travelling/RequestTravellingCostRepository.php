@@ -8,9 +8,10 @@ use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\System\District;
 use App\Models\System\Region;
+use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
-class RequestTravellingCostRepository
+class RequestTravellingCostRepository extends BaseRepository
 {
     const MODEL = requisition_travelling_cost::class;
     public function __construct()
@@ -105,4 +106,27 @@ class RequestTravellingCostRepository
             return $requisition;
         });
     }
+
+    public function getRequisition()
+    {
+        return $this->getQuery()
+            ->join('requisitions', 'requisitions.id', 'requisition_travelling_costs.requisition_id');
+    }
+    public function getRequisitionFilter()
+    {
+        return $this->getRequisition()
+            ->select([
+                'requisitions.number',
+                'requisition_travelling_costs.id',
+            ])
+            ->where('requisitions.wf_done', 1)
+            ->where('requisition_travelling_costs.traveller_uid', access()->id())
+            ->whereDoesntHave('safariAdvance');
+    }
+    public function getPluckRequisitionNo()
+    {
+        return $this->getRequisitionFilter()->pluck('requisitions.number','requisition_travelling_costs.id');
+
+    }
+
 }

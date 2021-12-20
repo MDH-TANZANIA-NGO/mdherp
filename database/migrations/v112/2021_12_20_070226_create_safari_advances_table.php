@@ -16,6 +16,7 @@ class CreateSafariAdvancesTable extends Migration
         Schema::create('safari_advances', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('requisition_travelling_cost_id');
             $table->decimal('amount_requested', 15, 2);
             $table->decimal('amount_paid', 15, 2);
             $table->text('number')->nullable();

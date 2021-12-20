@@ -5,7 +5,10 @@ namespace App\Models\Requisition\Travelling\Traits\Relationship;
 use App\Models\Auth\User;
 use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Requisition;
+use App\Models\SafariAdvance\SafariAdvance;
 use App\Models\System\District;
+
+use App\SafariAdvanceDetails;
 use Illuminate\Database\Eloquent\Model;
 
 trait RequisitionTravellingCostRelationship {
@@ -28,4 +31,9 @@ trait RequisitionTravellingCostRelationship {
     {
         return $this->belongsTo(mdh_rate::class,'perdiem_rate_id','id');
     }
+    public function safariAdvance()
+    {
+        return $this->hasOne(SafariAdvance::class);
+    }
+
 }

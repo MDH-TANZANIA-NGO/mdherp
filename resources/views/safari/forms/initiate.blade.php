@@ -16,7 +16,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {!! Form::label('item_name', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
-                                    {!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}
+                                    {!! Form::select('title', $travelling_costs, null,['class' => 'form-control', 'required']) !!}
                                     {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
                                 </div>
                             </div>
