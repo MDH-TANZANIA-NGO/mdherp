@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTravellingAdvanceDetailsTable extends Migration
+class CreateSafariAdvanceDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTravellingAdvanceDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('travelling_advance_details', function (Blueprint $table) {
+        Schema::create('safari_advance_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('travelling_advance_id');
             $table->date('from');
@@ -36,6 +36,6 @@ class CreateTravellingAdvanceDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('travelling_advance_details');
+        Schema::dropIfExists('safari_advance_details');
     }
 }
