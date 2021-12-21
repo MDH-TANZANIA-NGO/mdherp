@@ -6,8 +6,8 @@ use App\Models\Requisition\Travelling\requisition_travelling_cost;
 
 trait SafariAdvanceRelationship
 {
-    public function travellingCosts()
+    public function travellingCost()
     {
-        return $this->hasMany(requisition_travelling_cost::class);
+        return $this->belongsTo(requisition_travelling_cost::class, 'requisition_travelling_cost_id', 'id');
     }
 }

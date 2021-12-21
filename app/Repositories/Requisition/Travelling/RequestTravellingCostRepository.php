@@ -112,7 +112,8 @@ class RequestTravellingCostRepository extends BaseRepository
     public function getRequisition()
     {
         return $this->getQuery()
-            ->join('requisitions', 'requisitions.id', 'requisition_travelling_costs.requisition_id');
+            ->join('requisitions', 'requisitions.id', 'requisition_travelling_costs.requisition_id')
+            ->join('districts', 'districts.id', 'requisition_travelling_costs.district_id');
     }
     public function getRequisitionFilter()
     {
@@ -127,7 +128,7 @@ class RequestTravellingCostRepository extends BaseRepository
     }
     public function getPluckRequisitionNo()
     {
-        return $this->getRequisitionFilter()->pluck('requisitions.number','requisition_travelling_costs.id', 'requisition_travelling_costs.traveller_uid' );
+        return $this->getRequisitionFilter()->pluck('requisitions.number','requisition_travelling_costs.id');
 
     }
 
