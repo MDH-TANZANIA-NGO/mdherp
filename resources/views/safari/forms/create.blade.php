@@ -17,24 +17,26 @@
                                 <th>Name</th>
                                 <th>Duration</th>
                                 <th>Perdiem</th>
+                                <th>Accomodation</th>
                                 <th>Transport</th>
-                                <th>Others</th>
                                 <th>Ontransit</th>
+                                <th>Others</th>
+                                <th>Total</th>
+
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($details as $participants)
-                                <tr>
+                            <tr>
 
-                                    <td>{{$participants->traveller_uid}}</td>
-                                    <td>{{$participants->no_days}}</td>
-                                    <td>{{$participants->perdiem_total_amount}}</td>
-                                    <td>{{$participants->transportation}}</td>
-                                    <td>{{$participants->other_cost}}</td>
-                                    <td><button type="submit" class="btn btn-outline-info">Remove</button></td>
-                                </tr>
-
-                            @endforeach
+                                <td>{{$travelling_cost->user->full_name}}</td>
+                                <td>{{$travelling_cost->no_days}}</td>
+                                <td>{{number_2_format($travelling_cost->perdiem_total_amount)}}</td>
+                                <td>{{number_2_format($travelling_cost->accommodation)}}</td>
+                                <td>{{number_2_format($travelling_cost->transportation)}}</td>
+                                <td>{{number_2_format($travelling_cost->ontransit)}}</td>
+                                <td>{{number_2_format($travelling_cost->other_cost)}}</td>
+                                <td>{{number_2_format($travelling_cost->total_amount)}}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -67,23 +69,24 @@
                                 <tr>
 
                                     <th>Destination</th>
+                                    <th>Means of Transport</th>
                                     <th>From</th>
                                     <th>To</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-
-                                    <td>{!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}</td>
-                                    <td>{!! Form::date('title', null, ['class' => 'form-control', 'required']) !!}</td>
-                                    <td>{!! Form::date('title', null, ['class' => 'form-control', 'required']) !!}</td>
+                                    <td>{!! Form::select('district_id',null,$travelling_cost->district_id,['class' => 'form-control select2-show-search','required']) !!}</td>
+                                    <td>
+                                        <select name="transport_means" class="form-control">
+                                            <option value="flight">Flight</option>
+                                            <option value="vehicle">MDH Vehicle</option>
+                                        </select>
+                                    </td>
+                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required']) !!}</td>
+                                    <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required']) !!}</td>
                                 </tr>
-                                <tr>
 
-                                    <td>{!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}</td>
-                                    <td>{!! Form::date('title', null, ['class' => 'form-control', 'required']) !!}</td>
-                                    <td>{!! Form::date('title', null, ['class' => 'form-control', 'required']) !!}</td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
