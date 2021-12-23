@@ -15,9 +15,9 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    {!! Form::label('item_name', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
-                                    {!! Form::select('title', $travelling_costs, null,['class' => 'form-control', 'required']) !!}
-                                    {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
+                                    {!! Form::label('requisition_travelling_cost_id', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
+                                    {!! Form::select('requisition_travelling_cost_id', $travelling_costs, null,['class' => 'form-control', 'required']) !!}
+                                    {!! $errors->first('requisition_travelling_cost_id', '<span class="badge badge-danger">:message</span>') !!}
                                 </div>
                             </div>
 

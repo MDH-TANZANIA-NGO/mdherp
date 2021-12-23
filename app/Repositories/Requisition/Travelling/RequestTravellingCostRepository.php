@@ -112,7 +112,8 @@ class RequestTravellingCostRepository extends BaseRepository
     public function getRequisition()
     {
         return $this->getQuery()
-            ->join('requisitions', 'requisitions.id', 'requisition_travelling_costs.requisition_id');
+            ->join('requisitions', 'requisitions.id', 'requisition_travelling_costs.requisition_id')
+            ->join('districts', 'districts.id', 'requisition_travelling_costs.district_id');
     }
     public function getRequisitionFilter()
     {
@@ -120,6 +121,7 @@ class RequestTravellingCostRepository extends BaseRepository
             ->select([
                 'requisitions.number',
                 'requisition_travelling_costs.id',
+                DB::raw("CONCAT_WS(' ', requisitions.number, districts.name, requisition_travelling_costs.from, requisition_travelling_costs.to ) AS travelling")
             ])
             ->where('requisitions.wf_done', 1)
             ->where('requisition_travelling_costs.traveller_uid', access()->id())
@@ -127,7 +129,7 @@ class RequestTravellingCostRepository extends BaseRepository
     }
     public function getPluckRequisitionNo()
     {
-        return $this->getRequisitionFilter()->pluck('requisitions.number','requisition_travelling_costs.id');
+        return $this->getRequisitionFilter()->pluck('travelling','requisition_travelling_costs.id');
 
     }
 
