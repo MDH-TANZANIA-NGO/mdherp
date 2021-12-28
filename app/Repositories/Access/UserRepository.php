@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Access;
 
+use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Notifications\Auth\UserRegistrationNotification;
 use App\Repositories\BaseRepository;
@@ -207,7 +208,8 @@ class UserRepository extends BaseRepository
             'designation_id' => $inputs['designation'],
             'region_id' => $inputs['region'],
             'marital_status_cv_id' => $inputs['marital'],
-            'password' => config('app.key'),
+//            'password' => config('app.key'),
+            'supervisor' => isset($inputs['supervisor'])??false
         ];
     }
 
@@ -314,6 +316,43 @@ class UserRepository extends BaseRepository
             //TODO detach
             $sub_program = (new SubProgramRepository())->findByUuid($uuid);
             return $sub_program->users()->attach($inputs['user']);
+        });
+    }
+
+    public function getAllUsersWithSupervisor()
+    {
+        return $this->query()
+            ->select([
+                DB::raw('users.id AS user_id'),
+                DB::raw("CONCAT_WS(' ', users.last_name, users.first_name) AS names"),
+                DB::raw('supervisor_users.user_id AS s_user_id')
+            ])
+            ->leftjoin('supervisor_users','supervisor_users.user_id','users.id')
+            ->orderBy('users.last_name');
+    }
+
+    public function getAllUsersWithNoSupervisorPluck($user_id)
+    {
+        return $this->getAllUsersWithSupervisor()->whereNull('supervisor_users.user_id')->where('users.id', '!=', $user_id)->pluck('names','user_id');
+    }
+
+    public function getAllUsersWithThisSupervisorPluck($user_id)
+    {
+        return $this->getAllUsersWithSupervisor()->where('supervisor_users.supervisor_id', $user_id)->get()->pluck('user_id')->toArray();
+    }
+
+    public function assignSupervisor($user_id, $inputs)
+    {
+        return DB::transaction(function () use ($user_id, $inputs){
+            if(isset($inputs['users'])){
+                SupervisorUser::query()->where('supervisor_id', $user_id)->delete();
+                foreach($inputs['users'] as $user_selected_id){
+                    SupervisorUser::query()->create([
+                        'supervisor_id' => $user_id,
+                        'user_id' => $user_selected_id
+                    ]);
+                }
+            }
         });
     }
 

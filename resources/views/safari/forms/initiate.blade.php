@@ -2,6 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(access()->user()->assignedSupervisor())
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -22,10 +23,14 @@
                             </div>
 
                             <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Initiate Safari</button>
+                            {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
+    @else
+    You Have no supervisor
+    @endif
 
 @endsection
 

@@ -10,6 +10,8 @@ Route::group(['namespace' => 'User', 'middleware' => ['web', 'auth'], 'prefix' =
 
     Route::post('{uuid}/attach-sub-program', 'UserController@assignSubProgramArea')->name("attach_sub_program");
 
+    Route::post('{user_id}/assign-supervisor', 'UserController@assignSupervisor')->name("assign_supervisor");
+
 
     /**
      * Datatables

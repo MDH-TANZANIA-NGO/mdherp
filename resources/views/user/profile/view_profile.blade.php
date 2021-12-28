@@ -64,7 +64,7 @@
                                                 <!-- Tabs -->
                                                 <ul class="nav panel-tabs">
                                                     <li class=""><a href="#tab1" class="active" data-toggle="tab">Details</a></li>
-                                                    <li><a href="#tab2" data-toggle="tab">Supervision</a></li>
+                                                    @if($user->supervisor)<li><a href="#tab2" data-toggle="tab">Supervision</a></li>@endif
                                                     <li><a href="#tab3" data-toggle="tab">Workflow</a></li>
                                                     <li><a href="#tab4" data-toggle="tab">Permissions</a></li>
                                                     <li><a href="#tab5" data-toggle="tab">Audit</a></li>
@@ -156,12 +156,12 @@
                                                                         {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
                                                                     </div>
                                                                 </div>
-{{--                                                                <div class=" col-md-4">--}}
-{{--                                                                    <div class="form-group">--}}
-{{--                                                                        <label class="form-label">Postal Code</label>--}}
-{{--                                                                        <input type="number" class="form-control" placeholder="ZIP Code">--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
+                                                                <div class=" col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label">Is supervisor ?</label>
+                                                                        <input type="checkbox" name="supervisor" {{ $user->supervisor ? 'checked' : ''}} class="form-control">
+                                                                    </div>
+                                                                </div>
 {{--                                                                <button type="submit" class="btn btn-primary" style="margin-left:40%;">Update Profile</button>--}}
                                                                 {!! Form::submit('Update Profile',['class' => 'btn btn-primary']) !!}
 
@@ -170,19 +170,22 @@
                                                         {!! Form::close() !!}
 
                                                 </div>
-                                              <div class="tab-pane  " id="tab2">
+                                              <div class="tab-pane" id="tab2">
                                                     <div class="card-body">
-                                                        <form action="">
+{{--                                                        <form action="">--}}
+                                                        {!! Form::open(['route' => ['user.assign_supervisor', $user->id],'method' => 'post']) !!}
                                                             <div class="form-group">
                                                                 <label class="form-label">Select Employee</label>
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" placeholder="Search for...">
+{{--                                                                    <input type="text" class="form-control" placeholder="Search for...">--}}
+                                                                    {!! Form::select('users[]',$users,null,['class' => 'form-control select2-show-search', 'multiple','style'=>'width: 100%']) !!}
                                                                     <span class="input-group-append">
-                                                                        <button class="btn btn-primary" type="button">Select!</button>
+                                                                        <button class="btn btn-primary" type="submit">Select!</button>
                                                                     </span>
                                                                 </div>
                                                             </div>
-                                                        </form>
+                                                        {!! Form::close() !!}
+{{--                                                        </form>--}}
                                                         <div class="table-responsive">
                                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                                                             <thead>

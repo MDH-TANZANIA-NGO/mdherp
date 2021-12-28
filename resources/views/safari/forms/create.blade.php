@@ -76,15 +76,15 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>{!! Form::select('district_id',null,$travelling_cost->district_id,['class' => 'form-control select2-show-search','required']) !!}</td>
+                                    <td> {!! Form::select('district_id',$district, $travelling_cost->district_id, ['class' => 'form-control select2-show-search', 'required', 'disabled']) !!}</td>
                                     <td>
                                         <select name="transport_means" class="form-control">
                                             <option value="flight">Flight</option>
                                             <option value="vehicle">MDH Vehicle</option>
                                         </select>
                                     </td>
-                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required']) !!}</td>
-                                    <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required']) !!}</td>
+                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'first']) !!}</td>
+                                    <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required','id'=>'second']) !!}</td>
                                 </tr>
 
                                 </tbody>
@@ -92,7 +92,9 @@
                         </div>
                         <!-- table-responsive -->
 
-                        <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Submit For Approval</button>
+                        <p id="output"></p>
+
+                        <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Submit For Approval</button>
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -104,3 +106,21 @@
 
 
 @endsection
+
+@push('after-scripts')
+    <script>
+        $(document).ready(function (){
+
+            // console.log('loading');
+            // let $first = $("#first");
+            // let $second = $("#second");
+            //
+            // console.log($first.val());
+            // $second.datepicker({
+            //     minDate: $first.val()
+            // })
+        });
+    </script>
+@endpush
+
+

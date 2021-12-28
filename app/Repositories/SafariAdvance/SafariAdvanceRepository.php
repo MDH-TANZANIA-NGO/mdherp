@@ -14,6 +14,8 @@ class SafariAdvanceRepository extends BaseRepository
     {
         //
     }
+
+
     public function inputProcess($inputs)
     {
         $requisition_travelling_cost = requisition_travelling_cost::query()->find($inputs['requisition_travelling_cost_id']);
