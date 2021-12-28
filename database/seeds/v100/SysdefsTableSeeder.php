@@ -27,5 +27,17 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'SAFNUM'],
+            [
+                'name' => 'safari',
+                'display_name' => 'Safari Advances',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'SAFNUM',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }
