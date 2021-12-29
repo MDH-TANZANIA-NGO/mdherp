@@ -13,6 +13,7 @@ use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 
 use App\Repositories\System\DistrictRepository;
 use App\Services\Generator\Number;
+use App\Services\Workflow\Workflow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -72,6 +73,19 @@ class SafariController extends Controller
 
         return redirect()->route('safari.index');
 
+    }
+    public function show()
+    {
+        /* Check workflow */
+        $wf_module_group_id = 2;
+        $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $requisition->id);
+        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $requisition->id, 'type' => $wf_module->type]);
+        $check_workflow = $workflow->checkIfHasWorkflow();
+        $current_wf_track = $workflow->currentWfTrack();
+        $wf_module_id = $workflow->wf_module_id;
+        $current_level = $workflow->currentLevel();
+        $can_edit_resource = $this->wf_tracks->canEditResource($requisition, $current_level, $workflow->wf_definition_id);
+        return view('safari.show');
     }
 
 }

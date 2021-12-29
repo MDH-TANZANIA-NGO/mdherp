@@ -5,6 +5,8 @@ Route::group(['namespace' => 'Safari', 'middleware' => ['web', 'auth'], 'prefix'
     Route::get('initiate', 'SafariController@initiate')->name('initiate');
     Route::post('store', 'SafariController@store')->name('store');
     Route::post('{uuid}/update', 'SafariController@update')->name('update');
+    Route::get('show', 'SafariController@show')->name('show');
+
 
 
 });
