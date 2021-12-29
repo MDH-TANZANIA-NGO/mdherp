@@ -208,7 +208,7 @@ class UserRepository extends BaseRepository
             'designation_id' => $inputs['designation'],
             'region_id' => $inputs['region'],
             'marital_status_cv_id' => $inputs['marital'],
-//            'password' => config('app.key'),
+            'password' => config('app.key'),
             'supervisor' => isset($inputs['supervisor'])??false
         ];
     }
@@ -233,7 +233,19 @@ class UserRepository extends BaseRepository
     public function update(User $user, $inputs)
     {
         return DB::transaction(function () use ($user, $inputs){
-            $user->update($this->processInputs($inputs));
+            $user->update([
+                'first_name' => $inputs['first_name'],
+                'middle_name' => $inputs['middle_name'],
+                'last_name' => $inputs['last_name'],
+                'gender_cv_id' => $inputs['gender'],
+                'phone' => $inputs['phone'],
+                'email' => $inputs['email'],
+                'dob' => $inputs['dob'],
+                'designation_id' => $inputs['designation'],
+                'region_id' => $inputs['region'],
+                'marital_status_cv_id' => $inputs['marital'],
+                'supervisor' => isset($inputs['supervisor'])??false
+            ]);
             $user->projects()->sync($inputs['projects']);
             return $user;
         });
