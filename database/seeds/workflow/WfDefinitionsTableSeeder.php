@@ -189,7 +189,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'id' => 8,
                     'level' => '2',
                     'unit_id' => 5,
-                    'designation_id' => 13,
+                    'designation_id' => 121,
                     'description' => 'Approve Requisition',
                     'msg_next' => 'End Requisition',
                     'wf_module_id' => '2',

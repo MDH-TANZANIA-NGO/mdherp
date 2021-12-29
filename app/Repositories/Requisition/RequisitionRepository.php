@@ -269,7 +269,7 @@ class RequisitionRepository extends BaseRepository
             ->join('fiscal_years','fiscal_years.id','budgets.fiscal_year_id')
             ->where('projects.id', $project_id)
             ->where('budgets.activity_id', $activity_id)
-            ->where('regions.id', $region_id);
+            ->where('budgets.region_id', $region_id);
     }
 
     /**
