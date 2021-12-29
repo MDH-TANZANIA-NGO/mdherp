@@ -12,6 +12,7 @@ use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\Report\ReportRepository;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\taf\TafRepository;
 use App\Repositories\Tber\TberRepository;
 use App\Repositories\Leave\LeaveRepository;
@@ -372,6 +373,16 @@ class Workflow
                         'message' => $requisition->typeCategory->title." Requisition ".$requisition->number.' need your approval'
                     ];
                     User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
+                    break;
+                    case 3:
+                    $safari_advance_repo = (new SafariAdvanceRepository());
+                    $safari = $safari_advance_repo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('safari.show',$safari),
+                        'subject' => $safari->number." Need your Approval",
+                        'message' => $safari->number.' need your approval'
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
 
             }
