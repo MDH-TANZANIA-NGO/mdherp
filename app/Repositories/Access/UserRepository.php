@@ -268,8 +268,8 @@ class UserRepository extends BaseRepository
             ->join('regions','regions.id', 'users.region_id')
             ->join('designations','designations.id','users.designation_id')
             ->join('units','units.id','designations.unit_id')
-            ->join('project_user','project_user.user_id','users.id')
-            ->join('projects','projects.id','project_user.project_id')
+            ->leftjoin('project_user','project_user.user_id','users.id')
+            ->leftjoin('projects','projects.id','project_user.project_id')
             ->groupBy('users.id','users.first_name','users.last_name','units.name','designations.name','users.phone','users.uuid','regions.name');
     }
 
