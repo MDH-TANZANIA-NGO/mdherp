@@ -6,6 +6,7 @@ use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
 use App\Services\Workflow\Traits\WorkflowUserSelector;
 use App\Services\Workflow\Workflow;
@@ -145,7 +146,20 @@ class WorkflowEventSubscriber
                     ];
                     $requisition->user->notify(new WorkflowNotification($email_resource));
                     break;
+                case 3:
+                $safari_advance_repo = (new SafariAdvanceRepository());
+                $safari = $safari_advance_repo->find($resource_id);
+                $this->updateWfDone($safari);
+//                $requisition_repo->processComplete($safari);
+                $email_resource = (object)[
+                    'link' =>  route('safari.show',$safari),
+                    'subject' => $safari->number." Approved Successfully",
+                    'message' => 'These Application has been Approved successfully'
+                ];
+                $safari->user->notify(new WorkflowNotification($email_resource));
+                break;
             }
+
         }
     }
 
