@@ -208,6 +208,53 @@ class WfDefinitionsTableSeeder extends Seeder
 //                'assign_next_user' => 0,
                 ),
 
+            8 =>
+                array (
+                    'id' => 9,
+                    'level' => '1',
+                    'unit_id' => 5,
+                    'designation_id' => 13,
+                    'description' => 'Submit Safari Advance',
+                    'msg_next' => 'Submit Safari Advance',
+                    'wf_module_id' => '3',
+                    'active' => '1',
+                    'allow_rejection' => 1,
+                    'allow_repeat_participate' => 0,
+                    'created_at' => '2021-11-22 10:15:25',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'is_approval' => 0,
+                    'has_next_start_optional' => 0,
+                    'is_optional' => 0,
+                    'can_close' => 1,
+                    'action_description' => 'Submitted',
+                    'status_description' => 'Submitted',
+//                'assign_next_user' => 0,
+                ),
+            9 =>
+                array (
+                    'id' => 10,
+                    'level' => '2',
+                    'unit_id' => 5,
+                    'designation_id' => 13,
+                    'description' => 'Approve Safari Advance',
+                    'msg_next' => 'Approve Safari Advance',
+                    'wf_module_id' => '3',
+                    'active' => '1',
+                    'allow_rejection' => 1,
+                    'allow_repeat_participate' => 0,
+                    'created_at' => '2021-11-22 10:15:25',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'is_approval' => 0,
+                    'has_next_start_optional' => 0,
+                    'is_optional' => 0,
+                    'can_close' => 1,
+                    'action_description' => 'Approved',
+                    'status_description' => 'Approved',
+//                'assign_next_user' => 0,
+                ),
+
 
         ));
 

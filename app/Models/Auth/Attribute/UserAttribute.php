@@ -240,6 +240,7 @@ trait UserAttribute
         return $return;
     }
 
+
     public function getVacationDaysBalanceAttribute()
     {
         $user_repo = (new UserRepository());

@@ -51,15 +51,21 @@
                 <div class="card-header" style="background-color: rgb(238, 241, 248)">
                     <h3 class="card-title">Safari Advance Form</h3>
                 </div>
-                {!! Form::open(['route' => ['safari.index']]) !!}
+                {!! Form::open(['route' => ['safari.update',$safari_advance]]) !!}
                 <div class="card-body">
                     <div class="row">
-
+                        {!! Form:: text('safari_advance_id', $safari_advance->id,['class'=>'form-control','hidden'])!!}
+                        {!! Form:: text('perdiem', $travelling_cost->perdiem_total_amount,['class'=>'form-control','hidden'])!!}
+                        {!! Form:: text('ontransit', $travelling_cost->ontranist,['class'=>'form-control','hidden'])!!}
+                        {!! Form:: text('accommodation', $travelling_cost->accommodation,['class'=>'form-control','hidden'])!!}
+                        {!! Form:: text('transportation', $travelling_cost->transportation,['class'=>'form-control','hidden'])!!}
+                        {!! Form:: text('other_costs', $travelling_cost->other_cost,['class'=>'form-control','hidden'])!!}
+                        {!! Form:: text('district_id', $travelling_cost->district_id,['class'=>'form-control','hidden'])!!}
                         <div class="col-md-12">
                             <div class="form-group">
                                 {!! Form::label('item_name', __("Scope of Work"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::textarea('title', null, ['class' => 'form-control', 'required']) !!}
-                                {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
+                                {!! Form::textarea('scope', null, ['class' => 'form-control', 'required']) !!}
+                                {!! $errors->first('scope', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
 
@@ -76,15 +82,15 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>{!! Form::select('district_id',null,$travelling_cost->district_id,['class' => 'form-control select2-show-search','required']) !!}</td>
+                                    <td> {!! Form::select('district_id',$district, $travelling_cost->district_id, ['class' => 'form-control select2-show-search', 'required', 'disabled']) !!}</td>
                                     <td>
                                         <select name="transport_means" class="form-control">
                                             <option value="flight">Flight</option>
                                             <option value="vehicle">MDH Vehicle</option>
                                         </select>
                                     </td>
-                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required']) !!}</td>
-                                    <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required']) !!}</td>
+                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'first']) !!}</td>
+                                    <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required','id'=>'second']) !!}</td>
                                 </tr>
 
                                 </tbody>
@@ -92,7 +98,9 @@
                         </div>
                         <!-- table-responsive -->
 
-                        <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Submit For Approval</button>
+                        <p id="output"></p>
+
+                        <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Submit For Approval</button>
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -104,3 +112,21 @@
 
 
 @endsection
+
+@push('after-scripts')
+    <script>
+        $(document).ready(function (){
+
+            // console.log('loading');
+            // let $first = $("#first");
+            // let $second = $("#second");
+            //
+            // console.log($first.val());
+            // $second.datepicker({
+            //     minDate: $first.val()
+            // })
+        });
+    </script>
+@endpush
+
+

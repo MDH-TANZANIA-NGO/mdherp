@@ -87,7 +87,42 @@
 
     @stack('after-styles')
 
+{{--<script>--}}
+{{--    // $('.fromdate').datepicker({--}}
+{{--    //     dateFormat: 'yy-mm-dd',--}}
+{{--    //     changeMonth: true,--}}
+{{--    //     changeYear: true,--}}
+{{--    // });--}}
+{{--    // $('.todate').datepicker({--}}
+{{--    //     dateFormat: 'yy-mm-dd',--}}
+{{--    //     changeMonth: true,--}}
+{{--    //     changeYear: true,--}}
+{{--    // });--}}
+{{--    // $('#from').datepicker().bind("change", function () {--}}
+{{--    //     var minValue = $(this).val();--}}
+{{--    //     minValue = $.datepicker.parseDate("yy-mm-dd", minValue);--}}
+{{--    //     $('#to').datepicker("option", "minDate", minValue);--}}
+{{--    //     calculate();--}}
+{{--    // });--}}
+{{--    // $('#to').datepicker().bind("change", function () {--}}
+{{--    //     var maxValue = $(this).val();--}}
+{{--    //     maxValue = $.datepicker.parseDate("yy-mm-dd", maxValue);--}}
+{{--    //     $('#from').datepicker("option", "maxDate", maxValue);--}}
+{{--    //     calculate();--}}
+{{--    // });--}}
 
+{{--    // function calculate() {--}}
+{{--    //     var d1 = $('#from').datepicker('getDate');--}}
+{{--    //     var d2 = $('#to').datepicker('getDate');--}}
+{{--    //     var oneDay = 24*60*60*1000;--}}
+{{--    //     var diff = 0;--}}
+{{--    //     if (d1 && d2) {--}}
+{{--    //--}}
+{{--    //         diff = Math.round(Math.abs((d2.getTime() - d1.getTime())/(oneDay)));--}}
+{{--    //     }--}}
+{{--    //     $('.calculated').val(diff);--}}
+{{--    // }--}}
+{{--</script>--}}
 
 </head>
 

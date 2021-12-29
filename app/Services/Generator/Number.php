@@ -28,6 +28,13 @@ trait Number
                 $number = "MDH-R-".$year.$value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
+            case 'safari_advances':
+                $reference = "SAFNUM";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-S-".$year.$value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
                 default:
                     throw new GeneralException(__('exceptions.general.number_not_set'));
                     break;

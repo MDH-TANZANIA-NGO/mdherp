@@ -82,7 +82,8 @@ class UserController extends Controller
             ->with('designations', $this->designations->getActiveForSelect())
             ->with('regions', $this->regions->forSelect())
             ->with('wf_module_groups', $this->wf_module_groups->getAll())
-            ->with('projects', $this->projects->getActiveForPluck());
+            ->with('projects', $this->projects->getActiveForPluck())
+            ->with('users', $this->users->getAllUsersWithNoSupervisorPluck($user->id));
     }
 
     /**
@@ -143,6 +144,12 @@ class UserController extends Controller
     {
         $this->users->assignSubProgramArea($uuid, $request->all());
         alert()->success(__('notifications.user.workflow'), __('notifications.user.title'));
+        return redirect()->back();
+    }
+
+    public function assignSupervisor(Request $request, $user_id)
+    {
+        $this->users->assignSupervisor($user_id, $request->all());
         return redirect()->back();
     }
 }
