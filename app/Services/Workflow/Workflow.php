@@ -338,7 +338,6 @@ class Workflow
             'forward_date' => Carbon::now(),
         ];
 
-
         /*Check if definition for this resource already created to avoid duplicate*/
         $check_if_already_created = $this->checkIfResourceDefinitionIsAlreadyPending();
         if($check_if_already_created == false) {
@@ -409,6 +408,12 @@ class Workflow
                 $requisition_repo = (new RequisitionRepository());
                 $requisition = $requisition_repo->find($resourceId);
                 $requisition->wfTracks()->save($wfTrack);
+                break;
+                case 2:
+                /*Requisition*/
+                $safari_repo = (new SafariAdvanceRepository());
+                $safari = $safari_repo->find($resourceId);
+                $safari->wfTracks()->save($wfTrack);
                 break;
         }
     }

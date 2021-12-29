@@ -35,11 +35,13 @@
                                 <tr>
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
-                                    <th class="wd-15p">TYPE</th>
+{{--                                    <th class="wd-15p">TYPE</th>--}}
                                     {{--                                    <th class="wd-15p">PROJECT</th>--}}
-                                    <th class="wd-15p">ACTIVITY</th>
-                                    <th class="wd-25p">AMOUNT</th>
-                                    <th class="wd-25p">APPLIED DATE</th>
+{{--                                    <th class="wd-15p">ACTIVITY</th>--}}
+                                    <th class="wd-25p">AMOUNT REQUESTED</th>
+
+                                    <th class="wd-25p">CREATED ON</th>
+{{--                                    <th class="wd-25p">APPLIED DATE</th>--}}
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -138,14 +140,14 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('requisition.datatable.access.processing') }}',
+                ajax: '{{ route('safari.datatable.access.processing') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
+                    { data: 'number', name: 'safari_advances.number', searchable: true},
+                    { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
+                    // { data: 'activity_title', name: 'activities.title', searchable: true},
+                    // { data: 'amount', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]

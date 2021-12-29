@@ -5,8 +5,18 @@ Route::group(['namespace' => 'Safari', 'middleware' => ['web', 'auth'], 'prefix'
     Route::get('initiate', 'SafariController@initiate')->name('initiate');
     Route::post('store', 'SafariController@store')->name('store');
     Route::post('{uuid}/update', 'SafariController@update')->name('update');
-    Route::get('show', 'SafariController@show')->name('show');
+    Route::get('{safariAdvance}/show', 'SafariController@show')->name('show');
 
 
-
+    /**
+     * Datatables
+     */
+    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+        Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
+            Route::get('processing', 'SafariController@AccessProcessingDatatable')->name('processing');
+            Route::get('rejected', 'SafariController@AccessRejectedDatatable')->name('rejected');
+            Route::get('approved', 'SafariController@AccessApprovedDatatable')->name('approved');
+            Route::get('saved', 'SafariController@AccessSavedDatatable')->name('saved');
+        });
+    });
 });

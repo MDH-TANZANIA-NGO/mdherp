@@ -226,7 +226,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'is_approval' => 0,
                     'has_next_start_optional' => 0,
                     'is_optional' => 0,
-                    'can_close' => 1,
+                    'can_close' => 0,
                     'action_description' => 'Submitted',
                     'status_description' => 'Submitted',
 //                'assign_next_user' => 0,

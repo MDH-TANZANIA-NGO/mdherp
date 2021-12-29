@@ -2,6 +2,7 @@
 
 namespace App\Repositories\SafariAdvance;
 
+use App\Events\NewWorkflow;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Repositories\BaseRepository;
@@ -57,26 +58,55 @@ class SafariAdvanceRepository extends BaseRepository
 
     public function update($inputs, $uuid)
     {
-        $safari = $this->findByUuid($uuid);
-        $scope = $inputs['scope'];
-        $number = $this->generateNumber($safari);
-        DB::update('update safari_advances set scope =?, number = ? where uuid= ?',[$scope, $number, $uuid]);
-        //create
-        DB::table('safari_advance_details')->insert(
-            [
-                'safari_advance_id'=>$inputs['safari_advance_id'],
-                'from'=>$inputs['from'],
-                'to'=>$inputs['to'],
-                'district_id'=>$inputs['district_id'],
-                'perdiem'=>$inputs['perdiem'],
-                'ontransit'=>$inputs['ontransit'],
-                'transportation'=>$inputs['transportation'],
-                'other_costs'=>$inputs['other_costs'],
-                'accommodation'=>$inputs['accommodation'],
-                'transport_means'=>$inputs['transport_means']
-            ]
-        );
+        return DB::transaction(function () use ($inputs, $uuid){
+            $safari = $this->findByUuid($uuid);
+            $scope = $inputs['scope'];
+            $number = $this->generateNumber($safari);
+
+            DB::update('update safari_advances set scope =?, number = ? where uuid= ?',[$scope, $number, $uuid]);
+            //create
+            DB::table('safari_advance_details')->insert(
+                [
+                    'safari_advance_id'=>$inputs['safari_advance_id'],
+                    'from'=>$inputs['from'],
+                    'to'=>$inputs['to'],
+                    'district_id'=>$inputs['district_id'],
+                    'perdiem'=>$inputs['perdiem'],
+                    'ontransit'=>$inputs['ontransit'],
+                    'transportation'=>$inputs['transportation'],
+                    'other_costs'=>$inputs['other_costs'],
+                    'accommodation'=>$inputs['accommodation'],
+                    'transport_means'=>$inputs['transport_means']
+                ]
+            );
+        });
     }
+
+    private function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('safari_advances.id AS id'),
+            DB::raw('safari_advances.user_id AS user_id'),
+            DB::raw('safari_advances.number AS number'),
+            DB::raw('safari_advances.amount_requested AS amount_requested'),
+            DB::raw('safari_advances.amount_paid AS amount_paid'),
+            DB::raw('safari_advances.created_at AS created_at'),
+            DB::raw('safari_advances.uuid AS uuid'),
+        ])
+            ->join('users','users.id', 'safari_advances.user_id');
+    }
+
+    public function getAccessProcessingDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('safari_advances.wf_done', 0)
+//            ->where('safari_advances.done', true)
+            ->where('safari_advances.rejected', false)
+            ->where('users.id', access()->id());
+    }
+
+
 
 
 }

@@ -90,8 +90,11 @@
             'rowCallback': function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $(nRow).click(function() {
                     switch(aData['module_group_id']) {
-                        case 1: /*TAF*/
+                        case 1: /*Requisition*/
                             window.open(base_url + "/requisitions/" + aData['resource_uuid'] + '/show' , "_blank");
+                            break;
+                        case 2: /*Requisition*/
+                            window.open(base_url + "/safari/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
                         default:
                             break;

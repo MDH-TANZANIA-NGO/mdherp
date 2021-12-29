@@ -57,7 +57,7 @@ class WfModulesTableSeeder extends Seeder
                     'updated_at' => \Carbon\Carbon::now(),
                     'deleted_at' => NULL,
                     'isactive' => '1',
-                    'type' => '2',
+                    'type' => '1',
                     'description' => 'All Safari Advances',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
