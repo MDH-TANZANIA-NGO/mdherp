@@ -4,6 +4,7 @@ namespace App\Models\SafariAdvance\Traits;
 
 use App\Models\Auth\User;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
+use App\Models\System\District;
 use App\Models\Workflow\WfTrack;
 use App\SafariAdvanceDetails;
 
@@ -30,4 +31,5 @@ trait SafariAdvanceRelationship
     {
      return $this->hasOne(\App\Models\SafariAdvance\SafariAdvanceDetails::class);
     }
+
 }

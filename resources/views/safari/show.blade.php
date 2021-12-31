@@ -49,12 +49,13 @@
                     <thead >
                     <tr>
 
-
+                        <th>Destination</th>
                         <th>Start Date</th>
                         <th>Return Date</th>
                         <th>Perdiem</th>
                         <th>Accommodation</th>
                         <th>Transport</th>
+                        <th>Transport Means</th>
                         <th>On Transit</th>
                         <th>Others</th>
                     </tr>
@@ -63,11 +64,13 @@
                     @foreach($safari_details as $costs)
                         <tr>
 
+                            <td>{{$safari->travellingCost->district->name}}</td>
                             <td>{{$costs->from}}</td>
                             <td>{{$costs->to}}</td>
                             <td>{{number_2_format($costs->perdiem)}}</td>
                             <td>{{number_2_format($costs->accommodation)}}</td>
                             <td>{{number_2_format($costs->transportation)}}</td>
+                            <td>{{$costs->transport_means}}</td>
                             <td>{{number_2_format($costs->ontransit)}}</td>
                             <td>{{number_2_format($costs->other_costs)}}</td>
                         </tr>

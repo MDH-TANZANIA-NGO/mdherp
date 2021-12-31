@@ -92,6 +92,7 @@ class SafariController extends Controller
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($safariAdvance, $current_level, $workflow->wf_definition_id);
 
+
         return view('safari.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
