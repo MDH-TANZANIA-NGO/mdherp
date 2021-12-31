@@ -13,6 +13,7 @@ use App\Repositories\Requisition\Travelling\RequestTravellingCostRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 
 use App\Repositories\System\DistrictRepository;
+use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Generator\Number;
 use App\Services\Workflow\Workflow;
@@ -27,7 +28,7 @@ class SafariController extends Controller
     protected $safariAdvance;
     protected $districts;
     protected $wf_tracks;
-
+    protected $designations;
 
     public function __construct()
     {
@@ -35,6 +36,7 @@ class SafariController extends Controller
         $this->safariAdvance =  (new SafariAdvanceRepository());
         $this->districts = (new  DistrictRepository());
         $this->wf_tracks = (new WfTrackRepository());
+        $this->designations = (new DesignationRepository());
     }
 
     public function index()
@@ -92,6 +94,8 @@ class SafariController extends Controller
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($safariAdvance, $current_level, $workflow->wf_definition_id);
 
+        $designation = access()->user()->designation_id;
+//        $getUnit = $designation->unit()->id;
 
         return view('safari.show')
             ->with('current_level', $current_level)
@@ -99,7 +103,8 @@ class SafariController extends Controller
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($safariAdvance))
             ->with('safari', $safariAdvance)
-            ->with('safari_details',$safariAdvance->SafariDetails()->getQuery()->get()->all());
+            ->with('safari_details',$safariAdvance->SafariDetails()->getQuery()->get()->all())
+            ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation));
     }
     public function payment(Request $request, $uuid)
     {

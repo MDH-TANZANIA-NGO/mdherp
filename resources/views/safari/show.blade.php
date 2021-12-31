@@ -9,7 +9,7 @@
         @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
     </div>
 </div>
-
+@if($unit->unit_id == 24 || $unit->unit_id == 23)
     <div class="row">
         <div class="card">
             <div class="card-header">
@@ -19,7 +19,7 @@
 
         </div>
     </div>
-
+@endif
 <div class="row">
     <div class="card">
         <div class="card-header">
