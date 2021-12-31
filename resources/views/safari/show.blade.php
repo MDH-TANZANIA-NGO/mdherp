@@ -20,6 +20,72 @@
         </div>
     </div>
 
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">SAFARI ADVANCE SUMMARY</h3>
+            <div class="card-options ">
+                <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table card-table table-vcenter text-nowrap">
+                    <thead >
+                    <tr>
+                        <th>Scope of Work</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td>{{$safari->scope}}</td>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+
+            <div class="table-responsive">
+                <table class="table card-table table-vcenter text-nowrap">
+                    <thead >
+                    <tr>
+
+
+                        <th>Start Date</th>
+                        <th>Return Date</th>
+                        <th>Perdiem</th>
+                        <th>Accommodation</th>
+                        <th>Transport</th>
+                        <th>On Transit</th>
+                        <th>Others</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($safari_details as $costs)
+                        <tr>
+
+                            <td>{{$costs->from}}</td>
+                            <td>{{$costs->to}}</td>
+                            <td>{{number_2_format($costs->perdiem)}}</td>
+                            <td>{{number_2_format($costs->accommodation)}}</td>
+                            <td>{{number_2_format($costs->transportation)}}</td>
+                            <td>{{number_2_format($costs->ontransit)}}</td>
+                            <td>{{number_2_format($costs->other_costs)}}</td>
+                        </tr>
+
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- table-responsive -->
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+</div>
+
 
 <!-- Message Modal -->
 <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog"  aria-hidden="true">
