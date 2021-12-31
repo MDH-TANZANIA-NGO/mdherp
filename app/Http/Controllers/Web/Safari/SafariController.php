@@ -91,11 +91,19 @@ class SafariController extends Controller
         $wf_module_id = $workflow->wf_module_id;
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($safariAdvance, $current_level, $workflow->wf_definition_id);
+
+
         return view('safari.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
-            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($safariAdvance));
+            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($safariAdvance))
+            ->with('safari', $safariAdvance);
+    }
+    public function payment(Request $request, $uuid)
+    {
+        $this->safariAdvance->payment($request->all(), $uuid);
+        return redirect()->back();
     }
 
 }

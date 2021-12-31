@@ -5,6 +5,7 @@ namespace App\Models\SafariAdvance\Traits;
 use App\Models\Auth\User;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Workflow\WfTrack;
+use App\SafariAdvanceDetails;
 
 trait SafariAdvanceRelationship
 {
@@ -24,5 +25,9 @@ trait SafariAdvanceRelationship
     public function wfTracks()
     {
         return $this->morphMany(WfTrack::class, 'resource');
+    }
+    public function SafariDetails()
+    {
+     return $this->hasOne(\App\Models\SafariAdvance\SafariAdvanceDetails::class);
     }
 }

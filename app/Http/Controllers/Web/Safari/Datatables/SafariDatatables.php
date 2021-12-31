@@ -60,7 +60,7 @@ trait SafariDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('amount', function ($query) {
-                return number_2_format($query->amount);
+                return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
@@ -73,20 +73,39 @@ trait SafariDatatables
      * @return mixed
      * @throws \Exception
      */
-//    public function AccessSavedDatatable()
-//    {
-//        return DataTables::of($this->requisitions->getAccessSavedDatatable())
-//            ->addIndexColumn()
-//            ->editColumn('created_at', function ($query) {
-//                return $query->created_at->toDateTimeString();
-//            })
-//            ->addColumn('amount', function ($query) {
-//                return number_2_format($query->amount);
-//            })
-//            ->addColumn('action', function($query) {
-//                return '<a href="'.route('requisition.addDescription', $query->uuid).'">View</a>';
-//            })
-//            ->rawColumns(['action'])
-//            ->make(true);
-//    }
+    public function AccessSavedDatatable()
+    {
+        return DataTables::of($this->safariAdvance->getAccessSavedDatatable())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateTimeString();
+            })
+            ->addColumn('amount', function ($query) {
+                return number_2_format($query->amount);
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('requisition.addDescription', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+    public function AccessPaidDatatable()
+    {
+        return DataTables::of($this->safariAdvance->getAccessPaidDatatable())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateTimeString();
+            })
+            ->addColumn('amount_requested', function ($query) {
+                return number_2_format($query->amount_requested);
+            })
+            ->addColumn('amount_paid', function ($query) {
+                return number_2_format($query->amount_paid);
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('requisition.addDescription', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 }
