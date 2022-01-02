@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\User\Datatables\UserDatatables;
+use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Project\ProjectRepository;
@@ -11,6 +12,7 @@ use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\Workflow\WfModuleGroupRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use UxWeb\SweetAlert\SweetAlert;
 
 class UserController extends Controller
@@ -75,6 +77,8 @@ class UserController extends Controller
      */
     public function profile(User $user)
     {
+
+//        dd($this->users->getAllUsersWithThisSupervisorPluck($user->id));
         return view('user.profile.view_profile')
             ->with('user', $user)
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
@@ -83,7 +87,8 @@ class UserController extends Controller
             ->with('regions', $this->regions->forSelect())
             ->with('wf_module_groups', $this->wf_module_groups->getAll())
             ->with('projects', $this->projects->getActiveForPluck())
-            ->with('users', $this->users->getAllUsersWithNoSupervisorPluck($user->id));
+            ->with('users', $this->users->getAllUsersWithNoSupervisorPluck($user->id))
+            ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorPluck($user->id));
     }
 
     /**
@@ -151,5 +156,12 @@ class UserController extends Controller
     {
         $this->users->assignSupervisor($user_id, $request->all());
         return redirect()->back();
+    }
+    public function deleteSupervisor($users, User $user)
+    {
+//           DB::table('supervisor_users')->where('user_id', $users)->delete();
+            DB::table('supervisor_users')->where('user_id', $users)->delete();
+            return redirect()->back();
+
     }
 }

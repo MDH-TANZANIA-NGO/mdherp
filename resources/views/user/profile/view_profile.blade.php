@@ -191,46 +191,17 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th class="wd-15p">Fullname</th>
-                                                                    <th class="wd-15p">Designation</th>
                                                                     <th class="wd-20p">Action</th>
 
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>Elinipendo Mziray</td>
-                                                                    <td>IT CUM Software Developmer</td>
-                                                                    <td><div class="btn-group align-top">
-                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
-                                                                    </div></td>
-
-                                                                <tr>
-                                                                    <td>Elinipendo Mziray</td>
-                                                                    <td>IT CUM Software Developmer</td>
-                                                                    <td><div class="btn-group align-top">
-                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
-                                                                    </div></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Elinipendo Mziray</td>
-                                                                    <td>IT CUM Software Developmer</td>
-                                                                    <td><div class="btn-group align-top">
-                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
-                                                                    </div></td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>Elinipendo Mziray</td>
-                                                                    <td>IT CUM Software Developmer</td>
-                                                                    <td><div class="btn-group align-top">
-                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button" data-toggle="modal" data-target="#user-form-modal">Edit</button>
-                                                                        <button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i></button>
-                                                                    </div></td>
-                                                                </tr>
-
+                                                               @foreach( $user_with_supervisor AS $users)
+                                                                   <tr>
+                                                                       <td>{{$users}}</td>
+                                                                       <td><a href="{{ route('user.remove_supervisor', $users)}}" onclick="return confirm('are you sure?')"><button class="form-control btn-danger">Remove</button></a></td>
+                                                                   </tr>
+                                                               @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>

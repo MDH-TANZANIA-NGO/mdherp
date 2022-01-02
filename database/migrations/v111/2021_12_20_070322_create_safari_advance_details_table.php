@@ -23,8 +23,8 @@ class CreateSafariAdvanceDetailsTable extends Migration
             $table->decimal('ontransit', 15, 2)->nullable();
             $table->decimal('transportation', 15, 2)->nullable();
             $table->decimal('other_costs', 15, 2)->nullable();
-            $table->date('deleted_at');
-            $table->string('uuid');
+            $table->date('deleted_at')->nullable();
+            $table->string('uuid')->nullable();
             $table->timestamps();
         });
     }

@@ -5,7 +5,10 @@ Route::group(['namespace' => 'Safari', 'middleware' => ['web', 'auth'], 'prefix'
     Route::get('initiate', 'SafariController@initiate')->name('initiate');
     Route::post('store', 'SafariController@store')->name('store');
     Route::post('{uuid}/update', 'SafariController@update')->name('update');
+
     Route::get('{safariAdvance}/show', 'SafariController@show')->name('show');
+
+    Route::post('{uuid}/payment', 'SafariController@payment')->name('payment');
 
 
     /**
@@ -17,6 +20,7 @@ Route::group(['namespace' => 'Safari', 'middleware' => ['web', 'auth'], 'prefix'
             Route::get('rejected', 'SafariController@AccessRejectedDatatable')->name('rejected');
             Route::get('approved', 'SafariController@AccessApprovedDatatable')->name('approved');
             Route::get('saved', 'SafariController@AccessSavedDatatable')->name('saved');
+            Route::get('paid', 'SafariController@AccessPaidDatatable')->name('paid');
         });
     });
 });
