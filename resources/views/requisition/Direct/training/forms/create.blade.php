@@ -93,6 +93,7 @@
                     @foreach($training AS $training)
                       <input type="date" name="from" value="{{$training->from}}" hidden>
                         <input type="date" name="to" value="{{$training->to}}" hidden>
+                        <input type="number" name="requisition_training_id" value="{{$training->id}}" hidden>
                            @endforeach
                     <div class="col-md-6">
                         <div class="form-group">
@@ -149,9 +150,14 @@
             {!! Form::open(['route' => ['training.storeTrainingItems',$requisition]]) !!}
             <div class="card-body">
                 <div class="row">
-
+{{--                    @foreach($training AS $training)--}}
+{{--                        <input type="date" name="from" value="{{$training->from}}" hidden>--}}
+{{--                        <input type="date" name="to" value="{{$training->to}}" hidden>--}}
+{{--                        <input type="number" name="requisition_training_id" value="{{$training->id}}" hidden>--}}
+{{--                    @endforeach--}}
                     <div class="col-md-12">
                         <div class="form-group">
+                            {!! Form::number('requisition_training_id', $training->id, ['class' => 'form-control', 'required', 'hidden']) !!}
                             {!! Form::label('item_name', __("Item Name"),['class'=>'form-label','required_asterik']) !!}
                             {!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}
                             {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}

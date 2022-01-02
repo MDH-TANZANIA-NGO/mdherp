@@ -5,6 +5,7 @@ namespace App\Models\Requisition\Traits\Relaltionship;
 use App\Models\Auth\User;
 use App\Models\Budget\Budget;
 use App\Models\GOfficer\GOfficer;
+use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\Project\Activity;
 use App\Models\Project\Project;
 use App\Models\Requisition\Item\RequisitionItem;
@@ -13,6 +14,7 @@ use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
+use App\Models\SafariAdvance\SafariAdvance;
 use App\Models\Workflow\WfTrack;
 
 
@@ -50,7 +52,12 @@ trait RequisitionRelationship
 
     public function safariAdvance()
     {
-        return $this->hasMany(SafariAdva::class);
+        return $this->hasMany(SafariAdvance::class);
+    }
+
+    public function programActivity()
+    {
+        return$this->hasMany(ProgramActivity::class);
     }
 
     /**

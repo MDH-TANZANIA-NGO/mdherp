@@ -36,6 +36,7 @@ class RequisitionTrainingItemsRepository extends BaseModel
 
         return [
 //            'requisition_id' => $input['requisition_id'],
+        'requisition_training_id' => $input['requisition_training_id'],
             'title' => $input['title'],
             'unit' => $input['unit'],
             'unit_price' => $input['unit_price'],

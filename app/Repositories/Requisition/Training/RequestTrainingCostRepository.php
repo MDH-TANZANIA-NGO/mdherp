@@ -28,6 +28,7 @@ class RequestTrainingCostRepository
         $perdiem_total_amount = (GRate::query()->find($perdiem_id)->amount  * $days);
         $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'];
         return [
+            'requisition_training_id'=>$inputs['requisition_training_id'],
             'peridem_rate_amount'=> $inputs['perdiem_rate_id'],
             'participant_uid' => $inputs['participant_uid'],
 //            'description' => $inputs['description'],
