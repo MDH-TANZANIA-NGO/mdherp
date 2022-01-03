@@ -29,7 +29,23 @@
         </div>
     </div>
     @else
-    You Have no supervisor
+                <div class="card-body p-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-body tabs-menu-body" style="background-color:#FFFFFF">
+                            <div class="tab-content">
+
+
+                                    <div class="card-body">
+                                        <div class="align-content-center text-center">
+                    You have not been assigned a supervisor in the system, Kindly contact IT personnel to assist you with that
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     @endif
 
 @endsection
