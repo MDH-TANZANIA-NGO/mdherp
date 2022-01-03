@@ -3,5 +3,6 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::get('', 'ProgramActivityController@index')->name('index');
     Route::get('initiate', 'ProgramActivityController@initiate')->name('initiate');
     Route::post('store', 'ProgramActivityController@store')->name('store');
+    Route::get('{programActivity}/create', 'ProgramActivityController@create')->name('create');
 
 });

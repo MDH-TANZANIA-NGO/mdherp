@@ -3,11 +3,13 @@
 namespace App\Repositories\Requisition\Training;
 
 use App\Models\Requisition\Training\requisition_training;
+use App\Models\Requisition\Training\Traits\Relationship\RequisitionTrainingRelationship;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
 class RequisitionTrainingRepository extends BaseRepository
 {
+    use RequisitionTrainingRelationship;
     const MODEL = requisition_training::class;
     public function __construct()
     {
