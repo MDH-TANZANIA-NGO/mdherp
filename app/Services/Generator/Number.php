@@ -40,7 +40,7 @@ trait Number
                 $reference = "PROGRAMACTIVITYNUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-P-A".$year.$value;
+                $number = "MDH-P-A-".$year.$value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
                 default:

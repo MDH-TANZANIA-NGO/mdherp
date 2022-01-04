@@ -21,7 +21,6 @@ Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'pr
             Route::get('rejected', 'RequisitionController@AccessRejectedDatatable')->name('rejected');
             Route::get('approved', 'RequisitionController@AccessApprovedDatatable')->name('approved');
             Route::get('saved', 'RequisitionController@AccessSavedDatatable')->name('saved');
-            Route::get('saved', 'RequisitionController@AccessPaidDatatable')->name('saved');
         });
     });
 });
