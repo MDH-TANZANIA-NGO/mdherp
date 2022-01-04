@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
 use App\Notifications\Workflow\WorkflowNotification;
+use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
@@ -158,6 +159,18 @@ class WorkflowEventSubscriber
                 ];
                 $safari->user->notify(new WorkflowNotification($email_resource));
                 break;
+                case 4:
+                    $program_activity_repo = (new ProgramActivityRepository());
+                    $program_activity = $program_activity_repo->find($resource_id);
+                    $this->updateWfDone($program_activity);
+//                $requisition_repo->processComplete($safari);
+                    $email_resource = (object)[
+                        'link' =>  route('programactivity.show',$program_activity),
+                        'subject' => $program_activity->number." Approved Successfully",
+                        'message' => 'These Application has been Approved successfully'
+                    ];
+                    $program_activity->user->notify(new WorkflowNotification($email_resource));
+                    break;
             }
 
         }

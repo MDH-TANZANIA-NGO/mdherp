@@ -35,9 +35,18 @@ trait Number
                 $number = "MDH-S-".$year.$value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
+            case 'program_activities':
+                #generate Reference number
+                $reference = "PROGRAMACTIVITYNUM";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-P-A".$year.$value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
                 default:
                     throw new GeneralException(__('exceptions.general.number_not_set'));
                     break;
+
         }
     }
 

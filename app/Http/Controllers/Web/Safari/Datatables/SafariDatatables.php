@@ -18,7 +18,7 @@ trait SafariDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('amount', function ($query) {
-                return number_2_format($query->amount);
+                return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
@@ -39,7 +39,7 @@ trait SafariDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('amount', function ($query) {
-                return number_2_format($query->amount);
+                return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
@@ -73,7 +73,7 @@ trait SafariDatatables
      * @return mixed
      * @throws \Exception
      */
-    public function AccessSavedDatatable()
+    public function AccessDatatable()
     {
         return DataTables::of($this->safariAdvance->getAccessSavedDatatable())
             ->addIndexColumn()
@@ -81,7 +81,7 @@ trait SafariDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('amount', function ($query) {
-                return number_2_format($query->amount);
+                return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('requisition.addDescription', $query->uuid).'">View</a>';
@@ -89,7 +89,7 @@ trait SafariDatatables
             ->rawColumns(['action'])
             ->make(true);
     }
-    public function AccessPaidDatatable()
+    public function AccesssDatatable()
     {
         return DataTables::of($this->safariAdvance->getAccessPaidDatatable())
             ->addIndexColumn()

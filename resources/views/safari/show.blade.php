@@ -30,19 +30,18 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table card-table table-vcenter text-nowrap">
-                    <thead >
-                    <tr>
-                        <th>Scope of Work</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <td>{{$safari->scope}}</td>
-                    </tbody>
-                </table>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Scope</h5>
+                    </div>
+                    <p class="mb-1">{{$safari->scope}}</p>
+                </a>
+
             </div>
+
             <hr>
+
 
             <div class="table-responsive">
                 <table class="table card-table table-vcenter text-nowrap">

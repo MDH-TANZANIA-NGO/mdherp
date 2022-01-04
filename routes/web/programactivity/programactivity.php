@@ -5,4 +5,8 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::post('store', 'ProgramActivityController@store')->name('store');
     Route::get('{programActivity}/create', 'ProgramActivityController@create')->name('create');
 
+    Route::post('{uuid}/update', 'ProgramActivityController@update')->name('update');
+
+    Route::get('{programActivity}/show', 'ProgramActivityController@show')->name('show');
+
 });

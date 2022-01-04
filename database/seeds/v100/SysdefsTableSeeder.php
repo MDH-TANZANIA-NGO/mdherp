@@ -39,5 +39,17 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'PROGRAMACTIVITYNUM'],
+            [
+                'name' => 'programactivity',
+                'display_name' => 'Program Activities',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'PROGRAMACTIVITYNUM',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }

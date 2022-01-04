@@ -7,11 +7,11 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">Onprocess <span class="badge badge-warning">{{ $requisition_access->getAccessProcessingDatatable()->count() }}</span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Returned <span class="badge badge-danger">{{ $requisition_access->getAccessRejectedDatatable()->count() }}</span></a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $requisition_access->getAccessProvedDatatable()->count() }}</span></a></li>
-                    <li><a href="#saved" data-toggle="tab" class="">Paid <span class="badge badge-primary">{{ $requisition_access->getAccessSavedDatatable()->count() }}</span> </a></li>
-                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $requisition_access->getAccessSavedDatatable()->count() }}</span> </a></li>
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">Onprocess <span class="badge badge-warning">{{ $safariAdvance->getAccessProcessingDatatable()->count() }}</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Returned <span class="badge badge-danger">{{ $safariAdvance->getAccessRejectedDatatable()->count() }}</span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $safariAdvance->getAccessProvedDatatable()->count() }}</span></a></li>
+                    <li><a href="#paid" data-toggle="tab" class="">Paid <span class="badge badge-primary">{{ $safariAdvance->getAccessPaidDatatable()->count() }}</span> </a></li>
+                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $safariAdvance->getAccessSavedDatatable()->count() }}</span> </a></li>
                 </ul>
             </div>
 
@@ -154,7 +154,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'safari_advances.number', searchable: true},
-                    { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
+                    { data: 'amount', name: 'safari_advances.amount_requested', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount', name: 'requisitions.amount', searchable: true},
@@ -173,7 +173,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'safari_advances.number', searchable: true},
-                    { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
+                    { data: 'amount', name: 'safari_advances.amount_requested', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount', name: 'requisitions.amount', searchable: true},
@@ -211,7 +211,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'safari_advances.number', searchable: true},
-                    { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
+                    { data: 'amount', name: 'safari_advances.amount_requested', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount_paid', name: 'safari_advances.amount_paid', searchable: true},

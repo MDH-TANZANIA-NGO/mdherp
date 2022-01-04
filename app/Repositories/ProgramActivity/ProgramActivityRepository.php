@@ -7,10 +7,12 @@ use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Repositories\BaseRepository;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 
 class ProgramActivityRepository extends BaseRepository
 {
+    use Number;
     const MODEL = ProgramActivity::class;
     protected $requisition;
 
@@ -24,12 +26,7 @@ class ProgramActivityRepository extends BaseRepository
     public function inputProcess( $inputs)
     {
         $requisition_training = requisition_training::query()->find($inputs['requisition_training_id']);
-        //$requisition_id = DB::table('requisition_trainings')->select('requisition_id')->where('id','=', $requisition_training_id);
-        //dd($requisition_training['requisition_id']);
         $requisition = Requisition::findOrFail($requisition_training['requisition_id']);
-
-        //dd($requisition->amount);
-        //$user_id = access()->user()->id;
 
         return[
             'requisition_training_id' => $inputs['requisition_training_id'],
@@ -49,4 +46,17 @@ class ProgramActivityRepository extends BaseRepository
             return $this->query()->create($this->inputProcess($inputs));
         });
     }
+
+    public function update($inputs, $uuid)
+    {
+
+        return DB::transaction(function () use ($inputs, $uuid){
+
+            $programActivity = $this->findByUuid($uuid);
+            $number = $this->generateNumber($programActivity);
+            DB::update('update program_activities set number = ?, done = ? where uuid=?', [$number, 1, $uuid]);
+        });
+
+    }
+
 }

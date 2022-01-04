@@ -7,6 +7,7 @@ use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
+use App\Models\System\District;
 
 trait RequisitionTrainingRelationship
 {
@@ -25,5 +26,9 @@ trait RequisitionTrainingRelationship
     public function requisition()
     {
         return $this->hasOne(Requisition::class);
+    }
+    public function district()
+    {
+        return $this->belongsTo(District::class);
     }
 }
