@@ -9,4 +9,19 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
 
     Route::get('{programActivity}/show', 'ProgramActivityController@show')->name('show');
 
+
+
+    /**
+     * Datatables
+     */
+    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+        Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
+            Route::get('processing', 'ProgramActivityController@AccessProcessingDatatable')->name('processing');
+            Route::get('rejected', 'ProgramActivityController@AccessRejectedDatatable')->name('rejected');
+            Route::get('approved', 'ProgramActivityController@AccessApprovedDatatable')->name('approved');
+            Route::get('saved', 'ProgramActivityController@AccessDatatable')->name('saved');
+            Route::get('paid', 'ProgramActivityController@AccesssDatatable')->name('paid');
+        });
+    });
+
 });

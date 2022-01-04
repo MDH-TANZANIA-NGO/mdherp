@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\ProgramActivity;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\ProgramActivity\Datatable\ProgramActivityDatatable;
 use App\Models\Auth\User;
 use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\Requisition\Requisition;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProgramActivityController extends Controller
 {
+    use ProgramActivityDatatable;
     protected $trainings;
     protected $program_activity;
     protected $districts;
@@ -48,7 +50,8 @@ class ProgramActivityController extends Controller
 
     public function index()
     {
-        return view('programactivity.index');
+        return view('programactivity.index')
+            ->with('program_activities',  $this->program_activity = (new ProgramActivityRepository()));
     }
 
     public  function  create(ProgramActivity $programActivity)
@@ -88,11 +91,11 @@ class ProgramActivityController extends Controller
         $program_activity =  $this->program_activity->findByUuid($uuid);
         $wf_module_group_id = 3;
 //        dd($user);
-        $user_id = User::findOrFail($user);
-        $next_user = $user_id->assignedSupervisor();
+        $next_user = $program_activity->user->assignedSupervisor()->supervisor_id;
 
-        $supervisor = $next_user->supervisor_id;
-        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $program_activity->id,'region_id' => $program_activity->region_id, 'type' => 1],[],['next_user_id' => $supervisor]));
+        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $program_activity->id,'region_id' => $program_activity->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+
+
         return redirect()->route('programactivity.show',$uuid);
 
     }

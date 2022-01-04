@@ -22,7 +22,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Initiate Safari</button>
+                                <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Initiate Activity</button>
                                 {!! Form::close() !!}
                             </div>
                         </div>

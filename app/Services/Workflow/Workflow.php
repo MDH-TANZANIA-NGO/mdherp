@@ -10,6 +10,7 @@ use App\Models\Workflow\WfModule;
 use App\Models\Workflow\WfTrack;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
+use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Report\ReportRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
@@ -410,10 +411,16 @@ class Workflow
                 $requisition->wfTracks()->save($wfTrack);
                 break;
                 case 2:
-                /*Requisition*/
+                /*Safari*/
                 $safari_repo = (new SafariAdvanceRepository());
                 $safari = $safari_repo->find($resourceId);
                 $safari->wfTracks()->save($wfTrack);
+                break;
+            case 3:
+                /*Program Activity*/
+                $program_activity_repo = (new ProgramActivityRepository());
+                $program_activity = $program_activity_repo->find($resourceId);
+                $program_activity->wfTracks()->save($wfTrack);
                 break;
         }
     }
