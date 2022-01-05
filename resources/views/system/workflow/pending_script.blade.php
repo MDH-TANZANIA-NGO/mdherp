@@ -93,8 +93,11 @@
                         case 1: /*Requisition*/
                             window.open(base_url + "/requisitions/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
-                        case 2: /*Requisition*/
+                        case 2: /*Safari*/
                             window.open(base_url + "/safari/" + aData['resource_uuid'] + '/show' , "_blank");
+                            break;
+                        case 3: /*programactivity*/
+                            window.open(base_url + "/programactivity/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
                         default:
                             break;
