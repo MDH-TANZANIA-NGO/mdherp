@@ -127,7 +127,7 @@ class SafariAdvanceRepository extends BaseRepository
     public function getAccessSavedDatatable()
     {
         return $this->getQuery()
-            ->whereHas('wfTracks')
+            ->whereDoesntHave('wfTracks')
             ->where('safari_advances.wf_done', false)
             ->where('safari_advances.done', false)
             ->where('safari_advances.rejected', false)

@@ -6,6 +6,7 @@ use App\Models\Auth\User;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\System\District;
 use App\Models\Workflow\WfTrack;
 
 trait ProgramActivityRelationship
@@ -18,7 +19,7 @@ public function requisition()
 
 public function training()
 {
-    return$this->hasOne(requisition_training::class);
+    return$this->belongsTo(requisition_training::class, 'requisition_training_id', 'id');
 }
 
 public function costs(){
@@ -27,6 +28,10 @@ public function costs(){
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function district()
+    {
+        return $this->hasOne(District::class);
     }
 
     /**

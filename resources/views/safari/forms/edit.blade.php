@@ -64,7 +64,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 {!! Form::label('item_name', __("Scope of Work"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::textarea('scope', null, ['class' => 'form-control', 'required']) !!}
+                                {!! Form::textarea('scope', $safari_advance->scope, ['class' => 'form-control', 'required']) !!}
                                 {!! $errors->first('scope', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
@@ -90,9 +90,8 @@
                                             <option value="land public transport">Land Public Transport</option>
                                         </select>
                                     </td>
-                                    </td>
-                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}</td>
-                                    <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required','id'=>'to']) !!}</td>
+                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'first']) !!}</td>
+                                    <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required','id'=>'second']) !!}</td>
                                 </tr>
 
                                 </tbody>
@@ -110,14 +109,24 @@
         </div>
     </div>
 
-{{--    @include('safari.forms.initiate')--}}
+    {{--    @include('safari.forms.initiate')--}}
 
 
 @endsection
 
 @push('after-scripts')
     <script>
+        $(document).ready(function (){
 
+            // console.log('loading');
+            // let $first = $("#first");
+            // let $second = $("#second");
+            //
+            // console.log($first.val());
+            // $second.datepicker({
+            //     minDate: $first.val()
+            // })
+        });
     </script>
 @endpush
 
