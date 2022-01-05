@@ -224,6 +224,7 @@
                                                 </div>
                                                 <div class="tab-pane " id="tab4">
                                               {{-- content to be displayed --}}
+                                                    @include('system.permission.permissions')
                                                 </div>
                                                 <div class="tab-pane " id="tab5">
                                                     {{-- content to be displayed --}}
