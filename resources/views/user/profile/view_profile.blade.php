@@ -170,7 +170,7 @@
                                                         {!! Form::close() !!}
 
                                                 </div>
-                                                <div class="tab-pane" id="tab2">
+                                                <div class="tab-pane " id="tab2">
                                                     <div class="card-body">
 {{--                                                        <form action="">--}}
                                                         {!! Form::open(['route' => ['user.assign_supervisor', $user->id],'method' => 'post']) !!}
@@ -218,7 +218,6 @@
 
 
                                                 </div>
-
                                                 <div class="tab-pane " id="tab3">
                                               {{-- content to be displayed --}}
                                                     @include('system.workflow.definition_assignment',['user' => $user, 'wf_module_groups'])
