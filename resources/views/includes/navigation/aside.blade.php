@@ -19,25 +19,6 @@
             </ul>
         </li>
 
-       {{-- <li class="slide">
-            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon mdi mdi-car"></i><span class="side-menu__label">Fleet Management</span><i class="angle fa fa-angle-right"></i></a>
-            <ul class="slide-menu">
-                <li><a class="slide-item"  href="{{ route('fleet.index') }}"><span>Fleet List</span></a></li>
-                <li><a class="slide-item"  href="{{ route('fleet.register') }}"><span>Fleet Register</span></a></li>
-            </ul>
-        </li> --}}
-
-        {{--    <li class="slide">
-               <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-settings"></i><span class="side-menu__label">System Settings</span><i class="angle fa fa-angle-right"></i></a>
-               <ul class="slide-menu">
-                   <li><a class="slide-item"  href=""><span>Roles</span></a></li>
-                   <li><a class="slide-item"  href="#"><span>Permissions</span></a></li>
-                   <li><a class="slide-item"  href="#"><span>Workflow</span></a></li>
-                   <li><a class="slide-item"  href="#"><span>Perdiem Rates</span></a></li>
-
-               </ul>
-          </li> --}}
-
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-wrench"></i><span class="side-menu__label">Project Settings</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
@@ -56,8 +37,18 @@
 
             </ul>
         </li>
-        <li>
+        <li class="slide">
+            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-dollar"></i><span class="side-menu__label">Finance Activities</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item"  href="{{ route('finance.index') }}"><span>Payments</span></a></li>
+
+            </ul>
+        </li>
+        <li class="">
             <a class="side-menu__item" href="{{ route('general.invoke') }}"><i class="side-menu__icon fa fa-cogs"></i><span class="side-menu__label">General Settings</span></a>
+        </li>
+        <li class="">
+            <a class="side-menu__item" href=""><i class="side-menu__icon fa fa-history"></i><span class="side-menu__label">Audit Trail</span></a>
         </li>
     </ul>
 </aside>

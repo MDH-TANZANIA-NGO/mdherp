@@ -47,172 +47,123 @@ class PermissionsTableSeeder extends Seeder
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'roles_assignment',
-                    'display_name' => 'Roles Assignment',
-                    'description' => 'User can assign task to other staff',
+                    'name' => 'workflow_participant',
+                    'display_name' => 'Workflow participant',
+                    'description' => 'User can participate in the workflow',
                     'ischecker' => 1,
                 ),
             4 =>
                 array (
                     'id' => 5,
-                    'name' => 'diactivate_user',
-                    'display_name' => 'User di-activator',
-                    'description' => 'User can di-activate other user',
+                    'name' => 'deactivate_user',
+                    'display_name' => 'User de-activator',
+                    'description' => 'User can de-activate other user',
                     'ischecker' => 1,
                 ),
             5 =>
                 array (
                     'id' => 6,
-                    'name' => 'apply_taf',
-                    'display_name' => 'Apply TAF',
-                    'description' => 'User can apply Travel Authorized Form (TAF)',
+                    'name' => 'apply_safari',
+                    'display_name' => 'Apply Safari',
+                    'description' => 'User can apply Safari Advance',
                     'ischecker' => 1,
                 ),
             6 =>
                 array (
                     'id' => 7,
-                    'name' => 'edit_taf',
-                    'display_name' => 'Edit TAF',
-                    'description' => 'User can edit Travel Authorized Form (TAF)',
+                    'name' => 'edit_safari',
+                    'display_name' => 'Edit Safari',
+                    'description' => 'User can edit Safari Advance',
                     'ischecker' => 1,
                 ),
             7 =>
                 array (
                     'id' => 8,
-                    'name' => 'apply_tber',
-                    'display_name' => 'Apply TBER',
-                    'description' => 'User can apply Travel Authorized Form (TBER)',
+                    'name' => 'apply_retirement',
+                    'display_name' => 'Apply Retirement',
+                    'description' => 'User can apply Retirement',
                     'ischecker' => 1,
                 ),
             8 =>
                 array (
                     'id' => 9,
-                    'name' => 'edit_tber',
-                    'display_name' => 'Edit TBER',
-                    'description' => 'User can edit Travel Authorized Form (TBER)',
+                    'name' => 'edit_retirement',
+                    'display_name' => 'Edit Retirement',
+                    'description' => 'User can edit Retirement',
                     'ischecker' => 1,
                 ),
             9 =>
                 array (
                     'id' => 10,
-                    'name' => 'view_users',
-                    'display_name' => 'View Users',
-                    'description' => 'User can view other users of the system',
+                    'name' => 'user_management',
+                    'display_name' => 'User Management',
+                    'description' => 'User can manage other users in the system',
                     'ischecker' => 1,
                 ),
             10 =>
                 array (
                     'id' => 11,
-                    'name' => 'workflow_participant',
-                    'display_name' => 'Workflow participant',
+                    'name' => 'project_settings',
+                    'display_name' => 'Project Settings',
                     'description' => 'User can participate in the workflow',
                     'ischecker' => 1,
                 ),
             11 =>
                 array (
                     'id' => 12,
-                    'name' => 'settings',
-                    'display_name' => 'Settings',
-                    'description' => 'User can set all system setting',
+                    'name' => 'general_settings',
+                    'display_name' => 'General Settings',
+                    'description' => 'User can access general setting',
                     'ischecker' => 1,
                 ),
             12 =>
                 array (
                     'id' => 13,
-                    'name' => 'workflow',
-                    'display_name' => 'workflow',
-                    'description' => 'User can set workflow',
+                    'name' => 'budget_settings',
+                    'display_name' => 'Budget Settings',
+                    'description' => 'User can access budget settings',
                     'ischecker' => 1,
                 ),
             13 =>
-                array (
+                array(
                     'id' => 14,
-                    'name' => 'module_viewer',
-                    'display_name' => 'Module Viewer',
-                    'description' => 'User can view modules',
+                    'name' => 'online_checkin',
+                    'display_name' => 'Online Checkin',
+                    'description' => 'User can checkin in the system online',
                     'ischecker' => 1,
                 ),
             14 =>
-                array (
+                array(
                     'id' => 15,
-                    'name' => 'edit_anything',
-                    'display_name' => 'edit anything',
-                    'description' => 'User can Edit anything',
-                    'ischecker' => 0,
+                    'name' => 'apply_business_requisition',
+                    'display_name' => 'Apply Business Requisition',
+                    'description' => 'User can apply business requisition',
+                    'ischecker' => 1,
                 ),
             15 =>
-                array (
+                array(
                     'id' => 16,
-                    'name' => 'apply_external_taf',
-                    'display_name' => 'Apply External TAF',
-                    'description' => 'User can apply Travel Authorized Form (TAF) for external user',
+                    'name' => 'apply_program_activity',
+                    'display_name' => 'Apply Program Activity',
+                    'description' => 'User can apply program activity',
                     'ischecker' => 1,
                 ),
             16 =>
-                array (
+                array(
                     'id' => 17,
-                    'name' => 'access_automated_attendance',
-                    'display_name' => 'Access Automated Attendance',
-                    'description' => 'User can access automated attendance system',
+                    'name' => 'supply_chain',
+                    'display_name' => 'Supply Chain',
+                    'description' => 'User can access supply chain',
                     'ischecker' => 1,
                 ),
             17 =>
-                array (
+                array(
                     'id' => 18,
-                    'name' => 'generate_taf_report',
-                    'display_name' => 'Generate TAF Reports',
-                    'description' => 'User can access and generate taf reports in a system',
+                    'name' => 'fleet',
+                    'display_name' => 'fleet',
+                    'description' => 'User can access fleet',
                     'ischecker' => 1,
                 ),
-            18 =>
-                array (
-                    'id' => 19,
-                    'name' => 'change_supervisor',
-                    'display_name' => 'Change supervisor',
-                    'description' => 'User can access and change supervisor on on-process TAF',
-                    'ischecker' => 1,
-                ),
-            19 =>
-                array (
-                    'id' => 20,
-                    'name' => 'view_offices',
-                    'display_name' => 'View Offices',
-                    'description' => 'User can access and View offices',
-                    'ischecker' => 1,
-                ),
-            20 =>
-                array (
-                    'id' => 21,
-                    'name' => 'cov_cec_payments',
-                    'display_name' => 'Cov & Cec Payment',
-                    'description' => 'User can access and View cov cec payments',
-                    'ischecker' => 1,
-                ),
-            21 =>
-                array (
-                    'id' => 22,
-                    'name' => 'add_employee_details',
-                    'display_name' => 'Add Employee Details',
-                    'description' => 'User can access employee and add details concerning leave',
-                    'ischecker' => 1,
-                ),
-            22 =>
-                array(
-                    'id' => 23,
-                    'name' => 'view_leaves',
-                    'display_name' => 'View Leaves',
-                    'description' => 'User can access and view leaves',
-                    'ischecker' => 1,
-                ),
-            23 =>
-                array(
-                    'id' => 24,
-                    'name' => 'online_checkin',
-                    'display_name' => 'Online Checkin',
-                    'description' => 'User can checkin in the system',
-                    'ischecker' => 1,
-                ),
-
 
         ));
         $this->enableForeignKeys("permissions");

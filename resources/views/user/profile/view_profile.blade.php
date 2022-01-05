@@ -170,7 +170,7 @@
                                                         {!! Form::close() !!}
 
                                                 </div>
-                                              <div class="tab-pane" id="tab2">
+                                                <div class="tab-pane " id="tab2">
                                                     <div class="card-body">
 {{--                                                        <form action="">--}}
                                                         {!! Form::open(['route' => ['user.assign_supervisor', $user->id],'method' => 'post']) !!}
@@ -179,10 +179,15 @@
                                                                 <div class="input-group">
 {{--                                                                    <input type="text" class="form-control" placeholder="Search for...">--}}
                                                                     {!! Form::select('users[]',$users,null,['class' => 'form-control select2-show-search', 'multiple','style'=>'width: 100%']) !!}
-                                                                    <span class="input-group-append">
-                                                                        <button class="btn btn-primary" type="submit">Select!</button>
-                                                                    </span>
                                                                 </div>
+
+                                                                &nbsp;
+                                                            <div class="input-group align-items-lg-center">
+{{--                                                                    <span class="input-group-append">--}}
+                                                                        <button class="btn btn-primary" type="submit">Assign!</button>
+{{--                                                                    </span>--}}
+                                                            </div>
+
                                                             </div>
                                                         {!! Form::close() !!}
 {{--                                                        </form>--}}
@@ -199,7 +204,8 @@
                                                                @foreach( $user_with_supervisor AS $users)
                                                                    <tr>
                                                                        <td>{{$users}}</td>
-                                                                       <td><a href="{{ route('user.remove_supervisor', $users)}}" onclick="return confirm('are you sure?')"><button class="form-control btn-danger">Remove</button></a></td>
+
+                                                                       <td><a href="{{ route('user.remove_supervisor', $users)}}" onclick="return confirm('are you sure?')"><button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i>Remove</button></a></td>
                                                                    </tr>
                                                                @endforeach
                                                             </tbody>
@@ -212,13 +218,13 @@
 
 
                                                 </div>
-
                                                 <div class="tab-pane " id="tab3">
                                               {{-- content to be displayed --}}
                                                     @include('system.workflow.definition_assignment',['user' => $user, 'wf_module_groups'])
                                                 </div>
                                                 <div class="tab-pane " id="tab4">
                                               {{-- content to be displayed --}}
+                                                    @include('system.permission.permissions')
                                                 </div>
                                                 <div class="tab-pane " id="tab5">
                                                     {{-- content to be displayed --}}

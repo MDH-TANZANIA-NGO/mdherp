@@ -77,8 +77,7 @@ class UserController extends Controller
      */
     public function profile(User $user)
     {
-
-//        dd($this->users->getAllUsersWithThisSupervisorPluck($user->id));
+//dd($this->users->getAllUsersWithThisSupervisorPluck($user->id));
         return view('user.profile.view_profile')
             ->with('user', $user)
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
