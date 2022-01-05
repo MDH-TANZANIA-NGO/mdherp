@@ -54,6 +54,15 @@ class SafariController extends Controller
             ->with('district', $this->districts->getForPluck())
             ->with('safari_advance', $safariAdvance);
     }
+    public  function  edit(SafariAdvance $safariAdvance)
+    {
+
+        return view('safari.forms.edit')
+
+            ->with('travelling_cost', $safariAdvance->travellingCost)
+            ->with('district', $this->districts->getForPluck())
+            ->with('safari_advance', $safariAdvance);
+    }
     public  function  initiate()
     {
 

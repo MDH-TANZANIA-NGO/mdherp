@@ -112,12 +112,15 @@ class ProgramActivityController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($programActivity, $current_level, $workflow->wf_definition_id);
 
         $designation = access()->user()->designation_id;
-
+//        dd($programActivity->training->trainingCost()->getQuery()->get()->all());
         return view('programactivity.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($programActivity))
-            ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation));
+            ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation))
+            ->with('program_activity',$programActivity)
+            ->with('activity_details',$programActivity->training()->getQuery()->get()->all())
+            ->with('activity_participants', $programActivity->training->trainingCost()->getQuery()->get()->all());
     }
 }
