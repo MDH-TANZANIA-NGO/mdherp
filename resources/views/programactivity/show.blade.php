@@ -132,8 +132,7 @@
                                 <td>{{$participants->transportation}}</td>
                                 <td>{{$participants->other_cost}}</td>
                                 <td>{{$participants->total_amount}}</td>
-                                <td><button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-rotate-left"></i></button> <button class="btn btn-cyan" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-clock-o"></i></button></td>
-
+                                <td><a href="{{ route('programactivity.editParticipant',$participants->uuid) }}"  class="btn btn-warning" ><i class="fa fa-rotate-left"></i></a> <a href="" id="attendance" class="btn btn-cyan" data-toggle="modal" data-target="#exampleModal" data-id="{{$participants->participant_uid}}"><i class="fa fa-clock-o"></i></a></td>
                             </tr>
 
                         @endforeach
@@ -176,6 +175,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
+
                 <div class="modal-body" >
                     {!! Form::select('gOfficer_id',$gofficers, null, ['class' => 'form-control select2-show-search', 'required','style'=>'width:100%']) !!}
                     {!! $errors->first('gOfficer_id', '<span class="badge badge-danger">:message</span>') !!}

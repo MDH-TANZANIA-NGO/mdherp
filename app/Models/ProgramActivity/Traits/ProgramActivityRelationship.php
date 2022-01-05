@@ -8,6 +8,7 @@ use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\System\District;
 use App\Models\Workflow\WfTrack;
+use App\Models\ProgramActivity\ProgramActivityParticipant;
 
 trait ProgramActivityRelationship
 {
@@ -32,6 +33,10 @@ public function costs(){
     public function district()
     {
         return $this->hasOne(District::class);
+    }
+    public function participants()
+    {
+        return$this->hasMany(ProgramActivityParticipant::class);
     }
 
     /**

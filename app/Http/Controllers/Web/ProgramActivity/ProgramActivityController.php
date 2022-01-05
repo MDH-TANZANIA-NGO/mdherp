@@ -35,6 +35,7 @@ class ProgramActivityController extends Controller
     protected $gOfficer;
     protected $wf_tracks;
     protected $designations;
+    protected $requisition_training_cost;
 
 
     public function __construct()
@@ -47,6 +48,7 @@ class ProgramActivityController extends Controller
         $this->gOfficer =  (new GOfficerRepository());
         $this->wf_tracks = (new WfTrackRepository());
         $this->designations = (new DesignationRepository());
+        $this->requisition_training_cost = (new RequestTrainingCostRepository());
     }
 
     public function index()
@@ -124,5 +126,23 @@ class ProgramActivityController extends Controller
             ->with('activity_details',$programActivity->training()->getQuery()->get()->all())
             ->with('activity_participants', $programActivity->training->trainingCost()->getQuery()->get()->all())
             ->with('gofficers', $this->gOfficer->getAll()->pluck('id','first_name'));
+    }
+
+    public function updateParticipant(Request $request, $uuid)
+    {
+        $this->program_activity->updateParticipant($request->all(), $uuid);
+        return redirect()->back();
+    }
+    public function editParticipant(Request $request, $uuid)
+    {
+
+       $requisition_training_cost = $this->requisition_training_cost->findByUuid($uuid);
+       $gofficer_id = $requisition_training_cost->participant_uid;
+//       dd($this->gOfficer->find($gofficer_id));
+//       dd($this->gOfficer->find($gofficer_id));
+        return view('programactivity.forms.edit-participant')
+            ->with('gofficers', $this->gOfficer->getAll()->pluck('id','first_name'))
+            ->with('existing_participant', $this->gOfficer->find($gofficer_id))
+            ->with('requisition_training_cost_id', $requisition_training_cost->id);
     }
 }

@@ -8,6 +8,8 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::post('{uuid}/update', 'ProgramActivityController@update')->name('update');
 
     Route::get('{programActivity}/show', 'ProgramActivityController@show')->name('show');
+    Route::get('{uuid}/editParticipant', 'ProgramActivityController@editParticipant')->name('editParticipant');
+    Route::post('{uuid}/updateParticipant', 'ProgramActivityController@updateParticipant')->name('updateParticipant');
 
 
 

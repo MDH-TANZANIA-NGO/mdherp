@@ -192,7 +192,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'safari_advances.number', searchable: true},
-                    { data: 'amount', name: 'safari_advances.amount_requested', searchable: true},
+                    { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount', name: 'requisitions.amount', searchable: true},
