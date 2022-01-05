@@ -10,15 +10,17 @@
     </div>
 </div>
 @if($unit->unit_id == 24 || $unit->unit_id == 23)
-    <div class="row">
-        <div class="card">
-            <div class="card-header">
-                    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Deposit</button>
+   @if($safari->wf_done == true)
+       <div class="row">
+           <div class="card">
+               <div class="card-header">
+                   <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Deposit</button>
 
-            </div>
+               </div>
 
-        </div>
-    </div>
+           </div>
+       </div>
+       @endif
 @endif
 <div class="row">
     <div class="card">
@@ -30,19 +32,18 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table card-table table-vcenter text-nowrap">
-                    <thead >
-                    <tr>
-                        <th>Scope of Work</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <td>{{$safari->scope}}</td>
-                    </tbody>
-                </table>
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Scope</h5>
+                    </div>
+                    <p class="mb-1">{{$safari->scope}}</p>
+                </a>
+
             </div>
+
             <hr>
+
 
             <div class="table-responsive">
                 <table class="table card-table table-vcenter text-nowrap">
@@ -104,22 +105,22 @@
                 {!! Form::open(['route' => ['safari.payment',$safari->uuid],'method'=>'POST']) !!}
                 <div class="form-group">
                     <label for="recipient-name" class="form-control-label">Payment Method:</label>
-                <select class="form-control" name="payment_method">
+                <select class="form-control" name="payment_method" >
                     <option value="tigopesa">Tigo Pesa</option>
-                    <option value="bank">Bank Transfer</option>
+{{--                    <option value="bank">Bank Transfer</option>--}}
                 </select>
                 </div>
                 <div class="form-group" id="number" >
                     <label for="recipient-name" class="form-control-label">Account Number:</label>
-                    {!! Form::text('number',null,['class'=>'form-control', 'placeholder'=>'0758698022 or 0J1468300300']) !!}
+                    {!! Form::text('number',$safari->travellingCost->user->phone,['class'=>'form-control', 'placeholder'=>'0758698022 or 0J1468300300']) !!}
                 </div>
                 <div class="form-group">
                     <label for="recipient-name" class="form-control-label">Amount Paid:</label>
-                    {!! Form::number('payed_amount',null,['class'=>'form-control', 'placeholder'=>'100,000']) !!}
+                    {!! Form::number('payed_amount',$safari->travellingCost->total_amount,['class'=>'form-control', 'placeholder'=>'100,000', 'id'=>'paid_amount']) !!}
                 </div>
 
                 {!! Form::number('reference',$safari->id,['class'=>'form-control', 'hidden']) !!}
-                {!! Form::number('requested_amount',$safari->amount_requested,['class'=>'form-control', 'hidden']) !!}
+                {!! Form::number('requested_amount',$safari->amount_requested,['class'=>'form-control', 'hidden', 'id'=>'requested_amount']) !!}
                 <div class="form-group">
                     <label for="recipient-name" class="form-control-label">Remarks:</label>
                     {!! Form::textarea('remarks',null,['class'=>'form-control', 'placeholder'=>'max 200 words']) !!}
@@ -131,7 +132,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" >Submit</button>
             </div>
             {!! Form::close() !!}
         </div>
@@ -141,5 +142,6 @@
 </div>
 
 @endsection
+
 
 

@@ -19,8 +19,8 @@ Route::group(['namespace' => 'Safari', 'middleware' => ['web', 'auth'], 'prefix'
             Route::get('processing', 'SafariController@AccessProcessingDatatable')->name('processing');
             Route::get('rejected', 'SafariController@AccessRejectedDatatable')->name('rejected');
             Route::get('approved', 'SafariController@AccessApprovedDatatable')->name('approved');
-            Route::get('saved', 'SafariController@AccessSavedDatatable')->name('saved');
-            Route::get('paid', 'SafariController@AccessPaidDatatable')->name('paid');
+            Route::get('saved', 'SafariController@AccessDatatable')->name('saved');
+            Route::get('paid', 'SafariController@AccesssDatatable')->name('paid');
         });
     });
 });

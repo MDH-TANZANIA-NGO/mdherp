@@ -5,14 +5,28 @@ namespace App\Repositories\Requisition\Training;
 use App\Models\GOfficer\GRate;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\Requisition\Training\Traits\Relationship\RequisitionTrainingCostRelationship;
+use App\Models\Requisition\Training\Traits\Relationship\RequisitionTrainingRelationship;
+use App\Models\Requisition\Travelling\Traits\Relationship\RequisitionTravellingCostRelationship;
+use App\Repositories\BaseRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use Illuminate\Support\Facades\DB;
 
-class RequestTrainingCostRepository
+class RequestTrainingCostRepository extends BaseRepository
 {
+    use RequisitionTrainingCostRelationship;
     const MODEL = requisition_training_cost::class;
 
-
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('requisition_training_costs.id AS id'),
+            DB::raw('requisition_training_costs.perdiem_total_amount AS perdiem_total_amount'),
+            DB::raw('requisition_training_costs.transportation AS transportation'),
+            DB::raw('requisition_training_costs.other_cost AS other_cost'),
+            DB::raw('requisition_training_costs.requisition_id AS requisition_id')
+        ]);
+    }
 
     public function inputProcess($inputs)
     {

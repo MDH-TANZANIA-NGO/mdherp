@@ -3,6 +3,7 @@
 namespace App\Repositories\SafariAdvance;
 
 use App\Events\NewWorkflow;
+use App\Http\Controllers\Web\Safari\Datatables\SafariDatatables;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Repositories\BaseRepository;
@@ -100,7 +101,7 @@ class SafariAdvanceRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('safari_advances.wf_done', 0)
+            ->where('safari_advances.wf_done_date', null)
 //            ->where('safari_advances.done', true)
             ->where('safari_advances.rejected', false)
             ->where('users.id', access()->id());
@@ -127,9 +128,10 @@ class SafariAdvanceRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('safari_advances.wf_done', true)
+            ->where('safari_advances.wf_done', false)
             ->where('safari_advances.done', false)
             ->where('safari_advances.rejected', false)
+            ->where('safari_advances.number', null)
             ->where('users.id', access()->id());
     }
     public function getAccessPaidDatatable()

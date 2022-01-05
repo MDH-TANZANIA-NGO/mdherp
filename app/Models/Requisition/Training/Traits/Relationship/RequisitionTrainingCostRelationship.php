@@ -6,6 +6,7 @@ use App\Models\Auth\User;
 use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\GRate;
 use App\Models\Requisition\Requisition;
+use App\Models\Requisition\Training\requisition_training;
 use App\Models\System\District;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,6 +30,11 @@ trait RequisitionTrainingCostRelationship {
     {
         return $this->belongsTo(GRate::class,'perdiem_rate_id', 'id');
     }
+    public function training()
+    {
+        return $this->belongsTo(requisition_training::class);
+    }
+
 
 
 

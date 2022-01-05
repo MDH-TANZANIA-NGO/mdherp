@@ -1,23 +1,23 @@
 <div class="card-body p-6">
     <div class="panel panel-primary">
 
-
+{{--{{dd($program_activities)}}--}}
 
         <div class=" tab-menu-heading card-header" style="background-color: rgb(238, 241, 248)">
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">Onprocess <span class="badge badge-warning">{{ $requisition_access->getAccessProcessingDatatable()->count() }}</span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Returned <span class="badge badge-danger">{{ $requisition_access->getAccessRejectedDatatable()->count() }}</span></a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $requisition_access->getAccessProvedDatatable()->count() }}</span></a></li>
-                    <li><a href="#saved" data-toggle="tab" class="">Paid <span class="badge badge-primary">{{ $requisition_access->getAccessSavedDatatable()->count() }}</span> </a></li>
-                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $requisition_access->getAccessSavedDatatable()->count() }}</span> </a></li>
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">Onprocess <span class="badge badge-warning">{{ $program_activities->getAccessProcessingDatatable()->count() }}</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Returned <span class="badge badge-danger">{{ $program_activities->getAccessRejectedDatatable()->count() }}</span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $program_activities->getAccessProvedDatatable()->count() }}</span></a></li>
+                    <li><a href="#saved" data-toggle="tab" class="">Paid <span class="badge badge-primary">{{ $program_activities->getAccessSavedDatatable()->count() }}</span> </a></li>
+                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $program_activities->getAccessSavedDatatable()->count() }}</span> </a></li>
                 </ul>
             </div>
 
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('programactivity.initiate') }}"> <i class="fa fa-plus mr-2"></i>Request Advance</a>
+                    <a href="{{ route('programactivity.initiate') }}"> <i class="fa fa-plus mr-2"></i>Initiate Activity</a>
                 </div>
             </div>
 
@@ -150,7 +150,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('safari.datatable.access.processing') }}',
+                ajax: '{{ route('programactivity.datatable.access.processing') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'safari_advances.number', searchable: true},
@@ -169,7 +169,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('safari.datatable.access.rejected') }}',
+                ajax: '{{ route('programactivity.datatable.access.rejected') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'safari_advances.number', searchable: true},
@@ -188,7 +188,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('safari.datatable.access.approved') }}',
+                ajax: '{{ route('programactivity.datatable.access.approved') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'safari_advances.number', searchable: true},
@@ -207,7 +207,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('safari.datatable.access.saved') }}',
+                ajax: '{{ route('programactivity.datatable.access.saved') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'safari_advances.number', searchable: true},
@@ -226,7 +226,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('safari.datatable.access.paid') }}',
+                ajax: '{{ route('programactivity.datatable.access.paid') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'requisitions.number', searchable: true},

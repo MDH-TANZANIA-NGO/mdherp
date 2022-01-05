@@ -42,7 +42,7 @@ class SafariController extends Controller
     public function index()
     {
         return view('safari.index')
-           ;
+            ->with('safariAdvance', $this->safariAdvance =  (new SafariAdvanceRepository()));
     }
 
     public  function  create(SafariAdvance $safariAdvance)
@@ -66,13 +66,7 @@ class SafariController extends Controller
         return redirect()->route('safari.create', $safari);
     }
 
-    public function dummySubmit()
-    {
-        $safari = SafariAdvance::query()->find(1);
-        $wf_module_group_id = 2;
-        $next_user = $safari->user->assignedSupervisor()->supervisor_id;
-        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $safari->id,'region_id' => $safari->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-    }
+
     public function update(Request $request, $uuid)
     {
         $this->safariAdvance->update($request->all(),$uuid);
