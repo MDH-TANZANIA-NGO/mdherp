@@ -66,7 +66,7 @@ trait SafariDatatables
                 return number_2_format($query->amount_paid);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.addDescription', $query->uuid).'">View</a>';
+                return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -87,7 +87,7 @@ trait SafariDatatables
                 return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.addDescription', $query->uuid).'">View</a>';
+                return '<a href="'.route('safari.edit', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -106,7 +106,7 @@ trait SafariDatatables
                 return number_2_format($query->amount_paid);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.addDescription', $query->uuid).'">View</a>';
+                return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

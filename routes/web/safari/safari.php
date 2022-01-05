@@ -2,6 +2,7 @@
 Route::group(['namespace' => 'Safari', 'middleware' => ['web', 'auth'], 'prefix' => 'safari', 'as' => 'safari.'], function () {
     Route::get('', 'SafariController@index')->name('index');
     Route::get('{safariAdvance}/create', 'SafariController@create')->name('create');
+    Route::get('{safariAdvance}/edit', 'SafariController@create')->name('edit');
     Route::get('initiate', 'SafariController@initiate')->name('initiate');
     Route::post('store', 'SafariController@store')->name('store');
     Route::post('{uuid}/update', 'SafariController@update')->name('update');
@@ -23,4 +24,10 @@ Route::group(['namespace' => 'Safari', 'middleware' => ['web', 'auth'], 'prefix'
             Route::get('paid', 'SafariController@AccesssDatatable')->name('paid');
         });
     });
+});
+
+Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'prefix' => 'requisitions', 'as' => 'requisition.'], function () {
+
+    Route::get('{requisition}/show', 'RequisitionController@show')->name('show');
+
 });
