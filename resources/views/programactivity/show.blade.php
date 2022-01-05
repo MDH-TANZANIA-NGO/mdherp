@@ -132,7 +132,7 @@
                                 <td>{{$participants->transportation}}</td>
                                 <td>{{$participants->other_cost}}</td>
                                 <td>{{$participants->total_amount}}</td>
-                                <td><button class="btn btn-outline-info">Edit</button> <button class="btn btn-cyan">Swap</button></td>
+                                <td><button class="btn btn-warning" data-toggle="modal" data-target="#exampleModal1"><i class="fa fa-rotate-left"></i></button> <button class="btn btn-cyan" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-clock-o"></i></button></td>
 
                             </tr>
 
@@ -145,5 +145,50 @@
         </div>
     </div>
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Mark Attendance</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="margin-left: 25%;">
+                    <button type="button" class="btn btn-outline-success">Attended</button>
+                    <button type="button" class="btn btn-outline-warning" style="margin-left: 4%">Not Attended</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Swap Participant With</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" >
+                    {!! Form::select('gOfficer_id',$gofficers, null, ['class' => 'form-control select2-show-search', 'required','style'=>'width:100%']) !!}
+                    {!! $errors->first('gOfficer_id', '<span class="badge badge-danger">:message</span>') !!}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
 
 @endsection
