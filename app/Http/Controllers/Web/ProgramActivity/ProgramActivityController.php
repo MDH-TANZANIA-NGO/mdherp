@@ -163,4 +163,9 @@ class ProgramActivityController extends Controller
         $this->program_activity->attended($request->all(), $uuid);
         return redirect()->back();
     }
+
+    public function programActivityReport()
+    {
+            return view('programactivity.forms.report');
+    }
 }
