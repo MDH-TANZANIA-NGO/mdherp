@@ -170,7 +170,7 @@
                                                         {!! Form::close() !!}
 
                                                 </div>
-                                                <div class="tab-pane " id="tab2">
+                                              <div class="tab-pane" id="tab2">
                                                     <div class="card-body">
 {{--                                                        <form action="">--}}
                                                         {!! Form::open(['route' => ['user.assign_supervisor', $user->id],'method' => 'post']) !!}
@@ -179,15 +179,10 @@
                                                                 <div class="input-group">
 {{--                                                                    <input type="text" class="form-control" placeholder="Search for...">--}}
                                                                     {!! Form::select('users[]',$users,null,['class' => 'form-control select2-show-search', 'multiple','style'=>'width: 100%']) !!}
+                                                                    <span class="input-group-append">
+                                                                        <button class="btn btn-primary" type="submit">Select!</button>
+                                                                    </span>
                                                                 </div>
-
-                                                                &nbsp;
-                                                            <div class="input-group align-items-lg-center">
-{{--                                                                    <span class="input-group-append">--}}
-                                                                        <button class="btn btn-primary" type="submit">Assign!</button>
-{{--                                                                    </span>--}}
-                                                            </div>
-
                                                             </div>
                                                         {!! Form::close() !!}
 {{--                                                        </form>--}}
@@ -204,8 +199,7 @@
                                                                @foreach( $user_with_supervisor AS $users)
                                                                    <tr>
                                                                        <td>{{$users}}</td>
-
-                                                                       <td><a href="{{ route('user.remove_supervisor', $users)}}" onclick="return confirm('are you sure?')"><button class="btn btn-sm btn-outline-primary badge" type="button"><i class="fa fa-trash"></i>Remove</button></a></td>
+                                                                       <td><a href="{{ route('user.remove_supervisor', $users)}}" onclick="return confirm('are you sure?')"><button class="form-control btn-danger">Remove</button></a></td>
                                                                    </tr>
                                                                @endforeach
                                                             </tbody>
@@ -218,13 +212,41 @@
 
 
                                                 </div>
+
                                                 <div class="tab-pane " id="tab3">
                                               {{-- content to be displayed --}}
                                                     @include('system.workflow.definition_assignment',['user' => $user, 'wf_module_groups'])
                                                 </div>
                                                 <div class="tab-pane " id="tab4">
                                               {{-- content to be displayed --}}
-                                                    @include('system.permission.permissions')
+
+                                                    {!! Form::open(['route' => ['user.permission_update', $user]]) !!}
+
+                                                    <div class="row">
+                                                        @foreach($permissions as $key => $permission)
+                                                            <div class="col-sm-4">
+                                                                <!-- checkbox -->
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-secondary d-inline">
+                                                                        <input name="permissions[]" type="checkbox" id="permission_{{ $permission->id }}" value="{{
+                                            $permission->id }}" name="definitions[]"
+                                                                            {{ $user->checkPermission($permission->id) ? 'checked' : '' }}>
+                                                                        <label for="permission_{{ $permission->id }}" title="{{$permission->description}}">
+                                                                            {{ $key + 1 }} . {{ $permission->display_name }}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- checkbox -->
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+
+                                                    <div class="row">
+                                                         {!! Form::submit('Attach Permission',['class'=>'btn btn-primary']) !!}
+                                                    </div>
+
+                                                    {!! Form::close() !!}
+
                                                 </div>
                                                 <div class="tab-pane " id="tab5">
                                                     {{-- content to be displayed --}}
