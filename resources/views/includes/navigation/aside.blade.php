@@ -13,7 +13,7 @@
         @endpermission
 
 
-{{--        @permission('workflow_participant')--}}
+        @permission('user_management')
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User Management</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
@@ -22,8 +22,9 @@
                 <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>External users</span></a></li>
             </ul>
         </li>
-{{--        @permission--}}
-
+        @endpermission
+        
+        @permission('project_settings')
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-wrench"></i><span class="side-menu__label">Project Settings</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
@@ -34,6 +35,9 @@
                 <li><a class="slide-item"  href="{{ route('output_unit.index') }}"><span>Output Units</span></a></li>
             </ul>
         </li>
+        @endpermission
+
+        @permission('budget_settings')
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-credit-card"></i><span class="side-menu__label">Budget Settings</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
@@ -42,6 +46,8 @@
 
             </ul>
         </li>
+        @endpermission
+
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-dollar"></i><span class="side-menu__label">Finance Activities</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
@@ -49,11 +55,16 @@
 
             </ul>
         </li>
+
+        @permission('general_settings')
         <li class="">
             <a class="side-menu__item" href="{{ route('general.invoke') }}"><i class="side-menu__icon fa fa-cogs"></i><span class="side-menu__label">General Settings</span></a>
         </li>
+        @endpermission
+
         <li class="">
             <a class="side-menu__item" href=""><i class="side-menu__icon fa fa-history"></i><span class="side-menu__label">Audit Trail</span></a>
         </li>
+
     </ul>
 </aside>
