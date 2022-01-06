@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnOnProgramActivitiesTable extends Migration
+class AddColumnReportOnProgramActivitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,8 @@ class AddColumnOnProgramActivitiesTable extends Migration
     {
         //
         Schema::table('program_activities', function (Blueprint $table) {
-            $table->unsignedBigInteger('requisition_training_id')->nullable();
+            //
+            $table->longText('report')->nullable();
 
         });
     }

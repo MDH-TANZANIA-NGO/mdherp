@@ -7,7 +7,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header" style="background-color: rgb(238, 241, 248)">
-                        <h3 class="card-title">Initiate Safari</h3>
+                        <h3 class="card-title">Initiate Activity</h3>
                     </div>
                     <div class="card-body">
                         {!! Form::open(['route' => ['programactivity.store']]) !!}

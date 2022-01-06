@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnOnProgramActivitiesTable extends Migration
+class AddColumnInRequisitionTrainingCostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddColumnOnProgramActivitiesTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('program_activities', function (Blueprint $table) {
-            $table->unsignedBigInteger('requisition_training_id')->nullable();
+        Schema::table('requisition_training_costs', function (Blueprint $table) {
+            //
+            $table->boolean('attend')->default(FALSE);
 
         });
     }
@@ -27,6 +27,8 @@ class AddColumnOnProgramActivitiesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('requisition_training_costs', function (Blueprint $table) {
+            //
+        });
     }
 }
