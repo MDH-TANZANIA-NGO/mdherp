@@ -300,7 +300,29 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-
+            12 =>
+                array (
+                    'id' => 13,
+                    'level' => '1',
+                    'unit_id' => 6,
+                    'designation_id' => 10,
+                    'description' => 'Submit Program Activity Report',
+                    'msg_next' => 'Submit Program Activity Report',
+                    'wf_module_id' => '4',
+                    'active' => '1',
+                    'allow_rejection' => 1,
+                    'allow_repeat_participate' => 0,
+                    'created_at' => '2021-11-22 10:15:25',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'is_approval' => 0,
+                    'has_next_start_optional' => 0,
+                    'is_optional' => 0,
+                    'can_close' => 1,
+                    'action_description' => 'Approved',
+                    'status_description' => 'Approved',
+//                'assign_next_user' => 0,
+                ),
 
         ));
 

@@ -65,7 +65,7 @@ class WfModulesTableSeeder extends Seeder
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'Program Activity Form ',
+                    'name' => 'Program Activities Initiated ',
                     'wf_module_group_id' => '3',
                     'created_at' => '2021-12-13 12:36:03',
                     'updated_at' => \Carbon\Carbon::now(),
@@ -73,6 +73,20 @@ class WfModulesTableSeeder extends Seeder
                     'isactive' => '1',
                     'type' => '1',
                     'description' => 'All Program Activities',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
+            4 =>
+                array (
+                    'id' => 5,
+                    'name' => 'Program Activity Reports ',
+                    'wf_module_group_id' => '4',
+                    'created_at' => '2021-12-13 12:36:03',
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => '1',
+                    'description' => 'All Program Activitiy Reports',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
