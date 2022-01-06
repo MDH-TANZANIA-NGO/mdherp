@@ -160,8 +160,24 @@ class PermissionsTableSeeder extends Seeder
                 array(
                     'id' => 18,
                     'name' => 'fleet',
-                    'display_name' => 'fleet',
+                    'display_name' => 'Fleet',
                     'description' => 'User can access fleet',
+                    'ischecker' => 1,
+                ),
+            18 =>
+                array(
+                    'id' => 19,
+                    'name' => 'finance_activity',
+                    'display_name' => 'Finance Activity',
+                    'description' => 'User can access finance activity',
+                    'ischecker' => 1,
+                ),
+            19 =>
+                array(
+                    'id' => 20,
+                    'name' => 'audit_trail',
+                    'display_name' => 'Audit Trail',
+                    'description' => 'User can access audit trail',
                     'ischecker' => 1,
                 ),
 

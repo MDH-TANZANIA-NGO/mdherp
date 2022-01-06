@@ -23,7 +23,7 @@
             </ul>
         </li>
         @endpermission
-        
+
         @permission('project_settings')
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-wrench"></i><span class="side-menu__label">Project Settings</span><i class="angle fa fa-angle-right"></i></a>
@@ -48,6 +48,7 @@
         </li>
         @endpermission
 
+        @permission('finance_activity')
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-dollar"></i><span class="side-menu__label">Finance Activities</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
@@ -55,6 +56,7 @@
 
             </ul>
         </li>
+        @endpermission
 
         @permission('general_settings')
         <li class="">
@@ -62,9 +64,10 @@
         </li>
         @endpermission
 
+        @permission('audit_trail')
         <li class="">
             <a class="side-menu__item" href=""><i class="side-menu__icon fa fa-history"></i><span class="side-menu__label">Audit Trail</span></a>
         </li>
-
+        @endpermission
     </ul>
 </aside>

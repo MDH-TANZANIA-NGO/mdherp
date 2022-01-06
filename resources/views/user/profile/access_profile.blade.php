@@ -55,7 +55,7 @@
                                             </div>
                                         </div>
                                         <div class="panel-body tabs-menu-body">
-                                            <div class="tab-content">
+{{--                                            <div class="tab-content">--}}
                                                 <div class="tab-pane active " id="tab1">
                                                     <form class="card">
 
@@ -245,19 +245,19 @@
                                                     </div>
                                                     </div>
                                                     <!-- table-wrapper -->
-                                                    {{-- content to be displayed --}}
+                                                     content to be displayed
 
 
 
                                                 </div>
                                                 <div class="tab-pane " id="tab3">
-                                              {{-- content to be displayed --}}
+                                               content to be displayed
                                                 </div>
                                                 <div class="tab-pane " id="tab4">
-                                              {{-- content to be displayed --}}
+                                               content to be displayed
                                                 </div>
                                                 <div class="tab-pane " id="tab5">
-                                                    {{-- content to be displayed --}}
+                                                     content to be displayed
                                                     <div class="card-body">
 
                                                         <div class="table-responsive">
