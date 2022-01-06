@@ -1,7 +1,16 @@
 @extends('layouts.app')
 @section('content')
 
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
+                <a href=" {{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
 
+            </div>
+
+        </div>
+    </div>
 
     <!-- start: page -->
     <div class="row mb-2">
@@ -118,7 +127,9 @@
                             <th >Transportation</th>
                             <th>Other Cost</th>
                             <th >Total</th>
+                            @if($program_activity->wf_done == true)
                             <th >Action</th>
+                                @endif
 
                         </tr>
                         </thead>
@@ -132,7 +143,16 @@
                                 <td>{{$participants->transportation}}</td>
                                 <td>{{$participants->other_cost}}</td>
                                 <td>{{$participants->total_amount}}</td>
-                                <td><a href="{{ route('programactivity.editParticipant',$participants->uuid) }}"  class="btn btn-warning" ><i class="fa fa-rotate-left"></i></a> <a href="" id="attendance" class="btn btn-cyan" data-toggle="modal" data-target="#exampleModal" data-id="{{$participants->participant_uid}}"><i class="fa fa-clock-o"></i></a></td>
+                                @if($program_activity->wf_done == true)
+                                <td>
+                                    @if($participants->is_substitute == false)
+
+                                    <a href="{{ route('programactivity.editParticipant',$participants->uuid) }}"  class="btn btn-warning" ><i class="fa fa-rotate-left"></i></a>
+                                    @endif
+                                    @if($participants->attend == false)
+                                    <a href="{{ route('programactivity.programActivityAttendance',$participants->uuid) }}" id="attendance" class="btn btn-cyan" onclick="confirm('Are you Sure?')" >Attended</a></td>
+                                    @endif
+                                @endif
                             </tr>
 
                         @endforeach
@@ -140,55 +160,12 @@
                     </table>
                 </div>
                 <!-- table-responsive -->
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Mark Attendance</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="margin-left: 25%;">
-                    <button type="button" class="btn btn-outline-success">Attended</button>
-                    <button type="button" class="btn btn-outline-warning" style="margin-left: 4%">Not Attended</button>
-                </div>
 
             </div>
         </div>
     </div>
-    <!-- Modal -->
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Swap Participant With</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
 
-                <div class="modal-body" >
-                    {!! Form::select('gOfficer_id',$gofficers, null, ['class' => 'form-control select2-show-search', 'required','style'=>'width:100%']) !!}
-                    {!! $errors->first('gOfficer_id', '<span class="badge badge-danger">:message</span>') !!}
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
 
 @endsection

@@ -88,7 +88,7 @@ class UserController extends Controller
             ->with('wf_module_groups', $this->wf_module_groups->getAll())
             ->with('projects', $this->projects->getActiveForPluck())
             ->with('users', $this->users->getAllUsersWithNoSupervisorPluck($user->id))
-            ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorPluck($user->id));
+            ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorGet($user->id));
     }
 
     /**

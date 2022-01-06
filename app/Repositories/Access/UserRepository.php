@@ -352,6 +352,10 @@ class UserRepository extends BaseRepository
     {
         return $this->getAllUsersWithSupervisor()->where('supervisor_users.supervisor_id', $user_id)->get()->pluck('user_id','names')->toArray();
     }
+    public function getAllUsersWithThisSupervisorGet($user_id)
+    {
+        return $this->getAllUsersWithSupervisor()->where('supervisor_users.supervisor_id', $user_id)->get();
+    }
 
     public function assignSupervisor($user_id, $inputs)
     {

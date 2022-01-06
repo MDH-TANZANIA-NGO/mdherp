@@ -3,8 +3,10 @@
 namespace App\Repositories\ProgramActivity;
 
 use App\Models\ProgramActivity\ProgramActivity;
+use App\Models\ProgramActivity\Traits\ProgramActivityRelationship;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
+use App\Models\Requisition\Training\requisition_training_cost;
 use App\Repositories\BaseRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Services\Generator\Number;
@@ -12,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProgramActivityRepository extends BaseRepository
 {
-    use Number;
+    use Number, ProgramActivityRelationship;
     const MODEL = ProgramActivity::class;
     protected $requisition;
 
@@ -96,15 +98,29 @@ class ProgramActivityRepository extends BaseRepository
 
         public function updateParticipant($inputs, $uuid)
         {
-                $participant_uid = $inputs['new_participant_id'];
+            $participant_uid = $inputs['new_participant_id'];
             $substituted_user_id = $inputs['old_participant_id'];
             $requisition_training_cost_id = $inputs['requisition_training_cost_id'];
 
+
             return DB::transaction(function () use ($inputs, $uuid, $participant_uid, $substituted_user_id, $requisition_training_cost_id){
 
-
+                $activity_uuid = $inputs['activity_uuid'];
                 DB::update('update requisition_training_costs set participant_uid = ?, is_substitute = ?, substituted_user_id = ? where id=?', [$participant_uid, "TRUE", $substituted_user_id, $requisition_training_cost_id]);
+
+
             });
+        }
+        public function attended($inputs, $uuid)
+        {
+            return DB::transaction(function () use ($inputs, $uuid){
+
+//                $activity_uuid = $inputs['activity_uuid'];
+                DB::update('update requisition_training_costs set attend = ? where uuid=?', [true,  $uuid]);
+
+
+            });
+
         }
 
 

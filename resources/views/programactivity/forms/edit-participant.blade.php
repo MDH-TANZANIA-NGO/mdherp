@@ -15,6 +15,7 @@
                 {!! Form::select('new_participant_id',$gofficers, null, ['class' => 'form-control select2-show-search', 'required','style'=>'width:100%']) !!}
                 {!! Form::number('requisition_training_cost_id', $requisition_training_cost_id, ['hidden']) !!}
                 {!! Form::number('old_participant_id', $existing_participant->id, ['hidden']) !!}
+                {!! Form::text('activity_uuid', $activity_uuid, ['hidden']) !!}
                 <button type="submit" class="btn btn-outline-info" style="margin-left:40%; margin-top: 2%;" >Save Changes</button>
                 {!! Form::close() !!}
 

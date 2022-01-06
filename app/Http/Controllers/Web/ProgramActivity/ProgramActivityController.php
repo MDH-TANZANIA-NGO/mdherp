@@ -115,7 +115,10 @@ class ProgramActivityController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($programActivity, $current_level, $workflow->wf_definition_id);
 
         $designation = access()->user()->designation_id;
-//dd($this->gOfficer->getAll()->pluck('id','first_name'));
+        $requisition_id = $programActivity->training()->get()->pluck('requisition_id');
+        $requisitionss= $this->requisition->find($requisition_id);
+//dd($this->requisition->find($requisition_id)->toArray());
+
         return view('programactivity.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
@@ -125,24 +128,39 @@ class ProgramActivityController extends Controller
             ->with('program_activity',$programActivity)
             ->with('activity_details',$programActivity->training()->getQuery()->get()->all())
             ->with('activity_participants', $programActivity->training->trainingCost()->getQuery()->get()->all())
-            ->with('gofficers', $this->gOfficer->getAll()->pluck('id','first_name'));
+            ->with('gofficers', $this->gOfficer->getAll()->pluck('id','first_name'))
+            ->with('requisition_uuid',   $this->requisition->find($requisition_id)->pluck('uuid')->toArray());
     }
 
     public function updateParticipant(Request $request, $uuid)
     {
+
         $this->program_activity->updateParticipant($request->all(), $uuid);
         return redirect()->back();
     }
-    public function editParticipant(Request $request, $uuid)
+    public function editParticipant(ProgramActivityRepository $activityRepository, $uuid)
     {
+
 
        $requisition_training_cost = $this->requisition_training_cost->findByUuid($uuid);
        $gofficer_id = $requisition_training_cost->participant_uid;
-//       dd($this->gOfficer->find($gofficer_id));
-//       dd($this->gOfficer->find($gofficer_id));
+       $training_id = $requisition_training_cost->requisition_training_id;
+       $activity_uuid = $activityRepository->all()->where('requisition_training_id', $training_id)->pluck('uuid');
+
+
+        $gofficer = GOfficer::all()->pluck('first_name', 'id');
+
         return view('programactivity.forms.edit-participant')
-            ->with('gofficers', $this->gOfficer->getAll()->pluck('id','first_name'))
+            ->with('gofficers', $gofficer->get())
             ->with('existing_participant', $this->gOfficer->find($gofficer_id))
-            ->with('requisition_training_cost_id', $requisition_training_cost->id);
+            ->with('requisition_training_cost_id', $requisition_training_cost->id)
+            ->with('activity_uuid', $activity_uuid);
+
+    }
+
+    public function programActivityAttendance(Request $request, $uuid)
+    {
+        $this->program_activity->attended($request->all(), $uuid);
+        return redirect()->back();
     }
 }

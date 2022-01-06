@@ -11,6 +11,8 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::get('{uuid}/editParticipant', 'ProgramActivityController@editParticipant')->name('editParticipant');
     Route::post('{uuid}/updateParticipant', 'ProgramActivityController@updateParticipant')->name('updateParticipant');
 
+    Route::get('{uuid}/programActivityAttendance', 'ProgramActivityController@programActivityAttendance')->name('programActivityAttendance');
+
 
 
     /**
@@ -25,5 +27,12 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
             Route::get('paid', 'ProgramActivityController@AccesssDatatable')->name('paid');
         });
     });
+
+
+});
+
+Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'prefix' => 'requisitions', 'as' => 'requisition.'], function () {
+
+    Route::get('{requisition}/show', 'RequisitionController@show')->name('show');
 
 });
