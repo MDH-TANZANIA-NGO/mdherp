@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnInRequisitionTrainingCostsTable extends Migration
+class AddColumnReportOnProgramActivitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddColumnInRequisitionTrainingCostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('requisition_training_costs', function (Blueprint $table) {
+        //
+        Schema::table('program_activities', function (Blueprint $table) {
             //
-            $table->boolean('attend')->default(FALSE);
+            $table->longText('report')->nullable();
 
         });
     }
@@ -27,8 +28,6 @@ class AddColumnInRequisitionTrainingCostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('requisition_training_costs', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

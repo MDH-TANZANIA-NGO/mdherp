@@ -16,6 +16,7 @@ class AddColumnOnProgramActivitiesTable extends Migration
         //
         Schema::table('program_activities', function (Blueprint $table) {
             $table->unsignedBigInteger('requisition_training_id')->nullable();
+
         });
     }
 
