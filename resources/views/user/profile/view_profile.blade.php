@@ -170,7 +170,7 @@
                                                         {!! Form::close() !!}
 
                                                 </div>
-                                              <div class="tab-pane" id="tab2">
+                                                <div class="tab-pane" id="tab2">
                                                     <div class="card-body">
 {{--                                                        <form action="">--}}
                                                         {!! Form::open(['route' => ['user.assign_supervisor', $user->id],'method' => 'post']) !!}
@@ -179,12 +179,22 @@
                                                                 <div class="input-group">
 {{--                                                                    <input type="text" class="form-control" placeholder="Search for...">--}}
                                                                     {!! Form::select('users[]',$users,null,['class' => 'form-control select2-show-search', 'multiple','style'=>'width: 100%']) !!}
-                                                                    <span class="input-group-append">
-                                                                        <button class="btn btn-primary" type="submit">Select!</button>
-                                                                    </span>
+
                                                                 </div>
+                                                                &nbsp;
+                                                                <div class="input-group text-center" style="margin-left: 300px">
+
+                                                                   
+                                                                        <button class="btn btn-primary" type="submit">Select!</button>
+                                                                    
+                                                                </div>
+
                                                             </div>
+
+
                                                         {!! Form::close() !!}
+
+                                                        <hr>
 {{--                                                        </form>--}}
                                                         <div class="table-responsive">
                                                         <table id="example" class="table table-striped table-bordered" style="width:100%">
