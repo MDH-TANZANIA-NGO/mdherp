@@ -12,15 +12,19 @@
                         <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
                     </div>
                 </div>
+
+                {!! Form::open(['route' => ['programactivity.updateProgramActivity',$program_activity->uuid]]) !!}
                 <div class="card-body">
-                    <textarea class="content" name="example"></textarea>
+                    {!! Form::textarea('report', null, ['class'=>'content']) !!}
+
+                    {!! Form::close() !!}
                 </div>
             </div>
 
 
 
         </div>
-        <button class="btn btn-outline-info" style="margin-left: 40%">Submit For Approval</button>
+        <button class="btn btn-outline-info" style="margin-left: 40%" type="submit">Submit For Approval</button>
     </div>
 
     </div>

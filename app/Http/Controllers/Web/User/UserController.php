@@ -80,7 +80,8 @@ class UserController extends Controller
      */
     public function profile(User $user)
     {
-//dd($this->users->getAllUsersWithThisSupervisorPluck($user->id));
+
+//dd($this->users->getAllUsersWithThisSupervisorGet($user->id));
         return view('user.profile.view_profile')
             ->with('user', $user)
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
@@ -89,7 +90,7 @@ class UserController extends Controller
             ->with('regions', $this->regions->forSelect())
             ->with('wf_module_groups', $this->wf_module_groups->getAll())
             ->with('projects', $this->projects->getActiveForPluck())
-            ->with('users', $this->users->getAllUsersWithNoSupervisorPluck($user->id))
+            ->with('users', $this->users->getAllUsersWithThisSupervisorGet($user->id))
             ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorPluck($user->id))
             ->with('permissions', $this->permissions->getAll());
     }

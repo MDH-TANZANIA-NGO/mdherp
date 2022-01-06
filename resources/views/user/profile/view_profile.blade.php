@@ -196,7 +196,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                               @foreach( $user_with_supervisor AS $users)
+                                                               @foreach( $users AS $users)
                                                                    <tr>
                                                                        <td>{{$users->names}}</td>
                                                                        <td><a href="{{ route('user.remove_supervisor', $users->user_id)}}" onclick="return confirm('are you sure?')"><button class="form-control btn-danger">Remove</button></a></td>

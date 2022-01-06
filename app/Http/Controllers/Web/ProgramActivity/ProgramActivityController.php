@@ -164,8 +164,14 @@ class ProgramActivityController extends Controller
         return redirect()->back();
     }
 
-    public function programActivityReport()
+    public function programActivityReport(ProgramActivity $programActivity)
     {
-            return view('programactivity.forms.report');
+//        dd($programActivity);
+            return view('programactivity.forms.report')
+                ->with('program_activity', $programActivity);
+    }
+    public function updateProgramActivity( $uuid)
+    {
+
     }
 }
