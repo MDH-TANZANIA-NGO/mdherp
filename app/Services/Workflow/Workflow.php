@@ -374,6 +374,7 @@ class Workflow
                     ];
                     User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
                     break;
+
                     case 3:
                     $safari_advance_repo = (new SafariAdvanceRepository());
                     $safari = $safari_advance_repo->find($wf_track->resource_id);
@@ -381,6 +382,16 @@ class Workflow
                         'link' =>  route('safari.show',$safari),
                         'subject' => $safari->number." Need your Approval",
                         'message' => $safari->number.' need your approval'
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 4:
+                    $program_activity_repo = (new ProgramActivityRepository());
+                    $program_activity = $program_activity_repo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('safari.show',$program_activity),
+                        'subject' => $program_activity->number." Need your Approval",
+                        'message' => $program_activity->number.' need your approval'
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
