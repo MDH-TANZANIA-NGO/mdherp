@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\User\Datatables\UserDatatables;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
+use App\Repositories\Access\PermissionRepository;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\System\RegionRepository;
@@ -23,6 +24,7 @@ class UserController extends Controller
     protected $users;
     protected $projects;
     protected $wf_module_groups;
+    protected $permissions;
 
     public function __construct()
     {
@@ -31,6 +33,7 @@ class UserController extends Controller
         $this->users = (new UserRepository());
         $this->projects = (new ProjectRepository());
         $this->wf_module_groups = (new WfModuleGroupRepository());
+        $this->permissions = (new PermissionRepository());
     }
 
     /**
@@ -77,8 +80,7 @@ class UserController extends Controller
      */
     public function profile(User $user)
     {
-
-//        dd($this->users->getAllUsersWithThisSupervisorPluck($user->id));
+//dd($this->users->getAllUsersWithThisSupervisorPluck($user->id));
         return view('user.profile.view_profile')
             ->with('user', $user)
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
@@ -88,7 +90,8 @@ class UserController extends Controller
             ->with('wf_module_groups', $this->wf_module_groups->getAll())
             ->with('projects', $this->projects->getActiveForPluck())
             ->with('users', $this->users->getAllUsersWithNoSupervisorPluck($user->id))
-            ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorGet($user->id));
+            ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorPluck($user->id))
+            ->with('permissions', $this->permissions->getAll());
     }
 
     /**
@@ -164,4 +167,11 @@ class UserController extends Controller
             return redirect()->back();
 
     }
+
+    public function updatePermissions(Request $request, User $user)
+    {
+        $this->users->updatePermissions($user, $request->all());
+        return redirect()->back();
+    }
+
 }
