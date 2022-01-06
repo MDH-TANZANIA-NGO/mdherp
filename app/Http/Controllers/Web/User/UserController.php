@@ -90,8 +90,8 @@ class UserController extends Controller
             ->with('regions', $this->regions->forSelect())
             ->with('wf_module_groups', $this->wf_module_groups->getAll())
             ->with('projects', $this->projects->getActiveForPluck())
-            ->with('users', $this->users->getAllUsersWithThisSupervisorGet($user->id))
-            ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorPluck($user->id))
+            ->with('users', $this->users->getAllUsersWithNoSupervisorPluck($user->id))
+            ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorGet($user->id))
             ->with('permissions', $this->permissions->getAll());
     }
 

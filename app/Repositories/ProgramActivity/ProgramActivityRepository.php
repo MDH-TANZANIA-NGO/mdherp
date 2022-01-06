@@ -111,6 +111,17 @@ class ProgramActivityRepository extends BaseRepository
 
             });
         }
+    public function updateProgramActivity($inputs, $uuid)
+    {
+        $report = $inputs['report'];
+
+        return DB::transaction(function () use ($inputs, $uuid, $report){
+
+            DB::update('update program_activities set report = ? where uuid=?', [$report, $uuid]);
+
+
+        });
+    }
         public function attended($inputs, $uuid)
         {
             return DB::transaction(function () use ($inputs, $uuid){
