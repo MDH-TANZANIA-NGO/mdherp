@@ -6,11 +6,11 @@
             <a class="side-menu__item" href="{{ route('workspace.invoke') }}"><i class="side-menu__icon fe fe-monitor"></i><span class="side-menu__label">Workspace</span></a>
         </li>
 
-        @permission('workflow_participant')
+{{--        @permission('workflow_participant')--}}
         <li><a class="side-menu__item" href="{{ route('workflow.new') }}"><i class="side-menu__icon ion-archive"></i><span class="side-menu__label">Incoming Requests</span>  {{ $workflow_navigation->getNewQueryCount() }} </a></li>
         <li><a class="side-menu__item" href="{{ route('workflow.responded') }}"><i class="side-menu__icon ion-reply"></i><span class="side-menu__label">Responded Requests</span>  {{ $workflow_navigation->RespondedQueryCount()}} </a></li>
         <li><a class="side-menu__item" href="{{ route('workflow.attended') }}"><i class="side-menu__icon ion-reply-all"></i><span class="side-menu__label">Actioned Request</span>  {{ $workflow_navigation->MyAttendedCount() }} </a></li>
-        @permission
+{{--        @permission--}}
 
 
 {{--        @permission('workflow_participant')--}}

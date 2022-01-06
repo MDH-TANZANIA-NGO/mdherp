@@ -17,7 +17,7 @@
                 <div class="card-body">
                     {!! Form::textarea('report', null, ['class'=>'content']) !!}
 
-                    {!! Form::close() !!}
+
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
         </div>
         <button class="btn btn-outline-info" style="margin-left: 40%" type="submit">Submit For Approval</button>
     </div>
-
+    {!! Form::close() !!}
     </div>
     </div><!-- end app-content-->
 
