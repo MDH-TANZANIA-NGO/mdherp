@@ -219,8 +219,16 @@
                                                 </div>
                                                 <div class="tab-pane " id="tab4">
                                               {{-- content to be displayed --}}
-
+                                            <div class="card-body">
                                                     {!! Form::open(['route' => ['user.permission_update', $user]]) !!}
+
+                                                <div class="row" style="background-color: rgb(238, 241, 248)">
+                                                    <div class="col-sm-3" style="margin-top: 15px;">
+                                                        <h6>User Permissions</h6>
+                                                    </div>
+                                                </div>
+
+                                                &nbsp;
 
                                                     <div class="row">
                                                         @foreach($permissions as $key => $permission)
@@ -246,7 +254,7 @@
                                                     </div>
 
                                                     {!! Form::close() !!}
-
+                                            </div>
                                                 </div>
                                                 <div class="tab-pane " id="tab5">
                                                     {{-- content to be displayed --}}
