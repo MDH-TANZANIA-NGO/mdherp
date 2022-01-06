@@ -16,10 +16,14 @@
                     <textarea class="content" name="example"></textarea>
                 </div>
             </div>
-        </div>
-            <button class="btn btn-outline-info" style="margin-left: 40%">Submit For Approval</button>
 
 
+
         </div>
+        <button class="btn btn-outline-info" style="margin-left: 40%">Submit For Approval</button>
+    </div>
+
+    </div>
+    </div><!-- end app-content-->
 
 @endsection
