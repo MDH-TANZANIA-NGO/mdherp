@@ -219,6 +219,34 @@
                                                 </div>
                                                 <div class="tab-pane " id="tab4">
                                               {{-- content to be displayed --}}
+
+                                                    {!! Form::open(['route' => ['user.permission_update', $user]]) !!}
+
+                                                    <div class="row">
+                                                        @foreach($permissions as $key => $permission)
+                                                            <div class="col-sm-4">
+                                                                <!-- checkbox -->
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-secondary d-inline">
+                                                                        <input name="permissions[]" type="checkbox" id="permission_{{ $permission->id }}" value="{{
+                                            $permission->id }}" name="definitions[]"
+                                                                            {{ $user->checkPermission($permission->id) ? 'checked' : '' }}>
+                                                                        <label for="permission_{{ $permission->id }}" title="{{$permission->description}}">
+                                                                            {{ $key + 1 }} . {{ $permission->display_name }}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- checkbox -->
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+
+                                                    <div class="row">
+                                                         {!! Form::submit('Attach Permission',['class'=>'btn btn-primary']) !!}
+                                                    </div>
+
+                                                    {!! Form::close() !!}
+
                                                 </div>
                                                 <div class="tab-pane " id="tab5">
                                                     {{-- content to be displayed --}}

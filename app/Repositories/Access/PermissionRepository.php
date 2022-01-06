@@ -16,7 +16,6 @@ class PermissionRepository extends BaseRepository
     public  function  getAll()
     {
         return $this->query()->select(['id', 'display_name','description'])->where("ischecker", 1)->get();
-
     }
 
 }
