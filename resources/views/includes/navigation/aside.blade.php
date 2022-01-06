@@ -10,6 +10,7 @@
         <li><a class="side-menu__item" href="{{ route('workflow.responded') }}"><i class="side-menu__icon ion-reply"></i><span class="side-menu__label">Responded Requests</span>  {{ $workflow_navigation->RespondedQueryCount()}} </a></li>
         <li><a class="side-menu__item" href="{{ route('workflow.attended') }}"><i class="side-menu__icon ion-reply-all"></i><span class="side-menu__label">Actioned Request</span>  {{ $workflow_navigation->MyAttendedCount() }} </a></li>
 
+{{--        @permission('workflow_participant')--}}
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User Management</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
@@ -18,6 +19,7 @@
                 <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>External users</span></a></li>
             </ul>
         </li>
+{{--        @permission--}}
 
        {{-- <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon mdi mdi-car"></i><span class="side-menu__label">Fleet Management</span><i class="angle fa fa-angle-right"></i></a>
