@@ -31,12 +31,13 @@
 
                 </div>
             </div> --}}
+            @permission('online_checkin')
                    <div class="dropdown  header-option">
-                <a class="nav-link icon">
-                    <i class="fe fe-clock"></i> <span class="nav-span">Check In</span>
-                </a>
-
-            </div>
+                    <a class="nav-link icon">
+                        <i class="fe fe-clock"></i> <span class="nav-span">Check In</span>
+                    </a>
+                   </div>
+            @endpermission
             <div class="d-flex order-lg-2 ml-auto">
                 <a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="fa fa-search"></i></a>
                 <div class="mt-1">
