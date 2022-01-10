@@ -11,6 +11,7 @@
                 </div>
                 <div class="card-body">
 
+{{--                    {!! Form::open(['route' => ['retirement.create']]) !!}--}}
                     <div class="card-body">
                         <div class="row">
 
@@ -24,6 +25,8 @@
 
                 </div>
             </div>
+{{--                    {!! Form::close() !!}--}}
+
         </div>
     </div>
     @else

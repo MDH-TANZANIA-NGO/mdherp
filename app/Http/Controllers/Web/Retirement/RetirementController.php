@@ -11,4 +11,15 @@ class RetirementController extends Controller
     {
         return view('retirement.index');
     }
+
+    public  function  initiate()
+    {
+        return view('retirement.forms.initiate');
+    }
+
+    public  function  create()
+    {
+        return view('retirement.forms.create');
+    }
+
 }

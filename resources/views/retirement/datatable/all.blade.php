@@ -10,14 +10,14 @@
                     <li class=""><a href="#processing" class="active" data-toggle="tab">Onprocess <span class="badge badge-warning"></span></a></li>
                     <li><a href="#rejected" data-toggle="tab" class="">Returned <span class="badge badge-danger"></span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success"></span></a></li>
-                    <li><a href="#paid" data-toggle="tab" class="">Paid <span class="badge badge-primary"></span> </a></li>
+{{--                    <li><a href="#paid" data-toggle="tab" class="">Paid <span class="badge badge-primary"></span> </a></li>--}}
                     <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default"></span> </a></li>
                 </ul>
             </div>
 
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="#"> <i class="fa fa-plus mr-2"></i>Apply Retirement</a>
+                    <a href="{{ route('retirement.initiate') }}"> <i class="fa fa-plus mr-2"></i>Apply Retirement</a>
                 </div>
             </div>
 
@@ -110,7 +110,7 @@
 
                 </div>
 
-                <div class="tab-pane" id="paid">
+            {{--  <div class="tab-pane" id="paid">
 
                     <div class="card-body">
                         <div class="table-responsive">
@@ -130,7 +130,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> --}}
 
             </div>
         </div>
