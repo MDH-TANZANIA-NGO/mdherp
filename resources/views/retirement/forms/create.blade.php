@@ -15,7 +15,7 @@
             <div class="card-body">
 
                 <div class="row">
-                    <div class="col-md-3">
+                    {{--<div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Requisition number for retirement</label>
                             <select name="country" id="select-countries" class="form-control custom-select" required="">
@@ -25,8 +25,8 @@
                                 <option value="3" data-data="">MDH-R-345</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="col-md-3" >
+                    </div>--}}
+                    <div class="col-md-4" >
                         <div class="form-group">
                             <label class="form-label">Destination</label>
                             <div class="input-group">
@@ -35,19 +35,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
 
                             <label class="form-label">Travel Date:</label>
-                            <input type="date" name="" value="" class="form-control">
+                            <input type="date" name="" value="" class="form-control" disabled>
 
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
 
                             <label class="form-label">Return Date:</label>
-                            <input type="date" name="" value="" class="form-control">
+                            <input type="date" name="" value="" class="form-control" >
 
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6" >
+                    <div class="col-md-4" >
 
                 <div class="form-group">
                     <label class="form-label">Amount Requested & Approved</label>
@@ -112,17 +112,29 @@
                 </div>
                     </div>
 
-                    <div class="col-md-6" >
+                    <div class="col-md-4" >
 
                 <div class="form-group">
                     <label class="form-label">Amount Paid</label>
 
-                    <input type="number" class="form-control" placeholder="">
+                    <input type="number" class="form-control" placeholder="" disabled>
 
 
 
                 </div>
                         </div>
+
+                    <div class="col-md-4" >
+
+                        <div class="form-group">
+                            <label class="form-label">Amount Received </label>
+
+                            <input type="number" class="form-control" placeholder="Enter amount you received">
+
+
+
+                        </div>
+                    </div>
 
                 </div>
 
@@ -130,7 +142,7 @@
                     <div class="col-md-12" >
                         <div class="form-group">
                             <label class="form-label">Activity Report <span class="form-label-small">56/100</span></label>
-                            <textarea class="form-control" name="example-textarea-input" rows="7" placeholder="text here.."></textarea>
+                            <textarea class="form-control" name="example-textarea-input" rows="7" placeholder="Write activity report.."></textarea>
                         </div>
                     </div>
 
@@ -139,7 +151,7 @@
                 <div class="row">
                     <div class="col-md-6" >
                 <div class="form-group">
-                    <div class="form-label">Receipt Upload</div>
+                    <div class="form-label">Receipt/Supportive Document Upload</div>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" name="example-file-input-custom">
                         <label class="custom-file-label">Choose file</label>
