@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\Retirement;
 
 use Illuminate\Database\Eloquent\Model;
 

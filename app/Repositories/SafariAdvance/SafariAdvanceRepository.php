@@ -180,7 +180,23 @@ class SafariAdvanceRepository extends BaseRepository
 
     }
 
+    public function getCompletedWithoutRetirement()
+    {
+        return $this->getQuery()
+            ->where('safari_advances.wf_done', true)
+            ->whereDoesntHave('retirement');
+    }
 
+    public function getCompletedAccessWithoutRetirement()
+    {
+        return $this->getCompletedAccessWithoutRetirement()
+            ->where('users.id', access()->id());
+    }
 
+    public function getCompletedAccessWithoutRetirementForPluck()
+    {
+        return $this->getCompletedAccessWithoutRetirement()
+            ->get()->pluck('safari_advances.number','safari_advances.id');
+    }
 
 }
