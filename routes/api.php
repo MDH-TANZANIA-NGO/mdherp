@@ -18,11 +18,23 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'Api\Auth\LoginController@login');
 
 
-Route::group(['middleware' => 'auth:api'], function () {
-//    Route::get('/user', function(Request $request) {
-//        return $request->user();
-//    });
-    Route::post('attendance/store', 'Api\Attendance\AttendanceController@store');
-    Route::get('{user}/attendances', 'Api\Attendance\AttendanceController@show');
-    Route::post('/logout', 'Api\Auth\LoginController@logout');
-});
+//Route::group(['middleware' => 'auth:api'], function () {
+////    Route::get('/user', function(Request $request) {
+////        return $request->user();
+////    });
+//    Route::post('attendance/store', 'Api\Attendance\AttendanceController@store');
+//    Route::get('{user}/attendances', 'Api\Attendance\AttendanceController@show');
+//    Route::post('/logout', 'Api\Auth\LoginController@logout');
+//});
+
+Route::group(['prefix' => 'auth', 'namespace' => 'API'],
+    function(){
+        Route::post('login', 'Auth\LoginController@login');
+        Route::post('refresh', 'Auth\LoginController@refresh');
+        Route::group([
+            'middleware' => 'auth:api'
+        ], function() {
+            Route::post('logout', 'Auth\LoginController@logout');
+            includeRouteFiles(__DIR__.'/api/');
+        });
+    });
