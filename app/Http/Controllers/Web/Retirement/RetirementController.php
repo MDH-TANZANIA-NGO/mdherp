@@ -26,9 +26,9 @@ class RetirementController extends Controller
 
     public  function  initiate()
     {
-//        dd($this->safari_advances->getCompletedWithoutRetirement()->get());
-        return view('retirement.forms.initiate');
-//            ->with('safaries', $this->safari_advances->getCompletedAccessWithoutRetirementForPluck());
+        dd($this->safari_advances->getCompletedWithoutRetirement()->get());
+        return view('retirement.forms.initiate')
+            ->with('safaries', $this->safari_advances->getCompletedAccessWithoutRetirementForPluck());
     }
 
     public  function  create(Retirement $retirement)
