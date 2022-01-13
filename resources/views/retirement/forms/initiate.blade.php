@@ -12,11 +12,7 @@
                 <div class="card-body">
 
 
-
-
-
-
-                    {!! Form::open(['route' => ['retirement.create']]) !!}
+                    {!! Form::open(['route' => ['retirement.store']]) !!}
                     <div class="card-body">
                         <div class="row">
 
@@ -43,7 +39,6 @@
                     <div class="panel panel-primary">
                         <div class="panel-body tabs-menu-body" style="background-color:#FFFFFF">
                             <div class="tab-content">
-
 
                                     <div class="card-body">
                                         <div class="align-content-center text-center">

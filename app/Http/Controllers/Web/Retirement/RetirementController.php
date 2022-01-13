@@ -39,4 +39,10 @@ class RetirementController extends Controller
             ->with('retirement', $retirement);
     }
 
+    public function store(Request $request)
+    {
+        $retirement = $this->retirements->store($request->all());
+        return redirect()->route('retirement.create', $retirement);
+    }
+
 }
