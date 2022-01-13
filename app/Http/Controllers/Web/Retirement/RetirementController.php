@@ -33,8 +33,8 @@ class RetirementController extends Controller
 
     public  function  create(Retirement $retirement)
     {
-        return view('retirement.forms.create');
-//            ->with('retirement', $retirement);
+        return view('retirement.forms.create')
+            ->with('retirement', $retirement);
     }
 
 }

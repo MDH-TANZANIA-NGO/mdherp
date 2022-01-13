@@ -13,7 +13,7 @@ class CreateRetirementTable extends Migration
      */
     public function up()
     {
-        Schema::create('retirement', function (Blueprint $table) {
+        Schema::create('retirements', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('user_id');
