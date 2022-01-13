@@ -196,7 +196,8 @@ class SafariAdvanceRepository extends BaseRepository
     public function getCompletedAccessWithoutRetirementForPluck()
     {
         return $this->getCompletedAccessWithoutRetirement()
-            ->get()->pluck('safari_advances.number','safari_advances.id');
+            ->get()
+            ->pluck('safari_advances.number','safari_advances.id');
     }
 
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSafariAdvancesTable extends Migration
+class CreateRetirementTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,22 @@ class CreateSafariAdvancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('safari_advances', function (Blueprint $table) {
+        Schema::create('retirement', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('requisition_travelling_cost_id');
+            $table->unsignedBigInteger('safari_advance_id');
             $table->decimal('amount_requested', 15, 2);
             $table->decimal('amount_paid', 15, 2);
-            $table->text('number')->nullable();
-            $table->longText('scope');
+            $table->decimal('amount_received', 15, 2);
+            $table->longText('activity_report');
             $table->boolean('wf_done')->default('FALSE');
             $table->timestamp('wf_done_date');
             $table->string('uuid');
             $table->timestamp('deleted_at')->nullable();
             $table->boolean('rejected')->default('FALSE');
             $table->unsignedBigInteger('done')->default(0);
+
             $table->timestamps();
         });
     }
@@ -38,6 +40,6 @@ class CreateSafariAdvancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('safari_advances');
+        Schema::dropIfExists('retirement');
     }
 }
