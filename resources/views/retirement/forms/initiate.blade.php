@@ -11,15 +11,24 @@
                 </div>
                 <div class="card-body">
 
+
+
+
+
+
 {{--                    {!! Form::open(['route' => ['retirement.create']]) !!}--}}
                     <div class="card-body">
                         <div class="row">
 
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    {!! Form::label('safari_advance_id', __("Safari Number"),['class'=>'form-label','required_asterik']) !!}
+                                    {!! Form::select('safari_advance_id', $safaries, null,['class' => 'form-control select2-show-search', 'required']) !!}
+                                    {!! $errors->first('safari_advance_id', '<span class="badge badge-danger">:message</span>') !!}
 
                                 </div>
                             </div>
+
 
                             <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Initiate Retirement</button>
 
