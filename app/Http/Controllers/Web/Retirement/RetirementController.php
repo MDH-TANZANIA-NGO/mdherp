@@ -24,11 +24,13 @@ class RetirementController extends Controller
         return view('retirement.index');
     }
 
-    public  function  initiate()
+    public  function  initiate(SafariAdvanceRepository $safariAdvanceRepository)
     {
-//        dd($this->safari_advances->getCompletedWithoutRetirement()->get());
-        return view('retirement.forms.initiate');
-//            ->with('safaries', $this->safari_advances->getCompletedAccessWithoutRetirementForPluck());
+//        dd($safariAdvanceRepository->getCompletedWithoutRetirement()->get());
+//        dd($safariAdvanceRepository->getCompletedWithoutRetirement());
+        return view('retirement.forms.initiate')
+            ->with('safaries', $safariAdvanceRepository->getCompletedWithoutRetirement()->get()
+                ->pluck('number','id'));
     }
 
     public  function  create(Retirement $retirement)
