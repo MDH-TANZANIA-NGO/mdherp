@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Retirement;
 
+use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Models\Retirement\Retirement;
 use App\Repositories\Retirement\RetirementRepository;
@@ -15,6 +16,7 @@ class RetirementController extends Controller
     protected $safari_advances;
     protected $safari_advance_details;
     protected $district;
+    //protected $retiresafari;
 
     public function __construct()
     {
@@ -51,6 +53,14 @@ class RetirementController extends Controller
     {
         $retirement = $this->retirements->store($request->all());
         return redirect()->route('retirement.create', $retirement);
+    }
+
+    public function update(Request $request, $uuid)
+    {
+        $this->retirements->update($request->all(),$uuid);
+//        $retire = $this->retiresafari->findByUuid($uuid);
+
+        return redirect()->route('retirement.index',$uuid);
     }
 
 }
