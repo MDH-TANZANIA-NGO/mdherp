@@ -6,17 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\Retirement\Retirement;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
+use App\Repositories\System\DistrictRepository;
 use Illuminate\Http\Request;
 
 class RetirementController extends Controller
 {
     protected $retirements;
     protected $safari_advances;
+    protected $safari_advance_details;
+    protected $district;
 
     public function __construct()
     {
         $this->retirements = (new RetirementRepository());
         $this->safari_advances = (new SafariAdvanceRepository());
+        $this->district=(new DistrictRepository());
     }
 
     public function index()
@@ -35,8 +39,12 @@ class RetirementController extends Controller
 
     public  function  create(Retirement $retirement)
     {
+
+//        dd($this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
         return view('retirement.forms.create')
-            ->with('retirement', $retirement);
+            ->with('retirement', $retirement)
+            ->with('district', $this->district->getForPluck())
+            ->with('retire_safari', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
     }
 
     public function store(Request $request)

@@ -13,7 +13,7 @@
             </div>
 
             <div class="card-body">
-
+                @foreach($retire_safari AS $retire_safari)
                 <div class="row">
                     {{--<div class="col-md-3">
                         <div class="form-group">
@@ -30,7 +30,8 @@
                         <div class="form-group">
                             <label class="form-label">Destination</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Tabora" disabled>
+                                {!! Form::select('district_id',$district, $retire_safari->district_id, ['class' => 'form-control select2-show-search', 'required', 'disabled']) !!}</td>
+
 
                             </div>
                         </div>
@@ -39,7 +40,7 @@
                         <div class="form-group">
 
                             <label class="form-label">Travel Date:</label>
-                            <input type="date" name="" value="" class="form-control" disabled>
+                            <input type="date" name="" value="{{$retire_safari->from}}" class="form-control" disabled>
 
                         </div>
                     </div>
@@ -47,14 +48,14 @@
                         <div class="form-group">
 
                             <label class="form-label">Return Date:</label>
-                            <input type="date" name="" value="" class="form-control" >
+                            <input type="date" name="" value="{{$retire_safari->to}}" class="form-control" >
 
                         </div>
                     </div>
 
                 </div>
-
-                <div class="row">
+                @endforeach
+               <!-- <div class="row">
                     <div class="col-md-12" >
                         <div class="card">
                             <div class="card-header" style="background-color: rgb(152, 186, 217)">
@@ -64,42 +65,12 @@
 
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table card-table table-vcenter text-nowrap">
-                                    <thead>
-                                    <tr>
-                                        <th>SN</th>
-                                        <th>Travellor</th>
-                                        <th>Days</th>
-                                        <th>Destination</th>
-                                        <th>Perdiem Rate</th>
-                                        <th>Accommodation</th>
-                                        <th>Transport</th>
-                                        <th>Others</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
 
-                                    </tr>
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- table-responsive -->
+                            
                         </div>
                     </div>
 
-                </div>
+                </div> -->
 
                 <div class="row">
                     <div class="col-md-4" >
