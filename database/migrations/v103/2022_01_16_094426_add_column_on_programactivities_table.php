@@ -14,6 +14,12 @@ class AddColumnOnProgramactivitiesTable extends Migration
     public function up()
     {
         //
+        Schema::table('program_activities', function (Blueprint $table) {
+            //
+            $table->boolean('report_rejected')->default(false);
+            $table->unsignedBigInteger('supervised_by')->nullable();
+
+        });
     }
 
     /**
