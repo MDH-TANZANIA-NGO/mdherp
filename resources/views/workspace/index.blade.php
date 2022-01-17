@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-4 col-sm-4 col-lg-3">
-            <a href="#">
+            <a href="{{route('safari.index')}}">
 {{--                <a href="{{route('safari.index')}}">--}}
                 <div class="card">
                     <div class="card-body text-center">
