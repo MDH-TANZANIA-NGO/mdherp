@@ -51,5 +51,17 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'RETIREMENTSAFARINUM'],
+            [
+                'name' => 'retirement',
+                'display_name' => 'Retirement',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'RETIREMENTSAFARINUM',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }

@@ -13,14 +13,17 @@
             </div>
             {!! Form::open(['route' => ['retirement.update',$retirement]]) !!}
             <div class="card-body">
-                @foreach($retire_safari AS $retire_safari)
+                @foreach($retire_safaris AS $retire_safari)
                 <div class="row">
 
                     <div class="col-md-4" >
                         <div class="form-group">
                             <label class="form-label">Destination</label>
                             <div class="input-group">
-                                {!! Form::select('district_id',$district, $retire_safari->district_id, ['class' => 'form-control select2-show-search', 'required', 'disabled']) !!}</td>
+                                {!! Form::select('district_id',$district, $retire_safari->district_id, ['class' => 'form-control select2-show-search', 'required']) !!}
+                                {!! Form:: text('safari_advance_id', $retire_safari->safari_id,['class'=>'form-control','hidden'])!!}
+
+
                             </div>
                         </div>
                     </div>
@@ -28,7 +31,8 @@
                         <div class="form-group">
 
                             <label class="form-label">Travel Date:</label>
-                            <input type="date" name="from" value="{{$retire_safari->from}}" class="form-control" disabled>
+{{--                            <input type="date" name="from" value="{{$retire_safari->from}}" class="form-control" disabled>--}}
+                            {!! Form::date('from', $retire_safari->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}
 
                         </div>
                     </div>
@@ -36,7 +40,8 @@
                         <div class="form-group">
 
                             <label class="form-label">Return Date:</label>
-                            <input type="date" name="to" value="{{$retire_safari->to}}" class="form-control" >
+{{--                            <input type="date" name="to" value="{{$retire_safari->to}}" class="form-control" >--}}
+                            {!! Form::date('to', $retire_safari->to, ['class' => 'form-control', 'required','id'=>'to']) !!}
 
                         </div>
                     </div>
@@ -49,8 +54,8 @@
                 <div class="form-group">
                     <label class="form-label">Amount Requested & Approved</label>
                     <div class="input-group">
-{{--                        {!! Form::text($retire_safari->amount_requested, ['class' => 'form-control', 'disabled']) !!}--}}
-                        <input type="number" name="amount_requested" class="form-control" value="{{$retire_safari->amount_requested}}" disabled>
+                      {!! Form::text('amount_requested', $retire_safari->amount_requested, ['class' => 'form-control' ]) !!}
+{{--                        <input type="number" name="amount_requested" class="form-control" value="{{$retire_safari->amount_requested}}" >--}}
                     </div>
                 </div>
                     </div>
@@ -59,8 +64,8 @@
 
                 <div class="form-group">
                     <label class="form-label">Amount Paid</label>
-
-                    <input type="number" name="amount_paid" class="form-control" value="{{$retire_safari->amount_paid}}" disabled>
+                    {!! Form::text('amount_paid', $retire_safari->amount_paid, ['class' => 'form-control' ]) !!}
+{{--                    <input type="number" name="amount_paid" class="form-control" value="{{$retire_safari->amount_paid}}" >--}}
 
 
 
@@ -71,8 +76,8 @@
 
                         <div class="form-group">
                             <label class="form-label">Amount Received </label>
-
-                            <input type="number" name="amount_received" class="form-control" placeholder="Enter amount you received">
+                            {!! Form::text('amount_received', $retire_safari->amount_received, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}
+{{--                            <input type="number" name="amount_received" class="form-control" placeholder="Enter amount you received">--}}
 
                         </div>
                     </div>
@@ -94,7 +99,7 @@
                 <div class="form-group">
                     <div class="form-label">Receipt/Supportive Document Upload</div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="example-file-input-custom">
+                        <input type="file" class="custom-file-input" name="example-file-input-custom" disabled>
                         <label class="custom-file-label">Choose file</label>
                     </div>
                 </div>

@@ -35,8 +35,8 @@ trait Number
                 $number = "MDH-S-".$year.$value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
-            case 'retirement':
-                $reference = "RETNUM";
+            case 'retirements':
+                $reference = "RETIREMENTSAFARINUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
                 $number = "MDH-RT-".$year.$value;

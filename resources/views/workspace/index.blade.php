@@ -19,7 +19,8 @@
         </div>
 
         <div class="col-4 col-sm-4 col-lg-3">
-            <a href="{{route('safari.index')}}">
+            <a href="#">
+{{--                <a href="{{route('safari.index')}}">--}}
                 <div class="card">
                     <div class="card-body text-center">
                         <div class="h2 m-0"><i class="fa fa-subway multiple-outline text-primary" ></i></div>

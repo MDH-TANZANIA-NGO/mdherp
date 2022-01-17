@@ -32,6 +32,7 @@ class RetirementRepository extends BaseRepository
             'amount_paid'=>$safari_advance_id->amount_paid,
             'amount_received'=>0,
             'activity_report'=>'',
+            'region_id'=>access()->user()->region_id
 
         ];
     }
@@ -62,15 +63,17 @@ class RetirementRepository extends BaseRepository
 
     public function update($inputs, $uuid)
     {
+
         return DB::transaction(function () use ($inputs, $uuid){
             $retire = $this->findByUuid($uuid);
             $number = $this->generateNumber($retire);
 
             DB::update('update retirements set number= ? where uuid= ?',[$number, $uuid]);
-            //create
+
             DB::table('retirements_details')->insert(
                 [
                     'safari_advance_id'=>$inputs['safari_advance_id'],
+                    'number' => $number,
                     'from'=>$inputs['from'],
                     'to'=>$inputs['to'],
                     'district_id'=>$inputs['district_id'],
