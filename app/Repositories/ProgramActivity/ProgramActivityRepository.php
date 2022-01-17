@@ -9,6 +9,7 @@ use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Repositories\BaseRepository;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 
@@ -124,15 +125,39 @@ class ProgramActivityRepository extends BaseRepository
     }
         public function attended($inputs, $uuid)
         {
+
+
             return DB::transaction(function () use ($inputs, $uuid){
 
-//                $activity_uuid = $inputs['activity_uuid'];
+
+
                 DB::update('update requisition_training_costs set attend = ? where uuid=?', [true,  $uuid]);
 
 
             });
 
         }
+    public function undo($inputs, $uuid)
+    {
+
+
+        return DB::transaction(function () use ($inputs, $uuid){
+
+            $attendance  = requisition_training_cost::all()->where('uuid', $uuid)->pluck('attend');
+            $substitute =   requisition_training_cost::all()->where('uuid', $uuid)->pluck('is_substitute');
+
+            if ($substitute == true || $attendance ==  true)
+
+            {
+                DB::update('update requisition_training_costs set attend = ?, is_substitute = ?, substituted_user_id = ?  where uuid=?', [false, false, null, $uuid]);
+            }
+
+
+
+
+        });
+
+    }
 
 
 

@@ -16,6 +16,7 @@ use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
+use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Repositories\Unit\DesignationRepository;
@@ -36,6 +37,7 @@ class ProgramActivityController extends Controller
     protected $wf_tracks;
     protected $designations;
     protected $requisition_training_cost;
+    protected $requisition_training_items;
 
 
     public function __construct()
@@ -49,6 +51,7 @@ class ProgramActivityController extends Controller
         $this->wf_tracks = (new WfTrackRepository());
         $this->designations = (new DesignationRepository());
         $this->requisition_training_cost = (new RequestTrainingCostRepository());
+        $this->requisition_training_items =  (new RequisitionTrainingItemsRepository());
     }
 
     public function index()
@@ -117,7 +120,8 @@ class ProgramActivityController extends Controller
         $designation = access()->user()->designation_id;
         $requisition_id = $programActivity->training()->get()->pluck('requisition_id');
         $requisitionss= $this->requisition->find($requisition_id);
-//dd($this->requisition->find($requisition_id)->toArray());
+        $requisition_training_items = requisition_training_item::all()->where('requisition_id', $requisition_id);
+//dd();
 
         return view('programactivity.show')
             ->with('current_level', $current_level)
@@ -129,7 +133,8 @@ class ProgramActivityController extends Controller
             ->with('activity_details',$programActivity->training()->getQuery()->get()->all())
             ->with('activity_participants', $programActivity->training->trainingCost()->getQuery()->get()->all())
             ->with('gofficers', $this->gOfficer->getAll()->pluck('id','first_name'))
-            ->with('requisition_uuid',   $this->requisition->find($requisition_id)->pluck('uuid')->toArray());
+            ->with('requisition_uuid',   $this->requisition->find($requisition_id)->pluck('uuid')->toArray())
+            ->with('training_items', $programActivity->training->trainingItems()->get()->all());
     }
 
     public function updateParticipant(Request $request, $uuid)
@@ -163,6 +168,11 @@ class ProgramActivityController extends Controller
         $this->program_activity->attended($request->all(), $uuid);
         return redirect()->back();
     }
+    public function undoEverything(Request $request, $uuid)
+    {
+        $this->program_activity->undo($request->all(), $uuid);
+        return redirect()->back();
+    }
 
     public function programActivityReport(ProgramActivity $programActivity)
     {
@@ -173,15 +183,8 @@ class ProgramActivityController extends Controller
     public function updateProgramActivity(Request $request, $uuid)
     {
 
-        $program_activity =  $this->program_activity->findByUuid($uuid);
-        $wf_module_group_id = 3;
-//        dd($user);
-        $next_user = $program_activity->user->assignedSupervisor()->supervisor_id;
-
-        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $program_activity->id,'region_id' => $program_activity->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-
         $this->program_activity->updateProgramActivity($request->all(), $uuid);
 
-        return redirect()->back();
+        return redirect(route('programactivity.show', $uuid));
     }
 }
