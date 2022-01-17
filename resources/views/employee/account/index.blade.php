@@ -92,8 +92,7 @@
                         <div class="tab-pane " id="tab5">
                             {{-- content to be displayed --}}
                             <div class="card-body">
-
-
+                                @include('leave.index')
                             </div>
                             <!-- table-wrapper -->
                         </div>

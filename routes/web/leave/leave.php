@@ -18,7 +18,6 @@ Route::group(['namespace' => 'Leave', 'middleware' => ['web', 'auth'], 'prefix' 
             Route::get('rejected', 'LeaveController@AccessRejectedDatatable')->name('rejected');
             Route::get('approved', 'LeaveController@AccessApprovedDatatable')->name('approved');
             Route::get('saved', 'LeaveController@AccessDatatable')->name('saved');
-            Route::get('paid', 'LeaveController@AccesssDatatable')->name('paid');
         });
     });
 });
