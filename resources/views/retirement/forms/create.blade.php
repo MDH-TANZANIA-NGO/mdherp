@@ -8,7 +8,7 @@
                 <h3 class="card-title">Retirement Form</h3>
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-{{--                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
+
                 </div>
             </div>
             {!! Form::open(['route' => ['retirement.update',$retirement]]) !!}
@@ -20,7 +20,8 @@
                         <div class="form-group">
                             <label class="form-label">Destination</label>
                             <div class="input-group">
-                                {!! Form::select('district_id',$district, $retire_safari->district_id, ['class' => 'form-control select2-show-search', 'required']) !!}
+                                {!! Form::select('district_id',$district, $retire_safari->district_id, ['class' => 'form-control', 'hidden']) !!}
+                                {!! Form::select('district_id_show',$district, $retire_safari->district_id, ['class' => 'form-control select2-show-search', 'disabled']) !!}
                                 {!! Form:: text('safari_advance_id', $retire_safari->safari_id,['class'=>'form-control','hidden'])!!}
 
 
@@ -31,8 +32,8 @@
                         <div class="form-group">
 
                             <label class="form-label">Travel Date:</label>
-{{--                            <input type="date" name="from" value="{{$retire_safari->from}}" class="form-control" disabled>--}}
-                            {!! Form::date('from', $retire_safari->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}
+                            {!! Form::date('from_show', $retire_safari->from, ['class' => 'form-control', 'disabled', 'id'=>'from']) !!}
+                            {!! Form::date('from', $retire_safari->from, ['class' => 'form-control','hidden', 'required', 'id'=>'from']) !!}
 
                         </div>
                     </div>
@@ -40,7 +41,6 @@
                         <div class="form-group">
 
                             <label class="form-label">Return Date:</label>
-{{--                            <input type="date" name="to" value="{{$retire_safari->to}}" class="form-control" >--}}
                             {!! Form::date('to', $retire_safari->to, ['class' => 'form-control', 'required','id'=>'to']) !!}
 
                         </div>
@@ -54,8 +54,8 @@
                 <div class="form-group">
                     <label class="form-label">Amount Requested & Approved</label>
                     <div class="input-group">
-                      {!! Form::text('amount_requested', $retire_safari->amount_requested, ['class' => 'form-control' ]) !!}
-{{--                        <input type="number" name="amount_requested" class="form-control" value="{{$retire_safari->amount_requested}}" >--}}
+                      {!! Form::text('amount_requested_show', $retire_safari->amount_requested, ['class' => 'form-control', 'disabled' ]) !!}
+                        {!! Form::text('amount_requested', $retire_safari->amount_requested, ['class' => 'form-control', 'hidden' ]) !!}
                     </div>
                 </div>
                     </div>
@@ -64,11 +64,8 @@
 
                 <div class="form-group">
                     <label class="form-label">Amount Paid</label>
-                    {!! Form::text('amount_paid', $retire_safari->amount_paid, ['class' => 'form-control' ]) !!}
-{{--                    <input type="number" name="amount_paid" class="form-control" value="{{$retire_safari->amount_paid}}" >--}}
-
-
-
+                    {!! Form::text('amount_paid_show', $retire_safari->amount_paid, ['class' => 'form-control', 'disabled' ]) !!}
+                    {!! Form::text('amount_paid', $retire_safari->amount_paid, ['class' => 'form-control', 'hidden' ]) !!}
                 </div>
                         </div>
 
