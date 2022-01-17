@@ -444,6 +444,12 @@ class Workflow
                 $program_activity = $program_activity_repo->find($resourceId);
                 $program_activity->wfTracks()->save($wfTrack);
                 break;
+            case 4:
+                /*Retirement */
+                $retirement_repo = (new RetirementRepository());
+                $retirement = $retirement_repo->find($resourceId);
+                $retirement->wfTracks()->save($wfTrack);
+                break;
         }
     }
 

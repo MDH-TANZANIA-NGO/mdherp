@@ -79,7 +79,7 @@ class WfModulesTableSeeder extends Seeder
             4 =>
                 array (
                     'id' => 5,
-                    'name' => 'Retirement ',
+                    'name' => 'Retirement',
                     'wf_module_group_id' => '4',
                     'created_at' => '2021-12-13 12:36:03',
                     'updated_at' => \Carbon\Carbon::now(),
