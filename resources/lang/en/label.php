@@ -71,7 +71,7 @@ return [
     'district' => 'Districts',
     'edit' => 'edit',
     'email' => 'Email Address',
-    'employee' => 'Employees',
+    'v104' => 'Employees',
     'enter_valid_email' => 'Enter a valid email address',
     'exceptional' => [
         'city' => 'Exceptional Cities'
@@ -166,7 +166,7 @@ return [
     'total_expense' => 'Total Expense',
     'less_travel_advance' => 'Less travel advance',
     'amount_due_university' => 'Amount due university',
-    'amount_due_employee' => 'amount due employee',
+    'amount_due_employee' => 'amount due v104',
     'transport' => 'Transport',
     'travel' => 'Travel',
     'type' => 'Type',

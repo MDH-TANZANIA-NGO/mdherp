@@ -174,6 +174,28 @@ class CodeValuesTableSeeder extends Seeder
                     'sort' => 0,
                     'isactive' => 1,
                 ),
+            14 =>
+                array (
+                    'id' => 15,
+                    'code_id' => 6,
+                    'name' => 'permanent Address',
+                    'lang' => NULL,
+                    'description' => 'This is a permanent Address',
+                    'reference' => 'PA',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            15 =>
+                array (
+                    'id' => 16,
+                    'code_id' => 6,
+                    'name' => 'current address',
+                    'lang' => NULL,
+                    'description' => 'This should not assigned a region',
+                    'reference' => 'CA',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("code_values");
