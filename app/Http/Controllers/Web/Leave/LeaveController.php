@@ -42,7 +42,7 @@ class LeaveController extends Controller
 
         dd(access()->user()->region_id);
         $leave = Leave::create([
-            ''
+
         ]);
     }
 

@@ -183,15 +183,8 @@ class ProgramActivityController extends Controller
     public function updateProgramActivity(Request $request, $uuid)
     {
 
-        $program_activity =  $this->program_activity->findByUuid($uuid);
-        $wf_module_group_id = 3;
-//        dd($user);
-        $next_user = $program_activity->user->assignedSupervisor()->supervisor_id;
-
-        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $program_activity->id,'region_id' => $program_activity->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-
         $this->program_activity->updateProgramActivity($request->all(), $uuid);
 
-        return redirect()->back();
+        return redirect(route('programactivity.show', $uuid));
     }
 }

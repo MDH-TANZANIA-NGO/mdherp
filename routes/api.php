@@ -27,7 +27,7 @@ Route::post('login', 'Api\Auth\LoginController@login');
 //    Route::post('/logout', 'Api\Auth\LoginController@logout');
 //});
 
-Route::group(['prefix' => 'auth', 'namespace' => 'API'],
+Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
     function(){
         Route::post('login', 'Auth\LoginController@login');
         Route::post('refresh', 'Auth\LoginController@refresh');

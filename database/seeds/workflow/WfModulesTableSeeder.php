@@ -79,14 +79,14 @@ class WfModulesTableSeeder extends Seeder
             4 =>
                 array (
                     'id' => 5,
-                    'name' => 'Program Activity Reports ',
+                    'name' => 'Retirement',
                     'wf_module_group_id' => '4',
                     'created_at' => '2021-12-13 12:36:03',
                     'updated_at' => \Carbon\Carbon::now(),
                     'deleted_at' => NULL,
                     'isactive' => '1',
                     'type' => '1',
-                    'description' => 'All Program Activitiy Reports',
+                    'description' => 'All Retirements',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),

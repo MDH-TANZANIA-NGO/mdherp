@@ -155,6 +155,8 @@ class SafariAdvanceRepository extends BaseRepository
             DB::raw('safari_advance_details.transportation AS transportation'),
             DB::raw('safari_advance_details.other_costs AS other_costs'),
             DB::raw('safari_advances.id AS safari_id'),
+            DB::raw('safari_advances.amount_requested AS amount_requested'),
+            DB::raw('safari_advances.amount_paid AS amount_paid'),
         ])
             ->join('safari_advance_details', 'safari_advance_details.safari_advance_id', 'safari_advances.id');
     }
