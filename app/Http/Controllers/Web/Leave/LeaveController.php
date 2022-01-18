@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web\Leave;
 
 use App\Http\Controllers\Controller;
+use App\Models\Leave\Leave;
+use App\Models\Leave\LeaveType;
 use Illuminate\Http\Request;
 
 class LeaveController extends Controller
@@ -10,21 +12,23 @@ class LeaveController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
-        return view('leave.index');
+        return view('leave._parent.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        $leaveTypes = LeaveType::all();
+        return view('leave._parent.form.create')
+            ->with('leaveTypes', $leaveTypes);
     }
 
     /**
@@ -35,7 +39,11 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        dd(access()->user()->region_id);
+        $leave = Leave::create([
+            ''
+        ]);
     }
 
     /**

@@ -20,7 +20,8 @@ class CreateLeavesTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->foreignId('region_id')->constrained('regions')->onDelete('cascade');
-            $table->integer('leave_balance');
+            $table->integer('leave_balance')->default(0);
+            $table->text('comment')->nullable();
             $table->foreignId('leave_type_id')->constrained('leave_types')->onDelete('cascade');
             $table->boolean('done')->default(false);
             $table->boolean('rejected')->default(false);

@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 
     <form action="{{route('leave.store')}}" method="post">
     @csrf
@@ -20,7 +23,7 @@
                         <div class="col-md-6" >
                             <label class="form-label">Leave Type</label>
                             <select name="leave_type_id" id="select-level" class="form-control custom-select">
-                                <option value=""  disabled selected hidden>Select Level</option>
+                                <option value=""  disabled selected hidden>Select Type</option>
                                 @foreach($leaveTypes as $leaveType)
                                     <option value="{{ $leaveType->id }}">{{$leaveType->name}}</option>
                                 @endforeach
@@ -89,31 +92,6 @@
     </form>
 
 
-    <div class="col-lg-12 col-md-12">
 
-        <div class="card">
+@endsection
 
-            <div class="card-header" style="background-color: rgb(238, 241, 248)">
-                <div class="row text-center">
-                    <span class="col-12 text-center font-weight-bold">List of Previous Leaves</span>
-                </div>
-
-                <div class="card-options ">
-                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                </div>
-
-            </div>
-
-            <div class="card-body">
-                <div class="row">
-
-                    <div class="col-12" >
-
-                        <div class="table-responsive">
-                            @include('leave.datatables.all')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
