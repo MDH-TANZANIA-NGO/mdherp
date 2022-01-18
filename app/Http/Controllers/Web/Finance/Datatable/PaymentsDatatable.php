@@ -17,7 +17,7 @@ trait PaymentsDatatable
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateTimeString();
             })
-            ->addColumn('amount', function ($query) {
+            ->addColumn('amount_requested', function ($query) {
                 return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
@@ -39,7 +39,7 @@ trait PaymentsDatatable
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('amount', function ($query) {
-                return number_2_format($query->amount_requested);
+                return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('requisition.show', $query->uuid).'">View</a>';
@@ -62,9 +62,9 @@ trait PaymentsDatatable
             ->addColumn('amount_requested', function ($query) {
                 return number_2_format($query->amount_requested);
             })
-            ->addColumn('amount_paid', function ($query) {
-                return number_2_format($query->amount_paid);
-            })
+//            ->addColumn('amount_paid', function ($query) {
+//                return number_2_format($query->amount_paid);
+//            })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('programactivity.show', $query->uuid).'">View</a>';
             })
@@ -83,7 +83,7 @@ trait PaymentsDatatable
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateTimeString();
             })
-            ->addColumn('amount', function ($query) {
+            ->addColumn('amount_requested', function ($query) {
                 return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
