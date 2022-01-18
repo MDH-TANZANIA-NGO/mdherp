@@ -157,7 +157,14 @@ class WorkflowEventSubscriber
                     'subject' => $safari->number." Approved Successfully",
                     'message' => 'These Application has been Approved successfully'
                 ];
+                $admin_email = (object)[
+                        'link' =>  route('safari.show',$safari),
+                        'subject' => $safari->number." Arrange Logistics For Safari",
+                        'message' =>$safari->user->full_name. " Will be in Your Region From".$safari->SafariDetails->from. "To". $safari->SafariDetails->to,
+                    ];
                 $safari->user->notify(new WorkflowNotification($email_resource));
+                $projectAdmin = User::query()->where('region_id', $safari->region_id)->where('designation_id', '=', 43)->first();
+                $projectAdmin->notify(new WorkflowNotification($admin_email));
                 break;
                 case 4:
                     $program_activity_repo = (new ProgramActivityRepository());

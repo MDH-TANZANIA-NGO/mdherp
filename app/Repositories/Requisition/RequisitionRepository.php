@@ -36,6 +36,11 @@ class RequisitionRepository extends BaseRepository
             ->join('users','users.id', 'requisitions.user_id');
     }
 
+    public function getAllApprovedRequisitions()
+    {
+        return$this->getQuery()
+            ->where('requisitions.wf_done', true);
+    }
     public function getAccessProcessingDatatable()
     {
         return $this->getQuery()

@@ -26,6 +26,24 @@ class ProgramActivityRepository extends BaseRepository
         $this->requisition =  (new  RequisitionRepository());
 
     }
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('program_activities.id AS id'),
+            DB::raw('program_activities.user_id AS user_id'),
+            DB::raw('program_activities.number AS number'),
+            DB::raw('program_activities.amount_requested AS amount_requested'),
+            DB::raw('program_activities.amount_paid AS amount_paid'),
+            DB::raw('program_activities.created_at AS created_at'),
+            DB::raw('program_activities.uuid AS uuid'),
+        ])
+            ->join('users','users.id', 'program_activities.user_id');
+    }
+    public function getAllApprovedProgramActivities()
+    {
+        return $this->getQuery()
+            ->where('program_activities.wf_done', true);
+    }
 
     public function inputProcess( $inputs)
     {
@@ -161,19 +179,7 @@ class ProgramActivityRepository extends BaseRepository
 
 
 
-    public function getQuery()
-    {
-        return $this->query()->select([
-            DB::raw('program_activities.id AS id'),
-            DB::raw('program_activities.user_id AS user_id'),
-            DB::raw('program_activities.number AS number'),
-            DB::raw('program_activities.amount_requested AS amount_requested'),
-            DB::raw('program_activities.amount_paid AS amount_paid'),
-            DB::raw('program_activities.created_at AS created_at'),
-            DB::raw('program_activities.uuid AS uuid'),
-        ])
-            ->join('users','users.id', 'program_activities.user_id');
-    }
+
 
     public function getAccessProcessingDatatable()
     {

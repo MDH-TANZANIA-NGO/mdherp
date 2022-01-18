@@ -15,16 +15,18 @@
 
                 {!! Form::open(['route' => ['programactivity.updateProgramActivity',$program_activity->uuid]]) !!}
                 <div class="card-body">
+                    @if($program_activity->report == null)
                     {!! Form::textarea('report', null, ['class'=>'content']) !!}
-
-
+                    @else
+                        {!! Form::textarea('report', $program_activity->report, ['class'=>'content']) !!}
+                    @endif
                 </div>
             </div>
 
 
 
         </div>
-        <button class="btn btn-outline-info" style="margin-left: 40%" type="submit">Submit For Approval</button>
+        <button class="btn btn-outline-info" style="margin-left: 40%" type="submit">Submit Report</button>
     </div>
     {!! Form::close() !!}
     </div>

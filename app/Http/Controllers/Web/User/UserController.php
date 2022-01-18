@@ -115,6 +115,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
         $this->users->update($user, $request->all());
         alert()->success('Updated Successfully', $user->full_name_formatted);
         return redirect()->back();

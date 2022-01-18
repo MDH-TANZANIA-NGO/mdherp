@@ -141,7 +141,8 @@ class ProgramActivityController extends Controller
     {
 
         $this->program_activity->updateParticipant($request->all(), $uuid);
-        return redirect()->back();
+        dd($this->program_activity->findByUuid($uuid));
+        return redirect(route('programactivity.show', $uuid));
     }
     public function editParticipant(ProgramActivityRepository $activityRepository, $uuid)
     {
@@ -155,8 +156,9 @@ class ProgramActivityController extends Controller
 
         $gofficer = GOfficer::all()->pluck('first_name', 'id');
 
+//        dd($this->gOfficer->getQuery()->pluck('names', 'id'));
         return view('programactivity.forms.edit-participant')
-            ->with('gofficers', $gofficer->get())
+            ->with('gofficers', $this->gOfficer->getQuery()->pluck('names', 'id'))
             ->with('existing_participant', $this->gOfficer->find($gofficer_id))
             ->with('requisition_training_cost_id', $requisition_training_cost->id)
             ->with('activity_uuid', $activity_uuid);
