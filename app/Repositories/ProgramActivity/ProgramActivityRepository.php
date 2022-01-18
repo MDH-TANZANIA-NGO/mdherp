@@ -229,4 +229,12 @@ class ProgramActivityRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
+    public function submitPayment($inputs, $uuid)
+    {
+        return DB::transaction(function () use ($inputs, $uuid){
+            $amount_paid = $inputs['payed_amount'];
+            DB::update('update requisition_training_costs set amount_paid= ? where uuid= ?', [$amount_paid, $uuid]);
+        });
+    }
+
 }

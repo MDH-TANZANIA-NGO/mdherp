@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('content')
-    @if($program_activity->report != null)
-        <a href=" {{route('programactivity.report', $program_activity->uuid)}}" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></a>
-
+    @if($program_activity->report != null && $program_activity->done == 0)
+        {!! Form::open(['route'=>'programactivity.submit', $program_activity->uuid]) !!}
+        <button type="submit" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></button>
+{{--        <a href=" {{route('programactivity.submit', $program_activity->uuid)}}" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></a>--}}
+            {!! Form::close() !!}
     @endif
     <div class="row">
         <div class="card">

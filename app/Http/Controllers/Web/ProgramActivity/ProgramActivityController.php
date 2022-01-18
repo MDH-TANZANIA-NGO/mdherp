@@ -173,7 +173,9 @@ class ProgramActivityController extends Controller
     }
     public function pay(RequestTrainingCostRepository $costRepository, $uuid)
     {
-            return view('programactivity.forms.pay');
+//        dd($this->requisition_training_cost->all()->where('uuid', $uuid));
+            return view('programactivity.forms.pay')
+                ->with('details', $this->requisition_training_cost->all()->where('uuid', $uuid));
     }
 
     public function programActivityAttendance(Request $request, $uuid)
@@ -199,5 +201,16 @@ class ProgramActivityController extends Controller
         $this->program_activity->updateProgramActivity($request->all(), $uuid);
 
         return redirect(route('programactivity.show', $uuid));
+    }
+    public function submitPayment(Request $request, $uuid)
+    {
+
+        $this->program_activity->submitPayment($request->all(), $uuid);
+
+        return redirect()->back();
+    }
+    public function submit($uuid)
+    {
+        DB::update('update program_activities set done = ? where uuid=?', [1, $uuid]);
     }
 }
