@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Retirement;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\Retirement\Retirement;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
@@ -16,12 +17,11 @@ use Illuminate\Support\Facades\DB;
 
 class RetirementController extends Controller
 {
-    use Number;
+    use Number, RetirementDatatables;
     protected $retirements;
     protected $safari_advances;
     protected $safari_advance_details;
     protected $district;
-    //protected $retiresafari;
     protected $wf_tracks;
     protected $designations;
 
@@ -40,22 +40,10 @@ class RetirementController extends Controller
 
     public  function  initiate(SafariAdvanceRepository $safariAdvanceRepository)
     {
-//        dd($safariAdvanceRepository->getCompletedWithoutRetirement()->get());
-//        dd($safariAdvanceRepository->getCompletedWithoutRetirement());
         return view('retirement.forms.initiate')
             ->with('safaries', $safariAdvanceRepository->getCompletedWithoutRetirement()->get()
                 ->pluck('number','id'));
     }
-
-//    public  function  create(Retirement $retirement)
-//    {
-//
-////        dd($this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
-//        return view('retirement.forms.create')
-//            ->with('retirement', $retirement)
-//            ->with('district', $this->district->getForPluck())
-//            ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
-//    }
 
     public  function  create(Retirement $retirement)
     {
@@ -74,12 +62,12 @@ class RetirementController extends Controller
 
     public function update(Request $request, $uuid)
     {
-        //ddd($request->all());
+
         $this->retirements->update($request->all(),$uuid);
-//        $retire = $this->retiresafari->findByUuid($uuid);
+
         $retirement = $this->retirements->findByUuid($uuid);
         $wf_module_group_id = 4;
-//        dd($retirement->user->assignedSupervisor()->supervisor_id);
+
         $next_user = $retirement->user->assignedSupervisor()->supervisor_id;
         event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $retirement->id,'region_id' => $retirement->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
 
@@ -106,8 +94,6 @@ class RetirementController extends Controller
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($retirement))
             ->with('retirement', $retirement);
-            /*->with('retirement_details',$retirement->retirement()->getQuery()->get()->all())
-            ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation));*/
     }
 
 

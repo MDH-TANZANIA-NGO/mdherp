@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Retirement;
 
+use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\SafariAdvance\SafariAdvance;
@@ -38,6 +39,24 @@ class RetirementRepository extends BaseRepository
             ->where('retirements.wf_done', true);
     }
 
+    public function getAccessProcessingRetirementDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('retirements.wf_done_date', null)
+            ->where('retirements.rejected', false)
+            ->where('users.id', access()->id());
+    }
+
+    public function getAccessRejectedRetirementDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('retirements.wf_done', 0)
+            ->where('retirements.rejected', true)
+            ->where('users.id', access()->id());
+    }
+
     public function inputProcess($inputs)
     {
        $safari_advance_id = SafariAdvance::all()->find($inputs['safari_advance_id']);
@@ -60,23 +79,6 @@ class RetirementRepository extends BaseRepository
             return $this->query()->create($this->inputProcess($inputs));
         });
     }
-
-//    public function getRetirementDetails()
-//    {
-//        return $this->getQuery()->select([
-//            DB::raw('safari_advance_details.from AS from'),
-//            DB::raw('safari_advance_details.to AS to'),
-//            DB::raw('safari_advance_details.district_id AS district_id'),
-//            DB::raw('safari_advance_details.perdiem AS perdiem'),
-//            DB::raw('safari_advance_details.ontransit AS ontransit'),
-//            DB::raw('safari_advance_details.transportation AS transportation'),
-//            DB::raw('safari_advance_details.other_costs AS other_costs'),
-//            DB::raw('safari_advances.id AS safari_id'),
-//            DB::raw('safari_advances.amount_requested AS amount_requested'),
-//            DB::raw('safari_advances.amount_paid AS amount_paid'),
-//        ])
-//            ->join('retirements', 'retirements.safari_advance_id', 'safari_advances.id');
-//    }
 
     public function update($inputs, $uuid)
     {
