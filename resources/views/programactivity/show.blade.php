@@ -9,12 +9,14 @@
             <div class="card-header">
                 {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
                 <a href=" {{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
-
+                @if(access()->user()->id != $supervisor )
                 @if($program_activity->wf_done == true)
+
                 <a href=" {{route('programactivity.report', $program_activity->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">@if($program_activity->report == null )
                         Submit Report
                     @else
                     Edit Report
+                    @endif
                     @endif
 
                 </a>
@@ -159,9 +161,13 @@
                             <th >Transportation</th>
                             <th>Other Cost</th>
                             <th >Total</th>
+                            @if(access()->user()->id == $supervisor)
+                                <th>Status</th>
+                            @else
                             @if($program_activity->wf_done == true)
                             <th >Action</th>
                                 @endif
+                            @endif
 
                         </tr>
                         </thead>
@@ -177,6 +183,18 @@
                                 <td>{{$participants->total_amount}}</td>
                                 @if($program_activity->wf_done == true)
                                 <td>
+                                    @if(access()->user()->id == $supervisor )
+
+                                        @if($participants->is_substitute == true)
+                                            <span class="tag tag-yellow">Substituted</span>
+                                               @endif
+                                        @if($participants->attend == true)
+                                                <span class="tag tag-green">Attended</span>
+                                                 @endif
+                                            @if($participants->attend == false)
+                                                <span class="tag tag-gray">Not Attended</span>
+                                            @endif
+                                    @else
                                     @if($participants->is_substitute == false)
 
                                     <a href="{{ route('programactivity.editParticipant',$participants->uuid) }}"  class="btn btn-warning" ><i class="fa fa-rotate-left"></i></a>
@@ -185,10 +203,14 @@
                                     <a href="{{ route('programactivity.programActivityAttendance',$participants->uuid) }}" id="attendance" class="btn btn-cyan" onclick="confirm('Are you Sure?')" >Attended</a>
                                     @endif
                                         @if($participants->is_substitute ==  true || $participants->attend == true)
-                                    <a href="{{ route('programactivity.undoEverything',$participants->uuid) }}" id="attendance" class="btn btn-info" onclick="confirm('Are you Sure?')" >Undo</a></td>
-                                            @endif
+                                    <a href="{{ route('programactivity.undoEverything',$participants->uuid) }}" id="attendance" class="btn btn-info" onclick="confirm('Are you Sure?')" >Undo</a>
+                                        @endif
+                                        <a href="{{ route('programactivity.pay',$participants->uuid) }}" class="btn btn-success"  >Pay</a>
+
+                                    @endif
                                             </td>
                                 @endif
+
 
                             </tr>
 

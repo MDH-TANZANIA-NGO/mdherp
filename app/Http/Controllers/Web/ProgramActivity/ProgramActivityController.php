@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\ProgramActivity;
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\ProgramActivity\Datatable\ProgramActivityDatatable;
+use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Models\GOfficer\GOfficer;
 use App\Models\ProgramActivity\ProgramActivity;
@@ -12,6 +13,7 @@ use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
+use App\Repositories\Access\SupervisorUserRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -38,6 +40,7 @@ class ProgramActivityController extends Controller
     protected $designations;
     protected $requisition_training_cost;
     protected $requisition_training_items;
+    protected $supervisorUser;
 
 
     public function __construct()
@@ -52,6 +55,7 @@ class ProgramActivityController extends Controller
         $this->designations = (new DesignationRepository());
         $this->requisition_training_cost = (new RequestTrainingCostRepository());
         $this->requisition_training_items =  (new RequisitionTrainingItemsRepository());
+        $this->supervisorUser =  (new  SupervisorUserRepository());
     }
 
     public function index()
@@ -121,7 +125,9 @@ class ProgramActivityController extends Controller
         $requisition_id = $programActivity->training()->get()->pluck('requisition_id');
         $requisitionss= $this->requisition->find($requisition_id);
         $requisition_training_items = requisition_training_item::all()->where('requisition_id', $requisition_id);
-//dd();
+        $supervisor = SupervisorUser::where('user_id', $programActivity->user_id)->first();
+
+//        dd($supervisor->supervisor_id);
 
         return view('programactivity.show')
             ->with('current_level', $current_level)
@@ -134,7 +140,8 @@ class ProgramActivityController extends Controller
             ->with('activity_participants', $programActivity->training->trainingCost()->getQuery()->get()->all())
             ->with('gofficers', $this->gOfficer->getAll()->pluck('id','first_name'))
             ->with('requisition_uuid',   $this->requisition->find($requisition_id)->pluck('uuid')->toArray())
-            ->with('training_items', $programActivity->training->trainingItems()->get()->all());
+            ->with('training_items', $programActivity->training->trainingItems()->get()->all())
+            ->with('supervisor', $supervisor->supervisor_id);
     }
 
     public function updateParticipant(Request $request, $uuid)
@@ -163,6 +170,10 @@ class ProgramActivityController extends Controller
             ->with('requisition_training_cost_id', $requisition_training_cost->id)
             ->with('activity_uuid', $activity_uuid);
 
+    }
+    public function pay(RequestTrainingCostRepository $costRepository, $uuid)
+    {
+            return view('programactivity.forms.pay');
     }
 
     public function programActivityAttendance(Request $request, $uuid)
