@@ -1,0 +1,4 @@
+
+    @include('employee.datatable.all')
+
+
