@@ -35,7 +35,23 @@ class RequisitionRepository extends BaseRepository
             ->join('activities','activities.id','requisitions.activity_id')
             ->join('users','users.id', 'requisitions.user_id');
     }
+    public function getQueryAll()
+    {
+        return $this->query()->select([
+            DB::raw('requisitions.id AS id'),
+            DB::raw('requisitions.number AS number'),
+            DB::raw('requisitions.amount AS amount'),
+            DB::raw('requisitions.uuid AS uuid'),
+            DB::raw('requisitions.created_at AS created_at'),])
 
+            ->join('users','users.id', 'requisitions.user_id');
+    }
+
+    public function getAllApprovedRequisitions()
+    {
+        return$this->getQueryAll()
+            ->where('requisitions.wf_done', 1);
+    }
     public function getAccessProcessingDatatable()
     {
         return $this->getQuery()

@@ -13,20 +13,20 @@
                             <li><a href="#tab3" data-toggle="tab">Education</a></li>
                             <li><a href="#tab4" data-toggle="tab">Experience</a></li>
                             <li><a href="#tab5" data-toggle="tab">Timesheet</a></li>
-                            <li><a href="#tab6" data-toggle="tab">Leave</a></li>
-                            <li><a href="#tab7" data-toggle="tab">Salary Slip</a></li>
-                            <li><a href="#tab8" data-toggle="tab">Contributions</a></li>
+                            <li><a href="#tab5" data-toggle="tab">Leave</a></li>
+                            <li><a href="#tab5" data-toggle="tab">Salary Slip</a></li>
+                            <li><a href="#tab5" data-toggle="tab">Contributions</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="panel-body tabs-menu-body">
                     <div class="tab-content">
-                        <div class="tab-pane active" id="tab1">
+                        <div class="tab-pane active " id="tab1">
 
                            {{ "The body will go here" }}
 
                         </div>
-                        <div class="tab-pane " id="tab2">
+                        <div class="tab-pane" id="tab2">
                             <div class="card-body">
                                 {{--                                                        <form action="">--}}
                                 {!! Form::open(['method' => 'post']) !!}
@@ -73,6 +73,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="tab-pane " id="tab3">
                             {{-- content to be displayed --}}
                         </div>
@@ -91,15 +92,8 @@
                         <div class="tab-pane " id="tab5">
                             {{-- content to be displayed --}}
                             <div class="card-body">
-                                {{ "content to be displayed" }}
+                                @include('leave.index')
                             </div>
-                            <!-- table-wrapper -->
-                        </div>
-                        <div class="tab-pane " id="tab6">
-                            {{-- content to be displayed --}}
-
-                                @include('employee.leave.index')
-
                             <!-- table-wrapper -->
                         </div>
                     </div>

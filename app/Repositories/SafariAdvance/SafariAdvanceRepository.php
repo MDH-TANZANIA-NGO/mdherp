@@ -8,6 +8,7 @@ use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -97,6 +98,12 @@ class SafariAdvanceRepository extends BaseRepository
             ->join('users','users.id', 'safari_advances.user_id');
     }
 
+    public function getAllApprovedSafari()
+    {
+        return$this->getQuery()
+            ->where('safari_advances.wf_done', true);
+    }
+
     public function getAccessProcessingDatatable()
     {
         return $this->getQuery()
@@ -160,15 +167,18 @@ class SafariAdvanceRepository extends BaseRepository
         ])
             ->join('safari_advance_details', 'safari_advance_details.safari_advance_id', 'safari_advances.id');
     }
-    public function payment($inputs, $uuid)
+    public function payment($inputs, $uuid )
     {
         return DB::transaction(function () use ($inputs, $uuid){
             $amount_paid = $inputs['payed_amount'];
+            $this->getQuery()->get()->pluck('user_id');
+//            dd($this->getQuery()->where('uuid', $uuid)->get()->pluck('safari_advance.uuid'));
 
             DB::update('update safari_advances set amount_paid =? where uuid= ?',[$amount_paid,  $uuid]);
             //create
             DB::table('payments')->insert(
                 [
+                    'referenced_table'=> 'safari_advances',
                     'payment_method'=>$inputs['payment_method'],
                     'reference'=>$inputs['reference'],
                     'payed_amount'=>$inputs['payed_amount'],

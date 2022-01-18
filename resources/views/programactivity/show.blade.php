@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
+    @if($program_activity->report != null)
+        <a href=" {{route('programactivity.report', $program_activity->uuid)}}" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></a>
 
+    @endif
     <div class="row">
         <div class="card">
             <div class="card-header">
@@ -8,8 +11,15 @@
                 <a href=" {{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
 
                 @if($program_activity->wf_done == true)
-                <a href=" {{route('programactivity.report', $program_activity->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">Submit Report</a>
+                <a href=" {{route('programactivity.report', $program_activity->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">@if($program_activity->report == null )
+                        Submit Report
+                    @else
+                    Edit Report
                     @endif
+
+                </a>
+                    @endif
+
             </div>
 
         </div>
@@ -106,6 +116,25 @@
         </div>
     </div>
 
+  @if($program_activity->report != null)
+      <div class="row">
+          <div class="card">
+              <div class="card-header">
+                  <h3 class="card-title">Report</h3>
+                  <div class="card-options ">
+                      <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+
+                  </div>
+              </div>
+              <div class="card-body">
+
+                  {!!html_entity_decode($program_activity->report)!!}
+
+
+              </div>
+          </div>
+      </div>
+  @endif
 
     <div class="row">
         <div class="card">
@@ -153,12 +182,14 @@
                                     <a href="{{ route('programactivity.editParticipant',$participants->uuid) }}"  class="btn btn-warning" ><i class="fa fa-rotate-left"></i></a>
                                     @endif
                                     @if($participants->attend == false)
-                                    <a href="{{ route('programactivity.programActivityAttendance',$participants->uuid) }}" id="attendance" class="btn btn-cyan" onclick="confirm('Are you Sure?')" >Attended</a></td>
+                                    <a href="{{ route('programactivity.programActivityAttendance',$participants->uuid) }}" id="attendance" class="btn btn-cyan" onclick="confirm('Are you Sure?')" >Attended</a>
                                     @endif
                                         @if($participants->is_substitute ==  true || $participants->attend == true)
                                     <a href="{{ route('programactivity.undoEverything',$participants->uuid) }}" id="attendance" class="btn btn-info" onclick="confirm('Are you Sure?')" >Undo</a></td>
                                             @endif
+                                            </td>
                                 @endif
+
                             </tr>
 
                         @endforeach
@@ -198,6 +229,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @if(count($training_items) > 0)
                         @foreach($training_items as $items)
                             <tr>
 
@@ -208,6 +240,9 @@
                             </tr>
 
                         @endforeach
+                        @else
+                            <tr><td colspan="5" style="text-align: center">No Item Requested</td></tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -216,6 +251,8 @@
             </div>
         </div>
     </div>
+
+
 
 
 

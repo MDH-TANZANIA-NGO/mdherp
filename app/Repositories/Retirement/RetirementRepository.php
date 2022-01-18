@@ -19,7 +19,24 @@ class RetirementRepository extends BaseRepository
     {
         //
     }
-
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('retirements.id AS id'),
+            DB::raw('retirements.user_id AS user_id'),
+            DB::raw('retirements.number AS number'),
+            DB::raw('retirements.amount_requested AS amount_requested'),
+            DB::raw('retirements.amount_paid AS amount_paid'),
+            DB::raw('retirements.created_at AS created_at'),
+            DB::raw('retirements.uuid AS uuid'),
+        ])
+            ->join('users','users.id', 'retirements.user_id');
+    }
+    public function getAllApprovedRetirements()
+    {
+        return $this->getQuery()
+            ->where('retirements.wf_done', true);
+    }
 
     public function inputProcess($inputs)
     {
