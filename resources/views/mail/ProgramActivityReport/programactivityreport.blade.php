@@ -398,7 +398,7 @@
                                     <div class="f-fallback">
                                         <h1 style="color: #022169">Welcome, {{ $name }}!</h1>
                                         <p>
-                                           Program Activity Report is submitted For your Approval
+                                           You have new Program Activity Report which needs your Approval.
                                         </p>
                                         <!-- Action -->
                                         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
@@ -406,10 +406,10 @@
                                                 <td align="center">
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                                         <tr>
-                                                            <td align="center">
-                                                                <a href="{{ $link }}" class="f-fallback
-                                                                button" target="_blank">Click To view</a>
-                                                            </td>
+{{--                                                            <td align="center">--}}
+{{--                                                                <a href="mdherp_old.test" class="f-fallback--}}
+{{--                                                                button" target="_blank">Click To Login</a>--}}
+{{--                                                            </td>--}}
                                                         </tr>
                                                     </table>
                                                 </td>
@@ -432,14 +432,7 @@
                                             </tr>
                                         </table>
                                         <!-- Sub copy -->
-                                        <table class="body-sub" role="presentation">
-                                            <tr>
-                                                <td>
-                                                    <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                                                    <p class="f-fallback sub">{{ $link }}</p>
-                                                </td>
-                                            </tr>
-                                        </table>
+
                                     </div>
                                 </td>
                             </tr>

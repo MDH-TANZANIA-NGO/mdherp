@@ -46,7 +46,7 @@ class ProgramActivityReportNotification extends Notification
     {
         return (new MailMessage)
             ->subject('Activity Report Needs Your Approval')
-            ->markdown('mail.ProgramActivityReport.programactivityreport',['link' => $this->link, 'name' => $notifiable->first_name. ' '.$notifiable->last_name, 'email' => $notifiable->email]);
+            ->markdown('mail.ProgramActivityReport.programactivityreport',['link' => $this->program_activity, 'name' => $notifiable->first_name. ' '.$notifiable->last_name, 'email' => $notifiable->email]);
     }
 
     /**

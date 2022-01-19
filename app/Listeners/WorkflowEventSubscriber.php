@@ -176,7 +176,15 @@ class WorkflowEventSubscriber
                         'subject' => $program_activity->number." Approved Successfully",
                         'message' => 'These Application has been Approved successfully'
                     ];
+                    $admin_email = (object)[
+                        'link' =>  route('programactivity.show',$program_activity),
+                        'subject' =>" Arrange Logistics For Program Activity:". $program_activity->number,
+                        'message' =>$program_activity->user->full_name. " Will conduct Program Activity in your Region From".$program_activity->training->from. "To". $program_activity->training->to,
+                    ];
                     $program_activity->user->notify(new WorkflowNotification($email_resource));
+                    $projectAdmin = User::query()->where('region_id', $program_activity->region_id)->where('designation_id', '=', 43)->first();
+                    $projectAdmin->notify(new WorkflowNotification($admin_email));
+
                     break;
             }
 

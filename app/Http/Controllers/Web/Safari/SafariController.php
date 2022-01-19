@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Safari\Datatables\SafariDatatables;
 use App\Models\Auth\User;
 use App\Models\Requisition\Requisition;
+use App\Models\Retirement\Retirement;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Travelling\RequestTravellingCostRepository;
+use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 
 use App\Repositories\System\DistrictRepository;
@@ -65,9 +67,13 @@ class SafariController extends Controller
     }
     public  function  initiate()
     {
+        $retirements =  Retirement::query()->where('user_id', access()->user()->id)->where('wf_done', '=', false);
 
+//dd($this->safariAdvance->getCompletedWithoutRetirement()->count());
         return view('safari.forms.initiate')
-            ->with('travelling_costs', $this->travellingCost->getPluckRequisitionNo());
+            ->with('travelling_costs', $this->travellingCost->getPluckRequisitionNo())
+            ->with('safari_not_retired', $this->safariAdvance->getCompletedWithoutRetirement()->count())
+            ->with('retired_not_approved', $retirements);
     }
     public function store(Request $request)
     {

@@ -51,6 +51,7 @@ class ProgramActivityRepository extends BaseRepository
         $requisition = Requisition::findOrFail($requisition_training['requisition_id']);
 
         return[
+            'region_id'=>$requisition->region_id,
             'requisition_training_id' => $inputs['requisition_training_id'],
             'user_id'=>  access()->user()->id,
             'requisition_id' => $requisition->id,

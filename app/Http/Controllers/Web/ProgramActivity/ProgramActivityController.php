@@ -215,8 +215,8 @@ class ProgramActivityController extends Controller
         DB::update('update program_activities set done = ? where uuid=?', [1, $uuid]);
         $program_activity =  $this->program_activity->findByUuid($uuid);
         $next_user = $program_activity->user->assignedSupervisor()->supervisor_id;
-
-        dd($program_activity->user->assignedSupervisor()->notify(new ProgramActivityReportNotification($program_activity)));
+        $user =  User::query()->where('id', $next_user)->first();
+        $user->notify(new ProgramActivityReportNotification($program_activity));
 
         return redirect()->back();
     }

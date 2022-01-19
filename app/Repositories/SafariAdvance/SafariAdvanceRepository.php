@@ -197,6 +197,8 @@ class SafariAdvanceRepository extends BaseRepository
             ->whereDoesntHave('retirement');
     }
 
+
+
     public function getCompletedAccessWithoutRetirement()
     {
         return $this->getCompletedAccessWithoutRetirement()

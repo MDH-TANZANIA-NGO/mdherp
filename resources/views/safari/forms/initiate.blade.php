@@ -21,8 +21,24 @@
                                     {!! $errors->first('requisition_travelling_cost_id', '<span class="badge badge-danger">:message</span>') !!}
                                 </div>
                             </div>
+                            @if($safari_not_retired == 0 )
+                                @if($retired_not_approved->count() == 0)
+                                <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Initiate Safari</button>
+                                @else
 
-                            <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Initiate Safari</button>
+
+                                <p class="text-danger" style="margin-left: 25%" >
+                                    <b>Sorry !!</b>  You can not initiate any safari until you complete retirement on your previous safari.
+
+                                </p>
+                                    @endif
+                            @else
+                                <p class="text-danger" style="margin-left: 25%" >
+                                    <b>Sorry !!</b>  You can not initiate any safari until you complete retirement on your previous safari.
+
+                                </p>
+                            @endif
+
                             {!! Form::close() !!}
                 </div>
             </div>
