@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @if($program_activity->report != null && $program_activity->done == 0)
-        {!! Form::open(['route'=>'programactivity.submit', $program_activity->uuid]) !!}
+        {!! Form::open(['route' => ['programactivity.submit',$program_activity->uuid]]) !!}
         <button type="submit" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></button>
 {{--        <a href=" {{route('programactivity.submit', $program_activity->uuid)}}" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></a>--}}
             {!! Form::close() !!}
@@ -11,7 +11,7 @@
             <div class="card-header">
                 {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
                 <a href=" {{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
-                @if(access()->user()->id != $supervisor )
+                @if(access()->user()->id != $supervisor && $program_activity->done == 0 )
                 @if($program_activity->wf_done == true)
 
                 <a href=" {{route('programactivity.report', $program_activity->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">@if($program_activity->report == null )

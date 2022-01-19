@@ -13,6 +13,7 @@ use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
+use App\Notifications\ProgramActivityReport\ProgramActivityReportNotification;
 use App\Repositories\Access\SupervisorUserRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
@@ -212,5 +213,12 @@ class ProgramActivityController extends Controller
     public function submit($uuid)
     {
         DB::update('update program_activities set done = ? where uuid=?', [1, $uuid]);
+        $program_activity =  $this->program_activity->findByUuid($uuid);
+        $next_user = $program_activity->user->assignedSupervisor()->supervisor_id;
+
+        dd($program_activity->user->assignedSupervisor()->notify(new ProgramActivityReportNotification($program_activity)));
+
+        return redirect()->back();
     }
+
 }
