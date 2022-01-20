@@ -9,6 +9,7 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
 
     Route::get('{programActivity}/show', 'ProgramActivityController@show')->name('show');
     Route::get('{programActivity}/report', 'ProgramActivityController@programActivityReport')->name('report');
+    Route::get('reports', 'ProgramActivityController@reports')->name('reports');
     Route::get('{uuid}/editParticipant', 'ProgramActivityController@editParticipant')->name('editParticipant');
     Route::post('{uuid}/updateParticipant', 'ProgramActivityController@updateParticipant')->name('updateParticipant');
     Route::post('{uuid}/updateProgramActivity', 'ProgramActivityController@updateProgramActivity')->name('updateProgramActivity');
@@ -17,6 +18,7 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::get('{uuid}/pay', 'ProgramActivityController@pay')->name('pay');
     Route::post('{uuid}/submitPayment', 'ProgramActivityController@submitPayment')->name('submitPayment');
     Route::post('{uuid}/submit', 'ProgramActivityController@submit')->name('submit');
+    Route::post('{uuid}/approveReport', 'ProgramActivityController@approveReport')->name('approveReport');
 
 
 
@@ -31,6 +33,11 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
             Route::get('approved', 'ProgramActivityController@AccessApprovedDatatable')->name('approved');
             Route::get('saved', 'ProgramActivityController@AccessDatatable')->name('saved');
             Route::get('paid', 'ProgramActivityController@AccesssDatatable')->name('paid');
+        });
+        Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
+            Route::get('new', 'ProgramActivityController@ReportNewDatatable')->name('new');
+            Route::get('rejected', 'ProgramActivityController@ReportRejectedDatatable')->name('rejected');
+            Route::get('approved', 'ProgramActivityController@ReportApprovedDatatable')->name('approved');
         });
     });
 

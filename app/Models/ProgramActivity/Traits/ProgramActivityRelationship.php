@@ -7,6 +7,7 @@ use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\System\District;
+use App\Models\System\Region;
 use App\Models\Workflow\WfTrack;
 use App\Models\ProgramActivity\ProgramActivityParticipant;
 
@@ -45,6 +46,10 @@ public function costs(){
     public function wfTracks()
     {
         return $this->morphMany(WfTrack::class, 'resource');
+    }
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
     }
 
 }

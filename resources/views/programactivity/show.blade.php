@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @if($program_activity->report != null && $program_activity->done == 0)
+    @if($program_activity->report != null && $program_activity->done == 0 && access()->user()->id != $supervisor)
         {!! Form::open(['route' => ['programactivity.submit',$program_activity->uuid]]) !!}
         <button type="submit" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></button>
 {{--        <a href=" {{route('programactivity.submit', $program_activity->uuid)}}" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></a>--}}
@@ -11,7 +11,71 @@
             <div class="card-header">
                 {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
                 <a href=" {{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
-                @if(access()->user()->id != $supervisor && $program_activity->done == 0 )
+                @if($program_activity->done == 1)
+                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#largeModal"style="margin-left: 2%;">View Activity Workflow</button>
+
+                    <!-- Large Modal -->
+                    <div id="largeModal" class="modal fade">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content ">
+                                <div class="modal-header pd-x-20">
+                                    <h6 class="modal-title">Activity Workflow</h6>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-lg-12">
+                                        @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- modal-dialog -->
+                    </div><!-- modal -->
+
+                @endif
+                @if(access()->user()->id == $supervisor && $program_activity->done == 1)
+
+                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#smallModal"style="margin-left: 2%;">Approve Activity Report</button>
+
+                    <!-- Large Modal -->
+                    <div id="smallModal" class="modal fade">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content ">
+                                <div class="modal-header pd-x-20">
+                                    <h6 class="modal-title">Action</h6>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body pd-20">
+                                    {!! Form::open(['route' => ['programactivity.approveReport',$program_activity->uuid]]) !!}
+                                    <label>Action</label>
+                                    <select name="approval" class="form-control">
+                                        <option value="true">Approve</option>
+                                        <option value="false">Reject</option>
+
+                                    </select>
+                                    <br>
+
+                                    <label>comment</label>
+                                    {!! Form::textarea('remarks',null, ['class'=>'form-control']) !!}
+
+
+
+                                </div><!-- modal-body -->
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                                {!! Form::close() !!}
+                            </div>
+                        </div><!-- modal-dialog -->
+                    </div><!-- modal -->
+
+                @endif
+
+                  @if(access()->user()->id != $supervisor && $program_activity->done == 0 )
                 @if($program_activity->wf_done == true)
 
                 <a href=" {{route('programactivity.report', $program_activity->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">@if($program_activity->report == null )
@@ -19,7 +83,8 @@
                     @else
                     Edit Report
                     @endif
-                    @endif
+
+                            @endif
 
                 </a>
                     @endif
@@ -28,13 +93,18 @@
 
         </div>
     </div>
-
+@if($program_activity->done == 0)
     <!-- start: page -->
     <div class="row mb-2">
         <div class="col-lg-12">
             @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
         </div>
     </div>
+
+
+
+
+@endif
 
 
 {{--    @if($unit->unit_id == 24 || $unit->unit_id == 23)--}}
@@ -125,7 +195,12 @@
           <div class="card">
               <div class="card-header">
                   <h3 class="card-title">Report</h3>
-                  <div class="card-options ">
+                  <div class="card-options "><b>Status: </b>
+                      @if( $program_activity->report_approved == true)
+                            Approved
+                      @elseif($program_activity->report_approved == false)
+                          Not Approved
+                      @endif
                       <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
 
                   </div>
@@ -136,6 +211,8 @@
 
 
               </div>
+
+
           </div>
       </div>
   @endif
@@ -282,3 +359,10 @@
 
 
 @endsection
+{{--<script type="text/javascript">--}}
+{{--    $(document).ready(function () {--}}
+{{--        $("#btn").click(function () {--}}
+{{--            $("#Create").toggle();--}}
+{{--        });--}}
+{{--    });--}}
+{{--</script>--}}

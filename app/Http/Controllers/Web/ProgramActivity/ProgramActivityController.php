@@ -61,8 +61,11 @@ class ProgramActivityController extends Controller
 
     public function index()
     {
+        $supervisor = SupervisorUser::where('supervisor_id', access()->user()->id)->first();
+//        dd($supervisor);
         return view('programactivity.index')
-            ->with('program_activities',  $this->program_activity = (new ProgramActivityRepository()));
+            ->with('program_activities',  $this->program_activity = (new ProgramActivityRepository()))
+            ->with('supervisor', $supervisor);
     }
 
     public  function  create(ProgramActivity $programActivity)
@@ -219,6 +222,32 @@ class ProgramActivityController extends Controller
         $user->notify(new ProgramActivityReportNotification($program_activity));
 
         return redirect()->back();
+    }
+
+    public  function reports()
+
+    {
+
+        return view('programactivity.reports.index');
+    }
+    public function approveReport(ProgramActivityRepository $programActivityRepository, $uuid, Request $request)
+    {
+//        dd($request->get('approval'));
+        $uuid = $programActivityRepository->findByUuid($uuid)->uuid;
+        $get_input =  $request->get('approval');
+//        dd($get_input);
+        if ($get_input ===  "true"){
+            DB::update('update program_activities set report_approved = ?, report_rejected = ?, remarks = ? where uuid = ?',[true, false,  $request->get('remarks'), $uuid]);
+        }
+        elseif ($get_input ===  "false"){
+
+            DB::update('update program_activities set report_approved = ?, report_rejected = ?, remarks = ? where uuid = ?',[false, true, $request->get('remarks'), $uuid]);
+
+        }
+
+        return redirect()->back();
+
+
     }
 
 }

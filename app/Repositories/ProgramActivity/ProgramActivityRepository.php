@@ -36,6 +36,7 @@ class ProgramActivityRepository extends BaseRepository
             DB::raw('program_activities.amount_paid AS amount_paid'),
             DB::raw('program_activities.created_at AS created_at'),
             DB::raw('program_activities.uuid AS uuid'),
+            DB::raw('program_activities.region_id AS region_id'),
         ])
             ->join('users','users.id', 'program_activities.user_id');
     }
@@ -49,16 +50,15 @@ class ProgramActivityRepository extends BaseRepository
     {
         $requisition_training = requisition_training::query()->find($inputs['requisition_training_id']);
         $requisition = Requisition::findOrFail($requisition_training['requisition_id']);
-
+//dd($requisition_training->district->region->id);
         return[
-            'region_id'=>$requisition->region_id,
+            'region_id'=>$requisition_training->district->region->id,
             'requisition_training_id' => $inputs['requisition_training_id'],
             'user_id'=>  access()->user()->id,
             'requisition_id' => $requisition->id,
             'amount_requested'=>$requisition->amount,
             'amount_paid'=>0,
-            'scope'=>'',
-            'region_id'=>access()->user()->region_id
+            'scope'=>''
 
         ];
     }
@@ -77,7 +77,7 @@ class ProgramActivityRepository extends BaseRepository
 
             $programActivity = $this->findByUuid($uuid);
             $number = $this->generateNumber($programActivity);
-            DB::update('update program_activities set number = ?, done = ? where uuid=?', [$number, 1, $uuid]);
+            DB::update('update program_activities set number = ?, done = ? where uuid=?', [$number, 0, $uuid]);
         });
 
     }
@@ -133,11 +133,13 @@ class ProgramActivityRepository extends BaseRepository
         }
     public function updateProgramActivity($inputs, $uuid)
     {
+        $program_activity =  ProgramActivity::query()->where('uuid', $uuid);
         $report = $inputs['report'];
+        $next_user = access()->user()->assignedSupervisor()->supervisor_id;
 
-        return DB::transaction(function () use ($inputs, $uuid, $report){
+        return DB::transaction(function () use ($inputs, $uuid, $report, $next_user){
 
-            DB::update('update program_activities set report = ? where uuid=?', [$report, $uuid]);
+            DB::update('update program_activities set report = ?, supervised_by = ?  where uuid=?', [$report,$next_user, $uuid]);
 
 
         });
@@ -228,6 +230,25 @@ class ProgramActivityRepository extends BaseRepository
             ->where('program_activities.rejected', false)
             ->where('program_activities.amount_paid', '!=', 0 )
             ->where('users.id', access()->id());
+    }
+    public function getReportNewDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('program_activities.wf_done', true)
+            ->where('program_activities.report_approved', false)
+            ->where('program_activities.report_rejected', false)
+            ->where('program_activities.done', 1)
+            ->where('program_activities.supervised_by', access()->id());
+    }
+    public function getReportApprovedDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('program_activities.wf_done', true)
+            ->where('program_activities.report_approved', true)
+            ->where('program_activities.done', 1)
+            ->where('program_activities.supervised_by', access()->id());
     }
 
     public function submitPayment($inputs, $uuid)

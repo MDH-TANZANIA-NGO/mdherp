@@ -111,4 +111,64 @@ trait ProgramActivityDatatable
             ->rawColumns(['action'])
             ->make(true);
     }
+
+//    Reports Datatables
+
+    public function ReportNewDatatable()
+    {
+        return DataTables::of($this->program_activity->getReportNewDatatable())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateTimeString();
+            })
+            ->addColumn('region_id', function ($query) {
+                return $query->region->name;
+            })
+            ->addColumn('user_id', function ($query) {
+                return $query->user->full_name;
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('programactivity.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+    public function ReportRejectedDatatable()
+    {
+        return DataTables::of($this->program_activity->getAccessPaidDatatable())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateTimeString();
+            })
+            ->addColumn('amount_requested', function ($query) {
+                return number_2_format($query->amount_requested);
+            })
+            ->addColumn('amount_paid', function ($query) {
+                return number_2_format($query->amount_paid);
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('programactivity.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+    public function ReportApprovedDatatable()
+    {
+        return DataTables::of($this->program_activity->getReportApprovedDatatable())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateTimeString();
+            })
+            ->addColumn('region_id', function ($query) {
+                return $query->region->name;
+            })
+            ->addColumn('user_id', function ($query) {
+                return $query->user->full_name;
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('programactivity.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 }
