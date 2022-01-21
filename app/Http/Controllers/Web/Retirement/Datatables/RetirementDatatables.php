@@ -41,26 +41,24 @@ trait RetirementDatatables
             ->rawColumns(['action'])
             ->make(true);
     }
-    /* public function AccessApprovedDatatable()
+     public function AccessApprovedDatatable()
      {
-         return DataTables::of($this->safariAdvance->getAccessProvedDatatable())
+         return DataTables::of($this->retirements->getAccessApprovedRetirementDatatable())
              ->addIndexColumn()
              ->editColumn('created_at', function ($query) {
                  return $query->created_at->toDateTimeString();
              })
-             ->addColumn('amount_requested', function ($query) {
-                 return number_2_format($query->amount_requested);
-             })
-             ->addColumn('amount_paid', function ($query) {
+             ->addColumn('amount', function ($query) {
                  return number_2_format($query->amount_paid);
              })
              ->addColumn('action', function($query) {
-                 return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
+                 return '<a href="'.route('retirement.show', $query->uuid).'">View</a>';
              })
              ->rawColumns(['action'])
              ->make(true);
      }
-     public function AccessDatatable()
+
+     /*public function AccessDatatable()
      {
          return DataTables::of($this->safariAdvance->getAccessSavedDatatable())
              ->addIndexColumn()

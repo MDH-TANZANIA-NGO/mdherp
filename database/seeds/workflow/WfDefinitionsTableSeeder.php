@@ -304,8 +304,8 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 13,
                     'level' => '1',
-                    'unit_id' => 5,
-                    'designation_id' => 13,
+                    'unit_id' => 69,
+                    'designation_id' => 124,
                     'description' => 'Submit Retirement',
                     'msg_next' => 'Submit Retirement',
                     'wf_module_id' => '5',
@@ -327,8 +327,8 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 14,
                     'level' => '2',
-                    'unit_id' => 5,
-                    'designation_id' => 13,
+                    'unit_id' => 72,
+                    'designation_id' => 125,
                     'description' => 'Approve Retirement',
                     'msg_next' => 'Approve Retirement',
                     'wf_module_id' => '5',

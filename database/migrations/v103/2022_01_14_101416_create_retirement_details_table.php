@@ -13,7 +13,7 @@ class CreateRetirementsDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('retirements_details', function (Blueprint $table) {
+        Schema::create('retirement_details', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('safari_advance_id');

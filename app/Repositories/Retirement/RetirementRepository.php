@@ -57,6 +57,15 @@ class RetirementRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
+    public function getAccessApprovedRetirementDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('retirements.wf_done', true)
+            ->where('retirements.rejected', false)
+            ->where('users.id', access()->id());
+    }
+
     public function inputProcess($inputs)
     {
        $safari_advance_id = SafariAdvance::all()->find($inputs['safari_advance_id']);
@@ -86,11 +95,11 @@ class RetirementRepository extends BaseRepository
         return DB::transaction(function () use ($inputs, $uuid){
             $retire = $this->findByUuid($uuid);
             $number = $this->generateNumber($retire);
-
             DB::update('update retirements set number= ? where uuid= ?',[$number, $uuid]);
 
-            DB::table('retirements_details')->insert(
+            DB::table('retirement_details')->insert(
                 [
+                    'retirement_id'=> $retire->id,
                     'safari_advance_id'=>$inputs['safari_advance_id'],
                     'number' => $number,
                     'from'=>$inputs['from'],
@@ -99,7 +108,9 @@ class RetirementRepository extends BaseRepository
                     'amount_requested'=>$inputs['amount_requested'],
                     'amount_paid'=>$inputs['amount_paid'],
                     'amount_received'=>$inputs['amount_received'],
-                    'activity_report'=>$inputs['activity_report']
+                    'amount_spent'=>$inputs['amount_spent'],
+                    'amount_variance'=>$inputs['amount_variance'],
+                    'activity_report'=>$inputs['activity_report'],
                 ]
             );
         });

@@ -7,9 +7,9 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">Onprocess <span class="badge badge-warning"></span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Returned <span class="badge badge-danger"></span></a></li>
-{{--                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success"></span></a></li>--}}
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">Onprocess <span class="badge badge-warning">{{ $retirements->getAccessProcessingRetirementDatatable()->count() }}</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Returned <span class="badge badge-danger">{{ $retirements->getAccessRejectedRetirementDatatable()->count() }}</span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $retirements->getAccessApprovedRetirementDatatable()->count() }}</span></a></li>
 {{--                    <li><a href="#paid" data-toggle="tab" class="">Paid <span class="badge badge-primary"></span> </a></li>--}}
 {{--                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default"></span> </a></li>--}}
                 </ul>
@@ -70,7 +70,6 @@
                 </div>
 --}}
 
-{{--
                 <div class="tab-pane" id="approved">
 
                     <div class="card-body">
@@ -83,7 +82,6 @@
                                     <th class="wd-25p">AMOUNT REQUESTED</th>
                                     <th class="wd-25p">AMOUNT PAID</th>
                                     <th class="wd-25p">CREATED ON</th>
-                                    <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -91,7 +89,6 @@
                     </div>
 
                 </div>
---}}
 
 <div class="tab-pane" id="rejected">
 
@@ -113,27 +110,6 @@
 
                 </div>
 
-{{--  <div class="tab-pane" id="paid">
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="access_paid" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th class="wd-15p">#</th>
-                                    <th class="wd-15p">NUMBER</th>
-                                    <th class="wd-25p">AMOUNT REQUESTED</th>
-
-                                    <th class="wd-25p">AMOUNT PAID</th>
-                                    <th class="wd-25p">CREATED ON</th>
-                                    <th class="wd-25p">ACTION</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
-                </div> --}}
 
             </div>
         </div>
@@ -145,8 +121,6 @@
         $(document).ready(function () {
 
             $("#access_processing").DataTable({
-                // processing: true,
-                // serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
@@ -162,8 +136,6 @@
             });
 
             $("#access_rejected").DataTable({
-                // processing: true,
-                // serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
@@ -178,26 +150,21 @@
                 ]
             });
 
-            /*$("#access_approved").DataTable({
-                // processing: true,
-                // serverSide: true,
+            $("#access_approved").DataTable({
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('safari.datatable.access.approved') }}',
+                ajax: '{{ route('retirement.datatable.access.approved') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'safari_advances.number', searchable: true},
-                    { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
-                    // { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount_paid', name: 'requisitions.amount', searchable: true},
+                    { data: 'number', name: 'retirements.number', searchable: true},
+                    { data: 'amount_paid', name: 'retirements.amount_paid', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
-            $("#access_saved").DataTable({
+           /* $("#access_saved").DataTable({
                 // processing: true,
                 // serverSide: true,
                 destroy: true,

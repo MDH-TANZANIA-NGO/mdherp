@@ -33,9 +33,10 @@ class RetirementController extends Controller
         $this->wf_tracks = (new WfTrackRepository());
     }
 
-    public function index()
+    public function index(RetirementRepository $retirementRepository)
     {
-        return view('retirement.index');
+        return view('retirement.index')
+        ->with('retirements', $retirementRepository);
     }
 
     public  function  initiate(SafariAdvanceRepository $safariAdvanceRepository)
@@ -87,13 +88,14 @@ class RetirementController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($retirement, $current_level, $workflow->wf_definition_id);
 
         $designation = access()->user()->designation_id;
-
+//ddd($retirement->details());
         return view('retirement.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($retirement))
-            ->with('retirement', $retirement);
+            ->with('retirement', $retirement)
+            ->with('retirementz',$retirement->details()->get());
     }
 
 

@@ -63,8 +63,9 @@
                     <div class="col-md-4" >
 
                 <div class="form-group">
-                    <label class="form-label">Amount Paid</label>
-                    {!! Form::text('amount_paid_show', $retire_safari->amount_paid, ['class' => 'form-control', 'disabled' ]) !!}
+                    <label class="form-label">Amount Advanced</label>
+{{--                    {!! Form::text('amount_paid_show', $retire_safari->amount_paid, ['class' => 'form-control', 'disabled' ]) !!}--}}
+                    <input type="text" id="a_paid" onblur="calculate('a_paid','a_spent','a_variance')" disabled name="amount_paid_show" class="form-control" value="{{$retire_safari->amount_paid}}">
                     {!! Form::text('amount_paid', $retire_safari->amount_paid, ['class' => 'form-control', 'hidden' ]) !!}
                 </div>
                         </div>
@@ -73,11 +74,32 @@
 
                         <div class="form-group">
                             <label class="form-label">Amount Received </label>
-                            {!! Form::text('amount_received', $retire_safari->amount_received, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}
+                            {!! Form::number('amount_received', $retire_safari->amount_paid, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}
 {{--                            <input type="number" name="amount_received" class="form-control" placeholder="Enter amount you received">--}}
 
                         </div>
                     </div>
+
+                </div>
+
+                    <div class="row">
+
+                    <div class="col-md-6" >
+
+                        <div class="form-group">
+                            <label class="form-label">Actual Amount Spent </label>
+{{--                            {!! Form::number('amount_spent',$retire_safari->amount_received, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}--}}
+                             <input type="number" id="a_spent" onkeydown="calculate('a_paid','a_spent','a_variance')" name="amount_spent" class="form-control" placeholder="Enter amount you spent">
+
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+
+                            <div class="form-group">
+                                <label class="form-label">Variance Amount</label>
+                                <input type="number" id="a_variance" onblur="calculate('a_paid','a_spent','a_variance')" name="amount_variance" class="form-control" placeholder="">
+                            </div>
+                        </div>
 
                 </div>
                     @endforeach
@@ -85,21 +107,41 @@
                     <div class="col-md-12" >
                         <div class="form-group">
                             <label class="form-label">Activity Report <span class="form-label-small">56/100</span></label>
-                            <textarea class="form-control" name="activity_report" rows="7" placeholder="Write activity report.."></textarea>
+                            <textarea class="form-control" name="activity_report" rows="7" placeholder="Write activity report.." required></textarea>
                         </div>
                     </div>
 
 
                 </div>
                 <div class="row">
-                    <div class="col-md-12" >
+                    <div class="col-md-4" >
                 <div class="form-group">
-                    <div class="form-label">Receipt/Supportive Document Upload</div>
+                    <div class="form-label">Attach Receipt</div>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" name="example-file-input-custom" disabled>
                         <label class="custom-file-label">Choose file</label>
                     </div>
                 </div>
+                    </div>
+
+                    <div class="col-md-4" >
+                        <div class="form-group">
+                            <div class="form-label">Supportive Document Upload</div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="example-file-input-custom" disabled>
+                                <label class="custom-file-label">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" >
+                        <div class="form-group">
+                            <div class="form-label">Add Any Other Attachment</div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="example-file-input-custom" disabled>
+                                <label class="custom-file-label">Choose file</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -116,5 +158,16 @@
             {!! Form::close() !!}
         </div>
     </div>
+
+    @push('after-scripts')
+        <script>
+            calculate = function (a_paid, a_spent, a_variance) {
+                var amount_advanced = (document.getElementById(a_paid).value);
+                var amount_spent = parseFloat(document.getElementById(a_spent).value).toFixed(2);
+                var amount_variance = (amount_advanced) - (amount_spent);
+                (document.getElementById(a_variance).value) = (amount_variance);
+            }
+        </script>
+    @endpush
 
 @endsection
