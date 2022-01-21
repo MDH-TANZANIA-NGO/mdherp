@@ -344,7 +344,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'can_close' => 1,
                     'action_description' => 'Approve',
                     'status_description' => 'Approved',
-//                'assign_next_user' => 0,
+
                 ),
             14 =>
                 array (
