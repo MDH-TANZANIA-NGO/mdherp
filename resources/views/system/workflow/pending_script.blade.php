@@ -99,6 +99,9 @@
                         case 3: /*programactivity*/
                             window.open(base_url + "/programactivity/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
+                        case 4: /*retirement*/
+                            window.open(base_url + "/retirement/" + aData['resource_uuid'] + '/show' , "_blank");
+                            break;
                         default:
                             break;
                     }

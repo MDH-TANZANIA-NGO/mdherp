@@ -13,6 +13,7 @@ use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Report\ReportRepository;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\taf\TafRepository;
 use App\Repositories\Tber\TberRepository;
@@ -395,6 +396,16 @@ class Workflow
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
+                case 5:
+                    $retirement_repo = (new RetirementRepository());
+                    $retirement = $retirement_repo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('retirement.show',$retirement),
+                        'subject' => $retirement->number." Need your Approval",
+                        'message' => $retirement->number.' need your approval'
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
 
             }
 
@@ -432,6 +443,12 @@ class Workflow
                 $program_activity_repo = (new ProgramActivityRepository());
                 $program_activity = $program_activity_repo->find($resourceId);
                 $program_activity->wfTracks()->save($wfTrack);
+                break;
+            case 4:
+                /*Retirement */
+                $retirement_repo = (new RetirementRepository());
+                $retirement = $retirement_repo->find($resourceId);
+                $retirement->wfTracks()->save($wfTrack);
                 break;
         }
     }

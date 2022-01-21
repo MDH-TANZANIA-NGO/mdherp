@@ -33,7 +33,7 @@ class PermissionsTableSeeder extends Seeder
                     'id' => 2,
                     'name' => 'create_employee',
                     'display_name' => 'Employee creator',
-                    'description' => 'User can create employee',
+                    'description' => 'User can create v104',
                     'ischecker' => 1,
                 ),
             2 =>

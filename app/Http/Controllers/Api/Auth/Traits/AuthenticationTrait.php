@@ -53,7 +53,6 @@ trait AuthenticationTrait
                 'token_type' => 'Bearer',
                 'access_token' => $access_token
             ];
-
             $return = $this->sendResponse($success, 'User Log in successfully');
         }
 

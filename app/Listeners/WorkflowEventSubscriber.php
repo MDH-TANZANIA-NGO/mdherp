@@ -7,6 +7,7 @@ use App\Exceptions\WorkflowException;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
 use App\Services\Workflow\Traits\WorkflowUserSelector;
@@ -186,7 +187,20 @@ class WorkflowEventSubscriber
                     $projectAdmin->notify(new WorkflowNotification($admin_email));
 
                     break;
+                case 5:
+                    $retirement_repo = (new RetirementRepository());
+                    $retirement = $retirement_repo->find($resource_id);
+                    $this->updateWfDone($retirement);
+//                $requisition_repo->processComplete($safari);
+                    $email_resource = (object)[
+                        'link' =>  route('retirement.show',$retirement),
+                        'subject' => $retirement->number." Approved Successfully",
+                        'message' => 'These Application has been Approved successfully'
+                    ];
+                    $retirement->user->notify(new WorkflowNotification($email_resource));
+                    break;
             }
+
 
         }
     }

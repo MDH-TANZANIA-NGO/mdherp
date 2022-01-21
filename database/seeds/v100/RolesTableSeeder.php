@@ -33,7 +33,7 @@ class RolesTableSeeder extends Seeder
             1 =>
                 array (
                     'id' => 2,
-                    'name' => 'employee',
+                    'name' => 'v104',
                     'description' => 'System admin',
                     'isfree' => 0,
                     'isadministrative' => 0,
