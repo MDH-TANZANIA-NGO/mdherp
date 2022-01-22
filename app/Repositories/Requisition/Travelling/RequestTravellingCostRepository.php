@@ -10,14 +10,17 @@ use App\Models\Requisition\Travelling\Traits\Relationship\RequisitionTravellingC
 use App\Models\System\District;
 use App\Models\System\Region;
 use App\Repositories\BaseRepository;
+use App\Repositories\MdhRates\mdhRatesRepository;
 use Illuminate\Support\Facades\DB;
 
 class RequestTravellingCostRepository extends BaseRepository
 {
 
     const MODEL = requisition_travelling_cost::class;
+    protected $mdh_rates;
     public function __construct()
     {
+        $this->mdh_rates = (new mdhRatesRepository());
         //
     }
     public function getQuery()
@@ -39,6 +42,9 @@ class RequestTravellingCostRepository extends BaseRepository
         $destination_region = District::query()->find($inputs['district_id'])->region_id;
         $traveller_region_id = User::query()->find($inputs['traveller_uid'])->region_id;
         $region_status = Region::query()->find($destination_region)->is_city;
+        $mdh_rates =  mdh_rate::query()->pluck('amount');
+
+//       dd($mdh_rates[2]);
         $from = $inputs['from'];
         $to = $inputs['to'];
         $datetime1 = new \DateTime($from);
@@ -48,7 +54,7 @@ class RequestTravellingCostRepository extends BaseRepository
         $accommodation = $inputs['accommodation'];
 
         if ($destination_region == $traveller_region_id){
-            $perdiem_rate = 60000;
+            $perdiem_rate = $mdh_rates[2];
             $ontransit = 0;
             $perdiem_total_amount = $perdiem_rate *$days;
             $accommodation = $accommodation * $days;
@@ -57,7 +63,7 @@ class RequestTravellingCostRepository extends BaseRepository
         }
         else{
                 if ($region_status == 'TRUE'){
-                    $perdiem_rate = 90000;
+                    $perdiem_rate = $mdh_rates[0];
                     $perdiem_total_amount = $perdiem_rate *($days-2);
                     $ontransit = ($perdiem_rate * (0.75)) * 2;
                     $accommodation = $accommodation * ($days);
@@ -66,7 +72,7 @@ class RequestTravellingCostRepository extends BaseRepository
                 }
                 else{
 
-                    $perdiem_rate = 75000;
+                    $perdiem_rate = $mdh_rates[1];
                     $perdiem_total_amount = $perdiem_rate *($days-2);
                     $accommodation = $accommodation * ($days);
                     $ontransit = ($perdiem_rate * (0.75)) * 2;

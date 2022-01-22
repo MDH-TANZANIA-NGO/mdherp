@@ -224,11 +224,12 @@ class ProgramActivityController extends Controller
         return redirect()->back();
     }
 
-    public  function reports()
+    public  function reports(ProgramActivityRepository $programActivityRepository)
 
     {
-
-        return view('programactivity.reports.index');
+//dd($this->program_activity->query()->where('supervised_by', access()->user()->id));
+        return view('programactivity.reports.index')
+            ->with('program_activities', $programActivityRepository);
     }
     public function approveReport(ProgramActivityRepository $programActivityRepository, $uuid, Request $request)
     {

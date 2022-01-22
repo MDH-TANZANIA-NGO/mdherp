@@ -250,6 +250,16 @@ class ProgramActivityRepository extends BaseRepository
             ->where('program_activities.done', 1)
             ->where('program_activities.supervised_by', access()->id());
     }
+    public function getReportRejectedDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('program_activities.wf_done', true)
+            ->where('program_activities.report_approved', false)
+            ->where('program_activities.report_rejected', true)
+            ->where('program_activities.done', 1)
+            ->where('program_activities.supervised_by', access()->id());
+    }
 
     public function submitPayment($inputs, $uuid)
     {

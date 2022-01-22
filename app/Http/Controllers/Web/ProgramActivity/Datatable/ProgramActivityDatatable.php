@@ -135,16 +135,16 @@ trait ProgramActivityDatatable
     }
     public function ReportRejectedDatatable()
     {
-        return DataTables::of($this->program_activity->getAccessPaidDatatable())
+        return DataTables::of($this->program_activity->getReportRejectedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateTimeString();
             })
-            ->addColumn('amount_requested', function ($query) {
-                return number_2_format($query->amount_requested);
+            ->addColumn('region_id', function ($query) {
+                return $query->region->name;
             })
-            ->addColumn('amount_paid', function ($query) {
-                return number_2_format($query->amount_paid);
+            ->addColumn('user_id', function ($query) {
+                return $query->user->full_name;
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('programactivity.show', $query->uuid).'">View</a>';
