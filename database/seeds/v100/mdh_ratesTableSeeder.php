@@ -24,7 +24,7 @@ class mdh_ratesTableSeeder extends Seeder
             1 =>
                 array (
                     'id' => 2,
-                    'name' => '75000',
+                    'amount' => '75000',
                     'created_at' => '2021-09-29 18:21:50',
                     'updated_at' => \Illuminate\Support\Carbon::now(),
                     'deleted_at' => NULL,
@@ -32,7 +32,7 @@ class mdh_ratesTableSeeder extends Seeder
             2 =>
                 array (
                     'id' => 3,
-                    'name' => '60000',
+                    'amount' => '60000',
                     'created_at' => '2021-09-29 18:21:50',
                     'updated_at' => \Illuminate\Support\Carbon::now(),
                     'deleted_at' => NULL,
