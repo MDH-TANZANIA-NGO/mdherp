@@ -22,6 +22,7 @@
                             <th >Transportation</th>
                             <th>Other Cost</th>
                             <th >Total</th>
+                            <th >Amount Paid</th>
                             <th>Status</th>
 
                         </tr>
@@ -36,6 +37,7 @@
                                 <td>{{$details->transportation}}</td>
                                 <td>{{$details->other_cost}}</td>
                                 <td>{{$details->total_amount}}</td>
+                                <td>{{$details->amount_paid}}</td>
                                 <td> @if($details->is_substitute == true)
                                         <span class="tag tag-yellow">Substituted</span>
                                     @endif
@@ -44,7 +46,13 @@
                                     @endif
                                     @if($details->attend == false)
                                         <span class="tag tag-gray">Not Attended</span>
-                                    @endif</td>
+                                    @endif
+                                    @if($details->amount_paid == null)
+                                        <span class="tag tag-red">Not Verified</span>
+                                    @else
+                                        <span class="tag tag-light-green"> Verified</span>
+                                        @endif
+                                </td>
 
 
                             </tr>
@@ -55,7 +63,7 @@
                 </div>
                 <!-- table-responsive -->
                         @if($details->attend == true)
-                    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3" style="margin-left: 40%;">Pay</button>
+                    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3" style="margin-left: 40%;">Verify Payment </button>
 
             @endif
 
