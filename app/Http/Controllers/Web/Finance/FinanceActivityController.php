@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Finance;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Finance\Datatable\PaymentsDatatable;
+use App\Models\Payment\Payment;
 use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\ProgramActivity\Traits\ProgramActivityRelationship;
 use App\Models\Requisition\Requisition;
@@ -11,6 +12,7 @@ use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
@@ -27,6 +29,7 @@ class FinanceActivityController extends Controller
     protected $program_activity;
     protected $retirement;
     protected $requisition_training_cost;
+    protected $finance;
 
     public function __construct()
     {
@@ -35,6 +38,7 @@ class FinanceActivityController extends Controller
         $this->program_activity = (new ProgramActivityRepository());
         $this->retirement = (new RetirementRepository());
         $this->requisition_training_cost = (new requisition_training_cost());
+        $this->finance =  (new FinanceActivityRepository());
     }
     public function index()
     {
@@ -58,25 +62,35 @@ class FinanceActivityController extends Controller
             $requisition_uuid =  Requisition::where('id', $travelling->requisition_id)->first()->uuid;
             return view('finance.payments.show')
                 ->with('safari_advance', $safari)
+                ->with('requisition', Requisition::where('uuid', $requisition_uuid)->first())
                 ->with('program_activity', $this->program_activity->all()->where('uuid', $uuid))
                 ->with('requisition_uuid', $requisition_uuid);
 
      }elseif ($program_activity_to_query)
         {
+
             $training =  requisition_training::where('id', $program_activity_to_query->requisition_training_id)->first();
             $requisition_id =  requisition_training::where('id', $training->id)->first()->requisition_id;
             $requisition_uuid =  Requisition::where('id', $requisition_id)->first()->uuid;
 
+//            dd();
             return view('finance.payments.show')
                 ->with('safari_advance', $safari)
                 ->with('program_activity', $this->program_activity->all()->where('uuid', $uuid))
                 ->with('requisition_uuid', $requisition_uuid)
+                ->with('requisition', Requisition::where('uuid', $requisition_uuid)->first())
                 ->with('activity_participants', $program_activity_to_query->training->trainingCost()->get()->all())
+                ->with('training_items',$program_activity_to_query->training->trainingItems()->get()->all() )
                 ->with('participant_total', $program_activity_to_query->training->trainingCost()->get()->pluck('total_amount')->sum())
                 ->with('items_total', $program_activity_to_query->training->trainingItems()->get()->pluck('total_amount')->sum());
         }
-//    dd();
 
 
+
+    }
+    public function store(Request $request)
+    {
+        $safari = $this->finance->store($request->all());
+        return redirect()->back();
     }
 }

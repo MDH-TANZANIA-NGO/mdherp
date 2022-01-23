@@ -20,12 +20,17 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            {!! Form::open(['method'=>'POST']) !!}
+                            {!! Form::open(['route'=> 'finance.store','method'=>'POST']) !!}
+                            {!! Form::number('requisition_id', $requisition->id, ['class'=>'form-control','hidden'])  !!}
+                            {!! Form::number('requested_amount', $requisition->amount, ['class'=>'form-control','hidden'])  !!}
+                            {!! Form::number('region_id', $requisition->region_id, ['class'=>'form-control','hidden'])  !!}
+                            {!! Form::text('payment_method', 'N/A', ['class'=>'form-control','hidden'])  !!}
+                            {!! Form::text('account_no', 'N/A', ['class'=>'form-control','hidden'])  !!}
                             @if($program_activity->count() > 0)
                                 <select name="pay_to" id="pay_to" class="form-control">
-                                    <option value="0">Select Who to Pay</option>
+                                    <option value="0">Select What to Pay</option>
                                     <option value="1">Participants</option>
-                                    <option value="2">Vendor</option>
+                                    <option value="2">Items</option>
                                 </select>
                                 <br>
                                 <input type="number" class="form-control" name="participant_total" id="participant_total" value="{{$participant_total}}" style="display: none">
