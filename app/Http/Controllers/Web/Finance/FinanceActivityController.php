@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web\Finance;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Finance\Datatable\PaymentsDatatable;
+use App\Models\ProgramActivity\ProgramActivity;
+use App\Models\SafariAdvance\SafariAdvance;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
@@ -35,5 +37,14 @@ class FinanceActivityController extends Controller
             ->with('program_activity', $this->program_activity->getAllApprovedProgramActivities())
             ->with('safariAdvance', $this->safariAdvance->getAllApprovedSafari())
             ->with('retirement', $this->retirement->getAllApprovedRetirements());
+    }
+    public function show($uuid)
+    {
+       $safari  =  SafariAdvance::all()->where('uuid', $uuid);
+       $program_activity =  ProgramActivity::all()->where('uuid', $uuid);
+
+        return view('finance.payments.show')
+            ->with('safari_advance', $safari)
+            ->with('program_activity', $program_activity);
     }
 }
