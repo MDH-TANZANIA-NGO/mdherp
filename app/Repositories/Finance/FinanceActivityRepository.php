@@ -4,10 +4,12 @@ namespace App\Repositories\Finance;
 
 use App\Models\Payment\Payment;
 use App\Repositories\BaseRepository;
+use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 
 class FinanceActivityRepository extends BaseRepository
 {
+    use Number;
     const MODEL= Payment::class;
 
     public function __construct()
@@ -17,6 +19,7 @@ class FinanceActivityRepository extends BaseRepository
 
     public function inputProcess($inputs)
     {
+        $number = $this->generateNumber();
         if ($inputs['pay_to'] == 1)
         {
             $payed_amount =  $inputs['participant_total'];
@@ -25,6 +28,7 @@ class FinanceActivityRepository extends BaseRepository
             $payed_amount =  $inputs['vendor_total'];
         }
         return[
+            'number'=>$number,
             'region_id'=> $inputs['region_id'],
             'requisition_id' => $inputs['requisition_id'],
             'requested_amount'=> $inputs['requested_amount'],

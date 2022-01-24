@@ -63,5 +63,17 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'PAYMENTNUM'],
+            [
+                'name' => 'payment',
+                'display_name' => 'Payment',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'PAYMENTNUM',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }

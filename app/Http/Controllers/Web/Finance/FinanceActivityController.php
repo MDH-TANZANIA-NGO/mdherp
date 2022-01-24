@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Web\Finance;
 
+use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Finance\Datatable\PaymentsDatatable;
+use App\Models\Auth\User;
 use App\Models\Payment\Payment;
 use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\ProgramActivity\Traits\ProgramActivityRelationship;
@@ -90,7 +92,14 @@ class FinanceActivityController extends Controller
     }
     public function store(Request $request)
     {
-        $safari = $this->finance->store($request->all());
+        $pay = $this->finance->store($request->all());
+        $wf_module_group_id = 2;
+//        $next_user = User::query()->where('designation_id', '=', 50);
+        $next_user = $pay->user->assignedSupervisor()->supervisor_id;
+//        dd($next_user);
+        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $pay->id,'region_id' => $pay->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+
+
         return redirect()->back();
     }
 }

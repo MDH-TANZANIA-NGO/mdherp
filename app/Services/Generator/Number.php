@@ -50,6 +50,14 @@ trait Number
                 $number = "MDH-P-A-".$year.$value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
+            case 'payments':
+                #generate Reference number
+                $reference = "PAYMENTNUM";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-F-".$year.$value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
                 default:
                     throw new GeneralException(__('exceptions.general.number_not_set'));
                     break;

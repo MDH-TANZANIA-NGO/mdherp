@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
 use App\Notifications\Workflow\WorkflowNotification;
+use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
@@ -198,6 +199,18 @@ class WorkflowEventSubscriber
                         'message' => 'These Application has been Approved successfully'
                     ];
                     $retirement->user->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 6:
+                    $financerepo = (new FinanceActivityRepository());
+                    $finance = $financerepo->find($resource_id);
+                    $this->updateWfDone($finance);
+//                $requisition_repo->processComplete($safari);
+                    $email_resource = (object)[
+                        'link' =>  route('finance.show',$finance),
+                        'subject' => " Approved Successfully",
+                        'message' => 'These Application has been Approved successfully'
+                    ];
+                    $finance->user->notify(new WorkflowNotification($email_resource));
                     break;
             }
 

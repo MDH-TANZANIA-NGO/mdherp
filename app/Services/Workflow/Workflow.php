@@ -10,6 +10,7 @@ use App\Models\Workflow\WfModule;
 use App\Models\Workflow\WfTrack;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
+use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Report\ReportRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -406,6 +407,16 @@ class Workflow
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
+                case 6:
+                    $financerepo = (new FinanceActivityRepository());
+                    $finance = $financerepo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('finance.show',$finance),
+                        'subject' => " Need your Approval",
+                        'message' => ' need your approval'
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
 
             }
 
@@ -449,6 +460,12 @@ class Workflow
                 $retirement_repo = (new RetirementRepository());
                 $retirement = $retirement_repo->find($resourceId);
                 $retirement->wfTracks()->save($wfTrack);
+                break;
+            case 6:
+                /*Finance */
+                $financerepo = (new FinanceActivityRepository());
+                $finance = $financerepo->find($resourceId);
+                $finance->wfTracks()->save($wfTrack);
                 break;
         }
     }
