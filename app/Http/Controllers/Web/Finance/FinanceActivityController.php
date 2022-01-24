@@ -81,7 +81,7 @@ class FinanceActivityController extends Controller
                 ->with('requisition', Requisition::where('uuid', $requisition_uuid)->first())
                 ->with('activity_participants', $program_activity_to_query->training->trainingCost()->get()->all())
                 ->with('training_items',$program_activity_to_query->training->trainingItems()->get()->all() )
-                ->with('participant_total', $program_activity_to_query->training->trainingCost()->get()->pluck('total_amount')->sum())
+                ->with('participant_total', $program_activity_to_query->training->trainingCost()->get()->pluck('amount_paid')->sum())
                 ->with('items_total', $program_activity_to_query->training->trainingItems()->get()->pluck('total_amount')->sum());
         }
 

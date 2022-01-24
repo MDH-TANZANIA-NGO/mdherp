@@ -104,6 +104,20 @@ class WfModulesTableSeeder extends Seeder
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
+            6 =>
+                array (
+                    'id' => 7,
+                    'name' => 'Payment',
+                    'wf_module_group_id' => '6',
+                    'created_at' => '2021-12-13 12:36:03',
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => '1',
+                    'description' => 'Payments',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
         ));
 
         $this->enableForeignKeys('wf_modules');
