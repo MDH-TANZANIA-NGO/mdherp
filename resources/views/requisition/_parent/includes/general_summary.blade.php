@@ -25,7 +25,7 @@
                         <address>
                             <strong>Project name: </strong><span class="text-primary" >{{ $requisition->project_title}}</span><br>
                             <strong>Sub Program area:</strong>  <span class="text-primary" >{{ $requisition->program_area_title}}</span><br>
-                            <strong>Numeric Output: </strong> <span class="text-primary" >{{ $requisition->numeric_output_unit }}</span><br>
+{{--                            <strong>Numeric Output: </strong> <span class="text-primary" >{{ $requisition->numeric_output_unit }}</span><br>--}}
                             <strong>Output unit:</strong> <span class="text-primary" >{{ $requisition->output_unit_title }}</span><br>
                         </address>
                     </div>

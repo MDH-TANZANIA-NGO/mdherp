@@ -40,6 +40,21 @@ class ProgramActivityRepository extends BaseRepository
         ])
             ->join('users','users.id', 'program_activities.user_id');
     }
+    public function getParticipants()
+    {
+        return $this->query()->select([
+            DB::raw('program_activities.requisition_id AS requisition_id'),
+            DB::raw('requisition_training_costs.participant_uid AS user_id'),
+            DB::raw('requisition_training_costs.perdiem_total_amount AS perdiem'),
+            DB::raw('requisition_training_costs.no_days AS no_days'),
+            DB::raw('requisition_training_costs.transportation AS transportation'),
+            DB::raw('requisition_training_costs.other_cost AS other_cost'),
+            DB::raw('g_officers.id AS g_officer_id'),
+        ])
+            ->join('requisition_training_costs', 'requisition_training_costs.requisition_id', 'program_activities.requisition_id')
+            ->join('g_officers','g_officers.id', 'requisition_training_costs.participant_uid');
+    }
+
     public function getAllApprovedProgramActivities()
     {
         return $this->getQuery()
@@ -81,25 +96,26 @@ class ProgramActivityRepository extends BaseRepository
         });
 
     }
-        public function getProgramActivityParticipants()
-        {
-            return $this->query()->select([
-               DB::raw('program_activity_participants.id AS id' ),
-                DB::raw('program_activity_participants.g_officer_id AS g_officer_id'),
-                DB::raw('program_activity_participants.program_activity_id AS program_activity_id'),
-                DB::raw('program_activity_participants.attended AS attended'),
-                DB::raw('program_activity_participants.is_substitute AS is_substitute'),
-                DB::raw('program_activity_participants.substituted AS substituted'),
-                DB::raw('program_activity_participants.substituted_with AS substituted_with'),
-            ])
-                ->join('program_activities','program_activities.id', 'program_activity_participants.program_activity_id');
-        }
-        public function getExistingParticipant()
-        {
-            return $this->getProgramActivityParticipants()
-                ->whereHas('programActivity');
+//        public function getProgramActivityParticipants()
+//        {
+//            return $this->query()->select([
+//               DB::raw('program_activity_participants.id AS id' ),
+//                DB::raw('program_activity_participants.g_officer_id AS g_officer_id'),
+//                DB::raw('program_activity_participants.program_activity_id AS program_activity_id'),
+//                DB::raw('program_activity_participants.attended AS attended'),
+//                DB::raw('program_activity_participants.is_substitute AS is_substitute'),
+//                DB::raw('program_activity_participants.substituted AS substituted'),
+//                DB::raw('program_activity_participants.substituted_with AS substituted_with'),
+//            ])
+//                ->join('program_activities','program_activities.id', 'program_activity_participants.program_activity_id');
+//        }
+//        public function getExistingParticipant()
+//        {
+//            return $this->getProgramActivityParticipants()
+//                ->whereHas('programActivity');
+//
+//        }
 
-        }
         public function inputProcessParticipant($inputs)
         {
             if (isset($inputs['attended'])){
@@ -247,6 +263,16 @@ class ProgramActivityRepository extends BaseRepository
             ->whereHas('wfTracks')
             ->where('program_activities.wf_done', true)
             ->where('program_activities.report_approved', true)
+            ->where('program_activities.done', 1)
+            ->where('program_activities.supervised_by', access()->id());
+    }
+    public function getReportRejectedDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('program_activities.wf_done', true)
+            ->where('program_activities.report_approved', false)
+            ->where('program_activities.report_rejected', true)
             ->where('program_activities.done', 1)
             ->where('program_activities.supervised_by', access()->id());
     }

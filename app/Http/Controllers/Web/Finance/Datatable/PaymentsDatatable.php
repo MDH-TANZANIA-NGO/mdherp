@@ -21,7 +21,7 @@ trait PaymentsDatatable
                 return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('finance.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -42,7 +42,7 @@ trait PaymentsDatatable
                 return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('finance.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -66,7 +66,7 @@ trait PaymentsDatatable
 //                return number_2_format($query->amount_paid);
 //            })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('programactivity.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('finance.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -87,7 +87,7 @@ trait PaymentsDatatable
                 return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('retirement.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('finance.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

@@ -276,15 +276,16 @@
                                     @else
                                     @if($participants->is_substitute == false)
 
-                                    <a href="{{ route('programactivity.editParticipant',$participants->uuid) }}"  class="btn btn-warning" ><i class="fa fa-rotate-left"></i></a>
+                                    <a href="{{ route('programactivity.editParticipant',$participants->uuid) }}"  class="btn btn-warning" >Swap</a>
                                     @endif
                                     @if($participants->attend == false)
-                                    <a href="{{ route('programactivity.programActivityAttendance',$participants->uuid) }}" id="attendance" class="btn btn-cyan" onclick="confirm('Are you Sure?')" >Attended</a>
+                                    <a href="{{ route('programactivity.programActivityAttendance',$participants->uuid) }}" id="attendance" class="btn btn-cyan" onclick="confirm('Are you Sure, He/She Attended? ')" >Attended</a>
                                     @endif
                                         @if($participants->is_substitute ==  true || $participants->attend == true)
-                                    <a href="{{ route('programactivity.undoEverything',$participants->uuid) }}" id="attendance" class="btn btn-info" onclick="confirm('Are you Sure?')" >Undo</a>
+                                    <a href="{{ route('programactivity.undoEverything',$participants->uuid) }}" id="attendance" class="btn btn-info" onclick="confirm('Are you Sure You want to Undo all Changes?')" >Undo</a>
                                         @endif
                                         <a href="{{ route('programactivity.pay',$participants->uuid) }}" class="btn btn-success"  >Pay</a>
+                                        <a href="{{ route('programactivity.pay',$participants->uuid) }}" class="btn btn-outline-primary"  >Check</a>
 
                                     @endif
                                             </td>
