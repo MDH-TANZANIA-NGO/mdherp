@@ -4,20 +4,14 @@ namespace App\Models\Payment;
 
 use App\Models\Auth\User;
 use App\Models\BaseModel;
+use App\Models\Payment\Traits\Attributes\PaymentAttribute;
+use App\Models\Payment\Traits\Relationship\PaymentRelationship;
+use App\Models\Requisition\Requisition;
 use App\Models\Workflow\WfTrack;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends BaseModel
 {
-    //
-    public function wfTracks()
-    {
-        return $this->morphMany(WfTrack::class, 'resource');
-    }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
+   use PaymentRelationship, PaymentAttribute;
 
 }

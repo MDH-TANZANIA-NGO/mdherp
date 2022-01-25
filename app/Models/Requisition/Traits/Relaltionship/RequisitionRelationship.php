@@ -5,6 +5,7 @@ namespace App\Models\Requisition\Traits\Relaltionship;
 use App\Models\Auth\User;
 use App\Models\Budget\Budget;
 use App\Models\GOfficer\GOfficer;
+use App\Models\Payment\Payment;
 use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\Project\Activity;
 use App\Models\Project\Project;
@@ -58,6 +59,10 @@ trait RequisitionRelationship
     public function programActivity()
     {
         return$this->hasMany(ProgramActivity::class);
+    }
+    public function  payments()
+    {
+        return $this->hasOne(Payment::class);
     }
 
     /**

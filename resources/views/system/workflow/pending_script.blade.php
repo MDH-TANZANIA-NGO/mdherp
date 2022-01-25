@@ -102,6 +102,9 @@
                         case 4: /*retirement*/
                             window.open(base_url + "/retirement/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
+                        case 6: /*finance*/
+                            window.open(base_url + "/finance/" + aData['resource_uuid'] + '/view' , "_blank");
+                            break;
                         default:
                             break;
                     }

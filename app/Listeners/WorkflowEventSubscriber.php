@@ -206,8 +206,8 @@ class WorkflowEventSubscriber
                     $this->updateWfDone($finance);
 //                $requisition_repo->processComplete($safari);
                     $email_resource = (object)[
-                        'link' =>  route('finance.show',$finance),
-                        'subject' => " Approved Successfully",
+                        'link' =>  route('finance.view',$finance),
+                        'subject' => $finance->number." Approved Successfully",
                         'message' => 'These Application has been Approved successfully'
                     ];
                     $finance->user->notify(new WorkflowNotification($email_resource));

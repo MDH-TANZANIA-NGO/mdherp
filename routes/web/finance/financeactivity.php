@@ -3,7 +3,8 @@ Route::group(['namespace' => 'Finance', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('', 'FinanceActivityController@index')->name('index');
     Route::get('{uuid}/show', 'FinanceActivityController@show')->name('show');
     Route::post('store', 'FinanceActivityController@store')->name('store');
-
+    Route::post('{uuid}/update', 'FinanceActivityController@update')->name('update');
+    Route::get('{payment}/view', 'FinanceActivityController@view')->name('view');
 
     /**
      * Datatables

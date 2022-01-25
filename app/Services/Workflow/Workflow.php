@@ -407,12 +407,12 @@ class Workflow
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
-                case 6:
+                case 7:
                     $financerepo = (new FinanceActivityRepository());
                     $finance = $financerepo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('finance.show',$finance),
-                        'subject' => " Need your Approval",
+                        'link' =>  route('finance.view',$finance),
+                        'subject' => $finance->number. " Need your Approval",
                         'message' => ' need your approval'
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));

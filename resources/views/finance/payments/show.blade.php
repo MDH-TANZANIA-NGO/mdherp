@@ -6,8 +6,17 @@
             <div class="card-header">
                 {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
                 <a href="{{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
-                <button type="button" data-toggle="modal" data-target="#exampleModal3" class="btn btn-outline-info" style="margin-left: 2%;"  >Submit For Approval</button>
-</div>
+                @if($requisition_count > 0)
+                    {!! Form::open(['route'=> ['finance.store'],'method'=>'POST']) !!}
+                    <button type="submit"  class="btn btn-outline-info" style="margin-left: 2%;"  >Submit For Approval</button>
+                    {!! Form::close() !!}
+                @else
+                    <button type="button" data-toggle="modal" data-target="#exampleModal3" class="btn btn-outline-info" style="margin-left: 2%;"  >Verify Payment</button>
+
+                       @endif
+
+
+            </div>
 
             <!-- Message Modal -->
             <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -51,7 +60,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" >Submit</button>
+                            <button type="submit" class="btn btn-outline-primary" >Verify</button>
                         </div>
 
                             {!! Form::close() !!}

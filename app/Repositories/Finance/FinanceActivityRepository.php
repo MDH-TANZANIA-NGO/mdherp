@@ -19,7 +19,7 @@ class FinanceActivityRepository extends BaseRepository
 
     public function inputProcess($inputs)
     {
-        $number = $this->generateNumber();
+//        $number = $this->generateNumber();
         if ($inputs['pay_to'] == 1)
         {
             $payed_amount =  $inputs['participant_total'];
@@ -28,7 +28,7 @@ class FinanceActivityRepository extends BaseRepository
             $payed_amount =  $inputs['vendor_total'];
         }
         return[
-            'number'=>$number,
+//            'number'=>$number,
             'region_id'=> $inputs['region_id'],
             'requisition_id' => $inputs['requisition_id'],
             'requested_amount'=> $inputs['requested_amount'],
@@ -45,6 +45,18 @@ class FinanceActivityRepository extends BaseRepository
     {
         return DB::transaction(function () use ($inputs){
             return $this->query()->create($this->inputProcess($inputs));
+        });
+
+
+    }
+    public function update($inputs, $uuid)
+    {
+        return DB::transaction(function () use ($inputs, $uuid){
+            $pay = $this->findByUuid($uuid);
+            $number = $this->generateNumber($pay);
+
+            DB::update('update payments set done =?, number = ? where uuid= ?',[1, $number, $uuid]);
+
         });
     }
 }
