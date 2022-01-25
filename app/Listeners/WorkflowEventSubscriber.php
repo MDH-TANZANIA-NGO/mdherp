@@ -200,7 +200,7 @@ class WorkflowEventSubscriber
                     ];
                     $retirement->user->notify(new WorkflowNotification($email_resource));
                     break;
-                case 6:
+                case 7:
                     $financerepo = (new FinanceActivityRepository());
                     $finance = $financerepo->find($resource_id);
                     $this->updateWfDone($finance);

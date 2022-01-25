@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Finance;
 
 use App\Events\NewWorkflow;
+use App\Exports\PaymentExport;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Finance\Datatable\PaymentsDatatable;
 use App\Models\Auth\User;
@@ -23,6 +24,7 @@ use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FinanceActivityController extends Controller
 {
@@ -108,7 +110,7 @@ class FinanceActivityController extends Controller
         $pay = $this->finance->store($request->all());
 
 
-        return redirect()->route('finance.view', $pay->uuid);
+        return redirect()->route('finance.SubmitPayment', $pay->uuid);
     }
     public function update(Request $request, $uuid)
     {
@@ -131,11 +133,20 @@ class FinanceActivityController extends Controller
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($payment, $current_level, $workflow->wf_definition_id);
 
-        return view('finance.payments.forms.SubmitPayment')
+        return view('finance.payments.view')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($payment))
             ->with('payment', $payment);
+    }
+    public function submitPayment(Payment $payment)
+    {
+        return view('finance.payments.forms.SubmitPayment')
+            ->with('payment', $payment);
+    }
+    public function export()
+    {
+        return Excel::download(new PaymentExport, 'payments.xlsx');
     }
 }

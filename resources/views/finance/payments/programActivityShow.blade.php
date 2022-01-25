@@ -77,6 +77,7 @@
         <div class="card-header">
             <h3 class="card-title">PARTICIPANTS DETAILS</h3>
             <div class="card-options ">
+                <a href="{{ route('finance.export') }}" class="btn btn-outline-primary"  ><i class="fa fa-file-excel-o"></i></a>
 
 
                 <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
