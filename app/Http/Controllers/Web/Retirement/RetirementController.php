@@ -6,6 +6,7 @@ use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\Retirement\Retirement;
+use App\Models\Retirement\RetirementDetail;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\System\DistrictRepository;
@@ -36,7 +37,7 @@ class RetirementController extends Controller
     public function index(RetirementRepository $retirementRepository)
     {
         return view('retirement.index')
-        ->with('retirements', $retirementRepository);
+            ->with('retirements', $retirementRepository);
     }
 
     public  function  initiate(SafariAdvanceRepository $safariAdvanceRepository)
@@ -63,10 +64,25 @@ class RetirementController extends Controller
 
     public function update(Request $request, $uuid)
     {
+//        ddd($this->retirements->all());
 
         $this->retirements->update($request->all(),$uuid);
+        //check if there is a file and add attachement
+
 
         $retirement = $this->retirements->findByUuid($uuid);
+        $retirementDetails = RetirementDetail::where('retirement_id', $retirement->id)->first();
+
+        if($request->hasFile('attachment_receipt')){
+            $retirementDetails->update(['attachment_receipt' => $request->file('attachment_receipt')->store('Retirements/attachment/receipt')]);
+        }
+        if($request->hasFile('attachment_supportive')){
+            $retirementDetails->update(['attachment_supportive' => $request->file('attachment_supportive')->store('Retirements/attachment/supportive')]);
+        }
+        if($request->hasFile('attachment_other')){
+            $retirementDetails->update(['attachment_other' => $request->file('attachment_other')->store('Retirements/attachment/other')]);
+        }
+
         $wf_module_group_id = 4;
 
         $next_user = $retirement->user->assignedSupervisor()->supervisor_id;
