@@ -6,7 +6,7 @@ Route::group(['namespace' => 'Finance', 'middleware' => ['web', 'auth'], 'prefix
     Route::post('{uuid}/update', 'FinanceActivityController@update')->name('update');
     Route::get('{payment}/view', 'FinanceActivityController@view')->name('view');
     Route::get('{payment}/SubmitPayment', 'FinanceActivityController@SubmitPayment')->name('SubmitPayment');
-    Route::get('export', 'FinanceActivityController@export')->name('export');
+    Route::get('{uuid}/export', 'FinanceActivityController@export')->name('export');
     /**
      * Datatables
      */

@@ -90,6 +90,7 @@ class FinanceActivityController extends Controller
 
             return view('finance.payments.show')
                 ->with('safari_advance', $safari)
+                ->with('uuid', $uuid)
                 ->with('program_activity', $this->program_activity->all()->where('uuid', $uuid))
                 ->with('requisition_uuid', $requisition_uuid)
                 ->with('finance', $financeActivityRepository)
@@ -145,8 +146,8 @@ class FinanceActivityController extends Controller
         return view('finance.payments.forms.SubmitPayment')
             ->with('payment', $payment);
     }
-    public function export()
+    public function export($uuid)
     {
-        return Excel::download(new PaymentExport, 'payments.xlsx');
+        return Excel::download(new PaymentExport($uuid), 'payments.xlsx');
     }
 }
