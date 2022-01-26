@@ -34,6 +34,7 @@
                     </div><!-- modal -->
 
                 @endif
+
                 @if(access()->user()->id == $supervisor && $program_activity->done == 1)
 
                     <button class="btn btn-outline-info" data-toggle="modal" data-target="#smallModal"style="margin-left: 2%;">Approve Activity Report</button>
@@ -197,9 +198,11 @@
                   <h3 class="card-title">Report</h3>
                   <div class="card-options "><b>Status: </b>
                       @if( $program_activity->report_approved == true)
-                            Approved
-                      @elseif($program_activity->report_approved == false)
-                          Not Approved
+                          <span class="text-success" style="margin-left: 6%">Approved</span>
+                      @elseif($program_activity->report_approved == false && $program_activity->report_rejected == false)
+                         <span class="text-warning">Waitiing approval...</span>
+                      @elseif($program_activity->report_rejected ==  true)
+                          <span class="text-danger"  style="margin-left: 6%">Rejected</span>
                       @endif
                       <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
 
@@ -284,9 +287,6 @@
                                         @if($participants->is_substitute ==  true || $participants->attend == true)
                                     <a href="{{ route('programactivity.undoEverything',$participants->uuid) }}" id="attendance" class="btn btn-info" onclick="confirm('Are you Sure You want to Undo all Changes?')" >Undo</a>
                                         @endif
-                                        <a href="{{ route('programactivity.pay',$participants->uuid) }}" class="btn btn-success"  >Pay</a>
-                                        <a href="{{ route('programactivity.pay',$participants->uuid) }}" class="btn btn-outline-primary"  >Check</a>
-
                                     @endif
                                             </td>
                                 @endif

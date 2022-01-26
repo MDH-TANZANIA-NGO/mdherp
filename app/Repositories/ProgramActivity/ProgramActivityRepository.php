@@ -204,7 +204,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done_date', null)
+            ->where('program_activities.wf_done', false)
             ->where('program_activities.done', 1)
             ->where('program_activities.rejected', false)
             ->where('users.id', access()->id());
