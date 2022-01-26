@@ -114,5 +114,10 @@ class RetirementController extends Controller
             ->with('retirementz',$retirement->details()->get());
     }
 
+    public function goback()
+    {
+        return redirect()->back();
+    }
+
 
 }
