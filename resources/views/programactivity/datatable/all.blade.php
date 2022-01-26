@@ -16,7 +16,7 @@
                     <li class=""><a href="#processing" class="active" data-toggle="tab">Onprocess <span class="badge badge-warning">{{ $program_activities->getAccessProcessingDatatable()->count() }}</span></a></li>
                     <li><a href="#rejected" data-toggle="tab" class="">Returned <span class="badge badge-danger">{{ $program_activities->getAccessRejectedDatatable()->count() }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $program_activities->getAccessProvedDatatable()->count() }}</span></a></li>
-                    <li><a href="#saved" data-toggle="tab" class="">Paid <span class="badge badge-primary">{{ $program_activities->getAccessSavedDatatable()->count() }}</span> </a></li>
+                    <li><a href="#paid" data-toggle="tab" class="">Paid <span class="badge badge-primary">{{ $program_activities->getAccessPaidDatatable()->count() }}</span> </a></li>
                     <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $program_activities->getAccessSavedDatatable()->count() }}</span> </a></li>
                 </ul>
             </div>
@@ -186,8 +186,8 @@
                 ajax: '{{ route('programactivity.datatable.access.rejected') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'safari_advances.number', searchable: true},
-                    { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
+                    { data: 'number', name: 'program_activities.number', searchable: true},
+                    { data: 'amount_requested', name: 'program_activities.amount_requested', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount', name: 'requisitions.amount', searchable: true},
@@ -205,8 +205,8 @@
                 ajax: '{{ route('programactivity.datatable.access.approved') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'safari_advances.number', searchable: true},
-                    { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
+                    { data: 'number', name: 'program_activities.number', searchable: true},
+                    { data: 'amount_requested', name: 'program_activities.amount_requested', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount', name: 'requisitions.amount', searchable: true},
@@ -224,8 +224,8 @@
                 ajax: '{{ route('programactivity.datatable.access.saved') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'safari_advances.number', searchable: true},
-                    { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
+                    { data: 'number', name: 'program_activities.number', searchable: true},
+                    { data: 'amount_requested', name: 'program_activities.amount_requested', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount_paid', name: 'safari_advances.amount_paid', searchable: true},
@@ -243,11 +243,11 @@
                 ajax: '{{ route('programactivity.datatable.access.paid') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
+                    { data: 'number', name: 'program_activities.number', searchable: true},
+                    { data: 'amount_requested', name: 'program_activities.amount_requested', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount_paid', name: 'safari_advances.amount_paid', searchable: true},
+                    { data: 'amount_paid', name: 'program_activities.amount_paid', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
