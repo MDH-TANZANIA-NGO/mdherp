@@ -77,6 +77,7 @@
         <div class="card-header">
             <h3 class="card-title">PARTICIPANTS DETAILS</h3>
             <div class="card-options ">
+
                 <a href="{{ route('finance.export',$program_activity->uuid) }}" class="btn btn-outline-primary"  ><i class="fa fa-file-excel-o"></i></a>
 
 
