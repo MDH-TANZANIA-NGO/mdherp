@@ -6,6 +6,7 @@
             <div class="card-header">
                 {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
                 <a href="{{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
+               @if($participant_total > 0)
                 @if($requisition_count > 0)
                     {!! Form::open(['route'=> ['finance.store'],'method'=>'POST']) !!}
                     <button type="submit"  class="btn btn-outline-info" style="margin-left: 2%;"  >Submit For Approval</button>
@@ -14,7 +15,7 @@
                     <button type="button" data-toggle="modal" data-target="#exampleModal3" class="btn btn-outline-info" style="margin-left: 2%;"  >Verify Payment</button>
 
                        @endif
-
+                @endif
 
             </div>
 

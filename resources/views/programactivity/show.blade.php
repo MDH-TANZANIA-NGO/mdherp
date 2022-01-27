@@ -91,9 +91,9 @@
                             @endif
 
                 </a>
-                    @if($program_activity->report != null && $program_activity->done == 1 && access()->user()->id != $supervisor)
+                    @if($program_activity->report != null && $program_activity->report_submitted == false && access()->user()->id != $supervisor)
                             {!! Form::open(['route' => ['programactivity.submit', $program_activity->uuid]]) !!}
-                            <button type="submit" class="btn btn-outline-success" style="margin-left: 45%; margin-bottom: 1%">Submit  Report For Approval <i class="fa fa-check fa-spin ml-2"></i></button>
+                            <button type="submit" class="btn btn-outline-success" style="margin-left: 45%; margin-bottom: 1%" onclick="confirm('You are about to Submit Activity Report For Approval')">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></button>
                             {{--        <a href=" {{route('programactivity.submit', $program_activity->uuid)}}" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></a>--}}
                             {!! Form::close() !!}
                         @endif
@@ -103,7 +103,7 @@
 
         </div>
     </div>
-@if($program_activity->done == 0)
+@if($program_activity->done == 1)
     <!-- start: page -->
     <div class="row mb-2">
         <div class="col-lg-12">

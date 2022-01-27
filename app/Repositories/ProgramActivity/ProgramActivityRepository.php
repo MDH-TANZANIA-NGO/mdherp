@@ -155,7 +155,7 @@ class ProgramActivityRepository extends BaseRepository
 
         return DB::transaction(function () use ($inputs, $uuid, $report, $next_user){
 
-            DB::update('update program_activities set report = ?, supervised_by = ?  where uuid=?', [$report,$next_user, $uuid]);
+            DB::update('update program_activities set report = ?, supervised_by = ?  where uuid=?', [$report,$next_user,  $uuid]);
 
 
         });

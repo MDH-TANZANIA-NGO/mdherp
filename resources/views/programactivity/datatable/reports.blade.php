@@ -7,7 +7,7 @@
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
                     <li class=""><a href="#processing" class="active" data-toggle="tab">New <span class="badge badge-warning">{{$program_activities->getReportNewDatatable()->count()}}</span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{$program_activities->getReportNewDatatable()->count()}}</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{$program_activities->getReportRejectedDatatable()->count()}}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{$program_activities->getReportApprovedDatatable()->count()}}</span></a></li>
 {{--                    <li><a href="#saved" data-toggle="tab" class="">Paid <span class="badge badge-primary"></span> </a></li>--}}
 {{--                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default"></span> </a></li>--}}

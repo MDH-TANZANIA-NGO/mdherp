@@ -23,4 +23,5 @@ trait PaymentRelationship
         return $this->hasMany(Requisition::class);
     }
 
+
 }
