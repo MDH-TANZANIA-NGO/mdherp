@@ -58,7 +58,8 @@ class ProgramActivityRepository extends BaseRepository
     public function getAllApprovedProgramActivities()
     {
         return $this->getQuery()
-            ->where('program_activities.wf_done', true);
+            ->where('program_activities.wf_done', true)
+            ->where('program_activities.paid', false);
     }
 
     public function inputProcess( $inputs)
