@@ -29,6 +29,9 @@ class FinanceActivityRepository extends BaseRepository
         }elseif ($inputs['pay_to'] == 2)
         {
             $payed_amount =  $inputs['vendor_total'];
+        }elseif ($inputs['pay_to'] == 3)
+        {
+            $payed_amount =  $inputs['both_total'];
         }
         return[
 //            'number'=>$number,
