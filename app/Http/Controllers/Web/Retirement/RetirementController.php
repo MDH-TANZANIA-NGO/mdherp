@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\Retirement\Retirement;
 use App\Models\Retirement\RetirementDetail;
+use App\Models\Retirement\RetirementType;
 use App\Repositories\Retirement\RetirementRepository;
+use App\Repositories\Retirement\RetirementTypeRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -25,12 +27,18 @@ class RetirementController extends Controller
     protected $district;
     protected $wf_tracks;
     protected $designations;
+    protected $rettype;
+    /**
+     * @var RetirementTypeRepository
+     */
+
 
     public function __construct()
     {
         $this->retirements = (new RetirementRepository());
         $this->safari_advances = (new SafariAdvanceRepository());
         $this->district=(new DistrictRepository());
+        $this->rettype=(new RetirementTypeRepository());
         $this->wf_tracks = (new WfTrackRepository());
     }
 
@@ -42,7 +50,9 @@ class RetirementController extends Controller
 
     public  function  initiate(SafariAdvanceRepository $safariAdvanceRepository)
     {
+
         return view('retirement.forms.initiate')
+            ->with('retirementtype', $this->rettype->getTypes()->get()->pluck('type', 'id'))
             ->with('safaries', $safariAdvanceRepository->getCompletedWithoutRetirement()->get()
                 ->pluck('number','id'));
     }
@@ -73,15 +83,18 @@ class RetirementController extends Controller
         $retirement = $this->retirements->findByUuid($uuid);
         $retirementDetails = RetirementDetail::where('retirement_id', $retirement->id)->first();
 
-        if($request->hasFile('attachment_receipt')){
+        if($request->hasFile('attachment')){
             $retirementDetails->update(['attachment_receipt' => $request->file('attachment_receipt')->store('Retirements/attachment/receipt')]);
         }
-        if($request->hasFile('attachment_supportive')){
-            $retirementDetails->update(['attachment_supportive' => $request->file('attachment_supportive')->store('Retirements/attachment/supportive')]);
-        }
-        if($request->hasFile('attachment_other')){
-            $retirementDetails->update(['attachment_other' => $request->file('attachment_other')->store('Retirements/attachment/other')]);
-        }
+//        if($request->hasFile('attachment_receipt')){
+//            $retirementDetails->update(['attachment_receipt' => $request->file('attachment_receipt')->store('Retirements/attachment/receipt')]);
+//        }
+//        if($request->hasFile('attachment_supportive')){
+//            $retirementDetails->update(['attachment_supportive' => $request->file('attachment_supportive')->store('Retirements/attachment/supportive')]);
+//        }
+//        if($request->hasFile('attachment_other')){
+//            $retirementDetails->update(['attachment_other' => $request->file('attachment_other')->store('Retirements/attachment/other')]);
+//        }
 
         $wf_module_group_id = 4;
 

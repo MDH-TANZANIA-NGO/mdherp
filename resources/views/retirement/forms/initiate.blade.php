@@ -15,10 +15,14 @@
                     {!! Form::open(['route' => ['retirement.store']]) !!}
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-md-6">
+                                {!! Form::label('safari_advance_id', __("Retirement Type"),['class'=>'form-label','required_asterik']) !!}
+                                {!! Form::select('retirement_type',$retirementtype, null,['class' => 'form-control select2-show-search', 'required']) !!}
 
-                            <div class="col-md-12">
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    {!! Form::label('safari_advance_id', __("Safari Number"),['class'=>'form-label','required_asterik']) !!}
+{{--                                    {!! Form::label('safari_advance_id', __("Safari Number"),['class'=>'form-label','required_asterik']) !!}--}}
                                     {!! Form::select('safari_advance_id', $safaries, null,['class' => 'form-control select2-show-search', 'required']) !!}
                                     {!! $errors->first('safari_advance_id', '<span class="badge badge-danger">:message</span>') !!}
 

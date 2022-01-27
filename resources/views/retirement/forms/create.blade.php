@@ -113,37 +113,75 @@
 
 
                 </div>
-                <div class="row">
-                    <div class="col-md-4" >
-                        <div class="form-group">
-                            <div class="form-label">Attach Receipt</div>
-                            <div class="custom-file">
-                                <input type="file" class="form-control" name="attachment_receipt">
-                                {{--                        <label class="custom-file-label">Choose file</label>--}}
-                            </div>
+{{--                <div class="row">--}}
+{{--                    <div class="col-md-4" >--}}
+{{--                        <div class="form-group">--}}
+{{--                            <div class="form-label">Attach Receipt</div>--}}
+{{--                            <div class="custom-file">--}}
+{{--                                <input type="file" class="form-control" name="attachment_receipt">--}}
+{{--                                --}}{{--                        <label class="custom-file-label">Choose file</label>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+{{--                    <div class="col-md-4" >--}}
+{{--                        <div class="form-group">--}}
+{{--                            <div class="form-label">Supportive Document Upload</div>--}}
+{{--                            <div class="custom-file">--}}
+{{--                                <input type="file" class="form-control" name="attachment_supportive">--}}
+{{--                                --}}{{--                                <label class="custom-file-label">Choose file</label>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+
+{{--                    <div class="col-md-4" >--}}
+{{--                        <div class="form-group">--}}
+{{--                            <div class="form-label">Add Any Other Attachment</div>--}}
+{{--                            <div class="custom-file">--}}
+{{--                                <input type="file" class="form-control" name="attachment_other">--}}
+{{--                                --}}{{--                                <label class="custom-file-label">Choose file</label>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+
+
+                    <div class ="row">
+                    <div class="container lst">
+                    <div class="input-group hdtuto control-group lst increment" >
+
+                        <div class="col-md-4" >
+                        <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
                         </div>
+                            <div class="col-md-4" >
+                        <input type="file" name="attachment_path[]" class="form-control">
+                            </div>
+                        <div class="input-group-btn col-md-4">
+                            <button class="btn btn-success" type="button"><i class=""></i>Add attachment</button>
+                        </div>
+                    </div>
+                    <div class="clone hide">
+                        <div class="hdtuto control-group lst input-group" style="margin-top:10px">
+                            <div class="col-md-4" >
+                            <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
+                            </div>
+                            <div class="col-md-4" >
+                            <input type="file" name="filenames[]" class="form-control">
+                            </div>
+
+                            <div class="col-md-4" >
+                            <label for="html">Additional Attchment</label>
+                            </div>
+{{--                            <div class="input-group-btn">--}}
+{{--                                <button class="btn btn-danger" type="button"><i class=""></i> Remove</button>--}}
+{{--                            </div>--}}
+                        </div>
+                    </div>
+                    </div>
                     </div>
 
-                    <div class="col-md-4" >
-                        <div class="form-group">
-                            <div class="form-label">Supportive Document Upload</div>
-                            <div class="custom-file">
-                                <input type="file" class="form-control" name="attachment_supportive">
-                                {{--                                <label class="custom-file-label">Choose file</label>--}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4" >
-                        <div class="form-group">
-                            <div class="form-label">Add Any Other Attachment</div>
-                            <div class="custom-file">
-                                <input type="file" class="form-control" name="attachment_other">
-                                {{--                                <label class="custom-file-label">Choose file</label>--}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+&nbsp;
 
                 <div class="row">
                     <div class="col-md-12">
@@ -167,6 +205,41 @@
                 var amount_variance = (amount_advanced) - (amount_spent);
                 (document.getElementById(a_variance).value) = (amount_variance);
             }
+
+            $(document).ready(function() {
+                $(".btn-success").click(function(){
+                    var lsthmtl = $(".clone").html();
+                    $(".increment").after(lsthmtl);
+                });
+                $("body").on("click",".btn-danger",function(){
+                    $(this).parents(".hdtuto control-group lst").remove();
+                });
+            });
+
+           /* $(document).ready(function() {
+                var max_fields      = 6; //maximum input boxes allowed
+                var wrapper         = $(".increment"); //Fields wrapper
+                var add_button      = $(".btn-success"); //Add button ID
+
+                var x = 1; //initlal text box count
+                $(add_button).click(function(e){ //on add input button click
+                    e.preventDefault();
+                    if(x < max_fields){ //max input box allowed
+                        x++; //text box increment
+                        $(wrapper).append('<div class="input-group-btn">'
+                            +'<button class="btn btn-danger remove_field" type="button">'+
+                            +'<i class="fldemo glyphicon glyphicon-remove"></i> Remove</button>'+
+                            +'</div>');
+                        var lsthmtl = $(".clone").html();
+                        $(".increment").after(lsthmtl);//add input box
+                    }
+                });
+
+                $(wrapper).on("click",".btn-danger", function(e){ //user click on remove text
+                    e.preventDefault(); $(this).parent('div').remove(); x--;
+                })
+            });*/
+
         </script>
     @endpush
 
