@@ -6,6 +6,7 @@ use App\Models\Auth\User;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\Retirement\Retirement;
 use App\Models\System\District;
 use App\Models\System\Region;
 use App\Models\Workflow\WfTrack;
@@ -38,6 +39,11 @@ public function costs(){
     public function participants()
     {
         return$this->hasMany(ProgramActivityParticipant::class);
+    }
+
+    public function retirement()
+    {
+        return $this->hasOne(Retirement::class);
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\Retirement\Retirement;
 use App\Models\Retirement\RetirementDetail;
 use App\Models\Retirement\RetirementType;
+use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\Retirement\RetirementTypeRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
@@ -27,7 +28,13 @@ class RetirementController extends Controller
     protected $district;
     protected $wf_tracks;
     protected $designations;
-    protected $rettype;
+//    protected $rettype;
+//    protected $programActivities;
+    /**
+     * @var ProgramActivityRepository
+     */
+
+
     /**
      * @var RetirementTypeRepository
      */
@@ -38,8 +45,9 @@ class RetirementController extends Controller
         $this->retirements = (new RetirementRepository());
         $this->safari_advances = (new SafariAdvanceRepository());
         $this->district=(new DistrictRepository());
-        $this->rettype=(new RetirementTypeRepository());
+//        $this->rettype=(new RetirementTypeRepository());
         $this->wf_tracks = (new WfTrackRepository());
+//        $this->programActivities = (new ProgramActivityRepository());
     }
 
     public function index(RetirementRepository $retirementRepository)
@@ -52,8 +60,9 @@ class RetirementController extends Controller
     {
 
         return view('retirement.forms.initiate')
-            ->with('retirementtype', $this->rettype->getTypes()->get()->pluck('type', 'id'))
+//            ->with('retirementtype', $this->rettype->getTypes()->get()->pluck('type', 'id'))
             ->with('safaries', $safariAdvanceRepository->getCompletedWithoutRetirement()->get()
+//                ->with('programs', $this->programActivities->getCompletedWithoutRetirement()->get())
                 ->pluck('number','id'));
     }
 

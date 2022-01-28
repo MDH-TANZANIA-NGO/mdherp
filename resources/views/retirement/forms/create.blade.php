@@ -158,7 +158,7 @@
                         <input type="file" name="attachment_path[]" class="form-control">
                             </div>
                         <div class="input-group-btn col-md-4">
-                            <button class="btn btn-success" type="button"><i class=""></i>Add attachment</button>
+                            <button class="btn btn-success" type="button"><i class=""></i>Add attachment field</button>
                         </div>
                     </div>
                     <div class="clone hide">
@@ -170,14 +170,16 @@
                             <input type="file" name="filenames[]" class="form-control">
                             </div>
 
-                            <div class="col-md-4" >
-                            <label for="html">Additional Attchment</label>
-                            </div>
+{{--                            <div class="col-md-4" >--}}
+{{--                            <label for="html">Additional Attchment</label>--}}
+{{--                            </div>--}}
 {{--                            <div class="input-group-btn">--}}
 {{--                                <button class="btn btn-danger" type="button"><i class=""></i> Remove</button>--}}
 {{--                            </div>--}}
                         </div>
                     </div>
+
+
                     </div>
                     </div>
 
