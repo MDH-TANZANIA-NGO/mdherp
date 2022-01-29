@@ -6,8 +6,7 @@
             <div class="card-header">
                 {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
                 <a href="{{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
-               @if($participant_total > 0)
-                @if($requisition_count > 0)
+               @if($is_paid == true)
                     {!! Form::open(['route'=> ['finance.store'],'method'=>'POST']) !!}
                     <button type="submit"  class="btn btn-outline-info" style="margin-left: 2%;"  >Submit For Approval</button>
                     {!! Form::close() !!}
@@ -15,7 +14,7 @@
                     <button type="button" data-toggle="modal" data-target="#exampleModal3" class="btn btn-outline-info" style="margin-left: 2%;"  >Verify Payment</button>
 
                        @endif
-                @endif
+
 
             </div>
 
@@ -50,8 +49,14 @@
                                 <input type="number" class="form-control" name="both_total" id="both_total" value="{{$items_total + $participant_total}}" style="display: none">
                             @endif
                             @if($safari_advance->count() > 0)
+                                <select name="pay_to" id="pay_to" class="form-control" hidden>
+                                    <option value="0">Select What to Pay</option>
+                                    <option value="1">Participants</option>
+                                    <option value="2">Items</option>
+                                    <option value="3">Both Participants and Items</option>
+                                </select>
                                 <label for="recipient-name" class="form-control-label">Total Amount:</label>
-                                <input type="number" class="form-control" name="total_amount">
+                                <input type="number" class="form-control" name="total_amount" value="{{$safari->travellingCost->total_amount}}">
 
                             @endif
 

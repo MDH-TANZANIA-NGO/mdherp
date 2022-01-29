@@ -32,6 +32,8 @@ class FinanceActivityRepository extends BaseRepository
         }elseif ($inputs['pay_to'] == 3)
         {
             $payed_amount =  $inputs['both_total'];
+        }else{
+            $payed_amount = $inputs['total_amount'];
         }
         return[
 //            'number'=>$number,
@@ -60,20 +62,24 @@ class FinanceActivityRepository extends BaseRepository
          return DB::transaction(function () use ($inputs, $uuid){
             $pay = $this->findByUuid($uuid);
             $number = $this->generateNumber($pay);
-             $is_safari =  requisition_travelling_cost::query()->where('requisition_id', $pay->requisition_id)->get();
-             $is_programactivity =  ProgramActivity::query()->where('requisition_id', $pay->requisition_id)->first();
+             $is_safari =  requisition_travelling_cost::where('requisition_id', $pay->requisition_id)->first();
+             $is_programactivity =  ProgramActivity::where('requisition_id', $pay->requisition_id)->first();
 
              DB::update('update payments set done =?, number = ? where uuid= ?',[1, $number, $uuid]);
 
-             if ($is_programactivity->count() > 0)
+
+             if ($is_programactivity)
              {
                  DB::update('update program_activities set paid = ?, amount_paid = ? where uuid = ?', [true, $pay->payed_amount, $is_programactivity->uuid]);
-             }elseif ($is_safari->count() > 0)
+             }elseif ($is_safari)
              {
-                 $safari_uuid = SafariAdvance::query()->where('requisition_travelling_cost_id', $is_safari->uuid);
+                 $safari_uuid = SafariAdvance::where('requisition_travelling_cost_id', $is_safari->id)->first()->uuid;
                  DB::update('update safari_advances set paid = ?, amount_paid = ? where uuid = ?',[true, $pay->payed_amount, $safari_uuid] );
              }
 
         });
     }
+
+
+
 }

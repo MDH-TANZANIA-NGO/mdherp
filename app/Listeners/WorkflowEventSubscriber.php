@@ -184,7 +184,8 @@ class WorkflowEventSubscriber
                         'message' =>$program_activity->user->full_name. " Will conduct Program Activity in your Region From".$program_activity->training->from. "To". $program_activity->training->to,
                     ];
                     $program_activity->user->notify(new WorkflowNotification($email_resource));
-                    $projectAdmin = User::query()->where('region_id', $program_activity->region_id)->where('designation_id', '=', 43)->first();
+                    $projectAdmin = User::query()->where('region_id', $program_activity->user->region_id)->where('designation_id', '=', 43)->first();
+
                     $projectAdmin->notify(new WorkflowNotification($admin_email));
 
                     break;
@@ -250,6 +251,7 @@ class WorkflowEventSubscriber
             case 1:
                 (new RequisitionRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
+
         }
     }
 

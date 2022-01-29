@@ -27,23 +27,23 @@
             <tr>
 
                 <th>Requisition Number</th>
-                @if($travelling_details->count() > 0)
-                    Safari Advance number
-                @elseif ($training_details->count() > 0)
+                @if($safari_advance)
+                    <th>Safari Advance number</th>
+                @elseif ($program_activity)
                     <th>Activity Number</th>
                     @endif
 
                 <th>Requested Amount</th>
                 <th>Paid Amount</th>
-                <th>Remaining Balance</th>
+                <th>Variance</th>
 
             </tr>
             </thead>
             <tbody>
             <td>{{$requisition->number}}</td>
-            @if($travelling_details->count() > 0)
+            @if($safari_advance)
                 <td>{{$safari_advance->number}}</td>
-            @elseif($training_details->count())
+            @elseif($program_activity)
                 <td>{{$program_activity->number}}</td>
             @endif
             <td>{{number_2_format($requisition->amount)}}</td>

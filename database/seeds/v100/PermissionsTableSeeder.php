@@ -180,6 +180,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => 'User can access audit trail',
                     'ischecker' => 1,
                 ),
+            20 =>
+                array(
+                    'id' => 21,
+                    'name' => 'financial_report',
+                    'display_name' => 'Financial Report',
+                    'description' => 'User can access Financial Reports',
+                    'ischecker' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("permissions");

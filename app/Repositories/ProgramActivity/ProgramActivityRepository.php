@@ -248,7 +248,7 @@ class ProgramActivityRepository extends BaseRepository
 //            ->where('safari_advances.done', false)
             ->where('program_activities.rejected', false)
             ->where('program_activities.done', 1)
-            ->where('program_activities.amount_paid', '>', 0 )
+            ->where('program_activities.paid', true )
             ->where('users.id', access()->id());
     }
     public function getReportNewDatatable()

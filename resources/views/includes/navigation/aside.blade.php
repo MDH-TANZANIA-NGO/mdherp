@@ -53,7 +53,9 @@
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-dollar"></i><span class="side-menu__label">Finance Activities</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('finance.index') }}"><span>Payments</span></a></li>
-
+            @permission('financial_report')
+                <li><a class="slide-item"  href="{{ route('financial-report.index') }}"><span>Financial Reports</span></a></li>
+                @endpermission
             </ul>
         </li>
         @endpermission

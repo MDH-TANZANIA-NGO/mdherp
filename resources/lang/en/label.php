@@ -159,7 +159,7 @@ return [
     'participate' => 'Participate',
     'participation_in_a_month' => 'Participation in a month',
     'receipt' => 'Receipts',
-    'report' => 'Reports',
+    'report' => 'reports',
     'title' => 'Title',
     'to' => 'To',
     'total_amount' => 'Total Amount',

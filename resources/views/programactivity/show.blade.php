@@ -38,7 +38,7 @@
 
 {{--                @endif--}}
 
-                @if(access()->user()->id == $supervisor && $program_activity->done == 1 && $program_activity->wf_done == true)
+                @if(access()->user()->id == $supervisor && $program_activity->done == 1 && $program_activity->wf_done == true && $program_activity->report_submitted == true)
 
                     <button class="btn btn-outline-info" data-toggle="modal" data-target="#smallModal"style="margin-left: 2%;">Approve Activity Report</button>
 

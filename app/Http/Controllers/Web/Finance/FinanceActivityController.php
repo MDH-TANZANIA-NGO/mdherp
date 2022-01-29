@@ -16,6 +16,7 @@ use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Traits\Relaltionship\RequisitionRelationship;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Models\SafariAdvance\Traits\SafariAdvanceRelationship;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
@@ -72,11 +73,16 @@ class FinanceActivityController extends Controller
         {
            $travelling =  requisition_travelling_cost::where('id', $safari_to_query->requisition_travelling_cost_id)->first();
             $requisition_uuid =  Requisition::where('id', $travelling->requisition_id)->first()->uuid;
-            return view('finance.payments.show')
+
+                 return view('finance.payments.show')
                 ->with('safari_advance', $safari)
                 ->with('finance', $financeActivityRepository)
+                ->with('is_paid', $safari_to_query->paid)
+                ->with('safari', $safari_to_query)
+                ->with('safari_details', SafariAdvanceDetails::query()->where('safari_advance_id', $safari_to_query->id)->first())
                 ->with('requisition', Requisition::where('uuid', $requisition_uuid)->first())
                 ->with('program_activity', $this->program_activity->all()->where('uuid', $uuid))
+                ->with('participant_total', requisition_training_cost::query()->where('requisition_id', $travelling->requisition_id)->get()->pluck('total_amount')->sum())
                 ->with('requisition_uuid', $requisition_uuid);
 
      }elseif ($program_activity_to_query)
@@ -90,12 +96,14 @@ class FinanceActivityController extends Controller
             $requisition_uuid =  Requisition::where('id', $requisition_id)->first()->uuid;
 
 
+
             return view('finance.payments.show')
                 ->with('safari_advance', $safari)
                 ->with('uuid', $uuid)
                 ->with('program_activity', $this->program_activity->all()->where('uuid', $uuid))
                 ->with('requisition_uuid', $requisition_uuid)
                 ->with('finance', $financeActivityRepository)
+                ->with('is_paid', $program_activity_to_query->paid)
                 ->with('payment_uuid', Requisition::where('uuid', $requisition_uuid)->first()->payments()->where('user_id', access()->user()->id)->latest('created_at')->get()->all())
                 ->with('requisition', Requisition::where('uuid', $requisition_uuid)->first())
                 ->with('requisition_count',  Requisition::where('uuid', $requisition_uuid)->first()->payments()->count())
@@ -136,28 +144,30 @@ class FinanceActivityController extends Controller
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($payment, $current_level, $workflow->wf_definition_id);
 
-        return view('finance.payments.view')
-            ->with('current_level', $current_level)
-            ->with('current_wf_track', $current_wf_track)
-            ->with('can_edit_resource', $can_edit_resource)
-            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($payment))
-            ->with('payment', $payment);
-    }
-    public function submitPayment(Payment $payment)
-    {
-        $travelling_details = requisition_travelling_cost::query()->where('requisition_id', $payment->requisition_id)->get();
+        $travelling_details = requisition_travelling_cost::query()->where('requisition_id', $payment->requisition_id)->get()->first();
         $training_details =  requisition_training_cost::query()->where('requisition_id', $payment->requisition_id);
-        if (ProgramActivity::query()->where('requisition_id', $payment->requisition_id)->first()->count() > 0){
-           $program_activity =  ProgramActivity::query()->where('requisition_id', $payment->requisition_id)->first();
-        }elseif (SafariAdvance::query()->where('requisition_id', $payment->requisition_id)->first()->count() > 0)
+
+        if (ProgramActivity::query()->where('requisition_id', $payment->requisition_id)->get()->count() > 0){
+            $program_activity =  ProgramActivity::where('requisition_id', $payment->requisition_id)->first();
+            $safari_advance =  SafariAdvance::where('requisition_travelling_cost_id', null)->first();
+
+        }elseif (SafariAdvance::query()->where('requisition_travelling_cost_id', $travelling_details->id)->get()->count() > 0)
         {
-            $safari_advance =  SafariAdvance::query()->where('requisition_id', $payment->requisition_id)->first();
+
+            $program_activity =  ProgramActivity::query()->where('requisition_id', $payment->requisition_id)->first();
+            $safari_advance =  SafariAdvance::query()->where('requisition_travelling_cost_id', $travelling_details->id)->first();
         }
-        if ($program_activity->count() > 0 ){
+
+        if ($program_activity){
 
 //            dd($payment->payed_amount);
-            return view('finance.payments.forms.SubmitPayment')
+            return view('finance.payments.view')
+                ->with('current_level', $current_level)
+                ->with('current_wf_track', $current_wf_track)
+                ->with('can_edit_resource', $can_edit_resource)
+                ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($payment))
                 ->with('payment', $payment)
+                ->with('safari_advance', $safari_advance)
                 ->with('requisition', Requisition::query()->where('id', $payment->requisition_id)->first())
                 ->with('program_activity', $program_activity)
                 ->with('travelling_details', $travelling_details)
@@ -165,10 +175,57 @@ class FinanceActivityController extends Controller
                 ->with('training_details', $training_details);
         }
 
-        elseif ($safari_advance->count() > 0){
+        elseif ($safari_advance){
+            return view('finance.payments.view')
+                ->with('current_level', $current_level)
+                ->with('current_wf_track', $current_wf_track)
+                ->with('can_edit_resource', $can_edit_resource)
+                ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($payment))
+                ->with('payment', $payment)
+                ->with('safari_advance', $safari_advance)
+                ->with('program_activity', $program_activity)
+                ->with('requisition', Requisition::query()->where('id', $payment->requisition_id)->first())
+                ->with('training_details', $training_details)
+                ->with('payed_amount', $payment->payed_amount)
+                ->with('travelling_details', $travelling_details);
+        }
+
+    }
+    public function submitPayment(Payment $payment)
+    {
+
+        $travelling_details = requisition_travelling_cost::query()->where('requisition_id', $payment->requisition_id)->get()->first();
+        $training_details =  requisition_training_cost::query()->where('requisition_id', $payment->requisition_id);
+
+        if (ProgramActivity::query()->where('requisition_id', $payment->requisition_id)->get()->count() > 0){
+           $program_activity =  ProgramActivity::where('requisition_id', $payment->requisition_id)->first();
+            $safari_advance =  SafariAdvance::where('requisition_travelling_cost_id', null)->first();
+
+        }elseif (SafariAdvance::query()->where('requisition_travelling_cost_id', $travelling_details->id)->get()->count() > 0)
+        {
+
+            $program_activity =  ProgramActivity::query()->where('requisition_id', $payment->requisition_id)->first();
+            $safari_advance =  SafariAdvance::query()->where('requisition_travelling_cost_id', $travelling_details->id)->first();
+        }
+
+        if ($program_activity){
+
+//            dd($payment->payed_amount);
             return view('finance.payments.forms.SubmitPayment')
                 ->with('payment', $payment)
                 ->with('safari_advance', $safari_advance)
+                ->with('requisition', Requisition::query()->where('id', $payment->requisition_id)->first())
+                ->with('program_activity', $program_activity)
+                ->with('travelling_details', $travelling_details)
+                ->with('payed_amount', $payment->payed_amount)
+                ->with('training_details', $training_details);
+        }
+
+        elseif ($safari_advance){
+            return view('finance.payments.forms.SubmitPayment')
+                ->with('payment', $payment)
+                ->with('safari_advance', $safari_advance)
+                ->with('program_activity', $program_activity)
                 ->with('requisition', Requisition::query()->where('id', $payment->requisition_id)->first())
                 ->with('training_details', $training_details)
                 ->with('payed_amount', $payment->payed_amount)
@@ -177,6 +234,6 @@ class FinanceActivityController extends Controller
     }
     public function export($uuid)
     {
-        return Excel::download(new PaymentExport($uuid), 'payments.xlsx');
+        return Excel::download(new PaymentExport($uuid), "Payments.xlsx");
     }
 }
