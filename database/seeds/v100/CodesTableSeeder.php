@@ -63,6 +63,13 @@ class CodesTableSeeder extends Seeder
                     'lang' => 'address_type',
                     'is_system_defined' => 1,
                 ),
+            6 =>
+                array (
+                    'id' => 7,
+                    'name' => 'Address Type',
+                    'lang' => 'address_type',
+                    'is_system_defined' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("codes");

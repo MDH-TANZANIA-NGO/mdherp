@@ -27,6 +27,9 @@ class CreateRetirementDetailsTable extends Migration
             $table->longText('activity_report');
             $table->date('deleted_at')->nullable();
             $table->string('uuid')->nullable();
+            $table->string('attachment_receipt')->nullable();
+            $table->string('attachment_supportive')->nullable();
+            $table->string('attachment_other')->nullable();
 
             $table->timestamps();
         });
@@ -39,6 +42,6 @@ class CreateRetirementDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('retirements_details');
+        Schema::dropIfExists('retirement_details');
     }
 }

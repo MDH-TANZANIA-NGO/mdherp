@@ -10,6 +10,7 @@ use App\Models\Requisition\Training\requisition_training_cost;
 use App\Repositories\BaseRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
+use Illuminate\Http\Request;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 
@@ -195,6 +196,14 @@ class ProgramActivityRepository extends BaseRepository
 
         });
 
+    }
+
+
+    public function getCompletedWithoutRetirement()
+    {
+        return $this->getQuery()
+            ->where('program_activities.wf_done', true)
+            ->whereDoesntHave('retirement');
     }
 
 
