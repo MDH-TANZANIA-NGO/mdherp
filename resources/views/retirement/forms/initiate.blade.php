@@ -16,19 +16,39 @@
                     <div class="card-body">
                         <div class="row">
 
+{{--                            <div class="col-md-6">--}}
+{{--                                {!! Form::label('safari_advance_id', __("Retirement Type"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                                {!! Form::select('retirement_type',$retirementtype, null,['class' => 'form-control select2-show-search', 'required']) !!}--}}
+
+                                {{--<select name="retirement_type" class="form-control">
+                                    <option value="0">Select Retirement Type</option>
+                                    <option value="1">Safari Advance</option>
+                                    <option value="2">Program activity</option>
+                                </select>--}}
+{{--                            </div>--}}
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {!! Form::label('safari_advance_id', __("Safari Number"),['class'=>'form-label','required_asterik']) !!}
-                                    {!! Form::select('safari_advance_id', $safaries, null,['class' => 'form-control select2-show-search', 'required']) !!}
+                                    {!! Form::select('safari_advance_id', $safaries, null,['class' => 'form-control select2-show-search', 'required','id'=>'safari','style'=>'display:none']) !!}
                                     {!! $errors->first('safari_advance_id', '<span class="badge badge-danger">:message</span>') !!}
 
                                 </div>
                             </div>
+                           {{-- <div class="col-md-4" id="programactivity" style="display: none">
+                                <div class="form-group">
+                                    {!! Form::label('safari_advance_id', __("Program Activity Number"),['class'=>'form-label','required_asterisk']) !!}
+                                    {!! Form::select('safari_advance_id', $programs, null,['class' => 'form-control select2-show-search', 'required','id'=>'safari']) !!}
+                                    {!! $errors->first('safari_advance_id', '<span class="badge badge-danger">:message</span>') !!}
 
-
+                                </div>
+                            </div>--}}
+                        </div>
+                        &nbsp;
+                            <div class="row">
+                                <div class="col-md-12">
                             <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Initiate Retirement</button>
-
-                </div>
+                                </div>
+                            </div>
             </div>
                     {!! Form::close() !!}
 
@@ -52,6 +72,34 @@
                     </div>
                 </div>
     @endif
+
+        @push('after-scripts')
+
+            <script>
+                $(document).ready(function (){
+                    let $retirement_type = $("select[name='retirement_type']");
+
+                    $retirement_type.change(function (event){
+                        if (this.value == '0'){
+                            $("#safari").hide();
+                            $("#programactivity").hide();
+
+                        }
+                        if (this.value == '1'){
+                            $("#safari").show();
+                            $("#programactivity").hide();
+
+                        }
+                        if (this.value == '2'){
+                            $("#safari").hide();
+                            $("#programactivity").show();
+
+
+                        }
+                    });
+                });
+            </script>
+    @endpush
 
 @endsection
 

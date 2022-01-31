@@ -10,6 +10,7 @@ use App\Models\Requisition\Training\requisition_training_cost;
 use App\Repositories\BaseRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
+use Illuminate\Http\Request;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 
@@ -58,7 +59,8 @@ class ProgramActivityRepository extends BaseRepository
     public function getAllApprovedProgramActivities()
     {
         return $this->getQuery()
-            ->where('program_activities.wf_done', true);
+            ->where('program_activities.wf_done', true)
+            ->where('program_activities.paid', false);
     }
 
     public function inputProcess( $inputs)
@@ -92,7 +94,7 @@ class ProgramActivityRepository extends BaseRepository
 
             $programActivity = $this->findByUuid($uuid);
             $number = $this->generateNumber($programActivity);
-            DB::update('update program_activities set number = ?, done = ? where uuid=?', [$number, 0, $uuid]);
+            DB::update('update program_activities set number = ?, done = ? where uuid=?', [$number, 1, $uuid]);
         });
 
     }
@@ -155,7 +157,7 @@ class ProgramActivityRepository extends BaseRepository
 
         return DB::transaction(function () use ($inputs, $uuid, $report, $next_user){
 
-            DB::update('update program_activities set report = ?, supervised_by = ?  where uuid=?', [$report,$next_user, $uuid]);
+            DB::update('update program_activities set report = ?, supervised_by = ?  where uuid=?', [$report,$next_user,  $uuid]);
 
 
         });
@@ -197,6 +199,14 @@ class ProgramActivityRepository extends BaseRepository
     }
 
 
+    public function getCompletedWithoutRetirement()
+    {
+        return $this->getQuery()
+            ->where('program_activities.wf_done', true)
+            ->whereDoesntHave('retirement');
+    }
+
+
 
 
 
@@ -204,29 +214,32 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done_date', null)
+            ->where('program_activities.wf_done', false)
             ->where('program_activities.done', 1)
             ->where('program_activities.rejected', false)
             ->where('users.id', access()->id());
     }
+
     public function getAccessRejectedDatatable()
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('program_activities.wf_done', false)
-//            ->where('safari_advances.done', true)
+            ->where('program_activities.done', 1)
             ->where('program_activities.rejected', true)
             ->where('users.id', access()->id());
     }
+
     public function getAccessProvedDatatable()
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('program_activities.wf_done', true)
-//            ->where('safari_advances.done', true)
+            ->where('program_activities.done', 1)
             ->where('program_activities.rejected', false)
             ->where('users.id', access()->id());
     }
+
     public function getAccessSavedDatatable()
     {
         return $this->getQuery()
@@ -234,7 +247,6 @@ class ProgramActivityRepository extends BaseRepository
             ->where('program_activities.wf_done', false)
             ->where('program_activities.done', 0)
             ->where('program_activities.rejected', false)
-            ->where('program_activities.number', null)
             ->where('users.id', access()->id());
     }
     public function getAccessPaidDatatable()
@@ -244,7 +256,8 @@ class ProgramActivityRepository extends BaseRepository
             ->where('program_activities.wf_done', true)
 //            ->where('safari_advances.done', false)
             ->where('program_activities.rejected', false)
-            ->where('program_activities.amount_paid', '!=', 0 )
+            ->where('program_activities.done', 1)
+            ->where('program_activities.paid', true )
             ->where('users.id', access()->id());
     }
     public function getReportNewDatatable()

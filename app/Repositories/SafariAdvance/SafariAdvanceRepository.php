@@ -93,6 +93,7 @@ class SafariAdvanceRepository extends BaseRepository
             DB::raw('safari_advances.amount_requested AS amount_requested'),
             DB::raw('safari_advances.amount_paid AS amount_paid'),
             DB::raw('safari_advances.created_at AS created_at'),
+            DB::raw('safari_advances.amount_paid AS amount_paid'),
             DB::raw('safari_advances.uuid AS uuid'),
         ])
             ->join('users','users.id', 'safari_advances.user_id');
@@ -101,7 +102,8 @@ class SafariAdvanceRepository extends BaseRepository
     public function getAllApprovedSafari()
     {
         return$this->getQuery()
-            ->where('safari_advances.wf_done', true);
+            ->where('safari_advances.wf_done', true)
+            ->where('safari_advances.paid', false);
     }
 
     public function getAccessProcessingDatatable()

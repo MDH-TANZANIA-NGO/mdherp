@@ -215,7 +215,7 @@ class ProgramActivityController extends Controller
     }
     public function submit($uuid)
     {
-        DB::update('update program_activities set done = ? where uuid=?', [1, $uuid]);
+        DB::update('update program_activities set report_submitted = ? where uuid=?', [true, $uuid]);
         $program_activity =  $this->program_activity->findByUuid($uuid);
         $next_user = $program_activity->user->assignedSupervisor()->supervisor_id;
         $user =  User::query()->where('id', $next_user)->first();

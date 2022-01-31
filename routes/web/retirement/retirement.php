@@ -7,6 +7,7 @@ Route::group(['namespace' => 'Retirement', 'middleware' => ['web', 'auth'], 'pre
     Route::get('{retirement}/show', 'RetirementController@show')->name('show');
 //    Route::get('{retirement}/edit', 'RetirementController@create')->name('edit');
     Route::get('initiate', 'RetirementController@initiate')->name('initiate');
+    Route::get('back', 'RetirementController@goback')->name('back');
 
     /**
      * Datatables

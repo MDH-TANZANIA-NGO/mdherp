@@ -10,45 +10,16 @@
     </div>
 </div>
 
-@if($unit->unit_id == 24 || $unit->unit_id == 23)
-   @if($safari->wf_done == true)
-      @if($safari->amount_paid < $safari->amount_requested)
-          <div class="row">
-              <div class="card">
-                  <div class="card-header">
-                      <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>
-                      <a href="{{route('requisition.show', $safari->travellingCost->requisition->uuid)}}" class="btn btn-outline-info" style="margin-left: 4%;">View Approved Requisition</a>
-
-                  </div>
-
-              </div>
-          </div>
-          @endif
-   @else
-       <div class="row">
-           <div class="card">
-               <div class="card-header">
-                   {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
-                   <a href=" {{route('requisition.show', $safari->travellingCost->requisition->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
-
-               </div>
-
-           </div>
-       </div>
-       @endif
-@elseif($unit->unit_id != 24 || $unit->unit_id != 23)
-    <div class="row">
-        <div class="card">
-            <div class="card-header">
-                {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
-                <a href=" {{route('requisition.show', $safari->travellingCost->requisition->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
-
-            </div>
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
+            <a href=" {{route('requisition.show', $safari->travellingCost->requisition->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
 
         </div>
-    </div>
 
-@endif
+    </div>
+</div>
 
 
 <div class="row">
@@ -85,7 +56,7 @@
                         <th>Perdiem</th>
                         <th>Accommodation</th>
                         <th>Transport</th>
-                        <th>Transport Means</th>
+                        <th> Means</th>
                         <th>On Transit</th>
                         <th>Others</th>
                         <th>Total</th>
@@ -114,12 +85,7 @@
             <!-- table-responsive -->
         </div>
     </div>
-</div>
 
-
-
-</div>
-</div>
 
 
 <!-- Message Modal -->

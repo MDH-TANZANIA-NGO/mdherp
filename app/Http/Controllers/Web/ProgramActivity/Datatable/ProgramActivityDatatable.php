@@ -112,7 +112,7 @@ trait ProgramActivityDatatable
             ->make(true);
     }
 
-//    Reports Datatables
+//    reports Datatables
 
     public function ReportNewDatatable()
     {

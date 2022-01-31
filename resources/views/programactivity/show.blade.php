@@ -1,40 +1,44 @@
 @extends('layouts.app')
 @section('content')
-    @if($program_activity->report != null && $program_activity->done == 0 && access()->user()->id != $supervisor)
-        {!! Form::open(['route' => ['programactivity.submit',$program_activity->uuid]]) !!}
-        <button type="submit" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></button>
+    @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
+{{--    @if($program_activity->report != null && $program_activity->done == 1 && access()->user()->id != $supervisor)--}}
+{{--        {!! Form::open(['route' => ['programactivity.submit',$program_activity->uuid]]) !!}--}}
+{{--        <button type="submit" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></button>--}}
 {{--        <a href=" {{route('programactivity.submit', $program_activity->uuid)}}" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></a>--}}
-            {!! Form::close() !!}
-    @endif
+{{--            {!! Form::close() !!}--}}
+{{--    @endif--}}
+    <br>
     <div class="row">
         <div class="card">
             <div class="card-header">
                 {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
                 <a href=" {{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
-                @if($program_activity->done == 1)
-                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#largeModal"style="margin-left: 2%;">View Activity Workflow</button>
+                {{--
+                                {{--                @if($program_activity->done == 1)--}}
+{{--                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#largeModal"style="margin-left: 2%;">View Activity Workflow</button>--}}
 
-                    <!-- Large Modal -->
-                    <div id="largeModal" class="modal fade">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content ">
-                                <div class="modal-header pd-x-20">
-                                    <h6 class="modal-title">Activity Workflow</h6>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col-lg-12">
-                                        @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- modal-dialog -->
-                    </div><!-- modal -->
+{{--                    <!-- Large Modal -->--}}
+{{--                    <div id="largeModal" class="modal fade">--}}
+{{--                        <div class="modal-dialog modal-lg" role="document">--}}
+{{--                            <div class="modal-content ">--}}
+{{--                                <div class="modal-header pd-x-20">--}}
+{{--                                    <h6 class="modal-title">Activity Workflow</h6>--}}
+{{--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                                        <span aria-hidden="true">&times;</span>--}}
+{{--                                    </button>--}}
+{{--                                </div>--}}
+{{--                                <div class="row mb-2">--}}
+{{--                                    <div class="col-lg-12">--}}
+{{--                                        @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div><!-- modal-dialog -->--}}
+{{--                    </div><!-- modal -->--}}
 
-                @endif
-                @if(access()->user()->id == $supervisor && $program_activity->done == 1)
+{{--                @endif--}}
+
+                @if(access()->user()->id == $supervisor && $program_activity->done == 1 && $program_activity->wf_done == true && $program_activity->report_submitted == true)
 
                     <button class="btn btn-outline-info" data-toggle="modal" data-target="#smallModal"style="margin-left: 2%;">Approve Activity Report</button>
 
@@ -75,8 +79,8 @@
 
                 @endif
 
-                  @if(access()->user()->id != $supervisor && $program_activity->done == 0 )
-                @if($program_activity->wf_done == true)
+                  @if(access()->user()->id != $supervisor && $program_activity->done == 1 && $program_activity->wf_done == true)
+                @if($program_activity->report == null)
 
                 <a href=" {{route('programactivity.report', $program_activity->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">@if($program_activity->report == null )
                         Submit Report
@@ -87,13 +91,19 @@
                             @endif
 
                 </a>
+                    @if($program_activity->report != null && $program_activity->report_submitted == false && access()->user()->id != $supervisor)
+                            {!! Form::open(['route' => ['programactivity.submit', $program_activity->uuid]]) !!}
+                            <button type="submit" class="btn btn-outline-success" style="margin-left: 45%; margin-bottom: 1%" onclick="confirm('You are about to Submit Activity Report For Approval')">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></button>
+                            {{--        <a href=" {{route('programactivity.submit', $program_activity->uuid)}}" class="btn btn-success" style="margin-left: 45%; margin-bottom: 1%">Submit For Approval <i class="fa fa-check fa-spin ml-2"></i></a>--}}
+                            {!! Form::close() !!}
+                        @endif
                     @endif
 
             </div>
 
         </div>
     </div>
-@if($program_activity->done == 0)
+@if($program_activity->done == 1)
     <!-- start: page -->
     <div class="row mb-2">
         <div class="col-lg-12">
@@ -197,9 +207,11 @@
                   <h3 class="card-title">Report</h3>
                   <div class="card-options "><b>Status: </b>
                       @if( $program_activity->report_approved == true)
-                            Approved
-                      @elseif($program_activity->report_approved == false)
-                          Not Approved
+                          <span class="text-success" style="margin-left: 6%">Approved</span>
+                      @elseif($program_activity->report_approved == false && $program_activity->report_rejected == false)
+                         <span class="text-warning">Waitiing approval...</span>
+                      @elseif($program_activity->report_rejected ==  true)
+                          <span class="text-danger"  style="margin-left: 6%">Rejected</span>
                       @endif
                       <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
 
@@ -240,7 +252,7 @@
                             <th >Transportation</th>
                             <th>Other Cost</th>
                             <th >Total</th>
-                            @if(access()->user()->id == $supervisor)
+                            @if(access()->user()->id == $supervisor && $program_activity->wf_done == true)
                                 <th>Status</th>
                             @else
                             @if($program_activity->wf_done == true)
@@ -284,9 +296,6 @@
                                         @if($participants->is_substitute ==  true || $participants->attend == true)
                                     <a href="{{ route('programactivity.undoEverything',$participants->uuid) }}" id="attendance" class="btn btn-info" onclick="confirm('Are you Sure You want to Undo all Changes?')" >Undo</a>
                                         @endif
-                                        <a href="{{ route('programactivity.pay',$participants->uuid) }}" class="btn btn-success"  >Pay</a>
-                                        <a href="{{ route('programactivity.pay',$participants->uuid) }}" class="btn btn-outline-primary"  >Check</a>
-
                                     @endif
                                             </td>
                                 @endif

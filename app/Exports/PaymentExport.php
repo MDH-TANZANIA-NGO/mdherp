@@ -31,9 +31,9 @@ class PaymentExport implements FromQuery
     {
         $uuid= $this->uuid;
         $requisition_id = ProgramActivity::where('uuid', $uuid)->get()->first()->requisition_id;
-        $participant = requisition_training_cost::where('requisition_id', $requisition_id)->get()->first();
+        $participant = requisition_training_cost::query()->where('requisition_id', $requisition_id);
         // TODO: Implement query() method.
-        dd();
+//        dd(requisition_training_cost::query()->where('requisition_id', $requisition_id)->get());
         return $participant;
 
 

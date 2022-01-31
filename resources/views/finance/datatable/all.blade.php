@@ -36,6 +36,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-25p">AMOUNT REQUESTED</th>
+                                    <th class="wd-25p">AMOUNT PAID</th>
                                     <th class="wd-25p">CREATED ON</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -79,6 +80,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-25p">AMOUNT REQUESTED</th>
+                                    <th class="wd-25p">AMOUNT PAID</th>
                                     <th class="wd-25p">CREATED ON</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -99,6 +101,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-25p">AMOUNT REQUESTED</th>
+                                    <th class="wd-25p">AMOUNT PAID</th>
                                     <th class="wd-25p">CREATED ON</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -133,6 +136,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'safari_advances.number', searchable: true},
                     { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
+                    { data: 'amount_paid', name: 'safari_advances.amount_paid', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount', name: 'requisitions.amount', searchable: true},
@@ -171,6 +175,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'program_activities.number', searchable: true},
                     { data: 'amount_requested', name: 'program_activities.amount_requested', searchable: true},
+                    { data: 'amount_paid', name: 'program_activities.amount_paid', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount_paid', name: 'requisitions.amount', searchable: true},
@@ -190,6 +195,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'retirements.number', searchable: true},
                     { data: 'amount_requested', name: 'retirements.amount_requested', searchable: true},
+                    { data: 'amount_paid', name: 'retirements.amount_paid', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount_paid', name: 'safari_advances.amount_paid', searchable: true},

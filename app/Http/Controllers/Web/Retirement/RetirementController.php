@@ -6,7 +6,11 @@ use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\Retirement\Retirement;
+use App\Models\Retirement\RetirementDetail;
+use App\Models\Retirement\RetirementType;
+use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Retirement\RetirementRepository;
+use App\Repositories\Retirement\RetirementTypeRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -24,25 +28,41 @@ class RetirementController extends Controller
     protected $district;
     protected $wf_tracks;
     protected $designations;
+//    protected $rettype;
+//    protected $programActivities;
+    /**
+     * @var ProgramActivityRepository
+     */
+
+
+    /**
+     * @var RetirementTypeRepository
+     */
+
 
     public function __construct()
     {
         $this->retirements = (new RetirementRepository());
         $this->safari_advances = (new SafariAdvanceRepository());
         $this->district=(new DistrictRepository());
+//        $this->rettype=(new RetirementTypeRepository());
         $this->wf_tracks = (new WfTrackRepository());
+//        $this->programActivities = (new ProgramActivityRepository());
     }
 
     public function index(RetirementRepository $retirementRepository)
     {
         return view('retirement.index')
-        ->with('retirements', $retirementRepository);
+            ->with('retirements', $retirementRepository);
     }
 
     public  function  initiate(SafariAdvanceRepository $safariAdvanceRepository)
     {
+
         return view('retirement.forms.initiate')
+//            ->with('retirementtype', $this->rettype->getTypes()->get()->pluck('type', 'id'))
             ->with('safaries', $safariAdvanceRepository->getCompletedWithoutRetirement()->get()
+//                ->with('programs', $this->programActivities->getCompletedWithoutRetirement()->get())
                 ->pluck('number','id'));
     }
 
@@ -63,10 +83,28 @@ class RetirementController extends Controller
 
     public function update(Request $request, $uuid)
     {
+//        ddd($this->retirements->all());
 
         $this->retirements->update($request->all(),$uuid);
+        //check if there is a file and add attachement
+
 
         $retirement = $this->retirements->findByUuid($uuid);
+        $retirementDetails = RetirementDetail::where('retirement_id', $retirement->id)->first();
+
+        if($request->hasFile('attachment')){
+            $retirementDetails->update(['attachment_receipt' => $request->file('attachment_receipt')->store('Retirements/attachment/receipt')]);
+        }
+//        if($request->hasFile('attachment_receipt')){
+//            $retirementDetails->update(['attachment_receipt' => $request->file('attachment_receipt')->store('Retirements/attachment/receipt')]);
+//        }
+//        if($request->hasFile('attachment_supportive')){
+//            $retirementDetails->update(['attachment_supportive' => $request->file('attachment_supportive')->store('Retirements/attachment/supportive')]);
+//        }
+//        if($request->hasFile('attachment_other')){
+//            $retirementDetails->update(['attachment_other' => $request->file('attachment_other')->store('Retirements/attachment/other')]);
+//        }
+
         $wf_module_group_id = 4;
 
         $next_user = $retirement->user->assignedSupervisor()->supervisor_id;
@@ -96,6 +134,11 @@ class RetirementController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($retirement))
             ->with('retirement', $retirement)
             ->with('retirementz',$retirement->details()->get());
+    }
+
+    public function goback()
+    {
+        return redirect()->back();
     }
 
 

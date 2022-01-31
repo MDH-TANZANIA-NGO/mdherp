@@ -13,6 +13,9 @@
     <div class="row">
         <div class="card">
             <div class="card-header">
+                <a href="{{ url()->previous() }}" class="btn btn-outline-info">Back</a>
+{{--                <a href="{{ url()->previous() }}" class="btn btn-info btn-arrow-right">Back</a>--}}
+                &nbsp;&nbsp;
                 <h3 class="card-title">Retirement Summary</h3>
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
