@@ -33,7 +33,8 @@
                             <td>{{$participants->perdiem_total_amount}}</td>
                             <td>{{$participants->transportation}}</td>
                             <td>{{$participants->other_cost}}</td>
-                            <td><button type="submit" class="btn btn-outline-info">Remove</button></td>
+                            <td><a  href="{{route('training.removeParticipant', $participants->uuid)}}" class="btn btn-outline-info" ><i class="fa fa-trash"></i></a></td>
+
                         </tr>
 
                     @endforeach
@@ -76,7 +77,7 @@
                         <td>{{$items->unit}}</td>
                         <td>{{$items->unit_price}}</td>
                         <td>{{$items->total_amount}}</td>
-                        <td><button type="submit" class="btn btn-outline-info">Remove</button></td>
+                        <td><a  href="{{route('training.removeItem', $items->uuid)}}" class="btn btn-outline-info" ><i class="fa fa-trash"></i></a></td>
                     </tr>
 
                     @endforeach

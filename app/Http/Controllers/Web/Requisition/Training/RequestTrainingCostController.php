@@ -14,6 +14,7 @@ use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RequestTrainingCostController extends Controller
 {
@@ -21,6 +22,7 @@ class RequestTrainingCostController extends Controller
     protected $grates;
     protected $trainingCost;
     protected $training;
+    protected $trainingItem;
 
 
     public function __construct()
@@ -28,7 +30,7 @@ class RequestTrainingCostController extends Controller
         $this->gofficers = (new GOfficerRepository());
         $this->grates = (new GRateRepository());
         $this->trainingCost = (new RequestTrainingCostRepository());
-        $this->training = (new RequisitionTrainingItemsRepository());
+        $this->trainingItem = (new RequisitionTrainingItemsRepository());
     }
 
     public function index(){
@@ -76,8 +78,31 @@ class RequestTrainingCostController extends Controller
 
     public function storeTrainingItems(Request $request, Requisition $requisition){
 
-        $this->training->store($requisition, $request->all());
+        $this->trainingItem->store($requisition, $request->all());
         return redirect()->back();
+
+    }
+    public function removeItem($uuid)
+    {
+
+        return DB::transaction(function () use ($uuid){
+
+                DB::delete('delete from requisition_training_items where uuid = ?',[$uuid]);
+            return redirect()->back();
+        });
+    }
+
+    public function removeParticipant($uuid)
+    {
+        return DB::transaction(function () use ($uuid){
+
+            DB::delete('delete from requisition_training_costs where uuid = ?',[$uuid]);
+
+            return redirect()->back();
+        });
+    }
+    public function updateSchedule($uuid)
+    {
 
     }
 }

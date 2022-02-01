@@ -7,6 +7,8 @@ Route::group(['namespace' => 'Requisition\Training', 'middleware' => ['web', 'au
     Route::get('{uuid}/show', 'RequestTrainingCostController@show')->name('show');
     Route::put('{uuid}/update', 'RequestTrainingCostController@update')->name('update');
     Route::get('create','RequestTrainingCostController@create')->name('create');
+    Route::get('{uuid}/removeItem','RequestTrainingCostController@removeItem')->name('removeItem');
+    Route::get('{uuid}/removeParticipant','RequestTrainingCostController@removeParticipant')->name('removeParticipant');
 
 
     Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
