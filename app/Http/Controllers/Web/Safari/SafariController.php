@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\web\Safari;
+namespace App\Http\Controllers\Web\Safari;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;

@@ -27,7 +27,7 @@ class CreateRetirementTable extends Migration
             $table->string('uuid');
             $table->timestamp('deleted_at')->nullable();
             $table->boolean('rejected')->default('FALSE');
-            $table->unsignedBigInteger('done')->default(0);
+            $table->boolean('done')->default('FALSE');
 
             $table->timestamps();
         });

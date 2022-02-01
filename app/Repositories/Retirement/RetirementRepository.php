@@ -66,6 +66,17 @@ class RetirementRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
+    public function getAccessSavedRetirementDatatable()
+    {
+        return $this->getQuery()
+            ->whereDoesntHave('wfTracks')
+            ->where('retirements.wf_done', false)
+            ->where('retirements.done', false)
+            ->where('retirements.rejected', false)
+            ->where('retirements.number', null)
+            ->where('users.id', access()->id());
+    }
+
     public function inputProcess($inputs)
     {
        $safari_advance_id = SafariAdvance::all()->find($inputs['safari_advance_id']);
