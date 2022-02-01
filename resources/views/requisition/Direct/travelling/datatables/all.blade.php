@@ -34,7 +34,7 @@
 
                                 <th>{{ $cost->other_cost }}</th>
                                 <th>{{ $cost->total_amount }}</th>
-                                <th><a href="" class="btn btn-primary">Edit</a> </th>
+                                <th><a href="{{route('travelling.edit',$cost->uuid)}}" class="btn btn-primary" onclick="confirm('Are you sure?')">Edit</a> </th>
                             </tr>
                         </tbody>
                         @endforeach

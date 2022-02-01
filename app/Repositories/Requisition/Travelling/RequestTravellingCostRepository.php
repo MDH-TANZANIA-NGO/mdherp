@@ -138,5 +138,13 @@ class RequestTravellingCostRepository extends BaseRepository
         return $this->getRequisitionFilter()->pluck('travelling','requisition_travelling_costs.id');
 
     }
+    public function update($uuid, $inputs)
+    {
+        $traveller = $this->findByUuid($uuid);
+        return DB::transaction(function () use ($traveller, $inputs){
+            $traveller->update($this->inputProcess($inputs));
+
+        });
+    }
 
 }

@@ -37,6 +37,9 @@
 
         @switch($requisition->requisition_type_category)
             @case(1)
+            @if($travelling_costs->count() > 0)
+
+                @endif
             @include('requisition.Direct.travelling.index',['items' => $requisition->items])
             @break
 

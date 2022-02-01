@@ -120,6 +120,7 @@ class RequisitionController extends Controller
     public function initiate(Requisition $requisition)
     {
 
+
         return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)

@@ -9,7 +9,7 @@
                        <input type="text" value="{{$requisition->uuid}}" hidden name="uuid">
                        <br>
                        {!! Form::label('from', __("Description"),['class'=>'form-label','required_asterik']) !!}
-                       {!! Form::textarea('description',$requisition->description,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                       {!! Form::textarea('description',$requisition->descriptions,['class' => 'form-control', 'placeholder' => '','required']) !!}
                    </div>
                </div>
                <button type="submit" class="btn btn-outline-info" style="margin-left:40%;margin-bottom: 2%">Submit and Continue</button>
