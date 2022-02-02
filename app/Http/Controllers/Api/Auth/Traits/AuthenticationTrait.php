@@ -42,7 +42,7 @@ trait AuthenticationTrait
     {
         $return = NULL;
 
-        if(access()->user()->isactive == false){
+        if(access()->user()->active == false){
             access()->logout();
             $return = $this->sendError('Account De-activated', NULL);
         }else{

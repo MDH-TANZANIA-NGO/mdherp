@@ -85,19 +85,12 @@ class SafariController extends Controller
     public function update(Request $request, $uuid)
     {
 
-//        $this->safariAdvance->update($request->all(),$uuid);
+        $this->safariAdvance->update($request->all(),$uuid);
         $safari = $this->safariAdvance->findByUuid($uuid);
-        if ($safari->done == false)
-        {
-            $this->safariAdvance->update($request->all(),$uuid);
-        }else{
-            $this->safariAdvance->update($request->all(),$uuid);
-            $wf_module_group_id = 2;
-            $next_user = $safari->user->assignedSupervisor()->supervisor_id;
-            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $safari->id,'region_id' => $safari->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-
-        }
-       return redirect()->route('safari.show',$uuid);
+        $wf_module_group_id = 2;
+        $next_user = $safari->user->assignedSupervisor()->supervisor_id;
+        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $safari->id,'region_id' => $safari->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+        return redirect()->route('safari.show',$uuid);
     }
     public function show(SafariAdvance $safariAdvance)
     {
