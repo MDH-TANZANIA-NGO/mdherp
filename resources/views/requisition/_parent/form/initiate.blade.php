@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if($items->count() > 0 or $travelling_costs->count() > 0 or $training_costs->count() > 0)
+    @if($requisition->done == FALSE and ($items->count() > 0 or $travelling_costs->count() > 0 or $training_costs->count() > 0))
 
 
     <div class="row mb-4">
@@ -20,8 +20,15 @@
 
 
         </div>
-    </div>
 
+    </div>
+    @else
+        <div class="row mb-4">
+            <div class="col-12">
+
+        <a href="{{route('requisition.show', $requisition->uuid)}}" class="btn btn-primary float-right">Submit and Exit</a>
+            </div>
+        </div>
     @endif
 
     @switch($requisition->requisition_type_id)

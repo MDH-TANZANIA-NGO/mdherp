@@ -84,6 +84,7 @@ class SafariController extends Controller
 
     public function update(Request $request, $uuid)
     {
+
         $this->safariAdvance->update($request->all(),$uuid);
         $safari = $this->safariAdvance->findByUuid($uuid);
         $wf_module_group_id = 2;
