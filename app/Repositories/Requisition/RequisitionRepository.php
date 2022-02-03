@@ -61,6 +61,15 @@ class RequisitionRepository extends BaseRepository
             ->where('requisitions.rejected', false)
             ->where('users.id', access()->id());
     }
+    public function getAccessPaidDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('requisitions.wf_done', 0)
+            ->where('requisitions.done', true)
+            ->where('requisitions.rejected', false)
+            ->where('users.id', access()->id());
+    }
 
     public function getAccessRejectedDatatable()
     {

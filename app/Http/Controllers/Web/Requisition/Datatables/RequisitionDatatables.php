@@ -89,4 +89,20 @@ trait RequisitionDatatables
             ->rawColumns(['action'])
             ->make(true);
     }
+    public function AccessPaidDatatable()
+    {
+        return DataTables::of($this->requisitions->getAccessProcessingDatatable())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateTimeString();
+            })
+            ->addColumn('amount', function ($query) {
+                return number_2_format($query->amount);
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('requisition.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 }
