@@ -234,6 +234,12 @@ class RequisitionController extends Controller
 
         return view('requisition._parent.detailed');
     }
+    public function updateActualAmount(Requisition $requisition)
+    {
+         $this->requisitions->updateActualAmount($requisition);
+         return redirect()->back();
+
+    }
 
 
 }

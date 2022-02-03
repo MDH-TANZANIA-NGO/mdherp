@@ -60,7 +60,7 @@ class SafariController extends Controller
     {
 
         return view('safari.forms.edit')
-
+            ->with('safari_advance_details', $safariAdvance->SafariDetails()->first())
             ->with('travelling_cost', $safariAdvance->travellingCost)
             ->with('district', $this->districts->getForPluck())
             ->with('safari_advance', $safariAdvance);
@@ -84,13 +84,20 @@ class SafariController extends Controller
 
     public function update(Request $request, $uuid)
     {
+        $safari_advance_done = SafariAdvance::where('uuid', $uuid)->first()->done;
+       if ($safari_advance_done == true)
+       {
+           $this->safariAdvance->update($request->all(),$uuid);
+       }
+       else{
+           $this->safariAdvance->update($request->all(),$uuid);
+           $safari = $this->safariAdvance->findByUuid($uuid);
+           $wf_module_group_id = 2;
+           $next_user = $safari->user->assignedSupervisor()->supervisor_id;
+           event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $safari->id,'region_id' => $safari->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
 
-        $this->safariAdvance->update($request->all(),$uuid);
-        $safari = $this->safariAdvance->findByUuid($uuid);
-        $wf_module_group_id = 2;
-        $next_user = $safari->user->assignedSupervisor()->supervisor_id;
-        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $safari->id,'region_id' => $safari->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-        return redirect()->route('safari.show',$uuid);
+       }
+         return redirect()->route('safari.show',$uuid);
     }
     public function show(SafariAdvance $safariAdvance)
     {

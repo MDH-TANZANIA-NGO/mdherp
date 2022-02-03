@@ -90,8 +90,8 @@
                                             <option value="land public transport">Land Public Transport</option>
                                         </select>
                                     </td>
-                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'first']) !!}</td>
-                                    <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required','id'=>'second']) !!}</td>
+                                    <td>{!! Form::date('from', $safari_advance_details->from, ['class' => 'form-control', 'required', 'id'=>'first']) !!}</td>
+                                    <td>{!! Form::date('to', $safari_advance_details->to, ['class' => 'form-control', 'required','id'=>'second']) !!}</td>
                                 </tr>
 
                                 </tbody>
@@ -101,7 +101,7 @@
 
                         <p id="output"></p>
 
-                        <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Submit For Approval</button>
+                        <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Update</button>
                     </div>
                 </div>
                 {!! Form::close() !!}
