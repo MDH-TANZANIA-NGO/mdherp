@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web\FinanceReports;
+namespace App\Http\Controllers\Api\Facility\Web\FinanceReports;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\FinanceReports\Datatable\paymentBatchDatatable;
+use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Api\Facility\Web\FinanceReports\Datatable\paymentBatchDatatable;
 use App\Repositories\Finance\FinancialReportsRepository;
 use Illuminate\Http\Request;
 

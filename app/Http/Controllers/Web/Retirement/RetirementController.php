@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Web\Retirement;
+namespace App\Http\Controllers\Api\Facility\Web\Retirement;
 
 use App\Events\NewWorkflow;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
+use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Api\Facility\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\Retirement\Retirement;
 use App\Models\Retirement\RetirementDetail;
 use App\Models\Retirement\RetirementType;

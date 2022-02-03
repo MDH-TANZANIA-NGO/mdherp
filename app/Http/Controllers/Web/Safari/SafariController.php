@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Web\Safari;
+namespace App\Http\Controllers\Api\Facility\Web\Safari;
 
 use App\Events\NewWorkflow;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\Safari\Datatables\SafariDatatables;
+use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Api\Facility\Web\Safari\Datatables\SafariDatatables;
 use App\Models\Auth\User;
 use App\Models\Requisition\Requisition;
 use App\Models\Retirement\Retirement;

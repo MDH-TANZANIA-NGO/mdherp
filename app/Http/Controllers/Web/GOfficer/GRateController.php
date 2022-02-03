@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web\GOfficer;
+namespace App\Http\Controllers\Api\Facility\Web\GOfficer;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\GOfficer\Datatables\GRateDatatables;
+use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Api\Facility\Web\GOfficer\Datatables\GRateDatatables;
 use App\Repositories\GOfficer\GRateRepository;
 use Illuminate\Http\Request;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web\Requisition\RequisitionType;
+namespace App\Http\Controllers\Api\Facility\Web\Requisition\RequisitionType;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Facility\Controller;
 use App\Repositories\Requisition\RequisitionType\RequisitionTypeRepository;
 use Illuminate\Http\Request;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\System;
+namespace App\Http\Controllers\Api\Facility\System;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Facility\Controller;
 use App\Repositories\System\SystemAttendanceRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

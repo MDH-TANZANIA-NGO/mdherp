@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web\Account;
+namespace App\Http\Controllers\Api\Facility\Web\Account;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Facility\Controller;
 use App\Models\Auth\User;
 use App\Models\Leave\LeaveType;
 use App\Repositories\Access\PermissionRepository;

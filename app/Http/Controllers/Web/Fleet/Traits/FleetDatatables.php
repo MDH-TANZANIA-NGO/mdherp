@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Fleet\Traits;
+namespace App\Http\Controllers\Api\Facility\Web\Fleet\Traits;
 use Yajra\DataTables\DataTables;
 
 

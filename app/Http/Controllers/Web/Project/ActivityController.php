@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web\Project;
+namespace App\Http\Controllers\Api\Facility\Web\Project;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\Project\Traits\ActivityDatatables;
+use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Api\Facility\Web\Project\Traits\ActivityDatatables;
 use App\Models\Project\Activity;
 use App\Repositories\Project\ActivityRepository;
 use App\Repositories\Project\OutputUnitRepository;

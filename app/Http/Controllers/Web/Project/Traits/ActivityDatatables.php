@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Project\Traits;
+namespace App\Http\Controllers\Api\Facility\Web\Project\Traits;
 
 use Carbon\Carbon;
 use Yajra\DataTables\DataTables;

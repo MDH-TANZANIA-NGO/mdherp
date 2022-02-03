@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Finance\Datatable;
+namespace App\Http\Controllers\Api\Facility\Web\Finance\Datatable;
 
 use Yajra\DataTables\DataTables;
 

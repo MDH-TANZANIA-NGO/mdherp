@@ -9,6 +9,7 @@
 namespace App\Models\System\Relationship;
 
 
+use App\Models\System\Organisation;
 use App\Models\System\Region;
 
 trait CountryRelationship
@@ -16,5 +17,10 @@ trait CountryRelationship
     public function regions()
     {
         return $this->hasMany(Region::class);
+    }
+
+    public function organisations()
+    {
+        return $this->belongsToMany(Organisation::class);
     }
 }

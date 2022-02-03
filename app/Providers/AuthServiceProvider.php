@@ -27,5 +27,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+
+        Passport::tokensCan([
+            'user' => 'User Scope',
+            'g_officer' => 'GOfficer Scope',
+        ]);
     }
 }

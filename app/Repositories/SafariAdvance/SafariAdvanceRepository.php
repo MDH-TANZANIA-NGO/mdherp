@@ -3,7 +3,7 @@
 namespace App\Repositories\SafariAdvance;
 
 use App\Events\NewWorkflow;
-use App\Http\Controllers\Web\Safari\Datatables\SafariDatatables;
+use App\Http\Controllers\Api\Facility\Web\Safari\Datatables\SafariDatatables;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Repositories\BaseRepository;

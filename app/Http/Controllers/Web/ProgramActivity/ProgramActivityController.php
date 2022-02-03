@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Web\ProgramActivity;
+namespace App\Http\Controllers\Api\Facility\Web\ProgramActivity;
 
 use App\Events\NewWorkflow;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\ProgramActivity\Datatable\ProgramActivityDatatable;
+use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Api\Facility\Web\ProgramActivity\Datatable\ProgramActivityDatatable;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Models\GOfficer\GOfficer;

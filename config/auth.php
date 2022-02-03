@@ -47,9 +47,20 @@ return [
 //            'hash' => false,
 //        ],
 
-        'api' => [
+//        'api' => [
+//            'driver' => 'passport',
+//            'provider' => 'users',
+//        ],
+
+        'user-api' => [
             'driver' => 'passport',
             'provider' => 'users',
+            'hash' => true,
+        ],
+
+        'g_officer-api' => [
+            'driver' => 'token',
+            'provider' => 'g_officers',
         ],
     ],
 
@@ -80,6 +91,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'g_officers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\GOfficer\GOfficer::class,
+        ],
     ],
 
     /*

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Web\System;
+namespace App\Http\Controllers\Api\Facility\Web\System;
 
 use App\Repositories\System\RegionRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Facility\Controller;
 use Illuminate\Support\Facades\Log;
 
 class RegionController extends Controller

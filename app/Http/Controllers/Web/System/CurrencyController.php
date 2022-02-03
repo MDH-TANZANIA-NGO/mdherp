@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\System;
+namespace App\Http\Controllers\Api\Facility\System;
 
 use App\Http\Requests\System\CreateCurrencyRequest;
 use App\Repositories\System\CurrencyRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Facility\Controller;
 use Yajra\DataTables\Facades\DataTables;
 
 class CurrencyController extends Controller

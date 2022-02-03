@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\System\Traits;
+namespace App\Http\Controllers\Api\Facility\System\Traits;
 
 use Yajra\DataTables\DataTables;
 

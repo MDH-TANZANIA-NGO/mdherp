@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Web\Safari\Datatables;
+namespace App\Http\Controllers\Api\Facility\Web\Safari\Datatables;
 
 use Yajra\DataTables\DataTables;
 

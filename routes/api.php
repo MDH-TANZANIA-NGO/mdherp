@@ -32,7 +32,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
         Route::post('login', 'Auth\LoginController@login');
         Route::post('refresh', 'Auth\LoginController@refresh');
         Route::group([
-            'middleware' => 'auth:api'
+            'middleware' => ['auth:user-api']
         ], function() {
             Route::post('logout', 'Auth\LoginController@logout');
             includeRouteFiles(__DIR__.'/api/');

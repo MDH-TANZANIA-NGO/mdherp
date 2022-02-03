@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Attendance;
+namespace App\Http\Controllers\Api\Facility\Api\Attendance;
 
-use App\Http\Controllers\Api\BaseController;
+use App\Http\Controllers\Api\Facility\Api\BaseController;
 use App\Models\Attendance\Attendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

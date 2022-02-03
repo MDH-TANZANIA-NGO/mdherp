@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web\SupplyChain;
+namespace App\Http\Controllers\Api\Facility\Web\SupplyChain;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\SupplyChain\Traits\stock_unitDatatable;
+use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Api\Facility\Web\SupplyChain\Traits\stock_unitDatatable;
 use App\Models\SupplyChain\stock_unit;
 use App\Repositories\SupplyChain\stockUnitRepository;
 use Illuminate\Http\Request;

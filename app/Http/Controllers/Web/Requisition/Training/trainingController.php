@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web\Requisition\Training;
+namespace App\Http\Controllers\Api\Facility\Web\Requisition\Training;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\Requisition\Training\Traits\trainingCostsDatatable;
+use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Api\Facility\Web\Requisition\Training\Traits\trainingCostsDatatable;
 use App\Models\Auth\User;
 use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\GRate;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web\MdhRates;
+namespace App\Http\Controllers\Api\Facility\Web\MdhRates;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Facility\Controller;
 use App\Repositories\MdhRates\mdhRatesRepository;
 use App\Repositories\System\RegionRepository;
 use Illuminate\Http\Request;

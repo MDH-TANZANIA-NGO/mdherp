@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Retirement;
 
-use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
+use App\Http\Controllers\Api\Facility\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\SafariAdvance\SafariAdvance;

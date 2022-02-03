@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web\Project;
+namespace App\Http\Controllers\Api\Facility\Web\Project;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\Project\Traits\ProjectDatatables;
+use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Api\Facility\Web\Project\Traits\ProjectDatatables;
 use App\Http\Requests\Project\ProjectRequest;
 use App\Models\Project\Project;
 use App\Repositories\Project\ProjectRepository;

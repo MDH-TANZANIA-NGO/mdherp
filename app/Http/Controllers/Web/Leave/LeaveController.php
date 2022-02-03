@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web\Leave;
+namespace App\Http\Controllers\Api\Facility\Web\Leave;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Facility\Controller;
 use App\Models\Leave\Leave;
 use App\Models\Leave\LeaveType;
 use Illuminate\Http\Request;

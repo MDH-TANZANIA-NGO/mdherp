@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web\Requisition\Travelling\Traits;
+namespace App\Http\Controllers\Api\Facility\Web\Requisition\Travelling\Traits;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Facility\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 

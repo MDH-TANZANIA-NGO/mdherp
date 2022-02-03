@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Web\System;
+namespace App\Http\Controllers\Api\Facility\Web\System;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\Facility\Controller;
 use App\Repositories\Workflow\WfDefinitionRepository;
 use Illuminate\Http\Request;
 
