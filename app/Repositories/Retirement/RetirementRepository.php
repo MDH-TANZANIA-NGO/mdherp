@@ -5,6 +5,7 @@ namespace App\Repositories\Retirement;
 use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
+use App\Models\Retirement\RetirementDetail;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
@@ -15,6 +16,8 @@ class RetirementRepository extends BaseRepository
 {
     use Number;
     const MODEL = Retirement::class;
+
+
 
     public function __construct()
     {
@@ -92,6 +95,28 @@ class RetirementRepository extends BaseRepository
 
         ];
     }
+    public function inputProcessUpdate($inputs)
+    {
+        $safari_advance = SafariAdvance::where('id', $inputs['safari_advance_id'])->first();
+        $retirement = Retirement::where('safari_advance_id', $safari_advance->id)->first();
+
+        return[
+
+            'retirement_id'=> $retirement->id,
+            'safari_advance_id'=>$inputs['safari_advance_id'],
+
+            'from'=>$inputs['from'],
+            'to'=>$inputs['to'],
+            'district_id'=>$inputs['district_id'],
+            'amount_requested'=>$inputs['amount_requested'],
+            'amount_paid'=>$inputs['amount_paid'],
+            'amount_received'=>$inputs['amount_received'],
+            'amount_spent'=>$inputs['amount_spent'],
+            'amount_variance'=>$inputs['amount_variance'],
+            'activity_report'=>$inputs['activity_report'],
+
+        ];
+    }
 
     public function store($inputs)
     {
@@ -105,25 +130,47 @@ class RetirementRepository extends BaseRepository
 
         return DB::transaction(function () use ($inputs, $uuid){
             $retire = $this->findByUuid($uuid);
-            $number = $this->generateNumber($retire);
-            DB::update('update retirements set number= ? where uuid= ?',[$number, $uuid]);
+            if($retire->done==TRUE){
+                $this->query()->update($this->inputProcess($inputs));
+                return DB::table('retirement_details')->update($this->inputProcessUpdate($inputs));
+            }
+            else{
+                $number = $this->generateNumber($retire);
+                DB::update('update retirements set number= ? where uuid= ?',[$number, $uuid]);
 
-            DB::table('retirement_details')->insert(
-                [
-                    'retirement_id'=> $retire->id,
-                    'safari_advance_id'=>$inputs['safari_advance_id'],
-                    'number' => $number,
-                    'from'=>$inputs['from'],
-                    'to'=>$inputs['to'],
-                    'district_id'=>$inputs['district_id'],
-                    'amount_requested'=>$inputs['amount_requested'],
-                    'amount_paid'=>$inputs['amount_paid'],
-                    'amount_received'=>$inputs['amount_received'],
-                    'amount_spent'=>$inputs['amount_spent'],
-                    'amount_variance'=>$inputs['amount_variance'],
-                    'activity_report'=>$inputs['activity_report'],
-                ]
-            );
+                DB::table('retirement_details')->insert(
+                    [
+                        'retirement_id'=> $retire->id,
+                        'safari_advance_id'=>$inputs['safari_advance_id'],
+                        'number' => $number,
+                        'from'=>$inputs['from'],
+                        'to'=>$inputs['to'],
+                        'district_id'=>$inputs['district_id'],
+                        'amount_requested'=>$inputs['amount_requested'],
+                        'amount_paid'=>$inputs['amount_paid'],
+                        'amount_received'=>$inputs['amount_received'],
+                        'amount_spent'=>$inputs['amount_spent'],
+                        'amount_variance'=>$inputs['amount_variance'],
+                        'activity_report'=>$inputs['activity_report'],
+                    ]
+
+                );
+
+                if($inputs->hasfile('attachments'))
+                {
+                    foreach($inputs->file('attachments') as $file)
+                    {
+                        DB::table('files_attachments')->insert(
+                            [
+                                'retirement_id'=> $retire->id,
+                                'attachment_path'=> $inputs['attachments']
+                            ]
+                        );
+                    }
+                }
+
+            }
+
         });
     }
 

@@ -23,6 +23,7 @@
                                     {!! Form::select('district_id',$district, $retire_safari->district_id, ['class' => 'form-control', 'hidden']) !!}
                                     {!! Form::select('district_id_show',$district, $retire_safari->district_id, ['class' => 'form-control select2-show-search', 'disabled']) !!}
                                     {!! Form:: text('safari_advance_id', $retire_safari->safari_id,['class'=>'form-control','hidden'])!!}
+                                    {!! Form:: text('retirement_id', $retirement->id,['class'=>'form-control','hidden'])!!}
 
 
                                 </div>
