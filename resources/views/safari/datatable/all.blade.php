@@ -10,7 +10,7 @@
                     <li class=""><a href="#processing" class="active" data-toggle="tab">Onprocess <span class="badge badge-warning">{{ $safariAdvance->getAccessProcessingDatatable()->count() }}</span></a></li>
                     <li><a href="#rejected" data-toggle="tab" class="">Returned <span class="badge badge-danger">{{ $safariAdvance->getAccessRejectedDatatable()->count() }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $safariAdvance->getAccessProvedDatatable()->count() }}</span></a></li>
-                    <li><a href="#paid" data-toggle="tab" class="">Paid <span class="badge badge-primary">{{ $safariAdvance->getAccessPaidDatatable()->count() }}</span> </a></li>
+{{--                    <li><a href="#paid" data-toggle="tab" class="">Paid <span class="badge badge-primary">{{ $safariAdvance->getAccessPaidDatatable()->count() }}</span> </a></li>--}}
                     <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $safariAdvance->getAccessSavedDatatable()->count() }}</span> </a></li>
                 </ul>
             </div>
@@ -109,7 +109,7 @@
                     </div>
 
                 </div>
-                <div class="tab-pane" id="paid">
+               {{-- <div class="tab-pane" id="paid">
 
                     <div class="card-body">
                         <div class="table-responsive">
@@ -129,7 +129,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div>--}}
 
             </div>
         </div>
@@ -219,7 +219,7 @@
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
-            $("#access_paid").DataTable({
+        /*    $("#access_paid").DataTable({
                 // processing: true,
                 // serverSide: true,
                 destroy: true,
@@ -237,7 +237,7 @@
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
-            });
+            });*/
         })
     </script>
 @endpush

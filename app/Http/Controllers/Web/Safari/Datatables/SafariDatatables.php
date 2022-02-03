@@ -21,7 +21,7 @@ trait SafariDatatables
                 return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('safari.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -42,7 +42,7 @@ trait SafariDatatables
                 return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('safari.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. ''. '<a href="'.route('safari.edit', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -66,7 +66,7 @@ trait SafariDatatables
                 return number_2_format($query->amount_paid);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('safari.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -87,12 +87,12 @@ trait SafariDatatables
                 return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('safari.edit', $query->uuid).'">View</a>';
+                return '<a href="'.route('safari.edit', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-edit"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
     }
-    public function AccesssDatatable()
+    public function AccessPaidDatatable()
     {
         return DataTables::of($this->safariAdvance->getAccessPaidDatatable())
             ->addIndexColumn()
@@ -106,7 +106,7 @@ trait SafariDatatables
                 return number_2_format($query->amount_paid);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('safari.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('safari.show', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);

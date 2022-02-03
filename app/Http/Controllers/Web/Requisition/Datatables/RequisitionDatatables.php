@@ -21,7 +21,7 @@ trait RequisitionDatatables
                 return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i> </a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -54,7 +54,7 @@ trait RequisitionDatatables
      */
     public function AccessApprovedDatatable()
     {
-        return DataTables::of($this->requisitions->getAccessProvedDatatable())
+        return DataTables::of($this->requisitions->getAccessApprovedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateTimeString();
@@ -63,7 +63,7 @@ trait RequisitionDatatables
                 return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -84,24 +84,37 @@ trait RequisitionDatatables
                 return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.addDescription', $query->uuid).'">View</a>';
+                return '<a href="'.route('requisition.addDescription', $query->uuid).'"class="btn btn-outline-success"><i class="fa fa-edit"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
     }
     public function AccessPaidDatatable()
     {
-        return DataTables::of($this->requisitions->getAccessProcessingDatatable())
+        return DataTables::of($this->requisitions->getAccessPaidDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateTimeString();
             })
-            ->addColumn('amount', function ($query) {
-                return number_2_format($query->amount);
+            ->addColumn('payed_amount', function ($query) {
+                return number_2_format($query->payed_amount);
+            })
+            ->editColumn('is_closed', function ($query) {
+                if ($query->is_closed == false)
+                return 'Not Closed';
+                else{
+                    return 'Closed';
+                }
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.show', $query->uuid).'">View</a>';
-            })
+                if ($query->is_closed ==  true)
+                {
+                    return '<a href="'.route('requisition.show', $query->uuid).'"class="btn btn-outline-success"><i class="fa fa-eye"></i></a>';
+                }else{
+                    return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'.''.'<a href="'.route('requisition.updateActualAmount', $query->uuid).'" class="btn btn-outline-danger" ><i class="fa fa-close"></i></a>';
+
+                }
+                 })
             ->rawColumns(['action'])
             ->make(true);
     }
