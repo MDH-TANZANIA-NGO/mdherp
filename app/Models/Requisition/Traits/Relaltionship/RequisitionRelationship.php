@@ -65,6 +65,7 @@ trait RequisitionRelationship
         return $this->hasOne(Payment::class);
     }
 
+
     /**
      * @return mixed
      */

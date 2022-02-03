@@ -197,7 +197,7 @@ class WorkflowEventSubscriber
                     $email_resource = (object)[
                         'link' =>  route('retirement.show',$retirement),
                         'subject' => $retirement->number." Approved Successfully",
-                        'message' => 'These Application has been Approved successfully'
+                        'message' => 'The Retirement has been Approved successfully'
                     ];
                     $retirement->user->notify(new WorkflowNotification($email_resource));
                     break;

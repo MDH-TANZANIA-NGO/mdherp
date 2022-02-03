@@ -26,15 +26,17 @@ class RequisitionRepository extends BaseRepository
             DB::raw('requisition_types.title AS type_title'),
             DB::raw('requisitions.amount AS amount'),
             DB::raw('requisitions.uuid AS uuid'),
+            DB::raw('requisitions.is_closed AS is_closed'),
             DB::raw('requisitions.created_at AS created_at'),
 //            DB::raw('projects.title AS project_title'),
             DB::raw('activities.title AS activity_title'),
         ])
-            ->join('requisition_types', 'requisition_types.id','requisitions.requisition_type_id')
-            ->join('projects','projects.id', 'requisitions.project_id')
-            ->join('activities','activities.id','requisitions.activity_id')
-            ->join('users','users.id', 'requisitions.user_id');
+            ->join('requisition_types', 'requisition_types.id', 'requisitions.requisition_type_id')
+            ->join('projects', 'projects.id', 'requisitions.project_id')
+            ->join('activities', 'activities.id', 'requisitions.activity_id')
+            ->join('users', 'users.id', 'requisitions.user_id');
     }
+
     public function getQueryAll()
     {
         return $this->query()->select([
@@ -43,15 +45,15 @@ class RequisitionRepository extends BaseRepository
             DB::raw('requisitions.amount AS amount'),
             DB::raw('requisitions.uuid AS uuid'),
             DB::raw('requisitions.created_at AS created_at'),])
-
-            ->join('users','users.id', 'requisitions.user_id');
+            ->join('users', 'users.id', 'requisitions.user_id');
     }
 
     public function getAllApprovedRequisitions()
     {
-        return$this->getQueryAll()
+        return $this->getQueryAll()
             ->where('requisitions.wf_done', 1);
     }
+
     public function getAccessProcessingDatatable()
     {
         return $this->getQuery()
@@ -59,6 +61,32 @@ class RequisitionRepository extends BaseRepository
             ->where('requisitions.wf_done', 0)
             ->where('requisitions.done', true)
             ->where('requisitions.rejected', false)
+            ->where('users.id', access()->id());
+    }
+
+    public function getAccessPaidDatatable()
+    {
+        return $this->query()->select([
+            DB::raw('requisitions.id AS id'),
+            DB::raw('requisitions.number AS number'),
+            DB::raw('requisitions.amount AS amount'),
+            DB::raw('requisitions.uuid AS uuid'),
+            DB::raw('requisitions.is_closed AS is_closed'),
+            DB::raw('requisition_types.title AS type_title'),
+            DB::raw('activities.title AS activity_title'),
+            DB::raw('payments.id AS payment_id'),
+            DB::raw('payments.payed_amount AS payed_amount'),
+            DB::raw('requisitions.created_at AS created_at'),])
+            ->join('requisition_types', 'requisition_types.id', 'requisitions.requisition_type_id')
+            ->join('projects', 'projects.id', 'requisitions.project_id')
+            ->join('activities', 'activities.id', 'requisitions.activity_id')
+            ->join('users', 'users.id', 'requisitions.user_id')
+            ->join('payments', 'payments.requisition_id', 'requisitions.id')
+            ->whereHas('wfTracks')
+            ->where('requisitions.wf_done', 1)
+            ->where('requisitions.done', true)
+            ->where('requisitions.rejected', false)
+            ->whereHas('payments')
             ->where('users.id', access()->id());
     }
 
@@ -72,7 +100,7 @@ class RequisitionRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
-    public function getAccessProvedDatatable()
+    public function getAccessApprovedDatatable()
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
@@ -81,6 +109,7 @@ class RequisitionRepository extends BaseRepository
             ->where('requisitions.rejected', false)
             ->where('users.id', access()->id());
     }
+
 
     public function getAccessSavedDatatable()
     {
@@ -122,7 +151,7 @@ class RequisitionRepository extends BaseRepository
 
     public function store($inputs)
     {
-        return DB::transaction(function () use ($inputs){
+        return DB::transaction(function () use ($inputs) {
             return $this->query()->create($this->inputProcess($inputs));
         });
     }
@@ -137,7 +166,7 @@ class RequisitionRepository extends BaseRepository
     public function getApplicantLevel($wf_module_id)
     {
         $level = null;
-        switch($wf_module_id){
+        switch ($wf_module_id) {
             case 1:
                 $level = 1;
                 break;
@@ -154,7 +183,7 @@ class RequisitionRepository extends BaseRepository
     public function getHeadOfDeptLevel($wf_module_id)
     {
         $level = null;
-        switch($wf_module_id){
+        switch ($wf_module_id) {
             case 1:
                 $level = 2;
                 break;
@@ -170,21 +199,21 @@ class RequisitionRepository extends BaseRepository
      * @param array $inputs
      * @throws \App\Exceptions\GeneralException
      */
-    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign=0, array $inputs=[])
+    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])
     {
         $requisition = $this->find($resource_id);
         $applicant_level = $this->getApplicantLevel($wf_module_id);
         $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
 //        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
 //        if($requisition->rejected){}
-        switch($inputs['rejected_level'] ?? $current_level){
+        switch ($inputs['rejected_level'] ?? $current_level) {
             case $applicant_level:
                 $this->updateRejected($resource_id, $sign);
 
                 $email_resource = (object)[
-                    'link' =>  route('requisition.show',$requisition),
-                    'subject' => $requisition->typeCategory->title." Has been revised to your level",
-                    'message' => $requisition->typeCategory->title." ".$requisition->number.' need modification.. Please do the need and send it back for approval'
+                    'link' => route('requisition.show', $requisition),
+                    'subject' => $requisition->typeCategory->title . " Has been revised to your level",
+                    'message' => $requisition->typeCategory->title . " " . $requisition->number . ' need modification.. Please do the need and send it back for approval'
                 ];
 //                User::query()->find($requisition->user_id)->notify(new WorkflowNotification($email_resource));
 
@@ -193,11 +222,11 @@ class RequisitionRepository extends BaseRepository
                 $this->updateRejected($resource_id, $sign);
 
                 $email_resource = (object)[
-                    'link' =>  route('requisition.show',$requisition),
-                    'subject' => $requisition->typeCategory->title." Has been revised to your level",
-                    'message' => $requisition->typeCategory->title." ".$requisition->number.' need modification.. Please do the need and send it back for approval'
+                    'link' => route('requisition.show', $requisition),
+                    'subject' => $requisition->typeCategory->title . " Has been revised to your level",
+                    'message' => $requisition->typeCategory->title . " " . $requisition->number . ' need modification.. Please do the need and send it back for approval'
                 ];
-                User::query()->find($this->nextUserSelector($wf_module_id,$resource_id,$current_level))->notify(new WorkflowNotification($email_resource));
+                User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
 
                 break;
         }
@@ -212,9 +241,9 @@ class RequisitionRepository extends BaseRepository
     public function updateRejected($id, $sign)
     {
         $requisition = $this->query()->find($id);
-        return DB::transaction(function () use ($requisition, $sign){
+        return DB::transaction(function () use ($requisition, $sign) {
             $rejected = 0;
-            if($sign == -1){
+            if ($sign == -1) {
                 $rejected = 1;
             }
             return $requisition->update(['rejected' => $rejected]);
@@ -228,7 +257,7 @@ class RequisitionRepository extends BaseRepository
      */
     public function updateDoneAssignNextUserIdAndGenerateNumber(Requisition $requisition)
     {
-        return DB::transaction(function () use ($requisition){
+        return DB::transaction(function () use ($requisition) {
             return $requisition->update([
                 'done' => 1,
 
@@ -240,7 +269,7 @@ class RequisitionRepository extends BaseRepository
 
     public function updatingTotalAmount(Requisition $requisition)
     {
-        return DB::transaction(function () use ($requisition){
+        return DB::transaction(function () use ($requisition) {
             return $requisition->update([
                 'amount' => $this->getTotalAmountToUpdate($requisition),
             ]);
@@ -250,22 +279,20 @@ class RequisitionRepository extends BaseRepository
     public function getTotalAmountToUpdate(Requisition $requisition)
     {
         $total_amount = null;
-        switch($requisition->requisition_type_id)
-        {
+        switch ($requisition->requisition_type_id) {
             case 1:
                 $total_amount = $requisition->items()->sum('total_amount');
                 break;
 
             case 2:
-                switch($requisition->requisition_type_category)
-                {
+                switch ($requisition->requisition_type_category) {
                     case 1:
                         $total_amount = $requisition->travellingCost()->sum('total_amount');
                         break;
                     case 2:
                         $total_amount1 = $requisition->trainingCost()->sum('total_amount');
                         $total_amount2 = $requisition->trainingItems()->sum('total_amount');
-                        $total_amount = $total_amount1 + $total_amount2 ;
+                        $total_amount = $total_amount1 + $total_amount2;
                         break;
                 }
         }
@@ -278,11 +305,11 @@ class RequisitionRepository extends BaseRepository
     public function getQueryExtended($project_id, $activity_id, $region_id)
     {
         return $this->query()
-            ->join('projects','projects.id', 'requisitions.project_id')
-            ->join('budgets','budgets.id','requisitions.budget_id')
-            ->join('activities','activities.id','budgets.activity_id')
-            ->join('regions','regions.id','budgets.region_id')
-            ->join('fiscal_years','fiscal_years.id','budgets.fiscal_year_id')
+            ->join('projects', 'projects.id', 'requisitions.project_id')
+            ->join('budgets', 'budgets.id', 'requisitions.budget_id')
+            ->join('activities', 'activities.id', 'budgets.activity_id')
+            ->join('regions', 'regions.id', 'budgets.region_id')
+            ->join('fiscal_years', 'fiscal_years.id', 'budgets.fiscal_year_id')
             ->where('projects.id', $project_id)
             ->where('budgets.activity_id', $activity_id)
             ->where('budgets.region_id', $region_id);
@@ -318,14 +345,24 @@ class RequisitionRepository extends BaseRepository
 
     public function processComplete(Requisition $requisition)
     {
-        return DB::transaction(function () use ($requisition){
+        return DB::transaction(function () use ($requisition) {
             $requisition->budget->update([
                 'actual_amount' => $requisition->budget->actual_amount - $requisition->amount,
             ]);
         });
     }
+    public function  updateActualAmount(Requisition $requisition)
+    {
 
-
+        return DB::transaction(function () use ($requisition) {
+            $requisition->budget->update([
+                'actual_amount' => $requisition->budget->actual_amount + ($requisition->amount - $requisition->payments->payed_amount),
+            ]);
+            $requisition->update([
+               'is_closed'=>'true',
+            ]);
+        });
+    }
 
 
 }

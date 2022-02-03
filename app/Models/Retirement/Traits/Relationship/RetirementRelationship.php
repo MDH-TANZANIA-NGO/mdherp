@@ -3,7 +3,9 @@
 namespace App\Models\Retirement\Traits\Relationship;
 
 use App\Models\Auth\User;
+use App\Models\FilesAttachment\FilesAttachment;
 use App\Models\Retirement\RetirementDetail;
+use App\Models\SafariAdvance\SafariAdvance;
 use App\Models\System\District;
 use App\Models\Workflow\WfTrack;
 
@@ -20,6 +22,14 @@ public function user()
 public function details()
 {
     return $this->hasOne(RetirementDetail::class, 'retirement_id', 'id');
+}
+public function attachment()
+{
+    return $this->hasOne(FilesAttachment::class, 'retirement_id', 'id');
+}
+public function safari()
+{
+    return $this->belongsTo(SafariAdvance::class);
 }
 
 }

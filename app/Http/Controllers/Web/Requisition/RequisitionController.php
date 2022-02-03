@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Requisition;
+namespace App\Http\Controllers\Web\Requisition;
 
 use App\Events\NewWorkflow;
 use App\Exceptions\GeneralException;
-use App\Http\Controllers\Api\Facility\Web\Requisition\Datatables\RequisitionDatatables;
+use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Models\Requisition\Training\requisition_training_item;
 use App\Repositories\Access\UserRepository;
@@ -15,7 +15,7 @@ use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
 use App\Repositories\Requisition\Training\trainingRepository;
 use App\Repositories\System\RegionRepository;
 use App\Services\Workflow\Workflow;
-use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Controller;
 use App\Models\Requisition\Requisition;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Requisition\Equipment\EquipmentRepository;
@@ -233,6 +233,12 @@ class RequisitionController extends Controller
     public function detailed(){
 
         return view('requisition._parent.detailed');
+    }
+    public function updateActualAmount(Requisition $requisition)
+    {
+         $this->requisitions->updateActualAmount($requisition);
+         return redirect()->back();
+
     }
 
 

@@ -113,37 +113,35 @@
 
 
                 </div>
-{{--                <div class="row">--}}
-{{--                    <div class="col-md-4" >--}}
-{{--                        <div class="form-group">--}}
-{{--                            <div class="form-label">Attach Receipt</div>--}}
-{{--                            <div class="custom-file">--}}
-{{--                                <input type="file" class="form-control" name="attachment_receipt">--}}
-{{--                                --}}{{--                        <label class="custom-file-label">Choose file</label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
 
-{{--                    <div class="col-md-4" >--}}
-{{--                        <div class="form-group">--}}
-{{--                            <div class="form-label">Supportive Document Upload</div>--}}
-{{--                            <div class="custom-file">--}}
-{{--                                <input type="file" class="form-control" name="attachment_supportive">--}}
-{{--                                --}}{{--                                <label class="custom-file-label">Choose file</label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+              {{--  <div class="row">
+                    <div class="col-md-4" >
+                        <div class="form-group">
+                            <div class="form-label">Attach Receipt</div>
+                            <div class="custom-file">
+                                <input type="file" class="form-control" name="attachment_receipt">
+                            </div>
+                        </div>
+                    </div>
 
-{{--                    <div class="col-md-4" >--}}
-{{--                        <div class="form-group">--}}
-{{--                            <div class="form-label">Add Any Other Attachment</div>--}}
-{{--                            <div class="custom-file">--}}
-{{--                                <input type="file" class="form-control" name="attachment_other">--}}
-{{--                                --}}{{--                                <label class="custom-file-label">Choose file</label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                    <div class="col-md-4" >
+                        <div class="form-group">
+                            <div class="form-label">Supportive Document Upload</div>
+                            <div class="custom-file">
+                                <input type="file" class="form-control" name="attachment_supportive">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" >
+                        <div class="form-group">
+                            <div class="form-label">Add Any Other Attachment</div>
+                            <div class="custom-file">
+                                <input type="file" class="form-control" name="attachment_other">
+                            </div>
+                        </div>
+                    </div>
+                </div>--}}
 
 
 
@@ -155,27 +153,26 @@
                         <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
                         </div>
                             <div class="col-md-4" >
-                        <input type="file" name="attachment_path[]" class="form-control">
+                        <input type="file" name="attachments[]" class="form-control">
                             </div>
                         <div class="input-group-btn col-md-4">
-                            <button class="btn btn-success" type="button"><i class=""></i>Add attachment field</button>
+                            <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
                         </div>
                     </div>
+
                     <div class="clone hide">
-                        <div class="hdtuto control-group lst input-group" style="margin-top:10px">
+                        <div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">
                             <div class="col-md-4" >
                             <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
                             </div>
                             <div class="col-md-4" >
-                            <input type="file" name="filenames[]" class="form-control">
+                            <input type="file" name="attachments[]" class="form-control">
                             </div>
 
-{{--                            <div class="col-md-4" >--}}
-{{--                            <label for="html">Additional Attchment</label>--}}
-{{--                            </div>--}}
-{{--                            <div class="input-group-btn">--}}
-{{--                                <button class="btn btn-danger" type="button"><i class=""></i> Remove</button>--}}
-{{--                            </div>--}}
+                            <div class="input-group-btn col-md-4" >
+                               <button class="btn btn-danger att_button_rem" type="button"><i class=""></i>Remove attachment field</button>
+                            </div>
+
                         </div>
                     </div>
 
@@ -209,12 +206,13 @@
             }
 
             $(document).ready(function() {
-                $(".btn-success").click(function(){
+                $(".att_button").click(function(){
                     var lsthmtl = $(".clone").html();
                     $(".increment").after(lsthmtl);
+
                 });
-                $("body").on("click",".btn-danger",function(){
-                    $(this).parents(".hdtuto control-group lst").remove();
+                $("body").on("click",".att_button_rem",function(){
+                    $(this).parents(".remuv").remove();
                 });
             });
 
