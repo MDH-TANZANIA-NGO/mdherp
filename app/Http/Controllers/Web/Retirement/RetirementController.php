@@ -82,56 +82,37 @@ class RetirementController extends Controller
 
         //dd($this->retirements->all());
 
-
         $retirement_attribute =$this->retirements->findByUuid($uuid);
 
-        dd($request->all());
+
+        //dd($request->all());
 
         if ($retirement_attribute->done == true)
         {
             $this->retirements->update($request->all(),$uuid);
+
+            $retirement_detailz = RetirementDetail::where('retirement_id', $retirement_attribute->id)->first();
+
+            if ($request->hasFile('attachments')){
+                foreach($request->file('attachments') as $attachment){
+                    $retirement_detailz->addMedia($attachment)->toMediaCollection('attachments');
+                }
+            }
+
             return redirect()->route('retirement.show',$uuid);
         }
         else{
             $this->retirements->update($request->all(),$uuid);
-            //check if there is a file and add attachement
 
+            $retirement_detailz = RetirementDetail::where('retirement_id', $retirement_attribute->id)->first();
+
+            if ($request->hasFile('attachments')){
+                foreach($request->file('attachments') as $attachment){
+                    $retirement_detailz->addMedia($attachment)->toMediaCollection('attachments');
+                }
+            }
 
             $retirement = $this->retirements->findByUuid($uuid);
-            $retirementDetails = RetirementDetail::where('retirement_id', $retirement->id)->first();
-            $attachmentDetails = FilesAttachment::where('retirement_id', $retirement->id)->first();
-
-            /*$this->validate($request, [
-                'filenames' => 'required',
-                'filenames.*' => 'mimes:doc,pdf,docx,zip'
-            ]);*/
-
-
-            /*if($request->hasfile('attachments'))
-            {
-                foreach($request->file('attachments') as $file)
-                {
-                    $retirementDetails->insert(['attachment_path' => $request->file('attachments')->store('Retirements/attachment/receipt')]);
-                    $name = time().'.'.$file->extension();
-                    $file->move(public_path().'/files/', $name);
-                    $data[] = $name;
-                }
-            }*/
-
-
-            /*$file= new File();
-            $file->filenames=json_encode($data);
-            $file->save();*/
-
-          /*  if($request->hasFile('attachment_receipt')){
-                $retirementDetails->update(['attachment_receipt' => $request->file('attachment_receipt')->store('Retirements/attachment/receipt')]);
-            }
-            if($request->hasFile('attachment_supportive')){
-                $retirementDetails->update(['attachment_supportive' => $request->file('attachment_supportive')->store('Retirements/attachment/supportive')]);
-            }
-            if($request->hasFile('attachment_other')){
-                $retirementDetails->update(['attachment_other' => $request->file('attachment_other')->store('Retirements/attachment/other')]);
-            }*/
 
             $wf_module_group_id = 4;
 

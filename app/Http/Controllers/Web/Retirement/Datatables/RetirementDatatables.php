@@ -36,7 +36,7 @@ trait RetirementDatatables
                 return number_2_format($query->amount_paid);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('retirement.show', $query->uuid).'" class="btn btn-primary">View</a>'.' '.'<a href="'.route('retirement.edit', $query->uuid).'" class="btn btn-warning"><i class="fa fa-edit"></i></a>';
+                return '<a href="'.route('retirement.edit', $query->uuid).'" class="btn btn-warning"><i class="fa fa-edit"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
