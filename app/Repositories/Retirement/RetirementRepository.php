@@ -156,7 +156,7 @@ class RetirementRepository extends BaseRepository
 
                 );
 
-                if($inputs->hasfile('attachments'))
+               /* if($inputs->hasfile('attachments'))
                 {
                     foreach($inputs->file('attachments') as $file)
                     {
@@ -167,7 +167,7 @@ class RetirementRepository extends BaseRepository
                             ]
                         );
                     }
-                }
+                }*/
 
             }
 

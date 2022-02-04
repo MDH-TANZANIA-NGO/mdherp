@@ -149,9 +149,9 @@
                     <div class="container lst">
                     <div class="input-group hdtuto control-group lst increment" >
 
-                        <div class="col-md-4" >
+                      {{--  <div class="col-md-4" >
                         <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
-                        </div>
+                        </div>--}}
                             <div class="col-md-4" >
                         <input type="file" name="attachments[]" class="form-control">
                             </div>
@@ -162,9 +162,9 @@
 
                     <div class="clone hide">
                         <div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">
-                            <div class="col-md-4" >
+                           {{-- <div class="col-md-4" >
                             <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
-                            </div>
+                            </div>--}}
                             <div class="col-md-4" >
                             <input type="file" name="attachments[]" class="form-control">
                             </div>

@@ -151,12 +151,8 @@
                     <div class ="row">
                     <div class="container lst">
                     <div class="input-group hdtuto control-group lst increment" >
-
-                        <div class="col-md-4" >
-                        <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
-                        </div>
                             <div class="col-md-4" >
-                        <input type="file" name="attachment_path[]" class="form-control">
+                        <input type="file" name="attachments[]" class="form-control">
                             </div>
                         <div class="input-group-btn col-md-4">
                             <button class="btn btn-success" type="button"><i class=""></i>Add attachment field</button>
@@ -165,10 +161,7 @@
                     <div class="clone hide">
                         <div class="hdtuto control-group lst input-group" style="margin-top:10px">
                             <div class="col-md-4" >
-                            <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
-                            </div>
-                            <div class="col-md-4" >
-                            <input type="file" name="filenames[]" class="form-control">
+                            <input type="file" name="attachments[]" class="form-control">
                             </div>
 
 {{--                            <div class="col-md-4" >--}}
