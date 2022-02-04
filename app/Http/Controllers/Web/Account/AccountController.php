@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Account;
+namespace App\Http\Controllers\Web\Account;
 
-use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Controller;
 use App\Models\Auth\User;
 use App\Models\Leave\LeaveType;
 use App\Repositories\Access\PermissionRepository;
@@ -15,35 +15,14 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-    protected $designations;
-    protected $regions;
-    protected $users;
-    protected $projects;
-    protected $wf_module_groups;
-    protected $permissions;
-
-    public function __construct()
+    /**
+     * Handle the incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function __invoke(Request $request)
     {
-        $this->designations = (new DesignationRepository());
-        $this->regions = (new RegionRepository());
-        $this->users = (new UserRepository());
-        $this->projects = (new ProjectRepository());
-        $this->wf_module_groups = (new WfModuleGroupRepository());
-        $this->permissions = (new PermissionRepository());
-    }
-
-    public function index(User $user){
-        $leaveTypes = LeaveType::all();
-        return view('employee.account.index')
-            ->with('user', $user)
-            ->with('leaveTypes', $leaveTypes)
-            ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
-            ->with('marital', code_value()->query()->where('code_id',3)->pluck('name','id'))
-            ->with('designations', $this->designations->getActiveForSelect())
-            ->with('regions', $this->regions->forSelect())
-            ->with('wf_module_groups', $this->wf_module_groups->getAll())
-            ->with('users', $this->users->getAllUsersWithNoSupervisorPluck($user->id))
-            ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorGet($user->id))
-            ->with('permissions', $this->permissions->getAll());;
+        return view('account.index');
     }
 }

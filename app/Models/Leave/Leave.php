@@ -19,4 +19,10 @@ class Leave extends BaseModel
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function getResourceNameAttribute()
+    {
+        return "<b>".$this->id."</b> <br>".
+            $this->user->full_name_formatted."<br>".
+            $this->user->designation_title;
+    }
 }

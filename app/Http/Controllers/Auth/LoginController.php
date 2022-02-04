@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api\Facility\Auth;
 
 use App\Http\Controllers\Api\Facility\Auth\Traits\RedirectTo;
-use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Api\Facility\FacilityController;
+use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
