@@ -53,6 +53,7 @@ class FacilityController extends BaseController
 
         $facility = Facility::create([
             'name' => $fields['name'],
+            'common_name' => $request['common_name'],
             'number' => $request['number'],
             'ward_id' => $fields['ward_id'],
             'facility_type_id' => $request['facility_type_id'],

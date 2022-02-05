@@ -17,6 +17,7 @@ class FacilityResource extends JsonResource
         return [
             'facility_id' => $this->id,
             'facility_name' => $this->name,
+            'common_name' =>$this->common_name,
             'facility_number' => $this->number,
             'isactive' => $this->isactive,
             'created_at' => $this->created_at,
