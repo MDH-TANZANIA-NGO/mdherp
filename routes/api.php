@@ -35,6 +35,9 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
             'middleware' => ['auth:user-api']
         ], function() {
             Route::post('logout', 'Auth\LoginController@logout');
+
+            Route::post('ward/store', 'MDHData\WardController@store');
+            Route::post('facility/store', 'MDHData\FacilityController@store')->name('facility-store');
             includeRouteFiles(__DIR__.'/api/');
         });
     });
