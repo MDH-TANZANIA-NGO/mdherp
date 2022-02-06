@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\GOfficer\Datatables;
+namespace App\Http\Controllers\Web\GOfficer\Datatables;
 
 use Yajra\DataTables\DataTables;
 

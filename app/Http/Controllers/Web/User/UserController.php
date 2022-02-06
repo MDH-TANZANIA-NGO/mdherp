@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\User;
+namespace App\Http\Controllers\Web\User;
 
-use App\Http\Controllers\Api\Facility\Controller;
-use App\Http\Controllers\Api\Facility\Web\User\Datatables\UserDatatables;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\User\Datatables\UserDatatables;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Repositories\Access\PermissionRepository;

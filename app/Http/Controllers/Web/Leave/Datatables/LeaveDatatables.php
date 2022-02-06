@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Leave\Datatables;
+namespace App\Http\Controllers\Web\Leave\Datatables;
 
 trait LeaveDatatables
 {

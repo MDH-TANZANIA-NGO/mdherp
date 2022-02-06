@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Requisition\Equipment;
+namespace App\Http\Controllers\Web\Requisition\Equipment;
 
-use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Requisition\Equipment\EquipmentTypeRequest;
 use App\Repositories\Requisition\Equipment\EquipmentTypeRepository;
 use Illuminate\Http\Request;

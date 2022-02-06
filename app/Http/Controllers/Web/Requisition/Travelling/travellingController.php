@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Requisition\Travelling;
+namespace App\Http\Controllers\Web\Requisition\Travelling;
 
-use App\Http\Controllers\Api\Facility\Controller;
-use App\Http\Controllers\Api\Facility\Web\Requisition\Travelling\Traits\travellingCostsDatatable;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Requisition\Travelling\Traits\travellingCostsDatatable;
 use App\Models\Auth\User;
 use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Travelling\travelling_cost;

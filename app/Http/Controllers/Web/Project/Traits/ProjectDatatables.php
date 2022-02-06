@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Project\Traits;
+namespace App\Http\Controllers\Web\Project\Traits;
 
 use App\Models\System\Region;
 use Carbon\Carbon;

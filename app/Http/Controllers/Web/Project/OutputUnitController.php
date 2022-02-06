@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Project;
+namespace App\Http\Controllers\Web\Project;
 
-use App\Http\Controllers\Api\Facility\Controller;
-use App\Http\Controllers\Api\Facility\Web\Project\Traits\OutputUnitDatatables;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Project\Traits\OutputUnitDatatables;
 use App\Models\Project\OutputUnit;
 use App\Repositories\Project\OutputUnitRepository;
 use Illuminate\Http\Request;

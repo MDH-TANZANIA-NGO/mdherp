@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Api\Facility\Auth\Traits;
+namespace App\Http\Controllers\Auth\Traits;
 
 
 trait RedirectTo

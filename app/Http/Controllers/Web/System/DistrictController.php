@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\System;
+namespace App\Http\Controllers\System;
 
 use App\Models\System\District;
 use App\Repositories\System\DistrictRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 
 class DistrictController extends Controller

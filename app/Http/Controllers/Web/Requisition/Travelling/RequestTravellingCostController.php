@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Requisition\Travelling;
+namespace App\Http\Controllers\Web\Requisition\Travelling;
 
-use App\Http\Controllers\Api\Facility\Controller;
-use App\Http\Controllers\Api\Facility\Web\Requisition\Travelling\Traits\travellingCostsDatatable;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Requisition\Travelling\Traits\travellingCostsDatatable;
 use App\Models\Requisition\Requisition;
 use App\Models\System\District;
 use App\Repositories\Access\UserRepository;

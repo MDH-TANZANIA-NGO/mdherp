@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Budget\Traits;
+namespace App\Http\Controllers\Web\Budget\Traits;
 
 use Yajra\DataTables\DataTables;
 

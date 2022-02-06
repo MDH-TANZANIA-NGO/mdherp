@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\web\fleet;
+namespace App\Http\Controllers\web\fleet;
 
-use App\Http\Controllers\Api\Facility\Controller;
-use App\Http\Controllers\Api\Facility\Web\Fleet\Traits\FleetDatatables;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Fleet\Traits\FleetDatatables;
 use App\Models\Fleet\Fleet;
 use App\Repositories\Fleet\FleetRepository;
 use Illuminate\Http\Request;

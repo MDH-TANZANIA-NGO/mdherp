@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\System;
+namespace App\Http\Controllers\Web\System;
 
 use App\DataTables\WorkflowTrackDataTable;
 use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
-use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\System\UpdateWorkflowRequest;
 use App\Models\System\Sysdef;
 use App\Models\Workflow\WfTrack;
