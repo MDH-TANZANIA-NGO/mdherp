@@ -6,12 +6,14 @@ use App\Models\GOfficer\Traits\Attribute\GOfficerAttribute;
 use App\Models\GOfficer\Traits\Relationship\GOfficerRelationship;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Auditable;
 use Webpatser\Uuid\Uuid;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use App\Notifications\Auth\ResetPasswordNotification;
 //use Laravel\Sanctum\HasApiTokens;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GOfficer extends Authenticatable implements AuditableContract
 {
