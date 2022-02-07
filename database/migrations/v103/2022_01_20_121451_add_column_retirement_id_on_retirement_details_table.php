@@ -13,7 +13,7 @@ class AddColumnRetirementIdOnRetirementsDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::table('retirements_details', function (Blueprint $table) {
+        Schema::table('retirement_details', function (Blueprint $table) {
             $table->unsignedBigInteger('retirement_id')->nullable();
         });
     }
