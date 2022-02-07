@@ -52,16 +52,16 @@ return [
 //            'provider' => 'users',
 //        ],
 
-        'user-api' => [
+        'user' => [
             'driver' => 'passport',
             'provider' => 'users',
             'hash' => true,
         ],
 
-        'g_officer-api' => [
-            'driver' => 'token',
-            'provider' => 'g_officers',
-        ],
+//        'g_officer' => [
+//            'driver' => 'passport',
+//            'provider' => 'g_officers',
+//        ],
     ],
 
     /*
@@ -92,10 +92,10 @@ return [
         //     'table' => 'users',
         // ],
 
-        'g_officers' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\GOfficer\GOfficer::class,
-        ],
+//        'g_officers' => [
+//            'driver' => 'eloquent',
+//            'model' => App\Models\GOfficer\GOfficer::class,
+//        ],
     ],
 
     /*
@@ -120,6 +120,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+//        'g_officers' => [
+//            'provider' => 'g_officers',
+//            'expire' => 60,
+//            'throttle' => 60,
+//        ],
     ],
 
     /*

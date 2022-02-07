@@ -13,5 +13,6 @@ Route::group(['namespace' => 'MDHData', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('{ownership_category}/ownerships', 'OwnershipCategoryController@show')->name('ownerships');
 
     Route::get('g_officers', 'GOfficerController@index')->name('g_officers');
+    Route::get('g_officer/create', 'GOfficerController@create')->name('g_officer-create');
 
 });

@@ -4,6 +4,7 @@ namespace App\Models\GOfficer;
 
 use App\Models\GOfficer\Traits\Attribute\GOfficerAttribute;
 use App\Models\GOfficer\Traits\Relationship\GOfficerRelationship;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Notifiable;
@@ -15,9 +16,9 @@ use App\Notifications\Auth\ResetPasswordNotification;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GOfficer extends Authenticatable implements AuditableContract
+class GOfficer extends Model
 {
-    use Notifiable, HasApiTokens, GOfficerAttribute, GOfficerRelationship, Auditable, SoftDeletes;
+//    use Notifiable, HasApiTokens, GOfficerAttribute, GOfficerRelationship, Auditable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +26,8 @@ class GOfficer extends Authenticatable implements AuditableContract
      * @var array
      */
     protected $guarded = ['uuid'];
+
+    protected $guard = 'g_officer';
 
     /**
      * The attributes that should be hidden for arrays.
