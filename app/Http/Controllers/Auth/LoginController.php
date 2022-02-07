@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Auth;
+namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Api\Facility\Auth\Traits\RedirectTo;
-use App\Http\Controllers\Api\Facility\FacilityController;
+use App\Http\Controllers\Auth\Traits\RedirectTo;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -21,7 +20,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers, RedirectTo;
+    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
