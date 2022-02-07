@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Requisition\Equipment;
+namespace App\Http\Controllers\Web\Requisition\Equipment;
 
-use App\Http\Controllers\Api\Facility\Controller;
-use App\Http\Controllers\Api\Facility\Web\Requisition\Equipment\datatables\EquipmentDatatables;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Requisition\Equipment\datatables\EquipmentDatatables;
 use App\Http\Requests\Requisition\Equipment\EquipmentRequest;
 use App\Repositories\Requisition\Equipment\EquipmentRepository;
 use App\Repositories\Requisition\Equipment\EquipmentTypeRepository;

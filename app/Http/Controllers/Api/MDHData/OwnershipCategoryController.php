@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility;
+namespace App\Http\Controllers\Api\MDHData;
 
 use App\Http\Controllers\Api\BaseController;
+use App\Http\Resources\OwnershipResource;
+use App\Models\Facility\Ownership;
 use Illuminate\Http\Request;
 
-class FacilityController extends BaseController
+class OwnershipCategoryController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -42,11 +44,15 @@ class FacilityController extends BaseController
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $ownerships = Ownership::where('ownership_category_id', $id)->get();
+
+        $success['ownerships'] = OwnershipResource::collection($ownerships);
+
+        return $this->sendResponse($success, "Ownerships");
     }
 
     /**

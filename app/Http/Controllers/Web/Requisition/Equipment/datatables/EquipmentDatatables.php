@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Requisition\Equipment\datatables;
+namespace App\Http\Controllers\Web\Requisition\Equipment\datatables;
 
 use Yajra\DataTables\DataTables;
 

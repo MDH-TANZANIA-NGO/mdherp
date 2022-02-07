@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Budget;
+namespace App\Http\Controllers\Web\Budget;
 
-use App\Http\Controllers\Api\Facility\Controller;
-use App\Http\Controllers\Api\Facility\Web\Budget\Traits\FiscalYearDatatables;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Budget\Traits\FiscalYearDatatables;
 use App\Repositories\Budget\FiscalYearRepository;
 use Illuminate\Http\Request;
 

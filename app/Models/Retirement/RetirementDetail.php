@@ -16,3 +16,4 @@ class RetirementDetail extends BaseModel implements HasMedia
         return $this->belongsTo(District::class, 'district_id', 'id');
     }
 }
+

@@ -1,21 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility;
+namespace App\Http\Controllers\Api\MDHData;
 
 use App\Http\Controllers\Api\BaseController;
-use App\Models\System\Ward;
-use App\Repositories\System\WardRepository;
+use App\Http\Resources\FacilityCategoryResource;
+use App\Http\Resources\OwnershipCategoryResource;
+use App\Models\Facility\Facility;
+use App\Models\Facility\FacilityCategory;
+use App\Models\Facility\OwnershipCategory;
 use Illuminate\Http\Request;
 
-class WardController extends BaseController
+class FacilityController extends BaseController
 {
-    protected $wards;
-
-    public function __construct()
-    {
-        $this->wards = (new WardRepository());
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -29,11 +25,17 @@ class WardController extends BaseController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create()
     {
-        //
+        $facility_categories = FacilityCategory::all();
+        $success['facility_categories'] = FacilityCategoryResource::collection($facility_categories);
+
+        $ownership_categories = OwnershipCategory::all();
+        $success['ownership_categories'] = OwnershipCategoryResource::collection($ownership_categories);
+
+        return $this->sendResponse($success, "Facility Details");
     }
 
     /**
@@ -46,14 +48,24 @@ class WardController extends BaseController
     {
         $fields = $request->validate([
             'name' => 'required',
-            'district_id' => 'required'
+            'ward_id' => 'required'
         ]);
 
-        $ward = $this->wards->store($request);
+        $facility = Facility::create([
+            'name' => $fields['name'],
+            'common_name' => $request['common_name'],
+            'number' => $request['number'],
+            'ward_id' => $fields['ward_id'],
+            'facility_type_id' => $request['facility_type_id'],
+            'ownership_id' => $request['ownership_id'],
+            'latitude' => $request['latitude'],
+            'longitude' => $request['longitude'],
+            'location' => $request['location'],
+        ]);
 
-        $success['ward'] = $ward;
+        $success['facility'] = $facility;
 
-        return $this->sendResponse($success, 'Ward added successfully');
+        return $this->sendResponse($success, 'Facility added successfully');
     }
 
     /**

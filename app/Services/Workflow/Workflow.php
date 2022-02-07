@@ -19,6 +19,7 @@ use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\taf\TafRepository;
 use App\Repositories\Tber\TberRepository;
 use App\Repositories\Leave\LeaveRepository;
+use App\Repositories\Timesheet\TimesheetRepository;
 use App\Repositories\Workflow\WfModuleRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
@@ -407,12 +408,32 @@ class Workflow
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
+                case 6:
+                    $leave_repo = (new LeaveRepository());
+                    $leave = $leave_repo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('leave.show',$leave),
+                        'subject' => " Need your Approval",
+                        'message' => 'need your approval'
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
                 case 7:
                     $financerepo = (new FinanceActivityRepository());
                     $finance = $financerepo->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('finance.view',$finance),
                         'subject' => $finance->number. " Need your Approval",
+                        'message' => ' need your approval'
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 8:
+                    $timesheetrepo = (new TimesheetRepository());
+                    $timesheet = $timesheetrepo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('timesheet.show',$timesheet),
+                        'subject' =>  " Need your Approval",
                         'message' => ' need your approval'
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
@@ -461,11 +482,23 @@ class Workflow
                 $retirement = $retirement_repo->find($resourceId);
                 $retirement->wfTracks()->save($wfTrack);
                 break;
+            case 5:
+                /*Leave */
+                $leave_repo = (new LeaveRepository());
+                $leave = $leave_repo->find($resourceId);
+                $leave->wfTracks()->save($wfTrack);
+                break;
             case 6:
                 /*Finance */
                 $financerepo = (new FinanceActivityRepository());
                 $finance = $financerepo->find($resourceId);
                 $finance->wfTracks()->save($wfTrack);
+                break;
+            case 7:
+                /*Timesheet */
+                $timesheetrepo = (new TimesheetRepository());
+                $timesheet = $timesheetrepo->find($resourceId);
+                $timesheet->wfTracks()->save($wfTrack);
                 break;
         }
     }

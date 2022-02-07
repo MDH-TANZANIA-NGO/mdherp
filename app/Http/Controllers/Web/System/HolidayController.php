@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\System;
+namespace App\Http\Controllers\System;
 
-use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Controller;
 use App\Repositories\System\HolidayRepository;
 use Illuminate\Http\Request;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Requisition\Training;
+namespace App\Http\Controllers\Web\Requisition\Training;
 
-use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Requisition\Training\RequisitionTrainingCostRequest;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;

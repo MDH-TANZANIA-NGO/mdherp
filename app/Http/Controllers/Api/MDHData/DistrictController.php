@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\MDHData;
 
 use App\Http\Controllers\Api\BaseController;
+use App\Http\Resources\WardResource;
+use App\Models\System\Ward;
 use Illuminate\Http\Request;
 
 class DistrictController extends BaseController
@@ -42,11 +44,16 @@ class DistrictController extends BaseController
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        $wards = Ward::where('district_id', $id)
+            ->with('facilities')
+            ->get();
+
+        $success['wards'] = WardResource::collection($wards);
+        return $this->sendResponse($success, "wards");
     }
 
     /**

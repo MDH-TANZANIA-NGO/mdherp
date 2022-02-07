@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\SupplyChain\Traits;
+namespace App\Http\Controllers\Web\SupplyChain\Traits;
 
-use App\Http\Controllers\Api\Facility\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 

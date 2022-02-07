@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\GOfficer;
+namespace App\Http\Controllers\Web\GOfficer;
 
-use App\Http\Controllers\Api\Facility\Controller;
-use App\Http\Controllers\Api\Facility\Web\GOfficer\Datatables\GOfficerDatatables;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerDatatables;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GScaleRepository;
 use App\Repositories\System\RegionRepository;

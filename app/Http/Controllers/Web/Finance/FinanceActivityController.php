@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Web\Finance;
+namespace App\Http\Controllers\Web\Finance;
 
 use App\Events\NewWorkflow;
 use App\Exports\PaymentExport;
-use App\Http\Controllers\Api\Facility\Controller;
-use App\Http\Controllers\Api\Facility\Web\Finance\Datatable\PaymentsDatatable;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Finance\Datatable\PaymentsDatatable;
 use App\Models\Auth\User;
 use App\Models\Payment\Payment;
 use App\Models\ProgramActivity\ProgramActivity;
@@ -36,7 +36,7 @@ class FinanceActivityController extends Controller
 
     protected $safariAdvance;
     protected $requisitions;
-    protected $program_activity;
+    protected $program_activity; 
     protected $retirement;
     protected $requisition_training_cost;
     protected $finance;

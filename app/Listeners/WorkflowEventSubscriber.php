@@ -6,10 +6,12 @@ use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
+use App\Repositories\Timesheet\TimesheetRepository;
 use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
 use App\Services\Workflow\Traits\WorkflowUserSelector;
 use App\Services\Workflow\Workflow;
@@ -201,6 +203,17 @@ class WorkflowEventSubscriber
                     ];
                     $retirement->user->notify(new WorkflowNotification($email_resource));
                     break;
+                case 6:
+                    $leave_repo = (new LeaveRepository());
+                    $leave = $leave_repo->find($resource_id);
+                    $this->updateWfDone($leave);
+                    $email_resource = (object)[
+                        'link' =>  route('leave.show',$leave),
+                        'subject' => "Approved Successfully",
+                        'message' => 'These Application has been Approved successfully'
+                    ];
+                    $leave->user->notify(new WorkflowNotification($email_resource));
+                    break;
                 case 7:
                     $financerepo = (new FinanceActivityRepository());
                     $finance = $financerepo->find($resource_id);
@@ -212,6 +225,17 @@ class WorkflowEventSubscriber
                         'message' => 'These Application has been Approved successfully'
                     ];
                     $finance->user->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 8:
+                    $timesheetrepo = (new TimesheetRepository());
+                    $timesheet = $timesheetrepo->find($resource_id);
+                    $this->updateWfDone($timesheet);
+                    $email_resource = (object)[
+                        'link' =>  route('timesheet.show',$timesheet),
+                        'subject' => "Approved Successfully",
+                        'message' => 'These Timesheet has been Approved successfully'
+                    ];
+                    $timesheet->user->notify(new WorkflowNotification($email_resource));
                     break;
             }
 
