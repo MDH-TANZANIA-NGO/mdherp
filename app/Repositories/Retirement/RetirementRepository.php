@@ -3,10 +3,12 @@
 namespace App\Repositories\Retirement;
 
 use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
+use App\Models\Auth\User;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\Retirement\RetirementDetail;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
@@ -171,6 +173,73 @@ class RetirementRepository extends BaseRepository
 
             }
 
+        });
+    }
+
+    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])
+    {
+        $retirement = $this->find($resource_id);
+        $applicant_level = $this->getApplicantLevel($wf_module_id);
+        $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
+//        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
+//        if($retirement->rejected){}
+        switch ($inputs['rejected_level'] ?? $current_level) {
+            case $applicant_level:
+                $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' => route('retirement.show', $retirement),
+                    'subject' => $retirement->number . " Has been revised to your level",
+                    'message' => $retirement->number . ' need modification.. Please do the need and send it back for approval'
+                ];
+                User::query()->find($retirement->user_id)->notify(new WorkflowNotification($email_resource));
+
+                break;
+            case $head_of_dept_level:
+                $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' => route('requisition.show', $retirement),
+                    'subject' => $retirement->number . " Has been revised to your level",
+                    'message' => $retirement->number  . ' need modification.. Please do the need and send it back for approval'
+                ];
+           //     User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
+
+                break;
+        }
+    }
+
+    public function getApplicantLevel($wf_module_id)
+    {
+        $level = null;
+        switch ($wf_module_id) {
+            case 1:
+                $level = 1;
+                break;
+        }
+        return $level;
+    }
+
+    public function getHeadOfDeptLevel($wf_module_id)
+    {
+        $level = null;
+        switch ($wf_module_id) {
+            case 1:
+                $level = 2;
+                break;
+        }
+        return $level;
+    }
+
+    public function updateRejected($id, $sign)
+    {
+        $retirement = $this->query()->find($id);
+        return DB::transaction(function () use ($retirement, $sign) {
+            $rejected = FALSE;
+            if ($sign == -1) {
+                $rejected = TRUE;
+            }
+            return $retirement->update(['rejected' => $rejected]);
         });
     }
 

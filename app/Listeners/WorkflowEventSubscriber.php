@@ -251,6 +251,9 @@ class WorkflowEventSubscriber
             case 1:
                 (new RequisitionRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
+            case 5:
+                (new RetirementRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
+                break;
 
         }
     }
