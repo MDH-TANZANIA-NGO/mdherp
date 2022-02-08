@@ -40,28 +40,33 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+//
 //        'api' => [
 //            'driver' => 'token',
 //            'provider' => 'users',
 //            'hash' => false,
 //        ],
-
+//
 //        'api' => [
 //            'driver' => 'passport',
 //            'provider' => 'users',
 //        ],
 
-        'user' => [
+        'user-api' => [
             'driver' => 'passport',
             'provider' => 'users',
             'hash' => true,
         ],
 
-//        'g_officer' => [
-//            'driver' => 'passport',
-//            'provider' => 'g_officers',
-//        ],
+        'g_officer' => [
+            'driver' => 'session',
+            'provider' => 'g_officers',
+        ],
+
+        'g_officer-api' => [
+            'driver' => 'passport',
+            'provider' => 'g_officers',
+        ],
     ],
 
     /*
@@ -92,10 +97,10 @@ return [
         //     'table' => 'users',
         // ],
 
-//        'g_officers' => [
-//            'driver' => 'eloquent',
-//            'model' => App\Models\GOfficer\GOfficer::class,
-//        ],
+        'g_officers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\GOfficer\GOfficer::class,
+        ],
     ],
 
     /*
@@ -121,11 +126,11 @@ return [
             'throttle' => 60,
         ],
 
-//        'g_officers' => [
-//            'provider' => 'g_officers',
-//            'expire' => 60,
-//            'throttle' => 60,
-//        ],
+        'g_officers' => [
+            'provider' => 'g_officers',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
 
     /*

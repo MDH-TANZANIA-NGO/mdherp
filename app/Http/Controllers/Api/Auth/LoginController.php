@@ -30,6 +30,11 @@ class LoginController extends BaseController
         return $this->loginWithEmailAndPassword();
     }
 
+    public function gOfficerLogin()
+    {
+        return $this->loginWithPhoneAndPassword();
+    }
+
 
 
     // this method  logout users by removing tokens

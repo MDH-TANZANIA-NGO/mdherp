@@ -14,6 +14,7 @@ use App\Repositories\GOfficer\GScaleRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Models\GOfficer\GOfficer;
+use Illuminate\Support\Facades\DB;
 
 class GOfficerController extends BaseController
 {
@@ -91,7 +92,21 @@ class GOfficerController extends BaseController
      */
     public function show($id)
     {
-        //
+        $g_officer_facilities = DB::table('g_officers')
+            ->selectRaw('facilities.id as facility_id')
+            ->selectRaw('facilities.name as facility_name')
+            ->selectRaw('facilities.number as facility_number')
+            ->selectRaw('facility_types.name as facility_type')
+            ->leftJoin('facility_g_officer', 'facility_g_officer.g_officer_id', '=','g_officers.id')
+            ->leftJoin('facilities', 'facilities.id', '=', 'facility_g_officer.facility_id')
+            ->leftJoin('facility_types', 'facility_types.id', '=', 'facilities.facility_type_id')
+            ->leftJoin('facility_categories', 'facility_categories.id', '=', 'facility_types.facility_category_id')
+            ->where('g_officers.id', $id)
+            ->get();
+
+        $success['facilities'] = $g_officer_facilities;
+
+        return $this->sendResponse($success, "Government Officer Facilities");
     }
 
     /**
