@@ -52,6 +52,14 @@ class GOfficerController extends BaseController
     public function create()
     {
         $districts = District::all();
+
+        $countries_organisations = DB::table("country_organisation")
+            ->selectRaw('country_organisation.id as id, countries.name as country, organisations.name as organisation')
+            ->leftJoin('organisations', 'organisations.id', '=', 'organisation_id')
+            ->leftJoin('countries', 'countries.id', '=', 'country_id')
+            ->get();
+
+        $success['countries_organisations'] = $countries_organisations;
         $success['regions'] = $this->regions->getQuery()->get();
         $success['districts'] = DistrictResource::collection($districts);
         $success['g_scales'] = $this->g_scales->getQuery()->get();
@@ -75,6 +83,7 @@ class GOfficerController extends BaseController
             'g_scale_id' => $request['g_scale'],
             'region_id' => $request['region_id'],
             'district_id' => $request['district_id'],
+            'country_organisation_id' => $request['country_organisation_id'],
             'fingerprint_data' => $request['fingerprint_data'],
             'fingerprint_length' => $request['fingerprint_length'],
         ]);
