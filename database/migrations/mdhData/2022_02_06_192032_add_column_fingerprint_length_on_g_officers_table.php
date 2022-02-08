@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnsOnProgramactivitiesTable extends Migration
+class AddColumnFingerprintLengthOnGOfficersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class AddColumnsOnProgramactivitiesTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('program_activities', function (Blueprint $table) {
-            //
-            $table->boolean('report_rejected')->default(false);
-            $table->unsignedBigInteger('supervised_by')->nullable();
-
+        Schema::table('g_officers', function (Blueprint $table) {
+            $table->integer('fingerprint_length')->default(0);
         });
     }
 
@@ -29,6 +25,8 @@ class AddColumnsOnProgramactivitiesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('g_officers', function (Blueprint $table) {
+            //
+        });
     }
 }
