@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FacilityTypeTableSeeder::class);
         $this->call(OwnershipCategoryTableSeeder::class);
         $this->call(OwnershipTableSeeder::class);
+        $this->call(LeaveTypesTableSeeder::class);
 
         DB::commit();
     }
