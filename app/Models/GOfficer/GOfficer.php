@@ -2,6 +2,7 @@
 
 namespace App\Models\GOfficer;
 
+use App\Models\Facility\Facility;
 use App\Models\GOfficer\Traits\Attribute\GOfficerAttribute;
 use App\Models\GOfficer\Traits\Relationship\GOfficerRelationship;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +28,9 @@ class GOfficer extends Model
      */
     protected $guarded = ['uuid'];
 
-    protected $guard = 'g_officer';
+    protected $guard = 'g_officer-api';
+
+    protected $table = 'g_officers';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -87,5 +90,10 @@ class GOfficer extends Model
     public function sendPasswordResetNotification($token)
     {
 //        $this->notify((new ResetPasswordNotification($token))->onQueue('reset-password-link'));
+    }
+
+    public function facilities()
+    {
+        return $this->belongsToMany(Facility::class)->withPivot('id');
     }
 }
