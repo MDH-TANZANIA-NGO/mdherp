@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployeesTable extends Migration
+class CreateFamiliesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateEmployeesTable extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('families', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->integer('height');
-            $table->integer('weight');
-            $table->string('blood_group');
-            $table->string('national_id')->nullable();
-            $table->string('drivers_licence')->nullable();
-            $table->string('passport_no')->nullable();
-            $table->string('nssf_reg_no')->nullable();
+            $table->string('name');
+            $table->smallInteger('gender_cv_id');
+            $table->smallInteger('relationship_cv_id');
+            $table->date('dob');
+            $table->string('phone');
+            $table->boolean('is_next_of_kin')->default(false);
+            $table->boolean('is_emergency')->default(false);
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
@@ -36,6 +36,6 @@ class CreateEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('families');
     }
 }
