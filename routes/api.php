@@ -31,8 +31,9 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
     function(){
         Route::post('login', 'Auth\LoginController@login');
         Route::post('refresh', 'Auth\LoginController@refresh');
+        Route::post('g_officer/store', 'MDHData\GOfficerController@store')->name('g_officer-store');
         Route::group([
-            'middleware' => ['auth:user-api']
+            'middleware' => ['auth:user']
         ], function() {
             Route::post('logout', 'Auth\LoginController@logout');
 

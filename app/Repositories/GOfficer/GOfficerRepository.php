@@ -20,15 +20,22 @@ class GOfficerRepository extends BaseRepository
             DB::raw('g_officers.phone AS phone'),
             DB::raw("CONCAT_WS(', ',g_officers.last_name, g_officers.first_name) AS names"),
             DB::raw('g_officers.uuid AS uuid'),
+            DB::raw('g_officers.g_scale_id as g_scale_id'),
             DB::raw('g_scales.title AS g_scale_title'),
             DB::raw('g_rates.amount AS g_rate_amount'),
             DB::raw('g_officers.region_id AS region_id'),
             DB::raw('regions.name AS region_name'),
+            DB::raw('g_officers.district_id as district_id'),
+            DB::raw('districts.name as district'),
+            DB::raw('g_officers.isactive as isactive'),
+            DB::raw('g_officers.fingerprint_data as fingerprint_data'),
+            DB::raw('g_officers.fingerprint_length as fingerprint_length')
         ])
             ->leftjoin('g_scales','g_scales.id','g_officers.g_scale_id')
             ->leftjoin('g_rate_scale','g_rate_scale.g_scale_id','g_scales.id')
             ->leftjoin('g_rates','g_rates.id','g_rate_scale.g_rate_id')
-            ->leftjoin('regions', 'regions.id', 'g_officers.region_id');
+            ->leftjoin('regions', 'regions.id', 'g_officers.region_id')
+            ->leftjoin('districts', 'districts.id', 'g_officers.district_id');
     }
 
     public function getActive()
@@ -45,6 +52,11 @@ class GOfficerRepository extends BaseRepository
             'phone' => $inputs['phone'],
             'g_scale_id' => $inputs['g_scale'],
             'region_id' => $inputs['region_id'],
+            'district_id' => $inputs['district_id'],
+            'isactive' => 1,
+            'fingerprint_data' => $inputs['fingerprint_data'],
+            'fingerprint_length' => $inputs['fingerprint_length'],
+            'password' => bcrypt(strtolower($inputs['last_name'])),
         ];
     }
 
