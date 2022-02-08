@@ -88,6 +88,56 @@
 
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-header" style="background-color: rgb(238, 241, 248)">
+                    <div class="row text-center">
+                        <span class="col-12 text-center font-weight-bold">Leave Balances</span>
+                    </div>
+
+                    <div class="card-options ">
+                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+                    &nbsp;
+                    <div class="row">
+                        <div class="col-md-4" >
+                            <label class="form-label">Annual Leave: <strong><span class="btn-outline-success">2</span></strong></label>
+                        </div>
+                        <div class="col-md-4" >
+                            <label class="form-label">Sick Leave: <strong><span class="btn-outline-warning">2</span></strong></label>
+                        </div>
+                        <div class="col-md-4" >
+                            <label class="form-label">Paternity Leave: <strong><span class="btn-outline-warning">2</span></strong></label>
+                        </div>
+
+                    </div>
+                    &nbsp;
+                    <div class="row">
+                        <div class="col-md-4" >
+                            <label class="form-label">Maternity Leave: <strong><span class="btn-outline-warning">2</span></strong></label>
+                        </div>
+                        <div class="col-md-4" >
+                            <label class="form-label">Study Leave: <strong><span class="btn-outline-warning">2</span></strong></label>
+                        </div>
+                        <div class="col-md-4" >
+                            <label class="form-label">Compassionate Leave: <strong><span class="btn-outline-warning">2</span></strong></label>
+                        </div>
+
+                    </div>
+
+                &nbsp;
+                <div class="row">
+                    <div class="col-md-4" >
+                        <label class="form-label">Emergency Leave: <strong><span class="btn-outline-danger">2</span></strong></label>
+                    </div>
+                </div>
+
+                </div>
+            </div>
         </div>
     </form>
 
