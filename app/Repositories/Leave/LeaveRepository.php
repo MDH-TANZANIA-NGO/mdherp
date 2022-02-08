@@ -57,6 +57,7 @@ class LeaveRepository extends BaseRepository
         ];
     }
 
+
     public function store($inputs)
     {
         return DB::transaction(function () use ($inputs){

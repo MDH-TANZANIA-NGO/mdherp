@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\User\Datatables\UserDatatables;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
+use App\Models\Leave\LeaveType;
 use App\Repositories\Access\PermissionRepository;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Project\ProjectRepository;
@@ -26,6 +27,7 @@ class UserController extends Controller
     protected $wf_module_groups;
     protected $permissions;
 
+
     public function __construct()
     {
         $this->designations = (new DesignationRepository());
@@ -34,6 +36,7 @@ class UserController extends Controller
         $this->projects = (new ProjectRepository());
         $this->wf_module_groups = (new WfModuleGroupRepository());
         $this->permissions = (new PermissionRepository());
+
     }
 
     /**
@@ -80,6 +83,7 @@ class UserController extends Controller
      */
     public function profile(User $user)
     {
+            $leave_types = LeaveType::all();
 
 //dd($this->users->getAllUsersWithThisSupervisorGet($user->id));
         return view('user.profile.view_profile')
@@ -92,7 +96,8 @@ class UserController extends Controller
             ->with('projects', $this->projects->getActiveForPluck())
             ->with('users', $this->users->getAllUsersWithNoSupervisorPluck($user->id))
             ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorGet($user->id))
-            ->with('permissions', $this->permissions->getAll());
+            ->with('permissions', $this->permissions->getAll())
+            ->with('leave_types', $leave_types);
     }
 
     /**
