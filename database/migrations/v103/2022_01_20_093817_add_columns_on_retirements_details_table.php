@@ -13,7 +13,7 @@ class AddColumnsOnRetirementsDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::table('retirements_details', function (Blueprint $table) {
+        Schema::table('retirement_details', function (Blueprint $table) {
             $table->decimal('amount_spent', 15, 2)->nullable();
             $table->decimal('amount_variance', 15, 2)->nullable();
             $table->string('receipt_attach')->nullable();

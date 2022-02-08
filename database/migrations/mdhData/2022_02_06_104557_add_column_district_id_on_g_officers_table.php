@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnRetirementIdOnRetirementsDetailsTable extends Migration
+class AddColumnDistrictIdOnGOfficersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnRetirementIdOnRetirementsDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::table('retirements_details', function (Blueprint $table) {
-            $table->unsignedBigInteger('retirement_id')->nullable();
+        Schema::table('g_officers', function (Blueprint $table) {
+            $table->unsignedBigInteger('district_id')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddColumnRetirementIdOnRetirementsDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::table('retirements_details', function (Blueprint $table) {
+        Schema::table('g_officers', function (Blueprint $table) {
             //
         });
     }

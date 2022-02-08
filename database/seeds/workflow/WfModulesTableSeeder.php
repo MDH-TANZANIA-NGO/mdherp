@@ -118,6 +118,20 @@ class WfModulesTableSeeder extends Seeder
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
+            7 =>
+                array (
+                    'id' => 8,
+                    'name' => 'Timesheet',
+                    'wf_module_group_id' => '7',
+                    'created_at' => '2021-12-13 12:36:03',
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => '1',
+                    'description' => 'Timesheets',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
         ));
 
         $this->enableForeignKeys('wf_modules');

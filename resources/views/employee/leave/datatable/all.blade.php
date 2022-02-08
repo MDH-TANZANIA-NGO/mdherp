@@ -12,7 +12,7 @@
 
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('leave.create') }}"> <i class="fa fa-plus mr-2"></i>Apply Leave</a>
+                    <a href="{{ route('account.leave.create') }}"> <i class="fa fa-plus mr-2"></i>Apply Leave</a>
                 </div>
             </div>
 
@@ -31,7 +31,6 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">Type</th>
                                     <th class="wd-25p">Start Date</th>
-
                                     <th class="wd-25p">End Date</th>
                                     <th class="wd-25p">Comment</th>
                                     <th class="wd-25p">Action</th>

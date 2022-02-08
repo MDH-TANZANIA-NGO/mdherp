@@ -26,5 +26,6 @@ class ViewServiceProvider extends ServiceProvider
     {
         View::composer(['*'], 'App\Http\View\Composers\WfTrack\WfTrackComposer');
         View::composer(['*'], 'App\Http\View\Composers\Requisition\RequisitionComposer');
+        View::composer(['*'], 'App\Http\View\Composers\Leave\LeaveComposer');
     }
 }

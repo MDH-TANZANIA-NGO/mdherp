@@ -36,7 +36,7 @@ class FinanceActivityController extends Controller
 
     protected $safariAdvance;
     protected $requisitions;
-    protected $program_activity;
+    protected $program_activity; 
     protected $retirement;
     protected $requisition_training_cost;
     protected $finance;

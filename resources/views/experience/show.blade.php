@@ -1,15 +1,12 @@
 @extends('layouts.app')
-
 @section('content')
-
-    <form action="{{route('leave.store')}}" method="post">
-    @csrf
+    {!! Form::open(['route' => ['experience.update', $experience], 'method' => 'put']) !!}
     <!-- Large Modal -->
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-header" style="background-color: rgb(238, 241, 248)">
                     <div class="row text-center">
-                        <span class="col-12 text-center font-weight-bold">Leave Request</span>
+                        <span class="col-12 text-center font-weight-bold">Practical Experience</span>
                     </div>
 
                     <div class="card-options ">
@@ -21,28 +18,36 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6" >
-                            <label class="form-label">Leave Type</label>
-                            <select name="leave_type_id" id="select-level" class="form-control custom-select">
-                                <option value=""  disabled selected hidden>Select Type</option>
-                                @foreach($leaveTypes as $leaveType)
-                                    <option value="{{ $leaveType->id }}">{{$leaveType->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('leave_type_id')
+                            <label class="form-label">Organisation/Company Name</label>
+                            <input class="form-control" name="organisation_name" value="{{ $experience->organisation_name }}" required></input>
+                            @error('organisation_name')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                             @enderror
                         </div>
 
                         <div class="col-md-6" >
-                            <label class="form-label">Comment</label>
-                            <textarea class="form-control" name="comment" rows="2" placeholder="Comment..." ></textarea>
-                            @error('comment')
+                            <label class="form-label">Position Held</label>
+                            <input class="form-control" name="position" value="{{ $experience->position }}" required></input>
+                            @error('position')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                             @enderror
                         </div>
 
                     </div>
                     &nbsp;
+                    <div class="row">
+                        <div class="col-md-6" >
+                            {!! Form::label('summary', "Summary of duties",['class'=>'form-label','required_asterik']) !!}
+                            {!! Form::textarea('summary', $experience->summary, ['class' => 'form-control', 'required','rows'=>'2']) !!}
+                            {!! $errors->first('summary', '<span class="badge badge-danger">:message</span>') !!}
+                        </div>
+
+                        <div class="col-md-6" >
+                            {!! Form::label('supervisor', "Supervisor",['class'=>'form-label','required_asterik']) !!}
+                            {!! Form::textarea('supervisor', $experience->supervisor, ['class' => 'form-control', 'required','rows'=>'2']) !!}
+                            {!! $errors->first('supervisor', '<span class="badge badge-danger">:message</span>') !!}
+                        </div>
+                    </div>
                     &nbsp;
                     <div class="row">
                         <div class="col-md-6" >
@@ -52,9 +57,9 @@
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                                     </div>
-                                </div><input class="form-control" name="start_date" placeholder="MM/DD/YYYY" type="date">
+                                </div><input class="form-control" name="start_year" value="{{ $experience->start_year }}" type="date">
                             </div>
-                            @error('start_date')
+                            @error('start_year')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                             @enderror
                         </div>
@@ -65,9 +70,9 @@
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                                     </div>
-                                </div><input class="form-control" name="end_date" placeholder="MM/DD/YYYY" type="date">
+                                </div><input class="form-control" name="end_year" value="{{ $experience->end_year }}" type="date">
                             </div>
-                            @error('end_date')
+                            @error('end_year')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                             @enderror
                         </div>
@@ -80,7 +85,7 @@
 
                         <div class="col-12">
                             <div style="text-align: center;">
-                                <button type="submit" class="btn btn-azure"> Request Leave</button>
+                                <button type="submit" class="btn btn-azure"> Update Practical Experience Details</button>
                             </div>
                         </div>
 
@@ -89,9 +94,5 @@
                 </div>
             </div>
         </div>
-    </form>
-
-
-
+    {!! Form::close() !!}
 @endsection
-

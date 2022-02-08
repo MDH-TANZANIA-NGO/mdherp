@@ -74,6 +74,15 @@ class WfModuleGroupsTableSeeder extends Seeder
                     'updated_at' => \Carbon\Carbon::now(),
                     'deleted_at' => NULL,
                 ),
+            6 =>
+                array (
+                    'id' => 7,
+                    'name' => 'Timesheet',
+                    'table_name' => 'timesheets',
+                    'created_at' => '2021-11-22 10:15:25',
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'deleted_at' => NULL,
+                ),
         ));
 
         $this->enableForeignKeys('wf_module_groups');

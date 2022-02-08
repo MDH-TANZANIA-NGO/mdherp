@@ -25,7 +25,7 @@ class AddColumnRetirementIdOnRetirementDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::table('retirement_details', function (Blueprint $table) {
+        Schema::table('retirements_details', function (Blueprint $table) {
             //
         });
     }

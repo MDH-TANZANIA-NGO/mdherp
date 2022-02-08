@@ -4,10 +4,10 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-warning">{{ $requisition_access->getAccessProcessingDatatable()->count() }}</span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Returned for Modification <span class="badge badge-danger">{{ $requisition_access->getAccessRejectedDatatable()->count() }}</span></a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $requisition_access->getAccessProvedDatatable()->count() }}</span></a></li>
-                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $requisition_access->getAccessSavedDatatable()->count() }}</span> </a></li>
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-warning">{{ $leave_access->getAccessProcessingDatatable()->count() }}</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Returned for Modification <span class="badge badge-danger">{{ $leave_access->getAccessRejectedDatatable()->count() }}</span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $leave_access->getAccessProvedDatatable()->count() }}</span></a></li>
+                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $leave_access->getAccessSavedDatatable()->count() }}</span> </a></li>
                 </ul>
             </div>
 
@@ -129,12 +129,10 @@
                 ajax: '{{ route('leave.datatable.access.processing') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
-                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'type_name', name: 'leave_types.name', searchable: true},
+                    { data: 'start_date', name: 'leaves.start_date', searchable: true},
+                    { data: 'end_date', name: 'leaves.end_date', searchable: true },
+                    { data: 'comment', name: 'leaves.comment', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
@@ -148,12 +146,10 @@
                 ajax: '{{ route('leave.datatable.access.rejected') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
-                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'type_name', name: 'leave_types.name', searchable: true},
+                    { data: 'start_date', name: 'leaves.start_date', searchable: true},
+                    { data: 'end_date', name: 'leaves.end_date', searchable: true },
+                    { data: 'comment', name: 'leaves.comment', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
@@ -167,12 +163,10 @@
                 ajax: '{{ route('leave.datatable.access.approved') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
-                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'type_name', name: 'leave_types.name', searchable: true},
+                    { data: 'start_date', name: 'leaves.start_date', searchable: true},
+                    { data: 'end_date', name: 'leaves.end_date', searchable: true },
+                    { data: 'comment', name: 'leaves.comment', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
@@ -186,12 +180,10 @@
                 ajax: '{{ route('leave.datatable.access.saved') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
-                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'type_name', name: 'leave_types.name', searchable: true},
+                    { data: 'start_date', name: 'leaves.start_date', searchable: true},
+                    { data: 'end_date', name: 'leaves.end_date', searchable: true },
+                    { data: 'comment', name: 'leaves.comment', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
