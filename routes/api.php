@@ -35,7 +35,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
         Route::get('{g_officer}/facilities', 'MDHData\GOfficerController@show')->name('g_officer-facilities');
         Route::post('g_officer/facilities/assign', 'MDHData\FacilityGOfficerController@assignUserToFacility')->name('g_officer-assign-facility');
         Route::group([
-            'middleware' => ['auth:user']
+            'middleware' => ['auth:user-api']
         ], function() {
             Route::post('logout', 'Auth\LoginController@logout');
 
