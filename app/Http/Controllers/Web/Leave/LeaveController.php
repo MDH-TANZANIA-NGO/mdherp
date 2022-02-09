@@ -59,13 +59,12 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        $leave_balance = LeaveBalance::where('user_id', access()->user()->id)->where('leave_id', $request['leave_type_id'])->first();
-
+        $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_id', $request['leave_type_id'])->first();
         $start = Carbon::parse($request['start_date']);
         $end =  Carbon::parse($request['end_date']);
-        $days = $end->diffInDays($start);
+        $days = $start->diffInDays($end) + 1;
+
         $actual_remaining_days =  $leave_balance->remaining_days - $days;
-        //dd($days);
         if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0){
             $leave = $this->leaves->store($request->all());
             DB::update('update leave_balances set remaining_days =?  where uuid= ?',[$actual_remaining_days,  $leave_balance->uuid]);
@@ -76,7 +75,6 @@ class LeaveController extends Controller
         } else {
             return redirect()->back()->with(['message' => 'You are not eligible for this leave']);
         }
-
     }
 
     /**
