@@ -103,7 +103,13 @@
                             @foreach($leave_balances AS $leave_balances)
                             <li class="list-group-item justify-content-between">
                                 {{$leave_balances->leaveType->name}}
-                                <span class="badgetext badge badge-primary badge-pill">{{$leave_balances->remaining_days}}</span>
+                                @if($leave_balances->remaining_days <= 3)
+                                <span class="badgetext badge badge-warning badge-pill">{{$leave_balances->remaining_days}}</span>
+                                @elseif($leave_balances->remaining_days >3 )
+                                    <span class="badgetext badge badge-success badge-pill">{{$leave_balances->remaining_days}}</span>
+                                @elseif($leave_balances->remaining_days == 0)
+                                    <span class="badgetext badge badge-danger badge-pill">{{$leave_balances->remaining_days}}</span>
+                                    @endif
                             </li>
                             @endforeach
                         </ul>
