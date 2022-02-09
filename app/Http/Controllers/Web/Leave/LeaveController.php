@@ -7,6 +7,7 @@ use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Leave\Datatables\LeaveDatatables;
 use App\Models\Leave\Leave;
+use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -59,9 +60,10 @@ class LeaveController extends Controller
         $start = Carbon::parse($leave->start_date);
         $end =  Carbon::parse($leave->end_date);
         $days = $end->diffInDays($start);
+        $balance = LeaveBalance::where(['leave_type_id' => $leave->leave_type_id, 'user_id' => access()->id()])->latest();
         $model = Leave::where('id', $leave->id)->first();
         //dd($days);
-        if ($days <= $leaveD->days){
+        if ($days <= $leaveD->days && $days <= $balance->remaining_days ?? ''){
             $wf_module_group_id = 5;
             $next_user = $leave->user->assignedSupervisor()->supervisor_id;
             event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id,'region_id' => $leave->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
