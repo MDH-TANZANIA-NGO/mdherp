@@ -5,7 +5,7 @@
 {{--    Workspace--}}
 
     <div class="row">
-        <button onclick="not1()" class="btn btn-primary">Default</button>
+        <button onclick="not1()" class="btn btn-primary">Gusa uone</button>
         <div class="col-4 col-sm-4 col-lg-3">
             <a href="{{route('requisition.index')}}">
                 <div class="card">
