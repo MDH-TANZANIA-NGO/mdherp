@@ -43,8 +43,11 @@ class LeaveController extends Controller
     public function create()
     {
         $leaveTypes = LeaveType::all();
+        $leaveBalances = LeaveBalance::all()->where('user_id', access()->user()->id);
+
         return view('leave._parent.form.create')
-            ->with('leaveTypes', $leaveTypes);
+            ->with('leaveTypes', $leaveTypes)
+            ->with('leave_balances', $leaveBalances);
     }
 
     /**
