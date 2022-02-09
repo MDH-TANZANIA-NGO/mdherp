@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeaveBalancesTable extends Migration
+class AddColumnsOnLeaveBalancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateLeaveBalancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('leave_balances', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('leave_id');
-            $table->integer('remaining_days');
-            $table->timestamps();
+        //
+        Schema::table('leave_balances', function (Blueprint $table) {
+            $table->string('uuid')->nullable();
+            $table->date('deleted_at')->nullable();
         });
     }
 
@@ -29,6 +27,6 @@ class CreateLeaveBalancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leave_balances');
+        //
     }
 }

@@ -7,6 +7,7 @@ use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Leave\Datatables\LeaveDatatables;
 use App\Models\Leave\Leave;
+use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -133,5 +134,19 @@ class LeaveController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function setup(Request $request)
+    {
+        for ($i = 0; $i < count($request['data']); $i++ ){
+
+            LeaveBalance::create([
+                'user_id' => access()->id(),
+                'leave_id' => $request['data'][$i]['leave_id'],
+                'remaining_days' => $request['data'][$i]['remaining_days'],
+            ]);
+        }
+
+        return redirect()->back();
     }
 }

@@ -313,15 +313,15 @@
 
                                                 <div class="tab-pane " id="tab6">
 
-                                                    {!! Form::open(['route' => ['user.update', $user],'method' => 'POST','class' => 'card']) !!}
+                                                    {!! Form::open(['route' => ['leave.setup'],'method' => 'POST']) !!}
 
                                                     <ul class="list-group">
-                                                        {!! Form::open(['route' => ['user.update', $user],'method' => 'PUT','class' => 'card']) !!}
-                                                        @foreach($leave_types AS $leave_types)
+
+                                                        @foreach($leave_types AS $key => $leave_type)
 
                                                         <li class="list-group-item justify-content-between">
-                                                            {{$leave_types->name}}<input type="number" value="{{$leave_types->id}}" name="leave_id" hidden>
-                                                            <span class="badgetext badge  badge-pill"><input type="number" value="{{$leave_types->days}}" name="remaining_days" class="form-control"></span>
+                                                            {{$leave_type->name}}<input type="number" value="{{$leave_type->id}}" name="data[{{$key}}][leave_id]" hidden>
+                                                            <span class="badgetext badge  badge-pill"><input type="number" value="{{$leave_type->days}}" name="data[{{$key}}][remaining_days]" class="form-control"></span>
                                                         </li>
 
                                                         @endforeach
@@ -329,7 +329,7 @@
 
 
                                                     </ul>
-                                                    <button class="btn btn-outline-primary" type="submit">Submit</button>
+                                                    <button class="btn btn-outline-primary" type="submit" style="margin-left: 40%; margin-top: 2%">Submit</button>
                                                     {!! Form::close() !!}
 
 
