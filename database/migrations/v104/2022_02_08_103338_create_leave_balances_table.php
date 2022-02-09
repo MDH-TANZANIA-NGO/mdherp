@@ -19,6 +19,7 @@ class CreateLeaveBalancesTable extends Migration
             $table->foreignId('leave_id')->constrained('leaves')->onDelete('cascade');
             $table->foreignId('leave_type_id')->constrained('leave_types')->onDelete('cascade');
             $table->integer('remaining_days');
+            $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
         });
