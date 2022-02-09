@@ -14,6 +14,7 @@ use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LeaveController extends Controller
 {
@@ -58,14 +59,16 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        $leave = $this->leaves->store($request->all());
-        $leaveD = LeaveType::where('id', $leave->leave_type_id)->first();
-        $start = Carbon::parse($leave->start_date);
-        $end =  Carbon::parse($leave->end_date);
+        $leave_balance = LeaveBalance::where('user_id', access()->user()->id)->where('leave_id', $request['leave_type_id'])->first();
+
+        $start = Carbon::parse($request['start_date']);
+        $end =  Carbon::parse($request['end_date']);
         $days = $end->diffInDays($start);
-        $model = Leave::where('id', $leave->id)->first();
+        $actual_remaining_days =  $leave_balance->remaining_days - $days;
         //dd($days);
-        if ($days <= $leaveD->days){
+        if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0){
+            $leave = $this->leaves->store($request->all());
+            DB::update('update leave_balances set remaining_days =?  where uuid= ?',[$actual_remaining_days,  $leave_balance->uuid]);
             $wf_module_group_id = 5;
             $next_user = $leave->user->assignedSupervisor()->supervisor_id;
             event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id,'region_id' => $leave->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
@@ -144,7 +147,7 @@ class LeaveController extends Controller
         for ($i = 0; $i < count($request['data']); $i++ ){
 
             LeaveBalance::create([
-                'user_id' => access()->id(),
+                'user_id' => $request['data'][$i]['user_id'],
                 'leave_id' => $request['data'][$i]['leave_id'],
                 'remaining_days' => $request['data'][$i]['remaining_days'],
             ]);

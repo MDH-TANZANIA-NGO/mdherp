@@ -3,6 +3,7 @@
 namespace App\Repositories\Leave;
 
 use App\Models\Leave\Leave;
+use App\Models\Leave\LeaveBalance;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -47,20 +48,27 @@ class LeaveRepository extends BaseRepository
     }
 
     public function inputProcess($inputs){
+
+        $leave_balance = LeaveBalance::where('user_id', access()->user()->id)->where('leave_id', $inputs['leave_type_id'])->first();
+
         return [
             'user_id' => access()->id(),
             'region_id' => access()->user()->region_id,
+            'department_id'=>access()->user()->designation->department->id,
             'comment' => $inputs['comment'],
             'start_date' => $inputs['start_date'],
             'end_date' => $inputs['end_date'],
-            'leave_type_id' => $inputs['leave_type_id']
+            'leave_type_id' => $inputs['leave_type_id'],
+            'leave_balance' =>$leave_balance->id
         ];
     }
 
 
     public function store($inputs)
     {
+
         return DB::transaction(function () use ($inputs){
+
             return $this->query()->create($this->inputProcess($inputs));
         });
     }
