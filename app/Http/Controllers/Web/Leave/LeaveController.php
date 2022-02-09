@@ -14,6 +14,7 @@ use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LeaveController extends Controller
 {
@@ -43,8 +44,11 @@ class LeaveController extends Controller
     public function create()
     {
         $leaveTypes = LeaveType::all();
+        $leaveBalances = LeaveBalance::all()->where('user_id', access()->user()->id);
+
         return view('leave._parent.form.create')
-            ->with('leaveTypes', $leaveTypes);
+            ->with('leaveTypes', $leaveTypes)
+            ->with('leave_balances', $leaveBalances);
     }
 
     /**
@@ -55,15 +59,15 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        $leave = $this->leaves->store($request->all());
-        $leaveD = LeaveType::where('id', $leave->leave_type_id)->first();
-        $start = Carbon::parse($leave->start_date);
-        $end =  Carbon::parse($leave->end_date);
+        $leave_balance = LeaveBalance::where('user_id', access()->id)->where('leave_id', $request['leave_type_id'])->first();
+        $start = Carbon::parse($request['start_date']);
+        $end =  Carbon::parse($request['end_date']);
         $days = $end->diffInDays($start);
-        $balance = LeaveBalance::where(['leave_type_id' => $leave->leave_type_id, 'user_id' => access()->id()])->latest();
-        $model = Leave::where('id', $leave->id)->first();
+        $actual_remaining_days =  $leave_balance->remaining_days - $days;
         //dd($days);
-        if ($days <= $leaveD->days && $days <= $balance->remaining_days ?? ''){
+        if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0){
+            $leave = $this->leaves->store($request->all());
+            DB::update('update leave_balances set remaining_days =?  where uuid= ?',[$actual_remaining_days,  $leave_balance->uuid]);
             $wf_module_group_id = 5;
             $next_user = $leave->user->assignedSupervisor()->supervisor_id;
             event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id,'region_id' => $leave->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
@@ -71,7 +75,6 @@ class LeaveController extends Controller
         } else {
             return redirect()->back()->with(['message' => 'You are not eligible for this leave']);
         }
-
     }
 
     /**
@@ -135,5 +138,19 @@ class LeaveController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function setup(Request $request)
+    {
+        for ($i = 0; $i < count($request['data']); $i++ ){
+
+            LeaveBalance::create([
+                'user_id' => $request['data'][$i]['user_id'],
+                'leave_id' => $request['data'][$i]['leave_id'],
+                'remaining_days' => $request['data'][$i]['remaining_days'],
+            ]);
+        }
+
+        return redirect()->back();
     }
 }

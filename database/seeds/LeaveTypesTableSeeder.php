@@ -1,12 +1,9 @@
 <?php
 
-use Database\DisableForeignKeys;
-use Database\TruncateTable;
 use Illuminate\Database\Seeder;
 
 class LeaveTypesTableSeeder extends Seeder
 {
-    use DisableForeignKeys, TruncateTable;
     /**
      * Run the database seeds.
      *
@@ -14,9 +11,6 @@ class LeaveTypesTableSeeder extends Seeder
      */
     public function run()
     {
-
-        $this->disableForeignKeys('wf_module_groups');
-        $this->delete('wf_module_groups');
 
         \DB::table('leave_types')->insert(array (
             0 =>
@@ -84,6 +78,6 @@ class LeaveTypesTableSeeder extends Seeder
                 ),
         ));
 
-        $this->enableForeignKeys('wf_module_groups');
+
     }
 }
