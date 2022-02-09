@@ -53,6 +53,7 @@ class GOfficerRepository extends BaseRepository
             'g_scale_id' => $inputs['g_scale'],
             'region_id' => $inputs['region_id'],
             'district_id' => $inputs['district_id'],
+            'country_organisation_id' => 1,
             'isactive' => 1,
             'fingerprint_data' => $inputs['fingerprint_data'],
             'fingerprint_length' => $inputs['fingerprint_length'],

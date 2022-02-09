@@ -89,55 +89,35 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header" style="background-color: rgb(238, 241, 248)">
-                    <div class="row text-center">
-                        <span class="col-12 text-center font-weight-bold">Leave Balances</span>
+            <div class="col-sm-12 col-md-6" style="margin-left: 25%">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Leave Balances</h3>
+                        <div class="card-options ">
+                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                        </div>
                     </div>
-
-                    <div class="card-options ">
-                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            @foreach($leave_balances AS $leave_balances)
+                            <li class="list-group-item justify-content-between">
+                                {{$leave_balances->leaveType->name}}
+                                @if($leave_balances->remaining_days <= 3 && $leave_balances->remaining_days > 0)
+                                <span class="badgetext badge badge-warning badge-pill">{{$leave_balances->remaining_days}}</span>
+                                @elseif($leave_balances->remaining_days >3 )
+                                    <span class="badgetext badge badge-success badge-pill">{{$leave_balances->remaining_days}}</span>
+                                @elseif($leave_balances->remaining_days == 0)
+                                    <span class="badgetext badge badge-danger badge-pill">{{$leave_balances->remaining_days}}</span>
+                                    @endif
+                            </li>
+                            @endforeach
+                        </ul>
                     </div>
-
-                </div>
-
-                <div class="card-body">
-                    &nbsp;
-                    <div class="row">
-                        <div class="col-md-4" >
-                            <label class="form-label">Annual Leave: <strong><span class="btn-outline-success">2</span></strong></label>
-                        </div>
-                        <div class="col-md-4" >
-                            <label class="form-label">Sick Leave: <strong><span class="btn-outline-warning">2</span></strong></label>
-                        </div>
-                        <div class="col-md-4" >
-                            <label class="form-label">Paternity Leave: <strong><span class="btn-outline-warning">2</span></strong></label>
-                        </div>
-
-                    </div>
-                    &nbsp;
-                    <div class="row">
-                        <div class="col-md-4" >
-                            <label class="form-label">Maternity Leave: <strong><span class="btn-outline-warning">2</span></strong></label>
-                        </div>
-                        <div class="col-md-4" >
-                            <label class="form-label">Study Leave: <strong><span class="btn-outline-warning">2</span></strong></label>
-                        </div>
-                        <div class="col-md-4" >
-                            <label class="form-label">Compassionate Leave: <strong><span class="btn-outline-warning">2</span></strong></label>
-                        </div>
-
-                    </div>
-
-                &nbsp;
-                <div class="row">
-                    <div class="col-md-4" >
-                        <label class="form-label">Emergency Leave: <strong><span class="btn-outline-danger">2</span></strong></label>
-                    </div>
-                </div>
-
                 </div>
             </div>
+        </div>
+        <!-- End Row -->
         </div>
     </form>
 

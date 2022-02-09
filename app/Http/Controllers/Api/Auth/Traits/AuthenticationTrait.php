@@ -24,6 +24,17 @@ trait AuthenticationTrait
         }
     }
 
+    public function gOfficerLoginValidator(){
+        $validator = Validator::make(request()->all(), [
+            'phone' => 'required',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error', $validator->errors());
+        }
+    }
+
     public function loginWithEmailAndPassword(){
         $this->loginValidator();
 
@@ -57,6 +68,11 @@ trait AuthenticationTrait
         }
 
         return $return;
+    }
+
+    public function loginWithPhoneAndPassword()
+    {
+        $this->gOfficerLoginValidator();
     }
 
 }

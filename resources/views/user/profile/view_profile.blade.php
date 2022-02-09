@@ -68,6 +68,7 @@
                                                     <li><a href="#tab3" data-toggle="tab">Workflow</a></li>
                                                     <li><a href="#tab4" data-toggle="tab">Permissions</a></li>
                                                     <li><a href="#tab5" data-toggle="tab">Audit</a></li>
+                                                    <li><a href="#tab6" data-toggle="tab">Leave Setup</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -309,6 +310,33 @@
                                                     </div>
                                                     <!-- table-wrapper -->
                                                       </div>
+
+                                                <div class="tab-pane " id="tab6">
+
+                                                    {!! Form::open(['route' => ['leave.setup'],'method' => 'POST']) !!}
+
+                                                    <ul class="list-group">
+
+                                                        @foreach($leave_types AS $key => $leave_type)
+                                                        <input type="number" value="{{$user->id}}" name="data[{{$key}}][user_id]" hidden >
+                                                        <li class="list-group-item justify-content-between">
+
+                                                            {{$leave_type->name}}<input type="number" value="{{$leave_type->id}}" name="data[{{$key}}][leave_id]" hidden>
+                                                            <span class="badgetext badge  badge-pill"><input type="number" value="{{$leave_type->days}}" name="data[{{$key}}][remaining_days]" class="form-control"></span>
+                                                        </li>
+
+                                                        @endforeach
+
+
+
+                                                    </ul>
+                                                    <button class="btn btn-outline-primary" type="submit" style="margin-left: 40%; margin-top: 2%">Submit</button>
+                                                    {!! Form::close() !!}
+
+
+                                                </div>
+
+
                                             </div>
                                         </div>
 

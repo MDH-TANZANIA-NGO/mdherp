@@ -32,8 +32,10 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
         Route::post('login', 'Auth\LoginController@login');
         Route::post('refresh', 'Auth\LoginController@refresh');
         Route::post('g_officer/store', 'MDHData\GOfficerController@store')->name('g_officer-store');
+        Route::get('{g_officer}/facilities', 'MDHData\GOfficerController@show')->name('g_officer-facilities');
+        Route::post('g_officer/facilities/assign', 'MDHData\FacilityGOfficerController@assignUserToFacility')->name('g_officer-assign-facility');
         Route::group([
-            'middleware' => ['auth:user']
+            'middleware' => ['auth:user-api']
         ], function() {
             Route::post('logout', 'Auth\LoginController@logout');
 
