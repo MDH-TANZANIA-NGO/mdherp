@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1dbb3730bb14680bbe5ae6f6d8b284c",
+    "content-hash": "89d53f769f1f4fa8b96ed0c70b43d3ff",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4656,6 +4656,57 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "rsmalc/laravel-noty",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rsmalc/laravel-noty.git",
+                "reference": "04e5be8fe484d026e93c07ef0515525113db6820"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rsmalc/laravel-noty/zipball/04e5be8fe484d026e93c07ef0515525113db6820",
+                "reference": "04e5be8fe484d026e93c07ef0515525113db6820",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.1|^6|^7|^8",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RSmalc\\Noty\\NotyServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Noty/helpers.php"
+                ],
+                "psr-4": {
+                    "RSmalc\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Smalc",
+                    "email": "robert@smalc.si"
+                }
+            ],
+            "description": "Flash Messages for Laravel Aplication using Noty v3 library",
+            "support": {
+                "issues": "https://github.com/rsmalc/laravel-noty/issues",
+                "source": "https://github.com/rsmalc/laravel-noty/tree/2.4.0"
+            },
+            "time": "2020-09-21T11:31:43+00:00"
         },
         {
             "name": "spatie/image",

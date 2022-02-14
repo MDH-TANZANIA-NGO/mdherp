@@ -188,6 +188,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => 'User can access Financial Reports',
                     'ischecker' => 1,
                 ),
+            21 =>
+                array(
+                    'id' => 22,
+                    'name' => 'cqi_dashboard',
+                    'display_name' => 'CQI Dashboard',
+                    'description' => 'User can access CQI Dashboard',
+                    'ischecker' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("permissions");
