@@ -15,9 +15,12 @@ class CreateLeaveBalancesTable extends Migration
     {
         Schema::create('leave_balances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('leave_id');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('leave_id')->constrained('leaves')->onDelete('cascade');
+            $table->foreignId('leave_type_id')->constrained('leave_types')->onDelete('cascade');
             $table->integer('remaining_days');
+            $table->uuid('uuid');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
