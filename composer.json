@@ -23,6 +23,7 @@
         "maatwebsite/excel": "^3.1",
         "owen-it/laravel-auditing": "^12.0",
         "propaganistas/laravel-phone": "^4.2",
+        "realrashid/sweet-alert": "^5.0",
         "spatie/laravel-medialibrary": "^9.6.0",
         "uxweb/sweet-alert": "^2.0",
         "webpatser/laravel-uuid": "^3.0",
