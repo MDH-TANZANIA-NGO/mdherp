@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RegionsTableSeeder::class);
         $this->call(ZonesTableSeeder::class);
         $this->call(DistrictsTableSeeder::class);
-//        $this->call(UsersTableSeeder::class);
+//        $this->call(UsersTableSeeder::class);/
         $this->call(RequisitionTypesTableSeeder::class);
         $this->call(WfModuleGroupsTableSeeder::class);
         $this->call(WfModulesTableSeeder::class);
