@@ -128,6 +128,7 @@ class RetirementController extends Controller
 
     public function show(Retirement $retirement)
     {
+       // dd($retirement->getMediaCollections());
         /* Check workflow */
         $wf_module_group_id = 4;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $retirement->id);
