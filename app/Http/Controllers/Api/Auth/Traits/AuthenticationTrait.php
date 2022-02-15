@@ -60,6 +60,7 @@ trait AuthenticationTrait
 
             $access_token =  $user->createToken('access_token')->accessToken;
             $success['user'] = $user->api_auth;
+            $success['permissions'] = $user->permissions;
             $success['token'] =[
                 'token_type' => 'Bearer',
                 'access_token' => $access_token

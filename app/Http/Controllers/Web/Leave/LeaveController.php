@@ -15,9 +15,11 @@ use App\Services\Workflow\Workflow;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use UxWeb\SweetAlert\SweetAlert;
 
 class LeaveController extends Controller
 {
+
     use LeaveDatatables;
     protected $leaves;
     protected $wf_tracks;
@@ -70,10 +72,12 @@ class LeaveController extends Controller
             DB::update('update leave_balances set remaining_days =?  where uuid= ?',[$actual_remaining_days,  $leave_balance->uuid]);
             $wf_module_group_id = 5;
             $next_user = $leave->user->assignedSupervisor()->supervisor_id;
-            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id,'region_id' => $leave->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+
+            //event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id,'region_id' => $leave->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+
             return redirect()->route('leave.index');
         } else {
-            return redirect()->back()->with(['message' => 'You are not eligible for this leave']);
+            return redirect()->back();
         }
     }
 

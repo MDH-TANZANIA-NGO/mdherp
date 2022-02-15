@@ -23,7 +23,7 @@
 {{--    text editor--}}
 {{ Html::style(url('mdh/plugins/wysiwyag/richtext.css')) }}
 
-<!-- Date Picker css -->
+        <!-- Date Picker css -->
     {!! Html::script(url('mdh/plugins/date-picker/date-picker.css')) !!}
 
     {{ Html::style(url('mdh/plugins/horizontal-menu/horizontal.css')) }}
@@ -53,10 +53,37 @@
         {{ Html::style(url('mdh/css/custom.css')) }}
 
 
-<!-- Notifications  Css -->
-{{--    {{ Html::style(url('mdh/plugins/notify/css/jquery.growl.css')) }}--}}
-    {{ Html::style(url('mdh/plugins/notify/css/notifIt.css')) }}
+{{--    <link href="mdh/css/style.css" rel="stylesheet" />--}}
 
+{{--    <!--Horizontal css -->--}}
+{{--    <link id="effect" href="mdh/plugins/horizontal-menu/dropdown-effects/fade-up.css" rel="stylesheet" />--}}
+{{--    <link href="mdh/plugins/horizontal-menu/horizontal.css" rel="stylesheet" />--}}
+
+{{--    <!--Sidemenu css -->--}}
+{{--    <link href="mdh/plugins/sidemenu/combine-menu/combine-menu.css" rel="stylesheet">--}}
+
+{{--    <!-- P-scroll bar css-->--}}
+{{--    <link href="mdh/plugins/p-scrollbar/p-scrollbar.css" rel="stylesheet" />--}}
+
+{{--    <!---Icons css-->--}}
+{{--    <link href="mdh/plugins/web-fonts/icons.css" rel="stylesheet" />--}}
+{{--    <link href="mdh/plugins/web-fonts/font-awesome/font-awesome.min.css" rel="stylesheet">--}}
+{{--    <link href="mdh/plugins/web-fonts/plugin.css" rel="stylesheet" />--}}
+
+{{--    <!-- Select2 css -->--}}
+{{--    <link href="mdh/plugins/select2/select2.min.css" rel="stylesheet" />--}}
+
+{{--    <!-- Time picker css -->--}}
+{{--    <link href="mdh/plugins/time-picker/jquery.timepicker.css" rel="stylesheet" />--}}
+
+{{--    <!-- Date Picker css -->--}}
+{{--    <link href="mdh/plugins/date-picker/date-picker.css" rel="stylesheet" />--}}
+
+{{--    <!-- File Uploads css-->--}}
+{{--    <link href="mdh/plugins/fileupload/css/dropify.css" rel="stylesheet" type="text/css" />--}}
+
+{{--    <!-- Skin css-->--}}
+{{--    <link href="mdh/css/skins.css" rel="stylesheet" />--}}
 
     @stack('after-styles')
 
@@ -96,13 +123,13 @@
 {{--    //     $('.calculated').val(diff);--}}
 {{--    // }--}}
 {{--</script>--}}
+    {!! Html::script(url('dist/sweetalert.min.js')) !!}
 
 </head>
 
 <body class="app sidebar-mini" style="background-color: #f5f5f5">
 
-{{--@include('vendor.sweet.alert')--}}
-{{--@include('sweetalert::alert')--}}
+@include('sweet::alert')
 <!---Global-loader-->
 <div id="global-loader" >
     <img src=" {{ asset('mdh/images/svgs/loader.svg') }}" alt="loader">
@@ -256,9 +283,6 @@
 {{--<script src="mdh/plugins/fileupload/js/dropify.js"></script>--}}
 {{--<script src="mdh/js/filupload.js"></script>--}}
 
-<!-- Sweet Alert -->
-{!! Html::script(url('mdh/plugins/sweet-alert/sweetalert.min.js')) !!}
-
 {!! Html::script(url('mdh/plugins/wysiwyag/jquery.richtext.js')) !!}
 {!! Html::script(url('mdh/js/form-editor.js')) !!}
 @stack('after-scripts')
@@ -271,14 +295,5 @@
 <script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>
 <script src="mdh/js/form-wizard.js"></script>
 
-<!-- Notifications js -->
-<script src="mdh/plugins/notify/js/rainbow.js"></script>
-<script src="mdh/plugins/notify/js/sample.js"></script>
-<script src="mdh/plugins/notify/js/jquery.growl.js"></script>
-<script src="mdh/plugins/notify/js/notifIt.js"></script>
-
-
 </body>
 </html>
-
-

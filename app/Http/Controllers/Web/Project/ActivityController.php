@@ -57,6 +57,7 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $this->activities->store($request->all());
+        alert()->success('Activity Registered Successfully');
         return redirect()->back();
     }
 
@@ -95,6 +96,7 @@ class ActivityController extends Controller
     public function update(Request $request, Activity $activity)
     {
         $this->activities->update($activity, $request->all());
+        alert()->success('Activity Updated Successfully');
         return redirect()->back();
     }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1e24ea629b816fedc331a8be6a06d39",
+    "content-hash": "89d53f769f1f4fa8b96ed0c70b43d3ff",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4658,43 +4658,37 @@
             "time": "2021-09-25T23:10:38+00:00"
         },
         {
-            "name": "realrashid/sweet-alert",
-            "version": "v5.0.0",
+            "name": "rsmalc/laravel-noty",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/realrashid/sweet-alert.git",
-                "reference": "5cf4a41631cf74efecb5e44d05eca02a2aa8d7e1"
+                "url": "https://github.com/rsmalc/laravel-noty.git",
+                "reference": "04e5be8fe484d026e93c07ef0515525113db6820"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/realrashid/sweet-alert/zipball/5cf4a41631cf74efecb5e44d05eca02a2aa8d7e1",
-                "reference": "5cf4a41631cf74efecb5e44d05eca02a2aa8d7e1",
+                "url": "https://api.github.com/repos/rsmalc/laravel-noty/zipball/04e5be8fe484d026e93c07ef0515525113db6820",
+                "reference": "04e5be8fe484d026e93c07ef0515525113db6820",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "^5.6|^6.0|^7.0|^8.0|^9.0",
-                "php": "^7.2|^8.0"
-            },
-            "require-dev": {
-                "symfony/thanks": "^1.0"
+                "illuminate/support": "^5.1|^6|^7|^8",
+                "php": ">=5.6.0"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "RealRashid\\SweetAlert\\SweetAlertServiceProvider"
-                    ],
-                    "aliases": {
-                        "Alert": "RealRashid\\SweetAlert\\Facades\\Alert"
-                    }
+                        "RSmalc\\Noty\\NotyServiceProvider"
+                    ]
                 }
             },
             "autoload": {
                 "files": [
-                    "src/functions.php"
+                    "src/Noty/helpers.php"
                 ],
                 "psr-4": {
-                    "RealRashid\\SweetAlert\\": "src/"
+                    "RSmalc\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4703,49 +4697,16 @@
             ],
             "authors": [
                 {
-                    "name": "Rashid Ali",
-                    "email": "realrashid05@gmail.com",
-                    "homepage": "https://realrashid.com",
-                    "role": "Developer"
+                    "name": "Robert Smalc",
+                    "email": "robert@smalc.si"
                 }
             ],
-            "description": "A BEAUTIFUL, RESPONSIVE, CUSTOMIZABLE, ACCESSIBLE (WAI-ARIA) REPLACEMENT FOR JAVASCRIPT'S POPUP BOXES FOR LARAVEL BY RASHID ALI",
-            "homepage": "https://github.com/realrashid/sweet-alert",
-            "keywords": [
-                "alert",
-                "laravel",
-                "laravel-package",
-                "notifier",
-                "noty",
-                "sweet-alert",
-                "sweet-alert2",
-                "toast"
-            ],
+            "description": "Flash Messages for Laravel Aplication using Noty v3 library",
             "support": {
-                "docs": "https://realrashid.github.io/sweet-alert/",
-                "email": "realrashid05@gmail.com",
-                "issues": "https://github.com/realrashid/sweet-alert/issues",
-                "source": "https://github.com/realrashid/sweet-alert"
+                "issues": "https://github.com/rsmalc/laravel-noty/issues",
+                "source": "https://github.com/rsmalc/laravel-noty/tree/2.4.0"
             },
-            "funding": [
-                {
-                    "url": "https://ko-fi.com/realrashid",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://www.buymeacoffee.com/realrashid",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://issuehunt.io/r/realrashid",
-                    "type": "issuehunt"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/realrashid/sweet-alert",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-02-04T09:38:53+00:00"
+            "time": "2020-09-21T11:31:43+00:00"
         },
         {
             "name": "spatie/image",

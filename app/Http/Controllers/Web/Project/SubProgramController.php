@@ -46,6 +46,7 @@ class SubProgramController extends Controller
     public function store(Request $request)
     {
         $this->sub_programs->store($request->all());
+        alert()->success('Sub Program Area Registered Successfully');
         return redirect()->back();
     }
 
@@ -73,6 +74,7 @@ class SubProgramController extends Controller
     public function update(Request $request, SubProgram $subProgram)
     {
         $this->sub_programs->update($subProgram, $request->all());
+        alert()->success('Sub Program Area Updated Successfully');
         return redirect()->back();
     }
 
