@@ -71,7 +71,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->users->store($request->all());
+        $user = $this->users->store($request->all());
+        alert()->success($user->full_name_formatted. ' Registered Successfully');
         return redirect()->back();
     }
 

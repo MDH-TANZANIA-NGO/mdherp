@@ -218,8 +218,8 @@ class UserRepository extends BaseRepository
         return DB::transaction(function () use ($inputs){
             $user = $this->query()->create($this->processInputs($inputs));
             $user->projects()->sync($inputs['projects']);
-//            $reset_link = $this->resetLink($user);
-//            $user->notify(new UserRegistrationNotification($reset_link));
+            $reset_link = $this->resetLink($user);
+            $user->notify(new UserRegistrationNotification($reset_link));
             return $user;
         });
     }

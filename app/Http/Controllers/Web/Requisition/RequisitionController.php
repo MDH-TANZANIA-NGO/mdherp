@@ -102,6 +102,7 @@ class RequisitionController extends Controller
         //dd($request->all());
         $requisition = $this->requisitions->store($request->all());
         $mdh_rates = $this->mdh_rates->getForPluck();
+        alert()->success('Requisition Stored Successfully');
         return redirect()->route('requisition.addDescription',[$requisition]);
 
     }
