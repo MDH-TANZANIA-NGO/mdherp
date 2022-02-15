@@ -182,7 +182,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
-        RSmalc\Noty\NotyServiceProvider::class,
+//        RSmalc\Noty\NotyServiceProvider::class,
 
     ],
 
