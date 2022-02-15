@@ -123,12 +123,12 @@
 {{--    //     $('.calculated').val(diff);--}}
 {{--    // }--}}
 {{--</script>--}}
+    {!! Html::script(url('dist/sweetalert.min.js')) !!}
 
 </head>
 
 <body class="app sidebar-mini" style="background-color: #f5f5f5">
 
-{{--@include('vendor.sweet.alert')--}}
 @include('sweet::alert')
 <!---Global-loader-->
 <div id="global-loader" >
@@ -282,9 +282,6 @@
 <!-- File uploads js -->
 {{--<script src="mdh/plugins/fileupload/js/dropify.js"></script>--}}
 {{--<script src="mdh/js/filupload.js"></script>--}}
-
-<!-- Sweet Alert -->
-{!! Html::script(url('mdh/plugins/sweet-alert/sweetalert.min.js')) !!}
 
 {!! Html::script(url('mdh/plugins/wysiwyag/jquery.richtext.js')) !!}
 {!! Html::script(url('mdh/js/form-editor.js')) !!}
