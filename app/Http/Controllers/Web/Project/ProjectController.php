@@ -73,7 +73,8 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $this->projects->update($request->all(), $project);
-        return redirect()->back()->with('success','Project Updated Successfully');
+        alert()->success('Project Updated Successfully');
+        return redirect()->back();
     }
 
     /**
@@ -86,7 +87,8 @@ class ProjectController extends Controller
     public function activate(Request $request, Project $project)
     {
         $this->projects->activate($request->all(), $project);
-        return redirect()->back()->with('success','Project Activated Successfully');
+        alert()->success('Project Activated Successfully');
+        return redirect()->back();
     }
 
     /**

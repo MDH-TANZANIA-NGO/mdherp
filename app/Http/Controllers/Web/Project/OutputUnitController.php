@@ -48,6 +48,7 @@ class OutputUnitController extends Controller
     public function store(Request $request)
     {
         $this->output_units->store($request->all());
+        alert()->success('Output unit registered Successfully');
         return redirect()->back();
     }
 
@@ -84,6 +85,7 @@ class OutputUnitController extends Controller
     public function update(Request $request, $uuid)
     {
         $this->output_units->update($uuid, $request->all());
+        alert()->success('Output unit Updated Successfully');
         return redirect()->back();
     }
 
