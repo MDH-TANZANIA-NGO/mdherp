@@ -90,10 +90,8 @@
                             <tr>
                                 <td>1</td>
                                 <td>Receipt</td>
-                                <td><a href="{{$retirement->getFirstMediaURL('attachments', 'thumb')}}" target="_blank"  width="120px">view</a></td>
-{{--                                <td><iframe src="{{$retirement->getFirstMediaURL('attachments', 'thumb')}}" style="width:200px; height:100px;" frameborder="0"></iframe></td>--}}
-{{--                                <td>return response()->file($retirement->getFirstMediaURL('attachments', 'thumb'));</td>--}}
-
+                                {{$retirement->getRegisteredMediaCollections()}}
+                                <td><a href="{{$retirement->getFirstMediaURL('attachments', 'thumb')}}" target="_blank">view</a></td>
                             </tr>
 
                         @endforeach

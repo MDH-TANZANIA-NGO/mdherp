@@ -102,7 +102,7 @@
 <body class="app sidebar-mini" style="background-color: #f5f5f5">
 
 {{--@include('vendor.sweet.alert')--}}
-@include('vendor.sweetalert::alert')
+@include('sweetalert::alert')
 <!---Global-loader-->
 <div id="global-loader" >
     <img src=" {{ asset('mdh/images/svgs/loader.svg') }}" alt="loader">
@@ -280,3 +280,5 @@
 
 </body>
 </html>
+
+
