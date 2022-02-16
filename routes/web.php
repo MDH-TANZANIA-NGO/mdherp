@@ -39,3 +39,7 @@ Auth::routes();
 Route::get('/userslist', 'Userslist@index')->name('userslist');
 Route::get('/userregister', 'Usersregister@index')->name('userregister');
 Route::get('/updateuser', 'updateuser@index')->name('updateuser');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

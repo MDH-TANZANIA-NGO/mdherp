@@ -74,15 +74,29 @@
 
                 <hr>
 
-                <div class="list-group">
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap">
+                        <thead >
+                        <tr>
 
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Attachment</h5>
-                        </div>
-                     &nbsp;
-                        <p class="mb-1">Receipt.pdf</p>
+                            <th>#</th>
+                            <th>Attachment Name</th>
+                            <th>Attachment </th>
 
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($retirementz as $retirement)
+                            <tr>
+                                <td>1</td>
+                                <td>Receipt</td>
+{{--                                {{$retirement->getRegisteredMediaCollections()}}--}}
+                                <td><a href="{{$retirement->getFirstMediaURL('attachments', 'thumb')}}" target="_blank">view</a></td>
+                            </tr>
 
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
                 <!-- table-responsive -->
             </div>

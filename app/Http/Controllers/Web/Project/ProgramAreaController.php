@@ -52,6 +52,7 @@ class ProgramAreaController extends Controller
     public function store(Request $request)
     {
         $this->program_areas->store($request->all());
+        alert()->success('Program Area registered Successfully');
         return redirect()->back();
     }
 
@@ -91,6 +92,7 @@ class ProgramAreaController extends Controller
     public function update(Request $request, $uuid)
     {
         $this->program_areas->update($uuid, $request->all());
+        alert()->success('Program Area updated Successfully');
         return redirect()->back();
     }
 
