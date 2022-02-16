@@ -90,7 +90,7 @@
                             <tr>
                                 <td>1</td>
                                 <td>Receipt</td>
-                                {{$retirement->getRegisteredMediaCollections()}}
+{{--                                {{$retirement->getRegisteredMediaCollections()}}--}}
                                 <td><a href="{{$retirement->getFirstMediaURL('attachments', 'thumb')}}" target="_blank">view</a></td>
                             </tr>
 

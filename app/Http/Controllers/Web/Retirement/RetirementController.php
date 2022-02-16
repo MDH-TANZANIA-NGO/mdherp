@@ -98,7 +98,7 @@ class RetirementController extends Controller
                     $retirement_detailz->addMedia($attachment)->toMediaCollection('attachments');
                 }
             }
-
+            alert()->success('Retirement Submitted Successfully','success');
             return redirect()->route('retirement.show',$uuid);
         }
         else{
@@ -118,7 +118,7 @@ class RetirementController extends Controller
 
             $next_user = $retirement->user->assignedSupervisor()->supervisor_id;
             event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $retirement->id,'region_id' => $retirement->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-
+            alert()->success('Retirement Submitted Successfully','success');
             return redirect()->route('retirement.show',$uuid);
 
         }
