@@ -73,9 +73,9 @@ class ListingController extends Controller
     public function store(Request $request)
     {
         $listing = $this->listing->store($request->all());
-        $wf_module_group_id = 5;
+        $wf_module_group_id = 8;
         $next_user = $listing->user->assignedSupervisor()->supervisor_id;
-        event(new NewWorkflow(['wf_module_group_id' => 2, 'resource_id' => $listing->id,'region_id' => $listing->region_id, 'type' => 1],[],['next_user_id' => 73]));
+        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $listing->id,'region_id' => $listing->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
         alert()->success('Hire Requisition Created Successfully','success');
         return redirect()->route('listing.index');
     }
@@ -89,7 +89,7 @@ class ListingController extends Controller
     public function show(Listing $listing)
     {
         /* Check workflow */
-        $wf_module_group_id = 2;
+        $wf_module_group_id = 8;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $listing->id);
         $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $listing->id, 'type' => $wf_module->type]);
         $check_workflow = $workflow->checkIfHasWorkflow();

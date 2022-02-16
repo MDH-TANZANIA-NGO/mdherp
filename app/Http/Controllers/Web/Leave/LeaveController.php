@@ -74,6 +74,7 @@ class LeaveController extends Controller
             $next_user = $leave->user->assignedSupervisor()->supervisor_id;
 
             event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id,'region_id' => $leave->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+            alert()->success('Your Leave Request have been submitted Successfully','success');
 
             return redirect()->route('leave.index');
         } else {

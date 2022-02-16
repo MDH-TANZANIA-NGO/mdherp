@@ -21,4 +21,11 @@ class Listing extends BaseModel
     {
         return $this->morphMany(WfTrack::class, 'resource');
     }
+
+    public function getResourceNameAttribute()
+    {
+        return "<b>".$this->id."</b> <br>".
+            $this->user->full_name_formatted."<br>".
+            $this->user->designation_title;
+    }
 }

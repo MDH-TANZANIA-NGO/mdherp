@@ -61,8 +61,7 @@ class ListingRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('listings.wf_done', 0)
-            ->where('listings.rejected', false)
+            ->where('listings.wf_done', true)
             ->where('users.id', access()->id());
     }
 

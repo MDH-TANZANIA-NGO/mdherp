@@ -511,6 +511,12 @@ class Workflow
                 $timesheet = $timesheetrepo->find($resourceId);
                 $timesheet->wfTracks()->save($wfTrack);
                 break;
+            case 8:
+                /*Listing */
+                $listingrepo = (new ListingRepository());
+                $listing = $listingrepo->find($resourceId);
+                $listing->wfTracks()->save($wfTrack);
+                break;
         }
     }
 
