@@ -88,6 +88,7 @@ class SafariController extends Controller
        if ($safari_advance_done == true)
        {
            $this->safariAdvance->update($request->all(),$uuid);
+           alert()->success('Safari Advance Submitted Successfully','Success');
        }
        else{
            $this->safariAdvance->update($request->all(),$uuid);
@@ -95,7 +96,7 @@ class SafariController extends Controller
            $wf_module_group_id = 2;
            $next_user = $safari->user->assignedSupervisor()->supervisor_id;
            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $safari->id,'region_id' => $safari->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-
+           alert()->success('Safari Advance Submitted Successfully','Success');
        }
          return redirect()->route('safari.show',$uuid);
     }

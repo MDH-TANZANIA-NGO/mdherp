@@ -80,6 +80,8 @@ class TimesheetController extends Controller
         $wf_module_group_id = 7;
         $next_user = $timesheet->user->assignedSupervisor()->supervisor_id;
         event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $timesheet->id,'region_id' => $timesheet->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+        alert()->success('Your timesheet have been submitted Successfully','success');
+
         return redirect()->route('timesheet.index');
     }
 

@@ -11,6 +11,7 @@ use App\Models\Workflow\WfTrack;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\Listing\ListingRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Report\ReportRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -438,6 +439,16 @@ class Workflow
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
+                case 9:
+                    $listingrepo = (new ListingRepository());
+                    $listing = $listingrepo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('listing.show',$listing),
+                        'subject' =>  "Hire Requisition Approval",
+                        'message' => 'This Hire Requisition Needs your Approval'
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
 
             }
 
@@ -499,6 +510,12 @@ class Workflow
                 $timesheetrepo = (new TimesheetRepository());
                 $timesheet = $timesheetrepo->find($resourceId);
                 $timesheet->wfTracks()->save($wfTrack);
+                break;
+            case 8:
+                /*Listing */
+                $listingrepo = (new ListingRepository());
+                $listing = $listingrepo->find($resourceId);
+                $listing->wfTracks()->save($wfTrack);
                 break;
         }
     }

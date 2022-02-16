@@ -13,6 +13,8 @@ use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
+use App\Models\Requisition\Training\Traits\Relationship\RequisitionTrainingCostRelationship;
+use App\Models\Requisition\Training\Traits\Relationship\RequisitionTrainingRelationship;
 use App\Notifications\ProgramActivityReport\ProgramActivityReportNotification;
 use App\Repositories\Access\SupervisorUserRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
@@ -150,10 +152,10 @@ class ProgramActivityController extends Controller
 
     public function updateParticipant(Request $request, $uuid)
     {
-
+     $program_activity_uuid = ProgramActivity::all()->where('requisition_training_id', requisition_training_cost::all()->where('participant_uid', $this->gOfficer->findByUuid($uuid)->id)->first()->requisition_training_id)->first()->uuid;
         $this->program_activity->updateParticipant($request->all(), $uuid);
-        dd($this->program_activity->findByUuid($uuid));
-        return redirect(route('programactivity.show', $uuid));
+     alert()->success('Your Swap is Successfully', 'Success');
+        return redirect()->route('programactivity.show', $program_activity_uuid);
     }
     public function editParticipant(ProgramActivityRepository $activityRepository, $uuid)
     {

@@ -1,9 +1,12 @@
 <?php
 
+use Database\DisableForeignKeys;
+use Database\TruncateTable;
 use Illuminate\Database\Seeder;
 
 class LeaveTypesTableSeeder extends Seeder
 {
+    use TruncateTable, DisableForeignKeys;
     /**
      * Run the database seeds.
      *
@@ -11,6 +14,8 @@ class LeaveTypesTableSeeder extends Seeder
      */
     public function run()
     {
+        $this->disableForeignKeys("leave_types");
+        $this->delete('leave_types');
 
         \DB::table('leave_types')->insert(array (
             0 =>

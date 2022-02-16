@@ -111,6 +111,9 @@
                         case 7: /*timesheet*/
                             window.open(base_url + "/timesheet/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
+                        case 8: /*listing*/
+                            window.open(base_url + "/listings/" + aData['resource_uuid'] + '/show' , "_blank");
+                            break;
                         default:
                             break;
                     }
