@@ -1,7 +1,7 @@
 @extends('layouts.public')
 @section('content')
 
-    <div class="row">
+    <div class="row mt-8">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -19,7 +19,7 @@
                     {{ Markdown::parse($listing->special_employment_condition) }}
                 </div>
                 <div class="card-footer">
-                    <a href="{{route('applicant.register', $listing->uuid)}}" class="btn btn-primary float-right">
+                    <a href="#" class="btn btn-primary float-right">
                         APPLY
                     </a>
                 </div>
