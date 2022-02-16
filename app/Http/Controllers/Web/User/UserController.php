@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\User\Datatables\UserDatatables;
+use App\Models\Auth\Relationship\UserRelationship;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Models\Leave\LeaveType;
@@ -20,7 +21,7 @@ use UxWeb\SweetAlert\SweetAlert;
 
 class UserController extends Controller
 {
-    use UserDatatables;
+    use UserDatatables, UserRelationship;
     protected $designations;
     protected $regions;
     protected $users;
@@ -91,6 +92,15 @@ class UserController extends Controller
             $leave_types = LeaveType::all();
             dd(User::all()->where('id', $user->assignedSupervisor()->user_id)->first()->full_name);
 
+            if ($user->assignedSupervisor())
+            {
+                $supervisor = $this->users->find($user->assignedSupervisor()->supervisor_id)->full_name;
+            }
+            else{
+                $supervisor= ' Not assigned';
+            }
+
+
 //dd($this->users->getAllUsersWithThisSupervisorGet($user->id));
         return view('user.profile.view_profile')
             ->with('user', $user)
@@ -104,7 +114,8 @@ class UserController extends Controller
             ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorGet($user->id))
             ->with('permissions', $this->permissions->getAll())
             ->with('leave_types', $leave_types)
-            ->with('user_projects', $this->projects->getUserProjects($user->id));
+            ->with('user_projects', $this->projects->getUserProjects($user->id))
+            ->with('supervisor', $supervisor);
     }
 
     /**

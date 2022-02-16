@@ -28,18 +28,19 @@
                                                         <tbody>
                                                             <tr><td>Active since:{{$user->created_at}} </td></tr>
                                                             <tr><td>Last Update: {{$user->updated_at}}</td></tr>
-                                                            <tr><td>Supervior: Isack Laizer</td></tr>
-                                                            <tr><td>
-                                                                    Deactivate
-
-                                                                    <div class="material-switch pull-right">
-                                                                        <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox">
-                                                                        <label for="someSwitchOptionDanger" class="label-danger" style="margin-top: 15px"></label>
-                                                                    </div>
-
-
-
+                                                            <tr><td>Supervior:  {{$supervisor}}
                                                                 </td></tr>
+{{--                                                            <tr><td>--}}
+{{--                                                                    Deactivate--}}
+
+{{--                                                                    <div class="material-switch pull-right">--}}
+{{--                                                                        <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox">--}}
+{{--                                                                        <label for="someSwitchOptionDanger" class="label-danger" style="margin-top: 15px"></label>--}}
+{{--                                                                    </div>--}}
+
+
+
+{{--                                                                </td></tr>--}}
                                                         </tbody>
 
 
@@ -67,7 +68,7 @@
                                                     @if($user->supervisor)<li><a href="#tab2" data-toggle="tab">Supervision</a></li>@endif
                                                     <li><a href="#tab3" data-toggle="tab">Workflow</a></li>
                                                     <li><a href="#tab4" data-toggle="tab">Permissions</a></li>
-                                                    <li><a href="#tab5" data-toggle="tab">Audit</a></li>
+{{--                                                    <li><a href="#tab5" data-toggle="tab">Audit</a></li>--}}
                                                     <li><a href="#tab6" data-toggle="tab">Leave Setup</a></li>
                                                 </ul>
                                             </div>
