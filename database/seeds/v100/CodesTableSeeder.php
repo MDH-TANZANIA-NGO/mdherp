@@ -66,10 +66,39 @@ class CodesTableSeeder extends Seeder
             6 =>
                 array (
                     'id' => 7,
-                    'name' => 'Address Type',
-                    'lang' => 'address_type',
+                    'name' => 'Prospect for Appointment',
+                    'lang' => 'prospect_for_appointment',
                     'is_system_defined' => 1,
                 ),
+            7 =>
+                array (
+                    'id' => 8,
+                    'name' => 'Employment Condition',
+                    'lang' => 'employment_condition',
+                    'is_system_defined' => 1,
+                ),
+            8 =>
+                array (
+                    'id' => 9,
+                    'name' => 'Establishment',
+                    'lang' => 'establishment',
+                    'is_system_defined' => 1,
+                ),
+            9 =>
+                array (
+                    'id' => 10,
+                    'name' => 'Education Level',
+                    'lang' => 'education_level',
+                    'is_system_defined' => 1,
+                ),
+            10 =>
+                array (
+                    'id' => 11,
+                    'name' => 'Readiness',
+                    'lang' => 'readiness',
+                    'is_system_defined' => 1,
+                )
+
 
         ));
         $this->enableForeignKeys("codes");

@@ -89,7 +89,7 @@
         </div>
 
         <div class="col-4 col-sm-4 col-lg-3">
-            <a href="{{ route('account.index') }}">
+            <a href="{{ route('listing.index') }}">
                 <div class="card">
                     <div class="card-body text-center">
                         <div class="h2 m-0"><i class="fa fa- text-primary"></i></div>

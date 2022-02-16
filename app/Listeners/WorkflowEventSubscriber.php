@@ -7,6 +7,7 @@ use App\Exceptions\WorkflowException;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Leave\LeaveRepository;
+use App\Repositories\Listing\ListingRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
@@ -236,6 +237,17 @@ class WorkflowEventSubscriber
                         'message' => 'These Timesheet has been Approved successfully'
                     ];
                     $timesheet->user->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 9:
+                    $listingrepo = (new ListingRepository());
+                    $listing = $listingrepo->find($resource_id);
+                    $this->updateWfDone($listing);
+                    $email_resource = (object)[
+                        'link' =>  route('listing.show',$listing),
+                        'subject' => "Approved Successfully",
+                        'message' => 'This Hire Requisition has been Approved successfully'
+                    ];
+                    $listing->user->notify(new WorkflowNotification($email_resource));
                     break;
             }
 
