@@ -97,7 +97,14 @@ class CodesTableSeeder extends Seeder
                     'name' => 'Readiness',
                     'lang' => 'readiness',
                     'is_system_defined' => 1,
-                )
+                ),
+            11 =>
+                array (
+                    'id' => 12,
+                    'name' => 'Relationship',
+                    'lang' => 'relationship',
+                    'is_system_defined' => 1,
+                ),
 
 
         ));

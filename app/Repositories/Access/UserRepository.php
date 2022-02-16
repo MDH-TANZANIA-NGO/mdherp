@@ -51,6 +51,8 @@ class UserRepository extends BaseRepository
                 DB::raw("users.id as user_id"),
                 DB::raw("users.first_name as first_name"),
                 DB::raw("users.last_name as last_name"),
+                DB::raw("users.middle_name as middle_name"),
+                DB::raw("users.employed_date as employed_date"),
                 DB::raw("code_values.name as gender"),
                 DB::raw("users.phone as phone"),
                 DB::raw("users.email as email"),
@@ -79,6 +81,8 @@ class UserRepository extends BaseRepository
                 DB::raw("users.id as user_id"),
                 DB::raw("users.first_name as first_name"),
                 DB::raw("users.last_name as last_name"),
+                DB::raw("users.middle_name as middle_name"),
+                DB::raw("users.employed_date as employed_date"),
                 DB::raw("code_values.name as gender"),
                 DB::raw("users.phone as phone"),
                 DB::raw("users.email as email"),
@@ -243,10 +247,12 @@ class UserRepository extends BaseRepository
                 'dob' => $inputs['dob'],
                 'designation_id' => $inputs['designation'],
                 'region_id' => $inputs['region'],
+                'employed_date' => $inputs['employed_date'],
                 'marital_status_cv_id' => $inputs['marital'],
                 'supervisor' => isset($inputs['supervisor'])??false
             ]);
-            $user->projects()->sync($inputs['projects']);
+            if (isset($inputs['projects']))
+                $user->projects()->sync($inputs['projects']);
             return $user;
         });
     }

@@ -371,7 +371,106 @@ class CodeValuesTableSeeder extends Seeder
                     'reference' => 'notready',
                     'sort' => 0,
                     'isactive' => 1,
-                )
+                ),
+            32 =>
+                array (
+                    'id' => 33,
+                    'code_id' => 12,
+                    'name' => 'child',
+                    'lang' => NULL,
+                    'description' => 'This could be a son or daughter but we have the gender section',
+                    'reference' => 'ch',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            33 =>
+                array (
+                    'id' => 34,
+                    'code_id' => 12,
+                    'name' => 'spouse',
+                    'lang' => NULL,
+                    'description' => 'The loved one',
+                    'reference' => 'sp',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            34 =>
+                array (
+                    'id' => 35,
+                    'code_id' => 12,
+                    'name' => 'other',
+                    'lang' => NULL,
+                    'description' => 'The loved one',
+                    'reference' => 'ot',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            35 =>
+                array (
+                    'id' => 36,
+                    'code_id' => 12,
+                    'name' => 'father',
+                    'lang' => NULL,
+                    'description' => 'The loved one',
+                    'reference' => 'fa',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            36 =>
+                array (
+                    'id' => 37,
+                    'code_id' => 12,
+                    'name' => 'mother',
+                    'lang' => NULL,
+                    'description' => 'The loved one',
+                    'reference' => 'mo',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            37 =>
+                array (
+                    'id' => 38,
+                    'code_id' => 12,
+                    'name' => 'uncle',
+                    'lang' => NULL,
+                    'description' => 'The loved one',
+                    'reference' => 'un',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            38 =>
+                array (
+                    'id' => 39,
+                    'code_id' => 12,
+                    'name' => 'sibling',
+                    'lang' => NULL,
+                    'description' => 'The loved one',
+                    'reference' => 'sib',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            39 =>
+                array (
+                    'id' => 40,
+                    'code_id' => 12,
+                    'name' => 'aunt',
+                    'lang' => NULL,
+                    'description' => 'The loved one',
+                    'reference' => 'au',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            40 =>
+                array (
+                    'id' => 41,
+                    'code_id' => 12,
+                    'name' => 'cousin',
+                    'lang' => NULL,
+                    'description' => 'The loved one',
+                    'reference' => 'cou',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
 
 
         ));

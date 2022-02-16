@@ -29,7 +29,7 @@ class FamilyController extends Controller
     {
         return view('person.family.create')
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
-            ->with('relations', code_value()->query()->where('code_id',7)->pluck('name','id'));
+            ->with('relations', code_value()->query()->where('code_id',12)->pluck('name','id'));
 
     }
 
