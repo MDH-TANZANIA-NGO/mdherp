@@ -35,7 +35,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {!! Form::label('dob', __("label.dob"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::date('dob',old('dob'),['class' => 'form-control', 'placeholder' => '','required']) !!}
+                                {!! Form::date('dob',old('dob'),['class' => 'form-control', 'placeholder' => '','required', 'max'=>'2004-12-31']) !!}
                                 {!! $errors->first('dob', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                         <div class=" col-md-4">
                             <div class="form-group ">
                                 {!! Form::label('projects', __("label.project"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::select('projects[]', [], null, ['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
+                                {!! Form::select('projects[]', [], $user_projects, null,['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
                                 {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
@@ -140,5 +140,6 @@
             }
 
         });
+
     </script>
 @endpush

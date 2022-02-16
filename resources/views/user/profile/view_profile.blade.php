@@ -26,8 +26,8 @@
                                                     <table class="table   table-striped  table-outline text-nowrap">
 
                                                         <tbody>
-                                                            <tr><td>Active since:20-09-2020 </td></tr>
-                                                            <tr><td>Last Update: 05-10-2021</td></tr>
+                                                            <tr><td>Active since:{{$user->created_at}} </td></tr>
+                                                            <tr><td>Last Update: {{$user->updated_at}}</td></tr>
                                                             <tr><td>Supervior: Isack Laizer</td></tr>
                                                             <tr><td>
                                                                     Deactivate
@@ -153,7 +153,7 @@
                                                                 <div class="col-12 col-sm-12 col-lg-12 col-xl-12 col-md-12">
                                                                     <div class="form-group ">
                                                                         {!! Form::label('projects', __("label.project").'(s)',['class'=>'form-label','required_asterik']) !!}
-                                                                        {!! Form::select('projects[]', $projects, access()->user()->projects()->pluck('projects.id'), ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']) !!}
+                                                                        {!! Form::select('projects[]', $projects, $user_projects, ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']) !!}
                                                                         {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
                                                                     </div>
                                                                 </div>

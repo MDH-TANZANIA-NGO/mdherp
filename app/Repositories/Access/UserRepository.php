@@ -279,6 +279,11 @@ class UserRepository extends BaseRepository
         return $this->getQuery()
             ->where('active', true);
     }
+    public function getInactive()
+    {
+        return $this->getQuery()
+            ->where('active', false);
+    }
 
     /**
      *
