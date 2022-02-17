@@ -80,6 +80,13 @@ class UserController extends Controller
         alert()->success($user->full_name_formatted. ' Registered Successfully');
         return redirect()->back();
     }
+    public function resetPassword(User $user)
+    {
+        $this->users->resetPassword($user);
+        alert()->success('Email For Password Reset sent to'.$user->full_name. 'Succeeded');
+        return redirect()->back();
+
+    }
 
     /**
      * Display the specified resource.
@@ -90,7 +97,6 @@ class UserController extends Controller
     public function profile(User $user)
     {
             $leave_types = LeaveType::all();
-            dd(User::all()->where('id', $user->assignedSupervisor()->user_id)->first()->full_name);
 
             if ($user->assignedSupervisor())
             {
