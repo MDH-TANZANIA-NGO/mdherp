@@ -65,6 +65,7 @@ class UserController extends Controller
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
             ->with('marital', code_value()->query()->where('code_id',3)->pluck('name','id'))
             ->with('designations', $this->designations->getActiveForSelect())
+            ->with('projects', $this->projects->getActiveForPluck())
             ->with('regions', $this->regions->forSelect());
     }
 

@@ -85,7 +85,7 @@
                         <div class=" col-md-4">
                             <div class="form-group ">
                                 {!! Form::label('projects', __("label.project"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::select('projects[]', [], $user_projects, null,['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
+                                {!! Form::select('projects[]', [], $projects, null,['class' =>'form-control select2 custom-select', 'aria-describedby' => '','multiple','disabled']) !!}
                                 {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
