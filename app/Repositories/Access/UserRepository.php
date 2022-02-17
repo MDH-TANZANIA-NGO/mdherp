@@ -249,7 +249,7 @@ class UserRepository extends BaseRepository
                 'dob' => $inputs['dob'],
                 'designation_id' => $inputs['designation'],
                 'region_id' => $inputs['region'],
-                'employed_date' => $inputs['employed_date'],
+//                'employed_date' => $inputs['employed_date'],
                 'marital_status_cv_id' => $inputs['marital'],
                 'supervisor' => isset($inputs['supervisor'])??false,
                 'active' => $inputs['active']
