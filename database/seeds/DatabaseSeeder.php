@@ -41,6 +41,8 @@ class DatabaseSeeder extends Seeder
         $this->call(OwnershipCategoryTableSeeder::class);
         $this->call(OwnershipTableSeeder::class);
         $this->call(LeaveTypesTableSeeder::class);
+        $this->call(mdh_ratesTableSeeder::class);
+
 
         DB::commit();
     }
