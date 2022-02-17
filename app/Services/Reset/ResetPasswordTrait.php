@@ -17,6 +17,7 @@ trait ResetPasswordTrait
 
     public function resetLink($user)
     {
+
         $email = $user->email;
         $this->deleteToken($email);
         $token = $this->token($user);

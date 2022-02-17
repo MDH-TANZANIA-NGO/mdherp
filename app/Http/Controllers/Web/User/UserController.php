@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\User\Datatables\UserDatatables;
+use App\Models\Auth\Relationship\UserRelationship;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Models\Leave\LeaveType;
+use App\Models\Project\ProjectUser;
 use App\Repositories\Access\PermissionRepository;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Project\ProjectRepository;
@@ -19,13 +21,14 @@ use UxWeb\SweetAlert\SweetAlert;
 
 class UserController extends Controller
 {
-    use UserDatatables;
+    use UserDatatables, UserRelationship;
     protected $designations;
     protected $regions;
     protected $users;
     protected $projects;
     protected $wf_module_groups;
     protected $permissions;
+
 
 
     public function __construct()
@@ -46,7 +49,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        return view('user.index')
+            ->with('active_user_count', $this->users->getActive()->get()->count())
+            ->with('inactive_user_count', $this->users->getInactive()->get()->count());
     }
 
     /**
@@ -85,6 +90,16 @@ class UserController extends Controller
     public function profile(User $user)
     {
             $leave_types = LeaveType::all();
+            dd(User::all()->where('id', $user->assignedSupervisor()->user_id)->first()->full_name);
+
+            if ($user->assignedSupervisor())
+            {
+                $supervisor = $this->users->find($user->assignedSupervisor()->supervisor_id)->full_name;
+            }
+            else{
+                $supervisor= ' Not assigned';
+            }
+
 
 //dd($this->users->getAllUsersWithThisSupervisorGet($user->id));
         return view('user.profile.view_profile')
@@ -98,7 +113,9 @@ class UserController extends Controller
             ->with('users', $this->users->getAllUsersWithNoSupervisorPluck($user->id))
             ->with('user_with_supervisor', $this->users->getAllUsersWithThisSupervisorGet($user->id))
             ->with('permissions', $this->permissions->getAll())
-            ->with('leave_types', $leave_types);
+            ->with('leave_types', $leave_types)
+            ->with('user_projects', $this->projects->getUserProjects($user->id))
+            ->with('supervisor', $supervisor);
     }
 
     /**
