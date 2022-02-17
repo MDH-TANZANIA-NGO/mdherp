@@ -12,7 +12,6 @@ Route::group(['namespace' => 'User', 'middleware' => ['web', 'auth'], 'prefix' =
 
     Route::post('{user_id}/assign-supervisor', 'UserController@assignSupervisor')->name("assign_supervisor");
     Route::get('{users}/remove-supervisor', 'UserController@deleteSupervisor')->name("remove_supervisor");
-
     Route::post('{user}/update-permission', 'UserController@updatePermissions')->name("permission_update");
 
     /**

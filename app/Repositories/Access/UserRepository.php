@@ -224,6 +224,8 @@ class UserRepository extends BaseRepository
         });
     }
 
+
+
     /**
      * Update User
      * @param User $user
@@ -244,7 +246,8 @@ class UserRepository extends BaseRepository
                 'designation_id' => $inputs['designation'],
                 'region_id' => $inputs['region'],
                 'marital_status_cv_id' => $inputs['marital'],
-                'supervisor' => isset($inputs['supervisor'])??false
+                'supervisor' => isset($inputs['supervisor'])??false,
+                'active' => $inputs['active']
             ]);
             $user->projects()->sync($inputs['projects']);
             return $user;
