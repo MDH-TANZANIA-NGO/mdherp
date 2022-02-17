@@ -111,7 +111,7 @@ class ProgramActivityController extends Controller
 
         event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $program_activity->id,'region_id' => $program_activity->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
 
-
+        alert()->success('Activity Submitted Successfully', 'Succeeded');
         return redirect()->route('programactivity.show',$uuid);
 
     }
@@ -205,14 +205,14 @@ class ProgramActivityController extends Controller
     {
 
         $this->program_activity->updateProgramActivity($request->all(), $uuid);
-
+        alert()->success('Activity Report Submitted Successfully', 'Succeeded');
         return redirect(route('programactivity.show', $uuid));
     }
     public function submitPayment(Request $request, $uuid)
     {
 
         $this->program_activity->submitPayment($request->all(), $uuid);
-
+        alert()->success('Payment Done Successfully', 'Succeeded');
         return redirect()->back();
     }
     public function submit($uuid)
@@ -247,7 +247,7 @@ class ProgramActivityController extends Controller
             DB::update('update program_activities set report_approved = ?, report_rejected = ?, remarks = ? where uuid = ?',[false, true, $request->get('remarks'), $uuid]);
 
         }
-
+        alert()->success('Report Approved', 'Succeeded');
         return redirect()->back();
 
 

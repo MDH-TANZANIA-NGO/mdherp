@@ -35,7 +35,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {!! Form::label('dob', __("label.dob"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::date('dob',old('dob'),['class' => 'form-control', 'placeholder' => '','required']) !!}
+                                {!! Form::date('dob',old('dob'),['class' => 'form-control', 'placeholder' => '','required', 'max'=>'2004-12-31']) !!}
                                 {!! $errors->first('dob', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
@@ -140,5 +140,6 @@
             }
 
         });
+
     </script>
 @endpush

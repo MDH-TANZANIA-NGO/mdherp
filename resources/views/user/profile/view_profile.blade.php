@@ -26,20 +26,21 @@
                                                     <table class="table   table-striped  table-outline text-nowrap">
 
                                                         <tbody>
-                                                            <tr><td>Active since:20-09-2020 </td></tr>
-                                                            <tr><td>Last Update: 05-10-2021</td></tr>
-                                                            <tr><td>Supervior: Isack Laizer</td></tr>
-                                                            <tr><td>
+                                                            <tr><td>Active since:{{$user->created_at}} </td></tr>
+                                                            <tr><td>Last Update: {{$user->updated_at}}</td></tr>
+                                                            <tr><td>Supervior:  {{$supervisor}}
+                                                                </td></tr>
+                                                          {{--  <tr><td>
                                                                     Deactivate
 
                                                                     <div class="material-switch pull-right">
-                                                                        <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox">
+                                                                        <input id="someSwitchOptionDanger" name="active" value="false" type="checkbox" >
                                                                         <label for="someSwitchOptionDanger" class="label-danger" style="margin-top: 15px"></label>
                                                                     </div>
 
 
 
-                                                                </td></tr>
+                                                                </td></tr>--}}
                                                         </tbody>
 
 
@@ -67,7 +68,7 @@
                                                     @if($user->supervisor)<li><a href="#tab2" data-toggle="tab">Supervision</a></li>@endif
                                                     <li><a href="#tab3" data-toggle="tab">Workflow</a></li>
                                                     <li><a href="#tab4" data-toggle="tab">Permissions</a></li>
-                                                    <li><a href="#tab5" data-toggle="tab">Audit</a></li>
+{{--                                                    <li><a href="#tab5" data-toggle="tab">Audit</a></li>--}}
                                                     <li><a href="#tab6" data-toggle="tab">Leave Setup</a></li>
                                                 </ul>
                                             </div>
@@ -78,6 +79,7 @@
 
                                                         {!! Form::open(['route' => ['user.update', $user],'method' => 'PUT','class' => 'card']) !!}
                                                         <div class="card-body">
+
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
@@ -150,18 +152,41 @@
                                                                         {!! $errors->first('region', '<span class="badge badge-danger">:message</span>') !!}
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-12 col-sm-12 col-lg-12 col-xl-12 col-md-12">
+
+
+                                                                <div class="col-md-4">
                                                                     <div class="form-group ">
                                                                         {!! Form::label('projects', __("label.project").'(s)',['class'=>'form-label','required_asterik']) !!}
-                                                                        {!! Form::select('projects[]', $projects, access()->user()->projects()->pluck('projects.id'), ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']) !!}
+                                                                        {!! Form::select('projects[]', $projects, $user_projects, ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']) !!}
                                                                         {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
                                                                     </div>
                                                                 </div>
-                                                                <div class=" col-md-4">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group ">
+                                                                        <label class="form-label">Status</label>
+                                                                       <select class="form-control" name="active">
+                                                                           <option value="true">Activate</option>
+                                                                           <option value="false">Deactivate</option>
+                                                                       </select>
+                                                                        </div>
+                                                                </div>
+
+
+                                                              {{--  <div class=" col-md-4">
                                                                     <div class="form-group">
                                                                         <label class="form-label">Is supervisor ?</label>
                                                                         <input type="checkbox" name="supervisor" {{ $user->supervisor ? 'checked' : ''}} class="form-control">
                                                                     </div>
+                                                                </div>--}}
+                                                                <div class=" col-md-4">
+                                                                <div class="form-group">
+                                                                    <label class="custom-switch">
+                                                                        <input type="checkbox" name="supervisor" {{ $user->supervisor ? 'checked' : ''}} class="custom-switch-input" >
+                                                                        <span class="custom-switch-indicator"></span>
+                                                                        <span class="custom-switch-description">Is Supervisor
+                                                                    </span>
+                                                                    </label>
+                                                                </div>
                                                                 </div>
 {{--                                                                <button type="submit" class="btn btn-primary" style="margin-left:40%;">Update Profile</button>--}}
                                                                 {!! Form::submit('Update Profile',['class' => 'btn btn-primary']) !!}

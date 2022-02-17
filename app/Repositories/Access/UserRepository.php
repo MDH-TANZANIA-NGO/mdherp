@@ -228,6 +228,8 @@ class UserRepository extends BaseRepository
         });
     }
 
+
+
     /**
      * Update User
      * @param User $user
@@ -247,9 +249,10 @@ class UserRepository extends BaseRepository
                 'dob' => $inputs['dob'],
                 'designation_id' => $inputs['designation'],
                 'region_id' => $inputs['region'],
-                'employed_date' => $inputs['employed_date'],
+//                'employed_date' => $inputs['employed_date'],
                 'marital_status_cv_id' => $inputs['marital'],
-                'supervisor' => isset($inputs['supervisor'])??false
+                'supervisor' => isset($inputs['supervisor'])??false,
+                'active' => $inputs['active']
             ]);
             if (isset($inputs['projects']))
                 $user->projects()->sync($inputs['projects']);
@@ -284,6 +287,11 @@ class UserRepository extends BaseRepository
     {
         return $this->getQuery()
             ->where('active', true);
+    }
+    public function getInactive()
+    {
+        return $this->getQuery()
+            ->where('active', false);
     }
 
     /**
