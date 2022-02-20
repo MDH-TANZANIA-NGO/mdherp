@@ -172,6 +172,7 @@ class RequisitionController extends Controller
             ->with('users', $this->users->getUserQuery()->pluck('email', 'user_id'))
             ->with('approved_requisitions', $this->requisitions->getAllApprovedNotClosedInSameBudget()->pluck('amount')->sum())
             ->with('not_approved_requisitions', $this->requisitions->getAllNotApprovedInTheSameBudget()->pluck('amount')->sum())
+            ->with('approved_closed_requisitions', $this->requisitions->getAllApprovedClosedInSameBudget()->pluck('amount')->sum())
             ->with('trainingItems', $requisition->trainingItems);
     }
 

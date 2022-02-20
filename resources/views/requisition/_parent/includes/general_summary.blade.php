@@ -45,8 +45,8 @@
                                     <span class="badgetext badge badge-default badge-pill">{{number_2_format($budget->amount)}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    Actual Amount
-                                    <span class="badgetext badge badge-default badge-pill">{{number_2_format($budget->actual_amount)}}</span>
+                                    Actual Expenditure
+                                    <span class="badgetext badge badge-default badge-pill">{{number_2_format($approved_closed_requisitions)}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     Commitment
@@ -58,7 +58,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     Available
-                                    <span class=" badgetext badge badge-default badge-pill">{{number_2_format(($budget->amount)-(($budget->actual_amount)+($approved_requisitions)+($not_approved_requisitions)))}}</span>
+                                    <span class=" badgetext badge badge-default badge-pill">{{number_2_format(($budget->amount)-(($approved_closed_requisitions)+($approved_requisitions)+($not_approved_requisitions)))}}</span>
                                 </li>
 
                             </ul>

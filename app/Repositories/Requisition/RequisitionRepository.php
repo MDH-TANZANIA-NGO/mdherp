@@ -60,6 +60,12 @@ class RequisitionRepository extends BaseRepository
             ->where('is_closed', false)
             ->whereHas('budget');
     }
+    public function getAllApprovedClosedInSameBudget()
+    {
+        return $this->getAllApprovedRequisitions()
+            ->where('is_closed', true)
+            ->whereHas('budget');
+    }
     public function getAllNotApprovedInTheSameBudget()
     {
                 return $this->getQueryAll()
