@@ -10,6 +10,7 @@
             </div>
             <div class="card-body">
                 <div class="">
+
                     <h4 class="mb-1">Hi <strong>{{ access()->user()->full_name_formatted }}</strong>,</h4>
                     You have requested Amount of <strong>$450.00</strong> (USD) which is equivalent to <strong>900,000</strong> (TZS) for activity:
                     <p>AK1.1.1- Purchase Laptops & supplies to facilitate scale up of PMD, Community data needs for program monitoring</p>

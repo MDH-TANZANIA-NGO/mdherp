@@ -12,26 +12,95 @@
                         <p>{{$requisition->activity->title}}</p>
                     </div>
                 @else
-
+                    <h4><strong>{{ $requisition->user->full_name_formatted }}</strong>,</h4>
+                    Have requested Amount of <strong>{{$requisition->amount}}</strong> (TZS) for activity:
                     <div class="">
                         <p>{{$requisition->activity->title}}</p>
                     </div>
                 @endif
 
-                <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div>
+                <!-- Row -->
+                    <div class="row pt-4">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    Project name:
+                                    <span class="badgetext badge badge-primary badge-pill">{{ $requisition->project_title}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Sub Program area:
+                                    <span class=" badgetext badge badge-primary badge-pill">{{ $requisition->program_area_title}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Numeric Output:
+                                    <span class=" badgetext badge badge-primary badge-pill">{{ $requisition->numeric_output_unit }}/{{ $requisition->numeric_output_unit }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    Budgeted Amount
+                                    <span class="badgetext badge badge-default badge-pill">{{number_2_format($budget->amount)}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Actual Amount
+                                    <span class="badgetext badge badge-default badge-pill">{{number_2_format($budget->actual_amount)}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Commitment
+                                    <span class=" badgetext badge badge-default badge-pill">{{number_2_format($approved_requisitions)}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Pipeline
+                                    <span class=" badgetext badge badge-default badge-pill">{{number_2_format($not_approved_requisitions)}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Available
+                                    <span class=" badgetext badge badge-default badge-pill">{{number_2_format(($budget->amount)-(($budget->actual_amount)+($approved_requisitions)+($not_approved_requisitions)))}}</span>
+                                </li>
 
-                <div class="row pt-4">
-                    <div class="col-lg-6 ">
-                        <address>
-                            <strong>Project name: </strong><span class="text-primary" >{{ $requisition->project_title}}</span><br>
-                            <strong>Sub Program area:</strong>  <span class="text-primary" >{{ $requisition->program_area_title}}</span><br>
-{{--                            <strong>Numeric Output: </strong> <span class="text-primary" >{{ $requisition->numeric_output_unit }}</span><br>--}}
-                            <strong>Output unit:</strong> <span class="text-primary" >{{ $requisition->output_unit_title }}</span><br>
-                        </address>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Description</h3>
+                                    <div class="card-options ">
+                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                        <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="list-group">
+                                        <p>{{$requisition->descriptions}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                </div>
             </div>
+
         </div>
     </div>
+
 </div>
+
+
+
+
+
+
+
+
+

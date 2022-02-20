@@ -3,6 +3,7 @@
 namespace App\Repositories\Requisition;
 
 use App\Models\Auth\User;
+use App\Models\Project\Traits\Relationship\ActivityRelationship;
 use App\Models\Requisition\Requisition;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
@@ -52,6 +53,18 @@ class RequisitionRepository extends BaseRepository
     {
         return $this->getQueryAll()
             ->where('requisitions.wf_done', 1);
+    }
+    public function getAllApprovedNotClosedInSameBudget()
+    {
+        return $this->getAllApprovedRequisitions()
+            ->where('is_closed', false)
+            ->whereHas('budget');
+    }
+    public function getAllNotApprovedInTheSameBudget()
+    {
+                return $this->getQueryAll()
+                    ->where('wf_done', 0)
+                    ->whereHas('budget');
     }
 
     public function getAccessProcessingDatatable()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Requisition;
 use App\Events\NewWorkflow;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
+use App\Models\Budget\Budget;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Models\Requisition\Training\requisition_training_item;
 use App\Repositories\Access\UserRepository;
@@ -163,18 +164,21 @@ class RequisitionController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($requisition))
             ->with('items', $requisition->items)
             ->with('travelling_costs',$requisition->travellingCost)
+            ->with('budget', Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', access()->user()->region_id)->first())
             ->with('training_costs', $requisition->trainingCost)
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
             ->with('mdh_rates',$this->mdh_rates->getForPluck())
             ->with('users', $this->users->getUserQuery()->pluck('email', 'user_id'))
+            ->with('approved_requisitions', $this->requisitions->getAllApprovedNotClosedInSameBudget()->pluck('amount')->sum())
+            ->with('not_approved_requisitions', $this->requisitions->getAllNotApprovedInTheSameBudget()->pluck('amount')->sum())
             ->with('trainingItems', $requisition->trainingItems);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @paam  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */

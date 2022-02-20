@@ -22,6 +22,7 @@ trait RequisitionAttribute
 
     public function getNumericOutputUnitAttribute()
     {
+
         return $this->activity->budgets()->where('region_id',$this->region_id)->where('active',true)->first()->numeric_output;
     }
 

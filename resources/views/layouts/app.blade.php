@@ -51,6 +51,9 @@
 
     <!-- Custom css -->
         {{ Html::style(url('mdh/css/custom.css')) }}
+<!-- Accordion Css -->
+    {{ Html::style(url('mdh/plugins/accordion/accordion.css')) }}
+
 
 
 {{--    <link href="mdh/css/style.css" rel="stylesheet" />--}}
@@ -124,6 +127,7 @@
 {{--    // }--}}
 {{--</script>--}}
     {!! Html::script(url('dist/sweetalert.min.js')) !!}
+
 
 </head>
 
@@ -294,6 +298,8 @@
 <!--Accordion-Wizard-Form js-->
 <script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>
 <script src="mdh/js/form-wizard.js"></script>
+
+
 
 </body>
 </html>
