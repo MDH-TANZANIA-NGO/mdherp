@@ -6,9 +6,11 @@ use App\Events\NewWorkflow;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
 use App\Models\Budget\Budget;
+use App\Models\Payment\Payment;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Models\Requisition\Training\requisition_training_item;
 use App\Repositories\Access\UserRepository;
+use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
@@ -46,6 +48,7 @@ class RequisitionController extends Controller
     protected $regions;
     protected $requisition_training;
     protected $requisition_training_items;
+    protected $financeRepo;
 
 
     public function __construct()
@@ -64,6 +67,7 @@ class RequisitionController extends Controller
         $this->regions = (new RegionRepository());
         $this->requisition_training = (new trainingRepository());
         $this->requisition_training_items = (new RequisitionTrainingItemsRepository());
+        $this->financeRepo = (new FinanceActivityRepository());
 
 
     }
@@ -146,7 +150,6 @@ class RequisitionController extends Controller
      */
     public function show(Requisition $requisition)
     {
-
         /* Check workflow */
         $wf_module_group_id = 1;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $requisition->id);
@@ -172,7 +175,7 @@ class RequisitionController extends Controller
             ->with('users', $this->users->getUserQuery()->pluck('email', 'user_id'))
             ->with('approved_requisitions', $this->requisitions->getAllApprovedNotClosedInSameBudget()->pluck('amount')->sum())
             ->with('not_approved_requisitions', $this->requisitions->getAllNotApprovedInTheSameBudget()->pluck('amount')->sum())
-            ->with('approved_closed_requisitions', $this->requisitions->getAllApprovedClosedInSameBudget()->pluck('amount')->sum())
+            ->with('payed_and_closed', $this->requisitions->getPayedAmount()->pluck('paid_amount')->sum())
             ->with('trainingItems', $requisition->trainingItems);
     }
 

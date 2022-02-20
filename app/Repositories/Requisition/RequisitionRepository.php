@@ -48,6 +48,18 @@ class RequisitionRepository extends BaseRepository
             DB::raw('requisitions.created_at AS created_at'),])
             ->join('users', 'users.id', 'requisitions.user_id');
     }
+    public function getPayedAmount()
+    {
+        return $this->query()->select([
+            DB::raw('requisitions.id AS id'),
+            DB::raw('requisitions.budget_id AS budget_id'),
+            DB::raw('requisitions.amount AS requested_amount'),
+            DB::raw('payments.id AS payment_id'),
+            DB::raw('payments.payed_amount AS paid_amount'),])
+            ->join('payments','payments.requisition_id', 'requisitions.id')
+            ->where('requisitions.is_closed', true)
+            ->whereHas('budget');
+    }
 
     public function getAllApprovedRequisitions()
     {

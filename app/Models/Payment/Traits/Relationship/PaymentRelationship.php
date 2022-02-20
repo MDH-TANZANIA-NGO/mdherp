@@ -20,7 +20,7 @@ trait PaymentRelationship
     }
     public function requisition()
     {
-        return $this->hasMany(Requisition::class);
+        return $this->belongsTo(Requisition::class);
     }
 
 

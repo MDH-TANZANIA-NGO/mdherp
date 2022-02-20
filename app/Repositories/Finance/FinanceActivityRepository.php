@@ -19,6 +19,30 @@ class FinanceActivityRepository extends BaseRepository
     {
         //
     }
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('payments.id AS id'),
+            DB::raw('payments.number AS number'),
+            DB::raw('payments.payed_amount AS paid_amount'),
+            DB::raw('payments.requested_amount AS requested_amount'),
+            DB::raw('payments.requisition_id AS requisition_id'),
+            DB::raw('payments.account_number AS uuid'),
+            DB::raw('payments.remarks AS remarks'),
+            DB::raw('payments.created_at AS created_at'),
+            DB::raw('payments.user_id AS user_id'),
+            DB::raw('payments.region_id AS region_id'),
+
+        ])
+            ->join('users', 'users.id', 'payments.user_id');
+    }
+
+    public function getAllApprovedPayments()
+    {
+        return $this->getQuery()
+            ->where('wf_done', true)
+            ->whereHas('requisition');
+    }
 
     public function inputProcess($inputs)
     {
