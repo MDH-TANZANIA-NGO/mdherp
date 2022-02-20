@@ -233,8 +233,9 @@ class RequisitionController extends Controller
     {
         $mdh_rates = $this->mdh_rates->getForPluck();
         $description = $request->input('description');
+        $numeric_out_put = $request->input('numeric_out_put');
         $uuid = $request->input('uuid');
-        DB::update('update requisitions set descriptions = ? where uuid = ?',[$description,$uuid]);
+        DB::update('update requisitions set descriptions = ?, numeric_output = ? where uuid = ?',[$description,$numeric_out_put, $uuid]);
 
         return redirect()->route('requisition.initiate',[$requisition])
             ->with('mdh_rates',$mdh_rates->all());

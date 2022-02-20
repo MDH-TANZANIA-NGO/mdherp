@@ -34,7 +34,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     Numeric Output:
-                                    <span class=" badgetext badge badge-primary badge-pill">{{ $requisition->numeric_output_unit }}/{{ $requisition->numeric_output_unit }}</span>
+                                    <span class=" badgetext badge badge-primary badge-pill">{{ $requisition->numeric_output }}/{{ $requisition->budget->numeric_output }}</span>
                                 </li>
                             </ul>
                         </div>
