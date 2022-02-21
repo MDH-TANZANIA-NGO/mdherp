@@ -20,7 +20,7 @@
                                    {{--                                   <div class="expanel-heading">Panel heading without title</div>--}}
                                    <div class="expanel-body">
                                        <div class="form-group" >
-                                           {!! Form::label('from', __("Numeric Out Put"),['class'=>'form-label','required_asterik']) !!}
+                                           {!! Form::label('from', __("Numeric Output"),['class'=>'form-label','required_asterik']) !!}
                                            {!! Form::number('numeric_out_put',$requisition->numeric_output,['class' => 'form-control', 'placeholder' => 'Enter Numeric Output','required']) !!}
 
                                        </div>

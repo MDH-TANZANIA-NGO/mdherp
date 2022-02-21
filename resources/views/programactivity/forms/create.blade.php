@@ -43,7 +43,7 @@
                             <tr>
 
                                 <th>Name</th>
-                                <th>Title</th>
+{{--                                <th>Title</th>--}}
                                 <th>Phone</th>
                                 <th>Perdiem</th>
                                 <th>Transport</th>
@@ -57,7 +57,7 @@
                             <tr>
 
                                 <td>{{$training_costs->user->first_name}} {{$training_costs->user->last_name}}</td>
-                                <td>{{$training_costs->user->scale->title}}</td>
+{{--                                <td>{{$training_costs->user->scale->title}}</td>--}}
                                 <td>{{$training_costs->user->phone}}</td>
                                 <td>{{number_2_format($training_costs->perdiem_total_amount)}}</td>
                                 <td>{{number_2_format($training_costs->transportation)}}</td>
