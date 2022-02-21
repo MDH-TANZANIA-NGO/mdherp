@@ -21,7 +21,7 @@
                             {!! Form::open(['route' => ['requisition_item.store',$requisition], 'method' => 'POST']) !!}
                             <tr>
                                 <td class="text-center"><span style="color: red"></span></td>
-                                <td>{!! Form::select('equipment_id',$equipments,null,['class'=>'form-control', 'placeholder'=>'Select','required']) !!}</td>
+                                <td>{!! Form::select('equipment_id',$equipments,null,['class'=>'form-control select2-show-search', 'placeholder'=>'Select','required']) !!}</td>
                                 <td class="text-center" id="equipment_type"></td>
                                 <td class="text-left">
                                     <div id="specs"></div>

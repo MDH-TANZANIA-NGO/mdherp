@@ -7,7 +7,7 @@
 
                 <div class="col-3">
                     <label for="equipment_type" class="form-label">Equipment Category</label>
-                    {!! Form::select('equipment_type',$equipment_type_pluck,null,['class' => 'form-control', 'required', 'placeholder' => 'Select']) !!}
+                    {!! Form::select('equipment_type',$equipment_type_pluck,null,['class' => 'form-control select2-show-search', 'required', 'placeholder' => 'Select']) !!}
                     @error('equipment_type')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
