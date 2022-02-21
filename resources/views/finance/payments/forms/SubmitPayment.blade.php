@@ -3,9 +3,43 @@
     <div class="row">
         <div class="card">
             <div class="card-header">
-    {!! Form::open(['route'=> ['finance.update', $payment],'method'=>'POST']) !!}
-    <button type="submit"  class="btn btn-outline-success" style="margin-left: 2%;"  >Submit For Approval</button>
-    {!! Form::close() !!}
+                @if($payment->done == 0)
+                    {!! Form::open(['route'=> ['finance.update', $payment],'method'=>'POST']) !!}
+                    <button type="submit"  class="btn btn-outline-success" style="margin-left: 2%;"  >Submit For Approval</button>
+
+                    {!! Form::close() !!}
+                 @endif
+                    <button type="button" data-toggle="modal" data-target="#exampleModal1" class="btn btn-outline-info" style="margin-left: 2%;"  >Edit Payment</button>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Message Modal -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="example-Modal3">Update Payment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {!! Form::open(['route'=> ['finance.updatePayment', $payment->uuid],'method'=>'POST']) !!}
+                    <label for="recipient-name" class="form-control-label">Pay To:</label>
+                    {!! Form::number('phone', $payment->account_number, ['class'=>'form-control'])  !!}
+                    <label for="recipient-name" class="form-control-label">Total Amount:</label>
+                    <input type="number" class="form-control" name="total_amount" value="{{$payment->payed_amount}}">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-primary" >Verify</button>
+                    </div>
+
+                    {!! Form::close() !!}
+                </div>
             </div>
         </div>
     </div>

@@ -26,6 +26,7 @@ use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class FinanceActivityController extends Controller
@@ -36,7 +37,7 @@ class FinanceActivityController extends Controller
 
     protected $safariAdvance;
     protected $requisitions;
-    protected $program_activity; 
+    protected $program_activity;
     protected $retirement;
     protected $requisition_training_cost;
     protected $finance;
@@ -122,6 +123,11 @@ class FinanceActivityController extends Controller
 
 
         return redirect()->route('finance.SubmitPayment', $pay->uuid);
+    }
+    public function updatePayment(Request $request, $uuid)
+    {
+        DB::update('update payments set account_number = ?, payed_amount = ? where uuid = ?', [$request['phone'], $request['total_amount'], $uuid]);
+        return redirect()->back();
     }
     public function update(Request $request, $uuid)
     {

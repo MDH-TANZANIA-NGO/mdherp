@@ -9,7 +9,7 @@
                @if($is_paid == true)
                     {!! Form::open(['route'=> ['finance.store'],'method'=>'POST']) !!}
                     <button type="submit"  class="btn btn-outline-info" style="margin-left: 2%;"  >Submit For Approval</button>
-                    {!! Form::close() !!}
+                     {!! Form::close() !!}
                 @else
                     <button type="button" data-toggle="modal" data-target="#exampleModal3" class="btn btn-outline-info" style="margin-left: 2%;"  >Verify Payment</button>
 
@@ -17,6 +17,8 @@
 
 
             </div>
+
+
 
             <!-- Message Modal -->
             <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -32,6 +34,7 @@
                             {!! Form::open(['route'=> 'finance.store','method'=>'POST']) !!}
                             {!! Form::number('requisition_id', $requisition->id, ['class'=>'form-control','hidden'])  !!}
                             {!! Form::number('requested_amount', $requisition->amount, ['class'=>'form-control','hidden'])  !!}
+
                             {!! Form::number('region_id', $requisition->region_id, ['class'=>'form-control','hidden'])  !!}
                             {!! Form::text('payment_method', 'N/A', ['class'=>'form-control','hidden'])  !!}
                             {!! Form::text('account_no', 'N/A', ['class'=>'form-control','hidden'])  !!}
@@ -55,6 +58,8 @@
                                     <option value="2">Items</option>
                                     <option value="3">Both Participants and Items</option>
                                 </select>
+                                <label for="recipient-name" class="form-control-label">Pay To:</label>
+                                {!! Form::number('phone', $requisition->user->phone, ['class'=>'form-control'])  !!}
                                 <label for="recipient-name" class="form-control-label">Total Amount:</label>
                                 <input type="number" class="form-control" name="total_amount" value="{{$safari->travellingCost->total_amount}}">
 

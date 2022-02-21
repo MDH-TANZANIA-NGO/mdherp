@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
+use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Leave\LeaveRepository;

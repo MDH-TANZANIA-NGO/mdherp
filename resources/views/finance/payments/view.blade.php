@@ -34,11 +34,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <td>{{$requisition->number}}</td>
+                        <td><a href="{{route('requisition.show', $requisition->uuid)}}" class="nav-link" >{{$requisition->number}}</a></td>
                         @if($safari_advance)
-                            <td>{{$safari_advance->number}}</td>
+                            <td><a href="{{route('safari.show', $safari_advance->uuid)}}" class="nav-link" >{{$safari_advance->number}}</a></td>
                         @elseif($program_activity)
-                            <td>{{$program_activity->number}}</td>
+                            <td><a href="{{route('programactivity.show', $program_activity->uuid)}}" class="nav-link" >{{$program_activity->number}}</a></td>
                         @endif
                         <td>{{number_2_format($requisition->amount)}}</td>
                         <td>{{number_2_format($payed_amount)}}</td>
