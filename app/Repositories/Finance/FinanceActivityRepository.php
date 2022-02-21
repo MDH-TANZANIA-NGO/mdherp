@@ -42,7 +42,7 @@ class FinanceActivityRepository extends BaseRepository
             'requisition_id' => $inputs['requisition_id'],
             'requested_amount'=> $inputs['requested_amount'],
             'payment_method'=>$inputs['payment_method'],
-            'account_number'=>$inputs['phone'],
+//            'account_number'=>$inputs['phone'],
             'user_id'=>access()->user()->id,
             'remarks'=>$inputs['remarks'],
 
