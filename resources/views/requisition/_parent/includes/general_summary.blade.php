@@ -1,4 +1,22 @@
 <div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Description</h3>
+                <div class="card-options ">
+                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <p>{{$requisition->descriptions}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header" style="background-color: rgb(152, 186, 217)">
@@ -8,14 +26,14 @@
                 @if($requisition->user_id==access()->id())
                     <div class="">
                         <h4 class="mb-1">Hi <strong>{{ $requisition->user->full_name_formatted }}</strong>,</h4>
-                        You have requested Amount of <strong>{{$requisition->amount}}</strong> (TZS) for activity:
+                        You have requested Amount of <strong>{{number_2_format($requisition->amount)}}</strong> (TZS) for line activity:
                         <p><b>{{$requisition->activity->code}} </b>{{$requisition->activity->title}}</p>
                     </div>
                 @else
                     <h4><strong>{{ $requisition->user->full_name_formatted }}</strong>,</h4>
-                    Have requested Amount of <strong>{{$requisition->amount}}</strong> (TZS) for activity:
+                    Have requested Amount of <strong>{{number_2_format($requisition->amount)}}</strong> (TZS) for line item:
                     <div class="">
-                        <p>{{$requisition->activity->title}}</p>
+                        <p><b>{{$requisition->activity->code}} </b>{{{$requisition->activity->title}}}</p>
                     </div>
                 @endif
 
@@ -78,24 +96,7 @@
 
 
 
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Description</h3>
-                                    <div class="card-options ">
-                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                                        <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="list-group">
-                                        <p>{{$requisition->descriptions}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
             </div>
 
