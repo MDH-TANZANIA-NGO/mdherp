@@ -26,7 +26,7 @@
         <div class="row mb-4">
             <div class="col-12">
 
-        <a href="{{route('requisition.show', $requisition->uuid)}}" class="btn btn-primary float-right">Submit and Exit</a>
+        <a href="{{route('requisition.index')}}" class="btn btn-danger float-right">Exit</a>
             </div>
         </div>
     @endif

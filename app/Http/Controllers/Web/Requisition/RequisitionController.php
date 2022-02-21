@@ -11,6 +11,7 @@ use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Models\Requisition\Training\requisition_training_item;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\Finance\FinancialReportsRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
@@ -48,7 +49,7 @@ class RequisitionController extends Controller
     protected $regions;
     protected $requisition_training;
     protected $requisition_training_items;
-    protected $financeRepo;
+    protected $financialReport;
 
 
     public function __construct()
@@ -67,7 +68,7 @@ class RequisitionController extends Controller
         $this->regions = (new RegionRepository());
         $this->requisition_training = (new trainingRepository());
         $this->requisition_training_items = (new RequisitionTrainingItemsRepository());
-        $this->financeRepo = (new FinanceActivityRepository());
+        $this->financialReport = (new FinancialReportsRepository());
 
 
     }

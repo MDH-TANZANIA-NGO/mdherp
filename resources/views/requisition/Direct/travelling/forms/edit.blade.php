@@ -11,7 +11,7 @@
                     <div class="form-group">
                         {!! Form::label('traveller_name', __("Traveller Name"),['class'=>'form-label','required_asterik']) !!}
 
-                        {!! Form::select('traveller_uid',$mdh_staff, $traveller->user->full_name, ['class' => 'form-control select2-show-search', 'required']) !!}
+                        {!! Form::select('traveller_uid',$mdh_staff, $user, ['class' => 'form-control select2-show-search', 'required']) !!}
                         {!! $errors->first('traveller_uid', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>

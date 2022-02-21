@@ -63,8 +63,13 @@ class RequestTravellingCostController extends Controller
 
 
         $traveller =  $this->travellingCost->findByUuid($uuid);
+        $traveller_details =  $this->travellingCost->getQuery()->first();
+
+
+
         return view('requisition.Direct.travelling.forms.edit')
             ->with('traveller', $traveller)
+            ->with('user',$traveller->user()->first()->first_name )
             ->with('districts', $this->district->getForPluck())
             ->with('mdh_rates',$this->mdh_rates->getAll()->pluck('id','amount'))
             ->with('mdh_staff', $this->mdh_staff->getQuery()->pluck('name', 'user_id'));
