@@ -16,6 +16,7 @@ use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Models\System\Region;
 use App\Models\Workflow\WfTrack;
 
 
@@ -28,6 +29,10 @@ trait RequisitionRelationship
     public function typeCategory()
     {
         return $this->belongsTo(RequisitionType::class,'requisition_type_id','id');
+    }
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id', 'id');
     }
 
     public function items()

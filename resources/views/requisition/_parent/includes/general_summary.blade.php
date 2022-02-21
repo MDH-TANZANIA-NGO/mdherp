@@ -9,7 +9,7 @@
                     <div class="">
                         <h4 class="mb-1">Hi <strong>{{ $requisition->user->full_name_formatted }}</strong>,</h4>
                         You have requested Amount of <strong>{{$requisition->amount}}</strong> (TZS) for activity:
-                        <p>{{$requisition->activity->title}}</p>
+                        <p><b>{{$requisition->activity->code}} </b>{{$requisition->activity->title}}</p>
                     </div>
                 @else
                     <h4><strong>{{ $requisition->user->full_name_formatted }}</strong>,</h4>
@@ -35,6 +35,14 @@
                                 <li class="list-group-item">
                                     Numeric Output:
                                     <span class=" badgetext badge badge-primary badge-pill">{{ $requisition->numeric_output }}/{{ $requisition->budget->numeric_output }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Fiscal Year:
+                                    <span class=" badgetext badge badge-primary badge-pill">{{ $requisition->budget->fiscalYear->title }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    Region:
+                                    <span class=" badgetext badge badge-primary badge-pill">{{ $requisition->region->name }}</span>
                                 </li>
                             </ul>
                         </div>
