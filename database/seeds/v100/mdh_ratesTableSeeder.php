@@ -16,7 +16,7 @@ class mdh_ratesTableSeeder extends Seeder
             0 =>
                 array (
                     'id' => 1,
-                    'amount' => '90000',
+                    'amount' => '0',
                     'created_at' => '2021-09-29 18:21:50',
                     'updated_at' => \Illuminate\Support\Carbon::now(),
                     'deleted_at' => NULL,
@@ -24,7 +24,7 @@ class mdh_ratesTableSeeder extends Seeder
             1 =>
                 array (
                     'id' => 2,
-                    'amount' => '75000',
+                    'amount' => '60000',
                     'created_at' => '2021-09-29 18:21:50',
                     'updated_at' => \Illuminate\Support\Carbon::now(),
                     'deleted_at' => NULL,
@@ -32,11 +32,36 @@ class mdh_ratesTableSeeder extends Seeder
             2 =>
                 array (
                     'id' => 3,
-                    'amount' => '60000',
+                    'amount' => '75000',
                     'created_at' => '2021-09-29 18:21:50',
                     'updated_at' => \Illuminate\Support\Carbon::now(),
                     'deleted_at' => NULL,
-                )
+                ),
+            3 =>
+                array (
+                    'id' => 4,
+                    'amount' => '90000',
+                    'created_at' => '2021-09-29 18:21:50',
+                    'updated_at' => \Illuminate\Support\Carbon::now(),
+                    'deleted_at' => NULL,
+                ),
+            4 =>
+                array (
+                    'id' => 5,
+                    'amount' => '100000',
+                    'created_at' => '2021-09-29 18:21:50',
+                    'updated_at' => \Illuminate\Support\Carbon::now(),
+                    'deleted_at' => NULL,
+                ),
+            5 =>
+                array (
+                    'id' => 6,
+                    'amount' => '120000',
+                    'created_at' => '2021-09-29 18:21:50',
+                    'updated_at' => \Illuminate\Support\Carbon::now(),
+                    'deleted_at' => NULL,
+                ),
+
         ));
     }
 }
