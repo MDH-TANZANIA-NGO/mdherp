@@ -56,7 +56,7 @@ class mdh_ratesTableSeeder extends Seeder
             5 =>
                 array (
                     'id' => 6,
-                    'amount' => '120000',
+                    'amount' => '120 000',
                     'created_at' => '2021-09-29 18:21:50',
                     'updated_at' => \Illuminate\Support\Carbon::now(),
                     'deleted_at' => NULL,

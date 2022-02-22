@@ -252,7 +252,7 @@ class UserRepository extends BaseRepository
 //                'employed_date' => $inputs['employed_date'],
                 'marital_status_cv_id' => $inputs['marital'],
                 'supervisor' => isset($inputs['supervisor'])??false,
-                'active' => $inputs['active']
+//                'active' => $inputs['active']
             ]);
             if (isset($inputs['projects']))
                 $user->projects()->sync($inputs['projects']);
