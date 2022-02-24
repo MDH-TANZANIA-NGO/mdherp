@@ -37,16 +37,16 @@
 
                 <div class="col-sm-6 col-md-4">
                     <div class="form-group">
-                        {!! Form::label('transportation', __("Transportation"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::label('transportation', __("Ground Transport"),['class'=>'form-label','required_asterik']) !!}
                         {!! Form::number('transportation',null,['class' => 'form-control', 'placeholder' => 'ie. 100,000']) !!}
                         {!! $errors->first('transportation', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
                 <div class="col-sm-3 col-md-2">
                     <div class="form-group">
-                        {!! Form::label('other_cost', __("Ticket Fair"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::number('other_cost',null,['class' => 'form-control', 'placeholder' => 'ie. 100,000']) !!}
-                        {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
+                        {!! Form::label('ticket_fair', __("Ticket Fair"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::number('ticket_fair',null,['class' => 'form-control', 'placeholder' => 'ie. 100,000']) !!}
+                        {!! $errors->first('ticket_fair', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
                 <div class="col-sm-3 col-md-2">
@@ -58,9 +58,9 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        {!! Form::label('other_cost', __("Other Costs Description"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::label('other_cost_description', __("Other Costs Description"),['class'=>'form-label','required_asterik']) !!}
                         {!! Form::text('other_cost_description',null,['class' => 'form-control', 'placeholder' => 'Other Cost Description']) !!}
-                        {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
+                        {!! $errors->first('other_cost_description', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
                 <div class="col-md-6">

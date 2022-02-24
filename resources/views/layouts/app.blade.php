@@ -14,11 +14,12 @@
 
     <!--Favicon -->
 {{--    <link rel="icon" href="mdh/images/brand/favicon.ico" type="image/x-icon"/>--}}
+<!-- Data table -->
 
-    @stack('before-styles')
-
+@stack('before-styles')
 <!-- Style css -->
     {{ Html::style(url('mdh/css/style.css')) }}
+
 
 {{--    text editor--}}
 {{ Html::style(url('mdh/plugins/wysiwyag/richtext.css')) }}
@@ -302,4 +303,5 @@
 
 
 </body>
+
 </html>
