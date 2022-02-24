@@ -1,75 +1,5 @@
 @if($requisition->training()->count() > 0)
 
-{{--    <div class="row" >--}}
-{{--        <div class="col-md-6">--}}
-{{--            <div class="form-group">--}}
-{{--                {!! Form::label('from', __("Start Date"),['class'=>'form-label','required_asterik']) !!}--}}
-{{--                {!! Form::date('from',null,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'from', 'disabled']) !!}--}}
-{{--                {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="col-md-6">--}}
-{{--            <div class="form-group">--}}
-{{--                {!! Form::label('to', __("End Date"),['class'=>'form-label','required_asterik']) !!}--}}
-{{--                {!! Form::date('to',null,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'to', 'disabled']) !!}--}}
-{{--                {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="col-md-6">--}}
-{{--            <div class="form-group">--}}
-{{--         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#largeModal"  id="scheddule">Edit Schedule </button>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-
-{{--    <div class="schedule" id="schedule">--}}
-{{--        <!-- Large Modal -->--}}
-{{--        <div id="largeModal" class="modal fade">--}}
-{{--            <div class="modal-dialog modal-lg" role="document">--}}
-{{--                <div class="modal-content ">--}}
-{{--                    <div class="modal-header pd-x-20">--}}
-{{--                        <h6 class="modal-title">Schedule Event</h6>--}}
-{{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                            <span aria-hidden="true">&times;</span>--}}
-{{--                        </button>--}}
-{{--                    </div>--}}
-{{--                    <div class="modal-body pd-20">--}}
-{{--                        {!! Form::open(['route' => ['training.storeTraining',$requisition]]) !!}--}}
-{{--                        <div class="row">--}}
-{{--                            {!! Form::number('requisition_id', $requisition->id,['class' => 'form-control', 'required', 'hidden']) !!}--}}
-{{--                            <div class="col-md-6">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    {!! Form::label('from', __("Start Date"),['class'=>'form-label','required_asterik']) !!}--}}
-{{--                                    {!! Form::date('from',null,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'from']) !!}--}}
-{{--                                    {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-6">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    {!! Form::label('to', __("End Date"),['class'=>'form-label','required_asterik']) !!}--}}
-{{--                                    {!! Form::date('to',null,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'to']) !!}--}}
-{{--                                    {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-md-6">--}}
-{{--                                <div class="form-group">--}}
-{{--                                    {!! Form::label('destination', __("Destination"),['class'=>'form-label','required_asterik']) !!}--}}
-{{--                                    {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','required']) !!}--}}
-{{--                                    {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div><!-- modal-body -->--}}
-{{--                    <div class="modal-footer">--}}
-{{--                        <button type="submit" class="btn btn-primary">Save changes</button>--}}
-{{--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div><!-- modal-dialog -->--}}
-{{--            {!! Form::close() !!}--}}
-{{--        </div><!-- modal -->--}}
-{{--    </div>--}}
-
 
 
     <!-- Row -->
@@ -125,6 +55,8 @@
                             {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
                         </div>
                     </div>
+
+
 
 
                     <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Add Participant</button>

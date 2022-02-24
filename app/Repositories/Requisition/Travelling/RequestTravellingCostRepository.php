@@ -91,6 +91,7 @@ class RequestTravellingCostRepository extends BaseRepository
             'transportation' => $inputs['transportation'],
             'accommodation' => $accommodation,
             'other_cost' => $inputs['other_cost'],
+            'others_description' => $inputs['other_cost_description'],
             'from' => $from,
             'to' => $to,
             'total_amount' =>  $total_amount,
