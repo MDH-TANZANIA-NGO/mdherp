@@ -38,9 +38,10 @@ class RequisitionTrainingItemsRepository extends BaseModel
 //            'requisition_id' => $input['requisition_id'],
         'requisition_training_id' => $input['requisition_training_id'],
             'title' => $input['title'],
+            'no_days' => $input['no_days'],
             'unit' => $input['unit'],
             'unit_price' => $input['unit_price'],
-            'total_amount' => $input['unit'] * $input['unit_price']
+            'total_amount' => $input['unit'] * $input['unit_price']*$input['no_days']
         ];
     }
     public function store(Requisition $requisition, $inputs)

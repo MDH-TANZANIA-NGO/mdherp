@@ -82,22 +82,25 @@ class RequestTrainingCostController extends Controller
         return redirect()->back();
 
     }
-    public function removeItem($uuid)
+    public function removeItem( $uuid)
     {
+        $requisition = Requisition::query()->where('id', requisition_training_item::query()->where('uuid', $uuid)->first()->requisition_id)->first();
 
-        return DB::transaction(function () use ($uuid){
+        return DB::transaction(function () use ($requisition, $uuid){
 
                 DB::delete('delete from requisition_training_items where uuid = ?',[$uuid]);
+                $requisition->updatingTotalAmount();
             return redirect()->back();
         });
     }
 
-    public function removeParticipant($uuid)
+    public function removeParticipant( $uuid)
     {
-        return DB::transaction(function () use ($uuid){
+        $requisition =  Requisition::query()->where('id', requisition_training_cost::query()->where('uuid', $uuid)->first()->requisition_id)->first();
+        return DB::transaction(function () use ($requisition, $uuid){
 
             DB::delete('delete from requisition_training_costs where uuid = ?',[$uuid]);
-
+            $requisition->updatingTotalAmount();
             return redirect()->back();
         });
     }
