@@ -140,7 +140,8 @@ class RequisitionController extends Controller
             ->with('mdh_rates',$this->mdh_rates->getForPluck())
             ->with('users', $this->users->getQuery()->pluck('name', 'user_id'))
             ->with('requisition_training_items', $requisition->trainingItems)
-            ->with('training', $requisition->training);
+            ->with('training', $requisition->training)
+            ->with('training_details', $requisition->training()->first());
     }
 
     /**

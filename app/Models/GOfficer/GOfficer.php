@@ -5,6 +5,7 @@ namespace App\Models\GOfficer;
 use App\Models\Facility\Facility;
 use App\Models\GOfficer\Traits\Attribute\GOfficerAttribute;
 use App\Models\GOfficer\Traits\Relationship\GOfficerRelationship;
+use App\Models\System\District;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notification;
@@ -95,5 +96,9 @@ class GOfficer extends Model
     public function facilities()
     {
         return $this->belongsToMany(Facility::class)->withPivot('id');
+    }
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id');
     }
 }
