@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Web\Leave;
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Leave\Datatables\LeaveDatatables;
+use App\Models\Auth\User;
 use App\Models\Leave\Leave;
 use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
@@ -46,10 +47,12 @@ class LeaveController extends Controller
     public function create()
     {
         $leaveTypes = LeaveType::all();
+        $users = User::where('designation_id', '!=', null)->get();
         $leaveBalances = LeaveBalance::all()->where('user_id', access()->user()->id);
 
         return view('leave._parent.form.create')
             ->with('leaveTypes', $leaveTypes)
+            ->with('users', $users)
             ->with('leave_balances', $leaveBalances);
     }
 
@@ -101,12 +104,16 @@ class LeaveController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($leave, $current_level, $workflow->wf_definition_id);
 
         $designation = access()->user()->designation_id;
+        $start = Carbon::parse($leave->start_date);
+        $end =  Carbon::parse($leave->end_date);
+        $days = $start->diffInDays($end) + 1;
 
         return view('leave._parent.display.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($leave))
+            ->with('days', $days)
             ->with('leave', $leave);
 
     }

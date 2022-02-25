@@ -25,13 +25,14 @@ class LeaveRepository extends BaseRepository
             DB::raw('leaves.created_at AS created_at'),
             DB::raw('leaves.leave_type_id AS leave_type_id'),
             DB::raw('leave_types.id AS type_id'),
+            DB::raw('leaves.employee_id AS employee_id' ),
             DB::raw('leave_types.name AS type_name'),
             DB::raw('leaves.user_id AS user_id'),
             DB::raw('leaves.region_id AS region_id'),
         ])
             ->join('leave_types', 'leave_types.id', 'leaves.leave_type_id')
             ->join('regions', 'regions.id', 'leaves.region_id')
-            ->join('users','users.id', 'leaves.user_id');;
+            ->join('users','users.id', 'leaves.user_id');
     }
 
     public function getQueryAll()
@@ -55,6 +56,7 @@ class LeaveRepository extends BaseRepository
             'user_id' => access()->id(),
             'region_id' => access()->user()->region_id,
             'department_id'=>access()->user()->designation->department->id,
+            'employee_id' => $inputs['employee_id'],
             'comment' => $inputs['comment'],
             'start_date' => $inputs['start_date'],
             'end_date' => $inputs['end_date'],

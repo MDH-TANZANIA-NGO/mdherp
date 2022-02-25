@@ -6,6 +6,9 @@ use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Timesheet\Traits\TimesheetDatatable;
 use App\Models\Attendance\Attendance;
+use App\Models\Leave\LeaveBalance;
+use App\Models\Project\Project;
+use App\Models\Timesheet\EffortLevel;
 use App\Models\Timesheet\Timesheet;
 use App\Repositories\Timesheet\TimesheetRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -89,7 +92,7 @@ class TimesheetController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function show(Timesheet $timesheet)
     {
@@ -103,12 +106,21 @@ class TimesheetController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($timesheet, $current_level, $workflow->wf_definition_id);
 
         $designation = access()->user()->designation_id;
+        $effort_levels = EffortLevel::where('user_id', $timesheet->user_id)->get();
+      $time_perc = [];
+        foreach ($effort_levels as  $effort_level){
+              array_push($time_perc, array(
+                  'project' =>  Project::where('id', $effort_level->project_id)->pluck('title')->first(),
+                  'percentage' => $effort_level->percentage * 0.01 * $timesheet->hrs
+              ));
+        }
 
         return view('timesheet.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($timesheet))
+            ->with('time_percentages', $time_perc)
             ->with('timesheet', $timesheet);
     }
 
@@ -144,5 +156,17 @@ class TimesheetController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function setup(Request $request){
+        for ($i = 0; $i < count($request['data']); $i++ ){
+            EffortLevel::create([
+                'user_id' => $request['data'][$i]['user_id'],
+                'project_id' => $request['data'][$i]['project_id'],
+                'percentage' => $request['data'][$i]['percentage'],
+            ]);
+        }
+        alert()->success('Level of Effort was set Successfully','success');
+        return redirect()->back();
     }
 }

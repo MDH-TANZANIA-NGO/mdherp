@@ -9,6 +9,7 @@ use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Models\Leave\LeaveType;
 use App\Models\Project\ProjectUser;
+use App\Models\Timesheet\EffortLevel;
 use App\Repositories\Access\PermissionRepository;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Project\ProjectRepository;
@@ -107,6 +108,8 @@ class UserController extends Controller
                 $supervisor= ' Not assigned';
             }
 
+            $effort_levels = EffortLevel::where('user_id', $user->id)->get();
+
 
 //dd($this->users->getAllUsersWithThisSupervisorGet($user->id));
         return view('user.profile.view_profile')
@@ -122,6 +125,7 @@ class UserController extends Controller
             ->with('permissions', $this->permissions->getAll())
             ->with('leave_types', $leave_types)
             ->with('user_projects', $this->projects->getUserProjects($user->id))
+            ->with('effort_levels', $effort_levels?? NULL)
             ->with('supervisor', $supervisor);
     }
 

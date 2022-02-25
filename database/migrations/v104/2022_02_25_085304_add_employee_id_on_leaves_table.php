@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnOnPayments extends Migration
+class AddEmployeeIdOnLeavesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class AddColumnOnPayments extends Migration
      */
     public function up()
     {
-        //
-//        Schema::table('payments', function (Blueprint $table) {
-//            $table->date('deleted_at')->nullable();
-//        });
+        Schema::table('leaves', function (Blueprint $table) {
+            $table->unsignedBigInteger('employee_id')->nullable();
+        });
     }
 
     /**
@@ -26,6 +25,8 @@ class AddColumnOnPayments extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('leaves', function (Blueprint $table) {
+            $table->dropColumn('employee_id');
+        });
     }
 }

@@ -6,6 +6,7 @@ Route::group(['namespace' => 'Timesheet', 'middleware' => ['web', 'auth'], 'pref
     Route::get('{timesheet}/show', 'TimesheetController@show')->name('show');
     Route::put('{timesheet}/update', 'TimesheetController@update')->name('update');
     Route::get('initiate', 'TimesheetController@create')->name('initiate');
+    Route::post('setup', 'TimesheetController@setup')->name('setup');
 
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('processing', 'TimesheetController@AccessProcessingDatatable')->name('processing');

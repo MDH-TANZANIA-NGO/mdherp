@@ -34,17 +34,31 @@
                         </div>
 
                         <div class="col-md-6" >
-                            <label class="form-label">Comment</label>
-                            <textarea class="form-control" name="comment" rows="2" placeholder="Comment..." ></textarea>
-                            @error('comment')
+                            <label class="form-label">Select Co-worker in your absence</label>
+                            <select name="employee_id" id="select-level" class="form-control custom-select">
+                                <option value=""  disabled selected hidden>Select Type</option>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}">{{$user->fullName}}</option>
+                                @endforeach
+                            </select>
+                            @error('employee_id')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                             @enderror
                         </div>
 
                     </div>
                     &nbsp;
-                    &nbsp;
+                    &nbsp
                     <div class="row">
+                        <div class="col-md-12" >
+                            <label class="form-label">Comment</label>
+                            <textarea class="form-control" name="comment" rows="2" placeholder="Comment..." ></textarea>
+                            @error('comment')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mt-5">
                         <div class="col-md-6" >
                             <label class="form-label">Start Date</label>
                             <div class="input-group">

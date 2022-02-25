@@ -20,6 +20,10 @@ class Leave extends BaseModel
         return $this->belongsTo(User::class);
     }
 
+    public function employee() {
+        return $this->belongsTo(User::class, 'employee_id');
+    }
+
     public function getResourceNameAttribute()
     {
         return "<b>".$this->id."</b> <br>".
