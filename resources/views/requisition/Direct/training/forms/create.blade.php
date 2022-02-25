@@ -55,6 +55,13 @@
                             {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {!! Form::label('others_description', __("Other Costs Description"),['class'=>'form-label','required_asterik']) !!}
+                            {!! Form::text('others_description',null,['class' => 'form-control', 'placeholder' => '']) !!}
+                            {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
+                        </div>
+                    </div>
 
 
 
@@ -87,12 +94,19 @@
 {{--                        <input type="date" name="to" value="{{$training->to}}" hidden>--}}
 {{--                        <input type="number" name="requisition_training_id" value="{{$training->id}}" hidden>--}}
 {{--                    @endforeach--}}
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
                             {!! Form::number('requisition_training_id', $training->id, ['class' => 'form-control', 'required', 'hidden']) !!}
                             {!! Form::label('item_name', __("Item Name"),['class'=>'form-label','required_asterik']) !!}
                             {!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}
                             {!! $errors->first('title', '<span class="badge badge-danger">:message</span>') !!}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {!! Form::label('no_days', __("Days"),['class'=>'form-label','required_asterik']) !!}
+                            {!! Form::text('no_days', 1, ['class' => 'form-control', 'required']) !!}
+                            {!! $errors->first('no_days', '<span class="badge badge-danger">:message</span>') !!}
                         </div>
                     </div>
 
@@ -188,42 +202,7 @@
 @endif
 
 
-<script>
-    function myFunction() {
-        var x = document.getElementById("mainContent");
-        var y = document.getElementById("scheddule");
-        var	from = $('#form').val();
-        var	to = $('#to').val();
-        //
-        // if (from === '' || to === ''){
-        //     alert('fields are empty')
-        // }
-        // else {
-        //     x.style.display = "block";
-        //     y.style.display = 'none';
-        // }
 
-        x.style.display = "block";
-        y.style.display = 'none';
-
-    }
-    // jQuery, bind an event handler or use some other way to trigger ajax call.
-    $('form').submit(function( event ) {
-        event.preventDefault();
-        $.ajax({
-            url: '{{route('training.store',$requisition)}}',
-            type: 'post',
-            data: $('form').serialize(), // Remember that you need to have your csrf token included
-            dataType: 'json',
-            success: function( _response ){
-                // Handle your response..
-            },
-            error: function( _response ){
-                // Handle error
-            }
-        });
-    });
-</script>
 
 
 

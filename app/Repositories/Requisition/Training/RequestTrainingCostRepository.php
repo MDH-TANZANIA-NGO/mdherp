@@ -47,12 +47,12 @@ class RequestTrainingCostRepository extends BaseRepository
             'participant_uid' => $inputs['participant_uid'],
 //            'description' => $inputs['description'],
 //            'district_id'=> $inputs['district_id'],
-        'perdiem_total_amount' => $perdiem_total_amount,
+            'perdiem_total_amount' => $perdiem_total_amount,
             'no_days' => $days,
             'perdiem_rate_id' => $inputs['perdiem_rate_id'],
             'transportation' => $inputs['transportation'],
             'other_cost' => $inputs['other_cost'],
-            'perdiem_rate_id_total_amount' =>$perdiem_total_amount,
+            'others_description' => $inputs['others_description'],
             'total_amount' => $total_amount,
         ];
     }

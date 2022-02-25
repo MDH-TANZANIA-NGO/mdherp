@@ -33,7 +33,7 @@
                             <td>{{$participants->perdiem_total_amount}}</td>
                             <td>{{$participants->transportation}}</td>
                             <td>{{$participants->other_cost}}</td>
-                            <td><a  href="{{route('training.removeParticipant', $participants->uuid)}}" class="btn btn-outline-info" ><i class="fa fa-trash"></i></a></td>
+                            <td><a  href="{{route('training.removeParticipant', $participants->uuid)}}" class="btn btn-outline-info"  onclick="confirm('Are you sure you need to delete participant?')"><i class="fa fa-trash"></i></a></td>
 
                         </tr>
 

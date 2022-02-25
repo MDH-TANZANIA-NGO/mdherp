@@ -45,7 +45,7 @@ trait RequisitionRelationship
     }
     public function trainingCost()
     {
-        return $this->hasMany(requisition_training_cost::class,'requisition_id','id')->orderBy('id');
+        return $this->hasMany(requisition_training_cost::class,'requisition_id','id');
     }
     public function training()
     {
