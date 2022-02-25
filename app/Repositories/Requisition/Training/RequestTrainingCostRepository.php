@@ -4,6 +4,7 @@ namespace App\Repositories\Requisition\Training;
 
 use App\Models\GOfficer\GRate;
 use App\Models\Requisition\Requisition;
+use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\Traits\Relationship\RequisitionTrainingCostRelationship;
 use App\Models\Requisition\Training\Traits\Relationship\RequisitionTrainingRelationship;
@@ -30,9 +31,9 @@ class RequestTrainingCostRepository extends BaseRepository
 
     public function inputProcess($inputs)
     {
-
-        $from = $inputs['from'];
-        $to = $inputs['to'];
+        $requisition_training_details =  requisition_training::query()->where('id', $inputs['requisition_training_id'])->first();
+        $from = $requisition_training_details->start_date;
+        $to = $requisition_training_details->end_date;
         $datetime1 = new \DateTime($from);
         $datetime2 = new  \DateTime($to);
         $interval = $datetime1->diff($datetime2);
