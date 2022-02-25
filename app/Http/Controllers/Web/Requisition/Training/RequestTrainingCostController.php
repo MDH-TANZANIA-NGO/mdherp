@@ -70,8 +70,8 @@ class RequestTrainingCostController extends Controller
         $training = new requisition_training();
         $training-> requisition_id = request('requisition_id');
         $training-> district_id = request('district_id');
-        $training-> from = request('start_date');
-        $training-> to = request('end_date');
+        $training-> start_date = request('from');
+        $training-> end_date = request('to');
         $training->save();
 
 
