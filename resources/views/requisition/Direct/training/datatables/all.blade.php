@@ -77,7 +77,7 @@
                         <td>{{$items->unit}}</td>
                         <td>{{$items->unit_price}}</td>
                         <td>{{$items->total_amount}}</td>
-                        <td><a  href="{{route('training.removeItem', $items->uuid)}}" class="btn btn-outline-info" ><i class="fa fa-trash"></i></a></td>
+                        <td><a  href="{{route('training.removeItem', $items->uuid)}}" onclick="confirm('Are you sure you need to remove this item?')" class="btn btn-outline-info" ><i class="fa fa-trash"></i></a></td>
                     </tr>
 
                     @endforeach
