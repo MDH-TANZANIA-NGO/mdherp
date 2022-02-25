@@ -70,6 +70,7 @@
                                                     <li><a href="#tab4" data-toggle="tab">Permissions</a></li>
 {{--                                                    <li><a href="#tab5" data-toggle="tab">Audit</a></li>--}}
                                                     <li><a href="#tab6" data-toggle="tab">Leave Setup</a></li>
+                                                    <li><a href="#tab7" data-toggle="tab">Level of Effort</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -360,6 +361,22 @@
 
 
                                                 </div>
+
+                                                <div class="tab-pane " id="tab7">
+                                                        {!! Form::open(['route' => ['timesheet.setup'],'method' => 'POST']) !!}
+                                                        <ul class="list-group">
+                                                            @foreach($user_projects AS $key => $project)
+                                                                <input type="number" value="{{$user->id}}" name="data[{{$key}}][user_id]" hidden >
+                                                                <li class="list-group-item justify-content-between">
+                                                                    {{$project->title}}<input type="number" value="{{$project->id}}" name="data[{{$key}}][project_id]" hidden>
+                                                                    <span class="badgetext badge  badge-pill"><input type="number"  name="data[{{$key}}][percentage]" class="form-control"></span>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                        <button class="btn btn-outline-primary" type="submit" style="margin-left: 40%; margin-top: 2%">Submit</button>
+                                                        {!! Form::close() !!}
+                                                </div>
+
 
 
                                             </div>
