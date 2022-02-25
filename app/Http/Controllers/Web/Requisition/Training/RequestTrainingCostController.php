@@ -13,6 +13,7 @@ use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
+use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,6 +32,7 @@ class RequestTrainingCostController extends Controller
         $this->grates = (new GRateRepository());
         $this->trainingCost = (new RequestTrainingCostRepository());
         $this->trainingItem = (new RequisitionTrainingItemsRepository());
+        $this->training =  (new RequisitionTrainingRepository());
     }
 
     public function index(){
@@ -68,8 +70,8 @@ class RequestTrainingCostController extends Controller
         $training = new requisition_training();
         $training-> requisition_id = request('requisition_id');
         $training-> district_id = request('district_id');
-        $training-> from = request('from');
-        $training-> to = request('to');
+        $training-> from = request('start_date');
+        $training-> to = request('end_date');
         $training->save();
 
 
@@ -104,8 +106,11 @@ class RequestTrainingCostController extends Controller
             return redirect()->back();
         });
     }
-    public function updateSchedule($uuid)
+    public function updateSchedule(Request $request, $uuid)
     {
+       DB::update('update requisition_trainings set start_date = ?, end_date = ?, district_id = ? where uuid = ?', [$request->get('from'), $request->get('to'), $request->get('district_id'), $uuid]);
+       return redirect()->back();
+       alert()->success('activity schedule successfully');
 
     }
 }

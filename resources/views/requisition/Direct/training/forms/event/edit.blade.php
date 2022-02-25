@@ -11,20 +11,21 @@
             </div>
 
             <div class="card-body">
-                {!! Form::open(['route' => ['training.storeTraining',$requisition]]) !!}
+                {!! Form::open(['route' => ['training.updateSchedule',$training_details->uuid], 'method'=>'POST']) !!}
+
                 {!! Form::number('requisition_id', $requisition->id,['class' => 'form-control', 'required', 'hidden']) !!}
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('from', __("Start Date"),['class'=>'form-label','required_asterik']) !!}
-                            <input type="date" min="{{ now()->toDateString('Y-m-d') }}" class="form-control" name="from" value="{{$training_details->from}}">
+                            <input type="date" min="{{ now()->toDateString('Y-m-d') }}" class="form-control" name="from" value="{{$training_details->start_date}}">
                             {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('to', __("End Date"),['class'=>'form-label','required_asterik']) !!}
-                            {!! Form::date('to',$training_details->to,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'to']) !!}
+                            {!! Form::date('to',$training_details->end_date,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'to']) !!}
                             {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}
                         </div>
                     </div>

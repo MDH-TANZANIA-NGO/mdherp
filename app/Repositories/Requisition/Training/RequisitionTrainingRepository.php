@@ -49,6 +49,24 @@ class RequisitionTrainingRepository extends BaseRepository
         return $this->getRequisitionFilter()->pluck('training','requisition_trainings.id');
 
     }
+    public function inputProcess($input)
+    {
+
+        return [
+            'from' => $input['from'],
+            'to' => $input['to'],
+            'requisition_id' => $input['requisition_id'],
+            'district_id' => $input['district_id'],
+
+        ];
+    }
+
+    public function update($uuid, $inputs){
+        return DB::transaction(function () use ($uuid, $inputs){
+
+            return $this->query()->update($this->inputProcess($uuid,$inputs));
+        });
+    }
 
 
 
