@@ -42,6 +42,11 @@ class GOfficerRepository extends BaseRepository
     {
         return $this->getQuery();
     }
+    public function getNotSelectedInActivity()
+    {
+        return $this->getQuery()
+            ->whereHas('Training');
+    }
 
     public function inputProcess($inputs)
     {

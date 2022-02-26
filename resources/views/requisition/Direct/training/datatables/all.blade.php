@@ -79,6 +79,7 @@
                         <tr>
                             <th class="wd-15p">Item Name</th>
                             <th class="wd-10p">Unit</th>
+                            <th class="wd-10p">No Days</th>
                             <th class="wd-20p">Unit Price</th>
                             <th class="wd-25p">Total Price</th>
                             <th class="wd-15p">Action</th>
@@ -90,6 +91,7 @@
 
                                 <td>{{$items->title}}</td>
                                 <td>{{$items->unit}}</td>
+                                <td>{{$items->no_days}}</td>
                                 <td>{{number_2_format($items->unit_price)}}</td>
                                 <td>{{number_2_format($items->total_amount)}}</td>
                                 <td><a  href="{{route('training.removeItem', $items->uuid)}}" onclick="confirm('Are you sure you need to remove this item?')"  ><i class="fa fa-trash"></i></a></td>

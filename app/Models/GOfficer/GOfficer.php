@@ -5,6 +5,7 @@ namespace App\Models\GOfficer;
 use App\Models\Facility\Facility;
 use App\Models\GOfficer\Traits\Attribute\GOfficerAttribute;
 use App\Models\GOfficer\Traits\Relationship\GOfficerRelationship;
+use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\System\District;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -100,5 +101,9 @@ class GOfficer extends Model
     public function district()
     {
         return $this->belongsTo(District::class, 'district_id', 'id');
+    }
+    public function Training()
+    {
+        return $this->belongsTo(requisition_training_cost::class, 'id', 'participant_uid');
     }
 }
