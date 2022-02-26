@@ -142,7 +142,10 @@ class RequestTravellingCostRepository extends BaseRepository
     }
     public function update($uuid, $inputs)
     {
+
         $traveller = $this->findByUuid($uuid);
+
+
         return DB::transaction(function () use ($traveller, $inputs){
             $traveller->update($this->inputProcess($inputs));
 

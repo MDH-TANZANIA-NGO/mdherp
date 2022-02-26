@@ -10,8 +10,8 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         {!! Form::label('traveller_name', __("Traveller Name"),['class'=>'form-label','required_asterik']) !!}
-
-                        {!! Form::select('traveller_uid',$mdh_staff, $user, ['class' => 'form-control select2-show-search', 'required']) !!}
+                        {!! Form::text('name',$traveller->user->full_name_formatted, ['class' => 'form-control', 'disabled']) !!}
+                        {!! Form::number('traveller_uid',$traveller->traveller_uid, ['class' => 'form-control', 'hidden']) !!}
                         {!! $errors->first('traveller_uid', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
@@ -48,11 +48,25 @@
                         {!! $errors->first('transportation', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <div class="col-sm-3 col-md-2">
+                    <div class="form-group">
+                        {!! Form::label('ticket_fair', __("Ticket Fair"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::number('ticket_fair',$traveller->ticket_fair,['class' => 'form-control', 'placeholder' => 'ie. 100,000']) !!}
+                        {!! $errors->first('ticket_fair', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-2">
                     <div class="form-group">
                         {!! Form::label('other_cost', __("Other Costs"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::number('other_cost',$traveller->other_cost,['class' => 'form-control', 'placeholder' => 'ie. 100,000','required']) !!}
+                        {!! Form::number('other_cost',$traveller->other_cost,['class' => 'form-control', 'placeholder' => 'ie. 100,000']) !!}
                         {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {!! Form::label('other_cost_description', __("Other Costs Description"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::text('other_cost_description',$traveller->others_description,['class' => 'form-control', 'placeholder' => 'Other Cost Description']) !!}
+                        {!! $errors->first('other_cost_description', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
                 <div class="col-md-6">

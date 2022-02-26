@@ -14,8 +14,9 @@
                             <th>ID</th>
                             <th>Travellor</th>
                             <th>Days</th>
-                            <th>Meals & Incidentals</th>
-                            <th>Accomodation</th>
+                            <th>Perdiem</th>
+                            <th>Ontransit</th>
+                            <th>Accommodation</th>
                             <th>Transport</th>
                             <th>Others</th>
                             <th>Total</th>
@@ -28,13 +29,14 @@
                                 <th>{{ $key + 1 }}</th>
                                 <th>{{ $cost->user->full_name_formatted }}</th>
                                 <th>{{ $cost->no_days }}</th>
-                                <th>{{ $cost->perdiem_total_amount }}</th>
-                                <th>{{ $cost->accommodation }}</th>
-                                <th>{{ $cost->transportation }}</th>
+                                <th>{{ number_2_format($cost->perdiem_total_amount) }}</th>
+                                <th>{{ number_2_format($cost->ontransit) }}</th>
+                                <th>{{ number_2_format($cost->accommodation) }}</th>
+                                <th>{{ number_2_format($cost->transportation) }}</th>
 
-                                <th>{{ $cost->other_cost }}</th>
-                                <th>{{ $cost->total_amount }}</th>
-                                <th><a href="{{route('travelling.edit',$cost->uuid)}}" class="btn btn-primary" onclick="confirm('Are you sure?')">Edit</a> </th>
+                                <th>{{ number_2_format($cost->other_cost) }}</th>
+                                <th>{{ number_2_format($cost->total_amount) }}</th>
+                                <th><a href="{{route('travelling.edit',$cost->uuid)}}" class="btn btn-primary" onclick="confirm('Are you sure?')">Edit</a> <a href="{{route('travelling.delete',$cost->uuid)}}" class="btn btn-danger" onclick="confirm('Are you sure?')">Delete</a> </th>
                             </tr>
                         </tbody>
                         @endforeach
