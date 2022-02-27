@@ -63,8 +63,8 @@
                         {!! Form:: text('district_id', $travelling_cost->district_id,['class'=>'form-control','hidden'])!!}
                         <div class="col-md-12">
                             <div class="form-group">
-                                {!! Form::label('item_name', __("Scope of Work"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::textarea('scope', null, ['class' => 'form-control', 'required']) !!}
+                                {!! Form::label('item_name', __("Scope of Work"),['class'=>'form-label','required_asterik']) !!}<span class="text-default text font-weight-light"><i>You can copy from your word document and paste it here.</i></span>
+                                {!! Form::textarea('scope', null, ['class'=>'content']) !!}
                                 {!! $errors->first('scope', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>

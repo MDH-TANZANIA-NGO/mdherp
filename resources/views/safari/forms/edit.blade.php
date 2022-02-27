@@ -19,6 +19,7 @@
                                 <th>Perdiem</th>
                                 <th>Accomodation</th>
                                 <th>Transport</th>
+                                <th>Ticket Fair</th>
                                 <th>Ontransit</th>
                                 <th>Others</th>
                                 <th>Total</th>
@@ -33,8 +34,9 @@
                                 <td>{{number_2_format($travelling_cost->perdiem_total_amount)}}</td>
                                 <td>{{number_2_format($travelling_cost->accommodation)}}</td>
                                 <td>{{number_2_format($travelling_cost->transportation)}}</td>
+                                <td>{{number_2_format($travelling_cost->ticket_fair)}}</td>
                                 <td>{{number_2_format($travelling_cost->ontransit)}}</td>
-                                <td>{{number_2_format($travelling_cost->other_cost)}}</td>
+                                <td>{{number_2_format($travelling_cost->other_cost)}} <span>{{$travelling_cost->others_description}}</span></td>
                                 <td>{{number_2_format($travelling_cost->total_amount)}}</td>
                             </tr>
                             </tbody>
@@ -63,8 +65,8 @@
                         {!! Form:: text('district_id', $travelling_cost->district_id,['class'=>'form-control','hidden'])!!}
                         <div class="col-md-12">
                             <div class="form-group">
-                                {!! Form::label('item_name', __("Scope of Work"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::textarea('scope', $safari_advance->scope, ['class' => 'form-control', 'required']) !!}
+                                {!! Form::label('item_name', __("Scope of Work"),['class'=>'form-label','required_asterik']) !!}<span class="text-default text font-weight-light"><i>You can copy from your word document and paste it here.</i></span>
+                                {!! Form::textarea('scope', $safari_advance->scope, ['class'=>'content']) !!}
                                 {!! $errors->first('scope', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>
@@ -76,8 +78,8 @@
 
                                     <th>Destination</th>
                                     <th>Means of Transport</th>
-                                    <th>From</th>
-                                    <th>To</th>
+                                    <th>Departure</th>
+                                    <th>Return</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -86,12 +88,19 @@
                                     <td>
                                         <select name="transport_means" class="form-control">
                                             <option value="flight">Flight</option>
-                                            <option value="vehicle">MDH Vehicle</option>
-                                            <option value="land public transport">Land Public Transport</option>
+                                            <option value="mdh_vehicle">MDH Vehicle</option>
+                                            <option value="land_public_transport">Land Public Transport</option>
+                                            <option value="boat">Boat</option>
                                         </select>
                                     </td>
-                                    <td>{!! Form::date('from', $safari_advance_details->from, ['class' => 'form-control', 'required', 'id'=>'first']) !!}</td>
-                                    <td>{!! Form::date('to', $safari_advance_details->to, ['class' => 'form-control', 'required','id'=>'second']) !!}</td>
+                                    </td>
+                                    @if($safari_advance_details == null)
+                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}</td>
+                                    <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required','id'=>'to']) !!}</td>
+                                    @else
+                                        <td>{!! Form::date('from', $safari_advance_details->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}</td>
+                                        <td>{!! Form::date('to', $safari_advance_details->to, ['class' => 'form-control', 'required','id'=>'to']) !!}</td>
+                                    @endif
                                 </tr>
 
                                 </tbody>
@@ -101,7 +110,7 @@
 
                         <p id="output"></p>
 
-                        <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Update</button>
+                        <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Submit For Approval</button>
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -116,17 +125,7 @@
 
 @push('after-scripts')
     <script>
-        $(document).ready(function (){
 
-            // console.log('loading');
-            // let $first = $("#first");
-            // let $second = $("#second");
-            //
-            // console.log($first.val());
-            // $second.datepicker({
-            //     minDate: $first.val()
-            // })
-        });
     </script>
 @endpush
 
