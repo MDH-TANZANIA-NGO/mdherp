@@ -36,7 +36,7 @@
                                 <td>{{number_2_format($travelling_cost->transportation)}}</td>
                                 <td>{{number_2_format($travelling_cost->ticket_fair)}}</td>
                                 <td>{{number_2_format($travelling_cost->ontransit)}}</td>
-                                <td>{{number_2_format($travelling_cost->other_cost)}} <span>{{$travelling_cost->others_description}}</span></td>
+                                <td>{{number_2_format($travelling_cost->other_cost)}} <span class="text-warning">{{$travelling_cost->others_description}}</span></td>
                                 <td>{{number_2_format($travelling_cost->total_amount)}}</td>
                             </tr>
                             </tbody>
@@ -109,8 +109,11 @@
                         <!-- table-responsive -->
 
                         <p id="output"></p>
-
+                        @if($safari_advance->done ==  true)
+                            <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Update Safari</button>
+                        @else
                         <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Submit For Approval</button>
+                            @endif
                     </div>
                 </div>
                 {!! Form::close() !!}

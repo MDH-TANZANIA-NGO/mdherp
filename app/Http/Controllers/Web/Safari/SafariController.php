@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Safari\Datatables\SafariDatatables;
 use App\Models\Auth\User;
 use App\Models\Requisition\Requisition;
+use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -85,20 +86,44 @@ class SafariController extends Controller
     public function update(Request $request, $uuid)
     {
         $safari_advance_done = SafariAdvance::where('uuid', $uuid)->first()->done;
+
+        $requisition_travelling_cost_details = requisition_travelling_cost::query()->where('id', SafariAdvance::query()->where('id', $request->get('safari_advance_id'))->first()->requisition_travelling_cost_id)->first();
+        $from = $request->get('from');
+        $to = $request->get('to');
+        $datetime1 = new \DateTime($from);
+        $datetime2 = new  \DateTime($to);
+        $interval = $datetime1->diff($datetime2);
+        $days = $interval->format('%a');
+        $days_int = (int)$days;
        if ($safari_advance_done == true)
        {
-           $this->safariAdvance->update($request->all(),$uuid);
-           alert()->success('Safari Advance Submitted Successfully','Success');
+           if ($days_int > $requisition_travelling_cost_details->no_days){
+               alert()->error('Number of Days are over days requested');
+               return redirect()->back();
+           }else{
+               $this->safariAdvance->update($request->all(),$uuid);
+               alert()->success('Safari Advance updated Successfully','Success');
+               return redirect()->route('safari.show',$uuid);
+           }
+
        }
        else{
-           $this->safariAdvance->update($request->all(),$uuid);
-           $safari = $this->safariAdvance->findByUuid($uuid);
-           $wf_module_group_id = 2;
-           $next_user = $safari->user->assignedSupervisor()->supervisor_id;
-           event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $safari->id,'region_id' => $safari->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-           alert()->success('Safari Advance Submitted Successfully','Success');
+           if ($days_int > $requisition_travelling_cost_details->no_days){
+               alert()->error('Number of Days are over days requested');
+               return redirect()->back();
+           }
+           else{
+               $this->safariAdvance->update($request->all(),$uuid);
+               $safari = $this->safariAdvance->findByUuid($uuid);
+               $wf_module_group_id = 2;
+               $next_user = $safari->user->assignedSupervisor()->supervisor_id;
+               event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $safari->id,'region_id' => $safari->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+               alert()->success('Safari Advance Submitted Successfully','Success');
+               return redirect()->route('safari.show',$uuid);
+           }
+
        }
-         return redirect()->route('safari.show',$uuid);
+
     }
     public function show(SafariAdvance $safariAdvance)
     {

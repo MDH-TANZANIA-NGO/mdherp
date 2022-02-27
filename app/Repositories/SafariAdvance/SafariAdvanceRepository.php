@@ -37,6 +37,7 @@ class SafariAdvanceRepository extends BaseRepository
     }
     public function inputDetails($input)
     {
+
         return [
             'safari_advance_id'=>$input['safari_advance_id'],
             'from'=>$input['from'],
@@ -50,6 +51,8 @@ class SafariAdvanceRepository extends BaseRepository
             'transport_means'=>$input['transport_means']
 
         ];
+
+
     }
     public function store($inputs)
     {
@@ -60,6 +63,8 @@ class SafariAdvanceRepository extends BaseRepository
 
     public function update($inputs, $uuid)
     {
+
+
         return DB::transaction(function () use ($inputs, $uuid){
             $safari = $this->findByUuid($uuid);
             $scope = $inputs['scope'];
@@ -78,6 +83,8 @@ class SafariAdvanceRepository extends BaseRepository
             }
 
         });
+
+
     }
 
     public function getQuery()
