@@ -106,13 +106,23 @@
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label class="form-label">Activity Report <span class="form-label-small">56/100</span></label>
+                            <label class="form-label">Background Information: <span class="form-label-small">56/100</span></label>
                             <textarea class="form-control" name="activity_report" rows="7" placeholder="Write activity report.." required></textarea>
                         </div>
                     </div>
 
 
                 </div>
+&nbsp;
+
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label class="form-label">What was Planned: <span class="form-label-small">56/100</span></label>
+                                <textarea class="form-control" name="" rows="7" placeholder="Write activity report.." required></textarea>
+                            </div>
+                        </div>
+                    </div>
 
               {{--  <div class="row">
                     <div class="col-md-4" >
