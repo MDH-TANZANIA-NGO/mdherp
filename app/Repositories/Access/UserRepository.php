@@ -9,6 +9,7 @@ use App\Repositories\BaseRepository;
 use App\Repositories\Project\SubProgramRepository;
 use App\Services\Reset\ResetPasswordTrait;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UserRepository extends BaseRepository
 {
@@ -223,7 +224,8 @@ class UserRepository extends BaseRepository
             $user = $this->query()->create($this->processInputs($inputs));
             $user->projects()->sync($inputs['projects']);
             $reset_link = $this->resetLink($user);
-            $user->notify(new UserRegistrationNotification($reset_link));
+            Log::info($reset_link);
+//            $user->notify(new UserRegistrationNotification($reset_link));
             return $user;
         });
     }
