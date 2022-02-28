@@ -33,11 +33,6 @@ trait UserAttribute
         $this->attributes['name'] = ucwords(trim($value));
     }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
-
     public function setPhoneAttribute($value){
         $this->attributes['phone'] = (new PhoneFormatter($value))->phone;
     }
