@@ -242,4 +242,14 @@ class FinanceActivityController extends Controller
     {
         return Excel::download(new PaymentExport($uuid), "Payments.xlsx");
     }
+
+    public function safariPayment($uuid){
+
+        $safari_advance =  $this->safariAdvance->findByUuid($uuid);
+        $requisition = $this->safariAdvance->findByUuid($uuid)->travellingCost->requisition()->first();
+        return view('finance.payments.safariAdvance.forms.initiate')
+            ->with('safari_advance', $safari_advance)
+            ->with('requisition', $requisition)
+            ;
+    }
 }

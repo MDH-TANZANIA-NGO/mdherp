@@ -24,7 +24,7 @@ trait PaymentsDatatable
                 return number_2_format($query->amount_paid);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('finance.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('finance.safari_payment', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
