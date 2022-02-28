@@ -120,8 +120,7 @@ class FinanceActivityController extends Controller
     public function store(Request $request)
     {
         $pay = $this->finance->store($request->all());
-
-
+        $this->safariAdvance->storeSafariPayment($request->all());
         return redirect()->route('finance.SubmitPayment', $pay->uuid);
     }
     public function updatePayment(Request $request, $uuid)
@@ -133,6 +132,7 @@ class FinanceActivityController extends Controller
     {
        $pay = $this->finance->update($request->all(), $uuid);
        $pay = Payment::all()->where('uuid', $uuid)->first();
+
         $wf_module_group_id = 6;
         $next_user = $pay->user->assignedSupervisor()->supervisor_id;
         event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $pay->id,'region_id' => $pay->region_id, 'type' => 1],[],['next_user_id' => $next_user]));

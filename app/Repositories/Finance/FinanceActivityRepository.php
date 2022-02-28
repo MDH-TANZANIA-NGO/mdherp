@@ -41,8 +41,6 @@ class FinanceActivityRepository extends BaseRepository
             'region_id'=> $inputs['region_id'],
             'requisition_id' => $inputs['requisition_id'],
             'requested_amount'=> $inputs['requested_amount'],
-            'payment_method'=>$inputs['payment_method'],
-//            'account_number'=>$inputs['phone'],
             'user_id'=>access()->user()->id,
             'remarks'=>$inputs['remarks'],
 
@@ -58,6 +56,7 @@ class FinanceActivityRepository extends BaseRepository
 
 
     }
+
     public function update($inputs, $uuid)
     {
          return DB::transaction(function () use ($inputs, $uuid){

@@ -54,6 +54,23 @@ class SafariAdvanceRepository extends BaseRepository
 
 
     }
+    public function inputProcessSafariPayment($input){
+        return [
+            'safari_advance_id'=>$input['safari_advance_id'],
+            'account_no'=>$input['phone'],
+            'requisition_id'=>$input['requisition_id'],
+            'disbursed_amount'=>$input['total_amount'],
+            'requested_amount'=>$input['requested_amount'],
+
+
+        ];
+    }
+
+    public function storeSafariPayment($input){
+        return DB::transaction(function () use ($input){
+            return DB::table('safari_advance_payments')->insert($this->inputProcessSafariPayment($input));
+        });
+    }
     public function store($inputs)
     {
         return DB::transaction(function () use ($inputs){
