@@ -25,13 +25,69 @@
             <div class="card-body">
 
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Activity Report</h5>
-                        </div>
-                        <hr>
-                        <p class="mb-1">{{$retirement->details->activity_report}}</p>
-                    </a>
+                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><b>Background Information:</b></h5>
+                            </div>
+
+                            <p class="mb-1">{{$retirement->details->activity_report}}</p>
+
+                            &nbsp;
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><b>What was planned:</b></h5>
+                            </div>
+
+                            <p class="mb-1">{{$retirement->details->planned_report}}</p>
+
+                            <hr>
+                        <h5 class="mb-1"><b>Number of Participants: </b>{{$retirement->details->no_participants}}</h5>
+
+                            <hr>
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><b>Objectives:</b></h5>
+                            </div>
+
+                            <p class="mb-1">{{$retirement->details->objective_report}}</p>
+
+                            <hr>
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><b>Methodology:</b></h5>
+                            </div>
+
+                            <p class="mb-1">{{$retirement->details->methodology_report}}</p>
+
+                            <hr>
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><b>Achievements:</b></h5>
+                            </div>
+
+                            <p class="mb-1">{{$retirement->details->achievement_report}}</p>
+
+                            <hr>
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><b>Challenges:</b></h5>
+                            </div>
+
+                            <p class="mb-1">{{$retirement->details->challenge_report}}</p>
+
+                            <hr>
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><b>Recommendations/Action plans:</b></h5>
+                            </div>
+
+                            <p class="mb-1">{{$retirement->details->action_report}}</p>
+
+                            <hr>
+
+                    </div>
+
 
                 </div>
 

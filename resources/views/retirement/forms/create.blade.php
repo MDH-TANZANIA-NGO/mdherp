@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 
     <div class="col-lg-12 col-md-12">
@@ -103,40 +104,43 @@
 
                     </div>
                 @endforeach
+
+                <hr>
+
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
                             <label class="form-label">Background Information: <span class="form-label-small">56/100</span></label>
-                            <textarea class="form-control" name="activity_report" rows="7" placeholder="Write activity report.." required></textarea>
+                            <textarea class="form-control" name="activity_report" rows="2" placeholder="Write activity report.." required></textarea>
                         </div>
                     </div>
 
 
                 </div>
-&nbsp;
+
 
                     <div class="row">
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">What was Planned:</label>
-                                <textarea rows="2" cols="50" class="form-control" name="" rows="7" placeholder="Write the plan.." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control" name="planned_report" placeholder="Write the plan.." required></textarea>
                             </div>
                         </div>
                     </div>
 
-                    &nbsp;
+
 
                     <div class="row">
                         <div  class="col-md-2">
                             <div class="form-group">
                                 <label class="form-label">Number of Participants:</label>
-                            <input type="number" name="" class="form-control" placeholder="">
+                            <input type="number" name="no_participants" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-10" >
                             <div class="form-group">
                                 <label class="form-label">Objectives:</label>
-                                <textarea rows="2" cols="50" class="form-control" name="" rows="7" placeholder="Write your objectives.." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control" name="objective_report" placeholder="Write your objectives.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -145,11 +149,39 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">Methodology:</label>
-                                <textarea rows="2" cols="50" class="form-control" name="" rows="7" placeholder="Write the methodology.." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control" name="methodology_report" placeholder="Write the methodology.." required></textarea>
                             </div>
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label class="form-label">Achievements:</label>
+                                <textarea rows="2" cols="50" class="form-control" name="achievement_report" placeholder="Write the Achievements.." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label class="form-label">Challenges:</label>
+                                <textarea rows="2" cols="50" class="form-control" name="challenge_report" placeholder="Write the Challenges:.." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label class="form-label">Recommendations/Action plans :</label>
+                                <textarea rows="2" cols="50" class="form-control" name="action_report" placeholder="Write the Recommendations/Action plans .." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
 
                     <div class ="row">
                     <div class="container lst">
@@ -186,6 +218,7 @@
                     </div>
                     </div>
 
+                    <hr>
 &nbsp;
 
                 <div class="row">
@@ -247,6 +280,8 @@
             });*/
 
         </script>
+
+
     @endpush
 
 @endsection
