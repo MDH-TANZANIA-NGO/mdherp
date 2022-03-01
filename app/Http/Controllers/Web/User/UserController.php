@@ -207,6 +207,7 @@ class UserController extends Controller
     public function updatePermissions(Request $request, User $user)
     {
         $this->users->updatePermissions($user, $request->all());
+        alert()->success(__('notifications.permission_assigned'), __('notifications.user.title'));
         return redirect()->back();
     }
 
