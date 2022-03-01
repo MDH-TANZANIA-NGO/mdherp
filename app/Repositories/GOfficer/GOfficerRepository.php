@@ -27,6 +27,7 @@ class GOfficerRepository extends BaseRepository
             DB::raw('regions.name AS region_name'),
             DB::raw('g_officers.district_id as district_id'),
             DB::raw('districts.name as district'),
+            DB::raw('g_officers.country_organisation_id as country_organisation_id'),
             DB::raw('g_officers.isactive as isactive'),
             DB::raw('g_officers.fingerprint_data as fingerprint_data'),
             DB::raw('g_officers.fingerprint_length as fingerprint_length')
@@ -74,6 +75,11 @@ class GOfficerRepository extends BaseRepository
         return DB::transaction(function () use ($g_scale, $inputs){
             return $g_scale->update($this->inputProcess($inputs));
         });
+    }
+
+    public function getGOfficerAuth($id)
+    {
+        return $this->getQuery()->where('g_officers.id',$id)->first();
     }
 
 }

@@ -17,9 +17,9 @@ use App\Notifications\Auth\ResetPasswordNotification;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GOfficer extends Model
+class GOfficer extends Authenticatable implements AuditableContract
 {
-//    use Notifiable, HasApiTokens, GOfficerAttribute, GOfficerRelationship, Auditable, SoftDeletes;
+    use Notifiable, HasApiTokens, GOfficerAttribute, GOfficerRelationship, Auditable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +28,7 @@ class GOfficer extends Model
      */
     protected $guarded = ['uuid'];
 
-    protected $guard = 'g_officer-api';
+    protected $guard = 'g_officer';
 
     protected $table = 'g_officers';
 
