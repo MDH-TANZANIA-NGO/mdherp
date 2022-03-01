@@ -3,6 +3,8 @@
 namespace App\Models\ProgramActivity\Traits;
 
 use App\Models\Auth\User;
+use App\Models\ProgramActivity\ProgramActivity;
+use App\Models\ProgramActivity\ProgramActivityAttendance;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
@@ -56,6 +58,10 @@ public function costs(){
     public function region()
     {
         return $this->belongsTo(Region::class);
+    }
+
+    public function programActivityAttendance(){
+        return $this->hasMany(ProgramActivityAttendance::class);
     }
 
 }

@@ -331,7 +331,7 @@ class FinanceActivityController extends Controller
         $requisition = $payment->requisition()->first();
         $safari_advance = SafariAdvance::query()->where('requisition_travelling_cost_id', requisition_travelling_cost::query()->where('requisition_id',$requisition->id)->first()->id)->first();
         $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $safari_advance->id)->first();
-        return view('finance.payments.safariAdvance.displays.show')
+        return view('finance.payments.safariAdvance.index')
             ->with('safari_advance', $safari_advance)
             ->with('requisition', $requisition)
             ->with('safari_advance_payment', $safari_advance_payment)

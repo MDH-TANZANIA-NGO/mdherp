@@ -109,9 +109,14 @@
                                 <td class="text-right">{{$safari_advance_payment->account_no}}</td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="font-w600 text-right">Total Amount </td>
+                                <td colspan="2" class="font-w600 text-right">Total Amount Requested</td>
+                                <td class="font-weight-bold text-right">{{number_2_format($safari_advance->travellingCost->total_amount)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="font-w600 text-right">Total Amount Paid </td>
                                 <td class="font-weight-bold text-right">{{number_2_format($safari_advance_payment->disbursed_amount)}}</td>
                             </tr>
+
 
                             <tr>
                                 <td colspan="5" class="text-right">
