@@ -18,23 +18,18 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'Api\Auth\LoginController@login');
 
 
-Route::group(['middleware' => 'auth:api'], function () {
-//    Route::get('/user', function(Request $request) {
-//        return $request->user();
-//    });
-    Route::post('attendance/store', 'Api\Attendance\AttendanceController@store');
-    Route::get('{user}/attendances', 'Api\Attendance\AttendanceController@show');
-    Route::post('store-attendance', 'Api\ProgramActivity\ProgramActivityController@storeAttendance');
-    Route::get('valid-activities', 'Api\ProgramActivity\ProgramActivityController@getAllValidProgramActivities');
-    Route::post('initiate-attendance', 'Api\ProgramActivity\ProgramActivityController@getAllParticipants');
-    Route::post('/logout', 'Api\Auth\LoginController@logout');
-});
+//Route::group(['middleware' => 'auth:api'], function () {
+////    Route::get('/user', function(Request $request) {
+////        return $request->user();
+////    });
+//    Route::post('attendance/store', 'Api\Attendance\AttendanceController@store');
+//    Route::get('{user}/attendances', 'Api\Attendance\AttendanceController@show');
+//    Route::post('/logout', 'Api\Auth\LoginController@logout');
+//});
 
 Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
     function(){
         Route::post('login', 'Auth\LoginController@login');
-
-
         Route::post('refresh', 'Auth\LoginController@refresh');
         Route::post('g_officer/store', 'MDHData\GOfficerController@store')->name('g_officer-store');
         Route::get('{g_officer}/facilities', 'MDHData\GOfficerController@show')->name('g_officer-facilities');
@@ -43,6 +38,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
             'middleware' => ['auth:user-api']
         ], function() {
             Route::post('logout', 'Auth\LoginController@logout');
+            Route::post('store-attendance', 'ProgramActivity\ProgramActivityController@storeAttendance')->name('store_attendance');
 
 
             Route::post('ward/store', 'MDHData\WardController@store');

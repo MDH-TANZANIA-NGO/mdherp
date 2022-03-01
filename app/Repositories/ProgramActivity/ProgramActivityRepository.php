@@ -44,7 +44,6 @@ class ProgramActivityRepository extends BaseRepository
     public function getParticipants()
     {
         return $this->query()->select([
-            DB::raw('program_activities.id AS id'),
             DB::raw('program_activities.requisition_id AS requisition_id'),
             DB::raw('requisition_training_costs.participant_uid AS user_id'),
             DB::raw('requisition_training_costs.perdiem_total_amount AS perdiem'),
@@ -59,16 +58,12 @@ class ProgramActivityRepository extends BaseRepository
 
 
 
-
-
     public function getAllApprovedProgramActivities()
     {
         return $this->getQuery()
             ->where('program_activities.wf_done', true)
             ->where('program_activities.paid', false);
     }
-
-
 
     public function inputProcess( $inputs)
     {
