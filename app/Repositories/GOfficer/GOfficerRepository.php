@@ -3,6 +3,8 @@
 namespace App\Repositories\GOfficer;
 
 use App\Models\GOfficer\GOfficer;
+use App\Models\Regions\region;
+use App\Models\System\District;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -51,19 +53,20 @@ class GOfficerRepository extends BaseRepository
 
     public function inputProcess($inputs)
     {
+        $region_id = region::query()->where('id', District::query()->where('id', $inputs['district_id'])->first()->region_id)->first()->id;
         return [
             'first_name' => $inputs['first_name'],
             'last_name' => $inputs['last_name'],
             'email' => $inputs['email'],
             'phone' => $inputs['phone'],
             'g_scale_id' => $inputs['g_scale'],
-            'region_id' => $inputs['region_id'],
-//            'district_id' => $inputs['district_id'],
+            'region_id' => $region_id,
+            'district_id' => $inputs['district_id'],
             'country_organisation_id' => 1,
             'isactive' => 1,
 //            'fingerprint_data' => $inputs['fingerprint_data'],
 //            'fingerprint_length' => $inputs['fingerprint_length'],
-//            'password' => bcrypt(strtolower($inputs['last_name'])),
+            'password' => bcrypt(strtolower($inputs['last_name'])),
         ];
     }
 
