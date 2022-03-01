@@ -85,7 +85,7 @@ class UserController extends Controller
     public function resetPassword(User $user)
     {
         $this->users->resetPassword($user);
-        alert()->success('Email For Password Reset sent to'.$user->full_name. 'Succeeded');
+        alert()->success('Password Reset link sent to'.$user->full_name. 'Succeeded');
         return redirect()->back();
 
     }
