@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-
+{{--    @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])--}}
     <!-- Row-->
     <div class="row">
         <div class="col-md-12">
@@ -100,11 +100,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w600 text-right">Account No</td>
-                                {!! Form::open(['route'=> ['finance.sendSafariPaymentForApproval', $payment->uuid],'method'=>'POST']) !!}
-                                {!! Form::number('requisition_id', $requisition->id, ['class'=>'form-control','hidden'])  !!}
-                                {!! Form::number('requested_amount', $requisition->amount, ['class'=>'form-control','hidden'])  !!}
-                                {!! Form::number('safari_advance_id', $safari_advance->id, ['class'=>'form-control','hidden'])  !!}
-                                {!! Form::number('region_id', $requisition->region_id, ['class'=>'form-control','hidden'])  !!}
+
 
                                 <td class="text-right">{{$safari_advance_payment->account_no}}</td>
                             </tr>
@@ -115,11 +111,9 @@
 
                             <tr>
                                 <td colspan="5" class="text-right">
-                                    <button type="submit" class="btn btn-primary" ><i class="si si-paper-plane"></i> Send for Approval</button>
                                     <a href="{{route('finance.edit_safari_payment', $safari_advance->uuid)}}" class="btn btn-secondary"><i class="fa fa-edit"></i> Edit</a>
                                 </td>
                             </tr>
-                            {!! Form::close() !!}
                         </table>
                     </div>
                     <p class="text-muted text-center">Thank you very much for doing business with us. We look forward to working with you again!</p>

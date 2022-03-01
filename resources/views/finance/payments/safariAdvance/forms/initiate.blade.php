@@ -100,20 +100,22 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w600 text-right">Account No</td>
-                                {!! Form::open(['route'=> 'finance.store','method'=>'POST']) !!}
+                                {!! Form::open(['route'=> 'finance.store_safari_payment','method'=>'POST']) !!}
                                 {!! Form::number('requisition_id', $requisition->id, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('requested_amount', $requisition->amount, ['class'=>'form-control','hidden'])  !!}
+                                {!! Form::number('safari_advance_id', $safari_advance->id, ['class'=>'form-control','hidden'])  !!}
+                                {!! Form::number('region_id', $requisition->region_id, ['class'=>'form-control','hidden'])  !!}
 
-                                <td class="text-right">{!! Form::text('account_no', $safari_advance->user->phone, ['class'=>'form-control'])  !!}</td>
+                                <td class="text-right">{!! Form::text('phone', $safari_advance->user->phone, ['class'=>'form-control'])  !!}</td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w600 text-right">Total Amount </td>
-                                <td class="font-weight-bold text-right">{!! Form::number('amount_requested', $safari_advance->travellingCost->total_amount, ['class'=>'form-control'])  !!}</td>
+                                <td class="font-weight-bold text-right">{!! Form::number('total_amount', $safari_advance->travellingCost->total_amount, ['class'=>'form-control'])  !!}</td>
                             </tr>
 
                             <tr>
                                 <td colspan="5" class="text-right">
-                                    <button type="button" class="btn btn-primary" onClick="javascript:window.print();"><i class="si si-wallet"></i> Pay Safari</button>
+                                    <button type="submit" class="btn btn-primary" ><i class="si si-wallet"></i> Pay Safari</button>
                                 </td>
                             </tr>
                             {!! Form::close() !!}

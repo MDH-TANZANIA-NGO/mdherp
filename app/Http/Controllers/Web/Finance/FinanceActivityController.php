@@ -17,11 +17,13 @@ use App\Models\Requisition\Traits\Relaltionship\RequisitionRelationship;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Models\SafariAdvance\SafariAdvanceDetails;
+use App\Models\SafariAdvance\SafariAdvancePayment;
 use App\Models\SafariAdvance\Traits\SafariAdvanceRelationship;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
+use App\Repositories\SafariAdvance\SafariAdvancePaymentRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
@@ -42,6 +44,7 @@ class FinanceActivityController extends Controller
     protected $requisition_training_cost;
     protected $finance;
     protected $wf_tracks;
+    protected $safari_advance_payment;
 
     public function __construct()
     {
@@ -52,6 +55,7 @@ class FinanceActivityController extends Controller
         $this->requisition_training_cost = (new requisition_training_cost());
         $this->finance =  (new FinanceActivityRepository());
         $this->wf_tracks = (new WfTrackRepository());
+        $this->safari_advance_payment = (new SafariAdvancePaymentRepository());
     }
     public function index()
     {
@@ -120,9 +124,9 @@ class FinanceActivityController extends Controller
     public function store(Request $request)
     {
         $pay = $this->finance->store($request->all());
-        $this->safariAdvance->storeSafariPayment($request->all());
         return redirect()->route('finance.SubmitPayment', $pay->uuid);
     }
+
     public function updatePayment(Request $request, $uuid)
     {
         DB::update('update payments set account_number = ?, payed_amount = ? where uuid = ?', [$request['phone'], $request['total_amount'], $uuid]);
@@ -252,4 +256,87 @@ class FinanceActivityController extends Controller
             ->with('requisition', $requisition)
             ;
     }
+    public function safariPaymentSubmitForApproval($uuid){
+
+
+        $payment = $this->finance->findByUuid($uuid);
+      $requisition = $this->finance->findByUuid($uuid)->requisition()->first();
+      $safari_advance = SafariAdvance::query()->where('requisition_travelling_cost_id', requisition_travelling_cost::query()->where('requisition_id',$requisition->id)->first()->id)->first();
+      $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $safari_advance->id)->first();
+        return view('finance.payments.safariAdvance.forms.create')
+            ->with('safari_advance', $safari_advance)
+            ->with('requisition', $requisition)
+            ->with('safari_advance_payment', $safari_advance_payment)
+            ->with('payment', $payment)
+            ;
+    }
+    public function storeSafariPayment(Request $request)
+    {
+        $pay = $this->finance->store($request->all());
+        $this->safari_advance_payment->storeSafariPayment($request->all());
+        return redirect()->route('finance.safari_payment_for_approval', $pay->uuid);
+    }
+    public function safariPaymentEditForApproval($uuid){
+
+
+        $safari_advance =  $this->safariAdvance->findByUuid($uuid);
+        $requisition = $safari_advance->travellingCost->requisition()->first();
+        $payment =  $safari_advance->travellingCost->requisition->payments()->first();
+
+        $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $safari_advance->id)->first();
+        return view('finance.payments.safariAdvance.forms.edit')
+            ->with('safari_advance', $safari_advance)
+            ->with('requisition', $requisition)
+            ->with('safari_advance_payment', $safari_advance_payment)
+            ->with('payment',$payment)
+            ;
+    }
+    public function updateSafariPayment(Request $request, $uuid){
+
+        return DB::transaction(function () use ( $request, $uuid){
+            $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $request->get('safari_advance_id'))->first();
+           DB::update('update payments set payed_amount = ? where uuid = ?',[$request->get('total_amount'), $uuid]);
+            DB::update('update safari_advance_payments set disbursed_amount = ?, account_no = ? where uuid = ?',[$request->get('total_amount'), $request->get('phone'), $safari_advance_payment->uuid]);
+
+            alert()->success('Safari Advance Payment Updated Successfully', 'Success');
+            return redirect()->route('finance.safari_payment_for_approval', $uuid);
+
+
+        });
+
+    }
+    public function sendSafariPaymentForApproval(Request $request, $uuid){
+
+        return DB::transaction(function () use ( $request, $uuid){
+            $payment = $this->finance->findByUuid($uuid)->first();
+            $number = $this->finance->generateNumber($payment);
+            $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $request->get('safari_advance_id'))->first();
+            $safari_advance =  $this->safariAdvance->find($safari_advance_payment->safari_advance_id);
+            DB::update('update payments set done = ?, number = ? where uuid = ?',[1,$number, $uuid]);
+            DB::update('update safari_advance_payments set payment_id = ? where uuid = ?',[$payment->id, $safari_advance_payment->uuid]);
+            DB::update('update safari_advances set paid = ? where uuid = ?',[true, $safari_advance->uuid]);
+            $wf_module_group_id = 6;
+            $next_user = $payment->user->assignedSupervisor()->supervisor_id;
+            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $payment->id,'region_id' => $payment->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+
+            alert()->success('Safari Advance Payment Sent for Approval', 'Success');
+            return redirect()->route('finance.showSafariPayment', $uuid);
+
+
+        });
+    }
+    public function showSafariPayment($uuid){
+
+        $payment = $this->finance->findByUuid($uuid);
+        $requisition = $payment->requisition()->first();
+        $safari_advance = SafariAdvance::query()->where('requisition_travelling_cost_id', requisition_travelling_cost::query()->where('requisition_id',$requisition->id)->first()->id)->first();
+        $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $safari_advance->id)->first();
+        return view('finance.payments.safariAdvance.displays.show')
+            ->with('safari_advance', $safari_advance)
+            ->with('requisition', $requisition)
+            ->with('safari_advance_payment', $safari_advance_payment)
+            ->with('payment', $payment)
+            ;
+    }
+
 }

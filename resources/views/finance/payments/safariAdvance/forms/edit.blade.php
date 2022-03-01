@@ -100,23 +100,22 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w600 text-right">Account No</td>
-                                {!! Form::open(['route'=> ['finance.sendSafariPaymentForApproval', $payment->uuid],'method'=>'POST']) !!}
+                                {!! Form::open(['route'=> ['finance.update_safari_payment', $payment->uuid],'method'=>'POST']) !!}
                                 {!! Form::number('requisition_id', $requisition->id, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('requested_amount', $requisition->amount, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('safari_advance_id', $safari_advance->id, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('region_id', $requisition->region_id, ['class'=>'form-control','hidden'])  !!}
 
-                                <td class="text-right">{{$safari_advance_payment->account_no}}</td>
+                                <td class="text-right">{!! Form::text('phone', $safari_advance_payment->account_no, ['class'=>'form-control'])  !!}</td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w600 text-right">Total Amount </td>
-                                <td class="font-weight-bold text-right">{{number_2_format($safari_advance_payment->disbursed_amount)}}</td>
+                                <td class="font-weight-bold text-right">{!! Form::number('total_amount', $safari_advance_payment->disbursed_amount, ['class'=>'form-control'])  !!}</td>
                             </tr>
 
                             <tr>
                                 <td colspan="5" class="text-right">
-                                    <button type="submit" class="btn btn-primary" ><i class="si si-paper-plane"></i> Send for Approval</button>
-                                    <a href="{{route('finance.edit_safari_payment', $safari_advance->uuid)}}" class="btn btn-secondary"><i class="fa fa-edit"></i> Edit</a>
+                                    <button type="submit" class="btn btn-primary" ><i class="si si-wallet"></i> Pay Safari</button>
                                 </td>
                             </tr>
                             {!! Form::close() !!}

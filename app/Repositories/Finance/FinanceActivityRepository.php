@@ -24,7 +24,7 @@ class FinanceActivityRepository extends BaseRepository
     public function inputProcess($inputs)
     {
 //        $number = $this->generateNumber();
-        if ($inputs['pay_to'] == 1)
+ /*       if ($inputs['pay_to'] == 1)
         {
             $payed_amount =  $inputs['participant_total'];
         }elseif ($inputs['pay_to'] == 2)
@@ -35,16 +35,16 @@ class FinanceActivityRepository extends BaseRepository
             $payed_amount =  $inputs['both_total'];
         }else{
             $payed_amount = $inputs['total_amount'];
-        }
+        }*/
         return[
 //            'number'=>$number,
             'region_id'=> $inputs['region_id'],
             'requisition_id' => $inputs['requisition_id'],
             'requested_amount'=> $inputs['requested_amount'],
             'user_id'=>access()->user()->id,
-            'remarks'=>$inputs['remarks'],
+//            'remarks'=>$inputs['remarks'],
 
-            'payed_amount'=>$payed_amount,
+            'payed_amount'=>$inputs['total_amount'],
 
         ];
     }
