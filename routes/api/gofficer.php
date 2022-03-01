@@ -19,4 +19,7 @@ Route::group( ['prefix' => 'g_officer','middleware' => ['auth:g_officer-api'] ],
 
     Route::post('hts/store','Api\MDHData\HTSController@store');
     Route::post('covid/store', 'Api\MDHData\CovidController@store');
+
+//    ProgramActivityAttendance
+    Route::post('store-attendance', 'Api\ProgramActivity\ProgramActivityController@storeAttendance');
 });
