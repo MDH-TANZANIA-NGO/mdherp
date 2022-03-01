@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api\ProgramActivity;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Controller;
+use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\ProgramActivity\ProgramActivityAttendance;
+use App\Models\Requisition\Training\requisition_training;
 use App\Repositories\ProgramActivity\ProgramActivityAttendanceRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
+use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use Illuminate\Http\Request;
 
 
@@ -15,10 +18,12 @@ class ProgramActivityController extends BaseController
     //
     protected $program_activity;
     protected $program_activity_attendance;
+    protected $training_repo;
 
     public function __construct(){
         $this->program_activity =  (new ProgramActivityRepository());
         $this->program_activity_attendance =  (new ProgramActivityAttendanceRepository());
+        $this->training_repo =  (new RequisitionTrainingRepository());
     }
 
     public function storeAttendance(Request $request){
@@ -49,6 +54,14 @@ class ProgramActivityController extends BaseController
             ]);
         }
         return $this->sendResponse($attendance, "Attendance created successfully");
+    }
+
+    public function getAllValidProgramActivities(){
+        return $this->training_repo->getQueryProgramActivity()->where('end_date', '>', Today()) ->pluck('number', 'program_activity_id');
+    }
+
+    public function getAllParticipants(Request $request){
+        dd($this->program_activity->getParticipants()->where('program_activities.id', $request['id'])->get());
     }
 }
 

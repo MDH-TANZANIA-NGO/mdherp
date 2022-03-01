@@ -19,13 +19,28 @@ class RequisitionTrainingRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('requisition_trainings.id AS id'),
-            DB::raw('requisition_trainings.from AS from'),
-            DB::raw('requisition_trainings.to AS to'),
+            DB::raw('requisition_trainings.start_date AS start_date'),
+            DB::raw('requisition_trainings.end_date AS end_date'),
             DB::raw('requisition_trainings.district_id AS district_id'),
-            DB::raw('requisition.id AS requisition_ID'),
+            DB::raw('requisitions.id AS requisition_ID'),
             DB::raw('requisition_trainings.requisition_id AS requisition_id')
         ]);
     }
+    public function getQueryProgramActivity()
+    {
+        return $this->query()->select([
+            DB::raw('requisition_trainings.id AS id'),
+            DB::raw('requisition_trainings.start_date AS start_date'),
+            DB::raw('requisition_trainings.end_date AS end_date'),
+            DB::raw('requisition_trainings.district_id AS district_id'),
+            DB::raw('program_activities.id AS program_activity_id'),
+            DB::raw('program_activities.number AS number'),
+            DB::raw('requisition_trainings.requisition_id AS requisition_id')
+        ])
+            ->join('program_activities', 'program_activities.requisition_training_id', 'requisition_trainings.id')
+           ;
+    }
+
     public function getRequisition()
     {
         return $this->getQuery()

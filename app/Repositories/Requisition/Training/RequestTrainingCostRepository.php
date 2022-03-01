@@ -29,6 +29,8 @@ class RequestTrainingCostRepository extends BaseRepository
         ]);
     }
 
+
+
     public function inputProcess($inputs)
     {
         $requisition_training_details =  requisition_training::query()->where('id', $inputs['requisition_training_id'])->first();
