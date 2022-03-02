@@ -64,6 +64,10 @@ class TimesheetController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            $next_user = access()->user()->assignedSupervisor()->supervisor_id;
+            //dd(access()->user()->assignedSupervisor()->supervisor_id);
+
         $timesheet = Timesheet::create([
             'user_id' => access()->id()
         ]);
@@ -81,11 +85,18 @@ class TimesheetController extends Controller
             'hrs' => $totalHrs
         ]);
         $wf_module_group_id = 7;
-        $next_user = $timesheet->user->assignedSupervisor()->supervisor_id;
-        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $timesheet->id,'region_id' => $timesheet->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-        alert()->success('Your timesheet have been submitted Successfully','success');
 
-        return redirect()->route('timesheet.index');
+            if ($next_user){
+                event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $timesheet->id,'region_id' => $timesheet->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+                alert()->success('Your timesheet have been submitted Successfully','success');
+                return redirect()->route('timesheet.index');
+            }
+        }catch (\Exception $exception) {
+            alert()->error('You have not been assigned a supervisor','Failed');
+            $exception->getMessage();
+            return redirect()->back();
+        }
+
     }
 
     /**

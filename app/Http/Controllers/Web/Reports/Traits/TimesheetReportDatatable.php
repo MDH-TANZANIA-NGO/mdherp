@@ -1,13 +1,47 @@
 <?php
+namespace App\Http\Controllers\Web\Reports\Traits;
 
-namespace App\Http\Controllers\Web\Timesheet\Traits;
+use Yajra\DataTables\Facades\DataTables;
 
-use Yajra\DataTables\DataTables;
-
-trait TimesheetDatatable
+trait TimesheetReportDatatable
 {
-    public function AccessProcessingDatatable(){
-        return DataTables::of($this->timesheets->getAccessProcessingDatatable())
+
+    public function getSubmittedTimesheets(){
+        return DataTables::of($this->timesheets->getSubmittedTimesheets())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateString();
+            })
+            ->editColumn('wf_done_date', function ($query) {
+                if ($query->wf_done_date == null)
+                    return  "Not Approved";
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('timesheet.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function getApprovedTimesheets(){
+        return DataTables::of($this->timesheets->getApprovedTimesheets())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateString();
+            })
+            ->editColumn('wf_done_date', function ($query) {
+                if ($query->wf_done_date == null)
+                    return  'Not Approved';
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('timesheet.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function getRejectedTimesheets(){
+        return DataTables::of($this->timesheets->getRejectedTimesheets())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateTimeString();
@@ -15,7 +49,6 @@ trait TimesheetDatatable
             ->editColumn('wf_done_date', function ($query) {
                 if ($query->wf_done_date == null)
                     return  'Not Approved';
-                return $query->wf_done_date->toDateTimeString();
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('timesheet.show', $query->uuid).'">View</a>';
@@ -24,36 +57,4 @@ trait TimesheetDatatable
             ->make(true);
     }
 
-    public  function AccessRejectedDatatable(){
-        return Datatables::of($this->timesheets->getAccessRejectedDatatable())
-            ->addIndexColumn()
-            ->editColumn('created_at', function ($query) {
-                return $query->created_at->toDateTimeString();
-            })
-            ->editColumn('wf_done_date', function ($query) {
-               if ($query->wf_done_date == null)
-                   return  "<span class='badge-danger'>Not Approved</span>>";
-                return $query->wf_done_date->toDateTimeString();
-            })
-            ->addColumn('action', function($query) {
-                return '<a href="'.route('timesheet.show', $query->uuid).'">View</a>';
-            })
-            ->rawColumns(['action'])
-            ->make(true);
-    }
-    public function AccessAprovedDatatable(){
-        return DataTables::of($this->timesheets->getAccessApprovedDatatable())
-            ->addIndexColumn()
-            ->editColumn('created_at', function ($query) {
-                return $query->created_at->toDateTimeString();
-            })
-            ->editColumn('wf_done_date', function ($query) {
-                return $query->wf_done_date->toDateTimeString();
-            })
-            ->addColumn('action', function($query) {
-                return '<a href="'.route('timesheet.show', $query->uuid).'">View</a>';
-            })
-            ->rawColumns(['action'])
-            ->make(true);
-    }
 }
