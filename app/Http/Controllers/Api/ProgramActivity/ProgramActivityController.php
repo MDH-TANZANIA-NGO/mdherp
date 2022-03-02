@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Api\ProgramActivity;
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\ProgramActivity\ProgramActivityAttendance;
+use App\Models\Requisition\Training\requisition_training;
+use App\Models\Requisition\Training\requisition_training_cost;
+use App\Repositories\ProgramActivity\ProgramActivityAttendanceRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
+use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -13,11 +17,14 @@ class ProgramActivityController extends BaseController
 {
     protected $program_activity_repo;
     protected $program_activity_attendance_repo;
+    protected $requisition_training_repo;
 
 
     public function __construct(){
 
         $this->program_activity_repo =  (new ProgramActivityRepository());
+        $this->program_activity_attendance_repo = (new ProgramActivityAttendanceRepository());
+        $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
     }
 
 
@@ -48,5 +55,14 @@ class ProgramActivityController extends BaseController
 
     }
 
+    public function getAllValidActivities(){
+
+        return $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
+    }
+    public function submitActivityNumberGetDetails(Request $request){
+        $program_activity = $this->program_activity_repo->find($request['id']);
+
+        return requisition_training_cost::query()->where('requisition_training_id', $program_activity->requisition_training_id)->get();
+    }
 
 }
