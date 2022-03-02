@@ -5,6 +5,8 @@ namespace App\Models\GOfficer;
 use App\Models\Facility\Facility;
 use App\Models\GOfficer\Traits\Attribute\GOfficerAttribute;
 use App\Models\GOfficer\Traits\Relationship\GOfficerRelationship;
+use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\System\District;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notification;
@@ -17,9 +19,9 @@ use App\Notifications\Auth\ResetPasswordNotification;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GOfficer extends Model
+class GOfficer extends Authenticatable implements AuditableContract
 {
-//    use Notifiable, HasApiTokens, GOfficerAttribute, GOfficerRelationship, Auditable, SoftDeletes;
+    use Notifiable, HasApiTokens, GOfficerAttribute, GOfficerRelationship, Auditable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +30,7 @@ class GOfficer extends Model
      */
     protected $guarded = ['uuid'];
 
-    protected $guard = 'g_officer-api';
+    protected $guard = 'g_officer';
 
     protected $table = 'g_officers';
 
@@ -95,5 +97,13 @@ class GOfficer extends Model
     public function facilities()
     {
         return $this->belongsToMany(Facility::class)->withPivot('id');
+    }
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id');
+    }
+    public function Training()
+    {
+        return $this->belongsTo(requisition_training_cost::class, 'id', 'participant_uid');
     }
 }

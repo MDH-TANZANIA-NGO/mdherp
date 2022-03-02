@@ -8,9 +8,11 @@ use App\Models\Requisition\Requisition;
 use App\Models\System\District;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
+use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Travelling\RequestTravellingCostRepository;
 use App\Repositories\System\DistrictRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RequestTravellingCostController extends Controller
 {
@@ -21,13 +23,14 @@ class RequestTravellingCostController extends Controller
     protected $mdh_rates;
     protected $travellingCost;
     protected $district;
-
+protected $requisition;
     public function __construct()
     {
         $this->mdh_rates = (new mdhRatesRepository());
         $this->mdh_staff = (new UserRepository());
         $this->travellingCost = (new RequestTravellingCostRepository());
         $this->district =  (new DistrictRepository());
+        $this->requisition = (new RequisitionRepository());
     }
 
     public function index(){
@@ -61,9 +64,10 @@ class RequestTravellingCostController extends Controller
     {
 
 
-
         $traveller =  $this->travellingCost->findByUuid($uuid);
         $traveller_details =  $this->travellingCost->getQuery()->first();
+
+
 
 
 
@@ -74,12 +78,26 @@ class RequestTravellingCostController extends Controller
             ->with('mdh_rates',$this->mdh_rates->getAll()->pluck('id','amount'))
             ->with('mdh_staff', $this->mdh_staff->getQuery()->pluck('name', 'user_id'));
     }
+    public function delete($uuid)
+    {
+
+
+
+        $traveller =  $this->travellingCost->findByUuid($uuid);
+        $traveller_details =  $this->travellingCost->getQuery()->first();
+        $requisition =  Requisition::query()->where('id',    $traveller->requisition_id)->first();
+
+        DB::delete('delete from requisition_travelling_costs where uuid = ?',[$uuid]);
+        $this->requisition->updatingTotalAmount($requisition);
+        return redirect()->back();
+    }
 
     public function update($uuid, Request $request){
 
         $traveller  =  $this->travellingCost->findByUuid($uuid);
-
+        $requisition =  Requisition::query()->where('id', $traveller->requisition_id)->first();
         $this->travellingCost->update($uuid, $request->all());
+        $this->requisition->updatingTotalAmount($requisition);
 
         return redirect()->route('requisition.initiate', $traveller->requisition);
 

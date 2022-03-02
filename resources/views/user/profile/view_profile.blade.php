@@ -18,7 +18,7 @@
 													<p class="text-muted text-capitalize">MDH Staff</p>
 												</li>
 												<li>
-													<a href="" class="btn btn-primary text-center btn-block"><i class="fe fe-unlock mr-2"></i>Reset Password</a>
+													<a href="{{ route('user.password_reset',$user) }}" class="btn btn-primary text-center btn-block"><i class="fe fe-unlock mr-2"></i>Reset Password</a>
 												</li>
 												<li><br></li>
 

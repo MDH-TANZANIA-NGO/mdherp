@@ -5,6 +5,7 @@ namespace App\Models\GOfficer\Traits\Relationship;
 use App\Models\GOfficer\GScale;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\System\District;
 use App\Models\System\Region;
 
 trait GOfficerRelationship
@@ -21,4 +22,5 @@ trait GOfficerRelationship
     {
         return $this->belongsTo(requisition_training_cost::class, 'participant_uid', 'id');
     }
+
 }

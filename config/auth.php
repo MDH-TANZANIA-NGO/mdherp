@@ -47,15 +47,14 @@ return [
 //            'hash' => false,
 //        ],
 //
-//        'api' => [
-//            'driver' => 'passport',
-//            'provider' => 'users',
-//        ],
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
 
         'user-api' => [
             'driver' => 'passport',
             'provider' => 'users',
-            'hash' => true,
         ],
 
         'g_officer' => [

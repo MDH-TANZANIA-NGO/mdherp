@@ -37,7 +37,7 @@
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Scope</h5>
                     </div>
-                    <p class="mb-1">{{$safari->scope}}</p>
+                    <p class="mb-1">{!! html_entity_decode($safari->scope) !!}</p>
                 </a>
 
             </div>

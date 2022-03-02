@@ -253,9 +253,22 @@ class Workflow
     }
 
 
+    public function previousWfTrackChecker()
+    {
+        $return = false;
+        if($this->currentWfTrack()->parent_id){
+            $return = $this->previousWfTrack()->user_id == access()->id() ?? true;
+        }
+//        else{
+//            if($this->currentWfTrack()->user_id == access()->id())
+//                $return = true;
+//        }
+        return $return;
+    }
+
     public function canRecall()
     {
-        return $this->previousWfTrack()->user_id == access()->id() ?? true;
+        return $this->previousWfTrackChecker();
     }
 
     /**
@@ -376,7 +389,7 @@ class Workflow
                         'subject' => $requisition->typeCategory->title." Requisition Need your Approval",
                         'message' => $requisition->typeCategory->title." Requisition ".$requisition->number.' need your approval'
                     ];
-                    User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
+//                    User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
                     break;
 
                     case 3:
