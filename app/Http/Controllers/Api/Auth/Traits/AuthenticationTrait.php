@@ -101,50 +101,72 @@ trait AuthenticationTrait
 //            config(['auth.guards.api.provider' => 'g_officer']);
 
             $g_officer = $this->g_officers->getGOfficerAuth(auth()->guard('g_officer')->user()->id);
-
-            $success['g_officer'] =  $g_officer;
-            $access_token =  $g_officer->createToken('access_token')->accessToken;
-
-            $success['token'] =[
-                'token_type' => 'Bearer',
-                'access_token' => $access_token,
-            ];
-
-            $success['g_officers'] = $this->g_officers->getQuery()->get();
-
-            $wards = DB::table("wards")
-                ->selectRaw('wards.id as id')
-                ->selectRaw('wards.name as name')
-                ->selectRaw('wards.district_id as district_id')
-                ->selectRaw('wards.postcode as postcode')
-                ->selectRaw('wards.isactive as isactive')
-                ->where('wards.district_id', '=', $g_officer->district_id)
-                ->get();
-            $success['wards'] = $wards;
-
-            $facilities = DB::table("facilities")
-                ->selectRaw('facilities.id as facility_id')
-                ->selectRaw('facilities.name as facility_name')
-                ->selectRaw('facilities.number as facility_number')
-                ->selectRaw('facilities.isactive as isactive')
-                ->selectRaw('g_officers.id as g_officer_id')
-                ->selectRaw('facilities.facility_type_id as facility_type_id')
-                ->selectRaw('facility_types.name as facility_type')
-                ->leftJoin('wards', 'wards.id', '=', 'facilities.ward_id')
-                ->leftJoin('facility_g_officer', 'facility_g_officer.facility_id', 'facilities.id')
-                ->leftJoin('g_officers', 'g_officers.id', 'facility_g_officer.g_officer_id')
-                ->leftJoin('facility_types', 'facility_types.id', '=', 'facilities.facility_type_id')
-                ->leftJoin('ownerships', 'ownerships.id', '=', 'facilities.ownership_id')
-                ->where('wards.district_id', '=', $g_officer->district_id)
-                ->get();
-            $success['facilities'] = $facilities;
-
-            $return = $this->sendResponse($success, 'GOfficer Log in successfully');
+            $return = $this->g_officerReturnEntities($g_officer);
         }else{
             $return = $this->sendError('Invalid Credentials', NULL);
         }
 
         return $return;
     }
+
+    public function LoginWithId($inputs)
+    {
+        $return = NULL;
+
+        if(Auth::guard('g_officer')->loginUsingId($inputs['g_officer_id'],NULL)){
+            $g_officer = $this->g_officers->getGOfficerAuth(auth()->guard('g_officer')->user()->id);
+            $return = $this->g_officerReturnEntities($g_officer);
+        }
+        else{
+            $return = $this->sendError('Invalid credentials', NULL);
+        }
+
+        return $return;
+    }
+
+    public function g_officerReturnEntities(GOfficer $gOfficer){
+
+        $success['g_officer'] =  $gOfficer;
+        $access_token =  $gOfficer->createToken('access_token')->accessToken;
+
+        $success['token'] =[
+            'token_type' => 'Bearer',
+            'access_token' => $access_token,
+        ];
+
+        $success['g_officers'] = $this->g_officers->getQuery()->get();
+
+        $wards = DB::table("wards")
+            ->selectRaw('wards.id as id')
+            ->selectRaw('wards.name as name')
+            ->selectRaw('wards.district_id as district_id')
+            ->selectRaw('wards.postcode as postcode')
+            ->selectRaw('wards.isactive as isactive')
+            ->where('wards.district_id', '=', $gOfficer->district_id)
+            ->get();
+        $success['wards'] = $wards;
+
+        $facilities = DB::table("facilities")
+            ->selectRaw('facilities.id as facility_id')
+            ->selectRaw('facilities.name as facility_name')
+            ->selectRaw('facilities.number as facility_number')
+            ->selectRaw('facilities.isactive as isactive')
+            ->selectRaw('g_officers.id as g_officer_id')
+            ->selectRaw('facilities.facility_type_id as facility_type_id')
+            ->selectRaw('facility_types.name as facility_type')
+            ->leftJoin('wards', 'wards.id', '=', 'facilities.ward_id')
+            ->leftJoin('facility_g_officer', 'facility_g_officer.facility_id', 'facilities.id')
+            ->leftJoin('g_officers', 'g_officers.id', 'facility_g_officer.g_officer_id')
+            ->leftJoin('facility_types', 'facility_types.id', '=', 'facilities.facility_type_id')
+            ->leftJoin('ownerships', 'ownerships.id', '=', 'facilities.ownership_id')
+            ->where('wards.district_id', '=', $gOfficer->district_id)
+            ->get();
+        $success['facilities'] = $facilities;
+
+        return  $this->sendResponse($success, 'GOfficer Log in successfully');
+
+
+    }
+
 
 }
