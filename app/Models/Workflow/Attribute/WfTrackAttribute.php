@@ -6,6 +6,7 @@ use App\Repositories\Workflow\WfDefinitionRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 trait WfTrackAttribute
 {
@@ -205,6 +206,7 @@ trait WfTrackAttribute
     public function checkIfHasRightToRecallToPreviousWfTrack()
     {
         $workflow = new Workflow(['wf_module_id' => $this->wfDefinition->wfModule->id, 'resource_id' => $this->resource_id]);
+        Log::info($workflow->canRecall());
         return $workflow->canRecall();
     }
 
