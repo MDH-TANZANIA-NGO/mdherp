@@ -84,15 +84,15 @@
 
                             <p class="mb-1">{{$retirement->details->action_report}}</p>
 
-                            <hr>
+
 
                     </div>
 
 
                 </div>
 
-                <hr>
-
+            </div>
+            <div class="card-body">
 
                 <div class="table-responsive">
                     <table class="table card-table table-vcenter text-nowrap">
@@ -131,6 +131,7 @@
                 <hr>
 
                 <div class="table-responsive">
+                    @if($retirement->getFirstMediaURL('attachments') != null)
                     <table class="table card-table table-vcenter text-nowrap">
                         <thead >
                         <tr>
@@ -142,17 +143,26 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         @foreach($retirementz as $retirement)
                             <tr>
                                 <td>1</td>
-                                <td>Receipt</td>
+                                <td>{{$retirement->getMedia('attachments')->pluck('name')}}</td>
 {{--                                {{$retirement->getRegisteredMediaCollections()}}--}}
-                                <td><a href="{{$retirement->getFirstMediaURL('attachments', 'thumb')}}" target="_blank">view</a></td>
+                                <td><a href="{{$retirement->getFirstMediaURL('attachments')}}" target="_blank">view</a></td>
                             </tr>
 
                         @endforeach
+
                         </tbody>
                     </table>
+                    @else
+
+                            <div class="col-md-12 align-content-center">
+                            <label class="">No Attachment</label>
+                            </div>
+
+                    @endif
                 </div>
                 <!-- table-responsive -->
             </div>
