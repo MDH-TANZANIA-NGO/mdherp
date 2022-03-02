@@ -33,9 +33,37 @@ trait UserAttribute
         $this->attributes['name'] = ucwords(trim($value));
     }
 
-    public function setPasswordAttribute($value)
+    /**
+     * Set the user's name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setFirstNameAttribute($value)
     {
-        $this->attributes['password'] = bcrypt($value);
+        $this->attributes['first_name'] = ucwords(trim($value));
+    }
+
+    /**
+     * Set the user's name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setMiddleNameAttribute($value)
+    {
+        $this->attributes['middle_name'] = ucwords(trim($value));
+    }
+
+    /**
+     * Set the user's name.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setLastNameAttribute($value)
+    {
+        $this->attributes['last_name'] = ucwords(trim($value));
     }
 
     public function setPhoneAttribute($value){
