@@ -402,5 +402,16 @@ class UserRepository extends BaseRepository
             ->where('designations.unit_id', 1);
     }
 
+    public function getCeo()
+    {
+        return $this->query()
+            ->select([
+                'users.id AS user_id',
+            ])
+            ->join('designations','designations.id', 'users.id')
+            ->join('units','units.id','designations.unit_id')
+            ->where('units.id', 5);
+    }
+
 
 }

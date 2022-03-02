@@ -81,6 +81,14 @@ trait WorkflowUserSelector
                         }
                         $user_id = $next_user->first()->user_id;
                         break;
+
+                        case 5:
+                        $next_user = (new UserRepository())->getCeo();
+                        if($next_user->count() == 0){
+                            throw new GeneralException('CEO is not yet registered. Please contact system administrator');
+                        }
+                        $user_id = $next_user->first()->user_id;
+                        break;
                 }
                 break;
         }
