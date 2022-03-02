@@ -390,5 +390,17 @@ class UserRepository extends BaseRepository
         });
     }
 
+    public function getDirectorOfDepartment($department_id)
+    {
+        return $this->query()
+            ->select([
+                'users.id AS user_id',
+            ])
+            ->join('designations','designations.id', 'users.id')
+            ->join('departments','departments.id','designations.department_id')
+            ->where('departments.id',$department_id)
+            ->where('designations.unit_id', 1);
+    }
+
 
 }

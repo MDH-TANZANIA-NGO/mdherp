@@ -11,6 +11,7 @@ use App\Models\Workflow\WfDefinition;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\Access\UserRepository;
 
 trait WorkflowUserSelector
 {
@@ -33,7 +34,7 @@ trait WorkflowUserSelector
 //        return $user_id;
 //    }
 
-    public function nextUserSelector($wf_module_id,$resource_id,$level)
+    public function nextUserSelector($wf_module_id,$resource_id,$level,$department_id=null)
     {
         $user_id = null;
 
@@ -71,6 +72,14 @@ trait WorkflowUserSelector
                             throw new GeneralException('Deputy Director not assigned');
                         }
                         $user_id = $next_user->id;
+                        break;
+
+                    case 4:
+                        $next_user = (new UserRepository())->getDirectorOfDepartment($department_id);
+                        if($next_user->count() == 0){
+                            throw new GeneralException('Director of Department is not yet registered. Please contact system administrator');
+                        }
+                        $user_id = $next_user->first()->user_id;
                         break;
                 }
                 break;
