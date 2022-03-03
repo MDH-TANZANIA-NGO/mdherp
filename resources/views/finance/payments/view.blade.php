@@ -7,6 +7,7 @@
         @include('finance.payments.safariAdvance.display.show')
 
     @endif
+    
 
     <div class="row">
         <div class="card">
