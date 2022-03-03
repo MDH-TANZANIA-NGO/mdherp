@@ -14,5 +14,7 @@ class SafariAdvance extends BaseModel
     //
 use  SafariAdvanceRelationship, SafariAdvanceAttribute;
 
-
+    public function safariAdvancePayment(){
+        return $this->hasOne(SafariAdvancePayment::class);
+    }
 }
