@@ -56,14 +56,14 @@ class ProgramActivityRepository extends BaseRepository
             ->join('g_officers','g_officers.id', 'requisition_training_costs.participant_uid');
     }
 
-
-
     public function getAllApprovedProgramActivities()
     {
         return $this->getQuery()
             ->where('program_activities.wf_done', true)
             ->where('program_activities.paid', false);
     }
+
+
 
     public function inputProcess( $inputs)
     {

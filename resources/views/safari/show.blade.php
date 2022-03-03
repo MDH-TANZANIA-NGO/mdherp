@@ -14,7 +14,7 @@
     <div class="card">
         <div class="card-header">
             {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
-            <a href=" {{route('requisition.show', $safari->travellingCost->requisition->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">{{$safari->travellingCost->requisition->number}}</a>
+            <a href=" {{route('requisition.show', $safari->travellingCost->requisition->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
 
         </div>
 

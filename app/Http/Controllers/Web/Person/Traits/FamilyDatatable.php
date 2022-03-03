@@ -18,19 +18,22 @@ trait FamilyDatatable
                 $relationship = DB::table('code_values')
                     ->where('id', $family->relationship_cv_id )
                     ->pluck('name');
-                return $relationship[0];
+                return ucfirst($relationship[0]);
             })
             ->editColumn('is_next_of_kin', function($query){
                 if ($query->is_next_of_kin == true){
-                    return "yes";
+                    return "Yes";
                 }
-                return "no";
+                return "No";
+            })
+            ->editColumn('name', function($query){
+                return ucwords(strtolower($query->name));
             })
             ->editColumn('is_emergency', function($query){
                 if ($query->is_emergency == true){
-                    return "yes";
+                    return "Yes";
                 }
-                return "no";
+                return "No";
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('person.family.show', $query->uuid).'">View</a>';

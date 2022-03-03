@@ -1,6 +1,4 @@
 @extends('layouts.app')
 @section('content')
-
-    @include('finance.payments.safariAdvance.show')
-
+    @include('reports.hr.timesheet.datatable.index')
 @endsection

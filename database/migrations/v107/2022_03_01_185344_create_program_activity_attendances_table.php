@@ -16,6 +16,7 @@ class CreateProgramActivityAttendancesTable extends Migration
         Schema::create('program_activity_attendances', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('program_activity_id');
+            $table->bigInteger('g_officer_id');
             $table->dateTime('checkin_time')->nullable();
             $table->double('checkin_latitude')->nullable();
             $table->double('checkin_longitude')->nullable();

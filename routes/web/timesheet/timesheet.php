@@ -8,11 +8,12 @@ Route::group(['namespace' => 'Timesheet', 'middleware' => ['web', 'auth'], 'pref
     Route::get('initiate', 'TimesheetController@create')->name('initiate');
     Route::post('setup', 'TimesheetController@setup')->name('setup');
 
+//Datatable routes for an authenticated user
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('processing', 'TimesheetController@AccessProcessingDatatable')->name('processing');
         Route::get('rejected', 'TimesheetController@AccessRejectedDatatable')->name('rejected');
         Route::get('approved', 'TimesheetController@AccessAprovedDatatable')->name('approved');
     });
-
 });
+
 

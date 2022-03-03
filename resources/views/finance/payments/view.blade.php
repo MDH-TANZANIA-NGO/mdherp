@@ -3,10 +3,6 @@
 
     @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
 <br>
-    @if($safari_advance)
-        @include('finance.payments.safariAdvance.displays.show')
-
-    @endif
 
     <div class="row">
         <div class="card">

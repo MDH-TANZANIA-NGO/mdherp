@@ -62,4 +62,25 @@ class TimesheetRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
+    public function getSubmittedTimesheets(){
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('timesheets.wf_done_date', null)
+            ->where('timesheets.rejected', false);
+    }
+
+    public function getApprovedTimesheets(){
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('timesheets.wf_done', true)
+            ->where('timesheets.rejected', false);
+    }
+
+    public function getRejectedTimesheets(){
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('timesheets.wf_done', 0)
+            ->where('timesheets.rejected', true);
+    }
+
 }

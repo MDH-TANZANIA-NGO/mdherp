@@ -50,4 +50,8 @@ class LoginController extends BaseController
 //        auth()->guard('g_officer')->user()->token()->revoke();
 //        return $this->sendResponse($success, );
     }
+
+    public function refresh(Request $request){
+        return $this->LoginWithId($request->all());
+    }
 }

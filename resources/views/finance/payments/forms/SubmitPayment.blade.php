@@ -12,6 +12,8 @@
                     <button type="button" data-toggle="modal" data-target="#exampleModal1" class="btn btn-outline-info" style="margin-left: 2%;"  >Edit Payment</button>
 
 
+
+                
             </div>
         </div>
 
