@@ -313,7 +313,7 @@ class FinanceActivityController extends Controller
             $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $request->get('safari_advance_id'))->first();
             $safari_advance =  $this->safariAdvance->find($safari_advance_payment->safari_advance_id);
             DB::update('update payments set done = ?, number = ? where uuid = ?',[1,$number, $uuid]);
-            DB::update('update safari_advance_payments set payment_id = ? where uuid = ?',[$payment->id, $safari_advance_payment->uuid]);
+            DB::update('update safari_advance_payments set payment_id = ? where uuid = ?',[Payment::query()->where('uuid', $uuid)->first()->id, $safari_advance_payment->uuid]);
             DB::update('update safari_advances set paid = ? where uuid = ?',[true, $safari_advance->uuid]);
             $wf_module_group_id = 6;
             $next_user = $payment->user->assignedSupervisor()->supervisor_id;
