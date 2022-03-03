@@ -34,12 +34,10 @@ class ProgramActivityController extends BaseController
 
         if ($attendance){
             return $this->sendError('Attendance already exists', ['error' => 'Attendance already exists']);
-
         }
         else{
 
             $attendance = ProgramActivityAttendance::create([
-
                 'g_officer_id' => $request['g_officer_id'],
                 'program_activity_id' => $request['program_activity_id'],
                 'checkin_time' => $request['checkin_time'],
@@ -68,4 +66,3 @@ class ProgramActivityController extends BaseController
     }
 
 }
-

@@ -11,6 +11,4 @@ class SafariAdvanceDetails extends BaseModel
 {
     //
     use  SafariAdvanceRelationship, SafariAdvanceAttribute;
-
-
 }

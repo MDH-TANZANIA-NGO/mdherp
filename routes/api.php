@@ -38,8 +38,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
             'middleware' => ['auth:user-api']
         ], function() {
             Route::post('logout', 'Auth\LoginController@logout');
-            Route::post('store-attendance', 'ProgramActivity\ProgramActivityController@storeAttendance')->name('store_attendance');
-
 
             Route::post('ward/store', 'MDHData\WardController@store');
             Route::post('facility/store', 'MDHData\FacilityController@store')->name('facility-store');
