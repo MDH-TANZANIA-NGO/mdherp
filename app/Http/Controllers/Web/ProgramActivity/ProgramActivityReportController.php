@@ -39,8 +39,7 @@ class ProgramActivityReportController extends Controller
             ->with('program_activities', $this->program_activities);
     }
 
-    public function create(ProgramActivityReport $programActivityReport)
-    {
+    public function create(ProgramActivityReport $programActivityReport){
 
         $program_activity = ProgramActivity::query()->where('id', $programActivityReport->program_activity_id)->first();
         $requisition_training = requisition_training::query()->where('id', $program_activity->requisition_training_id)->first();
@@ -48,18 +47,21 @@ class ProgramActivityReportController extends Controller
         $requisition_training_items = requisition_training_item::query()->where('requisition_training_id', $requisition_training->id);
         $requisition =  Requisition::query()->where('id', $requisition_training->requisition_id)->first();
         return view('programactivity.forms.activity-report.create')
+            ->with('program_activity_report', $programActivityReport)
             ->with('requisition_uuid', $requisition->uuid)
             ->with('requisition', $requisition)
             ->with('activity_details', $requisition_training)
             ->with('activity_location', $requisition_training->district->name)
             ->with('activity_participants_count', $requisition_training_participants->count())
-            ->with('activity_items_count', $requisition_training_items->count());
+            ->with('training_items_count', $requisition_training_items->count());
     }
 
     public function edit()
     {
 
     }
+
+
 
     public function initiate()
     {
@@ -79,5 +81,37 @@ class ProgramActivityReportController extends Controller
         alert()->success('Activity Report initiated Successfully', 'Success');
 
         return redirect()->route('programactivityreport.create', $activity_report);
+    }
+
+    public function update(Request $request, $uuid){
+
+        $this->program_activity_report->update($request->all(), $uuid);
+
+        alert()->success('Activity Report Submitted Successfully', 'Success');
+
+        return redirect()->route('programactivityreport.show', $uuid);
+
+    }
+
+    public function show($uuid){
+        $programActivityReport = ProgramActivityReport::query()->where('uuid', $uuid)->first();
+        $programActivityReports = ProgramActivityReport::query()->where('program_activity_id', $programActivityReport->program_activity_id)->get();
+        $program_activity = ProgramActivity::query()->where('id', $programActivityReport->program_activity_id)->first();
+        $requisition_training = requisition_training::query()->where('id', $program_activity->requisition_training_id)->first();
+        $requisition_training_participants = requisition_training_cost::query()->where('requisition_training_id', $requisition_training->id);
+        $requisition_training_items = requisition_training_item::query()->where('requisition_training_id', $requisition_training->id);
+        $requisition =  Requisition::query()->where('id', $requisition_training->requisition_id)->first();
+
+
+        return view('programactivity.reports.show')
+            ->with('program_activity_reports', $programActivityReports)
+            ->with('program_activity_report', $programActivityReport)
+            ->with('requisition_uuid', $requisition->uuid)
+            ->with('requisition', $requisition)
+            ->with('activity_details', $requisition_training)
+            ->with('activity_location', $requisition_training->district->name)
+            ->with('activity_participants_count', $requisition_training_participants->count())
+            ->with('training_items_count', $requisition_training_items->count());
+
     }
 }

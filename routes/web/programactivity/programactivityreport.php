@@ -3,8 +3,13 @@
 Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'], 'prefix' => 'programactivityreport', 'as' => 'programactivityreport.'], function () {
     Route::get('', 'ProgramActivityReportController@index')->name('index');
     Route::get('initiate', 'ProgramActivityReportController@initiate')->name('initiate');
+    Route::get('{programActivityReport}/create', 'ProgramActivityReportController@create')->name('create');
+    Route::get('edit', 'ProgramActivityReportController@edit')->name('edit');
     Route::post('store', 'ProgramActivityReportController@store')->name('store');
-    Route::get('{$programActivityReport}/create', 'ProgramActivityReportController@create')->name('create');
+    Route::post('{uuid}/update', 'ProgramActivityReportController@update')->name('update');
+    Route::get('{uuid}/show', 'ProgramActivityReportController@show')->name('show');
+
+
 
 
     /**
