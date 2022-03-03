@@ -14,7 +14,7 @@
 													<img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="mdh/images/users/user.png" >
 												</li>
 												<li class="text-center">
-													<h4 class="text-capitalize mt-3 mb-0">{{{Auth::user()->full_name_formatted}}}</h4>
+													<h4 class="text-capitalize mt-3 mb-0">{{ Auth::user()->full_name_formatted }}</h4>
 													<p class="text-muted text-capitalize">MDH Staff</p>
 												</li>
 												<li>

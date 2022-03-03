@@ -85,7 +85,7 @@ class UserController extends Controller
     public function resetPassword(User $user)
     {
         $this->users->resetPassword($user);
-        alert()->success('Email For Password Reset sent to'.$user->full_name. 'Succeeded');
+        alert()->success('Password Reset link sent to'.$user->full_name. 'Succeeded');
         return redirect()->back();
 
     }
@@ -207,6 +207,7 @@ class UserController extends Controller
     public function updatePermissions(Request $request, User $user)
     {
         $this->users->updatePermissions($user, $request->all());
+        alert()->success(__('notifications.permission_assigned'), __('notifications.user.title'));
         return redirect()->back();
     }
 

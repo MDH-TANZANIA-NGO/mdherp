@@ -44,4 +44,10 @@ class LoginController extends BaseController
         $success['state'] = 'Logout';
         return $this->sendResponse($success,'User Logout Successfully');
     }
+
+    public function gOfficerLogout(Request $request){
+
+//        auth()->guard('g_officer')->user()->token()->revoke();
+//        return $this->sendResponse($success, );
+    }
 }

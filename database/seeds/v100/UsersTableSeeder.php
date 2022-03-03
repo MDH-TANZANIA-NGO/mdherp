@@ -3,6 +3,7 @@
 use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 
 class UsersTableSeeder extends Seeder
@@ -25,7 +26,7 @@ class UsersTableSeeder extends Seeder
                 'first_name' => 'admin',
                 'last_name' => 'admin',
                 'phone' => '+255712123456',
-                'password' => bcrypt(config('mdh.password')),
+                'password' => Hash::make(config('mdh.password')),
                 'gender_cv_id' => 6,
                 'active' => 1,
             ]);

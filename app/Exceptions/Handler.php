@@ -62,14 +62,22 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof GeneralException) {
-            if (request()->ajax())
-                return response()->json(['success' => false, 'message' => $exception->getMessage()]);
-            return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
+            if (request()->ajax()){
+                alert()->error($exception->getMessage(),__('exceptions.general.title'));
+                return redirect()->back();
+            }else{
+                alert()->error($exception->getMessage(),__('exceptions.general.title'));
+                return redirect()->back();
+            }
         }
         if ($exception instanceof WorkflowException) {
-            if (request()->ajax())
-                return response()->json(['success' => false, 'message' => $exception->getMessage()]);
-            return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
+            if (request()->ajax()){
+                alert()->error($exception->getMessage(),__('exceptions.general.title'));
+                return redirect()->back();
+            }else{
+                alert()->error($exception->getMessage(),__('exceptions.general.title'));
+                return redirect()->back();
+            }
         }
 
         if ($exception instanceof NotFoundHttpException) {

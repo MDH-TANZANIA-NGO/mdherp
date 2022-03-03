@@ -19,8 +19,8 @@ class RequisitionTrainingRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('requisition_trainings.id AS id'),
-            DB::raw('requisition_trainings.from AS from'),
-            DB::raw('requisition_trainings.to AS to'),
+            DB::raw('requisition_trainings.start_date AS start_date'),
+            DB::raw('requisition_trainings.end_date AS end_date'),
             DB::raw('requisition_trainings.district_id AS district_id'),
             DB::raw('requisition.id AS requisition_ID'),
             DB::raw('requisition_trainings.requisition_id AS requisition_id')
@@ -38,7 +38,7 @@ class RequisitionTrainingRepository extends BaseRepository
             ->select([
                 'requisitions.number',
                 'requisition_trainings.id',
-                DB::raw("CONCAT_WS(' ', requisitions.number, districts.name, requisition_trainings.from, requisition_trainings.to ) AS training")
+                DB::raw("CONCAT_WS(' ', requisitions.number, districts.name, requisition_trainings.start_date, requisition_trainings.end_date ) AS training")
             ])
             ->where('requisitions.wf_done', 1)
             ->where('requisitions.user_id', access()->id())
