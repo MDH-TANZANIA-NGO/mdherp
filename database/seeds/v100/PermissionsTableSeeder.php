@@ -220,6 +220,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => 'User can access HR Dashboard',
                     'ischecker' => 1,
                 ),
+            25 =>
+                array(
+                    'id' => 26,
+                    'name' => 'cqi_dashboard_admin',
+                    'display_name' => 'CQI Dashboard Admin',
+                    'description' => 'User can access CQI Dashboard Admin',
+                    'ischecker' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("permissions");

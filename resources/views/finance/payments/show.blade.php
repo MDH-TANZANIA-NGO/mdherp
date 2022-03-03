@@ -4,16 +4,25 @@
     <div class="row">
         <div class="card">
             <div class="card-header">
-                {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
-                <a href="{{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
-               @if($is_paid == true)
+
+                <a href="{{route('requisition.show', $requisition_uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">{{$requisition->number}}</a>
+                @if($safari_advance->count() > 0)
+                    <a href="{{route('safari.show', $safari->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">
+                        {{$safari->number}}</a>
+                @elseif($program_activity->count() > 0)
+                    <a href="{{route('programactivity.show', $program_activity->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">
+                        {{$program_activity->number}}</a>
+                @endif
+
+                @if($is_paid == true)
                     {!! Form::open(['route'=> ['finance.store'],'method'=>'POST']) !!}
                     <button type="submit"  class="btn btn-outline-info" style="margin-left: 2%;"  >Submit For Approval</button>
-                     {!! Form::close() !!}
+                    {!! Form::close() !!}
                 @else
-                    <button type="button" data-toggle="modal" data-target="#exampleModal3" class="btn btn-outline-info" style="margin-left: 2%;"  >Verify Payment</button>
+                    <button type="button" data-toggle="modal" data-target="#exampleModal3" class="btn  btn-outline-info" style="margin-left: 2%;"  ><i class="fa fa-product-hunt"></i>ay</button>
 
-                       @endif
+                @endif
+
 
 
             </div>
@@ -36,8 +45,6 @@
                             {!! Form::number('requested_amount', $requisition->amount, ['class'=>'form-control','hidden'])  !!}
 
                             {!! Form::number('region_id', $requisition->region_id, ['class'=>'form-control','hidden'])  !!}
-                            {!! Form::text('payment_method', 'N/A', ['class'=>'form-control','hidden'])  !!}
-                            {!! Form::text('account_no', 'N/A', ['class'=>'form-control','hidden'])  !!}
                             @if($program_activity->count() > 0)
                                 <select name="pay_to" id="pay_to" class="form-control">
                                     <option value="0">Select What to Pay</option>
@@ -60,6 +67,7 @@
                                 </select>
                                 <label for="recipient-name" class="form-control-label">Pay To:</label>
                                 {!! Form::number('phone', $requisition->user->phone, ['class'=>'form-control'])  !!}
+                                {!! Form::number('safari_advance_id', $safari->id, ['class'=>'form-control','hidden'])  !!}
                                 <label for="recipient-name" class="form-control-label">Total Amount:</label>
                                 <input type="number" class="form-control" name="total_amount" value="{{$safari->travellingCost->total_amount}}">
 
@@ -72,22 +80,23 @@
 
                         </div>
                         <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-primary" >Pay</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-outline-primary" >Verify</button>
+
                         </div>
 
-                            {!! Form::close() !!}
-                        </div>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
     @if($safari_advance->count() > 0)
-    @include('finance.payments.safariShow')
+        @include('finance.payments.safariShow')
     @elseif($program_activity->count() > 0)
-    @include('finance.payments.programActivityShow')
+        @include('finance.payments.programActivityShow')
     @endif
 @endsection
 
@@ -123,4 +132,3 @@
         });
     </script>
 @endpush
-

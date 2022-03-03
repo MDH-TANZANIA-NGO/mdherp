@@ -91,7 +91,10 @@
                                         </select>
                                     </td>
                                     </td>
-                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}</td>
+                                    <td>
+{{--                                        {!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}--}}
+                                    <input type="date" min="{{today()}}" name="from" value="{{$travelling_cost->from}}" class="form-control">
+                                    </td>
                                     <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required','id'=>'to']) !!}</td>
                                 </tr>
 
