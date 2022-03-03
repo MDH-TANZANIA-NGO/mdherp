@@ -308,7 +308,7 @@ class FinanceActivityController extends Controller
     public function sendSafariPaymentForApproval(Request $request, $uuid){
 
         return DB::transaction(function () use ( $request, $uuid){
-            $payment = $this->finance->findByUuid($uuid)->first();
+            $payment = Payment::query()->where('uuid', $uuid)->first();
             $number = $this->finance->generateNumber($payment);
             $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $request->get('safari_advance_id'))->first();
             $safari_advance =  $this->safariAdvance->find($safari_advance_payment->safari_advance_id);
