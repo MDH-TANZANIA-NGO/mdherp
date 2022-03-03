@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 
     <div class="col-lg-12 col-md-12">
@@ -103,47 +104,84 @@
 
                     </div>
                 @endforeach
+
+                <hr>
+
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label class="form-label">Activity Report <span class="form-label-small">56/100</span></label>
-                            <textarea class="form-control" name="activity_report" rows="7" placeholder="Write activity report.." required></textarea>
+                            <label class="form-label">Background Information: <span class="form-label-small">56/100</span></label>
+                            <textarea class="form-control" name="activity_report" rows="2" placeholder="Write activity report.." required></textarea>
                         </div>
                     </div>
 
 
                 </div>
 
-              {{--  <div class="row">
-                    <div class="col-md-4" >
-                        <div class="form-group">
-                            <div class="form-label">Attach Receipt</div>
-                            <div class="custom-file">
-                                <input type="file" class="form-control" name="attachment_receipt">
+
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label class="form-label">What was Planned:</label>
+                                <textarea rows="2" cols="50" class="form-control" name="planned_report" placeholder="Write the plan.." required></textarea>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4" >
-                        <div class="form-group">
-                            <div class="form-label">Supportive Document Upload</div>
-                            <div class="custom-file">
-                                <input type="file" class="form-control" name="attachment_supportive">
+
+
+                    <div class="row">
+                        <div  class="col-md-2">
+                            <div class="form-group">
+                                <label class="form-label">Number of Participants:</label>
+                            <input type="number" name="no_participants" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-10" >
+                            <div class="form-group">
+                                <label class="form-label">Objectives:</label>
+                                <textarea rows="2" cols="50" class="form-control" name="objective_report" placeholder="Write your objectives.." required></textarea>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4" >
-                        <div class="form-group">
-                            <div class="form-label">Add Any Other Attachment</div>
-                            <div class="custom-file">
-                                <input type="file" class="form-control" name="attachment_other">
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label class="form-label">Methodology:</label>
+                                <textarea rows="2" cols="50" class="form-control" name="methodology_report" placeholder="Write the methodology.." required></textarea>
                             </div>
                         </div>
                     </div>
-                </div>--}}
 
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label class="form-label">Achievements:</label>
+                                <textarea rows="2" cols="50" class="form-control" name="achievement_report" placeholder="Write the Achievements.." required></textarea>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label class="form-label">Challenges:</label>
+                                <textarea rows="2" cols="50" class="form-control" name="challenge_report" placeholder="Write the Challenges:.." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="form-group">
+                                <label class="form-label">Recommendations/Action plans :</label>
+                                <textarea rows="2" cols="50" class="form-control" name="action_report" placeholder="Write the Recommendations/Action plans .." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
 
                     <div class ="row">
                     <div class="container lst">
@@ -180,6 +218,7 @@
                     </div>
                     </div>
 
+                    <hr>
 &nbsp;
 
                 <div class="row">
@@ -241,6 +280,8 @@
             });*/
 
         </script>
+
+
     @endpush
 
 @endsection

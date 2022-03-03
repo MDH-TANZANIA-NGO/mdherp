@@ -4,11 +4,11 @@ namespace App\Repositories\ProgramActivity;
 
 use App\Models\ProgramActivity\ProgramActivityAttendance;
 use App\Repositories\BaseRepository;
-use Illuminate\Support\Facades\DB;
 
 class ProgramActivityAttendanceRepository extends BaseRepository
 {
-    const MODEL =  ProgramActivityAttendance::class;
+    const MODEL = ProgramActivityAttendance::class;
+
     public function __construct()
     {
         //

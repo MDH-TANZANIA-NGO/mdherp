@@ -154,22 +154,16 @@ class RetirementRepository extends BaseRepository
                         'amount_spent'=>$inputs['amount_spent'],
                         'amount_variance'=>$inputs['amount_variance'],
                         'activity_report'=>$inputs['activity_report'],
+                        'planned_report'=>$inputs['planned_report'],
+                        'no_participants'=>$inputs['no_participants'],
+                        'objective_report'=>$inputs['objective_report'],
+                        'methodology_report'=>$inputs['methodology_report'],
+                        'achievement_report'=>$inputs['achievement_report'],
+                        'challenge_report'=>$inputs['challenge_report'],
+                        'action_report'=>$inputs['action_report'],
                     ]
 
                 );
-
-               /* if($inputs->hasfile('attachments'))
-                {
-                    foreach($inputs->file('attachments') as $file)
-                    {
-                        DB::table('files_attachments')->insert(
-                            [
-                                'retirement_id'=> $retire->id,
-                                'attachment_path'=> $inputs['attachments']
-                            ]
-                        );
-                    }
-                }*/
 
             }
 

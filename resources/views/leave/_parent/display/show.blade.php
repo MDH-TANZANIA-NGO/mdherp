@@ -22,7 +22,7 @@
                     <table class="table card-table table-vcenter text-nowrap">
                         <thead >
                         <tr>
-                            <th> # </th>
+                            <th> Type </th>
                             <th>Employee</th>
                             <th>From</th>
                             <th>To</th>
@@ -34,7 +34,7 @@
                         <tbody>
 
                         <tr>
-                            <td>{{$leave->id}}</td>
+                            <td>{{$type->name}}</td>
                             <td>{{$leave->user->full_name_formatted}}</td>
                             <td>{{ \Carbon\Carbon::parse($leave->start_date)->format('d/m/Y')}}</td>
                             <td>{{ \Carbon\Carbon::parse($leave->end_date)->format('d/m/Y')}}</td>

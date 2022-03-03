@@ -114,3 +114,4 @@ class RequestTrainingCostController extends Controller
 
     }
 }
+

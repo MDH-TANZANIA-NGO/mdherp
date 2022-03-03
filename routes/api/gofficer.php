@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('g_officer/login', 'Api\Auth\LoginController@gOfficerLogin')->name('gOfficerLogin');
+Route::post('g_officer/refresh', 'Api\Auth\LoginController@refresh');
 Route::group( ['prefix' => 'g_officer','middleware' => ['auth:g_officer-api'] ],function(){
+    Route::post('logout', 'Api\Auth\LoginController@logout');
 
+    Route::post('{g_officer}/update', 'Api\MDHData\GOfficerController@update');
+    Route::post('hts/store','Api\MDHData\HTSController@store');
+    Route::post('covid/store', 'Api\MDHData\CovidController@store');
+
+//    ProgramActivityAttendance
+    Route::get('valid-activities', 'Api\ProgramActivity\ProgramActivityController@getAllValidActivities');
+    Route::post('store-attendance', 'Api\ProgramActivity\ProgramActivityController@storeAttendance');
+    Route::post('submit-activity-number', 'Api\ProgramActivity\ProgramActivityController@submitActivityNumberGetDetails');
 });

@@ -107,6 +107,7 @@ class LeaveController extends Controller
         $start = Carbon::parse($leave->start_date);
         $end =  Carbon::parse($leave->end_date);
         $days = $start->diffInDays($end) + 1;
+        $type = LeaveType::where('id', $leave->leave_type_id)->first();
 
         return view('leave._parent.display.show')
             ->with('current_level', $current_level)
@@ -114,6 +115,7 @@ class LeaveController extends Controller
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($leave))
             ->with('days', $days)
+            ->with('type', $type)
             ->with('leave', $leave);
 
     }

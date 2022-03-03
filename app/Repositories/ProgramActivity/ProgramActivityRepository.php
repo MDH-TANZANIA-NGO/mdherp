@@ -65,6 +65,8 @@ class ProgramActivityRepository extends BaseRepository
             ->where('program_activities.paid', false);
     }
 
+
+
     public function inputProcess( $inputs)
     {
         $requisition_training = requisition_training::query()->find($inputs['requisition_training_id']);

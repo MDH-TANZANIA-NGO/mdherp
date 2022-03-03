@@ -138,7 +138,16 @@ class GOfficerController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $g_officer = GOfficer::find($id);
+
+        $g_officer->fingerprint_data = $request['fingerprint_data'];
+        $g_officer->fingerprint_length = $request['fingerprint_length'];
+
+        $g_officer->save();
+
+        $success['g_officer'] = $g_officer;
+
+        return $this->sendResponse($success, "Government Officer updated successfully");
     }
 
     /**
