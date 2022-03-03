@@ -76,7 +76,7 @@
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-handshake-o multiple-outline text-primary"></i><span class="side-menu__label">HR Dashboard</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
-                <li><a class="slide-item"  href="{{ route('financial-report.index') }}"><span>Leave Reports</span></a></li>
+                <li><a class="slide-item"  href="{{ route('leave_report.index') }}"><span>Leave Reports</span></a></li>
                 <li><a class="slide-item"  href="{{ route('timesheet_report.index') }}"><span>Timesheet Reports</span></a></li>
             </ul>
         </li>

@@ -10,7 +10,7 @@ trait TimesheetReportDatatable
         return DataTables::of($this->timesheets->getSubmittedTimesheets())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
-                return $query->created_at->toDateString();
+                return $query->created_at->format('d/m/Y');
             })
             ->editColumn('wf_done_date', function ($query) {
                 if ($query->wf_done_date == null)
@@ -27,11 +27,11 @@ trait TimesheetReportDatatable
         return DataTables::of($this->timesheets->getApprovedTimesheets())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
-                return $query->created_at->toDateString();
+                return $query->created_at->format('d/m/Y');
             })
             ->editColumn('wf_done_date', function ($query) {
-                if ($query->wf_done_date == null)
-                    return  'Not Approved';
+                $date = strtotime($query->wf_done_date);
+                return date('d/m/Y', $date);
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('timesheet.show', $query->uuid).'">View</a>';
@@ -44,7 +44,7 @@ trait TimesheetReportDatatable
         return DataTables::of($this->timesheets->getRejectedTimesheets())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
-                return $query->created_at->toDateTimeString();
+                return $query->created_at->format('d/m/Y');
             })
             ->editColumn('wf_done_date', function ($query) {
                 if ($query->wf_done_date == null)

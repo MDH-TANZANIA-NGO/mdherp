@@ -28,6 +28,7 @@ class LeaveRepository extends BaseRepository
             DB::raw('leaves.employee_id AS employee_id' ),
             DB::raw('leave_types.name AS type_name'),
             DB::raw('leaves.user_id AS user_id'),
+            DB::raw("concat_ws(' ', users.first_name, users.last_name) as fullName"),
             DB::raw('leaves.region_id AS region_id'),
         ])
             ->join('leave_types', 'leave_types.id', 'leaves.leave_type_id')
@@ -119,6 +120,28 @@ class LeaveRepository extends BaseRepository
            // ->where('leaves.done', false)
             ->where('leaves.rejected', false)
             ->where('users.id', access()->id());
+    }
+
+    public function getSubmittedLeaves(){
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('leaves.wf_done', 0)
+            ->where('leaves.rejected', false);
+    }
+
+    public function getApprovedLeaves(){
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('leaves.wf_done', 1)
+            ->where('leaves.done', true)
+            ->where('leaves.rejected', false);
+    }
+
+    public function getRejectedLeaves(){
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('leaves.wf_done', 0)
+            ->where('leaves.rejected', true);
     }
 
 }
