@@ -54,6 +54,12 @@ class SafariAdvanceRepository extends BaseRepository
 
 
     }
+
+    public function updateSafariPayment($input, $uuid){
+        return DB::transaction(function () use ($input, $uuid){
+            return DB::table('safari_advance_payments')->where('uuid', $uuid)->update($this->inputProcessSafariPayment($input));
+        });
+    }
     public function store($inputs)
     {
         return DB::transaction(function () use ($inputs){

@@ -8,6 +8,7 @@ use App\Repositories\BaseRepository;
 class ProgramActivityAttendanceRepository extends BaseRepository
 {
     const MODEL = ProgramActivityAttendance::class;
+
     public function __construct()
     {
         //
