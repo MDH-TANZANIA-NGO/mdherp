@@ -12,12 +12,14 @@ use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 
 class RetirementRepository extends BaseRepository
 {
     use Number;
     const MODEL = Retirement::class;
+    //const MODEL = Media::class;
 
 
 
@@ -38,6 +40,14 @@ class RetirementRepository extends BaseRepository
         ])
             ->join('users','users.id', 'retirements.user_id');
     }
+
+    public function getattachment()
+    {
+        return $this->query()->select([
+            DB::raw('media.name AS attachment_name')
+        ]);
+    }
+
     public function getAllApprovedRetirements()
     {
         return $this->getQuery()
