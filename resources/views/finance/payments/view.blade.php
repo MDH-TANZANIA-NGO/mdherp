@@ -4,7 +4,7 @@
     @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
     <br>
     @if($safari_advance)
-        @include('finance.payments.safariAdvance.displays.show')
+        @include('finance.payments.safariAdvance.display.show')
 
     @endif
 

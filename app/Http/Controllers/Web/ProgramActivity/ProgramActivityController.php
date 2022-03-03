@@ -79,10 +79,11 @@ class ProgramActivityController extends Controller
 //                dd($requisition);
 //
 
+
         return view('programactivity.forms.create')
             ->with('requisition', $requisition)
             ->with('training_items', $requisition_training_items)
-            ->with('requisition_training', $requisition_training)
+            ->with('requisition_training', $requisition_training->first())
             ->with('training_costs',$training_costs )
             ->with('district', $this->districts->getForPluck())
             ->with('program_activity', $programActivity);
@@ -102,7 +103,7 @@ class ProgramActivityController extends Controller
     }
     public function update(Request $request, $uuid){
 
-     $user = access()->user()->id;
+        $user = access()->user()->id;
         $this->program_activity->update($request->all(), $uuid);
         $program_activity =  $this->program_activity->findByUuid($uuid);
         $wf_module_group_id = 3;
@@ -132,8 +133,10 @@ class ProgramActivityController extends Controller
         $requisitionss= $this->requisition->find($requisition_id);
         $requisition_training_items = requisition_training_item::all()->where('requisition_id', $requisition_id);
         $supervisor = SupervisorUser::where('user_id', $programActivity->user_id)->first();
+        $training_details =  requisition_training::query()->where('requisition_id', $requisition_id)->first();
 
 //        dd($supervisor->supervisor_id);
+
 
         return view('programactivity.show')
             ->with('current_level', $current_level)
@@ -142,29 +145,33 @@ class ProgramActivityController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($programActivity))
             ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation))
             ->with('program_activity',$programActivity)
-            ->with('activity_details',$programActivity->training()->getQuery()->get()->all())
-            ->with('activity_participants', $programActivity->training->trainingCost()->getQuery()->get()->all())
+            ->with('requisition', Requisition::query()->where('id', $requisition_id)->first())
+            ->with('activity_details',$training_details)
+            ->with('activity_location', $training_details->district->name)
+            ->with('activity_participants', $training_details->trainingCost()->get()->all())
+            ->with('activity_participants_count', $training_details->trainingCost()->count())
             ->with('gofficers', $this->gOfficer->getAll()->pluck('id','first_name'))
             ->with('requisition_uuid',   $this->requisition->find($requisition_id)->pluck('uuid')->toArray())
-            ->with('training_items', $programActivity->training->trainingItems()->get()->all())
+            ->with('training_items', $training_details->trainingItems()->get()->all())
+            ->with('training_items_count',$training_details->trainingItems()->count())
             ->with('supervisor', $supervisor->supervisor_id);
     }
 
     public function updateParticipant(Request $request, $uuid)
     {
-     $program_activity_uuid = ProgramActivity::all()->where('requisition_training_id', requisition_training_cost::all()->where('participant_uid', $this->gOfficer->findByUuid($uuid)->id)->first()->requisition_training_id)->first()->uuid;
+        $program_activity_uuid = ProgramActivity::all()->where('requisition_training_id', requisition_training_cost::all()->where('participant_uid', $this->gOfficer->findByUuid($uuid)->id)->first()->requisition_training_id)->first()->uuid;
         $this->program_activity->updateParticipant($request->all(), $uuid);
-     alert()->success('Your Swap is Successfully', 'Success');
+        alert()->success('Your Swap is Successfully', 'Success');
         return redirect()->route('programactivity.show', $program_activity_uuid);
     }
     public function editParticipant(ProgramActivityRepository $activityRepository, $uuid)
     {
 
 
-       $requisition_training_cost = $this->requisition_training_cost->findByUuid($uuid);
-       $gofficer_id = $requisition_training_cost->participant_uid;
-       $training_id = $requisition_training_cost->requisition_training_id;
-       $activity_uuid = $activityRepository->all()->where('requisition_training_id', $training_id)->pluck('uuid');
+        $requisition_training_cost = $this->requisition_training_cost->findByUuid($uuid);
+        $gofficer_id = $requisition_training_cost->participant_uid;
+        $training_id = $requisition_training_cost->requisition_training_id;
+        $activity_uuid = $activityRepository->all()->where('requisition_training_id', $training_id)->pluck('uuid');
 
 
         $gofficer = GOfficer::all()->pluck('first_name', 'id');
@@ -180,8 +187,8 @@ class ProgramActivityController extends Controller
     public function pay(RequestTrainingCostRepository $costRepository, $uuid)
     {
 //        dd($this->requisition_training_cost->all()->where('uuid', $uuid));
-            return view('programactivity.forms.pay')
-                ->with('details', $this->requisition_training_cost->all()->where('uuid', $uuid));
+        return view('programactivity.forms.pay')
+            ->with('details', $this->requisition_training_cost->all()->where('uuid', $uuid));
     }
 
     public function programActivityAttendance(Request $request, $uuid)
@@ -198,8 +205,8 @@ class ProgramActivityController extends Controller
     public function programActivityReport(ProgramActivity $programActivity)
     {
 //        dd($programActivity);
-            return view('programactivity.forms.report')
-                ->with('program_activity', $programActivity);
+        return view('programactivity.forms.report')
+            ->with('program_activity', $programActivity);
     }
     public function updateProgramActivity(Request $request, $uuid)
     {
