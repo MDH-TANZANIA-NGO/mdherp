@@ -138,7 +138,7 @@ class ProgramActivityController extends Controller
 //        dd($supervisor->supervisor_id);
 
 
-        return view('programactivity.show')
+        return view('programactivity.display.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)

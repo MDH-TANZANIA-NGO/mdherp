@@ -93,7 +93,7 @@
                                     </td>
                                     <td>
 {{--                                        {!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}--}}
-                                    <input type="date" min="{{today()}}" name="from" value="{{$travelling_cost->from}}" class="form-control">
+                                    <input type="date" min="{{ now()->toDateString('Y-m-d') }}" name="from" value="{{$travelling_cost->from}}" class="form-control">
                                     </td>
                                     <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required','id'=>'to']) !!}</td>
                                 </tr>

@@ -2,88 +2,13 @@
 
 @section('content')
     {!! Form::open(['route' => ['programactivity.update',$program_activity]]) !!}
-    <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Submit For Approval</button>
-    {!! Form::close() !!}
         <div class="offer offer-info mb-6">
     <button type="submit" class="btn btn-primary float-right" >Submit For Approval</button>
     {!! Form::close() !!}
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header" style="background-color: rgb(238, 241, 248)">
-                <h3 class="card-title">Activity Schedule</h3>
-                <div class="card-options ">
-                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-                </div>
-            </div>
-
-            <div class="card-body">
-                {!! Form::open(['route' => ['training.updateSchedule',$requisition_training->uuid], 'method'=>'POST']) !!}
-
-                {{--    {!! Form::number('requisition_id', $requisition->id,['class' => 'form-control', 'required', 'hidden']) !!}--}}
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {!! Form::label('from', __("Start Date"),['class'=>'form-label','required_asterik']) !!}
-                            <input type="date" min="{{ now()->toDateString('Y-m-d') }}" class="form-control" name="from" value="{{$requisition_training->start_date}}">
-                            {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {!! Form::label('to', __("End Date"),['class'=>'form-label','required_asterik']) !!}
-                            {!! Form::date('to',$requisition_training->end_date,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'to']) !!}
-                            {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {!! Form::label('activity_location', __("Activity Location"),['class'=>'form-label','required_asterik']) !!}
-                            {!! Form::select('district_id',$district,$requisition_training->district_id,['class' => 'form-control select2-show-search','required']) !!}
-                            {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}
-                        </div>
-                    </div>
-                </div>
 
 
-                <button type="submit" class="btn btn-primary" style="margin-left: 40%">Save changes</button>
-
-                {!! Form::close() !!}
-            </div>
-        </div>
-
-        </div>
-    </div>
-
-
-{{--        <div class="offer offer-info mb-6">
-            <div class="shape">
-                <div class="shape-text">
-                </div>
-            </div>
-            <div class="offer-content">
-                <h3 class="lead">
-                    @foreach($requisition_training AS $requisition_training)
-                        <b>Start Date:</b> {{$requisition_training->from}}   <b>End Date:</b>{{$requisition_training->to}}
-                    <br>
-                        <b>Location:</b>{{$requisition_training->district->name}}
-                    @endforeach
-
-                </h3>
-                <p class="mb-0">
-
-                    <br>
-                    @foreach($requisition AS $requisition)
-                        <b>Description:</b> {{$requisition->description}}
-                    @endforeach
-                </p>
-            </div>
-        </div>
-        </div>--}}
+@include('programactivity.forms.event-schedule.create')
 
 
     <div class="row">
