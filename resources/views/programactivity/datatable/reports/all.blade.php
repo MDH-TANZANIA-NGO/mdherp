@@ -21,7 +21,7 @@
                 <div class="btn-group mb-0">
 
 
-                    <a href="{{ route('programactivity.initiate') }}"> <i class="fa fa-plus mr-2"></i>Initiate Report</a>
+                    <a href="{{ route('programactivityreport.initiate') }}"> <i class="fa fa-plus mr-2"></i>Initiate Report</a>
                 </div>
 
 

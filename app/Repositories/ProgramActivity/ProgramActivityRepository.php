@@ -10,6 +10,7 @@ use App\Models\Requisition\Training\requisition_training_cost;
 use App\Repositories\BaseRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
@@ -37,9 +38,32 @@ class ProgramActivityRepository extends BaseRepository
             DB::raw('program_activities.amount_paid AS amount_paid'),
             DB::raw('program_activities.created_at AS created_at'),
             DB::raw('program_activities.uuid AS uuid'),
+            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
             DB::raw('program_activities.region_id AS region_id'),
         ])
             ->join('users','users.id', 'program_activities.user_id');
+    }
+
+    public function getActivitiesWithoutReports(){
+        return $this->getQuery()
+
+            ->join('requisition_trainings', 'program_activities.requisition_training_id', 'requisition_trainings.id')
+            ->join('districts', 'requisition_trainings.district_id', 'districts.id')
+            ->where('wf_done', true)
+            ->where('program_activities.user_id', access()->user()->id)
+            ->where('report_submitted', false)
+            ->whereDate('requisition_trainings.start_date', '<=', Carbon::today());
+
+    }
+    public function getActivitiesWithoutReportsFilter(){
+
+        return $this->getActivitiesWithoutReports()
+            ->select([
+                'program_activities.number',
+                'program_activities.id',
+                DB::raw("CONCAT_WS(' ', program_activities.number, districts.name, requisition_trainings.start_date, requisition_trainings.end_date ) AS activity")
+
+            ]);
     }
     public function getParticipants()
     {
