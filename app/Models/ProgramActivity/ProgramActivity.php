@@ -11,4 +11,9 @@ class ProgramActivity extends BaseModel
 {
     //
     use ProgramActivityRelationship, ProgramActivityAttribute;
+
+    public function programActivityReport(){
+
+        return $this->hasMany(ProgramActivityReport::class);
+    }
 }

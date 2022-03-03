@@ -69,6 +69,16 @@ class ProgramActivityController extends Controller
             ->with('program_activities',  $this->program_activity = (new ProgramActivityRepository()))
             ->with('supervisor', $supervisor);
     }
+    public function workspace(){
+
+        $supervisor = SupervisorUser::where('supervisor_id', access()->user()->id)->first();
+
+
+       return view('programactivity.workspace')
+           ->with('supervisor', $supervisor);
+
+
+    }
 
     public  function  create(ProgramActivity $programActivity)
     {
