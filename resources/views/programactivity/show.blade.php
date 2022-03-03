@@ -162,6 +162,10 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">ACTIVITY SUMMARY</h3>
+                <h3 class="card-title">Activity Summary</h3>
+                <a href="{{route('requisition.show', $requisition_uuid)}}" class="btn btn-sm btn-info float-right" style="margin-left: 70%"><i class="fa fa-info-circle"></i>
+                    {{$requisition->number }}
+                </a>
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
@@ -243,6 +247,34 @@
 
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered">
+                <div class="tags">
+
+                    <div class="tag tag-primary">
+                        {{$activity_location}}
+                        <span class="tag-addon"><i class="fe fe-map-pin"></i></span>
+                    </div>
+
+                    <div class="tag">
+                        start date
+                        <span class="tag-addon tag-success">{{date('d-M-Y', strtotime($activity_details->start_date) )}}</span>
+                    </div>
+                    <div class="tag">
+                        end date
+                        <span class="tag-addon tag-success">{{date('d-M-Y', strtotime($activity_details->end_date))}}</span>
+                    </div>
+                    <span class="tag tag-default">
+														Total Participants
+														<span class="tag-addon tag-warning">{{$activity_participants_count}}</span>
+													</span>
+                    <span class="tag tag-default">
+														Total Items
+														<span class="tag-addon tag-warning">{{$training_items_count}}</span>
+													</span>
+                </div>
+                <br>
+
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead >
                         <tr>
 
@@ -317,6 +349,9 @@
     <div class="row">
         <div class="card">
             <div class="card-header">
+=======
+                <hr>
+>>>>>>> Stashed changes
                 <h3 class="card-title">ITEMS NEEDED</h3>
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
@@ -354,6 +389,19 @@
                         @else
                             <tr><td colspan="5" style="text-align: center">No Item Requested</td></tr>
                             @endif
+                            @foreach($training_items as $items)
+                                <tr>
+
+                                    <td>{{$items->title}}</td>
+                                    <td>{{$items->unit}}</td>
+                                    <td>{{$items->unit_price}}</td>
+                                    <td>{{$items->total_amount}}</td>
+                                </tr>
+
+                            @endforeach
+                        @else
+                            <tr><td colspan="5" style="text-align: center">No Item Requested</td></tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>
