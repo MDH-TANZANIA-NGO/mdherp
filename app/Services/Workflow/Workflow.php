@@ -12,6 +12,7 @@ use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Listing\ListingRepository;
+use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Report\ReportRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -462,6 +463,16 @@ class Workflow
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
+                case 10:
+                    $program_activity_report_repo = (new ProgramActivityReportRepository());
+                    $program_activity_report = $program_activity_report_repo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('programactivityreport.show',$program_activity_report),
+                        'subject' =>  "Program Activity Report needs your Approval",
+                        'message' => 'Program Activity Report needs your Approval'
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
 
             }
 
@@ -529,6 +540,12 @@ class Workflow
                 $listingrepo = (new ListingRepository());
                 $listing = $listingrepo->find($resourceId);
                 $listing->wfTracks()->save($wfTrack);
+                break;
+            case 9:
+                /*Activity Report */
+                $program_activity_report_repo = (new ProgramActivityReportRepository());
+                $program_activity_report = $program_activity_report_repo->find($resourceId);
+                $program_activity_report->wfTracks()->save($wfTrack);
                 break;
         }
     }

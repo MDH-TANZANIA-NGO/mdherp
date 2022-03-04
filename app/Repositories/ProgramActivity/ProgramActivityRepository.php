@@ -49,7 +49,7 @@ class ProgramActivityRepository extends BaseRepository
 
             ->join('requisition_trainings', 'program_activities.requisition_training_id', 'requisition_trainings.id')
             ->join('districts', 'requisition_trainings.district_id', 'districts.id')
-            ->where('wf_done', true)
+            ->where('program_activities.wf_done', true)
             ->where('program_activities.user_id', access()->user()->id)
             ->where('report_submitted', false)
             ->whereDate('requisition_trainings.start_date', '<=', Carbon::today());
@@ -63,7 +63,9 @@ class ProgramActivityRepository extends BaseRepository
                 'program_activities.id',
                 DB::raw("CONCAT_WS(' ', program_activities.number, districts.name, requisition_trainings.start_date, requisition_trainings.end_date ) AS activity")
 
-            ]);
+            ])
+            ->join('requisitions','requisitions.id', 'requisition_trainings.requisition_id')
+            ->where('requisitions.is_closed',false);
     }
     public function getParticipants()
     {

@@ -771,7 +771,7 @@ class UnitsTableSeeder extends Seeder
             68 =>
                 array (
                     'id' => 69,
-                    'name' => 'Applicant',
+                    'name' => 'Requester',
                     'title' => 'APP.',
                     'unit_group_id' => '1',
                     'isactive' => '1',
@@ -782,8 +782,8 @@ class UnitsTableSeeder extends Seeder
             69 =>
                 array (
                     'id' => 70,
-                    'name' => 'Program Area',
-                    'title' => 'Program Area.',
+                    'name' => 'Program Area Manager',
+                    'title' => 'Program Area Manager',
                     'unit_group_id' => '1',
                     'isactive' => '1',
                     'created_at' => '2021-03-10 16:32:27',
