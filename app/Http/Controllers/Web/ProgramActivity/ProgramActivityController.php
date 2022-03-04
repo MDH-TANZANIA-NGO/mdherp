@@ -69,6 +69,16 @@ class ProgramActivityController extends Controller
             ->with('program_activities',  $this->program_activity = (new ProgramActivityRepository()))
             ->with('supervisor', $supervisor);
     }
+    public function workspace(){
+
+        $supervisor = SupervisorUser::where('supervisor_id', access()->user()->id)->first();
+
+
+       return view('programactivity.workspace')
+           ->with('supervisor', $supervisor);
+
+
+    }
 
     public  function  create(ProgramActivity $programActivity)
     {
@@ -138,7 +148,7 @@ class ProgramActivityController extends Controller
 //        dd($supervisor->supervisor_id);
 
 
-        return view('programactivity.show')
+        return view('programactivity.display.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)

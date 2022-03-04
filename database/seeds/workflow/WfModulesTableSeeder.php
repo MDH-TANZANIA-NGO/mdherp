@@ -146,6 +146,20 @@ class WfModulesTableSeeder extends Seeder
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
+            9 =>
+                array (
+                    'id' => 10,
+                    'name' => 'Program Activity Report',
+                    'wf_module_group_id' => '9',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => '1',
+                    'description' => 'Program Activity Report',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
         ));
 
         $this->enableForeignKeys('wf_modules');

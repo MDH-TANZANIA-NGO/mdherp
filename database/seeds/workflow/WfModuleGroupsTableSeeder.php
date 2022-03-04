@@ -92,6 +92,15 @@ class WfModuleGroupsTableSeeder extends Seeder
                     'updated_at' => \Carbon\Carbon::now(),
                     'deleted_at' => NULL,
                 ),
+            8 =>
+                array (
+                    'id' => 9,
+                    'name' => 'Program Activity Report',
+                    'table_name' => 'program_activity_reports',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'deleted_at' => NULL,
+                ),
         ));
 
         $this->enableForeignKeys('wf_module_groups');

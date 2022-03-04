@@ -95,10 +95,16 @@
                                     </td>
                                     </td>
                                     @if($safari_advance_details == null)
-                                    <td>{!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}</td>
+                                    <td>
+                                        <input type="date" min="{{ now()->toDateString('Y-m-d') }}" name="from" value="{{$travelling_cost->from}}" class="form-control">
+{{--                                        {!! Form::date('from', $travelling_cost->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}--}}
+                                    </td>
                                     <td>{!! Form::date('to', $travelling_cost->to, ['class' => 'form-control', 'required','id'=>'to']) !!}</td>
                                     @else
-                                        <td>{!! Form::date('from', $safari_advance_details->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}</td>
+                                        <td>
+                                            <input type="date" min="{{ now()->toDateString('Y-m-d') }}" name="from" value="{{$safari_advance_details->from}}" class="form-control">
+{{--                                            {!! Form::date('from', $safari_advance_details->from, ['class' => 'form-control', 'required', 'id'=>'from']) !!}--}}
+                                        </td>
                                         <td>{!! Form::date('to', $safari_advance_details->to, ['class' => 'form-control', 'required','id'=>'to']) !!}</td>
                                     @endif
                                 </tr>
