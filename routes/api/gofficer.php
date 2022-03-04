@@ -22,8 +22,13 @@ Route::group( ['prefix' => 'g_officer','middleware' => ['auth:g_officer-api'] ],
     Route::post('hts/store','Api\MDHData\HTSController@store');
     Route::post('covid/store', 'Api\MDHData\CovidController@store');
 
+    Route::get('{g_officer}/{facility}/hts/reports', 'Api\MDHData\HTSController@getGOfficerHTS');
+    Route::get('{g_officer}/{facility}/covid/reports', 'Api\MDHData\CovidController@getGOfficerCovid');
+
 //    ProgramActivityAttendance
     Route::get('valid-activities', 'Api\ProgramActivity\ProgramActivityController@getAllValidActivities');
     Route::post('store-attendance', 'Api\ProgramActivity\ProgramActivityController@storeAttendance');
     Route::post('submit-activity-number', 'Api\ProgramActivity\ProgramActivityController@submitActivityNumberGetDetails');
+
+
 });

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\MDHData;
 use App\Models\MDHData\Hts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController;
+use App\Http\Resources\HTSResource as HTSResource;
+use Illuminate\Support\Facades\DB;
 
 class HTSController extends BaseController
 {
@@ -15,7 +17,18 @@ class HTSController extends BaseController
      */
     public function index()
     {
-        //
+
+    }
+
+    public function getGOfficerHTS($g_officer, $facility){
+        $g_officer_hts = DB::table("hts")
+            ->selectRaw('*')
+            ->where('hts.data_clerk_id', '=', $g_officer)
+            ->where('hts.facility_id', '=', $facility)
+            ->paginate(10);
+
+        $success['paginated_hts_reports'] =  $g_officer_hts;
+        return $this->sendResponse($success, "all G-Officer uploaded HTS Daily Reports");
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\MDHData;
 use Illuminate\Http\Request;
 use App\Models\MDHData\Covid;
 use App\Http\Controllers\Api\BaseController;
+use Illuminate\Support\Facades\DB;
 
 class CovidController extends BaseController
 {
@@ -16,6 +17,17 @@ class CovidController extends BaseController
     public function index()
     {
         //
+    }
+
+    public function getGOfficerCovid($g_officer, $facility){
+        $g_officer_covids = DB::table("covids")
+            ->selectRaw('*')
+            ->where('covids.data_clerk_id', '=', $g_officer)
+            ->where('covids.facility_id', '=', $facility)
+            ->paginate(10);
+
+        $success['paginated_covid_reports'] =  $g_officer_covids;
+        return $this->sendResponse($success, "all G-officer uploaded Covid-19 Reports");
     }
 
     /**

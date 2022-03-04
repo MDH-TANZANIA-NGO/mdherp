@@ -32,12 +32,13 @@ class GOfficerRepository extends BaseRepository
             DB::raw('g_officers.country_organisation_id as country_organisation_id'),
             DB::raw('g_officers.isactive as isactive'),
             DB::raw('g_officers.fingerprint_data as fingerprint_data'),
-            DB::raw('g_officers.fingerprint_length as fingerprint_length')
+            DB::raw('g_officers.fingerprint_length as fingerprint_length'),
         ])
             ->leftjoin('g_scales','g_scales.id','g_officers.g_scale_id')
             ->leftjoin('g_rate_scale','g_rate_scale.g_scale_id','g_scales.id')
             ->leftjoin('g_rates','g_rates.id','g_rate_scale.g_rate_id')
             ->leftjoin('regions', 'regions.id', 'g_officers.region_id')
+            ->leftjoin('covids', 'covids.data_clerk_id', 'g_officers.id')
             ->leftjoin('districts', 'districts.id', 'g_officers.district_id');
     }
 

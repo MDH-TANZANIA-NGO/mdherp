@@ -35,7 +35,9 @@ class LoginController extends BaseController
         return $this->loginWithPhoneAndPassword();
     }
 
-
+    public function refreshGOfficerDashboard(Request $request){
+        return $this->refreshDashboard($request->all());
+    }
 
     // this method  logout users by removing tokens
     public function logout(Request $request)
