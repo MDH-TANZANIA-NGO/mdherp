@@ -24,7 +24,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('to', __("End Date"),['class'=>'form-label','required_asterik']) !!}
-                            {!! Form::date('to',$requisition_training->end_date,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'to']) !!}
+                            <input type="date" min="{{ now()->toDateString('Y-m-d') }}" class="form-control" name="to" value="{{$requisition_training->end_date}}">
                             {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}
                         </div>
                     </div>

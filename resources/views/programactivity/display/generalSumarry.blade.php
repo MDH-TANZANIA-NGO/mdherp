@@ -33,11 +33,11 @@
 													</span>
                     <span class="tag tag-default">
 														 Participants Attended
-														<span class="tag-addon tag-success">{{$activity_participants_count}}</span>
+														<span class="tag-addon tag-success">{{$attendance->count()}}</span>
 													</span>
                     <span class="tag tag-default">
 														Participants Not Attended
-														<span class="tag-addon tag-danger">{{$activity_participants_count}}</span>
+														<span class="tag-addon tag-danger">{{$activity_participants_count-$attendance->count()}}</span>
 													</span>
                     <span class="tag tag-default">
 														Total Items
