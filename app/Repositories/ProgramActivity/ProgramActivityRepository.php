@@ -3,6 +3,7 @@
 namespace App\Repositories\ProgramActivity;
 
 use App\Models\ProgramActivity\ProgramActivity;
+use App\Models\ProgramActivity\ProgramActivityAttendance;
 use App\Models\ProgramActivity\Traits\ProgramActivityRelationship;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
@@ -71,6 +72,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('program_activities.requisition_id AS requisition_id'),
+            DB::raw('program_activities.id AS program_activity_id'),
             DB::raw('requisition_training_costs.participant_uid AS user_id'),
             DB::raw('requisition_training_costs.perdiem_total_amount AS perdiem'),
             DB::raw('requisition_training_costs.no_days AS no_days'),
@@ -192,7 +194,6 @@ class ProgramActivityRepository extends BaseRepository
     }
         public function attended($inputs, $uuid)
         {
-
 
             return DB::transaction(function () use ($inputs, $uuid){
 

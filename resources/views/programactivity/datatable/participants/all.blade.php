@@ -55,15 +55,25 @@
                                                 <span class="tag tag-gray">Not Attended</span>
                                             @endif
                                         @else
-                                            @if($participants->is_substitute == false)
 
-                                                <a href="{{ route('programactivity.editParticipant',$participants->uuid) }}"  class="btn btn-warning" >Swap</a>
-                                            @endif
                                             @if($participants->attend == false)
-                                                <a href="{{ route('programactivity.programActivityAttendance',$participants->uuid) }}" id="attendance" class="btn btn-cyan" onclick="confirm('Are you Sure, He/She Attended? ')" >Attended</a>
+                                                @if($participants->is_substitute == false)
+
+                                                    <a href="{{ route('programactivity.editParticipant',$participants->uuid) }}" class="form-control"  ><i class=" fa fa-exchange" style="margin-left: 40%" ></i></a>
+                                                @endif
+                                                    {!! Form::open(['route' => ['programactivity.programActivityAttendance',$participants->uuid], 'method'=>'POST']) !!}
+                                                    <input type="number" value="{{$participants->id}}" name="g_officer_id" hidden>
+                                                    <input type="number" value="{{$program_activity->id}}" name="program_activity_id" hidden>
+
+{{--                                                    <a href="{{ route('programactivity.programActivityAttendance',$participants->uuid) }}" id="attendance" class="btn btn-cyan" onclick="confirm('Are you Sure, He/She Attended? ')" >Attended</a>--}}
+
+                                                    <button type="submit" class="form-control" ><i class="fa fa-clock-o"></i></button>
+
+                                                    {!! Form::close() !!}
                                             @endif
                                             @if($participants->is_substitute ==  true || $participants->attend == true)
-                                                <a href="{{ route('programactivity.undoEverything',$participants->uuid) }}" id="attendance" class="btn btn-info" onclick="confirm('Are you Sure You want to Undo all Changes?')" >Undo</a>
+
+                                                    <a href="{{ route('programactivity.undoEverything',$participants->uuid) }}" id="attendance" class="btn btn-info" onclick="confirm('Are you Sure You want to Undo all Changes?')" >Undo</a>
                                             @endif
                                         @endif
                                     </td>

@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Web\ProgramActivity;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\ProgramActivity\Datatable\GOfficalsParticipantListDatatable;
+use App\Http\Controllers\Web\ProgramActivity\Datatable\ListOfParticipants;
 use App\Http\Controllers\Web\ProgramActivity\Datatable\ProgramActivityDatatable;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Models\GOfficer\GOfficer;
 use App\Models\ProgramActivity\ProgramActivity;
+use App\Models\ProgramActivity\ProgramActivityAttendance;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
@@ -27,12 +30,15 @@ use App\Repositories\System\DistrictRepository;
 use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProgramActivityController extends Controller
 {
     use ProgramActivityDatatable;
+
+
     protected $trainings;
     protected $program_activity;
     protected $districts;
@@ -144,7 +150,7 @@ class ProgramActivityController extends Controller
         $requisition_training_items = requisition_training_item::all()->where('requisition_id', $requisition_id);
         $supervisor = SupervisorUser::where('user_id', $programActivity->user_id)->first();
         $training_details =  requisition_training::query()->where('requisition_id', $requisition_id)->first();
-
+        $attendance = $programActivity->attendance()->get();
 //        dd($supervisor->supervisor_id);
 
 
@@ -156,6 +162,7 @@ class ProgramActivityController extends Controller
             ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation))
             ->with('program_activity',$programActivity)
             ->with('requisition', Requisition::query()->where('id', $requisition_id)->first())
+            ->with('attendance', $attendance)
             ->with('activity_details',$training_details)
             ->with('activity_location', $training_details->district->name)
             ->with('activity_participants', $training_details->trainingCost()->get()->all())
@@ -188,7 +195,7 @@ class ProgramActivityController extends Controller
 
 //        dd($this->gOfficer->getQuery()->pluck('names', 'id'));
         return view('programactivity.forms.edit-participant')
-            ->with('gofficers', $this->gOfficer->getQuery()->pluck('names', 'id'))
+            ->with('gofficers', $this->gOfficer->getQuery()->pluck('unique', 'id'))
             ->with('existing_participant', $this->gOfficer->find($gofficer_id))
             ->with('requisition_training_cost_id', $requisition_training_cost->id)
             ->with('activity_uuid', $activity_uuid);
@@ -203,7 +210,41 @@ class ProgramActivityController extends Controller
 
     public function programActivityAttendance(Request $request, $uuid)
     {
-        $this->program_activity->attended($request->all(), $uuid);
+
+        $checkin = ProgramActivityAttendance::query()->whereDate('checkin_time',Carbon::now())->where('g_officer_id', $request['g_officer_id'])->first();
+        $checkout = ProgramActivityAttendance::query()->whereDate('checkout_time',Carbon::now())->where('g_officer_id', $request['g_officer_id'])->first();
+        $attendance = ProgramActivityAttendance::query()->whereDate('created_at',Carbon::now())->where('g_officer_id', $request['g_officer_id'])->first();
+        $program_activity = ProgramActivity::query()->where('id', $request['program_activity_id'])->first();
+        $training =  requisition_training::query()->where('id', $program_activity->requisition_training_id)->first();
+
+        if (Carbon::now() <= $training->end_date)
+        {
+            if (!$checkin)
+            {
+
+                ProgramActivityAttendance::create([
+                    'g_officer_id' => $request['g_officer_id'],
+                    'program_activity_id' => $request['program_activity_id'],
+                    'checkin_time' => Carbon::now(),
+                ]);
+                alert()->success('Checked In Successfully', ' Success');
+            }
+            elseif (!$checkout)
+            {
+                DB::update('update program_activity_attendances set checkout_time = ? where uuid = ?',[Carbon::now(), $attendance->uuid] );
+//            $this->program_activity->attended($request->all(), $uuid);
+                alert()->success('Checked Out Successfully', ' Success');
+            }
+            elseif ($checkout || $checkin)
+            {
+                alert()->error("Today's Attendance was captured",'Not Allowed');
+            }
+        }elseif (Carbon::now() >= $training->end_date)
+        {
+            alert()->error('Activity Has been Expired', 'Oohps Sorry');
+        }
+
+
         return redirect()->back();
     }
     public function undoEverything(Request $request, $uuid)

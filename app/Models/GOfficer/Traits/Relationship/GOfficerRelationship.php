@@ -3,6 +3,7 @@
 namespace App\Models\GOfficer\Traits\Relationship;
 
 use App\Models\GOfficer\GScale;
+use App\Models\ProgramActivity\ProgramActivityAttendance;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\System\District;
@@ -21,6 +22,10 @@ trait GOfficerRelationship
     public function Training()
     {
         return $this->belongsTo(requisition_training_cost::class, 'participant_uid', 'id');
+    }
+    public function programActivityAttendance()
+    {
+        return $this->belongsTo(ProgramActivityAttendance::class);
     }
 
 }
