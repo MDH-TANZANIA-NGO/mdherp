@@ -19,6 +19,7 @@ Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'pr
         Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
             Route::get('processing', 'RequisitionController@AccessProcessingDatatable')->name('processing');
             Route::get('rejected', 'RequisitionController@AccessRejectedDatatable')->name('rejected');
+            Route::get('denied', 'RequisitionController@AccessDeniedDatatable')->name('denied');
             Route::get('approved', 'RequisitionController@AccessApprovedDatatable')->name('approved');
             Route::get('saved', 'RequisitionController@AccessSavedDatatable')->name('saved');
             Route::get('paid', 'RequisitionController@AccessPaidDatatable')->name('paid');

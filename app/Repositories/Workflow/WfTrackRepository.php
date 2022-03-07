@@ -135,7 +135,7 @@ class WfTrackRepository extends BaseRepository
             $query->whereHas('wfModule', function ($query) use ($wf_module)  {
                 $query->where('id', $wf_module);
             });
-        })->whereIn("status", [1,2,4])->orderBy('id','asc');
+        })->whereIn("status", [1,2,4,5])->orderBy('id','asc');
         return  $wf_tracks;
     }
 
@@ -244,6 +244,7 @@ class WfTrackRepository extends BaseRepository
                             break;
                         case '3':
                         case '4':
+                        case '5':
                             $this->processWorkflowLevelsAction($wf_track->resource->id,$wf_track->wfDefinition->wf_module_id, $wf_track->wf_definition_id,$wf_track->wfDefinition->level, 0, $input,$wf_track->id);
                             break;
                     }
