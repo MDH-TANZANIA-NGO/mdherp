@@ -329,6 +329,7 @@ class workflowController extends Controller
             $prevWfDefinition = $workflow->nextWfDefinition(-1, true);
             if ($prevWfDefinition->allow_rejection) {
                 $statuses['2'] = "Reverse to level";
+                $statuses['5'] = "Reject";
             }
         }
         /*end action*/
@@ -374,13 +375,17 @@ class workflowController extends Controller
                 /*Status*/
                 $status = $request->input("status");
                 switch ($status) {
-                    case 3: //holded
+                    case 3: //held
                         $status = 3;
                         $option_array['completed'] = 3;
                         break;
                     case 4: //ended
                         $status = 4;
                         $option_array['completed'] = 4;
+                        break;
+                    case 5: //rejected
+                        $status = 5;
+                        $option_array['completed'] = 5;
                         break;
                     default:
                         $status = $status;

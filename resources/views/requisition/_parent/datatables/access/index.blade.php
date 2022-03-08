@@ -7,8 +7,9 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-warning">{{ $requisition_access->getAccessProcessingDatatable()->count() }}</span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Returned for Modification <span class="badge badge-danger">{{ $requisition_access->getAccessRejectedDatatable()->count() }}</span></a></li>
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary">{{ $requisition_access->getAccessProcessingDatatable()->count() }}</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning">{{ $requisition_access->getAccessRejectedDatatable()->count() }}</span></a></li>
+                    <li><a href="#denied" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $requisition_access->getAccessDeniedDatatable()->count() }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $requisition_access->getAccessApprovedDatatable()->count() }}</span></a></li>
                     <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $requisition_access->getAccessSavedDatatable()->count() }}</span> </a></li>
                     <li><a href="#paid" data-toggle="tab" class="">Paid <span class="badge badge-primary">{{ $requisition_access->getAccessPaidDatatable()->count() }}</span> </a></li>
@@ -144,6 +145,29 @@
 
                 </div>
 
+                <div class="tab-pane" id="denied">
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="access_denied" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th class="wd-15p">#</th>
+                                    <th class="wd-15p">NUMBER</th>
+                                    <th class="wd-15p">TYPE</th>
+{{--                                    <th class="wd-15p">PROJECT</th>--}}
+                                    <th class="wd-15p">ACTIVITY</th>
+                                    <th class="wd-25p">AMOUNT</th>
+                                    <th class="wd-25p">APPLIED DATE</th>
+                                    <th class="wd-25p">ACTION</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
 
@@ -204,6 +228,26 @@
                 "responsive": true,
                 "autoWidth": false,
                 ajax: '{{ route('requisition.datatable.access.rejected') }}',
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                    { data: 'number', name: 'requisitions.number', searchable: true},
+                    { data: 'type_title', name: 'requisitions.title', searchable: true},
+                    // { data: 'project_title', name: 'projects.title', searchable: true},
+                    { data: 'activity_title', name: 'activities.title', searchable: true},
+                    { data: 'amount', name: 'requisitions.amount', searchable: true},
+                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'action', name: 'action', searchable: false },
+                ]
+            });
+
+            $("#access_denied").DataTable({
+                // processing: true,
+                // serverSide: true,
+                destroy: true,
+                retrieve: true,
+                "responsive": true,
+                "autoWidth": false,
+                ajax: '{{ route('requisition.datatable.access.denied') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'requisitions.number', searchable: true},

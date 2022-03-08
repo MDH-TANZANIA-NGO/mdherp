@@ -9,6 +9,7 @@ use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Listing\ListingRepository;
+use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
@@ -269,6 +270,17 @@ class WorkflowEventSubscriber
                         'message' => 'This Hire Requisition has been Approved successfully'
                     ];
                     $listing->user->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 10:
+                    $program_activity_report_repo = (new ProgramActivityReportRepository());
+                    $program_activity_report = $program_activity_report_repo->find($resource_id);
+                    $this->updateWfDone($program_activity_report);
+                    $email_resource = (object)[
+                        'link' =>  route('programactivityreport.show',$program_activity_report),
+                        'subject' => "Program Activity Approved Successfully",
+                        'message' => 'This Hire Requisition has been Approved successfully'
+                    ];
+                    $program_activity_report->user->notify(new WorkflowNotification($email_resource));
                     break;
             }
 

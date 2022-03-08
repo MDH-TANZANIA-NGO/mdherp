@@ -22,10 +22,13 @@ trait WfTrackAttribute
                     $bagde = "<span class='badge badge-success' style='font-size: 12px'>".$this->wfDefinition->action_description."</span>";
                 break;
                 case 2:
-                    $bagde = "<span class='badge badge-danger' style='font-size: 12px'>Rejected</span>";
+                    $bagde = "<span class='badge badge-warning' style='font-size: 12px'>Reversed</span>";
                 break;
                 case 4:
                     $bagde = "<span class='badge badge-warning' style='font-size: 12px'>Ended without payment</span>";
+                break;
+            case 5:
+                $bagde = "<span class='badge badge-danger' style='font-size: 12px'>Rejected</span>";
                 break;
         }
         return $bagde;

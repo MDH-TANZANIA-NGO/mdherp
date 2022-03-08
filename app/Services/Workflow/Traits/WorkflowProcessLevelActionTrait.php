@@ -10,8 +10,10 @@ use App\Repositories\Workflow\WfTrackRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use JasonGuru\LaravelMakeRepository\Exceptions\GeneralException;
 use phpDocumentor\Reflection\Types\Void_;
 use App\Models\Leave\Leave;
+use App\Models\Requisition\Requisition;
 
 trait WorkflowProcessLevelActionTrait
 {
@@ -65,9 +67,12 @@ trait WorkflowProcessLevelActionTrait
     public function getResource($wf_module_id, $resource_id)
     {
         switch($wf_module_id){
-            case 1:
-                /*TAF*/
-                    return Taf::query()->find($resource_id);
+            case 1: case 2:
+                /*Requisition*/
+                    return Requisition::query()->find($resource_id);
+                break;
+            default:
+        throw new GeneralException('You can not reject this application');
                 break;
         }
     }
@@ -168,22 +173,24 @@ trait WorkflowProcessLevelActionTrait
                 $this->updateRejected($wf_module_id, $resource_id, $sign);
                 break;
         }
-        switch($current_level){
-            case $account_receivable_level:
-                switch($inputs['status']){
-                    case 3: //holded
-                        $this->updateWfDoneAndWfDoneDate($this->getResource($wf_module_id, $resource_id), $inputs['status']);
-                        $this->holdWorkflow($wf_track_id, $inputs['status']);
-                        break;
-                    case 4: //
-                        $this->updateWfDoneAndWfDoneDate($this->getResource($wf_module_id, $resource_id), $inputs['status']);
-                        $this->completeWorkflow($wf_track_id, $inputs['status']);
-                    break;
-                    default:
-                        break;
-                }
-                break;
 
+
+        switch($inputs['status']){
+//            case 3: //holded
+//                $this->updateWfDoneAndWfDoneDate($this->getResource($wf_module_id, $resource_id), $inputs['status']);
+//                $this->holdWorkflow($wf_track_id, $inputs['status']);
+//                break;
+//            case 4: //
+//                $this->updateWfDoneAndWfDoneDate($this->getResource($wf_module_id, $resource_id), $inputs['status']);
+//                $this->completeWorkflow($wf_track_id, $inputs['status']);
+//                break;
+
+            case 5: //reject
+                $this->updateWfDoneAndWfDoneDate($this->getResource($wf_module_id, $resource_id), $inputs['status']);
+                $this->completeWorkflow($wf_track_id, $inputs['status']);
+                break;
+            default:
+                break;
         }
     }
 

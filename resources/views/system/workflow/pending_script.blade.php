@@ -114,6 +114,10 @@
                         case 8: /*listing*/
                             window.open(base_url + "/listings/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
+                            break;
+                        case 9: /*Program Activity Report*/
+                            window.open(base_url + "/programactivityreport/" + aData['resource_uuid'] + '/show' , "_blank");
+                            break;
                         default:
                             break;
                     }

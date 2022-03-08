@@ -58,9 +58,26 @@ trait Number
                 $number = "MDH-F-".$year.$value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
-                default:
-                    throw new GeneralException(__('exceptions.general.number_not_set'));
-                    break;
+
+            case 'program_activity_reports':
+                #generate Reference number
+                $reference = "PROGRAMCTIVITYREPORTNUM";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-PA-R-".$year.$value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            case 'rates':
+                #generate Reference number
+                $reference = "RATENUM";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-RT-".$year.$value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            default:
+                throw new GeneralException(__('exceptions.general.number_not_set'));
+                break;
 
         }
     }

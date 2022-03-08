@@ -131,6 +131,16 @@ class RequisitionRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
+    public function getAccessDeniedDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('requisitions.wf_done', 5)
+            ->where('requisitions.done', true)
+            ->where('requisitions.rejected', false)
+            ->where('users.id', access()->id());
+    }
+
     public function getAccessApprovedDatatable()
     {
         return $this->getQuery()
