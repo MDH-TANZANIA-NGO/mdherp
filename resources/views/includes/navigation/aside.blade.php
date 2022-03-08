@@ -78,6 +78,7 @@
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('leave_report.index') }}"><span>Leave Reports</span></a></li>
                 <li><a class="slide-item"  href="{{ route('timesheet_report.index') }}"><span>Timesheet Reports</span></a></li>
+                <li><a class="slide-item"  href="{{ route('timesheet_report.index') }}"><span>Employees</span></a></li>
             </ul>
         </li>
         @endpermission
