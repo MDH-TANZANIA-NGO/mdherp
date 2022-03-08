@@ -17,6 +17,7 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::post('{uuid}/programActivityAttendance', 'ProgramActivityController@programActivityAttendance')->name('programActivityAttendance');
     Route::get('{uuid}/undoEverything', 'ProgramActivityController@undoEverything')->name('undoEverything');
     Route::get('{uuid}/pay', 'ProgramActivityController@pay')->name('pay');
+    Route::post('{id}/viewParticipantAttendance', 'ProgramActivityController@viewParticipantAttendance')->name('viewParticipantAttendance');
     Route::post('{uuid}/submitPayment', 'ProgramActivityController@submitPayment')->name('submitPayment');
     Route::post('{uuid}/submit', 'ProgramActivityController@submit')->name('submit');
     Route::post('{uuid}/approveReport', 'ProgramActivityController@approveReport')->name('approveReport');
