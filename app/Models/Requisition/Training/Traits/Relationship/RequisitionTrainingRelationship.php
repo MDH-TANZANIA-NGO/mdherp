@@ -31,4 +31,7 @@ trait RequisitionTrainingRelationship
     {
         return $this->belongsTo(District::class);
     }
+
+
 }
+
