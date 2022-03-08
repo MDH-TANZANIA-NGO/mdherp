@@ -87,5 +87,17 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'RATENUM'],
+            [
+                'name' => 'rate',
+                'display_name' => 'Rate Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'RATENUM',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }
