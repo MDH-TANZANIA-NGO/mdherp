@@ -24,7 +24,8 @@ class CovidController extends BaseController
             ->selectRaw('*')
             ->where('covids.data_clerk_id', '=', $g_officer)
             ->where('covids.facility_id', '=', $facility)
-            ->paginate(10);
+            ->orderBy('covids.form_date_time', 'ASC')
+            ->paginate(30);
 
         $success['paginated_covid_reports'] =  $g_officer_covids;
         return $this->sendResponse($success, "all G-officer uploaded Covid-19 Reports");

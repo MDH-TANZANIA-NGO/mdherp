@@ -25,7 +25,8 @@ class HTSController extends BaseController
             ->selectRaw('*')
             ->where('hts.data_clerk_id', '=', $g_officer)
             ->where('hts.facility_id', '=', $facility)
-            ->paginate(10);
+            ->orderBy('hts.form_date_time', 'ASC')
+            ->paginate(30);
 
         $success['paginated_hts_reports'] =  $g_officer_hts;
         return $this->sendResponse($success, "all G-Officer uploaded HTS Daily Reports");
@@ -113,6 +114,11 @@ class HTSController extends BaseController
             'index_testing_rate' => $request['index_testing_rate'],
             'yield' => $request['yield'],
             'comments' => $request['comments'],
+            'latitude' => $request['latitude'],
+            'longitude' => $request['longitude'],
+            'location' => $request['location'],
+            'form_date_time' => $request['form_date_time'],
+            'status' => 1,
         ]);
 
         $success['hts'] = $hts;
