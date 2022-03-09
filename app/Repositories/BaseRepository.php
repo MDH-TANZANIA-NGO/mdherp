@@ -13,6 +13,7 @@ namespace App\Repositories;
 use App\Models\Taf\Taf;
 use Illuminate\Support\Facades\DB;
 
+
 class BaseRepository
 {
     /**

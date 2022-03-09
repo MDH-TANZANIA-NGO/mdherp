@@ -128,7 +128,7 @@ class RetirementController extends Controller
 
     public function show(Retirement $retirement)
     {
-       // dd($retirement->getMediaCollections());
+       //dd($retirement->details()->get());
         /* Check workflow */
         $wf_module_group_id = 4;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $retirement->id);
@@ -140,7 +140,11 @@ class RetirementController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($retirement, $current_level, $workflow->wf_definition_id);
 
         $designation = access()->user()->designation_id;
-//ddd($retirement->details());
+
+        $retirementatt =$this->retirements = (new RetirementRepository());
+
+        //dd($retirementatt->getattachment()->get());
+
         return view('retirement.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
@@ -148,6 +152,7 @@ class RetirementController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($retirement))
             ->with('retirement', $retirement)
             ->with('retirementz',$retirement->details()->get());
+            //->with('attachmentname', $retirementatt->getattachment()->get('attachment_name'));
     }
 
 
