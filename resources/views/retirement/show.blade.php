@@ -147,7 +147,8 @@
                         @foreach($retirementz as $retirement)
                             <tr>
                                 <td>1</td>
-                                <td>{{$retirement->getFirstMedia('attachments')->pluck('name')}}</td>
+                                <td>Attachment</td>
+{{--                                <td>{{$retirement->getFirstMedia('attachments')->pluck('name')}}</td>--}}
 {{--                                {{$retirement->getRegisteredMediaCollections()}}--}}
                                 <td><a href="{{$retirement->getFirstMediaURL('attachments')}}" target="_blank">view</a></td>
                             </tr>
