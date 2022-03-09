@@ -11,8 +11,6 @@ class RateRepository extends BaseRepository
 {
     const MODEL = Rate::class;
 
-    use Number;
-
     /**
      * Store new resource
      * @param $inputs
@@ -41,18 +39,4 @@ class RateRepository extends BaseRepository
         });
     }
 
-    /**
-     * Update is done column and generate number
-     * @param Requisition $requisition
-     * @return mixed
-     */
-    public function updateDoneAssignNextUserIdAndGenerateNumber(Rate $rate)
-    {
-        return DB::transaction(function () use ($rate) {
-            return $rate->update([
-                'done' => 1,
-                'number' => $this->generateNumber($rate)
-            ]);
-        });
-    }
 }

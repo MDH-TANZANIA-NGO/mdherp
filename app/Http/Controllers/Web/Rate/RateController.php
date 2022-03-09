@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Web\Rate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Rate\RateRequest;
 use App\Repositories\Rate\RateRepository;
-use Illuminate\Support\Facades\DB;
-use App\Services\Workflow\Workflow;
-use App\Repositories\Workflow\WfTrackRepository;
+use App\Http\Controllers\Web\Rate\Datatables\RateDatatables;
 
 class RateController extends Controller
 {
+    use RateDatatables;
 
     protected $rates;
     protected $wf_tracks;
@@ -18,7 +17,6 @@ class RateController extends Controller
     public function __construct()
     {
         $this->rates = (new RateRepository());
-        $this->wf_tracks = (new WfTrackRepository());
     }
 
     /**
@@ -29,16 +27,6 @@ class RateController extends Controller
     public function index()
     {
         return view('rate.index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('rate.form.create');
     }
 
     /**
@@ -60,40 +48,10 @@ class RateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function submit(Rate $rate)
-    {
-        DB::transaction(function () use ($rate){
-            $this->rate->updateDoneAssignNextUserIdAndGenerateNumber($rate);
-            $wf_module_group_id = 1;
-            $type=1;
-            $next_user = null;
-            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $rate->id,'region_id' => null, 'type' => $type],[],['next_user_id' => $next_user]));
-        });
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Rate $rate)
     {
-        /* Check workflow */
-        $wf_module_group_id = 1;
-        $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $rate->id);
-        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $rate->id, 'type' => $wf_module->type]);
-        $check_workflow = $workflow->checkIfHasWorkflow();
-        $current_wf_track = $workflow->currentWfTrack();
-        $wf_module_id = $workflow->wf_module_id;
-        $current_level = $workflow->currentLevel();
-        $can_edit_resource = $this->wf_tracks->canEditResource($rate, $current_level, $workflow->wf_definition_id);
         return view('rate.display.show')
-            ->with('rate', $rate)
-            ->with('current_level', $current_level)
-            ->with('current_wf_track', $current_wf_track)
-            ->with('can_edit_resource', $can_edit_resource)
-            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($rate));
+            ->with('rate', $rate);
     }
 
 
