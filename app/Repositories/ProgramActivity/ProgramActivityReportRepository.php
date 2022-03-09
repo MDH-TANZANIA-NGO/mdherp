@@ -29,7 +29,8 @@ use Number;
             DB::raw('program_activity_reports.status AS status'),
             DB::raw('program_activity_reports.region_id AS region_id'),
              DB::raw('program_activities.number AS activity_number'),
-            DB::raw('program_activities.id AS activity_id')
+            DB::raw('program_activities.id AS activity_id'),
+            DB::raw("CONCAT_WS(' ', users.first_name,users.last_name) AS name"),
         ])
             ->join('users','users.id', 'program_activity_reports.user_id')
             ->join('program_activities','program_activities.id','program_activity_reports.program_activity_id');
@@ -61,6 +62,14 @@ use Number;
             ->where('program_activity_reports.done', true)
             ->where('program_activity_reports.rejected', false)
             ->where('program_activity_reports.user_id', access()->user()->id);
+    }
+
+    public function getAllApprovedActivityReports(){
+        return $this->getQuery()
+            ->where('program_activity_reports.wf_done', true)
+            ->where('program_activity_reports.done', true)
+            ->where('program_activity_reports.rejected', false)
+            ->where('program_activities.paid', false);
     }
 
     public function inputProcess($inputs){

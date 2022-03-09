@@ -34,7 +34,7 @@ trait PaymentsDatatable
      * @return mixed
      * @throws \Exception
      */
-    public function allApprovedRequisitions()
+/*    public function allApprovedRequisitions()
     {
         return DataTables::of($this->requisitions->getAllApprovedRequisitions())
             ->addIndexColumn()
@@ -49,7 +49,7 @@ trait PaymentsDatatable
             })
             ->rawColumns(['action'])
             ->make(true);
-    }
+    }*/
 
     /**
      * @return mixed
@@ -70,6 +70,20 @@ trait PaymentsDatatable
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('finance.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function allApprovedProgramActivitiesReports()
+    {
+        return DataTables::of($this->program_activity_reports->getAllApprovedActivityReports())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateTimeString();
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('programactivityreport.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

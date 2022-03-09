@@ -16,6 +16,8 @@ Route::group(['namespace' => 'Finance', 'middleware' => ['web', 'auth'], 'prefix
     Route::post('{uuid}/sendSafariPaymentForApproval', 'FinanceActivityController@sendSafariPaymentForApproval')->name('sendSafariPaymentForApproval');
     Route::get('{uuid}/showSafariPayment', 'FinanceActivityController@showSafariPayment')->name('showSafariPayment');
 
+    Route::get('{uuid}/program_activity_payment', 'FinanceActivityController@programActivityPayment')->name('program_activity_payment');
+
 
     /**
      * Datatables
@@ -25,6 +27,7 @@ Route::group(['namespace' => 'Finance', 'middleware' => ['web', 'auth'], 'prefix
             Route::get('requisitions', 'FinanceActivityController@allApprovedRequisitions')->name('requisition');
             Route::get('safari_advances', 'FinanceActivityController@allApprovedSafariAdvances')->name('safari_advance');
             Route::get('program_activities', 'FinanceActivityController@allApprovedProgramActivities')->name('program_activity');
+            Route::get('program_activity_reports', 'FinanceActivityController@allApprovedProgramActivitiesReports')->name('program_activity_reports');
             Route::get('retirements', 'FinanceActivityController@allApprovedRetirements')->name('retirement');
 //            Route::get('paid', 'FinanceActivityController@AccesssDatatable')->name('paid');
         });
