@@ -2,7 +2,8 @@
 
 @section('content')
 
-    <form action="{{route('leave.store')}}" method="post">
+{{--    <form action="{{route('leave.store')}}" method="post">--}}
+    {!! Form::open(['route' => ['leave.store']]) !!}
     @csrf
     <!-- Large Modal -->
         <div class="col-lg-12 col-md-12">
@@ -22,20 +23,24 @@
                     <div class="row">
                         <div class="col-md-6" >
                             <label class="form-label">Leave Type</label>
-                            <select name="leave_type_id" id="select-level" class="form-control custom-select">
+                            {!! Form::select('leave_type_id', $leaveTypes, null,['class' => 'form-control select2-show-search', 'required']) !!}
+                            {{--<select name="leave_type_id" id="select-level" class="form-control  select2-search-show">
                                 <option value=""  disabled selected hidden>Select Type</option>
                                 @foreach($leaveTypes as $leaveType)
                                     <option value="{{ $leaveType->id }}">{{$leaveType->name}}</option>
                                 @endforeach
-                            </select>
+                            </select>--}}
                             @error('leave_type_id')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                             @enderror
                         </div>
 
                         <div class="col-md-6" >
-                            <label class="form-label">Select Co-worker in your absence</label>
-                            <select name="employee_id" id="select-level" class="form-control custom-select">
+                            {!! Form::label('employee_id', __("Select Co-worker in your absence"),['class'=>'form-label','required_asterik']) !!}
+                            {!! Form::select('employee_id', $users, null,['class' => 'form-control select2-show-search', 'required']) !!}
+                            {!! $errors->first('employee_id', '<span class="badge badge-danger">:message</span>') !!}
+                           {{-- <label class="form-label">Select Co-worker in your absence</label>
+                            <select name="employee_id" id="select-level" class="form-control select2-search-show">
                                 <option value=""  disabled selected hidden>Select Type</option>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}">{{$user->fullName}}</option>
@@ -43,7 +48,7 @@
                             </select>
                             @error('employee_id')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                            @enderror
+                            @enderror--}}
                         </div>
 
                     </div>
@@ -133,7 +138,9 @@
         </div>
         <!-- End Row -->
         </div>
-    </form>
+{{--    </form>--}}
+
+    {!! Form::close() !!}
 
 
 

@@ -9,10 +9,12 @@ use App\Http\Controllers\Web\Finance\Datatable\PaymentsDatatable;
 use App\Models\Auth\User;
 use App\Models\Payment\Payment;
 use App\Models\ProgramActivity\ProgramActivity;
+use App\Models\ProgramActivity\ProgramActivityReport;
 use App\Models\ProgramActivity\Traits\ProgramActivityRelationship;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Models\Requisition\Training\requisition_training_item;
 use App\Models\Requisition\Traits\Relaltionship\RequisitionRelationship;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
@@ -20,11 +22,13 @@ use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Models\SafariAdvance\SafariAdvancePayment;
 use App\Models\SafariAdvance\Traits\SafariAdvanceRelationship;
 use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvancePaymentRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
+use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
 use Illuminate\Http\Request;
@@ -45,6 +49,8 @@ class FinanceActivityController extends Controller
     protected $finance;
     protected $wf_tracks;
     protected $safari_advance_payment;
+    protected $program_activity_reports;
+    protected $designations;
 
     public function __construct()
     {
@@ -56,6 +62,9 @@ class FinanceActivityController extends Controller
         $this->finance =  (new FinanceActivityRepository());
         $this->wf_tracks = (new WfTrackRepository());
         $this->safari_advance_payment = (new SafariAdvancePaymentRepository());
+        $this->program_activity_reports =  (new ProgramActivityReportRepository());
+        $this->designations = (new DesignationRepository());
+
     }
     public function index()
     {
@@ -63,6 +72,7 @@ class FinanceActivityController extends Controller
         return view('finance.index')
             ->with('requisition', $this->requisitions->getAllApprovedRequisitions())
             ->with('program_activity', $this->program_activity->getAllApprovedProgramActivities())
+            ->with('program_activity_reports', $this->program_activity_reports->getAllApprovedActivityReports())
             ->with('safariAdvance', $this->safariAdvance->getAllApprovedSafari())
             ->with('retirement', $this->retirement->getAllApprovedRetirements());
     }
@@ -337,6 +347,39 @@ class FinanceActivityController extends Controller
             ->with('safari_advance_payment', $safari_advance_payment)
             ->with('payment', $payment)
             ;
+    }
+
+    public function programActivityPayment($uuid){
+
+        $programActivityReport = ProgramActivityReport::query()->where('uuid', $uuid)->first();
+        $programActivityReports = ProgramActivityReport::query()->where('program_activity_id', $programActivityReport->program_activity_id)->get();
+        $program_activity = ProgramActivity::query()->where('id', $programActivityReport->program_activity_id)->first();
+        $requisition_training = requisition_training::query()->where('id', $program_activity->requisition_training_id)->first();
+        $requisition_training_participants = requisition_training_cost::query()->where('requisition_training_id', $requisition_training->id);
+        $requisition_training_items = requisition_training_item::query()->where('requisition_training_id', $requisition_training->id);
+        $requisition =  Requisition::query()->where('id', $requisition_training->requisition_id)->first();
+        $attendance = $program_activity->attendance()->get();
+
+        /* Check workflow */
+        $wf_module_group_id = 9;
+        $wf_module = $programActivityReport->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $programActivityReport->id);
+        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $programActivityReport->id, 'type' => $wf_module->type]);
+        $check_workflow = $workflow->checkIfHasWorkflow();
+        $current_wf_track = $workflow->currentWfTrack();
+        $wf_module_id = $workflow->wf_module_id;
+        $current_level = $workflow->currentLevel();
+        $can_edit_resource = $this->wf_tracks->canEditResource($programActivityReport, $current_level, $workflow->wf_definition_id);
+
+
+
+        return view('finance.payments.programActivity.index')
+            ->with('current_level', $current_level)
+            ->with('current_wf_track', $current_wf_track)
+            ->with('can_edit_resource', $can_edit_resource)
+            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($programActivityReport))
+            ->with('attendance', $attendance)
+            ->with('program_activity_reports', $programActivityReports)
+            ->with('program_activity_report', $programActivityReport);
     }
 
 }
