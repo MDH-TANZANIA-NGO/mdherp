@@ -2,9 +2,11 @@
 
 namespace App\Models\Rate;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
+use App\Models\Rate\Traits\Attribute\RateAttribute;
+use App\Models\Rate\Traits\Relationship\RateRelationship;
 
-class Rate extends Model
+class Rate extends BaseModel
 {
-    //
+    use RateAttribute, RateRelationship;
 }

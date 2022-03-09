@@ -228,6 +228,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => 'User can access CQI Dashboard Admin',
                     'ischecker' => 1,
                 ),
+            27 =>
+                array(
+                    'id' => 28,
+                    'name' => 'exchange_rate_setting',
+                    'display_name' => 'Exchange Rate Setting',
+                    'description' => 'User can exchange rate',
+                    'ischecker' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("permissions");

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Facility\Api\Project;
+namespace App\Http\Controllers\Api\Project;
 
-use App\Http\Controllers\Api\Facility\Api\BaseController;
+use App\Http\Controllers\Api\BaseController;
 use App\Repositories\Project\ActivityRepository;
 use Illuminate\Http\Request;
 
