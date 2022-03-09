@@ -22,7 +22,7 @@
                             <th >Transportation</th>
                             <th>Other Cost</th>
                             <th >Total</th>
-                            @if(access()->user()->id == $supervisor && $program_activity->wf_done == true)
+                            @if((access()->user()->id != $program_activity->user_id ||access()->user()->id == $supervisor ) && $program_activity->wf_done == true)
                                 <th>Status</th>
                                 <th >Attendance</th>
                             @else
@@ -49,7 +49,7 @@
                                     <td>{{$participants->total_amount}}</td>
                                     @if($program_activity->wf_done == true)
                                         <td>
-                                            @if(access()->user()->id == $supervisor )
+                                            @if(access()->user()->id == $supervisor || access()->user()->id != $program_activity->user_id )
 
                                                 @if($participants->is_substitute == true)
                                                     <span class="tag tag-yellow">Substituted</span>
@@ -75,7 +75,7 @@
                                                 @endif
                                             @endif
                                         </td>
-                                        @if(access()->user()->id != $supervisor )
+                                        @if(access()->user()->id == $program_activity->user_id )
                                             <td>
 <div class="row">
 
