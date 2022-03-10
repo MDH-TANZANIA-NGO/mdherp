@@ -8,7 +8,7 @@
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
                     <li class=""><a href="#processing" class="active" data-toggle="tab">Onprocess <span class="badge badge-warning">{{ $retirements->getAccessProcessingRetirementDatatable()->count() }}</span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Returned <span class="badge badge-danger">{{ $retirements->getAccessRejectedRetirementDatatable()->count() }}</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Returned For Modification <span class="badge badge-danger">{{ $retirements->getAccessRejectedRetirementDatatable()->count() }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $retirements->getAccessApprovedRetirementDatatable()->count() }}</span></a></li>
 {{--                    <li><a href="#paid" data-toggle="tab" class="">Paid <span class="badge badge-primary"></span> </a></li>--}}
                     <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $retirements->getAccessSavedRetirementDatatable()->count() }}</span> </a></li>

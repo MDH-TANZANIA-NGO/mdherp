@@ -63,12 +63,21 @@ class RetirementController extends Controller
             ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
     }
 
-    public  function  edit(Retirement $retirement)
+   /* public  function  edit(Retirement $retirement)
     {
         return view('retirement.forms.create')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
             ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
+    }*/
+
+    public  function  edit(Retirement $retirement)
+    {
+        return view('retirement.forms.edit')
+            ->with('retirement', $retirement)
+            ->with('district', $this->district->getForPluck())
+            ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id))
+            ->with('retirementz',$retirement->details()->get());
     }
 
     public function store(Request $request)
@@ -98,6 +107,7 @@ class RetirementController extends Controller
                     $retirement_detailz->addMedia($attachment)->toMediaCollection('attachments');
                 }
             }
+
             alert()->success('Retirement Submitted Successfully','Success');
             return redirect()->route('retirement.show',$uuid);
         }
@@ -124,6 +134,13 @@ class RetirementController extends Controller
         }
 
 
+    }
+
+    public function refurbish(Request $request, $uuid){
+
+        $this->retirements->refurbishing($request->all(),$uuid);
+        alert()->success('Retirement Modified Successfully','Success');
+        return redirect()->route('retirement.show',$uuid);
     }
 
     public function show(Retirement $retirement)

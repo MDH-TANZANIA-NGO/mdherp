@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 
     <div class="col-lg-12 col-md-12">
@@ -11,7 +12,7 @@
 
                 </div>
             </div>
-            {!! Form::open(['route' => ['retirement.update',$retirement], 'enctype'=>'multipart/form-data']) !!}
+            {!! Form::open(['route' => ['retirement.refurbish',$retirement], 'enctype'=>'multipart/form-data']) !!}
             <div class="card-body">
                 @foreach($retire_safaris AS $retire_safari)
                     <div class="row">
@@ -23,7 +24,6 @@
                                     {!! Form::select('district_id',$district, $retire_safari->district_id, ['class' => 'form-control', 'hidden']) !!}
                                     {!! Form::select('district_id_show',$district, $retire_safari->district_id, ['class' => 'form-control select2-show-search', 'disabled']) !!}
                                     {!! Form:: text('safari_advance_id', $retire_safari->safari_id,['class'=>'form-control','hidden'])!!}
-                                    {!! Form:: text('retirement_id', $retirement->id,['class'=>'form-control','hidden'])!!}
 
 
                                 </div>
@@ -104,80 +104,122 @@
 
                     </div>
                 @endforeach
+
+                <hr>
+
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label class="form-label">Activity Report <span class="form-label-small">56/100</span></label>
-                            <textarea class="form-control" name="activity_report" rows="7" placeholder="Write activity report.." required></textarea>
+                            <label class="form-label">Background Information: <span class="form-label-small">56/100</span></label>
+                            <textarea class="form-control" name="activity_report" rows="2" placeholder="Write activity report.." required>{{$retirement->details->activity_report}}</textarea>
                         </div>
                     </div>
 
 
                 </div>
-{{--                <div class="row">--}}
-{{--                    <div class="col-md-4" >--}}
-{{--                        <div class="form-group">--}}
-{{--                            <div class="form-label">Attach Receipt</div>--}}
-{{--                            <div class="custom-file">--}}
-{{--                                <input type="file" class="form-control" name="attachment_receipt">--}}
-{{--                                --}}{{--                        <label class="custom-file-label">Choose file</label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
 
-{{--                    <div class="col-md-4" >--}}
-{{--                        <div class="form-group">--}}
-{{--                            <div class="form-label">Supportive Document Upload</div>--}}
-{{--                            <div class="custom-file">--}}
-{{--                                <input type="file" class="form-control" name="attachment_supportive">--}}
-{{--                                --}}{{--                                <label class="custom-file-label">Choose file</label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
 
-{{--                    <div class="col-md-4" >--}}
-{{--                        <div class="form-group">--}}
-{{--                            <div class="form-label">Add Any Other Attachment</div>--}}
-{{--                            <div class="custom-file">--}}
-{{--                                <input type="file" class="form-control" name="attachment_other">--}}
-{{--                                --}}{{--                                <label class="custom-file-label">Choose file</label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+                            <label class="form-label">What was Planned:</label>
+                            <textarea rows="2" cols="50" class="form-control" name="planned_report" placeholder="Write the plan.." required>{{$retirement->details->planned_report}}</textarea>
+                        </div>
+                    </div>
+                </div>
 
 
 
-                    <div class ="row">
+                <div class="row">
+                    <div  class="col-md-2">
+                        <div class="form-group">
+                            <label class="form-label">Number of Participants:</label>
+                            <input type="number" name="no_participants" class="form-control" placeholder="" value="{{$retirement->details->no_participants}}">
+                        </div>
+                    </div>
+                    <div class="col-md-10" >
+                        <div class="form-group">
+                            <label class="form-label">Objectives:</label>
+                            <textarea rows="2" cols="50" class="form-control" name="objective_report" placeholder="Write your objectives.." required>{{$retirement->details->objective_report}}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+                            <label class="form-label">Methodology:</label>
+                            <textarea rows="2" cols="50" class="form-control" name="methodology_report" placeholder="Write the methodology.." required>{{$retirement->details->methodology_report}}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+                            <label class="form-label">Achievements:</label>
+                            <textarea rows="2" cols="50" class="form-control" name="achievement_report" placeholder="Write the Achievements.." required>{{$retirement->details->achievement_report}}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+                            <label class="form-label">Challenges:</label>
+                            <textarea rows="2" cols="50" class="form-control" name="challenge_report" placeholder="Write the Challenges:.." required>{{$retirement->details->challenge_report}}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+                            <label class="form-label">Recommendations/Action plans :</label>
+                            <textarea rows="2" cols="50" class="form-control" name="action_report" placeholder="Write the Recommendations/Action plans .." required>{{$retirement->details->action_report}}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class ="row">
                     <div class="container lst">
-                    <div class="input-group hdtuto control-group lst increment" >
+                        <div class="input-group hdtuto control-group lst increment" >
+
+                            {{--  <div class="col-md-4" >
+                              <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
+                              </div>--}}
                             <div class="col-md-4" >
-                        <input type="file" name="attachments[]" class="form-control">
+                                <input type="file" name="attachments[]" class="form-control">
                             </div>
-                        <div class="input-group-btn col-md-4">
-                            <button class="btn btn-success" type="button"><i class=""></i>Add attachment field</button>
-                        </div>
-                    </div>
-                    <div class="clone hide">
-                        <div class="hdtuto control-group lst input-group" style="margin-top:10px">
-                            <div class="col-md-4" >
-                            <input type="file" name="attachments[]" class="form-control">
+                            <div class="input-group-btn col-md-4">
+                                <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
                             </div>
-
-{{--                            <div class="col-md-4" >--}}
-{{--                            <label for="html">Additional Attchment</label>--}}
-{{--                            </div>--}}
-{{--                            <div class="input-group-btn">--}}
-{{--                                <button class="btn btn-danger" type="button"><i class=""></i> Remove</button>--}}
-{{--                            </div>--}}
                         </div>
-                    </div>
+
+                        <div class="clone hide">
+                            <div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">
+                                {{-- <div class="col-md-4" >
+                                 <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
+                                 </div>--}}
+                                <div class="col-md-4" >
+                                    <input type="file" name="attachments[]" class="form-control">
+                                </div>
+
+                                <div class="input-group-btn col-md-4" >
+                                    <button class="btn btn-danger att_button_rem" type="button"><i class=""></i>Remove attachment field</button>
+                                </div>
+
+                            </div>
+                        </div>
 
 
                     </div>
-                    </div>
+                </div>
 
-&nbsp;
+                <hr>
+                &nbsp;
 
                 <div class="row">
                     <div class="col-md-12">
@@ -203,40 +245,43 @@
             }
 
             $(document).ready(function() {
-                $(".btn-success").click(function(){
+                $(".att_button").click(function(){
                     var lsthmtl = $(".clone").html();
                     $(".increment").after(lsthmtl);
+
                 });
-                $("body").on("click",".btn-danger",function(){
-                    $(this).parents(".hdtuto control-group lst").remove();
+                $("body").on("click",".att_button_rem",function(){
+                    $(this).parents(".remuv").remove();
                 });
             });
 
-           /* $(document).ready(function() {
-                var max_fields      = 6; //maximum input boxes allowed
-                var wrapper         = $(".increment"); //Fields wrapper
-                var add_button      = $(".btn-success"); //Add button ID
+            /* $(document).ready(function() {
+                 var max_fields      = 6; //maximum input boxes allowed
+                 var wrapper         = $(".increment"); //Fields wrapper
+                 var add_button      = $(".btn-success"); //Add button ID
 
-                var x = 1; //initlal text box count
-                $(add_button).click(function(e){ //on add input button click
-                    e.preventDefault();
-                    if(x < max_fields){ //max input box allowed
-                        x++; //text box increment
-                        $(wrapper).append('<div class="input-group-btn">'
-                            +'<button class="btn btn-danger remove_field" type="button">'+
-                            +'<i class="fldemo glyphicon glyphicon-remove"></i> Remove</button>'+
-                            +'</div>');
-                        var lsthmtl = $(".clone").html();
-                        $(".increment").after(lsthmtl);//add input box
-                    }
-                });
+                 var x = 1; //initlal text box count
+                 $(add_button).click(function(e){ //on add input button click
+                     e.preventDefault();
+                     if(x < max_fields){ //max input box allowed
+                         x++; //text box increment
+                         $(wrapper).append('<div class="input-group-btn">'
+                             +'<button class="btn btn-danger remove_field" type="button">'+
+                             +'<i class="fldemo glyphicon glyphicon-remove"></i> Remove</button>'+
+                             +'</div>');
+                         var lsthmtl = $(".clone").html();
+                         $(".increment").after(lsthmtl);//add input box
+                     }
+                 });
 
-                $(wrapper).on("click",".btn-danger", function(e){ //user click on remove text
-                    e.preventDefault(); $(this).parent('div').remove(); x--;
-                })
-            });*/
+                 $(wrapper).on("click",".btn-danger", function(e){ //user click on remove text
+                     e.preventDefault(); $(this).parent('div').remove(); x--;
+                 })
+             });*/
 
         </script>
+
+
     @endpush
 
 @endsection

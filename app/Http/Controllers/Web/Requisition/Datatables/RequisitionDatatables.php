@@ -21,7 +21,8 @@ trait RequisitionDatatables
                 return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i> </a>';
+                //return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i> </a>';
+                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. '<a href="'.route('requisition.addDescription', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
