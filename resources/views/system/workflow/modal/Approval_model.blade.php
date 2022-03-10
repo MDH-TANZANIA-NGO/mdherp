@@ -57,9 +57,9 @@
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('label.cancel') }}</button>
+        <button type="submit" class="btn btn-primary" id="submit_approval_modal">{{ __('label.submit') }}</button>
         <span id="form_status"></span>
-        <button type="submit" class="btn btn-secondary" id="submit_approval_modal">{{ __('label.submit') }}</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('label.cancel') }}</button>
     </div>
     {!! Form::close() !!}
 {{--@endif--}}
