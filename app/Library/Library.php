@@ -272,3 +272,32 @@ if (!function_exists('true_false_pluck')) {
         ];
     }
 }
+
+if (!function_exists('currency_converter')) {
+    function currency_converter($amount, $currency)
+    {
+        $rate = (new \App\Repositories\Rate\RateRepository())->getQuery()->where('active', true);
+
+        if($rate->count() == 0){
+            throw new \App\Exceptions\GeneralException($currency. ' There is no exchange rate. Please contact Finance department to set exchange Rate');
+        }
+        if(!is_numeric($amount)){
+            throw new \App\Exceptions\GeneralException($currency. ' Please enter amount');
+        }
+        $converted = null;
+        switch($currency)
+        {
+            case 'TSH':
+                $converted = $amount/$rate->first()->amount;
+                break;
+            case 'USD':
+                $converted = $amount * $rate->first()->amount;
+                break;
+            default:
+                throw new \App\Exceptions\GeneralException($currency. ' Does not exist. You can use either TSH or USD');
+                break;
+        }
+
+        return $converted;
+    }
+}
