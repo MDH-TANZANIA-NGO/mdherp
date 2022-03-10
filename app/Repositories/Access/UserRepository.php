@@ -225,7 +225,7 @@ class UserRepository extends BaseRepository
             $user->projects()->sync($inputs['projects']);
             $reset_link = $this->resetLink($user);
             Log::info($reset_link);
-//            $user->notify(new UserRegistrationNotification($reset_link));
+            $user->notify(new UserRegistrationNotification($reset_link));
             return $user;
         });
     }
