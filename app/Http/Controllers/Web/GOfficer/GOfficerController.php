@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Web\GOfficer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerDatatables;
+use App\Imports\GOfficersImport;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GScaleRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Repositories\System\RegionRepository;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 
 class GOfficerController extends Controller
 {
@@ -111,5 +113,19 @@ class GOfficerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function import()
+    {
+        try {
+            \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
+            alert()->success('Uploaded Successfully', 'Success');
+            return redirect()->back();
+        }catch (\Exception $exception){
+            alert()->error('You have Duplicate Entry','Failed');
+            $exception->getMessage();
+            return redirect()->back();
+        }
+
     }
 }
