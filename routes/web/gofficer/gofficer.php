@@ -5,6 +5,7 @@ Route::group(['namespace' => 'GOfficer', 'middleware' => ['web', 'auth'], 'prefi
     Route::get('{uuid}/show', 'GOfficerController@show')->name('show');
     Route::put('{uuid}/update', 'GOfficerController@update')->name('update');
     Route::put('{uuid}/activate', 'GOfficerController@activate')->name('activate');
+    Route::post('import', 'GOfficerController@import')->name('import');
 
     /**
      * Datatables
