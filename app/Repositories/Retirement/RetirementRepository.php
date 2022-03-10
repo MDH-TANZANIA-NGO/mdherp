@@ -139,7 +139,8 @@ class RetirementRepository extends BaseRepository
     public function UpdateProcessRetirement($inputs)
     {
         return[
-
+            'amount_spent'=>$inputs['amount_spent'],
+            'amount_variance'=>$inputs['amount_variance'],
             'activity_report'=>$inputs['activity_report'],
             'planned_report'=>$inputs['planned_report'],
             'no_participants'=>$inputs['no_participants'],
