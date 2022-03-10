@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Rate\RateRequest;
 use App\Repositories\Rate\RateRepository;
 use App\Http\Controllers\Web\Rate\Datatables\RateDatatables;
+use App\Models\Rate\Rate;
 
 class RateController extends Controller
 {
@@ -50,7 +51,7 @@ class RateController extends Controller
      */
     public function show(Rate $rate)
     {
-        return view('rate.display.show')
+        return view('rate.show')
             ->with('rate', $rate);
     }
 
