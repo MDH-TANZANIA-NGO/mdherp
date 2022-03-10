@@ -53,10 +53,12 @@ class ProgramActivityReportController extends Controller
         $requisition_training_participants = requisition_training_cost::query()->where('requisition_training_id', $requisition_training->id);
         $requisition_training_items = requisition_training_item::query()->where('requisition_training_id', $requisition_training->id);
         $requisition =  Requisition::query()->where('id', $requisition_training->requisition_id)->first();
+        $group_attendance = $requisition_training->trainingCost()->whereHas('programActivityAttendance');
         return view('programactivity.forms.activity-report.create')
             ->with('program_activity_report', $programActivityReport)
             ->with('requisition_uuid', $requisition->uuid)
             ->with('requisition', $requisition)
+            ->with('group_attendance', $group_attendance)
             ->with('activity_details', $requisition_training)
             ->with('activity_location', $requisition_training->district->name)
             ->with('activity_participants_count', $requisition_training_participants->count())
@@ -71,10 +73,12 @@ class ProgramActivityReportController extends Controller
         $requisition_training_participants = requisition_training_cost::query()->where('requisition_training_id', $requisition_training->id);
         $requisition_training_items = requisition_training_item::query()->where('requisition_training_id', $requisition_training->id);
         $requisition =  Requisition::query()->where('id', $requisition_training->requisition_id)->first();
+        $group_attendance = $requisition_training->trainingCost()->whereHas('programActivityAttendance');
         return view('programactivity.forms.activity-report.edit')
             ->with('program_activity_report', $programActivityReport)
             ->with('requisition_uuid', $requisition->uuid)
             ->with('requisition', $requisition)
+            ->with('group_attendance', $group_attendance)
             ->with('activity_details', $requisition_training)
             ->with('activity_location', $requisition_training->district->name)
             ->with('activity_participants_count', $requisition_training_participants->count())
@@ -133,7 +137,8 @@ class ProgramActivityReportController extends Controller
         $requisition_training_participants = requisition_training_cost::query()->where('requisition_training_id', $requisition_training->id);
         $requisition_training_items = requisition_training_item::query()->where('requisition_training_id', $requisition_training->id);
         $requisition =  Requisition::query()->where('id', $requisition_training->requisition_id)->first();
-        $attendance = $program_activity->attendance()->get();
+        $group_attendance = $requisition_training->trainingCost()->whereHas('programActivityAttendance');
+
         /* Check workflow */
         $wf_module_group_id = 9;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $programActivityReport->id);
@@ -150,11 +155,11 @@ class ProgramActivityReportController extends Controller
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($programActivityReport))
-            ->with('attendance', $attendance)
             ->with('program_activity_reports', $programActivityReports)
             ->with('program_activity_report', $programActivityReport)
             ->with('requisition_uuid', $requisition->uuid)
             ->with('requisition', $requisition)
+            ->with('group_attendance', $group_attendance)
             ->with('activity_details', $requisition_training)
             ->with('activity_location', $requisition_training->district->name)
             ->with('activity_participants_count', $requisition_training_participants->count())

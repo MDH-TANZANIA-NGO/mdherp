@@ -84,7 +84,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     Available
-                                    <span class=" badgetext badge badge-default badge-pill">{{number_2_format(($budget->amount)-(($payed_and_closed)+($approved_requisitions)+($not_approved_requisitions)))}}</span>
+                                    <span class=" badgetext badge badge-default badge-pill">{{number_2_format(($budget->amount)-(($payed_and_closed)+($approved_requisitions)+($not_approved_requisitions)+($denied_requisitions)))}}</span>
                                 </li>
 
                             </ul>

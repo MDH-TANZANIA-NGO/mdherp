@@ -14,4 +14,6 @@ class Payment extends BaseModel
 {
    use PaymentRelationship, PaymentAttribute;
 
+
+
 }

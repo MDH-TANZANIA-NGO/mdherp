@@ -5,6 +5,7 @@ namespace App\Models\Requisition\Training\Traits\Relationship;
 use App\Models\Auth\User;
 use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\GRate;
+use App\Models\ProgramActivity\ProgramActivityAttendance;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\System\District;
@@ -33,6 +34,11 @@ trait RequisitionTrainingCostRelationship {
     public function training()
     {
         return $this->belongsTo(requisition_training::class);
+    }
+
+    public function programActivityAttendance()
+    {
+        return $this->hasMany(ProgramActivityAttendance::class, 'g_officer_id', 'participant_uid');
     }
 
 

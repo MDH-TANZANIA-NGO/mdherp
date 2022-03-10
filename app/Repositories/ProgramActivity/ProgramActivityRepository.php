@@ -213,11 +213,12 @@ class ProgramActivityRepository extends BaseRepository
 
             $attendance  = requisition_training_cost::all()->where('uuid', $uuid)->pluck('attend');
             $substitute =   requisition_training_cost::all()->where('uuid', $uuid)->pluck('is_substitute');
-
+            $training_cost = requisition_training_cost::all()->where('uuid', $uuid)->first();
             if ($substitute == true || $attendance ==  true)
 
             {
-                DB::update('update requisition_training_costs set attend = ?, is_substitute = ?, substituted_user_id = ?  where uuid=?', [false, false, null, $uuid]);
+
+                DB::update('update requisition_training_costs set participant_uid = ?, attend = ?, is_substitute = ?, substituted_user_id = ?  where uuid=?', [$training_cost->substituted_user_id, false, false, null, $uuid]);
             }
 
 

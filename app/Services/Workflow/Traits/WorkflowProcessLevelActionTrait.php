@@ -28,38 +28,38 @@ trait WorkflowProcessLevelActionTrait
     {
         switch($wf_module_id){
             case 1:
-                /*TAF*/
-                $taf = Taf::query()->find($resource_id);
-                return DB::transaction(function () use ($taf, $sign){
+                /*Requisition*/
+                $requisition = Requisition::query()->find($resource_id);
+                return DB::transaction(function () use ($requisition, $sign){
                     $rejected = 0;
                     if($sign == -1){
                         $rejected = 1;
                     }
-                    return $taf->update(['rejected' => $rejected]);
+                    return $requisition->update(['rejected' => $rejected]);
                 });
                 break;
-            case 2:
-                /*TBER*/
-                $tber = Tber::query()->find($resource_id);
-                return DB::transaction(function () use ($tber, $sign){
-                    $rejected = 0;
-                    if($sign == -1){
-                        $rejected = 1;
-                    }
-                    return $tber->update(['rejected' => $rejected]);
-                });
-                break;
-                case 4:
-                    /*Leave*/
-                    $tber = Leave::query()->find($resource_id);
-                    return DB::transaction(function () use ($tber, $sign){
-                        $rejected = 0;
-                        if($sign == -1){
-                            $rejected = 1;
-                        }
-                        return $tber->update(['rejected' => $rejected]);
-                    });
-                    break;
+//            case 2:
+//                /*TBER*/
+//                $tber = Tber::query()->find($resource_id);
+//                return DB::transaction(function () use ($tber, $sign){
+//                    $rejected = 0;
+//                    if($sign == -1){
+//                        $rejected = 1;
+//                    }
+//                    return $tber->update(['rejected' => $rejected]);
+//                });
+//                break;
+//                case 4:
+//                    /*Leave*/
+//                    $tber = Leave::query()->find($resource_id);
+//                    return DB::transaction(function () use ($tber, $sign){
+//                        $rejected = 0;
+//                        if($sign == -1){
+//                            $rejected = 1;
+//                        }
+//                        return $tber->update(['rejected' => $rejected]);
+//                    });
+//                    break;
         }
 
     }
@@ -88,7 +88,7 @@ trait WorkflowProcessLevelActionTrait
         $level = null;
         switch($wf_module_id){
             case 1:
-                /*TAF*/
+                /*Requisition*/
                 $level = 1;
                 break;
             case 2:

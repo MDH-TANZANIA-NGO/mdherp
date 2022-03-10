@@ -10,6 +10,7 @@ use App\Models\Auth\User;
 use App\Models\Leave\Leave;
 use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
+use App\Repositories\Access\UserRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
@@ -24,10 +25,12 @@ class LeaveController extends Controller
     use LeaveDatatables;
     protected $leaves;
     protected $wf_tracks;
+    protected $user;
 
     public function __construct(){
         $this->leaves = (new LeaveRepository());
         $this->wf_tracks = (new WfTrackRepository());
+        $this->user = (new UserRepository());
     }
     /**
      * Display a listing of the resource.
@@ -46,8 +49,9 @@ class LeaveController extends Controller
      */
     public function create()
     {
-        $leaveTypes = LeaveType::all();
-        $users = User::where('designation_id', '!=', null)->get();
+        $leaveTypes = LeaveType::all()->pluck('name', 'id');
+//        $leaveTypes = $this->leaves->getQuery()->get()->pluck('type_name','type_id');
+        $users = $this->user->forSelect();
         $leaveBalances = LeaveBalance::all()->where('user_id', access()->user()->id);
 
         return view('leave._parent.form.create')
@@ -126,7 +130,7 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Leave $leave)
     {
         //
     }
@@ -138,7 +142,7 @@ class LeaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Leave $leave)
     {
         //
     }

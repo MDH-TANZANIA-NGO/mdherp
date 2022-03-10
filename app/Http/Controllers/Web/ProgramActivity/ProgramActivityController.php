@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Web\ProgramActivity;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\ProgramActivity\Datatable\GOfficalsParticipantListDatatable;
-use App\Http\Controllers\Web\ProgramActivity\Datatable\ListOfParticipants;
 use App\Http\Controllers\Web\ProgramActivity\Datatable\ProgramActivityDatatable;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
 use App\Models\GOfficer\GOfficer;
+use App\Models\GOfficer\Traits\Relationship\GOfficerRelationship;
 use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\ProgramActivity\ProgramActivityAttendance;
 use App\Models\Requisition\Requisition;
@@ -21,6 +20,7 @@ use App\Models\Requisition\Training\Traits\Relationship\RequisitionTrainingRelat
 use App\Notifications\ProgramActivityReport\ProgramActivityReportNotification;
 use App\Repositories\Access\SupervisorUserRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
+use App\Repositories\ProgramActivity\ProgramActivityAttendanceRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProgramActivityController extends Controller
 {
-    use ProgramActivityDatatable;
+    use ProgramActivityDatatable, GOfficerRelationship;
 
 
     protected $trainings;
@@ -50,6 +50,7 @@ class ProgramActivityController extends Controller
     protected $requisition_training_cost;
     protected $requisition_training_items;
     protected $supervisorUser;
+    protected $program_activity_attendance;
 
 
     public function __construct()
@@ -65,6 +66,7 @@ class ProgramActivityController extends Controller
         $this->requisition_training_cost = (new RequestTrainingCostRepository());
         $this->requisition_training_items =  (new RequisitionTrainingItemsRepository());
         $this->supervisorUser =  (new  SupervisorUserRepository());
+        $this->program_activity_attendance = (new ProgramActivityAttendanceRepository());
     }
 
     public function index()
@@ -150,9 +152,9 @@ class ProgramActivityController extends Controller
         $requisition_training_items = requisition_training_item::all()->where('requisition_id', $requisition_id);
         $supervisor = SupervisorUser::where('user_id', $programActivity->user_id)->first();
         $training_details =  requisition_training::query()->where('requisition_id', $requisition_id)->first();
-        $attendance = $programActivity->attendance()->get();
-//        dd($supervisor->supervisor_id);
+        $attendance = $programActivity->attendance()->getQuery()->get();
 
+        $group_attendance = $training_details->trainingCost()->whereHas('programActivityAttendance');
 
         return view('programactivity.display.show')
             ->with('current_level', $current_level)
@@ -163,6 +165,7 @@ class ProgramActivityController extends Controller
             ->with('program_activity',$programActivity)
             ->with('requisition', Requisition::query()->where('id', $requisition_id)->first())
             ->with('attendance', $attendance)
+            ->with('group_attendance', $group_attendance)
             ->with('activity_details',$training_details)
             ->with('activity_location', $training_details->district->name)
             ->with('activity_participants', $training_details->trainingCost()->get()->all())
@@ -176,10 +179,12 @@ class ProgramActivityController extends Controller
 
     public function updateParticipant(Request $request, $uuid)
     {
-        $program_activity_uuid = ProgramActivity::all()->where('requisition_training_id', requisition_training_cost::all()->where('participant_uid', $this->gOfficer->findByUuid($uuid)->id)->first()->requisition_training_id)->first()->uuid;
-        $this->program_activity->updateParticipant($request->all(), $uuid);
+        $requisition_training_cost = $this->requisition_training_cost->find($request->get('requisition_training_cost_id'));
+        $program_activity =  ProgramActivity::query()->where('requisition_training_id', $requisition_training_cost->requisition_training_id)->first();
+        $participant = GOfficer::query()->where('uuid', $uuid)->first();
+        $this->program_activity->updateParticipant($request->all(), $requisition_training_cost->uuid);
         alert()->success('Your Swap is Successfully', 'Success');
-        return redirect()->route('programactivity.show', $program_activity_uuid);
+        return redirect()->route('programactivity.show', $program_activity->uuid);
     }
     public function editParticipant(ProgramActivityRepository $activityRepository, $uuid)
     {
@@ -192,7 +197,6 @@ class ProgramActivityController extends Controller
 
 
         $gofficer = GOfficer::all()->pluck('first_name', 'id');
-
 //        dd($this->gOfficer->getQuery()->pluck('names', 'id'));
         return view('programactivity.forms.edit-participant')
             ->with('gofficers', $this->gOfficer->getQuery()->pluck('unique', 'id'))
@@ -217,8 +221,9 @@ class ProgramActivityController extends Controller
         $program_activity = ProgramActivity::query()->where('id', $request['program_activity_id'])->first();
         $training =  requisition_training::query()->where('id', $program_activity->requisition_training_id)->first();
 
-        if (Carbon::now() <= $training->end_date)
+        if (date("Y-m-d",strtotime(Carbon::now()))  <= $training->end_date)
         {
+
             if (!$checkin)
             {
 
@@ -239,7 +244,7 @@ class ProgramActivityController extends Controller
             {
                 alert()->error("Today's Attendance was captured",'Not Allowed');
             }
-        }elseif (Carbon::now() >= $training->end_date)
+        }elseif (date("Y-m-d",strtotime(Carbon::now())) > $training->end_date)
         {
             alert()->error('Activity Has been Expired', 'Oohps Sorry');
         }
@@ -309,6 +314,17 @@ class ProgramActivityController extends Controller
         return redirect()->back();
 
 
+    }
+
+    public function viewParticipantAttendance(Request  $request, $id)
+    {
+
+        $attendance = ProgramActivityAttendance::query()->where('program_activity_id', $request['program_activity_id'])->where('g_officer_id', $id)->get();
+
+
+
+        return view('programactivity.datatable.participants.attendance')
+            ->with('attendance', $attendance);
     }
 
 }
