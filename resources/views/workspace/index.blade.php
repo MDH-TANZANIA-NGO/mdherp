@@ -1,8 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+    <div  class="row">
+        <div class="col-md-12 ">
+            <div class="card">
 
-{{--    Workspace--}}
+                <div class="card-body">
+                    <div class="jumbotron">
+                        <h1 class="display-3">Coming, soon!</h1>
+                        <p class="lead"><b>MIMOSA APP</b> is coming soon..</p>
+                        <hr class="my-4">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+{{--    Workspace--}}{{--
 
     <div class="row">
 
@@ -20,7 +33,7 @@
 
         <div class="col-4 col-sm-4 col-lg-3">
             <a href="{{route('safari.index')}}">
-{{--                <a href="{{route('safari.index')}}">--}}
+--}}{{--                <a href="{{route('safari.index')}}">--}}{{--
                 <div class="card">
                     <div class="card-body text-center">
                         <div class="h2 m-0"><i class="fa fa-subway multiple-outline text-primary" ></i></div>
@@ -98,7 +111,7 @@
                 </div>
             </a>
         </div>
-        {{--<div class="col-4 col-sm-4 col-lg-3">
+        --}}{{--<div class="col-4 col-sm-4 col-lg-3">
             <a href="{{ route('leave.index') }}">
                 <div class="card">
                     <div class="card-body text-center">
@@ -107,8 +120,8 @@
                     </div>
                 </div>
             </a>
-        </div>--}}
+        </div>--}}{{--
 
 
-    </div>
+    </div>--}}
 @endsection
