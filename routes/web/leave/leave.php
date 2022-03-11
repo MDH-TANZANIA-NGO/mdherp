@@ -2,7 +2,7 @@
 Route::group(['namespace' => 'Leave', 'middleware' => ['web', 'auth'], 'prefix' => 'leave', 'as' => 'leave.'], function () {
     Route::get('', 'LeaveController@index')->name('index');
     Route::get('/create', 'LeaveController@create')->name('create');
-    Route::get('{leave}/edit', 'LeaveController@create')->name('edit');
+    Route::get('{leave}/edit', 'LeaveController@edit')->name('edit');
     Route::post('store', 'LeaveController@store')->name('store');
     Route::post('setup', 'LeaveController@setup')->name('setup');
     Route::put('{leave}/update', 'LeaveController@update')->name('update');

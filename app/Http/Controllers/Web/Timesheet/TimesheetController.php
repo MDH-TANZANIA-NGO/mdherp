@@ -123,9 +123,12 @@ class TimesheetController extends Controller
         foreach ($effort_levels as  $effort_level){
               array_push($time_perc, array(
                   'project' =>  Project::where('id', $effort_level->project_id)->pluck('title')->first(),
-                  'percentage' => $effort_level->percentage * 0.01 * $timesheet->hrs
+                  'percentage' => $effort_level->percentage * 0.01 * $timesheet->hrs,
+                  'percent' => $effort_level->percentage
               ));
         }
+
+        $attendances = Attendance::where('timesheet_id', $timesheet->id)->orderBy('date')->get();
 
         return view('timesheet.show')
             ->with('current_level', $current_level)
@@ -133,6 +136,7 @@ class TimesheetController extends Controller
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($timesheet))
             ->with('time_percentages', $time_perc)
+            ->with('attendances', $attendances)
             ->with('timesheet', $timesheet);
     }
 
@@ -140,11 +144,12 @@ class TimesheetController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Timesheet $timesheet)
     {
-        //
+        return view('timesheet.forms.edit')
+            ->with('timesheet', $timesheet);
     }
 
     /**
@@ -152,11 +157,28 @@ class TimesheetController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Timesheet $timesheet)
     {
-        //
+        foreach ($timesheet->attendances as $attendance){
+            for ($i = 0; $i < count($request['data']); $i++ ){
+                if ($attendance->date == $request['data'][$i]['date']){
+                    $attendance->update([
+                        'comments' => $request['data'][$i]['comment'],
+                        'hrs' => $request['data'][$i]['hrs'],
+                    ]);
+                }
+            }
+        }
+
+        $totalHrs = Attendance::where(['user_id' => access()->id(), 'timesheet_id' => $timesheet->id])->sum('hrs');
+        $timesheet->update([
+            'hrs' => $totalHrs
+        ]);
+
+        return redirect()->route('timesheet.show', $timesheet);
+
     }
 
     /**

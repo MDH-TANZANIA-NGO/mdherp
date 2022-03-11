@@ -51,7 +51,7 @@ trait LeaveDatatables
         return DataTables::of($this->leaves->getAccessProvedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
-                return $query->created_at->toDateTimeString();
+                return $query->created_at->toDateString();
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('leave.show', $query->uuid).'">View</a>';

@@ -41,14 +41,14 @@ trait TimesheetDatatable
             ->rawColumns(['action'])
             ->make(true);
     }
-    public function AccessAprovedDatatable(){
+    public function AccessApprovedDatatable(){
         return DataTables::of($this->timesheets->getAccessApprovedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
-                return $query->created_at->toDateTimeString();
+                return date('Y-m-d', strtotime($query->created_at));
             })
             ->editColumn('wf_done_date', function ($query) {
-                return $query->wf_done_date->toDateTimeString();
+                return date('Y-m-d', strtotime($query->wf_done_date));
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('timesheet.show', $query->uuid).'">View</a>';

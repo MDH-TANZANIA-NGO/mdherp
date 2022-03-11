@@ -2,7 +2,6 @@
 
 @section('content')
 
-{{--    <form action="{{route('leave.store')}}" method="post">--}}
     {!! Form::open(['route' => ['leave.store']]) !!}
     @csrf
     <!-- Large Modal -->
@@ -138,8 +137,6 @@
         </div>
         <!-- End Row -->
         </div>
-{{--    </form>--}}
-
     {!! Form::close() !!}
 
 

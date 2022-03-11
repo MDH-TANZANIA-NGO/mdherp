@@ -128,11 +128,17 @@ class LeaveController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(Leave $leave)
     {
-        //
+        $leaveTypes = LeaveType::all()->pluck('name', 'id');
+        $users = $this->user->forSelect();
+
+        return view('leave._parent.form.edit')
+            ->with('leave', $leave)
+            ->with('leaveTypes', $leaveTypes)
+            ->with('users', $users);
     }
 
     /**
@@ -144,7 +150,9 @@ class LeaveController extends Controller
      */
     public function update(Request $request, Leave $leave)
     {
-        //
+        $leave->update($request->all());
+        alert()->success('Leave Request Updated Successfully');
+        return redirect()->route('leave.show', $leave);
     }
 
     /**

@@ -67,6 +67,7 @@
                         <tr>
                             <th>Project</th>
                             <th>Hours</th>
+                            <th>Percentage</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -75,15 +76,50 @@
                             <tr>
                                 <td>{{$time_percentage['project']}}</td>
                                 <td>{{$time_percentage['percentage']}}</td>
+                                <td>{{$time_percentage['percent']}} %</td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
                 <!-- table-responsive -->
-
             </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Hourly Description on Daily Base </h3>
+                <div class="card-options ">
+                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                    {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap">
+                        <thead >
+                        <tr>
+                            <th>Date</th>
+                            <th>Hours</th>
+                            <th>Comment</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach($attendances as $attendance)
+                            <tr>
+                                <td>{{\Carbon\Carbon::parse($attendance->date)->format('d/m/Y')}}</td>
+                                <td>{{$attendance->hrs}}</td>
+                                <td>{{$attendance->comment}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <!-- table-responsive -->
+            </div>
         </div>
     </div>
 
