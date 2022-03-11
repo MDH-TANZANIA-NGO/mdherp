@@ -12,12 +12,14 @@ use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 
 class RetirementRepository extends BaseRepository
 {
     use Number;
     const MODEL = Retirement::class;
+    //const MODEL = Media::class;
 
 
 
@@ -38,6 +40,14 @@ class RetirementRepository extends BaseRepository
         ])
             ->join('users','users.id', 'retirements.user_id');
     }
+
+    public function getattachment()
+    {
+        return $this->query()->select([
+            DB::raw('media.name AS attachment_name')
+        ]);
+    }
+
     public function getAllApprovedRetirements()
     {
         return $this->getQuery()
@@ -106,7 +116,6 @@ class RetirementRepository extends BaseRepository
 
             'retirement_id'=> $retirement->id,
             'safari_advance_id'=>$inputs['safari_advance_id'],
-
             'from'=>$inputs['from'],
             'to'=>$inputs['to'],
             'district_id'=>$inputs['district_id'],
@@ -116,6 +125,30 @@ class RetirementRepository extends BaseRepository
             'amount_spent'=>$inputs['amount_spent'],
             'amount_variance'=>$inputs['amount_variance'],
             'activity_report'=>$inputs['activity_report'],
+            'planned_report'=>$inputs['planned_report'],
+            'no_participants'=>$inputs['no_participants'],
+            'objective_report'=>$inputs['objective_report'],
+            'methodology_report'=>$inputs['methodology_report'],
+            'achievement_report'=>$inputs['achievement_report'],
+            'challenge_report'=>$inputs['challenge_report'],
+            'action_report'=>$inputs['action_report'],
+
+        ];
+    }
+
+    public function UpdateProcessRetirement($inputs)
+    {
+        return[
+            'amount_spent'=>$inputs['amount_spent'],
+            'amount_variance'=>$inputs['amount_variance'],
+            'activity_report'=>$inputs['activity_report'],
+            'planned_report'=>$inputs['planned_report'],
+            'no_participants'=>$inputs['no_participants'],
+            'objective_report'=>$inputs['objective_report'],
+            'methodology_report'=>$inputs['methodology_report'],
+            'achievement_report'=>$inputs['achievement_report'],
+            'challenge_report'=>$inputs['challenge_report'],
+            'action_report'=>$inputs['action_report'],
 
         ];
     }
@@ -168,6 +201,16 @@ class RetirementRepository extends BaseRepository
             }
 
         });
+    }
+
+    public function refurbishing($inputs, $uuid){
+
+        return DB::transaction(function () use ($inputs, $uuid){
+            $this->query()->update($this->inputProcess($inputs));
+            return DB::table('retirement_details')->update($this->UpdateProcessRetirement($inputs));
+
+        });
+
     }
 
     public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])

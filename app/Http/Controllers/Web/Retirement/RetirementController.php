@@ -63,12 +63,21 @@ class RetirementController extends Controller
             ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
     }
 
-    public  function  edit(Retirement $retirement)
+   /* public  function  edit(Retirement $retirement)
     {
         return view('retirement.forms.create')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
             ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
+    }*/
+
+    public  function  edit(Retirement $retirement)
+    {
+        return view('retirement.forms.edit')
+            ->with('retirement', $retirement)
+            ->with('district', $this->district->getForPluck())
+            ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id))
+            ->with('retirementz',$retirement->details()->get());
     }
 
     public function store(Request $request)
@@ -98,6 +107,7 @@ class RetirementController extends Controller
                     $retirement_detailz->addMedia($attachment)->toMediaCollection('attachments');
                 }
             }
+
             alert()->success('Retirement Submitted Successfully','Success');
             return redirect()->route('retirement.show',$uuid);
         }
@@ -126,9 +136,16 @@ class RetirementController extends Controller
 
     }
 
+    public function refurbish(Request $request, $uuid){
+
+        $this->retirements->refurbishing($request->all(),$uuid);
+        alert()->success('Retirement Modified Successfully','Success');
+        return redirect()->route('retirement.show',$uuid);
+    }
+
     public function show(Retirement $retirement)
     {
-       // dd($retirement->getMediaCollections());
+       //dd($retirement->details()->get());
         /* Check workflow */
         $wf_module_group_id = 4;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $retirement->id);
@@ -140,7 +157,11 @@ class RetirementController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($retirement, $current_level, $workflow->wf_definition_id);
 
         $designation = access()->user()->designation_id;
-//ddd($retirement->details());
+
+        $retirementatt =$this->retirements = (new RetirementRepository());
+
+        //dd($retirementatt->getattachment()->get());
+
         return view('retirement.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
@@ -148,6 +169,7 @@ class RetirementController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($retirement))
             ->with('retirement', $retirement)
             ->with('retirementz',$retirement->details()->get());
+            //->with('attachmentname', $retirementatt->getattachment()->get('attachment_name'));
     }
 
 

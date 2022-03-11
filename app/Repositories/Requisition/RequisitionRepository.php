@@ -84,6 +84,12 @@ class RequisitionRepository extends BaseRepository
                     ->where('wf_done', 0)
                     ->whereHas('budget');
     }
+    public function getAllDeniedInTheSameBudget()
+    {
+        return $this->getQueryAll()
+            ->where('wf_done', 5)
+            ->whereHas('budget');
+    }
 
     public function getAccessProcessingDatatable()
     {

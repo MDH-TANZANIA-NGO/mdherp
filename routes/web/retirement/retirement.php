@@ -5,6 +5,7 @@ Route::group(['namespace' => 'Retirement', 'middleware' => ['web', 'auth'], 'pre
     Route::get('{retirement}/edit', 'RetirementController@edit')->name('edit');
     Route::post('store', 'RetirementController@store')->name('store');
     Route::post('{uuid}/update', 'RetirementController@update')->name('update');
+    Route::post('{uuid}/refurbish', 'RetirementController@refurbish')->name('refurbish');
     Route::get('{retirement}/show', 'RetirementController@show')->name('show');
     Route::get('initiate', 'RetirementController@initiate')->name('initiate');
     Route::get('back', 'RetirementController@goback')->name('back');
