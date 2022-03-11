@@ -90,7 +90,7 @@
                             <div class="form-group">
                                 <label class="form-label">Actual Amount Spent </label>
                                 {{--                            {!! Form::number('amount_spent',$retire_safari->amount_received, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}--}}
-                                <input type="number" id="a_spent" onkeydown="calculate('a_paid','a_spent','a_variance')" name="amount_spent" class="form-control" required placeholder="Enter amount you spent">
+                                <input type="number" id="a_spent" onkeydown="calculate('a_paid','a_spent','a_variance')" name="amount_spent" class="form-control" required placeholder="Enter amount you spent" value="{{$retirement->details->amount_spent}}">
 
                             </div>
                         </div>
@@ -98,7 +98,7 @@
 
                             <div class="form-group">
                                 <label class="form-label">Variance Amount</label>
-                                <input type="number" id="a_variance" onblur="calculate('a_paid','a_spent','a_variance')" name="amount_variance" class="form-control" placeholder="">
+                                <input type="number" value="{{$retirement->details->amount_variance}}" id="a_variance" onblur="calculate('a_paid','a_spent','a_variance')" name="amount_variance" class="form-control" placeholder="" required >
                             </div>
                         </div>
 
