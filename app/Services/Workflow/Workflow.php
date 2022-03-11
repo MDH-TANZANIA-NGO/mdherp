@@ -418,7 +418,7 @@ class Workflow
                     $retirement = $retirement_repo->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('retirement.show',$retirement),
-                        'subject' => $retirement->number." Need your Approval",
+                        'subject' => $retirement->number." Retirement Approval Request",
                         'message' => $retirement->number.' need your approval'
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));

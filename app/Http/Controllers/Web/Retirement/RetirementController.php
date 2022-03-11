@@ -138,7 +138,18 @@ class RetirementController extends Controller
 
     public function refurbish(Request $request, $uuid){
 
+        $retirement_attribute =$this->retirements->findByUuid($uuid);
         $this->retirements->refurbishing($request->all(),$uuid);
+        $retirement_detailz = RetirementDetail::where('retirement_id', $retirement_attribute->id)->first();
+        if ($request->hasFile('attachments')){
+            foreach($request->file('attachments') as $attachment){
+                $retirement_detailz->addMedia($attachment)->toMediaCollection('attachments');
+            }
+        }
+        $retirement = $this->retirements->findByUuid($uuid);
+        $wf_module_group_id = 4;
+        $next_user = $retirement->user->assignedSupervisor()->supervisor_id;
+        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $retirement->id,'region_id' => $retirement->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
         alert()->success('Retirement Modified Successfully','Success');
         return redirect()->route('retirement.show',$uuid);
     }

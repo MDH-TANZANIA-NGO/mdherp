@@ -4,6 +4,7 @@
 namespace App\Services\Workflow\Traits;
 
 
+use App\Models\Retirement\Retirement;
 use App\Models\Taf\Taf;
 use App\Models\Tber\Tber;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -38,17 +39,18 @@ trait WorkflowProcessLevelActionTrait
                     return $requisition->update(['rejected' => $rejected]);
                 });
                 break;
-//            case 2:
-//                /*TBER*/
-//                $tber = Tber::query()->find($resource_id);
-//                return DB::transaction(function () use ($tber, $sign){
-//                    $rejected = 0;
-//                    if($sign == -1){
-//                        $rejected = 1;
-//                    }
-//                    return $tber->update(['rejected' => $rejected]);
-//                });
-//                break;
+            case 2:
+                /*Retirement*/
+                $retirement = Retirement::query()->find($resource_id);
+                return DB::transaction(function () use ($retirement, $sign){
+                    $rejected = 0;
+                    if($sign == -1){
+                        $rejected = 1;
+                    }
+                    return $retirement->update(['rejected' => $rejected]);
+                });
+                break;
+
 //                case 4:
 //                    /*Leave*/
 //                    $tber = Leave::query()->find($resource_id);
