@@ -41,7 +41,7 @@
                                             @csrf
 												<h1>Login</h1>
 												<p class="text-muted">Sign In to your account</p>
-                                                
+
 												<div class="input-group mb-3">
 													<span class="input-group-addon"><i class="fa fa-user"></i></span>
                                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email" autofocus>
@@ -51,7 +51,7 @@
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
-													
+
 												</div>
 												<div class="input-group mb-4">
 													<span class="input-group-addon"><i class="fa fa-lock"></i></span>
@@ -62,7 +62,7 @@
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
-													
+
 												</div>
 												<div class="row">
 													<div class="col-12">
@@ -84,14 +84,14 @@
 											</div>
                                             </form>
 										</div>
-                                        
+
 										<!-- <div class="card text-white  py-5 d-md-down-none " style="background-color:white;"> -->
-										<div class="card text-white  py-5 d-md-down-none " style="background-color:rgb(168,204,255);">
+										<div class="card text-white  py-6 d-md-down-none " >
 											<div class="card-body text-center justify-content-center " style="margin-top:10%">
 
                                             <!-- <img src="../../mdh/images/photos/home2.png" > -->
                                             <img src="../../mdh/images/photos/home.png" >
-												
+
 												<!-- <a href="register.html" class="btn btn-secondary mt-3">Register Now!</a> -->
 											</div>
 										</div>
