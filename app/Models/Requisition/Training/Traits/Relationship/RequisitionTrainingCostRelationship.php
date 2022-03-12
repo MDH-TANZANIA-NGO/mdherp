@@ -33,7 +33,7 @@ trait RequisitionTrainingCostRelationship {
     }
     public function training()
     {
-        return $this->belongsTo(requisition_training::class);
+        return $this->belongsTo(requisition_training::class, 'requisition_training_id', 'id');
     }
 
     public function programActivityAttendance()

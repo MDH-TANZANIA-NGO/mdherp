@@ -31,14 +31,10 @@
 
                                     <td>{{$items->title}}</td>
                                     <td>{{$items->unit}}</td>
-                                    <td>{{$items->unit_price}}</td>
-                                    <td>{{$items->total_amount}}</td>
+                                    <td>{{number_2_format($items->unit_price)}}</td>
+                                    <td>{{number_2_format($items->total_amount)}}</td>
                                 </tr>
-                                <td>{{$items->title}}</td>
-                                <td>{{$items->unit}}</td>
-                                <td>{{$items->unit_price}}</td>
-                                <td>{{$items->total_amount}}</td>
-                                </tr>
+
 
                             @endforeach
                         @else

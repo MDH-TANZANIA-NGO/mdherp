@@ -5,7 +5,7 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::get('initiate', 'ProgramActivityController@initiate')->name('initiate');
     Route::post('store', 'ProgramActivityController@store')->name('store');
     Route::get('{programActivity}/create', 'ProgramActivityController@create')->name('create');
-
+    Route::get('{uuid}/export', 'ProgramActivityController@exportParticipants')->name('export');
     Route::post('{uuid}/update', 'ProgramActivityController@update')->name('update');
 
     Route::get('{programActivity}/show', 'ProgramActivityController@show')->name('show');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\ProgramActivity;
 
 use App\Events\NewWorkflow;
+use App\Exports\ParticipantsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\ProgramActivity\Datatable\ProgramActivityDatatable;
 use App\Models\Auth\SupervisorUser;
@@ -33,6 +34,7 @@ use App\Services\Workflow\Workflow;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Excel;
 
 class ProgramActivityController extends Controller
 {
@@ -69,14 +71,21 @@ class ProgramActivityController extends Controller
         $this->program_activity_attendance = (new ProgramActivityAttendanceRepository());
     }
 
+
+   /* This shows data table with all of user's activities with their status */
+
     public function index()
     {
         $supervisor = SupervisorUser::where('supervisor_id', access()->user()->id)->first();
-//        dd($supervisor);
+
         return view('programactivity.index')
             ->with('program_activities',  $this->program_activity = (new ProgramActivityRepository()))
             ->with('supervisor', $supervisor);
     }
+
+
+  /*  This is landing page when you click program activity module*/
+
     public function workspace(){
 
         $supervisor = SupervisorUser::where('supervisor_id', access()->user()->id)->first();
@@ -177,6 +186,7 @@ class ProgramActivityController extends Controller
             ->with('supervisor', $supervisor->supervisor_id);
     }
 
+    /*Function to Swap Participant in Activity*/
     public function updateParticipant(Request $request, $uuid)
     {
         $requisition_training_cost = $this->requisition_training_cost->find($request->get('requisition_training_cost_id'));
@@ -325,6 +335,13 @@ class ProgramActivityController extends Controller
 
         return view('programactivity.datatable.participants.attendance')
             ->with('attendance', $attendance);
+    }
+
+    public function exportParticipants( $uuid)
+    {
+        $program_activity =  $this->program_activity->findByUuid($uuid);
+
+        return \Maatwebsite\Excel\Facades\Excel::download(new ParticipantsExport($program_activity), 'participants.xlsx');
     }
 
 }

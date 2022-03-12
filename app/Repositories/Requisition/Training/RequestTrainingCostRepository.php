@@ -24,11 +24,25 @@ class RequestTrainingCostRepository extends BaseRepository
             DB::raw('requisition_training_costs.id AS id'),
             DB::raw('requisition_training_costs.perdiem_total_amount AS perdiem_total_amount'),
             DB::raw('requisition_training_costs.transportation AS transportation'),
+            DB::raw('requisition_training_costs.total_amount AS total_amount'),
             DB::raw('requisition_training_costs.other_cost AS other_cost'),
             DB::raw('requisition_training_costs.requisition_id AS requisition_id'),
-            DB::raw('requisition_training_costs.participant_uid AS participant_uid')
-        ]);
+            DB::raw('requisition_training_costs.participant_uid AS participant_uid'),
+            DB::raw('requisition_trainings.id AS training_id'),
+            DB::raw('program_activities.id AS activity_id'),
+            DB::raw('program_activities.uuid AS activity_uuid')
+        ])
+            ->join('requisition_trainings', 'requisition_trainings.id', 'requisition_training_costs.requisition_training_id')
+            ->join('program_activities', 'program_activities.requisition_training_id', 'requisition_trainings.id');
     }
+
+    public function getActivityParticipants($uuid)
+    {
+        return $this->getQuery()
+            ->whereHas('training')
+            ->where('program_activities.uuid', $uuid);
+    }
+
 
 
     public function inputProcess($inputs)
