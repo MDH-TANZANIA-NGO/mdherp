@@ -4,6 +4,7 @@ Route::group(['namespace' => 'Finance', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('{uuid}/show', 'FinanceActivityController@show')->name('show');
     Route::post('store', 'FinanceActivityController@store')->name('store');
     Route::post('store_safari_payment', 'FinanceActivityController@storeSafariPayment')->name('store_safari_payment');
+    Route::post('store_activity_payment', 'FinanceActivityController@storeActivityPayment')->name('store_activity_payment');
     Route::post('{uuid}/update', 'FinanceActivityController@update')->name('update');
     Route::get('{payment}/view', 'FinanceActivityController@view')->name('view');
     Route::get('{payment}/SubmitPayment', 'FinanceActivityController@SubmitPayment')->name('SubmitPayment');
@@ -11,6 +12,7 @@ Route::group(['namespace' => 'Finance', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('{uuid}/safari_payment', 'FinanceActivityController@safariPayment')->name('safari_payment');
     Route::get('{uuid}/edit_safari_payment', 'FinanceActivityController@safariPaymentEditForApproval')->name('edit_safari_payment');
     Route::get('{uuid}/safari_payment_for_approval', 'FinanceActivityController@safariPaymentSubmitForApproval')->name('safari_payment_for_approval');
+    Route::get('{uuid}/activity_payment_for_approval', 'FinanceActivityController@ActivityPaymentSubmitForApproval')->name('activity_payment_for_approval');
     Route::post('{uuid}/update_safari_payment', 'FinanceActivityController@updateSafariPayment')->name('update_safari_payment');
     Route::post('{uuid}/updatePayment', 'FinanceActivityController@updatePayment')->name('updatePayment');
     Route::post('{uuid}/sendSafariPaymentForApproval', 'FinanceActivityController@sendSafariPaymentForApproval')->name('sendSafariPaymentForApproval');

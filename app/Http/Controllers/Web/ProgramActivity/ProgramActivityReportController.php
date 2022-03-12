@@ -150,6 +150,7 @@ class ProgramActivityReportController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($programActivityReport, $current_level, $workflow->wf_definition_id);
 
 
+
         return view('programactivity.reports.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
@@ -163,7 +164,11 @@ class ProgramActivityReportController extends Controller
             ->with('activity_details', $requisition_training)
             ->with('activity_location', $requisition_training->district->name)
             ->with('activity_participants_count', $requisition_training_participants->count())
-            ->with('training_items_count', $requisition_training_items->count());
+            ->with('training_items_count', $requisition_training_items->count())
+            ->with('total_participants', $requisition_training_participants->pluck('amount_paid')->sum())
+            ->with('total_items', $requisition_training_items->pluck('total_amount')->sum());
 
     }
+
+
 }

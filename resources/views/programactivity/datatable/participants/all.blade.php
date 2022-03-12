@@ -90,7 +90,7 @@
                                                     @permission('finance_activity')
 
 
-                                                    <a href="#"  class="btn btn-outline-primary" style="margin-left: 7%" data-toggle="modal" data-target="#pay"><i class="fa fa-check"></i></a>
+                                                    <a href="{{route('programactivity.pay', $participants->uuid)}}"  class="btn btn-outline-primary" style="margin-left: 7%" ><i class="fa fa-check"></i></a>
 
 
                                                     <!-- Modal -->
