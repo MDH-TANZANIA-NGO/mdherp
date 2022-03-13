@@ -31,4 +31,8 @@ use ProgramActivityReportAttribute;
     {
         return $this->belongsTo(Region::class);
     }
+    public function payment()
+    {
+        return $this->belongsTo(ProgramActivityPayment::class);
+    }
 }

@@ -16,6 +16,7 @@ Route::group(['namespace' => 'Finance', 'middleware' => ['web', 'auth'], 'prefix
     Route::post('{uuid}/update_safari_payment', 'FinanceActivityController@updateSafariPayment')->name('update_safari_payment');
     Route::post('{uuid}/updatePayment', 'FinanceActivityController@updatePayment')->name('updatePayment');
     Route::post('{uuid}/sendSafariPaymentForApproval', 'FinanceActivityController@sendSafariPaymentForApproval')->name('sendSafariPaymentForApproval');
+    Route::get('{uuid}/sendActivityPaymentForApproval', 'FinanceActivityController@sendActivityPaymentForApproval')->name('sendActivityPaymentForApproval');
     Route::get('{uuid}/showSafariPayment', 'FinanceActivityController@showSafariPayment')->name('showSafariPayment');
 
     Route::get('{uuid}/program_activity_payment', 'FinanceActivityController@programActivityPayment')->name('program_activity_payment');

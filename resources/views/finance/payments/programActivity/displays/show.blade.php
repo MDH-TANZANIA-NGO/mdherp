@@ -1,5 +1,3 @@
-@extends('layouts.app')
-@section('content')
 
     <div class="row">
         <div class="col-md-12">
@@ -9,7 +7,8 @@
                 </div>
                 <div class="card-body">
                     <div class="">
-                        <a href="{{route('programactivityreport.show', $program_activity_report->uuid)}}"><h4 class="mb-1"><strong>{{$program_activity_report->number}}</strong></h4></a>
+
+                        <a href="{{route('programactivityreport.show', $program_activity->programActivityReport->where('id', $payment->activityPayment->program_activity_report_id)->first()->uuid)}}"><h4 class="mb-1"><strong>{{$program_activity->programActivityReport->where('id', $payment->activityPayment->program_activity_report_id)->first()->number}}</strong></h4></a>
                         Has been initiated Total Payment of<strong>{{number_2_format($payment->payed_amount)}}</strong> (TZS)
                     </div>
 
@@ -59,14 +58,14 @@
                                     <p class="font-w600 mb-1">Participants Cost</p>
                                 </td>
 
-                                <td class="text-right">{{number_2_format($program_activity_payment->total_participant_amount_paid)}}</td>
+                                <td class="text-right">{{number_2_format($payment->activityPayment->total_participant_amount_paid)}}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">2</td>
                                 <td>
                                     <p class="font-w600 mb-1">Items Cost</p>
                                 </td>
-                                <td class="text-right">{{number_2_format($program_activity_payment->total_items_amount_paid)}}</td>
+                                <td class="text-right">{{number_2_format($payment->activityPayment->total_items_amount_paid)}}</td>
                             </tr>
 
 
@@ -79,13 +78,13 @@
                                 <td class="font-weight-bold text-right">{{number_2_format($payment->payed_amount)}}</td>
                             </tr>
 
-                            <tr>
+                         {{--   <tr>
                                 <td colspan="3" class="text-right">
                                     <button type="button" class="btn btn-primary" ><i class="si si-wallet"></i> Edit Payment</button>
                                     <a href="{{route('finance.sendActivityPaymentForApproval', $payment->uuid)}}" class="btn btn-secondary" ><i class="si si-paper-plane"></i> Send For Approval</a>
                                     <button type="button" class="btn btn-info" onClick="javascript:window.print();"><i class="si si-printer"></i> Print</button>
                                 </td>
-                            </tr>
+                            </tr>--}}
                             {{--  @if($payment->wf_done == false && $payment->user_id == access()->user()->id)
                                   <tr>
                                       <td colspan="5" class="text-right">
@@ -102,9 +101,3 @@
         </div>
     </div>
 
-
-
-
-
-
-@endsection

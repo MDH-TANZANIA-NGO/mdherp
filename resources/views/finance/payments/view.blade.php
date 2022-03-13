@@ -6,10 +6,15 @@
     @if($safari_advance)
         @include('finance.payments.safariAdvance.display.show')
 
+    @elseif($program_activity)
+
+        @include('finance.payments.programActivity.displays.show')
     @endif
 
 
-    <div class="row">
+
+
+   {{-- <div class="row">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">PAYMENT SUMMARY</h3>
@@ -53,5 +58,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 @endsection
