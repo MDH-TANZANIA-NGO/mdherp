@@ -85,7 +85,7 @@
                             <tr>
                                 <td>{{$reports->number}}</td>
                                 <td>
-                                    @if($reports->wf_done == false)
+                                    @if($reports->wf_done == 0)
                                         <span class="text-warning">On Process</span>
                                     @else
                                         <span class="text-success">Approved</span>

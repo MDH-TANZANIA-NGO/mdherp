@@ -6,6 +6,7 @@ use App\Models\Payment\Payment;
 use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
@@ -67,6 +68,101 @@ class FinanceActivityRepository extends BaseRepository
 
         });
     }
+
+
+    /**
+     * Get applicant level
+     * @param $wf_module_id
+     * @return int|null
+     * Get fron desk level per module id
+     */
+    public function getApplicantLevel($wf_module_id)
+    {
+        $level = null;
+        switch ($wf_module_id) {
+            case 1:
+                $level = 1;
+                break;
+        }
+        return $level;
+    }
+
+    /**
+     * Get applicant level
+     * @param $wf_module_id
+     * @return int|null
+     * Get fron desk level per module id
+     */
+    public function getHeadOfDeptLevel($wf_module_id)
+    {
+        $level = null;
+        switch ($wf_module_id) {
+            case 1:
+                $level = 2;
+                break;
+        }
+        return $level;
+    }
+
+    /**
+     * @param $resource_id
+     * @param $wf_module_id
+     * @param $current_level
+     * @param int $sign
+     * @param array $inputs
+     * @throws \App\Exceptions\GeneralException
+     */
+    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])
+    {
+        $payment = $this->find($resource_id);
+        $applicant_level = $this->getApplicantLevel($wf_module_id);
+        $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
+//        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
+//        if($requisition->rejected){}
+        switch ($inputs['rejected_level'] ?? $current_level) {
+            case $applicant_level:
+                $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' => route('programactivity.show', $payment),
+                    'subject' =>$payment->number. " Has been revised to your level",
+                    'message' => $payment->number. ' need modification.. Please do the need and send it back for approval'
+                ];
+                User::query()->find($payment->user_id)->notify(new WorkflowNotification($email_resource));
+
+                break;
+            case $head_of_dept_level:
+                $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' => route('programactivity.show', $payment),
+                    'subject' =>$payment->number . " Has been revised to your level",
+                    'message' => $payment->number .  ' need modification. Please do the need and send it back for approval'
+                ];
+//                  User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
+
+                break;
+        }
+    }
+
+    /**
+     * Update rejected column
+     * @param $id
+     * @param $sign
+     * @return mixed
+     */
+    public function updateRejected($id, $sign)
+    {
+        $payment = $this->query()->find($id);
+        return DB::transaction(function () use ($payment, $sign) {
+            $rejected = 0;
+            if ($sign == -1) {
+                $rejected = 1;
+            }
+            return $payment->update(['rejected' => $rejected]);
+        });
+    }
+
 
 
 

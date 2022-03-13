@@ -112,7 +112,7 @@
                             <td class="font-weight-bold text-right">{{number_2_format($safari_advance->safariAdvancePayment->disbursed_amount)}}</td>
                         </tr>
 
-                        @if($payment->wf_done == false && $payment->user_id == access()->user()->id)
+                        @if($payment->wf_done == 0 && $payment->user_id == access()->user()->id)
                         <tr>
                             <td colspan="5" class="text-right">
                                     <a href="{{route('finance.edit_safari_payment', $safari_advance->uuid)}}" class="btn btn-secondary"><i class="fa fa-edit"></i> Edit</a>

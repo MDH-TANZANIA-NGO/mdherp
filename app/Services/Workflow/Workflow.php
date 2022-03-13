@@ -398,8 +398,8 @@ class Workflow
                     $safari = $safari_advance_repo->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('safari.show',$safari),
-                        'subject' => $safari->number." Need your Approval",
-                        'message' => $safari->number.' need your approval'
+                        'subject' => "Safari Advance".$safari->number." Needs your Approval",
+                        'message' => $safari->number.' '.'for'.$safari->user->frist_name.' '.$safari->user->last_name.' need your approval.'
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
@@ -407,9 +407,9 @@ class Workflow
                     $program_activity_repo = (new ProgramActivityRepository());
                     $program_activity = $program_activity_repo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('safari.show',$program_activity),
-                        'subject' => $program_activity->number." Need your Approval",
-                        'message' => $program_activity->number.' need your approval'
+                        'link' =>  route('programactivity.show',$program_activity),
+                        'subject' => 'Activity: '.$program_activity->number." needs your approval to be Initiated",
+                        'message' => 'Activity No: '.$program_activity->number.' requested by'.$program_activity->user->first_name.' '.$program_activity->user->last_name.' needs your approval to be initiated'
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
@@ -438,8 +438,8 @@ class Workflow
                     $finance = $financerepo->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('finance.view',$finance),
-                        'subject' => $finance->number. " Need your Approval",
-                        'message' => ' need your approval'
+                        'subject' =>'Payment batch: '.$finance->number. " From".$finance->user->first_name. " ".$finance->user->last_name ." Needs your Approval",
+                        'message' => $finance->user->first_name. " ".$finance->user->last_name. " Initiated Payments with Batch number: " .$finance->number."which needs your approval"
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
@@ -468,8 +468,9 @@ class Workflow
                     $program_activity_report = $program_activity_report_repo->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('programactivityreport.show',$program_activity_report),
-                        'subject' =>  "Program Activity Report needs your Approval",
-                        'message' => 'Program Activity Report needs your Approval'
+                        'subject' => "Activity Report ".$program_activity_report->number. "needs your approval.",
+                        'message' =>  $program_activity_report->user->first_name." ".$program_activity_report->user->last_name."Submitted activity report".$program_activity_report->number. " which needs your approval"
+
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
@@ -499,7 +500,7 @@ class Workflow
                 $requisition = $requisition_repo->find($resourceId);
                 $requisition->wfTracks()->save($wfTrack);
                 break;
-                case 2:
+            case 2:
                 /*Safari*/
                 $safari_repo = (new SafariAdvanceRepository());
                 $safari = $safari_repo->find($resourceId);

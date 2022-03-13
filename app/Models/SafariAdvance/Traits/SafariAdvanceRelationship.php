@@ -6,6 +6,7 @@ use App\Models\Auth\User;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\System\District;
+use App\Models\System\Region;
 use App\Models\Workflow\WfTrack;
 use App\SafariAdvanceDetails;
 
@@ -36,6 +37,10 @@ trait SafariAdvanceRelationship
     public function retirement()
     {
         return $this->hasOne(Retirement::class);
+    }
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
     }
 
 }
