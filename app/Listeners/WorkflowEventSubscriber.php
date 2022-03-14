@@ -316,16 +316,9 @@ class WorkflowEventSubscriber
         $resource_id = $wfTrack->resource_id;
         $current_level = $wfTrack->wfDefinition->level;
 
-        switch ($wf_module_id) {
-            case 1:
-                (new RequisitionRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
-                break;
-            case 5:
-                (new RetirementRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
-                break;
 
         }
-    }
+
 
     /**
      * Register the listeners for the subscriber.
