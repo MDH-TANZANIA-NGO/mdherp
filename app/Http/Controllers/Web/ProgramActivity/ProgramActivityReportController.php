@@ -155,7 +155,14 @@ class ProgramActivityReportController extends Controller
 
         $program_activity_payment_id = ProgramActivityPayment::query()->where('program_activity_report_id', $programActivityReport->id)->first();
 
-        $payment = Payment::query()->where('id', $program_activity_payment_id->payment_id)->first();
+
+        if ($program_activity_payment_id != null){
+            $payment = Payment::query()->where('id', $program_activity_payment_id->payment_id)->first();
+        }
+        else{
+            $payment = null;
+        }
+
 
         return view('programactivity.reports.show')
             ->with('current_level', $current_level)

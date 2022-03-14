@@ -81,7 +81,8 @@
                             <tr>
                                 <td colspan="3" class="text-right">
                                     @if($payment->user->id == access()->user()->id)
-                                    <button type="button" class="btn btn-primary" ><i class="si si-wallet"></i> Edit Payment</button>
+
+                                    <a href="{{route('programactivityreport.show',  $program_activity_report->uuid)}}" class="btn btn-primary" ><i class="si si-wallet"></i> Edit Payment</a>
                                     @endif
                                     <button type="button" class="btn btn-info" onClick="javascript:window.print();"><i class="si si-printer"></i> Print</button>
                                 </td>
