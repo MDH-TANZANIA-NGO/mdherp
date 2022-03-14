@@ -4,6 +4,7 @@ Route::group(['namespace' => 'Userbio', 'middleware' => ['web', 'auth'], 'prefix
     //Users Bio
     Route::get('', 'UserbioController@index')->name('index');
     Route::get('create', 'UserbioController@create')->name('create');
+    Route::get('{uuid}/show', 'UserbioController@show')->name('show');
 
     /**
      * Datatables

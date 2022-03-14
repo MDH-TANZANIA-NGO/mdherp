@@ -23,7 +23,7 @@ trait UserBioDatatables
                 ];
             })
             ->addColumn('action', function($query) {
-               return '<a href="'.route('user.profile', $query->uuid).'">View</a>';
+               return '<a href="'.route('userbio.show', $query->uuid).'">View</a>';
     })
             ->rawColumns(['action'])
             ->make(true);

@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Web\Userbio;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Userbio\Datatables\UserBioDatatables;
 use App\Models\Auth\Relationship\UserRelationship;
+use App\Models\Employee\Employee;
 use App\Repositories\Access\UserRepository;
+use App\Repositories\System\RegionRepository;
+use App\Repositories\Unit\DesignationRepository;
 use App\Userbio;
 use Illuminate\Http\Request;
 
@@ -15,9 +18,14 @@ class UserbioController extends Controller
     use UserBioDatatables, UserRelationship;
 
     private $users;
+    private $designations;
+    private $regions;
+    private $bio;
 
     public function __construct()
     {
+        $this->designations = (new DesignationRepository());
+        $this->regions = (new RegionRepository());
         $this->users = (new UserRepository());
     }
 
@@ -35,7 +43,7 @@ class UserbioController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
@@ -58,11 +66,19 @@ class UserbioController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Userbio  $userbio
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function show(Userbio $userbio)
+    public function show( $uuid)
     {
-        //
+        $userbio= $this->users->findByUuid($uuid);
+        $userbio2= Employee::where('user_id', access()->id())->first();
+
+
+        return view('userbio.forms.userbioprofile')
+            ->with('userbio', $userbio)
+            ->with('designations', $this->designations->getActiveForSelect())
+            ->with('regions', $this->regions->forSelect())
+            ->with('bio', $userbio2?? 'Bio goes here');
     }
 
     /**

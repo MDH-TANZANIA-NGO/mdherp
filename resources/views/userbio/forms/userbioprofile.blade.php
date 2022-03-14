@@ -25,15 +25,15 @@
                                 <div class="card-body p-5">
                                     <h3>
                                         <a href="#" class="text-navy">
-                                           Full Name
+                                            {{$userbio->full_name_formatted}}
                                         </a>
                                     </h3>
                                     <p class="small">
-                                      Accademic details
+                                      Accademic detailsssss
                                     </p>
                                     <dl class="small m-b-none">
                                         <dt>Biography</dt>
-                                        <dd> Bio goes here</dd>
+                                        <dd> {{$bio->bio}}</dd>
                                     </dl>
 
 {{--                                    <a href="" class="mt-2 btn btn-sm btn-pill btn-primary">Buy Now</a>--}}
@@ -48,11 +48,11 @@
                         <tbody>
                         <tr>
                             <th scope="row">Phone Number:</th>
-                            <td>07xxxxxxxx</td>
+                            <td>{{$userbio->phone}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Email:</th>
-                            <td>example@mdh.or.tz</td>
+                            <td>{{$userbio->email}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Working Station:</th>
@@ -60,7 +60,7 @@
                         </tr>
                         <tr>
                             <th scope="row">Designation:</th>
-                            <td>Senior M&E Manager </td>
+                            <td>{{$userbio->designation->unit->name.' '. $userbio->designation->name}} </td>
                         </tr>
                         </tbody>
                     </table>
