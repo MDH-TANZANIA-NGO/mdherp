@@ -15,7 +15,7 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     /**
      * Datatables
      */
-    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
             Route::get('processing', 'ProgramActivityReportController@AccessProcessingDatatable')->name('processing');
             Route::get('rejected', 'ProgramActivityReportController@AccessReturnedDatatable')->name('rejected');

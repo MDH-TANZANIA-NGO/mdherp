@@ -2,7 +2,7 @@
 @push('nav-head')
     @include('includes.navigation.workflow.holded_nav')
 @endpush
-@include('includes.scripts.datatables')
+@include('includes.scripts.datatable')
 @section('content')
 
                 @include("system/workflow/count_summary")

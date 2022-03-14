@@ -12,7 +12,7 @@ Route::group(['namespace' => 'Requisition\Training', 'middleware' => ['web', 'au
     Route::get('{uuid}/removeParticipant','RequestTrainingCostController@removeParticipant')->name('removeParticipant');
 
 
-    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('all', 'RequestTrainingCostController@allDatatable')->name('all');
     });
 });

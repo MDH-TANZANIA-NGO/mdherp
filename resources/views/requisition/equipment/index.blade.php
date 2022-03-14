@@ -66,7 +66,7 @@
 {{--                    <div class="col-12" >--}}
 
 {{--                        <div class="table-responsive">--}}
-{{--                            @include('requisition.equipment.datatables.all')--}}
+{{--                            @include('requisition.equipment.datatable.all')--}}
 {{--                        </div>--}}
 {{--                    </div>--}}
 {{--                </div>--}}

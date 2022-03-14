@@ -5,7 +5,7 @@ Route::group(['namespace' => 'Rate', 'middleware' => ['web', 'auth'], 'prefix' =
     Route::post('store', 'RateController@store')->name('store');
     Route::put('{rate}/update', 'RateController@update')->name('update');
 
-    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('all', 'RateController@allDatatable')->name('all');
     });
 

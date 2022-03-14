@@ -130,9 +130,9 @@
 
 
                         </div>
-{{--                        <a class="dropdown-item" href="{{route('updateuser')}}">--}}
-{{--                            <i class="dropdown-icon mdi mdi-account-outline "></i> Profile--}}
-{{--                        </a>--}}
+                        <a class="dropdown-item" href="{{route('userbio.create')}}">
+                            <i class="dropdown-icon mdi mdi-account-outline "></i> My Biography
+                        </a>
 
                         {{-- <a class="dropdown-item" href="#">
                             <i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox

@@ -10,7 +10,7 @@ Route::group(['namespace' => 'Requisition\Equipment', 'middleware' => ['web', 'a
     /**
      * Datatables
      */
-    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('all', 'EquipmentController@allDatatable')->name('all');
     });
 });
