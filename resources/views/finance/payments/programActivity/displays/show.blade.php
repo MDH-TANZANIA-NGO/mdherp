@@ -78,13 +78,14 @@
                                 <td class="font-weight-bold text-right">{{number_2_format($payment->payed_amount)}}</td>
                             </tr>
 
-                         {{--   <tr>
+                            <tr>
                                 <td colspan="3" class="text-right">
+                                    @if($payment->user->id == access()->user()->id)
                                     <button type="button" class="btn btn-primary" ><i class="si si-wallet"></i> Edit Payment</button>
-                                    <a href="{{route('finance.sendActivityPaymentForApproval', $payment->uuid)}}" class="btn btn-secondary" ><i class="si si-paper-plane"></i> Send For Approval</a>
+                                    @endif
                                     <button type="button" class="btn btn-info" onClick="javascript:window.print();"><i class="si si-printer"></i> Print</button>
                                 </td>
-                            </tr>--}}
+                            </tr>
                             {{--  @if($payment->wf_done == false && $payment->user_id == access()->user()->id)
                                   <tr>
                                       <td colspan="5" class="text-right">

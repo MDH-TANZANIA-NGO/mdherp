@@ -318,6 +318,20 @@ class FinanceActivityController extends Controller
         alert()->success('Payment initiated Successfully', 'Success');
         return redirect()->route('finance.activity_payment_for_approval', $pay->uuid);
     }
+    public function updateActivityPayment(Request $request, $uuid)
+    {
+        $payment =  $this->finance->findByUuid($uuid);
+        $pay = $payment->update($request->all());
+        $program_activity_payment_uuid = $payment->activityPayment->uuid;
+        $activity_payment = $this->program_activity_payment_repo->findByUuid($program_activity_payment_uuid);
+        $update_payment = $activity_payment->updateActivityPayment($request->all());
+dd($update_payment);
+        $program_activity_report_id = ProgramActivityPayment::query()->where('payment_id', $payment->id)->first()->program_activity_report_id;
+        $program_activity_report = $this->program_activity_reports->find($program_activity_report_id);
+
+        alert()->success('Payment updated Successfully', 'Success');
+        return redirect()->route('finance.activity_payment_for_approval', $pay->uuid);
+    }
     public function safariPaymentEditForApproval($uuid){
 
 
@@ -362,7 +376,7 @@ class FinanceActivityController extends Controller
             event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $payment->id,'region_id' => $payment->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
 
             alert()->success('Safari Advance Payment Sent for Approval', 'Success');
-            return redirect()->route('finance.showSafariPayment', $uuid);
+            return redirect()->route('finance.view', $uuid);
 
 
         });
@@ -372,7 +386,10 @@ class FinanceActivityController extends Controller
         return DB::transaction(function () use ( $request, $uuid){
             $payment = Payment::query()->where('uuid', $uuid)->first();
             $number = $this->finance->generateNumber($payment);
-            DB::update('update payments set done = ?, number = ? where uuid = ?',[1,$number, $uuid]);
+            $program_activity_report = $payment->activityPayment->activityReport;
+
+           DB::update('update payments set done = ?, number = ? where uuid = ?',[1,$number, $uuid]);
+           DB::update('update program_activity_reports set paid = ? where uuid = ?',[true, $program_activity_report->uuid]);
 
             $wf_module_group_id = 6;
             $next_user = $payment->user->assignedSupervisor()->supervisor_id;

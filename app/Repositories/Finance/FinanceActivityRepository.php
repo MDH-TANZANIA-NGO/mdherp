@@ -46,6 +46,7 @@ class FinanceActivityRepository extends BaseRepository
 
     }
 
+
     public function update($inputs, $uuid)
     {
         return DB::transaction(function () use ($inputs, $uuid){
@@ -54,13 +55,13 @@ class FinanceActivityRepository extends BaseRepository
             $is_safari =  requisition_travelling_cost::where('requisition_id', $pay->requisition_id)->first();
             $is_programactivity =  ProgramActivity::where('requisition_id', $pay->requisition_id)->first();
 
+            if ($pay->done == 0)
             DB::update('update payments set done =?, number = ? where uuid= ?',[1, $number, $uuid]);
+            else{
+                DB::update('update payments set payed_amount =? where uuid= ?',[ $inputs['total_amount'], $uuid]);
+            }
 
-
-            if ($is_programactivity)
-            {
-                DB::update('update program_activities set paid = ?, amount_paid = ? where uuid = ?', [true, $pay->payed_amount, $is_programactivity->uuid]);
-            }elseif ($is_safari)
+          if ($is_safari)
             {
                 $safari_uuid = SafariAdvance::where('requisition_travelling_cost_id', $is_safari->id)->first()->uuid;
                 DB::update('update safari_advances set paid = ?, amount_paid = ? where uuid = ?',[true, $pay->payed_amount, $safari_uuid] );

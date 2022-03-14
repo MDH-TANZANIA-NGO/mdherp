@@ -31,6 +31,7 @@ class GOfficersImport implements ToModel, WithValidation, WithHeadingRow
             'district_id'=>$row['district_id'],
             'g_scale_id'=>$row['g_scale_id'],
             'phone'=>$row['phone'],
+            'phone2'=>$row['phone2'],
             'password'=> bcrypt(strtolower($row['last_name'])),
         ]);
 

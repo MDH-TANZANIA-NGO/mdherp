@@ -5,6 +5,7 @@ Route::group(['namespace' => 'Finance', 'middleware' => ['web', 'auth'], 'prefix
     Route::post('store', 'FinanceActivityController@store')->name('store');
     Route::post('store_safari_payment', 'FinanceActivityController@storeSafariPayment')->name('store_safari_payment');
     Route::post('store_activity_payment', 'FinanceActivityController@storeActivityPayment')->name('store_activity_payment');
+    Route::post('{uuid}/update_activity_payment', 'FinanceActivityController@updateActivityPayment')->name('update_activity_payment');
     Route::post('{uuid}/update', 'FinanceActivityController@update')->name('update');
     Route::get('{payment}/view', 'FinanceActivityController@view')->name('view');
     Route::get('{payment}/SubmitPayment', 'FinanceActivityController@SubmitPayment')->name('SubmitPayment');

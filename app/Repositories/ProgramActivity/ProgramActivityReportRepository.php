@@ -70,7 +70,7 @@ use Number;
             ->where('program_activity_reports.wf_done', 1)
             ->where('program_activity_reports.done', true)
             ->where('program_activity_reports.rejected', false)
-            ->where('program_activities.paid', false);
+            ->where('program_activity_reports.paid', false);
     }
 
     public function inputProcess($inputs){

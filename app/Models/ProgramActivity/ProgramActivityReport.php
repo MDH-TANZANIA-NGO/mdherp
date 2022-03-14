@@ -33,6 +33,6 @@ use ProgramActivityReportAttribute;
     }
     public function payment()
     {
-        return $this->belongsTo(ProgramActivityPayment::class);
+        return $this->hasOne(ProgramActivityPayment::class,'program_activity_report_id', 'id');
     }
 }

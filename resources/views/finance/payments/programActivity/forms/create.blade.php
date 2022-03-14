@@ -81,7 +81,7 @@
 
                             <tr>
                                 <td colspan="3" class="text-right">
-                                    <button type="button" class="btn btn-primary" ><i class="si si-wallet"></i> Edit Payment</button>
+                                    <a href="{{route('programactivityreport.show', $program_activity_report->uuid)}}" class="btn btn-primary" ><i class="si si-wallet"></i> Edit Payment</a>
                                     <a href="{{route('finance.sendActivityPaymentForApproval', $payment->uuid)}}" class="btn btn-secondary" ><i class="si si-paper-plane"></i> Send For Approval</a>
                                     <button type="button" class="btn btn-info" onClick="javascript:window.print();"><i class="si si-printer"></i> Print</button>
                                 </td>
