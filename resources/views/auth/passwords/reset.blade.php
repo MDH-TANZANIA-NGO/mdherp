@@ -148,7 +148,7 @@
                                 </div>
 
                                 <!-- <div class="card text-white  py-5 d-md-down-none " style="background-color:white;"> -->
-                                <div class="card text-white  py-5 d-md-down-none " style="background-color:rgb(168,204,255);">
+                                <div class="card text-white  py-5 d-md-down-none ">
                                     <div class="card-body text-center justify-content-center " style="margin-top:10%">
 
                                         <!-- <img src="../../mdh/images/photos/home2.png" > -->
