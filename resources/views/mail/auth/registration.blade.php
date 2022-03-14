@@ -384,7 +384,7 @@
                 <tr>
                     <td class="email-masthead">
                         <a href="#" class="f-fallback email-masthead_name"  style="color: #022169; font-weight: bold">
-                            MDH ERP
+                            MIMOSA (MDH ERP system)
                         </a>
                     </td>
                 </tr>
