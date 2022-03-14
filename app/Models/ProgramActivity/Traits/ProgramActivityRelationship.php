@@ -4,6 +4,7 @@ namespace App\Models\ProgramActivity\Traits;
 
 use App\Models\Auth\User;
 use App\Models\ProgramActivity\ProgramActivityAttendance;
+use App\Models\ProgramActivity\ProgramActivityReport;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
@@ -63,5 +64,6 @@ public function costs(){
     {
         return $this->hasMany(ProgramActivityAttendance::class);
     }
+
 
 }

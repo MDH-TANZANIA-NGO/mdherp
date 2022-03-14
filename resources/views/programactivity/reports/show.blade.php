@@ -9,6 +9,98 @@
         </div>
     </div>
 
+<div class="row mb-2">
+    @permission('finance_activity')
+    @if($program_activity_payment == null  )
+    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3" style="margin-left: 40%;">Initiate Payment</button>
+    @else
+        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal1" style="margin-left: 40%;">Edit Payment</button>
+    @endif
+    @endpermission
+
+
+
+  @if($program_activity_payment == null)
+
+    <!-- Modal  to submit and initiate payment-->
+        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3" aria-hidden="true">
+            <div class="modal-dialog modal-lg " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="largemodal1">Initiate Payment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        {!! Form::open(['route'=> ['finance.store_activity_payment'],'method'=>'POST']) !!}
+                        <label>Participants Total Cost</label>
+                        <input type="number"  class="form-control" value="{{$total_participants}}" name="total_participants">
+
+                        <label>Items Total Cost</label>
+                        <input type="number" class="form-control" value="{{$total_items}}" name="total_items">
+                        <input type="number" class="form-control" value="{{$total_items + $total_participants}}" name="total_amount" hidden>
+                        <input type="number" class="form-control" value="{{$requisition->id}}" name="requisition_id" hidden>
+                        <input type="number" class="form-control" value="{{$requisition->region_id}}" name="region_id" hidden>
+                        <input type="number" class="form-control" value="{{$requisition->amount}}" name="requested_amount" hidden>
+                        <input type="number" class="form-control" value="{{$program_activity_report->id}}" name="program_activity_report_id" hidden>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    @endif
+
+   @if($payment != null)
+
+        @if($program_activity_payment != null || $payment->done == 0)
+        <!-- Modal  to edit payment-->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1" aria-hidden="true">
+                <div class="modal-dialog modal-lg " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="largemodal1">Edit Payment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            {!! Form::open(['route'=> ['finance.update_activity_payment',$payment->uuid],'method'=>'POST']) !!}
+                            <label>Participants Total Cost</label>
+                            <input type="number"  class="form-control" value="{{$total_participants}}" name="total_participants">
+
+                            <label>Items Total Cost</label>
+                            <input type="number" class="form-control" value="{{$program_activity_payment->total_items_amount_paid}}" name="total_items">
+                            <input type="number" class="form-control" value="{{$program_activity_payment->total_participant_amount_paid + $program_activity_payment->total_items_amount_paid}}" name="total_amount" hidden>
+                            <input type="number" class="form-control" value="{{$requisition->id}}" name="requisition_id" hidden>
+                            <input type="number" class="form-control" value="{{$requisition->region_id}}" name="region_id" hidden>
+                            <input type="number" class="form-control" value="{{$requisition->amount}}" name="requested_amount" hidden>
+                            <input type="number" class="form-control" value="{{$program_activity_report->id}}" name="program_activity_report_id" hidden>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        @endif
+       @endif
+</div>
+
+
+
     @include('programactivity.display.generalSumarry')
 
 
@@ -42,7 +134,7 @@
                             <tr>
                                 <td>{{$reports->number}}</td>
                                 <td>
-                                    @if($reports->wf_done == false)
+                                    @if($reports->wf_done == 0)
                                         <span class="text-warning">On Process</span>
                                     @else
                                         <span class="text-success">Approved</span>
@@ -119,7 +211,10 @@
 
             </div>
         </div>
+
     </div>
+
+    
 @endsection
 
 

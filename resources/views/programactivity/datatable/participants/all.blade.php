@@ -28,11 +28,11 @@
                             <th>Other Cost</th>
                             <th >Total</th>
                             <th >Paid</th>
-                            @if((access()->user()->id != $program_activity->user_id ||access()->user()->id == $supervisor ) && $program_activity->wf_done == true)
+                            @if((access()->user()->id != $program_activity->user_id ||access()->user()->id == $supervisor ) && $program_activity->wf_done == 1)
                                 <th>Status</th>
                                 <th >Action</th>
                             @else
-                                @if($program_activity->wf_done == true)
+                                @if($program_activity->wf_done == 1)
                                     <th >Swap</th>
                                     <th >Attendance</th>
 
@@ -55,7 +55,7 @@
                                     <td>{{number_2_format($participants->other_cost)}} <span class="text-default">{{$participants->others_description}}</span></td>
                                     <td>{{number_2_format($participants->total_amount)}}</td>
                                     <td>{{number_2_format($participants->amount_paid)}}</td>
-                                    @if($program_activity->wf_done == true)
+                                    @if($program_activity->wf_done == 1)
                                         <td>
                                             @if(access()->user()->id == $supervisor || access()->user()->id != $program_activity->user_id )
 
@@ -90,7 +90,7 @@
                                                     @permission('finance_activity')
 
 
-                                                    <a href="#"  class="btn btn-outline-primary" style="margin-left: 7%" data-toggle="modal" data-target="#pay"><i class="fa fa-check"></i></a>
+                                                    <a href="{{route('programactivity.pay', $participants->uuid)}}"  class="btn btn-outline-primary" style="margin-left: 7%" ><i class="fa fa-check"></i></a>
 
 
                                                     <!-- Modal -->

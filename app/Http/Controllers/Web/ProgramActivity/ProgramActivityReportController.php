@@ -6,7 +6,9 @@ use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\ProgramActivity\Datatable\ProgramActivityDatatable;
 use App\Http\Controllers\Web\ProgramActivity\Datatable\ProgramActivityReportDatatable;
+use App\Models\Payment\Payment;
 use App\Models\ProgramActivity\ProgramActivity;
+use App\Models\ProgramActivity\ProgramActivityPayment;
 use App\Models\ProgramActivity\ProgramActivityReport;
 use App\Models\ProgramActivity\Traits\ProgramActivityRelationship;
 use App\Models\Requisition\Requisition;
@@ -130,6 +132,8 @@ class ProgramActivityReportController extends Controller
     }
 
     public function show($uuid){
+
+
         $programActivityReport = ProgramActivityReport::query()->where('uuid', $uuid)->first();
         $programActivityReports = ProgramActivityReport::query()->where('program_activity_id', $programActivityReport->program_activity_id)->get();
         $program_activity = ProgramActivity::query()->where('id', $programActivityReport->program_activity_id)->first();
@@ -149,6 +153,16 @@ class ProgramActivityReportController extends Controller
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($programActivityReport, $current_level, $workflow->wf_definition_id);
 
+        $program_activity_payment_id = ProgramActivityPayment::query()->where('program_activity_report_id', $programActivityReport->id)->first();
+
+
+        if ($program_activity_payment_id != null){
+            $payment = Payment::query()->where('id', $program_activity_payment_id->payment_id)->first();
+        }
+        else{
+            $payment = null;
+        }
+
 
         return view('programactivity.reports.show')
             ->with('current_level', $current_level)
@@ -159,11 +173,17 @@ class ProgramActivityReportController extends Controller
             ->with('program_activity_report', $programActivityReport)
             ->with('requisition_uuid', $requisition->uuid)
             ->with('requisition', $requisition)
+            ->with('payment', $payment)
+            ->with('program_activity_payment', $program_activity_payment_id)
             ->with('group_attendance', $group_attendance)
             ->with('activity_details', $requisition_training)
             ->with('activity_location', $requisition_training->district->name)
             ->with('activity_participants_count', $requisition_training_participants->count())
-            ->with('training_items_count', $requisition_training_items->count());
+            ->with('training_items_count', $requisition_training_items->count())
+            ->with('total_participants', $requisition_training_participants->pluck('amount_paid')->sum())
+            ->with('total_items', $requisition_training_items->pluck('total_amount')->sum());
 
     }
+
+
 }

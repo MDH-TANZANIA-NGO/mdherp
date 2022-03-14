@@ -20,7 +20,7 @@
             <td>{{$participants->transportation}}</td>
             <td>{{$participants->other_cost}}</td>
             <td>{{$participants->total_amount}}</td>
-            @if($program_activity->wf_done == true)
+            @if($program_activity->wf_done == 1)
                 <td>
                     @if($participants->is_substitute == true)
                         <span class="tag tag-yellow">Substituted</span>
