@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Userbio;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Userbio\Datatables\UserBioDatatables;
 use App\Models\Auth\Relationship\UserRelationship;
+use App\Models\Auth\User;
 use App\Models\Employee\Employee;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\System\RegionRepository;
@@ -47,8 +48,12 @@ class UserbioController extends Controller
      */
     public function create()
     {
+        $userbio2= Employee::where('user_id', access()->id())->first();
+        $userbio3= access()->user();
 
-        return view('userbio.forms.createbio');
+        return view('userbio.forms.createbio')
+            ->with('bio', $userbio2?? 'Bio goes here')
+            ->with('user', $userbio3);
     }
 
     /**
@@ -68,7 +73,7 @@ class UserbioController extends Controller
      * @param  \App\Userbio  $userbio
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function show( $uuid)
+    public function show($uuid)
     {
         $userbio= $this->users->findByUuid($uuid);
         $userbio2= Employee::where('user_id', access()->id())->first();
