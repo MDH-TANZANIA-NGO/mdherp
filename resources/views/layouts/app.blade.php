@@ -51,6 +51,8 @@
     <!-- Skin css-->
         {{ Html::style(url('mdh/css/skins.css')) }}
 
+<!-- fileupload css-->
+    {{ Html::style(url('mdh/plugins/fileupload/css/dropify.css')) }}
 
     <!-- Custom css -->
         {{ Html::style(url('mdh/css/custom.css')) }}
@@ -247,7 +249,7 @@
 <!-- Data tables js-->
 {!! Html::script(url('mdh/plugins/datatable/jquery.dataTables.min.js')) !!}
 {!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}
-{!! Html::script(url('mdh/js/datatables.js')) !!}
+{!! Html::script(url('mdh/js/datatable.js')) !!}
 
 <!-- Bootstrap4 js-->
 {!! Html::script(url('mdh/plugins/bootstrap/popper.min.js')) !!}
@@ -287,8 +289,9 @@
 {!! Html::script(url('mdh/plugins/input-mask/jquery.maskedinput.js')) !!}
 
 <!-- File uploads js -->
-{{--<script src="mdh/plugins/fileupload/js/dropify.js"></script>--}}
-{{--<script src="mdh/js/filupload.js"></script>--}}
+{!! Html::script(url('mdh/plugins/fileupload/js/dropify.js')) !!}
+{!! Html::script(url('mdh/js/filupload.js')) !!}
+
 
 {!! Html::script(url('mdh/plugins/wysiwyag/jquery.richtext.js')) !!}
 {!! Html::script(url('mdh/js/form-editor.js')) !!}

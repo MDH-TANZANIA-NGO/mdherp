@@ -3,7 +3,7 @@ Route::group(['namespace' => 'SupplyChain', 'middleware' => ['web', 'auth'], 'pr
     Route::get('', 'StockUnitController@stockUnit')->name('unit');
     Route::post('store', 'StockUnitController@storeUnit')->name('store');
 
-    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('all', 'StockUnitController@alldatatable')->name('all');
     });
 });

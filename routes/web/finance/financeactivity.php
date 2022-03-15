@@ -26,7 +26,7 @@ Route::group(['namespace' => 'Finance', 'middleware' => ['web', 'auth'], 'prefix
     /**
      * Datatables
      */
-    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
             Route::get('requisitions', 'FinanceActivityController@allApprovedRequisitions')->name('requisition');
             Route::get('safari_advances', 'FinanceActivityController@allApprovedSafariAdvances')->name('safari_advance');

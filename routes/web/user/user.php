@@ -18,7 +18,7 @@ Route::group(['namespace' => 'User', 'middleware' => ['web', 'auth'], 'prefix' =
     /**
      * Datatables
      */
-    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('active', 'UserController@activeDatatable')->name('active');
         Route::get('inactive', 'UserController@InactiveDatatable')->name('inactive');
     });

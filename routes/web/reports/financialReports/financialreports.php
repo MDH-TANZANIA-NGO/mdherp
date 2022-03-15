@@ -7,7 +7,7 @@ Route::group(['namespace' => 'FinanceReports', 'middleware' => ['web', 'auth'], 
     /**
      * Datatables
      */
-    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
             Route::get('processing', 'FinanceReportsController@AccessProcessingDatatable')->name('processing');
 //            Route::get('rejected', 'FinanceReportsController@AccessRejectedDatatable')->name('rejected');

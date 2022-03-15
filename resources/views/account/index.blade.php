@@ -63,11 +63,11 @@
 
         </div>
         <div class="col-4 col-sm-4 col-lg-3">
-            <a href="">
+            <a href="{{ route('userbio.index') }}">
                 <div class="card">
                     <div class="card-body text-center">
-                        <div class="h2 m-0"><i class="fa fa-money text-primary"></i></div>
-                        <div class="text-muted mb-0">Salary Slip</div>
+                        <div class="h2 m-0"><i class="fa fa-slideshare text-primary"></i></div>
+                        <div class="text-muted mb-0">Know your Co-Workers</div>
                     </div>
                 </div>
             </a>

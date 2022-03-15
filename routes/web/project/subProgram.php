@@ -10,7 +10,7 @@ Route::group(['namespace' => 'Project', 'middleware' => ['web', 'auth'], 'prefix
     /**
      * Datatables
      */
-    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('all', 'SubProgramController@allDatatable')->name('all');
     });
 });

@@ -2,6 +2,8 @@
 Route::group(['namespace' => 'Person', 'middleware' => ['web', 'auth'], 'prefix' => 'person', 'as' => 'person.'], function () {
     Route::get('', 'PersonController@index')->name('index');
 
+
+
     //health details
     Route::get('/health-details/create', 'PersonController@createHealth')->name('health.create');
     Route::post('/health-details', 'PersonController@health')->name('health');
@@ -35,6 +37,10 @@ Route::group(['namespace' => 'Person', 'middleware' => ['web', 'auth'], 'prefix'
         Route::group(['prefix' => 'family', 'as' => 'family.'], function () {
             Route::get('processing', 'FamilyController@allDatatables')->name('all');
         });
+    });
+
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
+        Route::get('active', 'UserController@activeDatatable')->name('active');
     });
 
 });

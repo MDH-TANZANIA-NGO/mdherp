@@ -273,7 +273,7 @@ class RequisitionRepository extends BaseRepository
                     'subject' => $requisition->typeCategory->title . " Has been revised to your level",
                     'message' => $requisition->typeCategory->title . " " . $requisition->number . ' need modification.. Please do the need and send it back for approval'
                 ];
-              //  User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
+              User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
 
                 break;
         }
@@ -288,6 +288,7 @@ class RequisitionRepository extends BaseRepository
     public function updateRejected($id, $sign)
     {
         $requisition = $this->query()->find($id);
+
         return DB::transaction(function () use ($requisition, $sign) {
             $rejected = 0;
             if ($sign == -1) {

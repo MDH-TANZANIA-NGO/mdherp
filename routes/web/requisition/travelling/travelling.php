@@ -7,7 +7,7 @@ Route::group(['namespace' => 'Requisition\Travelling', 'middleware' => ['web', '
     Route::get('{uuid}/delete','RequestTravellingCostController@delete')->name('delete');
     Route::post('{uuid}/update', 'RequestTravellingCostController@update')->name('update');
 
-    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('all', 'RequestTravellingCostController@allDatatable')->name('all');
     });
 });
