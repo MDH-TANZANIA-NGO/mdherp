@@ -48,7 +48,7 @@ class UserbioController extends Controller
     public function create()
     {
 
-        return view('users.editprofile');
+        return view('userbio.forms.createbio');
     }
 
     /**
