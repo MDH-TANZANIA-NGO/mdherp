@@ -466,13 +466,8 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 20,
                     'level' => '2',
-<<<<<<< HEAD
                     'unit_id' => 74,
                     'designation_id' => 127,
-=======
-                    'unit_id' => 69,
-                    'designation_id' => 124,
->>>>>>> 4e5894e3525b1b6e7d3fe641369ecf2a4bee377d
                     'description' => 'Review Leave Request',
                     'msg_next' => 'Review Leave Request',
                     'wf_module_id' => '6',
