@@ -213,8 +213,18 @@ class TimesheetController extends Controller
             'body' => 'You are kindly reminded to submit your timesheet'
         ];
 
-        Mail::to('MdhStaff@mdh.or.tz')->send(new TimesheetNotification($details));
-        alert()->success('Timesheet Notification have been sent Successfully','success');
-        return redirect()->back();
+        try {
+            $date = Carbon::now()->format('F');
+            StartedTimesheet::create([
+                'user_id' => access()->id(),
+                'month' => $date
+            ]);
+            Mail::to('MdhStaff@mdh.or.tz')->send(new TimesheetNotification($details));
+            alert()->success('Timesheet Notification have been sent Successfully','success');
+            return redirect()->back();
+        } catch (\Exception $exception){
+            alert()->error('Timesheet Notification has already been sent','Failed');
+            return redirect()->back();
+        }
     }
 }

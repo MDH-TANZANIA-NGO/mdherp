@@ -16,7 +16,7 @@ class CreateStartedTimesheetsTable extends Migration
         Schema::create('started_timesheets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('month');
+            $table->string('month')->unique();
             $table->timestamps();
         });
     }
