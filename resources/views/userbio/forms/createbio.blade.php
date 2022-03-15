@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    {!! Form::open(['route' => ['userbio.update',$employee], 'method' => 'put']) !!}
+                    {!! Form::open(['route' => ['userbio.update'], 'method' => 'put']) !!}
                     @csrf
                     <div class="card">
                         <div class="card-body">
@@ -54,7 +54,7 @@
                                         <div class="col-md-12">
 
                                                 <label class="form-label">Biography: <span class="form-label-small">56/100</span></label>
-                                                <textarea class="form-control" name="bio" rows="2" placeholder="Write bio.." required>{{$employee->bio}}</textarea>
+                                                <textarea class="form-control" name="bio" rows="2" placeholder="Write bio.." required>{{$employee}}</textarea>
                                             </div>
                                         </div>
 

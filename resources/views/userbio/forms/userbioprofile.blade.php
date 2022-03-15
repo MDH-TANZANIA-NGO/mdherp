@@ -25,7 +25,7 @@
                                 <div class="card-body p-5">
                                     <h3>
                                         <a href="#" class="text-navy">
-                                            {{$userbio->full_name_formatted}}
+                                            {{$user->full_name_formatted}}
                                         </a>
                                     </h3>
                                     <p class="small">
@@ -48,11 +48,11 @@
                         <tbody>
                         <tr>
                             <th scope="row">Phone Number:</th>
-                            <td>{{$userbio->phone}}</td>
+                            <td>{{$user->phone}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Email:</th>
-                            <td>{{$userbio->email}}</td>
+                            <td>{{$user->email}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Working Station:</th>
@@ -60,7 +60,7 @@
                         </tr>
                         <tr>
                             <th scope="row">Designation:</th>
-                            <td>{{$userbio->designation->unit->name.' '. $userbio->designation->name}} </td>
+                            <td>{{$user->designation->unit->name.' '. $user->designation->name}} </td>
                         </tr>
                         </tbody>
                     </table>

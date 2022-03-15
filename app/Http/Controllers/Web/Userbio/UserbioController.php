@@ -49,11 +49,12 @@ class UserbioController extends Controller
      */
     public function create()
     {
-        $employee= Employee::where('user_id', access()->id())->first();
+        $employee= Employee::where('user_id', access()->id())->pluck('bio')->first();
+
         $userbio3= access()->user();
 
         return view('userbio.forms.createbio')
-            ->with('employee', $employee)
+            ->with('employee', $employee?? "Please Enter your Biography")
             ->with('user', $userbio3);
     }
 
@@ -63,9 +64,13 @@ class UserbioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, Employee $employee)
+    public function store(Request $request)
     {
-
+        $employee = Employee::where('user_id', access()->id())->first();
+        if ($employee == null){
+            alert()->error('Please Fill your personal Details First','Failed!');
+            return redirect()->back();
+        }
         $employee->update([
             'bio' => $request['bio']
         ]);
@@ -81,15 +86,15 @@ class UserbioController extends Controller
      */
     public function show($uuid)
     {
-        $userbio= $this->users->findByUuid($uuid);
-        $userbio2= Employee::where('user_id', access()->id())->first();
+        $user= $this->users->findByUuid($uuid);
+        $userbio= Employee::where('user_id', $user->id)->first();
 
 
         return view('userbio.forms.userbioprofile')
-            ->with('userbio', $userbio)
+            ->with('user', $user)
             ->with('designations', $this->designations->getActiveForSelect())
             ->with('regions', $this->regions->forSelect())
-            ->with('bio', $userbio2);
+            ->with('bio', $userbio);
     }
 
     /**
