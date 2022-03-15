@@ -41,7 +41,8 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    {!! Form::open(['route' => ['retirement.update',$retirement], 'enctype'=>'multipart/form-data']) !!}
+                    {!! Form::open(['route' => ['userbio.update',$employee], 'method' => 'put']) !!}
+                    @csrf
                     <div class="card">
                         <div class="card-body">
                             <div class=" " id="profile-log-switch">
@@ -52,16 +53,16 @@
 
                                         <div class="col-md-12">
 
-                                                <label class="form-label">Background Information: <span class="form-label-small">56/100</span></label>
-                                                <textarea class="form-control" name="activity_report" rows="2" placeholder="Write activity report.." required>{{$bio->bio}}</textarea>
+                                                <label class="form-label">Biography: <span class="form-label-small">56/100</span></label>
+                                                <textarea class="form-control" name="bio" rows="2" placeholder="Write bio.." required>{{$employee->bio}}</textarea>
                                             </div>
                                         </div>
 
                                         &nbsp;
-                                        <div class="col-md-12">
-                                        <div class="align-content-center content-center" style="size: 3px">
-                                            <a href="" class="btn btn-primary text-center btn-block">Update Bio</a>
-                                        </div>
+                                        <div class="col-12">
+                                            <div style="text-align: center;">
+                                                <button type="submit" class="btn btn-azure"> Update Bio </button>
+                                            </div>
                                         </div>
                                     </div>
                                     </div>

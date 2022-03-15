@@ -49,11 +49,11 @@ class UserbioController extends Controller
      */
     public function create()
     {
-        $userbio2= Employee::where('user_id', access()->id())->first();
+        $employee= Employee::where('user_id', access()->id())->first();
         $userbio3= access()->user();
 
         return view('userbio.forms.createbio')
-            ->with('bio', $userbio2?? 'Bio goes here')
+            ->with('employee', $employee)
             ->with('user', $userbio3);
     }
 
@@ -63,20 +63,13 @@ class UserbioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, Employee $employee)
     {
-        //$user_id = access()->id();
-        //$bio = $request['bio'];
-        $employee = Employee::where('user_id', access()->id())->first();
+
         $employee->update([
             'bio' => $request['bio']
         ]);
-        //DB::update('update employees set bio= ? where user_id= ?',[$user_id, $bio]);
-        /*Employee::create([
-            'user_id' => $user_id,
-            'bio' => $request['bio']
-        ]);*/
-
+        alert()->success('Biography Updated Succesfully','Great!');
         return redirect()->back();
     }
 
@@ -96,7 +89,7 @@ class UserbioController extends Controller
             ->with('userbio', $userbio)
             ->with('designations', $this->designations->getActiveForSelect())
             ->with('regions', $this->regions->forSelect())
-            ->with('bio', $userbio2?? 'Bio goes here');
+            ->with('bio', $userbio2);
     }
 
     /**
