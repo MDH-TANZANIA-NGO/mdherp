@@ -12,6 +12,11 @@
                     <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $timesheets->getRejectedTimesheets()->count()  }}</span> </a></li>
                 </ul>
             </div>
+            <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
+                <div class="btn-group mb-0">
+                    <a href="{{ route('timesheet.start') }}"> <i class="fa fa-plus mr-2"></i>Initiate Timesheet</a>
+                </div>
+            </div>
 
         </div>
 

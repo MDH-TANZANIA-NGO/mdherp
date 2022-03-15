@@ -5,16 +5,19 @@ namespace App\Http\Controllers\Web\Timesheet;
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Timesheet\Traits\TimesheetDatatable;
+use App\Mail\TimesheetNotification;
 use App\Models\Attendance\Attendance;
 use App\Models\Leave\LeaveBalance;
 use App\Models\Project\Project;
 use App\Models\Timesheet\EffortLevel;
+use App\Models\Timesheet\StartedTimesheet;
 use App\Models\Timesheet\Timesheet;
 use App\Repositories\Timesheet\TimesheetRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class TimesheetController extends Controller
 {
@@ -201,6 +204,17 @@ class TimesheetController extends Controller
             ]);
         }
         alert()->success('Level of Effort was set Successfully','success');
+        return redirect()->back();
+    }
+
+    public function startTimesheet(){
+        $details = [
+            'subject' => 'Timesheet Submission',
+            'body' => 'You are kindly reminded to submit your timesheet'
+        ];
+
+        Mail::to('MdhStaff@mdh.or.tz')->send(new TimesheetNotification($details));
+        alert()->success('Timesheet Notification have been sent Successfully','success');
         return redirect()->back();
     }
 }
