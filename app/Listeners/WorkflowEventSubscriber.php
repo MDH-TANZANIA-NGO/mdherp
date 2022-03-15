@@ -182,12 +182,12 @@ class WorkflowEventSubscriber
                 $email_resource = (object)[
                     'link' =>  route('safari.show',$safari),
                     'subject' => $safari->number." Approved Successfully",
-                    'message' => 'These Application has been Approved successfully'
+                    'message' => $safari->number.': This Safari Advance has been Approved successfully'
                 ];
                 $admin_email = (object)[
                         'link' =>  route('safari.show',$safari),
-                        'subject' => $safari->number." Arrange Logistics For Safari",
-                        'message' =>$safari->user->full_name. " Will be in Your Region From".$safari->SafariDetails->from. "To". $safari->SafariDetails->to,
+                        'subject' => " Arrange Logistics For Safari".$safari->number,
+                        'message' =>$safari->user->full_name. " Will travell to.".$safari->region->name." From".$safari->SafariDetails->from. "To". $safari->SafariDetails->to."Kindly Prepare logistics for this safari",
                     ];
                 $safari->user->notify(new WorkflowNotification($email_resource));
                 $projectAdmin = User::query()->where('region_id', $safari->region_id)->where('designation_id', '=', 43)->first();
@@ -201,7 +201,7 @@ class WorkflowEventSubscriber
                     $email_resource = (object)[
                         'link' =>  route('programactivity.show',$program_activity),
                         'subject' => $program_activity->number." Approved Successfully",
-                        'message' => 'These Application has been Approved successfully'
+                        'message' => $program_activity->number.': This Activity has been Approved successfully'
                     ];
                     $admin_email = (object)[
                         'link' =>  route('programactivity.show',$program_activity),
@@ -245,7 +245,7 @@ class WorkflowEventSubscriber
                     $email_resource = (object)[
                         'link' =>  route('finance.view',$finance),
                         'subject' => $finance->number." Approved Successfully",
-                        'message' => 'These Application has been Approved successfully'
+                        'message' => $finance->number.':This payment batch has been Approved successfully'
                     ];
                     $finance->user->notify(new WorkflowNotification($email_resource));
                     break;
@@ -277,8 +277,8 @@ class WorkflowEventSubscriber
                     $this->updateWfDone($program_activity_report);
                     $email_resource = (object)[
                         'link' =>  route('programactivityreport.show',$program_activity_report),
-                        'subject' => "Program Activity Approved Successfully",
-                        'message' => 'This Hire Requisition has been Approved successfully'
+                        'subject' => $program_activity_report->number.": Has been Approved Successfully",
+                        'message' => $program_activity_report->number.'This  Activity Report has been Approved successfully'
                     ];
                     $program_activity_report->user->notify(new WorkflowNotification($email_resource));
                     break;
@@ -320,8 +320,20 @@ class WorkflowEventSubscriber
             case 1:
                 (new RequisitionRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
+            case 3:
+                (new SafariAdvanceRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
+                break;
+            case 4:
+                (new ProgramActivityRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
+                break;
             case 5:
                 (new RetirementRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
+                break;
+            case 7:
+                (new FinanceActivityRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
+                break;
+            case 10:
+                (new ProgramActivityReportRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
 
         }

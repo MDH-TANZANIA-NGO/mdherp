@@ -172,7 +172,7 @@ class LeaveController extends Controller
 
             LeaveBalance::create([
                 'user_id' => $request['data'][$i]['user_id'],
-                'leave_id' => $request['data'][$i]['leave_id'],
+                'leave_type_id' => $request['data'][$i]['leave_id'],
                 'remaining_days' => $request['data'][$i]['remaining_days'],
             ]);
         }

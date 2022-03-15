@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\Finance\Datatable\PaymentsDatatable;
 use App\Models\Auth\User;
 use App\Models\Payment\Payment;
 use App\Models\ProgramActivity\ProgramActivity;
+use App\Models\ProgramActivity\ProgramActivityPayment;
 use App\Models\ProgramActivity\ProgramActivityReport;
 use App\Models\ProgramActivity\Traits\ProgramActivityRelationship;
 use App\Models\Requisition\Requisition;
@@ -22,6 +23,7 @@ use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Models\SafariAdvance\SafariAdvancePayment;
 use App\Models\SafariAdvance\Traits\SafariAdvanceRelationship;
 use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\ProgramActivity\ProgramActivityPaymentRepository;
 use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -51,6 +53,7 @@ class FinanceActivityController extends Controller
     protected $safari_advance_payment;
     protected $program_activity_reports;
     protected $designations;
+    protected $program_activity_payment_repo;
 
     public function __construct()
     {
@@ -64,6 +67,7 @@ class FinanceActivityController extends Controller
         $this->safari_advance_payment = (new SafariAdvancePaymentRepository());
         $this->program_activity_reports =  (new ProgramActivityReportRepository());
         $this->designations = (new DesignationRepository());
+        $this->program_activity_payment_repo =  (new ProgramActivityPaymentRepository());
 
     }
     public function index()
@@ -170,6 +174,9 @@ class FinanceActivityController extends Controller
         if (ProgramActivity::query()->where('requisition_id', $payment->requisition_id)->get()->count() > 0){
             $program_activity =  ProgramActivity::where('requisition_id', $payment->requisition_id)->first();
             $safari_advance =  SafariAdvance::where('requisition_travelling_cost_id', null)->first();
+            $program_activity_report_id =  ProgramActivityPayment::query()->where('payment_id', $payment->id)->first()->program_activity_report_id;
+            $program_activity_report = $this->program_activity_reports->find($program_activity_report_id);
+
 
         }elseif (SafariAdvance::query()->where('requisition_travelling_cost_id', $travelling_details->id)->get()->count() > 0)
         {
@@ -190,6 +197,7 @@ class FinanceActivityController extends Controller
                 ->with('safari_advance', $safari_advance)
                 ->with('requisition', Requisition::query()->where('id', $payment->requisition_id)->first())
                 ->with('program_activity', $program_activity)
+                ->with('program_activity_report', $program_activity_report)
                 ->with('travelling_details', $travelling_details)
                 ->with('payed_amount', $payment->payed_amount)
                 ->with('training_details', $training_details);
@@ -280,11 +288,60 @@ class FinanceActivityController extends Controller
             ->with('payment', $payment)
             ;
     }
+    public function ActivityPaymentSubmitForApproval($uuid){
+
+
+        $payment = $this->finance->findByUuid($uuid);
+        $requisition = $this->finance->findByUuid($uuid)->requisition()->first();
+        $program_activity = ProgramActivity::query()->where('requisition_training_id', requisition_training::query()->where('requisition_id',$requisition->id )->first()->id);
+        $program_activity_report =  ProgramActivityReport::query()->where('id', ProgramActivityPayment::query()->where('payment_id', $payment->id)->first()->program_activity_report_id);
+        $program_activity_payment = ProgramActivityPayment::query()->where('payment_id', $payment->id);
+        $trainingCost =  requisition_training_cost::query()->where('requisition_id', $requisition->id);
+        $trainingItems =  requisition_training_item::query()->where('requisition_id', $requisition->id);
+        return view('finance.payments.programActivity.forms.create')
+            ->with('program_activity', $program_activity->first())
+            ->with('program_activity_report', $program_activity_report->first())
+            ->with('requisition', $requisition)
+            ->with('details', $trainingCost)
+            ->with('program_activity_payment', $program_activity_payment->first())
+            ->with('payment', $payment)
+            ;
+    }
     public function storeSafariPayment(Request $request)
     {
         $pay = $this->finance->store($request->all());
         $this->safari_advance_payment->storeSafariPayment($request->all());
         return redirect()->route('finance.safari_payment_for_approval', $pay->uuid);
+    }
+    public function storeActivityPayment(Request $request)
+    {
+        $pay = $this->finance->store($request->all());
+        $this->program_activity_payment_repo->storeActivityPayment($request->all());
+        DB::update('update program_activity_reports set status = ? where id = ?',['paid', $request['program_activity_report_id']]);
+        DB::update('update program_activity_payments set payment_id = ? where program_activity_report_id = ?', [$pay->id, $request['program_activity_report_id']]);
+        alert()->success('Payment initiated Successfully', 'Success');
+        return redirect()->route('finance.activity_payment_for_approval', $pay->uuid);
+    }
+    public function updateActivityPayment(Request $request, $uuid)
+    {
+        $payment =  $this->finance->findByUuid($uuid);
+        $pay = $payment->update($request->all());
+        $program_activity_payment_uuid = $payment->activityPayment->uuid;
+
+
+        DB::update('update program_activity_payments set total_items_amount_paid = ?, total_participant_amount_paid = ?, total_amount_paid = ? where uuid = ?', [$request['total_items'], $request['total_participants'], $request['total_amount'], $program_activity_payment_uuid]);
+        DB::update('update payments set payed_amount = ? where uuid = ?',[$request->get('total_amount'), $uuid]);
+        $activity_payment = $this->program_activity_payment_repo->findByUuid($program_activity_payment_uuid)->update($request->all());
+
+        alert()->success('Payment updated Successfully', 'Success');
+        if ($payment->done == 0)
+        {
+            return redirect()->route('finance.activity_payment_for_approval', $payment->uuid);
+        }
+        else{
+            return redirect()->route('finance.view', $payment->uuid);
+        }
+
     }
     public function safariPaymentEditForApproval($uuid){
 
@@ -304,12 +361,21 @@ class FinanceActivityController extends Controller
     public function updateSafariPayment(Request $request, $uuid){
 
         return DB::transaction(function () use ( $request, $uuid){
+            $payment = $this->finance->findByUuid($uuid);
             $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $request->get('safari_advance_id'))->first();
             DB::update('update payments set payed_amount = ? where uuid = ?',[$request->get('total_amount'), $uuid]);
             DB::update('update safari_advance_payments set disbursed_amount = ?, account_no = ? where uuid = ?',[$request->get('total_amount'), $request->get('phone'), $safari_advance_payment->uuid]);
 
             alert()->success('Safari Advance Payment Updated Successfully', 'Success');
-            return redirect()->route('finance.safari_payment_for_approval', $uuid);
+
+            if ($payment->done == 0){
+                return redirect()->route('finance.safari_payment_for_approval', $uuid);
+            }
+            else{
+                return redirect()->route('finance.view', $uuid);
+            }
+
+
 
 
         });
@@ -330,7 +396,27 @@ class FinanceActivityController extends Controller
             event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $payment->id,'region_id' => $payment->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
 
             alert()->success('Safari Advance Payment Sent for Approval', 'Success');
-            return redirect()->route('finance.showSafariPayment', $uuid);
+            return redirect()->route('finance.view', $uuid);
+
+
+        });
+    }
+    public function sendActivityPaymentForApproval(Request $request, $uuid){
+
+        return DB::transaction(function () use ( $request, $uuid){
+            $payment = Payment::query()->where('uuid', $uuid)->first();
+            $number = $this->finance->generateNumber($payment);
+            $program_activity_report = $payment->activityPayment->activityReport;
+
+           DB::update('update payments set done = ?, number = ? where uuid = ?',[1,$number, $uuid]);
+           DB::update('update program_activity_reports set paid = ? where uuid = ?',[true, $program_activity_report->uuid]);
+
+            $wf_module_group_id = 6;
+            $next_user = $payment->user->assignedSupervisor()->supervisor_id;
+            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $payment->id,'region_id' => $payment->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+
+            alert()->success('Activity Advance Payment Sent for Approval', 'Success');
+            return redirect()->route('finance.view', $uuid);
 
 
         });
@@ -348,6 +434,8 @@ class FinanceActivityController extends Controller
             ->with('payment', $payment)
             ;
     }
+
+
 
     public function programActivityPayment($uuid){
 

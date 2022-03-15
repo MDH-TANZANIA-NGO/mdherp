@@ -94,8 +94,8 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 4,
                     'level' => '4',
-                    'unit_id' => '71',
-                    'designation_id' => '122',
+                    'unit_id' => '74',
+                    'designation_id' => '127',
                     'description' => 'Verify Requisition',
                     'msg_next' => 'Request for Endorsement',
                     'wf_module_id' => '1',
@@ -117,8 +117,8 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 5,
                     'level' => '5',
-                    'unit_id' => '1',
-                    'designation_id' => '1',
+                    'unit_id' => '71',
+                    'designation_id' => '123',
                     'description' => 'Endorse Requisition',
                     'msg_next' => 'Request Approval',
                     'wf_module_id' => '1',
@@ -141,7 +141,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'id' => 6,
                     'level' => '6',
                     'unit_id' => '5',
-                    'designation_id' => '13',
+                    'designation_id' => '128',
                     'description' => 'Approve Requisition',
                     'msg_next' => 'End Requisition',
                     'wf_module_id' => '1',
@@ -212,8 +212,8 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 9,
                     'level' => '1',
-                    'unit_id' => 5,
-                    'designation_id' => 13,
+                    'unit_id' => 69,
+                    'designation_id' => 124,
                     'description' => 'Submit Safari Advance',
                     'msg_next' => 'Submit Safari Advance',
                     'wf_module_id' => '3',
@@ -235,8 +235,8 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 10,
                     'level' => '2',
-                    'unit_id' => 5,
-                    'designation_id' => 13,
+                    'unit_id' => 72,
+                    'designation_id' => 125,
                     'description' => 'Approve Safari Advance',
                     'msg_next' => 'Approve Safari Advance',
                     'wf_module_id' => '3',
@@ -258,8 +258,8 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 11,
                     'level' => '1',
-                    'unit_id' => 5,
-                    'designation_id' => 13,
+                    'unit_id' => 69,
+                    'designation_id' => 124,
                     'description' => 'Submit Program Activity',
                     'msg_next' => 'Submit Program Activity',
                     'wf_module_id' => '4',
@@ -281,8 +281,8 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 12,
                     'level' => '2',
-                    'unit_id' => 5,
-                    'designation_id' => 13,
+                    'unit_id' => 72,
+                    'designation_id' => 125,
                     'description' => 'Approve Program Activity',
                     'msg_next' => 'Approve Program Activity',
                     'wf_module_id' => '4',
@@ -466,8 +466,13 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 20,
                     'level' => '2',
+<<<<<<< HEAD
                     'unit_id' => 74,
                     'designation_id' => 127,
+=======
+                    'unit_id' => 69,
+                    'designation_id' => 124,
+>>>>>>> 4e5894e3525b1b6e7d3fe641369ecf2a4bee377d
                     'description' => 'Review Leave Request',
                     'msg_next' => 'Review Leave Request',
                     'wf_module_id' => '6',

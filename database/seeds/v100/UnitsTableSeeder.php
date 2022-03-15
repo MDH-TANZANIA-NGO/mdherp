@@ -828,6 +828,8 @@ class UnitsTableSeeder extends Seeder
                     'id' => 74,
                     'name' => 'Supervisor',
                     'title' => 'Supervisor.',
+                    'name' => 'Budget',
+                    'title' => 'Budget.',
                     'unit_group_id' => '1',
                     'isactive' => '0',
                     'created_at' => '2022-01-10 16:32:27',

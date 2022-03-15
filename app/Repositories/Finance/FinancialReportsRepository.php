@@ -39,7 +39,7 @@ class FinancialReportsRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('payments.wf_done', true)
+            ->where('payments.wf_done', 1)
 //            ->where('safari_advances.done', true)
             ->where('payments.rejected', false);
 

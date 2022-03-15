@@ -8,6 +8,7 @@ use App\Models\ProgramActivity\Traits\ProgramActivityRelationship;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
@@ -50,7 +51,7 @@ class ProgramActivityRepository extends BaseRepository
 
             ->join('requisition_trainings', 'program_activities.requisition_training_id', 'requisition_trainings.id')
             ->join('districts', 'requisition_trainings.district_id', 'districts.id')
-            ->where('program_activities.wf_done', true)
+            ->where('program_activities.wf_done', 1)
             ->where('program_activities.user_id', access()->user()->id)
             ->where('report_submitted', false)
             ->whereDate('requisition_trainings.start_date', '<=', Carbon::today());
@@ -87,7 +88,7 @@ class ProgramActivityRepository extends BaseRepository
     public function getAllApprovedProgramActivities()
     {
         return $this->getQuery()
-            ->where('program_activities.wf_done', true)
+            ->where('program_activities.wf_done', 1)
             ->where('program_activities.paid', false);
     }
 
@@ -232,7 +233,7 @@ class ProgramActivityRepository extends BaseRepository
     public function getCompletedWithoutRetirement()
     {
         return $this->getQuery()
-            ->where('program_activities.wf_done', true)
+            ->where('program_activities.wf_done', 1)
             ->whereDoesntHave('retirement');
     }
 
@@ -244,7 +245,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done', false)
+            ->where('program_activities.wf_done', 0)
             ->where('program_activities.done', 1)
             ->where('program_activities.rejected', false)
             ->where('users.id', access()->id());
@@ -254,7 +255,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done', false)
+            ->where('program_activities.wf_done', 0)
             ->where('program_activities.done', 1)
             ->where('program_activities.rejected', true)
             ->where('users.id', access()->id());
@@ -264,7 +265,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done', true)
+            ->where('program_activities.wf_done', 0)
             ->where('program_activities.done', 1)
             ->where('program_activities.rejected', false)
             ->where('users.id', access()->id());
@@ -274,7 +275,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done', false)
+            ->where('program_activities.wf_done', 0)
             ->where('program_activities.done', 0)
             ->where('program_activities.rejected', false)
             ->where('users.id', access()->id());
@@ -283,7 +284,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done', true)
+            ->where('program_activities.wf_done', 0)
 //            ->where('safari_advances.done', false)
             ->where('program_activities.rejected', false)
             ->where('program_activities.done', 1)
@@ -294,7 +295,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done', true)
+            ->where('program_activities.wf_done', 1)
             ->where('program_activities.report_approved', false)
             ->where('program_activities.report_rejected', false)
             ->where('program_activities.done', 1)
@@ -304,7 +305,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done', true)
+            ->where('program_activities.wf_done', 1)
             ->where('program_activities.report_approved', true)
             ->where('program_activities.done', 1)
             ->where('program_activities.supervised_by', access()->id());
@@ -313,7 +314,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done', true)
+            ->where('program_activities.wf_done', 1)
             ->where('program_activities.report_approved', false)
             ->where('program_activities.report_rejected', true)
             ->where('program_activities.done', 1)
@@ -327,5 +328,100 @@ class ProgramActivityRepository extends BaseRepository
             DB::update('update requisition_training_costs set amount_paid= ? where uuid= ?', [$amount_paid, $uuid]);
         });
     }
+
+
+    /**
+     * Get applicant level
+     * @param $wf_module_id
+     * @return int|null
+     * Get fron desk level per module id
+     */
+    public function getApplicantLevel($wf_module_id)
+    {
+        $level = null;
+        switch ($wf_module_id) {
+            case 1:
+                $level = 1;
+                break;
+        }
+        return $level;
+    }
+
+    /**
+     * Get applicant level
+     * @param $wf_module_id
+     * @return int|null
+     * Get fron desk level per module id
+     */
+    public function getHeadOfDeptLevel($wf_module_id)
+    {
+        $level = null;
+        switch ($wf_module_id) {
+            case 1:
+                $level = 2;
+                break;
+        }
+        return $level;
+    }
+
+    /**
+     * @param $resource_id
+     * @param $wf_module_id
+     * @param $current_level
+     * @param int $sign
+     * @param array $inputs
+     * @throws \App\Exceptions\GeneralException
+     */
+    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])
+    {
+        $program_activity = $this->find($resource_id);
+        $applicant_level = $this->getApplicantLevel($wf_module_id);
+        $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
+//        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
+//        if($requisition->rejected){}
+        switch ($inputs['rejected_level'] ?? $current_level) {
+            case $applicant_level:
+                $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' => route('programactivity.show', $program_activity),
+                    'subject' =>$program_activity->number. " Has been revised to your level",
+                    'message' => $program_activity->number. ' need modification.. Please do the need and send it back for approval'
+                ];
+                User::query()->find($program_activity->user_id)->notify(new WorkflowNotification($email_resource));
+
+                break;
+            case $head_of_dept_level:
+                $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' => route('programactivity.show', $program_activity),
+                    'subject' =>$program_activity->number . " Has been revised to your level",
+                    'message' => $program_activity->number .  ' need modification. Please do the need and send it back for approval'
+                ];
+//                  User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
+
+                break;
+        }
+    }
+
+    /**
+     * Update rejected column
+     * @param $id
+     * @param $sign
+     * @return mixed
+     */
+    public function updateRejected($id, $sign)
+    {
+        $program_activity = $this->query()->find($id);
+        return DB::transaction(function () use ($program_activity, $sign) {
+            $rejected = 0;
+            if ($sign == -1) {
+                $rejected = 1;
+            }
+            return $program_activity->update(['rejected' => $rejected]);
+        });
+    }
+
 
 }

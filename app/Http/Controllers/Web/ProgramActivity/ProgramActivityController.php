@@ -90,12 +90,12 @@ class ProgramActivityController extends Controller
 
         $supervisor = SupervisorUser::where('supervisor_id', access()->user()->id)->first();
 
-
        return view('programactivity.workspace')
            ->with('supervisor', $supervisor);
 
-
     }
+
+  /*  View where user submits and creates program activity*/
 
     public  function  create(ProgramActivity $programActivity)
     {
@@ -103,9 +103,6 @@ class ProgramActivityController extends Controller
         $requisition_training = requisition_training::all()->where('id', $programActivity->requisition_training_id);
         $requisition_training_items = requisition_training_item::all()->where('requisition_id', $programActivity->requisition_id);
         $requisition = Requisition::all()->where('id', $programActivity->requisition_id);
-//                dd($requisition);
-//
-
 
         return view('programactivity.forms.create')
             ->with('requisition', $requisition)
@@ -115,16 +112,20 @@ class ProgramActivityController extends Controller
             ->with('district', $this->districts->getForPluck())
             ->with('program_activity', $programActivity);
     }
+
+  /*  View where user selects available requisition to initiate activity*/
+
     public  function  initiate()
     {
 
         return view('programactivity.forms.initiate')
             ->with('trainings', $this->trainings->getPluckRequisitionNo());
     }
+
+/*    Store initiated program activty*/
     public function store(Request $request)
     {
-        //ddd($this->program_activity->store($request->all()));
-        //ddd($request->all());
+
         $programActivity = $this->program_activity->store($request->all());
         return redirect()->route('programactivity.create', $programActivity);
     }
@@ -217,9 +218,15 @@ class ProgramActivityController extends Controller
     }
     public function pay(RequestTrainingCostRepository $costRepository, $uuid)
     {
+        $training_cost = $this->requisition_training_cost->findByUuid($uuid);
+        $requisition = Requisition::query()->where('id', $training_cost->requisition_id)->first();
+        $program_activity =  ProgramActivity::query()->where('requisition_training_id', $training_cost->requisition_training_id)->first();
 //        dd($this->requisition_training_cost->all()->where('uuid', $uuid));
+
         return view('programactivity.forms.pay')
-            ->with('details', $this->requisition_training_cost->all()->where('uuid', $uuid));
+            ->with('details', $this->requisition_training_cost->all()->where('uuid', $uuid))
+            ->with('requisition', $requisition)
+            ->with('program_activity', $program_activity);
     }
 
     public function programActivityAttendance(Request $request, $uuid)
