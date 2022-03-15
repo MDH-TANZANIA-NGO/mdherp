@@ -138,7 +138,7 @@
                         </div>
                         <div class="form-group" id="number" >
                             <label for="recipient-name" class="form-control-label">Account Number:</label>
-                            {!! Form::text('number',$details->user->phone,['class'=>'form-control', 'placeholder'=>'0758698022 or 0J1468300300']) !!}
+                            {!! Form::text('account_no',$details->user->phone,['class'=>'form-control', 'placeholder'=>'0758698022 or 0J1468300300']) !!}
                         </div>
 
                         <div class="form-group">

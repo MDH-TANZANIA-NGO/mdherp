@@ -290,10 +290,11 @@ class ProgramActivityController extends Controller
     }
     public function submitPayment(Request $request, $uuid)
     {
-
+        $requisition_training_cost = $this->requisition_training_cost->findByUuid($uuid);
+        $program_activity = ProgramActivity::query()->where('requisition_training_id', $requisition_training_cost->requisition_training_id)->first();
         $this->program_activity->submitPayment($request->all(), $uuid);
         alert()->success('Payment Done Successfully', 'Succeeded');
-        return redirect()->back();
+        return redirect()->route('programactivity.show', $program_activity->uuid);
     }
     public function submit($uuid)
     {

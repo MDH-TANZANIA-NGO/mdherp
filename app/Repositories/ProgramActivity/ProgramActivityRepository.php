@@ -325,7 +325,9 @@ class ProgramActivityRepository extends BaseRepository
     {
         return DB::transaction(function () use ($inputs, $uuid){
             $amount_paid = $inputs['payed_amount'];
-            DB::update('update requisition_training_costs set amount_paid= ? where uuid= ?', [$amount_paid, $uuid]);
+            $account_no = $inputs['account_no'];
+            $remarks = $inputs['remarks'];
+            DB::update('update requisition_training_costs set amount_paid= ?, account_no = ?, remarks = ? where uuid= ?', [$amount_paid, $account_no, $remarks, $uuid]);
         });
     }
 

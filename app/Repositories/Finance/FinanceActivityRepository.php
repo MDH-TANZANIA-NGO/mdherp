@@ -70,7 +70,6 @@ class FinanceActivityRepository extends BaseRepository
         });
     }
 
-
     /**
      * Get applicant level
      * @param $wf_module_id
@@ -115,7 +114,7 @@ class FinanceActivityRepository extends BaseRepository
      */
     public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])
     {
-        $payment = $this->find($resource_id);
+        $requisition = $this->find($resource_id);
         $applicant_level = $this->getApplicantLevel($wf_module_id);
         $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
 //        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
@@ -125,22 +124,22 @@ class FinanceActivityRepository extends BaseRepository
                 $this->updateRejected($resource_id, $sign);
 
                 $email_resource = (object)[
-                    'link' => route('programactivity.show', $payment),
-                    'subject' =>$payment->number. " Has been revised to your level",
-                    'message' => $payment->number. ' need modification.. Please do the need and send it back for approval'
+                    'link' => route('requisition.show', $requisition),
+                    'subject' => $requisition->typeCategory->title . " Has been revised to your level",
+                    'message' => $requisition->typeCategory->title . " " . $requisition->number . ' need modification.. Please do the need and send it back for approval'
                 ];
-                User::query()->find($payment->user_id)->notify(new WorkflowNotification($email_resource));
+//                User::query()->find($requisition->user_id)->notify(new WorkflowNotification($email_resource));
 
                 break;
             case $head_of_dept_level:
                 $this->updateRejected($resource_id, $sign);
 
                 $email_resource = (object)[
-                    'link' => route('programactivity.show', $payment),
-                    'subject' =>$payment->number . " Has been revised to your level",
-                    'message' => $payment->number .  ' need modification. Please do the need and send it back for approval'
+                    'link' => route('requisition.show', $requisition),
+                    'subject' => $requisition->typeCategory->title . " Has been revised to your level",
+                    'message' => $requisition->typeCategory->title . " " . $requisition->number . ' need modification.. Please do the need and send it back for approval'
                 ];
-//                  User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
+                //  User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
 
                 break;
         }
@@ -154,13 +153,13 @@ class FinanceActivityRepository extends BaseRepository
      */
     public function updateRejected($id, $sign)
     {
-        $payment = $this->query()->find($id);
-        return DB::transaction(function () use ($payment, $sign) {
+        $requisition = $this->query()->find($id);
+        return DB::transaction(function () use ($requisition, $sign) {
             $rejected = 0;
             if ($sign == -1) {
                 $rejected = 1;
             }
-            return $payment->update(['rejected' => $rejected]);
+            return $requisition->update(['rejected' => $rejected]);
         });
     }
 

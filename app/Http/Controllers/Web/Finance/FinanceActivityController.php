@@ -315,10 +315,13 @@ class FinanceActivityController extends Controller
     }
     public function storeActivityPayment(Request $request)
     {
+        $total_amount = $request['total_items']+ $request['total_participants'];
         $pay = $this->finance->store($request->all());
         $this->program_activity_payment_repo->storeActivityPayment($request->all());
         DB::update('update program_activity_reports set status = ? where id = ?',['paid', $request['program_activity_report_id']]);
         DB::update('update program_activity_payments set payment_id = ? where program_activity_report_id = ?', [$pay->id, $request['program_activity_report_id']]);
+        DB::update('update payments set payed_amount = ? where uuid = ?', [$total_amount, $pay->uuid]);
+
         alert()->success('Payment initiated Successfully', 'Success');
         return redirect()->route('finance.activity_payment_for_approval', $pay->uuid);
     }
