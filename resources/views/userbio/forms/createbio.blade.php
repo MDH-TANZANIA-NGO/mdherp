@@ -41,6 +41,7 @@
             <div class="row">
                 <div class="col-md-12">
 
+                    {!! Form::open(['route' => ['retirement.update',$retirement], 'enctype'=>'multipart/form-data']) !!}
                     <div class="card">
                         <div class="card-body">
                             <div class=" " id="profile-log-switch">
@@ -67,6 +68,8 @@
                                 </div>
                             </div>
                         </div>
+                    {!! Form::close() !!}
+
                     </div>
 
                 </div>

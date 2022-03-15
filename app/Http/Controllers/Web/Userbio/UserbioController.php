@@ -12,6 +12,7 @@ use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DesignationRepository;
 use App\Userbio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserbioController extends Controller
 {
@@ -60,11 +61,23 @@ class UserbioController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        //$user_id = access()->id();
+        //$bio = $request['bio'];
+        $employee = Employee::where('user_id', access()->id())->first();
+        $employee->update([
+            'bio' => $request['bio']
+        ]);
+        //DB::update('update employees set bio= ? where user_id= ?',[$user_id, $bio]);
+        /*Employee::create([
+            'user_id' => $user_id,
+            'bio' => $request['bio']
+        ]);*/
+
+        return redirect()->back();
     }
 
     /**
