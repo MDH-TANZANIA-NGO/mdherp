@@ -33,7 +33,7 @@
                                     </p>
                                     <dl class="small m-b-none">
                                         <dt>Biography</dt>
-                                        <dd> {{$employee->bio}}</dd>
+                                        <dd> {{$bio->bio}}</dd>
                                     </dl>
 
 {{--                                    <a href="" class="mt-2 btn btn-sm btn-pill btn-primary">Buy Now</a>--}}
