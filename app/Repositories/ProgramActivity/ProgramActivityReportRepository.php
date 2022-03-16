@@ -161,7 +161,7 @@ use Number;
     {
         $level = null;
         switch ($wf_module_id) {
-            case 1:
+            case 10:
                 $level = 1;
                 break;
         }
@@ -178,7 +178,7 @@ use Number;
     {
         $level = null;
         switch ($wf_module_id) {
-            case 1:
+            case 10:
                 $level = 2;
                 break;
         }

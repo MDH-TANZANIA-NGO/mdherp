@@ -317,7 +317,7 @@ class WorkflowEventSubscriber
         $current_level = $wfTrack->wfDefinition->level;
 
         switch ($wf_module_id) {
-            case 1:
+            case 1: case 2:
                 (new RequisitionRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
             case 3:

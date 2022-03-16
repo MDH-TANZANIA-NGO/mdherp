@@ -340,7 +340,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         $level = null;
         switch ($wf_module_id) {
-            case 1:
+            case 4:
                 $level = 1;
                 break;
         }
@@ -357,7 +357,7 @@ class ProgramActivityRepository extends BaseRepository
     {
         $level = null;
         switch ($wf_module_id) {
-            case 1:
+            case 4:
                 $level = 2;
                 break;
         }
