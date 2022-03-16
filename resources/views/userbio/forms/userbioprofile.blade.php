@@ -38,14 +38,12 @@
                                     <dl class="small m-b-none">
                                         <dt>Biography</dt>
                                         @if($bio != null)
-                                        <dd> {{$bio->bio}}</dd>
                                             <dd> <p style="text-align: justify">{{$bio->bio}}</p> </dd>
                                         @else
                                             <dd> **This user has not insert user BIO**</dd>
                                         @endif
                                     </dl>
 
-                                        </tr>
                                     {{--                                    <h6 class="mt-6 font-weight-semibold">Employee Details</h6>--}}
                                     {{--                                    <table class="table table-striped table-bordered m-top20">--}}
                                     {{--                                        <tbody>--}}
@@ -72,6 +70,7 @@
                                             <div class="float-left">
                                                 <h3 class="card-title">Contact</h3>
                                             </div>
+                                            <div class="card-options text-right">
                                                 <a href="#" class="btn btn-sm btn-primary mr-2"><i class="fa fa-facebook"></i></a>
                                                 <a href="#" class="btn btn-sm btn-primary mr-2"><i class="fa fa-twitter"></i></a>
                                                 <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-google-plus"></i></a>
