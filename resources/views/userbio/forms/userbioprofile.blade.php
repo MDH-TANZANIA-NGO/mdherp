@@ -29,7 +29,7 @@
                                         </a>
                                     </h3>
                                     <p class="small">
-                                      
+
                                     </p>
                                     <dl class="small m-b-none">
                                         <dt>Biography</dt>
