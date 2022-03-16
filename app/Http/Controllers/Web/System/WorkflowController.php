@@ -467,6 +467,7 @@ class workflowController extends Controller
     public function getPending()
     {
         $datatables = $this->wf_tracks->getForWorkflowDatatable();
+
         return $datatables->make(true);
     }
 
