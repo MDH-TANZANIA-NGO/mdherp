@@ -16,31 +16,52 @@
                 <div class="card-body">
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-md-12 col-lg-5">
-                                <div class="cart-product-imitation ">
-                                    {{--{{dd($user->getMedia('profile_pic')->first())}}--}}
-                                    <img src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" style="width: 720px; height: 1080px">
-                                    {{--<a href="{{$user->getFirstMediaURL('profile_pic')}}" target="_blank">view</a>--}}
+                            <div class="col-md-4">
 
+
+                                @if($user->getMedia('profile_pic')->first() != null)
+                                    <img src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" style="width: 720px; height: 1080px">
+                                @else
+                                    <dd> ** Sorry! This user has not uploaded Profile Image**</dd>
+                                @endif
                             </div>
-                            <div class="col-md-12 col-lg-7">
+                            <div class="col-md-6 ">
                                 <div class="card-body p-5">
                                     <h3>
                                         <a href="#" class="text-navy">
                                             {{$user->full_name_formatted}}
                                         </a>
                                     </h3>
-                                    <p class="small">
-
-                                    </p>
                                     <dl class="small m-b-none">
                                         <dt>Biography</dt>
                                         @if($bio != null)
                                         <dd> {{$bio->bio}}</dd>
                                             @else
-                                            <dd> **This user does not have BIO**</dd>
+                                            <dd> **This user has not insert user BIO**</dd>
                                             @endif
                                     </dl>
+
+                                    <h6 class="mt-6 font-weight-semibold">Employee Details</h6>
+                                    <table class="table table-striped table-bordered m-top20">
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">Phone Number:</th>
+                                            <td>{{$user->phone}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Email:</th>
+                                            <td>{{$user->email}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Working Station:</th>
+                                            <td>Dar es Salaam</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Designation:</th>
+                                            <td>{{$user->designation->unit->name.' '. $user->designation->name}} </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
 
 {{--                                    <a href="" class="mt-2 btn btn-sm btn-pill btn-primary">Buy Now</a>--}}
                                     {{--<a href="" class="mt-2 btn btn-sm btn-pill btn-outline-secondary">Add to cart</a>--}}
@@ -49,27 +70,7 @@
                         </div>
                     </div>
 
-                    <h6 class="mt-6 font-weight-semibold">Employee Details</h6>
-                    <table class="table table-striped table-bordered m-top20">
-                        <tbody>
-                        <tr>
-                            <th scope="row">Phone Number:</th>
-                            <td>{{$user->phone}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Email:</th>
-                            <td>{{$user->email}}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Working Station:</th>
-                            <td>Dar es Salaam</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Designation:</th>
-                            <td>{{$user->designation->unit->name.' '. $user->designation->name}} </td>
-                        </tr>
-                        </tbody>
-                    </table>
+
                 </div>
                 {{--<div class="ibox-content card-footer text-right">
                     <a href="" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Back</a>
