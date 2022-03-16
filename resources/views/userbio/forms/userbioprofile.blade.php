@@ -29,11 +29,15 @@
                                         </a>
                                     </h3>
                                     <p class="small">
-                                      Accademic detailsssss
+                                      
                                     </p>
                                     <dl class="small m-b-none">
                                         <dt>Biography</dt>
+                                        @if($bio != null)
                                         <dd> {{$bio->bio}}</dd>
+                                            @else
+                                            <dd> **This user does not have BIO**</dd>
+                                            @endif
                                     </dl>
 
 {{--                                    <a href="" class="mt-2 btn btn-sm btn-pill btn-primary">Buy Now</a>--}}

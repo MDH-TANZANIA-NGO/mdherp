@@ -17,8 +17,8 @@
 
                             </li>
                             <li class="text-center">
-                                <h4 class="text-capitalize mt-3 mb-0">{{$user->full_name_formatted}}</h4>
-                                <p class="text-muted text-capitalize">{{$user->designation->unit->name.' '. $user->designation->name}} </p>
+                                <h4 class="text-capitalize mt-3 mb-0">{{access()->user()->full_name_formatted}}</h4>
+                                <p class="text-muted text-capitalize">{{access()->user()->designation->unit->name.' '. access()->user()->designation->name}} </p>
                             </li>
 
                             <li><br></li>
@@ -54,7 +54,7 @@
                                         <div class="col-md-12">
 
                                                 <label class="form-label">Biography: <span class="form-label-small">56/100</span></label>
-                                                <textarea class="form-control" name="bio" rows="2" placeholder="Write bio.." required>{{$employee}}</textarea>
+                                                <textarea class="form-control" name="bio" rows="2" placeholder="Please enter your Biography" required>{{$userbio}}</textarea>
                                             </div>
                                         </div>
 

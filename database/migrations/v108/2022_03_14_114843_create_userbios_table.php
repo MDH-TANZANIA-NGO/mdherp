@@ -15,6 +15,10 @@ class CreateUserbiosTable extends Migration
     {
         Schema::create('userbios', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->longText('bio')->nullable();
+            $table->text('uuid');
+            $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
     }
