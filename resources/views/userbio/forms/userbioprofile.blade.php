@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="card-body no-padding rounded">
                                             <ul class="list-group no-margin">
-                                                <li class="list-group-item"><i class="fa fa-envelope mr-4"></i> {{$user->email}}</li>
+                                                <li class="list-group-item"><i class="fa fa-envelope mr-4"></i> <a href="mailto:{{$user->email}}">{{$user->email}}</a> </li>
                                                 <li class="list-group-item"><i class="fa fa-location-arrow mr-4"></i>
                                                     {{$user->region->name}}</li>
                                                 <li class="list-group-item"><i class="fa fa-phone mr-4"></i> {{$user->phone}} </li>
