@@ -6,6 +6,7 @@ Route::group(['namespace' => 'Userbio', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('create', 'UserbioController@create')->name('create');
     Route::get('{uuid}/show', 'UserbioController@show')->name('show');
     Route::put('/update', 'UserbioController@store')->name('update');
+    Route::post('{uuid}/uploadpic', 'UserbioController@uploadpic')->name('uploadpic');
 
     /**
      * Datatables

@@ -17,9 +17,11 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-12 col-lg-5">
-                                <div class="cart-product-imitation bg-gray">
-                                    <img src="../../assets/images/products/8.png" alt="">
-                                </div>
+                                <div class="cart-product-imitation ">
+                                    {{--{{dd($user->getMedia('profile_pic')->first())}}--}}
+                                    <img src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" style="width: 720px; height: 1080px">
+                                    {{--<a href="{{$user->getFirstMediaURL('profile_pic')}}" target="_blank">view</a>--}}
+
                             </div>
                             <div class="col-md-12 col-lg-7">
                                 <div class="card-body p-5">
