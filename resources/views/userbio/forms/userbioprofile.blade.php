@@ -46,11 +46,11 @@
                                         <tbody>
                                         <tr>
                                             <th scope="row">Phone Number:</th>
-                                            <td>{{$user->phone}}</td>
+                                            <td><a href="tel:{{$user->phone}}">{{$user->phone}}</a></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Email:</th>
-                                            <td>{{$user->email}}</td>
+                                            <td><a href="mailto:{{$user->email}}" target="_blank">{{$user->email}}</a></td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Working Station:</th>
