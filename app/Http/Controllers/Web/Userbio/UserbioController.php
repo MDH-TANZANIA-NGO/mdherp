@@ -40,9 +40,10 @@ class UserbioController extends Controller
 
     public function create()
     {
-        $userbio = Userbio::where('user_id', access()->id())->pluck('bio')->first();
+        $userbio = Userbio::where('user_id', access()->id())->first();
+
         return view('userbio.forms.createbio')
-            ->with('userbio', $userbio?? null);
+            ->with('userbio', $userbio?? "null");
     }
 
     public function store(Request $request)
@@ -63,10 +64,28 @@ class UserbioController extends Controller
         return redirect()->back();
     }
 
+    public function uploadpic(Request $request, $uuid)
+    {
+
+        $userbio = User::where('uuid', $uuid)->first();
+
+        $profilepic = $request->file('profile_pic');
+
+        if ($request->hasFile('profile_pic')){
+
+            $userbio->addMedia($profilepic)->toMediaCollection('profile_pic');
+            alert()->success('Profile Picture Updated Succesfully','Great!');
+            return redirect()->back();
+        }
+        alert()->error('Failed','Failed!');
+        return redirect()->back();
+
+    }
+
 
     public function show($uuid)
     {
-        $user= $this->users->findByUuid($uuid);
+        $user= User::where('uuid', $uuid)->first();
         $userbio= Userbio::where('user_id', $user->id)->first();
 
         if($userbio== null)
