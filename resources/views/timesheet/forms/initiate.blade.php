@@ -65,12 +65,12 @@
 
 
                         @foreach($workdays as $key => $workday)
-                            <tr>
-                                <td><b>{{ $workday }}</b></td>
-                                <input type="hidden" name="data[{{$key}}][date]" value="{{ $workday }}">
-                                <td><input type="number" step=any name="data[{{$key}}][hours]" class="form-control col-md-4"></td>
-                                <td><input type="text" name="data[{{$key}}][comment]" class="form-control col-md-10"></td>
-                            </tr>
+                           <tr>
+                               <td><b>{{ $workday }}</b></td>
+                               <input type="hidden" name="data[{{$key}}][date]" value="{{ $workday }}">
+                               <td><input type="number" step=any min="6" max="8.5" name="data[{{$key}}][hours]" class="form-control col-md-4"></td>
+                               <td><input type="text" name="data[{{$key}}][comment]" class="form-control col-md-10"></td>
+                           </tr>
                         @endforeach
                         </tbody>
                     </table>

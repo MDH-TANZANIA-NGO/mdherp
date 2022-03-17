@@ -102,17 +102,25 @@
                         <thead >
                         <tr>
                             <th>Date</th>
-                            <th>Hours</th>
                             <th>Comment</th>
+                            <th>Hours</th>
+                            @foreach($time_percentages as $time_percentage)
+                                <th>{{$time_percentage['project']}}</th>
+                            @endforeach
+
+
                         </tr>
                         </thead>
                         <tbody>
 
                         @foreach($attendances as $attendance)
                             <tr>
-                                <td>{{\Carbon\Carbon::parse($attendance->date)->format('d/m/Y')}}</td>
-                                <td>{{$attendance->hrs}}</td>
-                                <td>{{$attendance->comment}}</td>
+                                <td>{{\Carbon\Carbon::parse($attendance['date'])->format('d/m/Y')}}</td>
+                                <td>{{$attendance['comment']}}</td>
+                                <td>{{$attendance['hours']}}</td>
+                                @foreach($attendance['percentage'] as $percent)
+                                    <td>{{$percent['daily_percent']}}</td>
+                                @endforeach
                             </tr>
                         @endforeach
                         </tbody>

@@ -52,12 +52,17 @@ class TimesheetController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
-        //dd("mimi ni mtabe");
-        return view('timesheet.forms.initiate');
+        $effortLevels = EffortLevel::where('user_id', access()->id())->get();
+        return view('timesheet.forms.initiate')
+            ->with('effortLevels', $effortLevels);
+    }
+
+    public function save(Request $request){
+
     }
 
     /**
@@ -133,13 +138,29 @@ class TimesheetController extends Controller
 
         $attendances = Attendance::where('timesheet_id', $timesheet->id)->orderBy('date')->get();
 
+        $attendance_track = [];
+        foreach ($attendances as $attendance){
+            $percent = [];
+            foreach ($effort_levels as $effort_level){
+                array_push($percent, array(
+                    'daily_percent' => $effort_level->percentage * 0.01 * $attendance->hrs,
+                ));
+            }
+            array_push($attendance_track, array(
+                'percentage' => $percent,
+                'hours' => $attendance->hrs,
+                'date' => $attendance->date,
+                'comment' => $attendance->comment,
+            ));
+        }
+
         return view('timesheet.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($timesheet))
             ->with('time_percentages', $time_perc)
-            ->with('attendances', $attendances)
+            ->with('attendances', $attendance_track)
             ->with('timesheet', $timesheet);
     }
 

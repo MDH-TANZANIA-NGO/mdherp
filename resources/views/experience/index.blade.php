@@ -62,7 +62,7 @@
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                                     </div>
-                                </div><input class="form-control" name="start_year" placeholder="MM/DD/YYYY" type="date">
+                                </div><input class="form-control" name="start_year" placeholder="MM/DD/YYYY" type="date" required>
                             </div>
                             @error('start_year')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>

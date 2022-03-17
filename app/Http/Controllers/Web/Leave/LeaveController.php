@@ -10,6 +10,7 @@ use App\Models\Auth\User;
 use App\Models\Leave\Leave;
 use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
+use App\Models\Timesheet\EffortLevel;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -53,6 +54,7 @@ class LeaveController extends Controller
 //        $leaveTypes = $this->leaves->getQuery()->get()->pluck('type_name','type_id');
         $users = $this->user->forSelect();
         $leaveBalances = LeaveBalance::all()->where('user_id', access()->user()->id);
+
 
         return view('leave._parent.form.create')
             ->with('leaveTypes', $leaveTypes)
