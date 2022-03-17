@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Userbio;
+namespace App\Models\Userbio;
 
 use App\Models\Auth\User;
 use App\Models\BaseModel;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web\Userbio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Userbio\Datatables\UserBioDatatables;
-use App\Model\Userbio\Userbio;
+use App\Models\Userbio\Userbio;
 use App\Models\Auth\Relationship\UserRelationship;
 use App\Models\Auth\User;
 use App\Models\Employee\Employee;
