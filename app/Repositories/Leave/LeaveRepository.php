@@ -2,8 +2,10 @@
 
 namespace App\Repositories\Leave;
 
+use App\Models\Auth\User;
 use App\Models\Leave\Leave;
 use App\Models\Leave\LeaveBalance;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -143,5 +145,99 @@ class LeaveRepository extends BaseRepository
             ->where('leaves.wf_done', 0)
             ->where('leaves.rejected', true);
     }
+
+    /**
+     * Get applicant level
+     * @param $wf_module_id
+     * @return int|null
+     * Get fron desk level per module id
+     */
+    public function getApplicantLevel($wf_module_id)
+    {
+        $level = null;
+        switch ($wf_module_id) {
+            case 6:
+                $level = 1;
+                break;
+        }
+        return $level;
+    }
+
+    /**
+     * Get applicant level
+     * @param $wf_module_id
+     * @return int|null
+     * Get fron desk level per module id
+     */
+    public function getHeadOfDeptLevel($wf_module_id)
+    {
+        $level = null;
+        switch ($wf_module_id) {
+            case 6:
+                $level = 2;
+                break;
+        }
+        return $level;
+    }
+
+    /**
+     * @param $resource_id
+     * @param $wf_module_id
+     * @param $current_level
+     * @param int $sign
+     * @param array $inputs
+     * @throws \App\Exceptions\GeneralException
+     */
+    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])
+    {
+        $leave = $this->find($resource_id);
+        $applicant_level = $this->getApplicantLevel($wf_module_id);
+        $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
+
+        switch ($inputs['rejected_level'] ?? $current_level) {
+            case $applicant_level:
+                $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' => route('leave.show', $leave),
+                    'subject' =>$leave->id. " Has been revised to your level",
+                    'message' => $leave->id. ' need modification.. Please do the need and send it back for approval'
+                ];
+                User::query()->find($leave->user_id)->notify(new WorkflowNotification($email_resource));
+
+                break;
+            case $head_of_dept_level:
+                $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' => route('timesheet.show', $leave),
+                    'subject' =>$leave->number . " Has been revised to your level",
+                    'message' => $leave->number .  ' need modification. Please do the need and send it back for approval'
+                ];
+//                  User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
+
+                break;
+        }
+    }
+
+    /**
+     * Update rejected column
+     * @param $id
+     * @param $sign
+     * @return mixed
+     */
+    public function updateRejected($id, $sign)
+    {
+        $leave = $this->query()->find($id);
+        return DB::transaction(function () use ($leave, $sign) {
+            $rejected = 0;
+            if ($sign == -1) {
+                $rejected = 1;
+            }
+            return $leave->update(['rejected' => $rejected]);
+        });
+    }
+
+
 
 }

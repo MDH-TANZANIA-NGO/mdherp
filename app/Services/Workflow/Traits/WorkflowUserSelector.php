@@ -12,6 +12,7 @@ use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
+use App\Repositories\Timesheet\TimesheetRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Access\UserRepository;
@@ -131,6 +132,20 @@ trait WorkflowUserSelector
                 switch ($level) {
                     case 1:
                         $next_user = $retirement->user->assignedSupervisor();
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user->supervisor_id;
+                        break;
+                }
+                break;
+            case 8:
+                $timesheet_repo = (new TimesheetRepository());
+                $timesheet = $timesheet_repo->find($resource_id);
+                /*check levels*/
+                switch ($level) {
+                    case 1:
+                        $next_user = $timesheet->user->assignedSupervisor();
                         if (!$next_user) {
                             throw new GeneralException('This user has not assigned supervisor');
                         }

@@ -18,7 +18,8 @@ use Illuminate\Http\Request;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 
-class ProgramActivityRepository extends BaseRepository
+class
+ProgramActivityRepository extends BaseRepository
 {
     use Number, ProgramActivityRelationship;
     const MODEL = ProgramActivity::class;
