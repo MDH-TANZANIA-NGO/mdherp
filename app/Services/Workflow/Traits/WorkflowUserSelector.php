@@ -8,7 +8,10 @@ use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
 use App\Models\Workflow\UserWfDefinition;
 use App\Models\Workflow\WfDefinition;
+use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\Retirement\RetirementRepository;
+use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Access\UserRepository;
@@ -88,6 +91,50 @@ trait WorkflowUserSelector
                             throw new GeneralException('CEO is not yet registered. Please contact system administrator');
                         }
                         $user_id = $next_user->first()->user_id;
+                        break;
+                }
+                break;
+            case 3:
+                $safari_advance_repo = (new SafariAdvanceRepository());
+                $safari = $safari_advance_repo->find($resource_id);
+                /*check levels*/
+                switch ($level) {
+                    case 1:
+                        $next_user = $safari->user->assignedSupervisor();
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user->supervisor_id;
+                        break;
+                }
+                break;
+            case 4:
+                $program_activity_repo = (new ProgramActivityRepository());
+                $program_activity = $program_activity_repo->find($resource_id);
+                /*check levels*/
+                switch ($level) {
+                    case 1:
+//                        dd($program_activity->user->assignedSupervisor());
+                        $next_user = $program_activity->user->assignedSupervisor();
+
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user->supervisor_id;
+                        break;
+                }
+                break;
+            case 5:
+                $retirement_repo = (new RetirementRepository());
+                $retirement = $retirement_repo->find($resource_id);
+                /*check levels*/
+                switch ($level) {
+                    case 1:
+                        $next_user = $retirement->user->assignedSupervisor();
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user->supervisor_id;
                         break;
                 }
                 break;

@@ -152,7 +152,61 @@ class WorkflowEventSubscriber
 
                         }
                         break;
-                case 2:
+                case 3:
+                    $safari_advance_repo_repo = (new SafariAdvanceRepository());
+                    $safari = $safari_advance_repo_repo->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $safari_advance_repo_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('safari.show', $safari),
+                                'subject' => $safari->number . " Need your Approval",
+                                'message' =>  $safari->number . ' need your approval'
+                            ];
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+
+                    break;
+                case 4:
+                    $program_activity_repo = (new ProgramActivityRepository());
+                    $program_activity = $program_activity_repo->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $program_activity_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('programactivity.show', $program_activity),
+                                'subject' => $program_activity->number . " Need your Approval",
+                                'message' =>  $program_activity->number . ' need your approval'
+                            ];
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+
+                    break;
+                case 5:
+                    $retirement_repo = (new RetirementRepository());
+                    $retirement = $retirement_repo->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $retirement_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('programactivity.show', $retirement),
+                                'subject' => $retirement->number . " Need your Approval",
+                                'message' =>  $retirement->number . ' need your approval'
+                            ];
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
 
                     break;
             }

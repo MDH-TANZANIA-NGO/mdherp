@@ -2,9 +2,12 @@
 
 @section('content')
     {!! Form::open(['route' => ['programactivity.update',$program_activity]]) !!}
-        <div class="offer offer-info mb-6">
+    <div class="row">
+        <div class="col-lg-12 mb-3">
     <button type="submit" class="btn btn-primary float-right" >Submit For Approval</button>
     {!! Form::close() !!}
+
+        </div>
         </div>
 
 

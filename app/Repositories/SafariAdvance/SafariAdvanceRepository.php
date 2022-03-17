@@ -4,6 +4,7 @@ namespace App\Repositories\SafariAdvance;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Web\Safari\Datatables\SafariDatatables;
+use App\Models\Auth\User;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Notifications\Workflow\WorkflowNotification;

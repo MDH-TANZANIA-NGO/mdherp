@@ -13,6 +13,7 @@ use App\Repositories\BaseRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
@@ -388,7 +389,7 @@ class ProgramActivityRepository extends BaseRepository
                     'subject' =>$program_activity->number. " Has been revised to your level",
                     'message' => $program_activity->number. ' need modification.. Please do the need and send it back for approval'
                 ];
-                User::query()->find($program_activity->user_id)->notify(new WorkflowNotification($email_resource));
+//                User::query()->find($program_activity->user_id)->notify(new WorkflowNotification($email_resource));
 
                 break;
             case $head_of_dept_level:

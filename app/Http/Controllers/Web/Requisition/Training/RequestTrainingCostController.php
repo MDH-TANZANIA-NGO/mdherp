@@ -108,9 +108,7 @@ class RequestTrainingCostController extends Controller
     }
     public function updateSchedule(Request $request, $uuid)
     {
-       DB::update('update requisition_trainings set start_date = ?, end_date = ?, district_id = ? where uuid = ?', [$request->get('from'), $request->get('to'), $request->get('district_id'), $uuid]);
-       return redirect()->back();
-       alert()->success('activity schedule successfully');
+
         $requisition_training =  requisition_training::query()->where('uuid', $uuid)->first();
         $from = $request->get('from');
         $to = $request->get('to');
@@ -123,7 +121,8 @@ class RequestTrainingCostController extends Controller
 
 
         if ($requisition_training->no_days >= $days_int){
-            DB::update('update requisition_trainings set start_date = ?, end_date = ?, district_id = ? where uuid = ?', [$request->get('from'), $request->get('to'), $request->get('district_id'), $uuid]);
+
+            DB::update('update requisition_trainings set start_date = ?, end_date = ?, district_id = ?, no_days = ?  where uuid = ?', [$request->get('from'), $request->get('to'), $request->get('district_id'), $days_int, $uuid]);
 
             alert()->success('activity schedule successfully');
             return redirect()->back();
