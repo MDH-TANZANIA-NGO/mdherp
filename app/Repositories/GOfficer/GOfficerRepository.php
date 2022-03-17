@@ -7,9 +7,12 @@ use App\Models\Regions\region;
 use App\Models\System\District;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use App\Services\Generator\DefaultFingerprints;
 
 class GOfficerRepository extends BaseRepository
 {
+    use DefaultFingerprints;
+
     const MODEL = GOfficer::class;
 
     public function getQuery()
@@ -66,8 +69,8 @@ class GOfficerRepository extends BaseRepository
             'district_id' => $inputs['district_id'],
             'country_organisation_id' => 1,
             'isactive' => 1,
-//            'fingerprint_data' => $inputs['fingerprint_data'],
-//            'fingerprint_length' => $inputs['fingerprint_length'],
+            'fingerprint_data' => $this->getDefaultFingerprints(),
+            'fingerprint_length' => $this->getFingerprintLength(),
             'password' => bcrypt(strtolower($inputs['last_name'])),
         ];
     }
