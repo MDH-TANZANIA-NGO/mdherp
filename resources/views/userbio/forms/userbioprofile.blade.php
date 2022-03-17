@@ -20,7 +20,7 @@
 
 
                                 @if($user->getMedia('profile_pic')->first() != null)
-                                    <img src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" style="width: 600px; height: 600px">
+                                    <img src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" style="width: 720px; height: 600px">
                                 @else
                                     <dd> ** Sorry! This user has not uploaded Profile Image**</dd>
                                 @endif
