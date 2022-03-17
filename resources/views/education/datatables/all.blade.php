@@ -4,7 +4,6 @@
         <th class="wd-15p">#</th>
         <th class="wd-15p">INSTITUTION</th>
         <th class="wd-20p">AWARD RECEIVED</th>
-        <th class="wd-20p">CERTIFICATE</th>
         <th class="wd-15p">START YEAR</th>
         <th class="wd-10p">END YEAR</th>
         <th class="wd-10p">ACTION</th>
@@ -27,7 +26,6 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'institution_name', name: 'institution_name', searchable: true},
                     { data: 'award_received', name: 'award_received', searchable: true},
-                    { data: 'certificate', name: 'certificate', searchable: true},
                     { data: 'start_year', name: 'start_year', searchable: true},
                     { data: 'end_year', name: 'end_year.', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
