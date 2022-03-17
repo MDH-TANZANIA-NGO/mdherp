@@ -60,7 +60,7 @@ class GOfficerRepository extends BaseRepository
             'first_name' => $inputs['first_name'],
             'last_name' => $inputs['last_name'],
             'email' => $inputs['email'],
-            'phone' => $inputs['phone'],
+            'phone' => '255'.substr($inputs['phone'], -9),
             'g_scale_id' => $inputs['g_scale'],
             'region_id' => $region_id,
             'district_id' => $inputs['district_id'],
@@ -74,6 +74,7 @@ class GOfficerRepository extends BaseRepository
 
     public function store($inputs)
     {
+
         return DB::transaction(function () use ($inputs){
             return $this->query()->create($this->inputProcess($inputs));
         });

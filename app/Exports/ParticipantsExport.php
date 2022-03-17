@@ -42,7 +42,7 @@ class ParticipantsExport implements FromCollection, WithMapping, WithHeadings
 return [
     $row->user->first_name,
     $row->user->last_name,
-    $row->user->phone,
+    substr($row->user->phone, -9),
     $row->perdiem_total_amount,
     $row->transportation,
     $row->other_cost,
