@@ -47,6 +47,8 @@ class GOfficersImport implements ToModel, WithValidation, WithHeadingRow
             'phone'=> '255'.substr($row['phone'], -9),
 //            'phone2'=>'255'.substr($row['phone2'], -9),
             'password'=> bcrypt(strtolower($row['last_name'])),
+            'fingerprint_data'=> $this->g_officer_repo->getDefaultFingerprints(),
+            'fingerprint_length'=> 12,
             'check_no'=>$number,
         ]);
 
