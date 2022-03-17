@@ -117,7 +117,10 @@ class GOfficerController extends Controller
 
     public function import()
     {
-        try {
+        \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
+        alert()->success('Uploaded Successfully', 'Success');
+        return redirect()->back();
+        /*try {
             \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
             alert()->success('Uploaded Successfully', 'Success');
             return redirect()->back();
@@ -125,7 +128,7 @@ class GOfficerController extends Controller
             alert()->error('You have Duplicate Entry','Failed');
             $exception->getMessage();
             return redirect()->back();
-        }
+        }*/
 
     }
 }
