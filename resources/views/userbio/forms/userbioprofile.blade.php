@@ -16,11 +16,11 @@
                 <div class="card-body">
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
 
 
                                 @if($user->getMedia('profile_pic')->first() != null)
-                                    <img src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" style="width: 720px; height: 600px">
+                                    <img src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" style="width: 550px; height: 600px">
                                 @else
                                     <dd> ** Sorry! This user has not uploaded Profile Image**</dd>
                                 @endif
