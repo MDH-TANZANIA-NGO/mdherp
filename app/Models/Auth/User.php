@@ -11,15 +11,28 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notification;
 use OwenIt\Auditing\Auditable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Webpatser\Uuid\Uuid;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use App\Notifications\Auth\ResetPasswordNotification;
 //use Laravel\Sanctum\HasApiTokens;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable implements AuditableContract
+class User extends Authenticatable implements AuditableContract, HasMedia
 {
-    use HasApiTokens, Notifiable, UserAccess, UserRelationship, UserAttribute, Auditable, SoftDeletes;
+    use HasApiTokens, Notifiable, UserAccess, UserRelationship, UserAttribute, Auditable, SoftDeletes, InteractsWithMedia;
+
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        // TODO: Implement registerMediaConversions() method.
+        $this->addMediaConversion('thumb')
+            ->width(150)
+            ->height(400);
+    }
+
 
     protected $guard = 'user';
     /**

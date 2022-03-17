@@ -81,7 +81,7 @@ class FinanceActivityRepository extends BaseRepository
     {
         $level = null;
         switch ($wf_module_id) {
-            case 1:
+            case 7:
                 $level = 1;
                 break;
         }
@@ -98,7 +98,7 @@ class FinanceActivityRepository extends BaseRepository
     {
         $level = null;
         switch ($wf_module_id) {
-            case 1:
+            case 7:
                 $level = 2;
                 break;
         }

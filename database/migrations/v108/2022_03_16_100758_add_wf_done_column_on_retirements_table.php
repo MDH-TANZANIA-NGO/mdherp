@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserbiosTable extends Migration
+class AddWfDoneColumnOnRetirementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateUserbiosTable extends Migration
      */
     public function up()
     {
-        Schema::create('userbios', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('retirements', function (Blueprint $table) {
+            $table->integer('wf_done')->default(0);
         });
     }
 
@@ -26,6 +25,8 @@ class CreateUserbiosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('userbios');
+        Schema::table('retirements', function (Blueprint $table) {
+            //
+        });
     }
 }

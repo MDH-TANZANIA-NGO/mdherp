@@ -12,19 +12,25 @@
                             <li class="text-center border-bottom-0">
 
 
-                                    <input type="file" class="dropify" data-default-file="../../assets/images/photos/media1.jpg" data-height="180"  />
+
+                                {!! Form::open(['route' => ['userbio.uploadpic', access()->user()->uuid], 'method' => 'post', 'enctype'=>'multipart/form-data']) !!}
+
+                                    <input type="file" name="profile_pic" class="dropify" data-default-file="../../assets/images/photos/media1.jpg" data-height="180"  />
 
 
                             </li>
                             <li class="text-center">
-                                <h4 class="text-capitalize mt-3 mb-0">{{$user->full_name_formatted}}</h4>
-                                <p class="text-muted text-capitalize">{{$user->designation->unit->name.' '. $user->designation->name}} </p>
+                                <h4 class="text-capitalize mt-3 mb-0">{{access()->user()->full_name_formatted}}</h4>
+                                <p class="text-muted text-capitalize">{{access()->user()->designation->unit->name.' '. access()->user()->designation->name}} </p>
                             </li>
 
                             <li><br></li>
                             <li>
                                 <div class="btn-group-vertical btn-block border-top-0">
-                                    <a href="" class="btn btn-outline-primary"><i class="fe fe-upload mr-2"></i>Upload Photo</a>
+                                    <button type="submit" class="btn btn-outline-primary"><i class="fe fe-upload mr-2"></i>Upload Photo</button>
+
+                                    {!! Form::close() !!}
+
 {{--                                    <a href="" class="btn btn-primary"><i class="fe fe-settings mr-2"></i>Edit Account</a>--}}
 {{--                                    <a href="" class="btn btn-outline-primary"><i class="fe fe-alert-circle mr-2"></i>Logout</a>--}}
                                 </div>
@@ -54,7 +60,7 @@
                                         <div class="col-md-12">
 
                                                 <label class="form-label">Biography: <span class="form-label-small">56/100</span></label>
-                                                <textarea class="form-control" name="bio" rows="2" placeholder="Write bio.." required>{{$employee}}</textarea>
+                                                <textarea class="form-control" name="bio" rows="2" placeholder="Please enter your Biography" required>{{$userbio->bio?? $userbio}}</textarea>
                                             </div>
                                         </div>
 

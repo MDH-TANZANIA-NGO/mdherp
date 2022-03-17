@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Web\Userbio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Userbio\Datatables\UserBioDatatables;
+use App\Model\Userbio\Userbio;
 use App\Models\Auth\Relationship\UserRelationship;
 use App\Models\Auth\User;
 use App\Models\Employee\Employee;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DesignationRepository;
-use App\Userbio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,64 +31,67 @@ class UserbioController extends Controller
         $this->users = (new UserRepository());
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
     public function index()
     {
         return view('userbio.index')
             ->with('active_user_count', $this->users->getActive()->get()->count());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
+
     public function create()
     {
-        $employee= Employee::where('user_id', access()->id())->pluck('bio')->first();
-
-        $userbio3= access()->user();
+        $userbio = Userbio::where('user_id', access()->id())->first();
 
         return view('userbio.forms.createbio')
-            ->with('employee', $employee?? "Please Enter your Biography")
-            ->with('user', $userbio3);
+            ->with('userbio', $userbio?? "null");
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(Request $request)
     {
-        $employee = Employee::where('user_id', access()->id())->first();
-        if ($employee == null){
-            alert()->error('Please Fill your personal Details First','Failed!');
+        $userbio = Userbio::where('user_id', access()->id())->first();
+        if ($userbio == null){
+            Userbio::create([
+                'user_id'=> access()->user()->id,
+                'bio' => $request['bio']
+            ]);
+            alert()->success('Biography created successfully','Great!');
             return redirect()->back();
         }
-        $employee->update([
+        $userbio->update([
             'bio' => $request['bio']
         ]);
         alert()->success('Biography Updated Succesfully','Great!');
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Userbio  $userbio
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
+    public function uploadpic(Request $request, $uuid)
+    {
+
+        $userbio = User::where('uuid', $uuid)->first();
+
+        $profilepic = $request->file('profile_pic');
+
+        if ($request->hasFile('profile_pic')){
+
+            $userbio->addMedia($profilepic)->toMediaCollection('profile_pic');
+            alert()->success('Profile Picture Updated Succesfully','Great!');
+            return redirect()->back();
+        }
+        alert()->error('Failed','Failed!');
+        return redirect()->back();
+
+    }
+
+
     public function show($uuid)
     {
-        $user= $this->users->findByUuid($uuid);
-        $userbio= Employee::where('user_id', $user->id)->first();
+        $user= User::where('uuid', $uuid)->first();
+        $userbio= Userbio::where('user_id', $user->id)->first();
 
+        if($userbio== null)
+        {
+            $userbio = null;
+        }
 
         return view('userbio.forms.userbioprofile')
             ->with('user', $user)
@@ -97,35 +100,19 @@ class UserbioController extends Controller
             ->with('bio', $userbio);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Userbio  $userbio
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Userbio $userbio)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Userbio  $userbio
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Userbio $userbio)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Userbio  $userbio
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Userbio $userbio)
     {
         //

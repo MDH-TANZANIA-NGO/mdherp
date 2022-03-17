@@ -230,7 +230,7 @@ class SafariAdvanceRepository extends BaseRepository
     {
         $level = null;
         switch ($wf_module_id) {
-            case 1:
+            case 3:
                 $level = 1;
                 break;
         }
@@ -247,7 +247,7 @@ class SafariAdvanceRepository extends BaseRepository
     {
         $level = null;
         switch ($wf_module_id) {
-            case 1:
+            case 3:
                 $level = 2;
                 break;
         }

@@ -781,7 +781,7 @@ class WfTrackRepository extends BaseRepository
 //
 //        }
 
-        $datatables = app('datatable')
+        $datatables = app('datatables')
             ->of($pendings)
 //            ->editColumn('checkbox', static function ($row) {
 //                return '<input type="checkbox" name="registrations[]" value="'.$row->id.'"/>';
