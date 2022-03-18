@@ -115,7 +115,7 @@ class UserController extends Controller
 
 
 //dd($this->users->getAllUsersWithThisSupervisorGet($user->id));
-        return view('user.profile.view_profile')
+        return view('user.profile.index')
             ->with('user', $user)
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
             ->with('marital', code_value()->query()->where('code_id',3)->pluck('name','id'))

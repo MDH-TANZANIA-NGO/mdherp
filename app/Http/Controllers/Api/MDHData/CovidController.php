@@ -24,7 +24,7 @@ class CovidController extends BaseController
             ->selectRaw('*')
             ->where('covids.data_clerk_id', '=', $g_officer)
             ->where('covids.facility_id', '=', $facility)
-            ->orderBy('covids.form_date_time', 'ASC')
+            ->orderBy('covids.form_date', 'DESC')
             ->paginate(30);
 
         $success['paginated_covid_reports'] =  $g_officer_covids;
@@ -77,43 +77,49 @@ class CovidController extends BaseController
             'SN_available' => 'required',
         ]);
 
-        $covid = Covid::create([
-            'form_date' => $request['form_date'],
-            'data_clerk_id' => $fields['data_clerk_id'],
-            'facility_id' => $fields['facility_id'],
-            'attended' => $fields['attended'],
-            'already_vaccinated' => $fields['already_vaccinated'],
-            'vaccine_eligible' => $fields['vaccine_eligible'],
-            'vaccinated' => $fields['vaccinated'],
-            'vaccinated_community_art' => $fields['vaccinated_community_art'],
-            'vaccinated_konga' => $fields['vaccinated_konga'],
-            'vaccinated_home_based' => $fields['vaccinated_home_based'],
-            'vaccinated_routine_fcd' => $fields['vaccinated_routine_fcd'],
-            'vaccinated_cbs' => $fields['vaccinated_cbs'],
-            'vaccinated_others' => $fields['vaccinated_others'],
-            'JJ_used' => $fields['JJ_used'],
-            'MD_used' => $fields['MD_used'],
-            'PF_used' => $fields['PF_used'],
-            'SN_used' => $fields['SN_used'],
-            'JJ_expired' => $fields['JJ_expired'],
-            'MD_expired' => $fields['MD_expired'],
-            'PF_expired' => $fields['PF_expired'],
-            'SN_expired' => $fields['SN_expired'],
-            'JJ_available' => $fields['JJ_available'],
-            'MD_available' => $fields['MD_available'],
-            'PF_available' => $fields['PF_available'],
-            'SN_available' => $fields['SN_available'],
-            'comments' => $request['comments'],
-            'latitude' => $request['latitude'],
-            'longitude' => $request['longitude'],
-            'location' => $request['location'],
-            'form_date_time' => $request['form_date_time'],
-            'status' => 1,
-        ]);
+        if(Covid::where('form_date',$request['form_date'])->exists()){
+            $message = "Covid-19 PLHIV Ripoti ya tarehe ".$request['form_date'].' umeshaituma tayari';
+            return $this->sendError($message, NULL);
+        }else {
+            $covid = Covid::create([
+                'form_date' => $request['form_date'],
+                'data_clerk_id' => $fields['data_clerk_id'],
+                'facility_id' => $fields['facility_id'],
+                'attended' => $fields['attended'],
+                'already_vaccinated' => $fields['already_vaccinated'],
+                'vaccine_eligible' => $fields['vaccine_eligible'],
+                'vaccinated' => $fields['vaccinated'],
+                'vaccinated_community_art' => $fields['vaccinated_community_art'],
+                'vaccinated_konga' => $fields['vaccinated_konga'],
+                'vaccinated_home_based' => $fields['vaccinated_home_based'],
+                'vaccinated_routine_fcd' => $fields['vaccinated_routine_fcd'],
+                'vaccinated_cbs' => $fields['vaccinated_cbs'],
+                'vaccinated_others' => $fields['vaccinated_others'],
+                'JJ_used' => $fields['JJ_used'],
+                'MD_used' => $fields['MD_used'],
+                'PF_used' => $fields['PF_used'],
+                'SN_used' => $fields['SN_used'],
+                'JJ_expired' => $fields['JJ_expired'],
+                'MD_expired' => $fields['MD_expired'],
+                'PF_expired' => $fields['PF_expired'],
+                'SN_expired' => $fields['SN_expired'],
+                'JJ_available' => $fields['JJ_available'],
+                'MD_available' => $fields['MD_available'],
+                'PF_available' => $fields['PF_available'],
+                'SN_available' => $fields['SN_available'],
+                'comments' => $request['comments'],
+                'latitude' => $request['latitude'],
+                'longitude' => $request['longitude'],
+                'location' => $request['location'],
+                'form_date_time' => $request['form_date_time'],
+                'status' => 1,
+            ]);
 
-        $success['covid'] = $covid;
+            $success['covid'] = $covid;
 
-        return $this->sendResponse($success, 'Covid-19 Form submitted successfully');
+            return $this->sendResponse($success, 'Covid-19 PLHIV Form submitted successfully');
+        }
+
     }
 
     /**

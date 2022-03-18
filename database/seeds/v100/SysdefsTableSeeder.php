@@ -99,5 +99,17 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'CHECKNO'],
+            [
+                'name' => 'check_no',
+                'display_name' => 'Check Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'CHECKNO',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }

@@ -497,7 +497,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'wf_module_id' => '6',
                     'active' => '1',
                     'allow_rejection' => 1,
-                    'allow_repeat_participate' => 0,
+                    'allow_repeat_participate' => 1,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
