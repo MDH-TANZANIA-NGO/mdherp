@@ -35,6 +35,7 @@ class GOfficerRepository extends BaseRepository
             DB::raw('districts.name as district'),
             DB::raw('g_officers.country_organisation_id as country_organisation_id'),
             DB::raw('g_officers.isactive as isactive'),
+            DB::raw('g_officers.check_no as check_no'),
             DB::raw('g_officers.fingerprint_data as fingerprint_data'),
             DB::raw('g_officers.fingerprint_length as fingerprint_length'),
         ])
