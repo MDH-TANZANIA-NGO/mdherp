@@ -2,6 +2,7 @@
 
 namespace App\Models\GOfficer\Traits\Relationship;
 
+use App\Models\Facility\Facility;
 use App\Models\GOfficer\GScale;
 use App\Models\ProgramActivity\ProgramActivityAttendance;
 use App\Models\Requisition\Requisition;
@@ -26,6 +27,10 @@ trait GOfficerRelationship
     public function programActivityAttendance()
     {
         return $this->belongsTo(ProgramActivityAttendance::class);
+    }
+    public function facilities()
+    {
+        return $this->belongsToMany(Facility::class);
     }
 
 }
