@@ -84,7 +84,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('employee.datatable.active') }}',
+                ajax: '{{ route('user.datatable.active') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'first_name', name: 'users.first_name', searchable: true},
@@ -104,7 +104,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('employee.datatable.inactive') }}',
+                ajax: '{{ route('user.datatable.inactive') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'first_name', name: 'users.first_name', searchable: true},
