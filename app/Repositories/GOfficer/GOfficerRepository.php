@@ -38,13 +38,17 @@ class GOfficerRepository extends BaseRepository
             DB::raw('g_officers.check_no as check_no'),
             DB::raw('g_officers.fingerprint_data as fingerprint_data'),
             DB::raw('g_officers.fingerprint_length as fingerprint_length'),
+            DB::raw("string_agg(DISTINCT facilities.name, ',') as facilities"),
         ])
             ->leftjoin('g_scales','g_scales.id','g_officers.g_scale_id')
             ->leftjoin('g_rate_scale','g_rate_scale.g_scale_id','g_scales.id')
             ->leftjoin('g_rates','g_rates.id','g_rate_scale.g_rate_id')
             ->leftjoin('regions', 'regions.id', 'g_officers.region_id')
             ->leftjoin('covids', 'covids.data_clerk_id', 'g_officers.id')
-            ->leftjoin('districts', 'districts.id', 'g_officers.district_id');
+            ->leftjoin('facility_g_officer', 'facility_g_officer.g_officer_id', 'g_officers.id')
+            ->leftjoin('facilities', 'facilities.id', 'facility_g_officer.facility_id')
+            ->leftjoin('districts', 'districts.id', 'g_officers.district_id')
+            ->groupby('g_officers.id', 'g_scales.title', 'g_rates.amount', 'regions.name', 'districts.name');
     }
 
     public function getActive()
