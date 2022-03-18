@@ -85,6 +85,14 @@
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
+                                                                        {!! Form::label('identity_no', __("label.no.identity"),['class'=>'form-label','required_asterik']) !!}
+                                                                        {!! Form::text('identity_number',$user->identity_number,['class' => 'form-control', 'placeholder' => 'ie. John','required']) !!}
+                                                                        {!! $errors->first('identity_number', '<span class="badge badge-danger">:message</span>') !!}
+                                                                        <input type="date" value="null" name="employed_date">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
                                                                         {!! Form::label('first_name', __("label.name.first"),['class'=>'form-label','required_asterik']) !!}
                                                                         {!! Form::text('first_name',$user->first_name,['class' => 'form-control', 'placeholder' => '','required']) !!}
                                                                         {!! $errors->first('first_name', '<span class="badge badge-danger">:message</span>') !!}
