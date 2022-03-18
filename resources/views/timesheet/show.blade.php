@@ -116,7 +116,7 @@
                         @foreach($attendances as $attendance)
                             <tr>
                                 <td>{{\Carbon\Carbon::parse($attendance['date'])->format('d/m/Y')}}</td>
-                                <td>{{$attendance['comment']}}</td>
+                                <td>{{$attendance['comments']}}</td>
                                 <td>{{$attendance['hours']}}</td>
                                 @foreach($attendance['percentage'] as $percent)
                                     <td>{{$percent['daily_percent']}}</td>

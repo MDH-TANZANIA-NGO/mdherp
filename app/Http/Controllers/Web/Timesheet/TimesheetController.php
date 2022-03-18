@@ -150,7 +150,7 @@ class TimesheetController extends Controller
                 'percentage' => $percent,
                 'hours' => $attendance->hrs,
                 'date' => $attendance->date,
-                'comment' => $attendance->comment,
+                'comments' => $attendance->comments,
             ));
         }
 
