@@ -50,7 +50,7 @@ class ProgramActivityController extends BaseController
                 'checkout_location' => $request['checkout_location']
             ]);
 
-            return $this->sendResponse($attendance, "Attendance created successfully");
+            return $this->sendResponse($attendance, "Maudhurio yamechukuliwa kikamilifu");
         }
 
     }
