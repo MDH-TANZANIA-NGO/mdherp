@@ -90,9 +90,11 @@ class GOfficerRepository extends BaseRepository
 
     public function update($uuid, $inputs)
     {
-        $g_scale = $this->findByUuid($uuid);
-        return DB::transaction(function () use ($g_scale, $inputs){
-            return $g_scale->update($this->inputProcess($inputs));
+        $g_officer = $this->findByUuid($uuid);
+
+        return DB::transaction(function () use ($g_officer, $inputs){
+                $g_officer->facilities()->sync($inputs['facilities']);
+            return $g_officer->update($this->inputProcess($inputs));
         });
     }
 

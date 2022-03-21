@@ -165,10 +165,17 @@ class UserRepository extends BaseRepository
      * Reset Password and send email
      * @param User $user
      */
-    public function resetPassword(User $user)
+   /* public function resetPassword(User $user)
     {
         $reset_link = $this->resetLink($user);
         $user->notify(new ResetPasswordNotification($reset_link));
+    }*/
+
+    public function resetPassword(User $user)
+    {
+        $reset_link = $this->resetLink($user);
+        Log::info($reset_link);
+        $user->notify(new UserRegistrationNotification($reset_link));
     }
 
     /**
@@ -186,6 +193,8 @@ class UserRepository extends BaseRepository
             throw new GeneralException('Email not Found');
         }
     }
+
+
 
     /**
      * @return mixed
@@ -252,6 +261,7 @@ class UserRepository extends BaseRepository
                 'designation_id' => $inputs['designation'],
                 'region_id' => $inputs['region'],
                 'employed_date' => $inputs['employed_date'],
+                'identity_number' => $inputs['identity_number'],
                 'marital_status_cv_id' => $inputs['marital'],
                 'supervisor' => isset($inputs['supervisor'])??false,
 //                'active' => $inputs['active']
