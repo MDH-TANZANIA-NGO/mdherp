@@ -10,12 +10,12 @@ trait TimesheetDatatable
         return DataTables::of($this->timesheets->getAccessProcessingDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
-                return $query->created_at->toDateTimeString();
+                return $query->created_at->format('d/m/Y');
             })
             ->editColumn('wf_done_date', function ($query) {
                 if ($query->wf_done_date == null)
                     return  'Not Approved';
-                return $query->wf_done_date->toDateTimeString();
+                return $query->wf_done_dateformat('d/m/Y');
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('timesheet.show', $query->uuid).'">View</a>';
@@ -28,15 +28,15 @@ trait TimesheetDatatable
         return Datatables::of($this->timesheets->getAccessRejectedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
-                return $query->created_at->toDateTimeString();
+                return $query->created_at->format('d/m/Y');;
             })
             ->editColumn('wf_done_date', function ($query) {
                if ($query->wf_done_date == null)
-                   return  "<span class='badge-danger'>Not Approved</span>>";
-                return $query->wf_done_date->toDateTimeString();
+                   return  "Not Approved";
+                return $query->wf_done_date->format('d/m/Y');
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('timesheet.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('timesheet.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. '&nbsp' .'<a href="'.route('timesheet.edit', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);

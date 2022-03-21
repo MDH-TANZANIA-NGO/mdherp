@@ -36,6 +36,7 @@
                         {!! $errors->first('award_received', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
 
+
                     <div class="col-4">
                         <label class="form-label">Upload Certificate</label>
                         <input type="file" class="form-control" name="certificate"></input>
@@ -89,4 +90,5 @@
     </div>
 
     {!! Form::close() !!}
+
 @endsection

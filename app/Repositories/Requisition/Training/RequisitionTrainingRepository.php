@@ -24,7 +24,7 @@ class RequisitionTrainingRepository extends BaseRepository
             DB::raw('requisition_trainings.district_id AS district_id'),
             DB::raw('requisitions.id AS requisition_ID'),
             DB::raw('requisition_trainings.requisition_id AS requisition_id'),
-            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
+//            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
             DB::raw('program_activities.id AS program_activity_id'),
             DB::raw('program_activities.number AS program_activity_number'),
 

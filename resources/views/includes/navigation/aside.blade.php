@@ -82,7 +82,16 @@
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('leave_report.index') }}"><span>Leave Reports</span></a></li>
                 <li><a class="slide-item"  href="{{ route('timesheet_report.index') }}"><span>Timesheet Reports</span></a></li>
-                <li><a class="slide-item"  href="{{ route('timesheet_report.index') }}"><span>Employees</span></a></li>
+                <li><a class="slide-item"  href="{{ route('employee.index') }}"><span>Employees</span></a></li>
+            </ul>
+        </li>
+        @endpermission
+
+        @permission('compliance')
+        <li class="slide">
+            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-database multiple-outline text-primary"></i><span class="side-menu__label">Compliance</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                   <li><a class="slide-item"  href="{{ route('compliance.index') }}"><span>Beneficiaries List</span></a></li>
             </ul>
         </li>
         @endpermission

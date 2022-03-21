@@ -41,6 +41,13 @@
                         {!! $errors->first('g_scale', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        {!! Form::label('Facilities', __("Facilities"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::select('facilities[]', $facilities, null, ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']) !!}
+                        {!! $errors->first('facilities', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
            {{--     <div class="col-md-4">
                     <div class="form-group ">
                         {!! Form::label('regions', __("Region"),['class'=>'form-label','required_asterik']) !!}

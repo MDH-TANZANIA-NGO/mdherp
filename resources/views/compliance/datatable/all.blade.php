@@ -1,17 +1,26 @@
-<table id="all_projects" class="table table-striped table-bordered" style="width:100%">
-    <thead>
-    <tr>
-        <th class="wd-15p">#</th>
-        <th class="wd-20p">NAMES</th>
-        <th class="wd-25p">CHECK NO</th>
-        <th class="wd-10p">PHONE</th>
-        <th class="wd-25p">TITLE</th>
-        <th class="wd-25p">REGION</th>
-        <th class="wd-25p">FACILITY</th>
-        <th class="wd-10p">ACTION</th>
-    </tr>
-    </thead>
-</table>
+<div class="row">
+<div class="card">
+    <div class="card-body">
+        <div class="panel panel-primary">
+            <table id="all_projects" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                <tr>
+                    <th class="wd-15p">#</th>
+                    <th class="wd-20p">NAMES</th>
+                    <th class="wd-25p">CHECK NO</th>
+                    <th class="wd-10p">PHONE</th>
+                    <th class="wd-25p">TITLE</th>
+                    <th class="wd-25p">REGION</th>
+                    <th class="wd-25p">FACILITY</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+</div>
+</div>
+
 
 @push('after-scripts')
     <script>
@@ -33,7 +42,7 @@
                     { data: 'g_scale_title', name: 'g_scales.title', searchable: true},
                     { data: 'region_name', name: 'regions.name', searchable: true},
                     { data: 'facilities', name: 'facilities.name', searchable: true},
-                    { data: 'action', name: 'action', searchable: false },
+
                 ]
             });
         })

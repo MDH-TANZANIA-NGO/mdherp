@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\GOfficer;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerDatatables;
 use App\Imports\GOfficersImport;
+use App\Models\Facility\Facility;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GScaleRepository;
 use App\Repositories\System\DistrictRepository;
@@ -73,11 +74,13 @@ class GOfficerController extends Controller
      */
     public function show($uuid)
     {
+
         return view('gofficer.gofficer.form.edit')
             ->with('g_officer',$this->g_officers->findByUuid($uuid))
             ->with('g_scales', $this->g_scales->getActiveForPluck())
             ->with('regions', $this->regions->getQuery()->pluck('name','id'))
-            ->with('districts', $this->districts->getQuery()->pluck('name','id'));
+            ->with('districts', $this->districts->getQuery()->pluck('name','id'))
+            ->with('facilities', Facility::all()->pluck('name', 'id'));
     }
 
     /**
@@ -117,7 +120,10 @@ class GOfficerController extends Controller
 
     public function import()
     {
-        try {
+        \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
+        alert()->success('Uploaded Successfully', 'Success');
+        return redirect()->back();
+        /*try {
             \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
             alert()->success('Uploaded Successfully', 'Success');
             return redirect()->back();
@@ -125,7 +131,7 @@ class GOfficerController extends Controller
             alert()->error('You have Duplicate Entry','Failed');
             $exception->getMessage();
             return redirect()->back();
-        }
+        }*/
 
     }
 }

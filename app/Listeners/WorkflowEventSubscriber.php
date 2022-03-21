@@ -209,6 +209,86 @@ class WorkflowEventSubscriber
                     }
 
                     break;
+                case 6:
+                    $leave_repo = (new LeaveRepository());
+                    $leave = $leave_repo->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $leave_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('leave.show', $leave),
+                                'subject' => $leave->id . " Needs your Approval",
+                                'message' =>  $leave->id . ' needs your approval'
+                            ];
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                        case 2:
+//                                $leave_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
+
+                            $email_resource = (object)[
+                                'link' =>  route('leave.show',$leave),
+                                'subject' => $leave->id." Need your Approval",
+                                'message' => $leave->id.' need your approval'
+                            ];
+                           // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+
+                        case 3:
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
+                            $email_resource = (object)[
+                                'link' =>  route('leave.show',$leave),
+                                'subject' => $leave->id." Need your Approval",
+                                'message' => $leave->id."need your approval"
+                            ];
+                            //User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+
+                        case 4:
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level,$leave->user->designation->department_id);
+                            $email_resource = (object)[
+                                'link' =>  route('leave.show',$leave),
+                                'subject' => $leave->id." Need your Approval",
+                                'message' => $leave->id." ".$leave->id.' need your approval'
+                            ];
+                           // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+
+                        case 5:
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
+                            $email_resource = (object)[
+                                'link' =>  route('leave.show',$leave),
+                                'subject' => $leave->id." Need your Approval",
+                                'message' =>$leave->id." ".$leave->id.' need your approval'
+                            ];
+                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+
+                    }
+
+                    break;
+                case 8:
+                    $timesheet_repo = (new TimesheetRepository());
+                    $timesheet  = $timesheet_repo ->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $timesheet_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('timesheet.show', $timesheet),
+                                'subject' => $timesheet->id . " Need your Approval",
+                                'message' =>  $timesheet->id . ' need your approval'
+                            ];
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+
+                    break;
             }
 
             $workflow->forward($data);
@@ -383,8 +463,14 @@ class WorkflowEventSubscriber
             case 5:
                 (new RetirementRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
+            case 6:
+                (new LeaveRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
+                break;
             case 7:
                 (new FinanceActivityRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
+                break;
+            case 8:
+                (new TimesheetRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
             case 10:
                 (new ProgramActivityReportRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
