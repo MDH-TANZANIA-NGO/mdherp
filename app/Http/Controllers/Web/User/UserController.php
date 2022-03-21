@@ -218,16 +218,16 @@ class UserController extends Controller
     public function import()
     {
 
-        \Maatwebsite\Excel\Facades\Excel::import(new UsersImport(), \request()->file('file'));
+//        \Maatwebsite\Excel\Facades\Excel::import(new UsersImport(), \request()->file('file'));
 
-       /* try {
+       try {
             \Maatwebsite\Excel\Facades\Excel::import(new UsersImport(), \request()->file('file'));
             alert()->success('Uploaded successfully', 'Success');
             return redirect()->back();
         }catch (\Exception $exception){
             alert()->error('You have duplicate entry','Failed');
             return redirect()->back();
-        }*/
+        }
 
     }
 

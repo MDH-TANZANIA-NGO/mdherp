@@ -20,12 +20,12 @@ class UsersImport implements ToModel, WithHeadingRow
            'identity_number'=>$row['identity_number'],
             'first_name'=> $row['first_name'],
             'middle_name'=> $row['middle_name'],
+            'last_name'=> $row['last_name'],
             'email'=>$row['email'],
-            'dob'=>$row['dob'],
-            'employed_date'=>$row['employed_date'],
             'region_id'=>$row['region_id'],
             'gender_cv_id'=>$row['gender_id'],
             'active'=>true,
+            'password'=>bcrypt(strtolower($row['last_name']))
         ]);
     }
 }
