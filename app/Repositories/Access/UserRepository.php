@@ -261,6 +261,7 @@ class UserRepository extends BaseRepository
                 'designation_id' => $inputs['designation'],
                 'region_id' => $inputs['region'],
                 'employed_date' => $inputs['employed_date'],
+                'identity_number' => $inputs['identity_number'],
                 'marital_status_cv_id' => $inputs['marital'],
                 'supervisor' => isset($inputs['supervisor'])??false,
 //                'active' => $inputs['active']

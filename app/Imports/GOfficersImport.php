@@ -28,12 +28,12 @@ class GOfficersImport implements ToModel, WithValidation, WithHeadingRow
     }
     public function model(array $row)
     {
-//        $phone = GOfficer::query()->where('phone', $row['phone'])->get();
+/*//        $phone = GOfficer::query()->where('phone', $row['phone'])->get();
         $year = substr($row['year'], -2);
         $month = $row['month'];
         $region_id = $row['region_id'];
         $id = $row['id'];
-        $number =$region_id.'-'.$month.'-'.$year.'-'.$id;
+        $number =$region_id.'-'.$month.'-'.$year.'-'.$id;*/
 
         return new GOfficer([
             //
@@ -49,7 +49,7 @@ class GOfficersImport implements ToModel, WithValidation, WithHeadingRow
             'password'=> bcrypt(strtolower($row['last_name'])),
             'fingerprint_data'=> $this->g_officer_repo->getDefaultFingerprints(),
             'fingerprint_length'=> $this->g_officer_repo->getFingerprintLength(),
-            'check_no'=>$number,
+            'check_no'=>'0'.$row['region_id'].'-'.'0'.$row['month'].'-'.substr($row['year'], -2).'-'.$row['id'],
         ]);
 
     }

@@ -236,6 +236,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => 'User can exchange rate',
                     'ischecker' => 1,
                 ),
+            28 =>
+                array(
+                    'id' => 29,
+                    'name' => 'compliance',
+                    'display_name' => 'Compliance Dashboard',
+                    'description' => 'Compliance Dashboard',
+                    'ischecker' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("permissions");

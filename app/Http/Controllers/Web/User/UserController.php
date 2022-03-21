@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\User\Datatables\UserDatatables;
 use App\Models\Auth\Relationship\UserRelationship;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
+use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
 use App\Models\Project\ProjectUser;
 use App\Models\Timesheet\EffortLevel;
@@ -109,6 +110,8 @@ class UserController extends Controller
             }
 
             $effort_levels = EffortLevel::where('user_id', $user->id)->get();
+            $leaveBalances = LeaveBalance::where('user_id', $user->id)->orderBy('updated_at')->get();
+
 
 
 //dd($this->users->getAllUsersWithThisSupervisorGet($user->id));
@@ -126,6 +129,7 @@ class UserController extends Controller
             ->with('leave_types', $leave_types)
             ->with('user_projects', $this->projects->getUserProjects($user->id))
             ->with('effort_levels', $effort_levels?? NULL)
+            ->with('leave_balances', $leaveBalances?? "This user does not have leave balances")
             ->with('supervisor', $supervisor);
     }
 
