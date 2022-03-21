@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\User\Datatables\UserDatatables;
+use App\Imports\UsersImport;
 use App\Models\Auth\Relationship\UserRelationship;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
+use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
 use App\Models\Project\ProjectUser;
 use App\Models\Timesheet\EffortLevel;
@@ -109,10 +111,12 @@ class UserController extends Controller
             }
 
             $effort_levels = EffortLevel::where('user_id', $user->id)->get();
+            $leaveBalances = LeaveBalance::where('user_id', $user->id)->orderBy('updated_at')->get();
+
 
 
 //dd($this->users->getAllUsersWithThisSupervisorGet($user->id));
-        return view('user.profile.view_profile')
+        return view('user.profile.index')
             ->with('user', $user)
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
             ->with('marital', code_value()->query()->where('code_id',3)->pluck('name','id'))
@@ -126,6 +130,7 @@ class UserController extends Controller
             ->with('leave_types', $leave_types)
             ->with('user_projects', $this->projects->getUserProjects($user->id))
             ->with('effort_levels', $effort_levels?? NULL)
+            ->with('leave_balances', $leaveBalances?? "This user does not have leave balances")
             ->with('supervisor', $supervisor);
     }
 
@@ -209,6 +214,21 @@ class UserController extends Controller
         $this->users->updatePermissions($user, $request->all());
         alert()->success(__('notifications.permission_assigned'), __('notifications.user.title'));
         return redirect()->back();
+    }
+    public function import()
+    {
+
+        \Maatwebsite\Excel\Facades\Excel::import(new UsersImport(), \request()->file('file'));
+
+      /* try {
+            \Maatwebsite\Excel\Facades\Excel::import(new UsersImport(), \request()->file('file'));
+            alert()->success('Uploaded successfully', 'Success');
+            return redirect()->back();
+        }catch (\Exception $exception){
+            alert()->error('You have duplicate entry','Failed');
+            return redirect()->back();
+        }*/
+
     }
 
 }

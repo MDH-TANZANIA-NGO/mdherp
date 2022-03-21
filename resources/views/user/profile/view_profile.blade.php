@@ -71,6 +71,7 @@
 {{--                                                    <li><a href="#tab5" data-toggle="tab">Audit</a></li>--}}
                                                     <li><a href="#tab6" data-toggle="tab">Leave Setup</a></li>
                                                     <li><a href="#tab7" data-toggle="tab">Level of Effort</a></li>
+                                                    <li><a href="#tab8" data-toggle="tab">Leave Balance</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -82,6 +83,14 @@
                                                         <div class="card-body">
 
                                                             <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        {!! Form::label('identity_no', __("Employee No"),['class'=>'form-label','required_asterik']) !!}
+                                                                        {!! Form::text('identity_number',$user->identity_number,['class' => 'form-control', 'placeholder' => 'ie. John','required']) !!}
+                                                                        {!! $errors->first('identity_number', '<span class="badge badge-danger">:message</span>') !!}
+                                                                        <input type="date" value="null" name="employed_date" hidden>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         {!! Form::label('first_name', __("label.name.first"),['class'=>'form-label','required_asterik']) !!}
@@ -375,6 +384,41 @@
                                                         </ul>
                                                         <button class="btn btn-outline-primary" type="submit" style="margin-left: 40%; margin-top: 2%">Submit</button>
                                                         {!! Form::close() !!}
+                                                </div>
+
+                                                <div class="tab-pane " id="tab8">
+                                                    <div class="emp-tab">
+                                                        <div class="table-responsive">
+                                                            <table class="table  table-hover table-striped">
+                                                                <thead class="text-primary">
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Leave Type</th>
+                                                                    <th>Remaining Days</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {!! Form::open(['route' => ['timesheet.setup'],'method' => 'POST']) !!}
+                                                               @if($leave_balances == NULL)
+
+                                                                       <tr>
+                                                                           <td>This user has no leave balances</td>
+                                                                       </tr>
+
+                                                               @else
+                                                                   @foreach($leave_balances as $leave_balance)
+                                                                       <tr>
+                                                                           <td>{{$leave_balance->id}}</td>
+                                                                           <td>{{$leave_balance->leaveType->name}}</td>
+                                                                           <td>{{$leave_balance->remaining_days}}</td>
+                                                                       </tr>
+                                                                   @endforeach
+                                                               @endif
+                                                                {!! Form::close() !!}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
 

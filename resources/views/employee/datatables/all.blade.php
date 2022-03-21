@@ -1,12 +1,6 @@
 @extends('layouts.app')
 @section('content')
-  {{--  <form action="{{ route('user.import') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="file" name="file" class="form-control">
-        <br>
-        <button class="btn btn-success">Import User Data</button>
-        --}}{{--            <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a>--}}{{--
-    </form>--}}
+
     <div class="card-body p-6">
         <div class="panel panel-primary">
             <div class=" tab-menu-heading card-header" style="background-color: rgb(238, 241, 248)">
@@ -90,7 +84,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('employee.datatable.active') }}',
+                ajax: '{{ route('user.datatable.active') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'first_name', name: 'users.first_name', searchable: true},
@@ -110,7 +104,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('employee.datatable.inactive') }}',
+                ajax: '{{ route('user.datatable.inactive') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'first_name', name: 'users.first_name', searchable: true},

@@ -150,7 +150,7 @@ class TimesheetController extends Controller
                 'percentage' => $percent,
                 'hours' => $attendance->hrs,
                 'date' => $attendance->date,
-                'comment' => $attendance->comment,
+                'comments' => $attendance->comments,
             ));
         }
 
@@ -231,7 +231,6 @@ class TimesheetController extends Controller
     public function startTimesheet(){
         $details = [
             'subject' => 'Timesheet Submission',
-            'body' => 'You are kindly reminded to submit your timesheet'
         ];
 
         try {
