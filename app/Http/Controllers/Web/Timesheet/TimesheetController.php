@@ -231,7 +231,6 @@ class TimesheetController extends Controller
     public function startTimesheet(){
         $details = [
             'subject' => 'Timesheet Submission',
-            'body' => 'You are kindly reminded to submit your timesheet'
         ];
 
         try {
