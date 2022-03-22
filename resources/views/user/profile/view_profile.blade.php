@@ -70,8 +70,9 @@
                                                     <li><a href="#tab4" data-toggle="tab">Permissions</a></li>
 {{--                                                    <li><a href="#tab5" data-toggle="tab">Audit</a></li>--}}
                                                     <li><a href="#tab6" data-toggle="tab">Leave Setup</a></li>
-                                                    <li><a href="#tab7" data-toggle="tab">Level of Effort</a></li>
+                                                    <li><a href="#tab7" data-toggle="tab">Level of Effort Setup</a></li>
                                                     <li><a href="#tab8" data-toggle="tab">Leave Balance</a></li>
+                                                    <li><a href="#tab9" data-toggle="tab">Level of Effort</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -392,34 +393,54 @@
                                                             <table class="table  table-hover table-striped">
                                                                 <thead class="text-primary">
                                                                 <tr>
-                                                                    <th>#</th>
                                                                     <th>Leave Type</th>
                                                                     <th>Remaining Days</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                 {!! Form::open(['route' => ['timesheet.setup'],'method' => 'POST']) !!}
-                                                               @if($leave_balances == NULL)
-
-                                                                       <tr>
-                                                                           <td>This user has no leave balances</td>
-                                                                       </tr>
-
-                                                               @else
                                                                    @foreach($leave_balances as $leave_balance)
                                                                        <tr>
-                                                                           <td>{{$leave_balance->id}}</td>
                                                                            <td>{{$leave_balance->leaveType->name}}</td>
                                                                            <td>{{$leave_balance->remaining_days}}</td>
                                                                        </tr>
                                                                    @endforeach
-                                                               @endif
                                                                 {!! Form::close() !!}
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="tab-pane " id="tab9">
+                                                    <div class="emp-tab">
+                                                        <div class="table-responsive">
+                                                            <table class="table  table-hover table-striped">
+                                                                <thead class="text-primary">
+                                                                <tr>
+                                                                    <th>Project</th>
+                                                                    <th>Level of Effort %</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {!! Form::open(['route' => ['timesheet.effortUpdate'],'method' => 'POST']) !!}
+                                                                @foreach($effort_levels as $key => $effort_level)
+                                                                    <tr>
+                                                                        <input type="number" value="{{$user->id}}" name="data[{{$key}}][user_id]" hidden >
+                                                                        <input type="number" value="{{$effort_level->project_id}}" name="data[{{$key}}][project_id]" hidden>
+                                                                        <td>{{$effort_level->projects->title}}</td>
+                                                                        <td><input type="number" name="data[{{$key}}][percentage]" value="{{$effort_level->percentage}}"></td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                <button class="btn btn-outline-primary" type="submit" style="margin-left: 40%; margin-top: 2%">Submit</button>
+                                                                {!! Form::close() !!}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
 
 
 
