@@ -166,4 +166,23 @@ class CovidController extends BaseController
     {
         //
     }
+
+    public function filterReportsByDate(Request $request)
+    {
+        $from = $request['from'];
+        $to = $request['to'];
+        $g_officer = $request['data_clerk_id'];
+        $facility = $request['facility_id'];
+
+        $g_officer_covids = DB::table("covids")
+            ->selectRaw('*')
+            ->where('covids.data_clerk_id', '=', $g_officer)
+            ->where('covids.facility_id', '=', $facility)
+            ->whereBetween('covids.form_date', [$from, $to])
+            ->orderBy('covids.form_date', 'DESC')
+            ->paginate(30);
+
+        $success['paginated_covid_reports'] =  $g_officer_covids;
+        return $this->sendResponse($success, "all G-officer uploaded Covid-19 Reports");
+    }
 }

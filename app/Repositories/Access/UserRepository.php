@@ -212,6 +212,7 @@ class UserRepository extends BaseRepository
     private function processInputs($inputs)
     {
         return [
+            'identity_number'=>$inputs['identity_number'],
             'first_name' => $inputs['first_name'],
             'middle_name' => $inputs['middle_name'],
             'last_name' => $inputs['last_name'],
