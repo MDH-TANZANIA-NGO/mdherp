@@ -399,12 +399,21 @@
                                                                 </thead>
                                                                 <tbody>
                                                                 {!! Form::open(['route' => ['timesheet.setup'],'method' => 'POST']) !!}
-                                                                   @foreach($leave_balances as $leave_balance)
-                                                                       <tr>
-                                                                           <td>{{$leave_balance->leaveType->name}}</td>
-                                                                           <td>{{$leave_balance->remaining_days}}</td>
-                                                                       </tr>
-                                                                   @endforeach
+                                                                @if($leave_balances == NULL)
+
+                                                                    <tr>
+                                                                        <td>This user has no leave balances</td>
+                                                                    </tr>
+
+                                                                @else
+                                                                    @foreach($leave_balances as $leave_balance)
+                                                                        <tr>
+                                                                            <td>{{$leave_balance->id}}</td>
+                                                                            <td>{{$leave_balance->leaveType->name}}</td>
+                                                                            <td>{{$leave_balance->remaining_days}}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @endif
                                                                 {!! Form::close() !!}
                                                                 </tbody>
                                                             </table>
@@ -424,6 +433,13 @@
                                                                 </thead>
                                                                 <tbody>
                                                                 {!! Form::open(['route' => ['timesheet.effortUpdate'],'method' => 'POST']) !!}
+                                                                @if($effort_levels == NULL)
+
+                                                                    <tr>
+                                                                        <td>This user has no leave balances</td>
+                                                                    </tr>
+
+                                                                @else
                                                                 @foreach($effort_levels as $key => $effort_level)
                                                                     <tr>
                                                                         <input type="number" value="{{$user->id}}" name="data[{{$key}}][user_id]" hidden >
@@ -432,6 +448,7 @@
                                                                         <td><input type="number" name="data[{{$key}}][percentage]" value="{{$effort_level->percentage}}"></td>
                                                                     </tr>
                                                                 @endforeach
+                                                                @endif
                                                                 <button class="btn btn-outline-primary" type="submit" style="margin-left: 40%; margin-top: 2%">Submit</button>
                                                                 {!! Form::close() !!}
                                                                 </tbody>
