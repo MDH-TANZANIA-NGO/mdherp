@@ -66,7 +66,7 @@
             @csrf
             <input type="file" name="file" class="form-control">
             <br>
-            <button class="btn btn-success">Import User Data</button>
+            <button class="btn btn-success">Import User Data</button><span class="text-gray text-small">(Max 100 rows)</span>
 {{--            <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a>--}}
         </form>
     </div>
