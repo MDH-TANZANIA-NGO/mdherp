@@ -252,6 +252,7 @@ class UserRepository extends BaseRepository
     {
         return DB::transaction(function () use ($user, $inputs){
             $user->update([
+
                 'first_name' => $inputs['first_name'],
                 'middle_name' => $inputs['middle_name'],
                 'last_name' => $inputs['last_name'],
