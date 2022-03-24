@@ -15,7 +15,7 @@
 
                                 {!! Form::open(['route' => ['userbio.uploadpic', access()->user()->uuid], 'method' => 'post', 'enctype'=>'multipart/form-data']) !!}
 
-                                    <input type="file" name="profile_pic" class="dropify" data-default-file="../../assets/images/photos/media1.jpg" data-height="180"  />
+                                    <input type="file" name="profile_pic" class="dropify" data-default-file="" data-height="180"  />
 
 
                             </li>
