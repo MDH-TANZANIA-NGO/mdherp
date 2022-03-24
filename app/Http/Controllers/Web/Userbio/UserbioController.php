@@ -85,9 +85,11 @@ class UserbioController extends Controller
 
     public function show($uuid)
     {
+
         $user= User::where('uuid', $uuid)->first();
         $userbio= Userbio::where('user_id', $user->id)->first();
 
+       // dd($user);
         if($userbio== null)
         {
             $userbio = null;

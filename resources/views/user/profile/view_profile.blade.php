@@ -11,7 +11,8 @@
 										<div class="inner-all">
 											<ul class="list-unstyled">
 												<li class="text-center border-bottom-0">
-{{--													<img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="{{URL::asset('mdh/images/users/login.png')}}" height="100" width="100" >--}}
+{{--													<img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" height="100" width="100" >--}}
+                                                    {{dd($user->getMedia('profile_pic')->first()->getUrl())}}
                                                     @if($user->getMedia('profile_pic')->first() != null)
                                                         <img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" height="100" width="100" >
                                                     @else
