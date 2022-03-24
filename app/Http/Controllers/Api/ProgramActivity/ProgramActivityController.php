@@ -57,8 +57,14 @@ class ProgramActivityController extends BaseController
 
     public function getAllValidActivities(){
 
-        return $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
+        $valid_program_activities = $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
+
+        $success['program_activities'] = $valid_program_activities;
+
+        return $this->sendResponse($success, "All Valid Program Activities");
+
     }
+
     public function submitActivityNumberGetDetails(Request $request){
         $program_activity = $this->program_activity_repo->find($request['id']);
 

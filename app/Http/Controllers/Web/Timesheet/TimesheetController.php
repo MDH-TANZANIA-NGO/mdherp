@@ -228,6 +228,22 @@ class TimesheetController extends Controller
         return redirect()->back();
     }
 
+    public function effortUpdate(Request $request){
+        $effort_levels = EffortLevel::where('user_id', $request['data'][0]['user_id'])->get();
+        //dd($effort_levels);
+            foreach ($effort_levels as $effort_level){
+                for ($i = 0; $i < count($request['data']); $i++ ){
+                    if ($request['data'][$i]['project_id'] == $effort_level->project_id){
+                        $effort_level->update([
+                            'percentage' => $request['data'][$i]['percentage']
+                        ]);
+                    }
+                }
+            }
+        alert()->success('Level of Effort was set Successfully','success');
+        return redirect()->back();
+    }
+
     public function startTimesheet(){
         $details = [
             'subject' => 'Timesheet Submission',

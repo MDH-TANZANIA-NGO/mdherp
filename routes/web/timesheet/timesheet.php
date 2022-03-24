@@ -9,6 +9,7 @@ Route::group(['namespace' => 'Timesheet', 'middleware' => ['web', 'auth'], 'pref
     Route::get('initiate', 'TimesheetController@create')->name('initiate');
     Route::post('setup', 'TimesheetController@setup')->name('setup');
     Route::get('start', 'TimesheetController@startTimesheet')->name('start');
+    Route::post('update_effort', 'TimesheetController@effortUpdate')->name('effortUpdate');
 
 //Datatable routes for an authenticated user
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {

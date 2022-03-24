@@ -177,4 +177,23 @@ class HTSController extends BaseController
     {
         //
     }
+
+    public function filterReportsByDate(Request $request)
+    {
+        $from = $request['from'];
+        $to = $request['to'];
+        $g_officer = $request['data_clerk_id'];
+        $facility = $request['facility_id'];
+
+        $g_officer_hts = DB::table("hts")
+            ->selectRaw('*')
+            ->where('hts.data_clerk_id', '=', $g_officer)
+            ->where('hts.facility_id', '=', $facility)
+            ->whereBetween('hts.form_date', [$from, $to])
+            ->orderBy('hts.form_date', 'DESC')
+            ->paginate(30);
+
+        $success['paginated_hts_reports'] =  $g_officer_hts;
+        return $this->sendResponse($success, "all G-officer uploaded hts Reports");
+    }
 }

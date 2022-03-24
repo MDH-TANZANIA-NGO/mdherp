@@ -13,7 +13,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 {!! Form::label('identity_no', __("Employee No"),['class'=>'form-label','required_asterik']) !!}
-                                {!! Form::text('identity_number',old('identity_number'),['class' => 'form-control', 'placeholder' => 'ie. John','required']) !!}
+                                {!! Form::text('identity_number',old('identity_number'),['class' => 'form-control', 'placeholder' => 'ie. John']) !!}
                                 {!! $errors->first('identity_number', '<span class="badge badge-danger">:message</span>') !!}
                                 <input type="date" value="null" name="employed_date" hidden>
                             </div>

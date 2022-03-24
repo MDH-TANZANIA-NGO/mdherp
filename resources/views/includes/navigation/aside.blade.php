@@ -88,9 +88,11 @@
         @endpermission
 
         @permission('compliance')
+
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-database multiple-outline text-primary"></i><span class="side-menu__label">Compliance</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
+                <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>Add Beneficiaries</span></a></li>
                    <li><a class="slide-item"  href="{{ route('compliance.index') }}"><span>Beneficiaries List</span></a></li>
             </ul>
         </li>
