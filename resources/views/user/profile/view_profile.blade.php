@@ -190,15 +190,15 @@
                                                                         {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-4">
+                                                            {{--    <div class="col-md-4">
                                                                     <div class="form-group ">
                                                                         <label class="form-label">Status</label>
                                                                        <select class="form-control" name="active">
-                                                                           <option value="true">Activate</option>
-                                                                           <option value="false">Deactivate</option>
+                                                                           <option value="1">Activate</option>
+                                                                           <option value="0">Deactivate</option>
                                                                        </select>
                                                                         </div>
-                                                                </div>
+                                                                </div>--}}
 
 
                                                               {{--  <div class=" col-md-4">
