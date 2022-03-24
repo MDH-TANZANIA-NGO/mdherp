@@ -14,7 +14,7 @@
 {{--													<img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" height="100" width="100" >--}}
 
                                                     @if($user->getMedia('profile_pic')->first() != null)
-                                                        <img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="{{$user->getMedia('profile_pic')->first()->getUrl()}}" height="100" width="100" >
+                                                        <img data-no-retina="" class="img-circle img-responsive img-bordered-primary brround" src="{{$user->getMedia('profile_pic')->first()->getUrl()}}"  height="100" width="100" >
                                                     @else
                                                         <img data-no-retina="" class="img-circle img-responsive img-bordered-primary" src="{{URL::asset('mdh/images/users/login.png')}}" height="100" width="100" >
                                                     @endif
