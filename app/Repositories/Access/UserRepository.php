@@ -332,6 +332,7 @@ class UserRepository extends BaseRepository
             DB::raw('users.phone AS phone'),
             DB::raw('users.uuid AS uuid'),
             DB::raw('users.dob as dob'),
+            DB::raw('users.supervisor as supervisor'),
             DB::raw('users.employed_date as employed_date'),
             DB::raw('users.country_organisation_id as country_organisation_id'),
             DB::raw('regions.name AS region'),
@@ -350,6 +351,11 @@ class UserRepository extends BaseRepository
     public function forSelect()
     {
         return $this->getQuery()->pluck('name', 'user_id');
+    }
+    public function allSupervisors()
+    {
+        return $this->getActive()
+            ->where('supervisor', true);
     }
 
     public function assignSubProgramArea($uuid, $inputs)
@@ -395,7 +401,7 @@ class UserRepository extends BaseRepository
 
 //                SupervisorUser::query()->where('supervisor_id', $user_id)->delete();
                 foreach($inputs['users'] as $user_selected_id){
-              
+
                     SupervisorUser::query()->create([
                         'supervisor_id' => $user_id,
                         'user_id' => $user_selected_id

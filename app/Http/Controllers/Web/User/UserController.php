@@ -115,6 +115,7 @@ class UserController extends Controller
 
 
 
+
         return view('user.profile.index')
             ->with('user', $user)
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
@@ -130,7 +131,8 @@ class UserController extends Controller
             ->with('user_projects', $this->projects->getUserProjects($user->id))
             ->with('effort_levels', $effort_levels ?? NULL)
             ->with('leave_balances', $leaveBalances?? "This user does not have leave balances")
-            ->with('supervisor', $supervisor);
+            ->with('supervisor', $supervisor)
+            ->with('supervisors', $this->users->allSupervisors()->where('user_id', '!=',$user->id)->get()->pluck('name', 'user_id'));
     }
 
     /**
@@ -212,6 +214,16 @@ class UserController extends Controller
     {
         $this->users->updatePermissions($user, $request->all());
         alert()->success(__('notifications.permission_assigned'), __('notifications.user.title'));
+        return redirect()->back();
+    }
+
+    public function assignSupervisorIndividual(Request $request)
+    {
+        SupervisorUser::query()->create([
+            'supervisor_id'=>$request['supervisor'],
+            'user_id'=>$request['user_id']
+        ]);
+        alert()->success('Supervisor assigned successfully', 'Success');
         return redirect()->back();
     }
 

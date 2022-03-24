@@ -25,7 +25,7 @@
 													<p class="text-muted text-capitalize">MDH Staff</p>
 												</li>
 												<li>
-													<a href="{{ route('user.password_reset',$user) }}" class="btn btn-primary text-center btn-block"><i class="fe fe-unlock mr-2"></i>Reset Password</a>
+													<a href="{{ route('user.password_reset',$user) }}" class="btn btn-outline-warning text-center btn-block"><i class="fe fe-unlock mr-2"></i>Reset Password</a>
 												</li>
 												<li><br></li>
 
@@ -35,8 +35,19 @@
                                                         <tbody>
                                                             <tr><td>Active since:{{$user->created_at}} </td></tr>
                                                             <tr><td>Last Update: {{$user->updated_at}}</td></tr>
-                                                            <tr><td>Supervior:  {{$supervisor}}
-                                                                </td></tr>
+                                                            <tr>
+                                                                @if($user->assignedSupervisor() == null)
+                                                                <td>Assign Supervisor:
+                                                                    {!! Form::open(['route' => ['user.assign_supervisor_individual'],'method' => 'POST']) !!}
+                                                                    {!! Form::select('supervisor',$supervisors,null,['class' => 'form-control select2-show-search', 'style'=>'width: 100%']) !!}
+                                                                    <input type="number" name="user_id" value="{{$user->id}}" hidden><br>
+                                                                    <input type="submit" value="Assign" class="btn btn-outline-info text-center btn-block" style="margin-top: 3%">
+                                                                    {!! Form::close() !!}
+                                                                </td>
+                                                                @else
+                                                                <td>{{$supervisor}}</td>
+                                                                    @endif
+                                                            </tr>
                                                           {{--  <tr><td>
                                                                     Deactivate
 
@@ -78,8 +89,8 @@
 {{--                                                    <li><a href="#tab5" data-toggle="tab">Audit</a></li>--}}
                                                     <li><a href="#tab6" data-toggle="tab">Leave Setup</a></li>
                                                     <li><a href="#tab7" data-toggle="tab">Level of Effort Setup</a></li>
-                                                    <li><a href="#tab8" data-toggle="tab">Leave Balance</a></li>
-                                                    <li><a href="#tab9" data-toggle="tab">Level of Effort</a></li>
+{{--                                                    <li><a href="#tab8" data-toggle="tab">Leave Balance</a></li>--}}
+{{--                                                    <li><a href="#tab9" data-toggle="tab">Level of Effort</a></li>--}}
                                                 </ul>
                                             </div>
                                         </div>
@@ -207,10 +218,18 @@
                                                                 </div>
                                                                 </div>
 {{--                                                                <button type="submit" class="btn btn-primary" style="margin-left:40%;">Update Profile</button>--}}
-                                                                {!! Form::submit('Update Profile',['class' => 'btn btn-primary']) !!}
+
 
                                                             </div>
                                                         </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4" style="margin-left: 45%">
+                                                            <div class="form-group">
+                                                        {!! Form::submit('Update Profile',['class' => 'btn btn-outline-info']) !!}
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
                                                         {!! Form::close() !!}
 
                                                 </div>
