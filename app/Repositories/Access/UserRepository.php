@@ -391,8 +391,11 @@ class UserRepository extends BaseRepository
     {
         return DB::transaction(function () use ($user_id, $inputs){
             if(isset($inputs['users'])){
-                SupervisorUser::query()->where('supervisor_id', $user_id)->delete();
+
+
+//                SupervisorUser::query()->where('supervisor_id', $user_id)->delete();
                 foreach($inputs['users'] as $user_selected_id){
+              
                     SupervisorUser::query()->create([
                         'supervisor_id' => $user_id,
                         'user_id' => $user_selected_id
