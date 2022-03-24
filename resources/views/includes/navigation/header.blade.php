@@ -104,7 +104,12 @@
                 <div class="dropdown ">
                     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 										<span>
-											<img src="{{ asset('mdh/images/users/16.jpg') }}" alt="img" class="avatar avatar-md brround">
+                                             @if(access()->user()->getMedia('profile_pic')->first() != null)
+                                                <img src="{{access()->user()->getMedia('profile_pic')->first()->getUrl()}}" alt="img" class="avatar avatar-md brround">
+                                            @else
+                                                <img src="{{ asset('mdh/images/users/16.jpg') }}" alt="img" class="avatar avatar-md brround">
+                                            @endif
+
 										</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
