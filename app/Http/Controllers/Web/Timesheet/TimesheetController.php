@@ -217,12 +217,15 @@ class TimesheetController extends Controller
     }
 
     public function setup(Request $request){
+
         for ($i = 0; $i < count($request['data']); $i++ ){
-            EffortLevel::create([
+            EffortLevel::updateOrCreate(
+                [
                 'user_id' => $request['data'][$i]['user_id'],
                 'project_id' => $request['data'][$i]['project_id'],
-                'percentage' => $request['data'][$i]['percentage'],
-            ]);
+                'percentage' => $request['data'][$i]['percentage']
+                ]
+            );
         }
         alert()->success('Level of Effort was set Successfully','success');
         return redirect()->back();

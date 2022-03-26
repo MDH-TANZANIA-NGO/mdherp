@@ -363,12 +363,9 @@
 
                                                         @endforeach
 
-
-
                                                     </ul>
                                                     <button class="btn btn-outline-primary" type="submit" style="margin-left: 40%; margin-top: 2%">Submit</button>
                                                     {!! Form::close() !!}
-
 
                                                 </div>
 
@@ -408,7 +405,6 @@
                                                                 @else
                                                                     @foreach($leave_balances as $leave_balance)
                                                                         <tr>
-                                                                            <td>{{$leave_balance->id}}</td>
                                                                             <td>{{$leave_balance->leaveType->name}}</td>
                                                                             <td>{{$leave_balance->remaining_days}}</td>
                                                                         </tr>
