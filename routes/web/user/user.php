@@ -14,6 +14,7 @@ Route::group(['namespace' => 'User', 'middleware' => ['web', 'auth'], 'prefix' =
     Route::get('{users}/remove-supervisor', 'UserController@deleteSupervisor')->name("remove_supervisor");
     Route::post('{user}/update-permission', 'UserController@updatePermissions')->name("permission_update");
     Route::post('/import', 'UserController@import')->name("import");
+    Route::post('assign-supervisor-individual', 'UserController@assignSupervisorIndividual')->name("assign_supervisor_individual");
     Route::get('{user}/password-reset', 'UserController@resetPassword')->name("password_reset");
 
     /**
