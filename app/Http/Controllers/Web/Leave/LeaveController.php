@@ -181,4 +181,20 @@ class LeaveController extends Controller
 
         return redirect()->back();
     }
+    public function updateSetup(Request $request, $user_id)
+    {
+        for ($i = 0; $i < count($request['data']); $i++){
+
+            LeaveBalance::query()->where('user_id',$request['data'][$i]['user_id'])->delete();
+            LeaveBalance::create([
+                'user_id' => $request['data'][$i]['user_id'],
+                'leave_type_id' => $request['data'][$i]['leave_id'],
+                'remaining_days' => $request['data'][$i]['remaining_days'],
+            ]);
+
+            alert('Leave Balances Updated Successfully', 'Success');
+
+            return redirect()->back();
+        }
+    }
 }

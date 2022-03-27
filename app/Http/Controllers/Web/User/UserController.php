@@ -111,9 +111,10 @@ class UserController extends Controller
 
             $effort_levels = EffortLevel::where('user_id', $user->id)->get();
 
-            $leaveBalances = LeaveBalance::where('user_id', $user->id)->orderBy('updated_at')->get();
-
-
+            $leaveBalances = LeaveBalance::where('user_id', $user->id)->get();
+//            dd(LeaveBalance::where('user_id', $user->id));
+            $female_leave_balances = LeaveType::query()->where('id','!=', 5)->get();
+            $male_leave_balances = LeaveType::query()->where('id','!=', 4)->get();
 
 
 
@@ -133,6 +134,8 @@ class UserController extends Controller
             ->with('effort_levels', $effort_levels ?? NULL)
             ->with('leave_balances', $leaveBalances?? "This user does not have leave balances")
             ->with('supervisor', $supervisor)
+            ->with('male_leave', $male_leave_balances)
+            ->with('female_leave', $female_leave_balances)
             ->with('supervisors', $this->users->allSupervisors()->where('user_id', '!=',$user->id)->get()->pluck('name', 'user_id'));
     }
 
