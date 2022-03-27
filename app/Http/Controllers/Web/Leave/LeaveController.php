@@ -24,15 +24,18 @@ class LeaveController extends Controller
 {
 
     use LeaveDatatables;
+
     protected $leaves;
     protected $wf_tracks;
     protected $user;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->leaves = (new LeaveRepository());
         $this->wf_tracks = (new WfTrackRepository());
         $this->user = (new UserRepository());
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -65,25 +68,25 @@ class LeaveController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_id', $request['leave_type_id'])->first();
         $start = Carbon::parse($request['start_date']);
-        $end =  Carbon::parse($request['end_date']);
+        $end = Carbon::parse($request['end_date']);
         $days = $start->diffInDays($end) + 1;
 
-        $actual_remaining_days =  $leave_balance->remaining_days - $days;
-        if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0){
+        $actual_remaining_days = $leave_balance->remaining_days - $days;
+        if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0) {
             $leave = $this->leaves->store($request->all());
-            DB::update('update leave_balances set remaining_days =?  where uuid= ?',[$actual_remaining_days,  $leave_balance->uuid]);
+            DB::update('update leave_balances set remaining_days =?  where uuid= ?', [$actual_remaining_days, $leave_balance->uuid]);
             $wf_module_group_id = 5;
             $next_user = $leave->user->assignedSupervisor()->supervisor_id;
 
-            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id,'region_id' => $leave->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-            alert()->success('Your Leave Request have been submitted Successfully','success');
+            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id, 'region_id' => $leave->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
+            alert()->success('Your Leave Request have been submitted Successfully', 'success');
 
             return redirect()->route('leave.index');
         } else {
@@ -111,7 +114,7 @@ class LeaveController extends Controller
 
         $designation = access()->user()->designation_id;
         $start = Carbon::parse($leave->start_date);
-        $end =  Carbon::parse($leave->end_date);
+        $end = Carbon::parse($leave->end_date);
         $days = $start->diffInDays($end) + 1;
         $type = LeaveType::where('id', $leave->leave_type_id)->first();
 
@@ -129,7 +132,7 @@ class LeaveController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(Leave $leave)
@@ -146,8 +149,8 @@ class LeaveController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Leave $leave)
@@ -160,7 +163,7 @@ class LeaveController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -170,32 +173,32 @@ class LeaveController extends Controller
 
     public function setup(Request $request)
     {
-        for ($i = 0; $i < count($request['data']); $i++ ){
+        for ($i = 0; $i < count($request['data']); $i++) {
 
-            LeaveBalance::create([
-                'user_id' => $request['data'][$i]['user_id'],
-                'leave_type_id' => $request['data'][$i]['leave_id'],
-                'remaining_days' => $request['data'][$i]['remaining_days'],
-            ]);
+            $leaveBalance = new LeaveBalance;
+            $leaveBalance->user_id = $request['data'][$i]['user_id'];
+            $leaveBalance->leave_type_id = $request['data'][$i]['leave_id'];
+            $leaveBalance->remaining_days = $request['data'][$i]['remaining_days'];
+            $leaveBalance->save();
         }
 
+        alert('Leave Balances Inserted Successfully', 'Success');
         return redirect()->back();
     }
-    public function updateSetup(Request $request, $user_id, LeaveBalance $leaveBalance)
+
+    public function updateSetup(Request $request, $user_id)
     {
+        LeaveBalance::where('user_id', $user_id)->delete();
 
-        for ($i = 0; $i < count($request['data']); $i++){
+        for ($i = 0; $i < count($request['data']); $i++) {
 
-        $leaveBalance->update([
-            'user_id' => $request['data'][$i]['user_id'],
-            'leave_type_id' => $request['data'][$i]['leave_id'],
-            'remaining_days' => $request['data'][$i]['remaining_days']
-        ]);
-
-
-            alert('Leave Balances Updated Successfully', 'Success');
-
-            return redirect()->back();
+            $leaveBalance = new LeaveBalance;
+            $leaveBalance->user_id = $request['data'][$i]['user_id'];
+            $leaveBalance->leave_type_id = $request['data'][$i]['leave_id'];
+            $leaveBalance->remaining_days = $request['data'][$i]['remaining_days'];
+            $leaveBalance->save();
         }
+        alert('Leave Balances Updated Successfully', 'Success');
+        return redirect()->back();
     }
 }
