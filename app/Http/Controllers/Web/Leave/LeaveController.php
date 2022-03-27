@@ -73,7 +73,7 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_id', $request['leave_type_id'])->first();
+        $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_type_id', $request['leave_type_id'])->first();
         $start = Carbon::parse($request['start_date']);
         $end = Carbon::parse($request['end_date']);
         $days = $start->diffInDays($end) + 1;
@@ -81,7 +81,7 @@ class LeaveController extends Controller
         $actual_remaining_days = $leave_balance->remaining_days - $days;
         if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0) {
             $leave = $this->leaves->store($request->all());
-            DB::update('update leave_balances set remaining_days =?  where uuid= ?', [$actual_remaining_days, $leave_balance->uuid]);
+            DB::update('update leave_balances set remaining_days =?  where id= ?', [$actual_remaining_days, $leave_balance->id]);
             $wf_module_group_id = 5;
             $next_user = $leave->user->assignedSupervisor()->supervisor_id;
 

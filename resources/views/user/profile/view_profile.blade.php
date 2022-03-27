@@ -415,7 +415,7 @@
                                                         <ul class="list-group">
 
                                                             @foreach($leave_balances as $key => $leave_balance)
-                                                             
+
                                                                 <input type="number" value="{{$user->id}}" name="data[{{$key}}][user_id]" hidden >
                                                                 <li class="list-group-item justify-content-between">
                                                                     {{$leave_balance->leaveType->name}}<input type="number" value="{{$leave_balance->leave_type_id}}" name="data[{{$key}}][leave_id]" hidden>

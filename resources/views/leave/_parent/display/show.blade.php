@@ -39,7 +39,7 @@
                             <td>{{ \Carbon\Carbon::parse($leave->start_date)->format('d/m/Y')}}</td>
                             <td>{{ \Carbon\Carbon::parse($leave->end_date)->format('d/m/Y')}}</td>
                             <td>{{$days}}</td>
-                            <td>{{$leave->employee->full_name_formatted}}</td>
+                            <td>{{$leave->employee->last_name}} {{$leave->employee->first_name}}</td>
                             <td>{{$leave->comment}}</td>
 
                         </tr>
