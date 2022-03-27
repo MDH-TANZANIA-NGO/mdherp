@@ -183,9 +183,10 @@ class LeaveController extends Controller
     }
     public function updateSetup(Request $request, $user_id)
     {
+        LeaveBalance::query()->where('user_id',$user_id)->delete();
         for ($i = 0; $i < count($request['data']); $i++){
 
-            LeaveBalance::query()->where('user_id',$request['data'][$i]['user_id'])->delete();
+
             LeaveBalance::create([
                 'user_id' => $request['data'][$i]['user_id'],
                 'leave_type_id' => $request['data'][$i]['leave_id'],
