@@ -10,6 +10,6 @@ class LeaveBalance extends Model
     //
     public function leaveType()
     {
-        return $this->belongsTo(LeaveType::class, 'leave_type_id', 'id');
+        return $this->belongsTo(LeaveType::class);
     }
 }

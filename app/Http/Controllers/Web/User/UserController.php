@@ -112,7 +112,6 @@ class UserController extends Controller
             $effort_levels = EffortLevel::where('user_id', $user->id)->get();
 
             $leaveBalances = LeaveBalance::where('user_id', $user->id)->get();
-//            dd(LeaveBalance::where('user_id', $user->id));
             $female_leave_balances = LeaveType::query()->where('id','!=', 5)->get();
             $male_leave_balances = LeaveType::query()->where('id','!=', 4)->get();
 
