@@ -110,8 +110,9 @@ class UserController extends Controller
             }
 
             $effort_levels = EffortLevel::where('user_id', $user->id)->get();
+
             $leaveBalances = LeaveBalance::where('user_id', $user->id)->orderBy('updated_at')->get();
-            //dd($leaveBalances);
+
 
 
 
