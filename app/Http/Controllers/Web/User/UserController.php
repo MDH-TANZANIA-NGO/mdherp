@@ -79,9 +79,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $this->users->store($request->all());
-        alert()->success($user->full_name_formatted. ' Registered Successfully');
-        return redirect()->back();
+        try {
+            $user = $this->users->store($request->all());
+            alert()->success($user->full_name_formatted. ' Registered Successfully');
+            return redirect()->back();
+        }catch (\Exception $exception){
+            alert()->error('User already Exist', 'Failed');
+            return redirect()->back();
+        }
+
     }
     public function resetPassword(User $user)
     {
@@ -110,9 +116,10 @@ class UserController extends Controller
             }
 
             $effort_levels = EffortLevel::where('user_id', $user->id)->get();
-            $leaveBalances = LeaveBalance::where('user_id', $user->id)->orderBy('updated_at')->get();
-            //dd($leaveBalances);
 
+            $leaveBalances = LeaveBalance::where('user_id', $user->id)->get();
+            $female_leave_balances = LeaveType::query()->where('id','!=', 5)->get();
+            $male_leave_balances = LeaveType::query()->where('id','!=', 4)->get();
 
 
 
@@ -132,6 +139,8 @@ class UserController extends Controller
             ->with('effort_levels', $effort_levels ?? NULL)
             ->with('leave_balances', $leaveBalances?? "This user does not have leave balances")
             ->with('supervisor', $supervisor)
+            ->with('male_leave', $male_leave_balances)
+            ->with('female_leave', $female_leave_balances)
             ->with('supervisors', $this->users->allSupervisors()->where('user_id', '!=',$user->id)->get()->pluck('name', 'user_id'));
     }
 

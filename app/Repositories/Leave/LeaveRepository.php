@@ -53,7 +53,7 @@ class LeaveRepository extends BaseRepository
 
     public function inputProcess($inputs){
 
-        $leave_balance = LeaveBalance::where('user_id', access()->user()->id)->where('leave_id', $inputs['leave_type_id'])->first();
+        $leave_balance = LeaveBalance::where('user_id', access()->user()->id)->where('leave_type_id', $inputs['leave_type_id'])->first();
 
         return [
             'user_id' => access()->id(),
@@ -64,7 +64,8 @@ class LeaveRepository extends BaseRepository
             'start_date' => $inputs['start_date'],
             'end_date' => $inputs['end_date'],
             'leave_type_id' => $inputs['leave_type_id'],
-            'leave_balance' =>$leave_balance->id
+            'leave_balance' =>$leave_balance->id,
+            'done'=> true
         ];
     }
 
