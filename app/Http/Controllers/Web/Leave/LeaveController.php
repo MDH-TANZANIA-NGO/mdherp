@@ -103,6 +103,7 @@ class LeaveController extends Controller
      */
     public function show(Leave $leave)
     {
+
         $wf_module_group_id = 5;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $leave->id);
         $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $leave->id, 'type' => $wf_module->type]);
@@ -117,6 +118,9 @@ class LeaveController extends Controller
         $end = Carbon::parse($leave->end_date);
         $days = $start->diffInDays($end) + 1;
         $type = LeaveType::where('id', $leave->leave_type_id)->first();
+        $remaining_days = LeaveBalance::query()->where('user_id', $leave->user_id)
+                                                ->where('leave_type_id', $leave->leave_type_id)->first()->remaining_days;
+
 
         return view('leave._parent.display.show')
             ->with('current_level', $current_level)
@@ -125,7 +129,8 @@ class LeaveController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($leave))
             ->with('days', $days)
             ->with('type', $type)
-            ->with('leave', $leave);
+            ->with('leave', $leave)
+            ->with('remaining_days', $remaining_days);
 
     }
 

@@ -1560,6 +1560,19 @@ class DesignationsTableSeeder extends Seeder
                     'isactive' => 1,
                     'department_id'=>1,
                 ),
+            128 =>
+                array (
+                    'id' => 129,
+                    'unit_id' => 75,
+                    'name' => '',
+                    'short_name' => 'GDS',
+                    'created_at' => '2022-01-08 20:16:49',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'department_id'=>1,
+                ),
+
 
         ));
 

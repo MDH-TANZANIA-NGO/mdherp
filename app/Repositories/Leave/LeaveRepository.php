@@ -64,7 +64,8 @@ class LeaveRepository extends BaseRepository
             'start_date' => $inputs['start_date'],
             'end_date' => $inputs['end_date'],
             'leave_type_id' => $inputs['leave_type_id'],
-            'leave_balance' =>$leave_balance->id
+            'leave_balance' =>$leave_balance->id,
+            'done'=> true
         ];
     }
 
