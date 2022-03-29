@@ -11,6 +11,7 @@ use App\Models\Leave\Leave;
 use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
 use App\Models\Timesheet\EffortLevel;
+use App\Models\Unit\Designation;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -73,6 +74,8 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
+        //departmentment director
+
         $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_type_id', $request['leave_type_id'])->first();
         $start = Carbon::parse($request['start_date']);
         $end = Carbon::parse($request['end_date']);

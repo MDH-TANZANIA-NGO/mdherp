@@ -228,11 +228,11 @@
     <script>
         $(document).ready(function (){
             $(document).on('change', '.establishment', function (){
-                if($(this).val() == 21){
+                if($(this).val() == 23){
                     $('.budget').show()
                     $('.employee').hide()
                 }
-                if ($(this).val() == 20){
+                if ($(this).val() == 22){
                     $('.employee').show()
                     $('.budget').hide()
                 }

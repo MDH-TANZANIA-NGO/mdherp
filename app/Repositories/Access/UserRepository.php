@@ -423,6 +423,24 @@ class UserRepository extends BaseRepository
             ->where('designations.unit_id', 1);
     }
 
+    public function getDirectorOfHR()
+    {
+        return $this->query()
+            ->select([
+                'users.id AS user_id',
+            ])
+            ->where('users.designation_id', 8);
+    }
+
+    public function getCEO2()
+    {
+        return $this->query()
+            ->select([
+                'users.id AS user_id',
+            ])
+            ->where('users.designation_id', 121);
+    }
+
     public function getCeo()
     {
         return $this->query()
