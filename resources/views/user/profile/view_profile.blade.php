@@ -89,8 +89,8 @@
 {{--                                                    <li><a href="#tab5" data-toggle="tab">Audit</a></li>--}}
                                                     <li><a href="#tab6" data-toggle="tab">Leave Setup</a></li>
                                                     <li><a href="#tab7" data-toggle="tab">Level of Effort Setup</a></li>
-{{--                                                    <li><a href="#tab8" data-toggle="tab">Leave Balance</a></li>--}}
-{{--                                                    <li><a href="#tab9" data-toggle="tab">Level of Effort</a></li>--}}
+                                                    <li><a href="#tab8" data-toggle="tab">Leave Balance</a></li>
+                                                    <li><a href="#tab9" data-toggle="tab">Level of Effort</a></li>
                                                 </ul>
                                             </div>
                                         </div>
