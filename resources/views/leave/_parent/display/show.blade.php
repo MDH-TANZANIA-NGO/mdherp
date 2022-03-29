@@ -99,7 +99,7 @@
             </div>
         </div>
 
-        @if($remaining_days > 5)
+        @if($remaining_days >= 5)
         <div class="col-xl-6 col-md-12 col-lg-12">
             <div class="card bg-gradient-info">
                 <div class="card-body">
@@ -117,7 +117,7 @@
     </div>
     @elseif($remaining_days <5 && $remaining_days > 0)
             <div class="col-xl-6 col-md-12 col-lg-12">
-                <div class="card bg-warning">
+                <div class="card bg-gradient-warning">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="text-white ">
@@ -133,7 +133,7 @@
             </div>
     @elseif($remaining_days == 0)
             <div class="col-xl-6 col-md-12 col-lg-12">
-                <div class="card bg-danger">
+                <div class="card bg-gradient-danger">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="text-white ">
