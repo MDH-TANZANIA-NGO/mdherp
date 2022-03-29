@@ -54,7 +54,7 @@ class LeaveController extends Controller
     public function create()
     {
         $leaveTypes = LeaveType::all()->pluck('name', 'id');
-//        $leaveTypes = $this->leaves->getQuery()->get()->pluck('type_name','type_id');
+
         $users = $this->user->forSelect();
         $leaveBalances = LeaveBalance::all()->where('user_id', access()->user()->id);
 
@@ -90,6 +90,7 @@ class LeaveController extends Controller
 
             return redirect()->route('leave.index');
         } else {
+            alert()->error('You do not have any available leave balances on '.$leave_balance->leaveType->name, 'Failed');
             return redirect()->back();
         }
     }
