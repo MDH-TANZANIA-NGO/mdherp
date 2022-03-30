@@ -1,14 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @if($program_activity->done == 0)
     {!! Form::open(['route' => ['programactivity.update',$program_activity]]) !!}
     <div class="row">
         <div class="col-lg-12 mb-3">
     <button type="submit" class="btn btn-primary float-right" >Submit For Approval</button>
     {!! Form::close() !!}
+            @elseif($program_activity->done == 1)
+                <div class="row">
+                    <div class="col-lg-12 mb-3">
+                <a href="{{route('programactivity.show', $program_activity)}}" class="btn btn-primary float-right" >Back</a>
+                    </div>
+                </div>
+                @endif
 
-        </div>
-        </div>
 
 
 @include('programactivity.forms.event-schedule.create')

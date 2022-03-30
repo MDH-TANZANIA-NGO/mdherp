@@ -59,7 +59,6 @@ class LeaveController extends Controller
         $users = $this->user->forSelect();
         $leaveBalances = LeaveBalance::all()->where('user_id', access()->user()->id);
 
-
         return view('leave._parent.form.create')
             ->with('leaveTypes', $leaveTypes)
             ->with('users', $users)
