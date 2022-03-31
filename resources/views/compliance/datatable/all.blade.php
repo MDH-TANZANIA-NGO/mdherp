@@ -1,3 +1,4 @@
+
 <div class="row">
 <div class="card">
     <div class="card-body">
@@ -12,6 +13,7 @@
                     <th class="wd-25p">TITLE</th>
                     <th class="wd-25p">REGION</th>
                     <th class="wd-25p">FACILITY</th>
+
                 </tr>
                 </thead>
             </table>
@@ -20,6 +22,7 @@
 
 </div>
 </div>
+
 
 
 @push('after-scripts')

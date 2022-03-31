@@ -15,11 +15,19 @@
 
         @permission('user_management')
         <li class="slide">
-            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User Management</span><i class="angle fa fa-angle-right"></i></a>
+            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Internal User</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('user.index') }}"><span>List</span></a></li>
                 <li><a class="slide-item"  href="{{ route('user.create') }}"><span>Register</span></a></li>
-                <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>External users</span></a></li>
+            </ul>
+        </li>
+        @endpermission
+        @permission('external_user_management')
+        <li class="slide">
+            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">External User </span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item"  href="{{ route('g_officer.create') }}"><span>Register</span></a></li>
+                <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>List</span></a></li>
             </ul>
         </li>
         @endpermission
@@ -87,16 +95,16 @@
         </li>
         @endpermission
 
-        @permission('compliance')
+       {{-- @permission('compliance')
 
         <li class="slide">
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-database multiple-outline text-primary"></i><span class="side-menu__label">Compliance</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>Add Beneficiaries</span></a></li>
-                   <li><a class="slide-item"  href="{{ route('compliance.index') }}"><span>Beneficiaries List</span></a></li>
+                   <li><a class="slide-item"  href="{{ route('compliance.beneficiaries') }}"><span>Beneficiaries List</span></a></li>
             </ul>
         </li>
-        @endpermission
+        @endpermission--}}
 
     </ul>
 </aside>

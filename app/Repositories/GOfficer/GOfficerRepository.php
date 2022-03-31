@@ -8,6 +8,7 @@ use App\Models\System\District;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use App\Services\Generator\DefaultFingerprints;
+use Matrix\Exception;
 
 class GOfficerRepository extends BaseRepository
 {
@@ -64,10 +65,19 @@ class GOfficerRepository extends BaseRepository
     public function inputProcess($inputs)
     {
         $region_id = region::query()->where('id', District::query()->where('id', $inputs['district_id'])->first()->region_id)->first()->id;
+
+        if ($inputs['check_no'] == null)
+        {
+            $check_no = '0'.$region_id.'-'.sprintf('%02d', now()->month).'-'.substr(sprintf('%02d', now()->year), -2).'-';
+
+        }
+        else{
+            $check_no = $inputs['check_no'];
+        }
         return [
             'first_name' => $inputs['first_name'],
             'last_name' => $inputs['last_name'],
-            'email' => $inputs['email'],
+            'middle_name' => $inputs['middle_name'],
             'phone' => '255'.substr($inputs['phone'], -9),
             'g_scale_id' => $inputs['g_scale'],
             'region_id' => $region_id,
@@ -77,15 +87,28 @@ class GOfficerRepository extends BaseRepository
             'fingerprint_data' => $this->getDefaultFingerprints(),
             'fingerprint_length' => $this->getFingerprintLength(),
             'password' => bcrypt(strtolower($inputs['last_name'])),
+            'check_no'=> $check_no
         ];
     }
 
     public function store($inputs)
     {
 
-        return DB::transaction(function () use ($inputs){
-            return $this->query()->create($this->inputProcess($inputs));
-        });
+        try {
+            return DB::transaction(function () use ($inputs){
+                $id = $this->query()->create($this->inputProcess($inputs))->id;
+                $check_no =  $this->find($id)->check_no;
+                $check_no = $check_no.$id;
+                DB::update('update g_officers set check_no = ? where id = ?',[$check_no, $id] );
+
+                alert()->success('External user registered successfully', 'Success');
+                return redirect()->back();
+            });
+        }catch (\Exception $exception){
+            alert()->error('User with this phone number Exists', 'Failed');
+
+            return redirect()->back();
+        }
     }
 
     public function update($uuid, $inputs)

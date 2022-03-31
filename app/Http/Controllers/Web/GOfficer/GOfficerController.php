@@ -47,11 +47,15 @@ class GOfficerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
         //
+        return view('gofficer.gofficer.form.create')
+            ->with('g_scales', $this->g_scales->getActiveForPluck())
+            ->with('regions', $this->regions->getQuery()->pluck('name','id'))
+            ->with('districts', $this->districts->getQuery()->pluck('name','id'));
     }
 
     /**
@@ -120,10 +124,12 @@ class GOfficerController extends Controller
 
     public function import()
     {
-        \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
+       /* \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
         alert()->success('Uploaded Successfully', 'Success');
-        return redirect()->back();
-        /*try {
+        return redirect()->back();*/
+
+//        dd(Request::all());
+        try {
             \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
             alert()->success('Uploaded Successfully', 'Success');
             return redirect()->back();
@@ -131,7 +137,7 @@ class GOfficerController extends Controller
             alert()->error('You have Duplicate Entry','Failed');
             $exception->getMessage();
             return redirect()->back();
-        }*/
+        }
 
     }
 }
