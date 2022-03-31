@@ -79,9 +79,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $this->users->store($request->all());
-        alert()->success($user->full_name_formatted. ' Registered Successfully');
-        return redirect()->back();
+        try {
+            $user = $this->users->store($request->all());
+            alert()->success($user->full_name_formatted. ' Registered Successfully');
+            return redirect()->back();
+        }catch (\Exception $exception){
+            alert()->error('User already Exist', 'Failed');
+            return redirect()->back();
+        }
+
     }
     public function resetPassword(User $user)
     {
@@ -110,12 +116,13 @@ class UserController extends Controller
             }
 
             $effort_levels = EffortLevel::where('user_id', $user->id)->get();
-            $leaveBalances = LeaveBalance::where('user_id', $user->id)->orderBy('updated_at')->get();
-            //dd($leaveBalances);
+
+            $leaveBalances = LeaveBalance::where('user_id', $user->id)->get();
+            $female_leave_balances = LeaveType::query()->where('id','!=', 5)->get();
+            $male_leave_balances = LeaveType::query()->where('id','!=', 4)->get();
 
 
 
-//dd($this->users->getAllUsersWithThisSupervisorGet($user->id));
         return view('user.profile.index')
             ->with('user', $user)
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
@@ -131,7 +138,10 @@ class UserController extends Controller
             ->with('user_projects', $this->projects->getUserProjects($user->id))
             ->with('effort_levels', $effort_levels ?? NULL)
             ->with('leave_balances', $leaveBalances?? "This user does not have leave balances")
-            ->with('supervisor', $supervisor);
+            ->with('supervisor', $supervisor)
+            ->with('male_leave', $male_leave_balances)
+            ->with('female_leave', $female_leave_balances)
+            ->with('supervisors', $this->users->allSupervisors()->where('user_id', '!=',$user->id)->get()->pluck('name', 'user_id'));
     }
 
     /**
@@ -213,6 +223,16 @@ class UserController extends Controller
     {
         $this->users->updatePermissions($user, $request->all());
         alert()->success(__('notifications.permission_assigned'), __('notifications.user.title'));
+        return redirect()->back();
+    }
+
+    public function assignSupervisorIndividual(Request $request)
+    {
+        SupervisorUser::query()->create([
+            'supervisor_id'=>$request['supervisor'],
+            'user_id'=>$request['user_id']
+        ]);
+        alert()->success('Supervisor assigned successfully', 'Success');
         return redirect()->back();
     }
 

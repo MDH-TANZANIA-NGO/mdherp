@@ -6,8 +6,10 @@ namespace App\Services\Workflow\Traits;
 
 use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
+use App\Models\Unit\Designation;
 use App\Models\Workflow\UserWfDefinition;
 use App\Models\Workflow\WfDefinition;
+use App\Repositories\Listing\ListingRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
@@ -150,6 +152,36 @@ trait WorkflowUserSelector
                             throw new GeneralException('This user has not assigned supervisor');
                         }
                         $user_id = $next_user->supervisor_id;
+                        break;
+                }
+                break;
+            case 9:
+                $listing_repo = (new ListingRepository());
+                $listing = $listing_repo->find($resource_id);
+                /*check levels*/
+                switch ($level) {
+                    case 1:
+                        $user_dept = $listing->user->designation->department->id;
+                        $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept);;
+                        if (!$next_user) {
+                            throw new GeneralException('Director of Department is not yet registered. Please contact system administrator');
+                        }
+                        $user_id = $next_user->user_id;
+                        break;
+                    case 2:
+                        $next_user = (new UserRepository())->getDirectorOfHR();;
+                        if (!$next_user) {
+                            throw new GeneralException('Director of HR is not yet registered. Please contact system Admin');
+                        }
+                        $user_id = $next_user->user_id;
+                        break;
+
+                    case 3:
+                        $next_user = (new UserRepository())->getCEO2();
+                        if (!$next_user) {
+                            throw new GeneralException('CEO is not yet registered. Please contact system administrator');
+                        }
+                        $user_id = $next_user->user_id;
                         break;
                 }
                 break;

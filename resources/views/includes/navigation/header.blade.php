@@ -41,12 +41,12 @@
             <div class="d-flex order-lg-2 ml-auto">
                 <a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="fa fa-search"></i></a>
                 <div class="mt-1">
-                    <form class="form-inline">
+                    {{--<form class="form-inline">
                         <div class="search-element">
                             <input type="search" class="form-control header-search" placeholder="Search…" aria-label="Search" tabindex="1">
                             <button class="btn btn-primary-color" type="submit"><i class="fa fa-search text-dark"></i></button>
                         </div>
-                    </form>
+                    </form>--}}
                 </div><!-- SEARCH -->
 
                 <div class="dropdown   header-fullscreen" >
@@ -104,7 +104,12 @@
                 <div class="dropdown ">
                     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 										<span>
-											<img src="{{ asset('mdh/images/users/16.jpg') }}" alt="img" class="avatar avatar-md brround">
+                                             @if(access()->user()->getMedia('profile_pic')->first() != null)
+                                                <img src="{{access()->user()->getMedia('profile_pic')->first()->getUrl()}}" alt="img" class="avatar avatar-md brround">
+                                            @else
+                                                <img src="{{ asset('mdh/images/users/16.jpg') }}" alt="img" class="avatar avatar-md brround">
+                                            @endif
+
 										</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">

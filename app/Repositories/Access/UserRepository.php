@@ -252,6 +252,7 @@ class UserRepository extends BaseRepository
     {
         return DB::transaction(function () use ($user, $inputs){
             $user->update([
+
                 'first_name' => $inputs['first_name'],
                 'middle_name' => $inputs['middle_name'],
                 'last_name' => $inputs['last_name'],
@@ -331,6 +332,7 @@ class UserRepository extends BaseRepository
             DB::raw('users.phone AS phone'),
             DB::raw('users.uuid AS uuid'),
             DB::raw('users.dob as dob'),
+            DB::raw('users.supervisor as supervisor'),
             DB::raw('users.employed_date as employed_date'),
             DB::raw('users.country_organisation_id as country_organisation_id'),
             DB::raw('regions.name AS region'),
@@ -349,6 +351,11 @@ class UserRepository extends BaseRepository
     public function forSelect()
     {
         return $this->getQuery()->pluck('name', 'user_id');
+    }
+    public function allSupervisors()
+    {
+        return $this->getActive()
+            ->where('supervisor', true);
     }
 
     public function assignSubProgramArea($uuid, $inputs)
@@ -390,8 +397,11 @@ class UserRepository extends BaseRepository
     {
         return DB::transaction(function () use ($user_id, $inputs){
             if(isset($inputs['users'])){
-                SupervisorUser::query()->where('supervisor_id', $user_id)->delete();
+
+
+//                SupervisorUser::query()->where('supervisor_id', $user_id)->delete();
                 foreach($inputs['users'] as $user_selected_id){
+
                     SupervisorUser::query()->create([
                         'supervisor_id' => $user_id,
                         'user_id' => $user_selected_id
@@ -411,6 +421,24 @@ class UserRepository extends BaseRepository
             ->join('departments','departments.id','designations.department_id')
             ->where('departments.id',$department_id)
             ->where('designations.unit_id', 1);
+    }
+
+    public function getDirectorOfHR()
+    {
+        return $this->query()
+            ->select([
+                'users.id AS user_id',
+            ])
+            ->where('users.designation_id', 8);
+    }
+
+    public function getCEO2()
+    {
+        return $this->query()
+            ->select([
+                'users.id AS user_id',
+            ])
+            ->where('users.designation_id', 121);
     }
 
     public function getCeo()

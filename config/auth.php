@@ -121,8 +121,8 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
+            'expire' => 2880,
+            'throttle' => 2880,
         ],
 
         'g_officers' => [
