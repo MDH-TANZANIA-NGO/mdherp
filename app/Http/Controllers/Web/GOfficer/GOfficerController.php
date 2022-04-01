@@ -47,11 +47,15 @@ class GOfficerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
         //
+        return view('gofficer.gofficer.form.create')
+            ->with('g_scales', $this->g_scales->getActiveForPluck())
+            ->with('regions', $this->regions->getQuery()->pluck('name','id'))
+            ->with('districts', $this->districts->getQuery()->pluck('name','id'));
     }
 
     /**
@@ -118,20 +122,31 @@ class GOfficerController extends Controller
         //
     }
 
-    public function import()
+    public function import(Request $request)
     {
-        \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
+       /* \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
         alert()->success('Uploaded Successfully', 'Success');
-        return redirect()->back();
-        /*try {
-            \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
-            alert()->success('Uploaded Successfully', 'Success');
+        return redirect()->back();*/
+
+//        dd(Request::all());
+        if ($request->hasFile('file')){
+            try {
+                \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
+                alert()->success('Uploaded Successfully', 'Success');
+                return redirect()->back();
+            }catch (\Exception $exception){
+                alert()->error('You have Duplicate Entry','Failed');
+                $exception->getMessage();
+                return redirect()->back();
+            }
+        }
+        else{
+
+            alert()->error('You have not attach any file', 'Failed');
+
             return redirect()->back();
-        }catch (\Exception $exception){
-            alert()->error('You have Duplicate Entry','Failed');
-            $exception->getMessage();
-            return redirect()->back();
-        }*/
+        }
+
 
     }
 }

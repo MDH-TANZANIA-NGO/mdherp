@@ -1573,6 +1573,18 @@ class DesignationsTableSeeder extends Seeder
                     'department_id'=>1,
                 ),
 
+            129 =>
+                array (
+                    'id' => 130,
+                    'unit_id' => 65,
+                    'name' => 'Manager',
+                    'short_name' => 'RMATM',
+                    'created_at' => '2022-01-08 20:16:49',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'department_id'=>1,
+                ),
 
         ));
 

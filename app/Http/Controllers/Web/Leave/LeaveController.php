@@ -11,6 +11,7 @@ use App\Models\Leave\Leave;
 use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
 use App\Models\Timesheet\EffortLevel;
+use App\Models\Unit\Designation;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -54,10 +55,9 @@ class LeaveController extends Controller
     public function create()
     {
         $leaveTypes = LeaveType::all()->pluck('name', 'id');
-//        $leaveTypes = $this->leaves->getQuery()->get()->pluck('type_name','type_id');
+
         $users = $this->user->forSelect();
         $leaveBalances = LeaveBalance::all()->where('user_id', access()->user()->id);
-
 
         return view('leave._parent.form.create')
             ->with('leaveTypes', $leaveTypes)
@@ -73,6 +73,8 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
+        //departmentment director
+
         $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_type_id', $request['leave_type_id'])->first();
         $start = Carbon::parse($request['start_date']);
         $end = Carbon::parse($request['end_date']);
@@ -90,6 +92,7 @@ class LeaveController extends Controller
 
             return redirect()->route('leave.index');
         } else {
+            alert()->error('You do not have any available leave balances on '.$leave_balance->leaveType->name, 'Failed');
             return redirect()->back();
         }
     }

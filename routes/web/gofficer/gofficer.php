@@ -1,6 +1,7 @@
 <?php
 Route::group(['namespace' => 'GOfficer', 'middleware' => ['web', 'auth'], 'prefix' => 'government-officers', 'as' => 'g_officer.'], function () {
     Route::get('', 'GOfficerController@index')->name('index');
+    Route::get('create', 'GOfficerController@create')->name('create');
     Route::post('store', 'GOfficerController@store')->name('store');
     Route::get('{uuid}/show', 'GOfficerController@show')->name('show');
     Route::put('{uuid}/update', 'GOfficerController@update')->name('update');

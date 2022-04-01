@@ -244,6 +244,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => 'Compliance Dashboard',
                     'ischecker' => 1,
                 ),
+            29 =>
+                array(
+                    'id' => 30,
+                    'name' => 'external_user_management',
+                    'display_name' => 'External User Management',
+                    'description' => 'External User Management',
+                    'ischecker' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("permissions");

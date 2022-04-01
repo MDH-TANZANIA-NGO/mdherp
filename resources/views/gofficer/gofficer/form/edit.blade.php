@@ -15,16 +15,16 @@
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <div class="form-group">
-                        {!! Form::label('last_name', __("label.name.last"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::text('last_name',$g_officer->last_name,['class' => 'form-control', 'placeholder' => '','required']) !!}
-                        {!! $errors->first('last_name', '<span class="badge badge-danger">:message</span>') !!}
+                        {!! Form::label('middle_name', __("label.name.middle"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::text('middle_name',$g_officer->middle_name,['class' => 'form-control', 'placeholder' => '']) !!}
+                        {!! $errors->first('middle_name', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <div class="form-group">
-                        {!! Form::label('email', __("label.email"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::email('email',$g_officer->email,['class' => 'form-control', 'placeholder' => '','required']) !!}
-                        {!! $errors->first('email', '<span class="badge badge-danger">:message</span>') !!}
+                        {!! Form::label('last_name', __("label.name.last"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::text('last_name',$g_officer->last_name,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                        {!! $errors->first('last_name', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
@@ -34,9 +34,16 @@
                         {!! $errors->first('phone', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="form-group">
+                        {!! Form::label('check_no', __("Check no"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::text('check_no',$g_officer->check_no,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                        {!! $errors->first('check_no', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <div class="form-group ">
-                        {!! Form::label('g_scale', __("Scale"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::label('g_scale', __("Title"),['class'=>'form-label','required_asterik']) !!}
                         {!! Form::select('g_scale', $g_scales, $g_officer->g_scale_id, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                         {!! $errors->first('g_scale', '<span class="badge badge-danger">:message</span>') !!}
                     </div>

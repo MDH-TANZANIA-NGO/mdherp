@@ -31,6 +31,10 @@ class ComplianceController extends Controller
     }
     public function index()
     {
+
+    }
+    public function beneficiaries()
+    {
         return view('compliance.index')
             ->with('g_officers', $this->g_officers->getActive())
             ->with('g_scales', $this->g_scales->getActiveForPluck())

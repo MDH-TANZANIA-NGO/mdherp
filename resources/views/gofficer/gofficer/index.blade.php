@@ -2,19 +2,19 @@
 @section('content')
 
 
-    <div class="row  mb-3">
-        <span class="col-12 text-center font-weight-bold">External Users</span>
+   {{-- <div class="row  mb-3">
+        <span class="col-12 text-left font-weight-bold">Individual External Users Registration</span>
     </div>
 
 
-    @include('gofficer.gofficer.form.create')
+    @include('gofficer.gofficer.form.create')--}}
 
 
     {{-- Datatable starts here --}}
 
 
     <div class="row  mb-3">
-        <span class="col-12 text-center font-weight-bold">List Users</span>
+        <span class="col-12 text-center font-weight-bold">List  External Users</span>
     </div>
 
 

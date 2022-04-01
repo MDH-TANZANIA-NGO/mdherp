@@ -42,6 +42,7 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         @foreach($activity_participants as $participants)
                             <a href="#">
 
