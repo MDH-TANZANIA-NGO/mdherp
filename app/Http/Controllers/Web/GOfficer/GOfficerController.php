@@ -122,22 +122,31 @@ class GOfficerController extends Controller
         //
     }
 
-    public function import()
+    public function import(Request $request)
     {
        /* \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
         alert()->success('Uploaded Successfully', 'Success');
         return redirect()->back();*/
 
 //        dd(Request::all());
-        try {
-            \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
-            alert()->success('Uploaded Successfully', 'Success');
-            return redirect()->back();
-        }catch (\Exception $exception){
-            alert()->error('You have Duplicate Entry','Failed');
-            $exception->getMessage();
+        if ($request->hasFile('file')){
+            try {
+                \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
+                alert()->success('Uploaded Successfully', 'Success');
+                return redirect()->back();
+            }catch (\Exception $exception){
+                alert()->error('You have Duplicate Entry','Failed');
+                $exception->getMessage();
+                return redirect()->back();
+            }
+        }
+        else{
+
+            alert()->error('You have not attach any file', 'Failed');
+
             return redirect()->back();
         }
+
 
     }
 }

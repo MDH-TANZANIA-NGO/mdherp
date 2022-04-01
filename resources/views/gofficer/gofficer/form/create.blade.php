@@ -65,7 +65,7 @@
 
 
                 <button type="submit" class="btn btn-info" style="margin-left:45%;"><i class="fa fa-paper-plane mr-2"></i>Submit</button>
-                 
+
             </div>
         </div>
 
