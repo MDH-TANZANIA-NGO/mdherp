@@ -176,6 +176,7 @@ class LeaveController extends Controller
         $end = Carbon::parse($request['end_date']);
         $days = $start->diffInDays($end) + 1;
         $actual_remaining_days = $leave_balance->remaining_days - $days;
+        $actual_remaining_days_before = $leave_balance->remaining_days + $days;
         if ($is_assigned->count() > 0 && $request['leave_type_id'] == 1){
             alert()->error('You have been delegated responsibilities', 'Failed');
             return redirect()->back();
@@ -184,6 +185,7 @@ class LeaveController extends Controller
 
             if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0) {
                 $leave->update($request->all());
+                DB::update('update leave_balances set remaining_days =?  where id= ?', [$actual_remaining_days_before, $leave_balance->id]);
                 DB::update('update leave_balances set remaining_days =?  where id= ?', [$actual_remaining_days, $leave_balance->id]);
                 alert()->success('Leave Request Updated Successfully');
                 return redirect()->route('leave.show', $leave);
