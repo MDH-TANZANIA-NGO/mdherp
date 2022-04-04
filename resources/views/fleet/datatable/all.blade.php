@@ -1,94 +1,94 @@
 @extends('layouts.app')
 
 @section('content')
+<img src="mdh/images/fleet.png">
+{{--    <div class="col-lg-12 col-md-12">--}}
 
-    <div class="col-lg-12 col-md-12">
+{{--        <div class="card">--}}
 
-        <div class="card">
+{{--            <div class="card-header" style="background-color: rgb(238, 241, 248)">--}}
+{{--                <div class="row text-center">--}}
+{{--                    <span class="col-12 text-center font-weight-bold">Fleets</span>--}}
+{{--                </div>--}}
 
-            <div class="card-header" style="background-color: rgb(238, 241, 248)">
-                <div class="row text-center">
-                    <span class="col-12 text-center font-weight-bold">Fleets</span>
-                </div>
+{{--                <div class="card-options ">--}}
 
-                <div class="card-options ">
-
-                    <div class="btn-group mb-0">
-                        <a href=""> <i class="fa fa-plus mr-2"></i>Request vehicle</a>
-                    </div>
+{{--                    <div class="btn-group mb-0">--}}
+{{--                        <a href=""> <i class="fa fa-plus mr-2"></i>Request vehicle</a>--}}
+{{--                    </div>--}}
 
 {{--                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>--}}
-                </div>
+{{--                </div>--}}
 
-            </div>
+{{--            </div>--}}
 
-            <div class="card-body">
-                <div class="panel panel-primary">
-                    <div class=" tab-menu-heading">
-                        <div class="tabs-menu1 ">
-                            <!-- Tabs -->
-                            <ul class="nav panel-tabs">
-                                <li class=""><a href="#tab5" class="active" data-toggle="tab">Active Vehicles{{-- <span class="badge badge-success">20</span>--}}</a></li>
-                                <li><a href="#tab6" data-toggle="tab" class="">Inactive Vehicles {{--<span class="badge badge-danger">5</span>--}}</a></li>
-                            </ul>
-                        </div>
+{{--            <div class="card-body">--}}
+{{--                <div class="panel panel-primary">--}}
+{{--                    <div class=" tab-menu-heading">--}}
+{{--                        <div class="tabs-menu1 ">--}}
+{{--                            <!-- Tabs -->--}}
+{{--                            <ul class="nav panel-tabs">--}}
+{{--                                <li class=""><a href="#tab5" class="active" data-toggle="tab">Active Vehicles--}}{{-- <span class="badge badge-success">20</span>--}}{{--</a></li>--}}
+{{--                                <li><a href="#tab6" data-toggle="tab" class="">Inactive Vehicles --}}{{--<span class="badge badge-danger">5</span>--}}{{--</a></li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
 
 
 
-                    </div>
-                    <div class="panel-body tabs-menu-body">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab5">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table id="active_fleet" class="table table-striped table-bordered" style="width:100%">
-                                            <thead>
-                                            <tr>
-                                                <th class="wd-15p">#</th>
-                                                <th class="wd-15p">Type</th>
-                                                <th class="wd-15p">Maker</th>
-                                                <th class="wd-20p">Model</th>
-                                                <th class="wd-20p">Body</th>
-                                                <th class="wd-10p">Fuel</th>
-                                                <th class="wd-10p">Registration #</th>
-                                                <th class="wd-20p">Driver</th>
-                                                <th class="wd-10p">Action</th>
-                                            </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
+{{--                    </div>--}}
+{{--                    <div class="panel-body tabs-menu-body">--}}
+{{--                        <div class="tab-content">--}}
+{{--                            <div class="tab-pane active" id="tab5">--}}
+{{--                                <div class="card-body">--}}
+{{--                                    <div class="table-responsive">--}}
+{{--                                        <table id="active_fleet" class="table table-striped table-bordered" style="width:100%">--}}
+{{--                                            <thead>--}}
+{{--                                            <tr>--}}
+{{--                                                <th class="wd-15p">#</th>--}}
+{{--                                                <th class="wd-15p">Type</th>--}}
+{{--                                                <th class="wd-15p">Maker</th>--}}
+{{--                                                <th class="wd-20p">Model</th>--}}
+{{--                                                <th class="wd-20p">Body</th>--}}
+{{--                                                <th class="wd-10p">Fuel</th>--}}
+{{--                                                <th class="wd-10p">Registration #</th>--}}
+{{--                                                <th class="wd-20p">Driver</th>--}}
+{{--                                                <th class="wd-10p">Action</th>--}}
+{{--                                            </tr>--}}
+{{--                                            </thead>--}}
+{{--                                        </table>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                            </div>
-                            <div class="tab-pane" id="tab6">
+{{--                            </div>--}}
+{{--                            <div class="tab-pane" id="tab6">--}}
 
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table id="diactive_users" class="table table-striped table-bordered" style="width:100%">
-                                            <thead>
-                                            <tr>
-                                                <th class="wd-15p">#</th>
-                                                <th class="wd-15p">First name</th>
-                                                <th class="wd-15p">Last name</th>
-                                                <th class="wd-20p">Email</th>
-                                                <th class="wd-20p">Position</th>
-                                                <th class="wd-15p">Region</th>
-                                                <th class="wd-10p">Projects</th>
-                                                <th class="wd-25p"></th>
-                                            </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
+{{--                                <div class="card-body">--}}
+{{--                                    <div class="table-responsive">--}}
+{{--                                        <table id="diactive_users" class="table table-striped table-bordered" style="width:100%">--}}
+{{--                                            <thead>--}}
+{{--                                            <tr>--}}
+{{--                                                <th class="wd-15p">#</th>--}}
+{{--                                                <th class="wd-15p">First name</th>--}}
+{{--                                                <th class="wd-15p">Last name</th>--}}
+{{--                                                <th class="wd-20p">Email</th>--}}
+{{--                                                <th class="wd-20p">Position</th>--}}
+{{--                                                <th class="wd-15p">Region</th>--}}
+{{--                                                <th class="wd-10p">Projects</th>--}}
+{{--                                                <th class="wd-25p"></th>--}}
+{{--                                            </tr>--}}
+{{--                                            </thead>--}}
+{{--                                        </table>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-        </div>
-    </div>
+{{--        </div>--}}
+{{--    </div>--}}
 
 @endsection
 
