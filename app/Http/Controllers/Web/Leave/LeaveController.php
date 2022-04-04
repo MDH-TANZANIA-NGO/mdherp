@@ -81,25 +81,31 @@ class LeaveController extends Controller
         $days = $start->diffInDays($end) + 1;
 
         $actual_remaining_days = $leave_balance->remaining_days - $days;
-        if ($is_assigned->count() > 0 && $request['leave_type_id'] == 1){
-            alert()->error('You have been delegated responsibilities', 'Failed');
-            return redirect()->back();
+
+        if ($leave_balance->remaining_days ==  null){
+            alert()->error('No leave Balances Set', 'Failed');
         }
         else{
-
-            if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0) {
-                $leave = $this->leaves->store($request->all());
-                DB::update('update leave_balances set remaining_days =?  where id= ?', [$actual_remaining_days, $leave_balance->id]);
-                $wf_module_group_id = 5;
-                $next_user = $leave->user->assignedSupervisor()->supervisor_id;
-
-                event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id, 'region_id' => $leave->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
-                alert()->success('Your Leave Request have been submitted Successfully', 'success');
-
-                return redirect()->route('leave.index');
-            } else {
-                alert()->error('You do not have any available leave balances on '.$leave_balance->leaveType->name, 'Failed');
+            if ($is_assigned->count() > 0 && $request['leave_type_id'] == 1){
+                alert()->error('You have been delegated responsibilities', 'Failed');
                 return redirect()->back();
+            }
+            else{
+
+                if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0) {
+                    $leave = $this->leaves->store($request->all());
+                    DB::update('update leave_balances set remaining_days =?  where id= ?', [$actual_remaining_days, $leave_balance->id]);
+                    $wf_module_group_id = 5;
+                    $next_user = $leave->user->assignedSupervisor()->supervisor_id;
+
+                    event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id, 'region_id' => $leave->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
+                    alert()->success('Your Leave Request have been submitted Successfully', 'success');
+
+                    return redirect()->route('leave.index');
+                } else {
+                    alert()->error('You do not have any available leave balances on '.$leave_balance->leaveType->name, 'Failed');
+                    return redirect()->back();
+                }
             }
         }
     }
