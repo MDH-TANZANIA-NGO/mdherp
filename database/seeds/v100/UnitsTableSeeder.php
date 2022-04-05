@@ -856,17 +856,7 @@ class UnitsTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            76 =>
-                array (
-                    'id' => 77,
-                    'name' => 'District Community Service',
-                    'title' => 'District Community Service',
-                    'unit_group_id' => '1',
-                    'isactive' => '1',
-                    'created_at' => '2022-01-10 16:32:27',
-                    'updated_at' => NULL,
-                    'deleted_at' => NULL,
-                ),
+
 
 
 
