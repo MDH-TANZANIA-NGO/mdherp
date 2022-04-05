@@ -189,7 +189,7 @@ class LeaveController extends Controller
 
         $actual_remaining_days_before = $leave_balance->remaining_days + $days_old;
         $actual_remaining_days = $actual_remaining_days_before  - $days;
-     
+
         if ($is_assigned->count() > 0 && $request['leave_type_id'] == 1){
             alert()->error('You have been delegated responsibilities', 'Failed');
             return redirect()->back();

@@ -1570,7 +1570,7 @@ class DesignationsTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                     'isactive' => 1,
-                    'department_id'=>1,
+                    'department_id'=>7,
                 ),
 
             129 =>
@@ -1583,7 +1583,55 @@ class DesignationsTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                     'isactive' => 1,
-                    'department_id'=>1,
+                    'department_id'=>4,
+                ),
+            130 =>
+                array (
+                    'id' => 131,
+                    'unit_id' => 76,
+                    'name' => 'Manager',
+                    'short_name' => 'RCSM',
+                    'created_at' => '2022-01-08 20:16:49',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'department_id'=>4,
+                ),
+            131 =>
+                array (
+                    'id' => 132,
+                    'unit_id' => 76,
+                    'name' => 'Officer',
+                    'short_name' => 'RCSO',
+                    'created_at' => '2022-01-08 20:16:49',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'department_id'=>4,
+                ),
+            132 =>
+                array (
+                    'id' => 133,
+                    'unit_id' => 77,
+                    'name' => 'Manager',
+                    'short_name' => 'DCSM',
+                    'created_at' => '2022-01-08 20:16:49',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'department_id'=>4,
+                ),
+            133 =>
+                array (
+                    'id' => 134,
+                    'unit_id' => 77,
+                    'name' => 'Officer',
+                    'short_name' => 'DCSO',
+                    'created_at' => '2022-01-08 20:16:49',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'department_id'=>4,
                 ),
 
         ));
