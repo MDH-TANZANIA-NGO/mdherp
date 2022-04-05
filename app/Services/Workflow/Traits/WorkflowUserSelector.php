@@ -155,27 +155,29 @@ trait WorkflowUserSelector
                         $user_id = $next_user->supervisor_id;
                         break;
                     case 2:
-                        $next_user = $leave->users()
+                        $next_user = User::query()
                             ->where('users.region_id', $leave->region_id)
                             ->where('users.designation_id', 82)
                             ->where('users.active',true)
                             ->orderBy('id','DESC')
                             ->first();
+
                         if (!$next_user) {
                             throw new GeneralException('There is no assigned RPM');
                         }
-                        $user_id = $next_user->supervisor_id;
+                        $user_id = $next_user->id;
                         break;
                     case 3:
                         $user_dept = $leave->user->designation->department->id;
-                        $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept);
+                        $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept)->first();
+
                         if (!$next_user) {
                             throw new GeneralException('There is no assigned director');
                         }
-                        $user_id = $next_user->supervisor_id;
+                        $user_id = $next_user->user_id;
                         break;
                     case 4:
-                        $next_user = $leave->users()
+                        $next_user = User::query()
                             ->where('users.designation_id', 8)
                             ->where('users.active',true)
                             ->orderBy('id','DESC')
@@ -183,10 +185,10 @@ trait WorkflowUserSelector
                         if (!$next_user) {
                             throw new GeneralException('Director of Human Resource is not assigned');
                         }
-                        $user_id = $next_user->supervisor_id;
+                        $user_id = $next_user->id;
                         break;
                     case 5:
-                        $next_user = $leave->users()
+                        $next_user = User::query()
                             ->where('users.designation_id', 121)
                             ->where('users.active',true)
                             ->orderBy('id','DESC')
@@ -194,7 +196,7 @@ trait WorkflowUserSelector
                         if (!$next_user) {
                             throw new GeneralException('CEO is not assigned');
                         }
-                        $user_id = $next_user->supervisor_id;
+                        $user_id = $next_user->id;
                         break;
                 }
                 break;
