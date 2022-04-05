@@ -489,7 +489,7 @@ class WfDefinitionsTableSeeder extends Seeder
             20 =>
                 array (
                     'id' => 21,
-                    'level' => '3',
+                    'level' => '4',
                     'unit_id' => 71,
                     'designation_id' => 123,
                     'description' => 'Authorize Leave Request',
@@ -513,7 +513,7 @@ class WfDefinitionsTableSeeder extends Seeder
             21 =>
                 array (
                     'id' => 22,
-                    'level' => '4',
+                    'level' => '5',
                     'unit_id' => 2,
                     'designation_id' => 4,
                     'description' => 'Endorse Leave Request',
@@ -536,7 +536,7 @@ class WfDefinitionsTableSeeder extends Seeder
             22 =>
                 array (
                     'id' => 23,
-                    'level' => '5',
+                    'level' => '6',
                     'unit_id' => 5,
                     'designation_id' => 121,
                     'description' => 'Approve Leave Request',
@@ -719,7 +719,7 @@ class WfDefinitionsTableSeeder extends Seeder
                 ),
             30 =>
                 array (
-                    'id' => 32,
+                    'id' => 31,
                     'level' => '2',
                     'unit_id' => 72,
                     'designation_id' => 125,
@@ -738,6 +738,29 @@ class WfDefinitionsTableSeeder extends Seeder
                     'can_close' => 1,
                     'action_description' => 'Approved',
                     'status_description' => 'Approved',
+//                'assign_next_user' => 0,
+                ),
+            31 =>
+                array (
+                    'id' => 32,
+                    'level' => '3',
+                    'unit_id' => 41,
+                    'designation_id' => 82,
+                    'description' => 'Verify Leave Request',
+                    'msg_next' => 'Verify Leave Request',
+                    'wf_module_id' => '6',
+                    'active' => '1',
+                    'allow_rejection' => 1,
+                    'allow_repeat_participate' => 1,
+                    'created_at' => '2021-11-22 10:15:25',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'is_approval' => 0,
+                    'has_next_start_optional' => 0,
+                    'is_optional' => 0,
+                    'can_close' => 1,
+                    'action_description' => 'Verified',
+                    'status_description' => 'Verified',
 //                'assign_next_user' => 0,
                 ),
 

@@ -369,7 +369,14 @@ class WorkflowEventSubscriber
                         'subject' => "Approved Successfully",
                         'message' => 'These Application has been Approved successfully'
                     ];
+                    $delegeted_email = (object)[
+                        'link' =>  route('leave.show',$leave),
+                        'subject' => "Delegated Responsibilities",
+                        'message' => $leave->user->first_name. ' '.$leave->user->last_name. 'Have gone for '. $leave->leaveType->name. 'until'.' '. $leave->end_date. '. You have been delegated hi/her responsibilities.'
+                    ];
+                    $delegeted_user = User::query()->where('id', $leave->employee_id)->first();
                     $leave->user->notify(new WorkflowNotification($email_resource));
+                    $delegeted_user->notify(new WorkflowNotification($delegeted_email));
                     break;
                 case 7:
                     $financerepo = (new FinanceActivityRepository());
