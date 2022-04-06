@@ -21,7 +21,7 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="form-group">
                         {!! Form::label('middle_name', __("label.name.middle"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::email('middle_name',old('middle_name'),['class' => 'form-control', 'placeholder' => '']) !!}
+                        {!! Form::text('middle_name',old('middle_name'),['class' => 'form-control', 'placeholder' => '']) !!}
                         {!! $errors->first('middle_name', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>

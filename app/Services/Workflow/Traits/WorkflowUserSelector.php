@@ -9,6 +9,7 @@ use App\Models\Auth\User;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\UserWfDefinition;
 use App\Models\Workflow\WfDefinition;
+use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Listing\ListingRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -138,6 +139,64 @@ trait WorkflowUserSelector
                             throw new GeneralException('This user has not assigned supervisor');
                         }
                         $user_id = $next_user->supervisor_id;
+                        break;
+                }
+                break;
+            case 6:
+                $leave_repo = (new LeaveRepository());
+                $leave = $leave_repo->find($resource_id);
+                /*check levels*/
+                switch ($level) {
+                    case 1:
+                        $next_user = $leave->user->assignedSupervisor();
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user->supervisor_id;
+                        break;
+                    case 2:
+                        $next_user = User::query()
+                            ->where('users.region_id', $leave->region_id)
+                            ->where('users.designation_id', 82)
+                            ->where('users.active',true)
+                            ->orderBy('id','DESC')
+                            ->first();
+
+                        if (!$next_user) {
+                            throw new GeneralException('There is no assigned RPM');
+                        }
+                        $user_id = $next_user->id;
+                        break;
+                    case 3:
+                        $user_dept = $leave->user->designation->department->id;
+                        $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept)->first();
+
+                        if (!$next_user) {
+                            throw new GeneralException('There is no assigned director');
+                        }
+                        $user_id = $next_user->user_id;
+                        break;
+                    case 4:
+                        $next_user = User::query()
+                            ->where('users.designation_id', 8)
+                            ->where('users.active',true)
+                            ->orderBy('id','DESC')
+                            ->first();
+                        if (!$next_user) {
+                            throw new GeneralException('Director of Human Resource is not assigned');
+                        }
+                        $user_id = $next_user->id;
+                        break;
+                    case 5:
+                        $next_user = User::query()
+                            ->where('users.designation_id', 121)
+                            ->where('users.active',true)
+                            ->orderBy('id','DESC')
+                            ->first();
+                        if (!$next_user) {
+                            throw new GeneralException('CEO is not assigned');
+                        }
+                        $user_id = $next_user->id;
                         break;
                 }
                 break;
