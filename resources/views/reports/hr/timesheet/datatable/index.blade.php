@@ -14,7 +14,7 @@
             </div>
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('timesheet.start') }}"> <i class="fa fa-plus mr-2"></i>Initiate Timesheet</a>
+                    <a href="{{ route('timesheet.start') }}"> <i class="fa fa-calendar-check-o"></i> Initiate Timesheet Reminder</a>
                 </div>
             </div>
 

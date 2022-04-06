@@ -28,6 +28,10 @@ class Leave extends BaseModel
         return $this->belongsTo(LeaveType::class);
     }
 
+    public function balance(){
+        return $this->belongsTo(LeaveBalance::class, 'leave_balance');
+    }
+
     public function getResourceNameAttribute()
     {
         return "<b>".$this->id."</b> <br>".

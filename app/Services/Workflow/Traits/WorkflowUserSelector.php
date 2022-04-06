@@ -170,7 +170,7 @@ trait WorkflowUserSelector
                     case 3:
                         $user_dept = $leave->user->designation->department->id;
                         $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept)->first();
-
+                        //dd($next_user);
                         if (!$next_user) {
                             throw new GeneralException('There is no assigned director');
                         }
