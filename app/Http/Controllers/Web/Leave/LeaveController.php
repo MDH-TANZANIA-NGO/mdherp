@@ -160,6 +160,7 @@ class LeaveController extends Controller
      */
     public function edit(Leave $leave)
     {
+
         $leaveTypes = LeaveType::all()->pluck('name', 'id');
         $users = $this->user->forSelect();
 

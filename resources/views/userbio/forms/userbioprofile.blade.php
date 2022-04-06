@@ -73,7 +73,7 @@
                                             <div class="card-options text-right">
                                                 <a href="#" class="btn btn-sm btn-primary mr-2"><i class="fa fa-facebook"></i></a>
                                                 <a href="#" class="btn btn-sm btn-primary mr-2"><i class="fa fa-twitter"></i></a>
-                                                <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-google-plus"></i></a>
+                                                <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-linkedin"></i></a>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>

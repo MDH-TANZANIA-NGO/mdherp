@@ -13,7 +13,7 @@
 
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('leave.create') }}"> <i class="fa fa-plus mr-2"></i>Request Leave</a>
+                    <a href="{{ route('leave.create') }}" class="btn btn-outline-info"> <i class="fa fa-plus mr-2"></i>Request Leave</a>
                 </div>
             </div>
 
