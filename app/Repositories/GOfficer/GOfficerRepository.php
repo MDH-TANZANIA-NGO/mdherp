@@ -74,6 +74,8 @@ class GOfficerRepository extends BaseRepository
         else{
             $check_no = $inputs['check_no'];
         }
+
+
         return [
             'first_name' => $inputs['first_name'],
             'last_name' => $inputs['last_name'],
@@ -81,6 +83,7 @@ class GOfficerRepository extends BaseRepository
             'phone' => '255'.substr($inputs['phone'], -9),
             'g_scale_id' => $inputs['g_scale'],
             'region_id' => $region_id,
+            'gender_cv_id'=>$inputs['gender'],
             'district_id' => $inputs['district_id'],
             'country_organisation_id' => 1,
             'isactive' => 1,
@@ -97,6 +100,9 @@ class GOfficerRepository extends BaseRepository
         try {
             return DB::transaction(function () use ($inputs){
                 $id = $this->query()->create($this->inputProcess($inputs))->id;
+                $g_officer =  $this->find($id);
+                if (isset($inputs['facilities']))
+                    $g_officer->facilities()->sync($inputs['facilities']);
                 $check_no =  $this->find($id)->check_no;
                 $check_no = $check_no.$id;
                 DB::update('update g_officers set check_no = ? where id = ?',[$check_no, $id] );
@@ -116,8 +122,12 @@ class GOfficerRepository extends BaseRepository
         $g_officer = $this->findByUuid($uuid);
 
         return DB::transaction(function () use ($g_officer, $inputs){
-                $g_officer->facilities()->sync($inputs['facilities']);
-            return $g_officer->update($this->inputProcess($inputs));
+          if (isset($inputs['facilities']))
+              $g_officer->facilities()->sync($inputs['facilities']);
+              return $g_officer->update($this->inputProcess($inputs));
+
+
+
         });
     }
 
@@ -125,5 +135,7 @@ class GOfficerRepository extends BaseRepository
     {
         return $this->getQuery()->where('g_officers.id',$id)->first();
     }
+
+
 
 }

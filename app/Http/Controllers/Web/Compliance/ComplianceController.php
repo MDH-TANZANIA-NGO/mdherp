@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Web\Compliance;
 
+use App\Exports\ExcelExportBeneficiaries;
+use App\Exports\ExcelExportDuplicateGOfficerImportedData;
 use App\Http\Controllers\Controller;
 use App\Models\Facility\Facility;
 use App\Repositories\GOfficer\GOfficerRepository;
@@ -41,5 +43,12 @@ class ComplianceController extends Controller
             ->with('regions', $this->regions->getQuery()->pluck('name','id'))
             ->with('districts', $this->districts->getQuery()->pluck('name','id'))
             ->with('facilities', Facility::all()->pluck('name', 'id'));
+    }
+    public function exportallBeneficiaries()
+    {
+
+        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries(), 'Beneficiaries List, exported on:'.now().'.xlsx');
+
+
     }
 }
