@@ -211,8 +211,9 @@ class GOfficerController extends Controller
 
             return redirect()->back();
         }catch (\Exception $exception){
-            alert()->error('You can not confirm duplicate entries','Not allowed');
+
             $exception->getMessage();
+            alert()->error('You can not confirm duplicate entries','Not allowed');
             return redirect()->back();
         }
 
