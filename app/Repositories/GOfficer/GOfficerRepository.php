@@ -68,7 +68,7 @@ class GOfficerRepository extends BaseRepository
 
         if ($inputs['check_no'] == null)
         {
-            $check_no = '0'.$region_id.'-'.sprintf('%02d', now()->month).'-'.substr(sprintf('%02d', now()->year), -2).'-';
+            $check_no = '0'.$region_id.'-'.sprintf('%02d', now()->month).'-'.substr(sprintf('%02d', now()->year), -2).'-'.rand(1, 200000);
 
         }
         else{
@@ -103,9 +103,6 @@ class GOfficerRepository extends BaseRepository
                 $g_officer =  $this->find($id);
                 if (isset($inputs['facilities']))
                     $g_officer->facilities()->sync($inputs['facilities']);
-                $check_no =  $this->find($id)->check_no;
-                $check_no = $check_no.$id;
-                DB::update('update g_officers set check_no = ? where id = ?',[$check_no, $id] );
 
                 alert()->success('External user registered successfully', 'Success');
                 return redirect()->back();

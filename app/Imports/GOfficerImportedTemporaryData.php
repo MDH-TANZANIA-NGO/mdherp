@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\GofficerImportedData;
 use App\Repositories\GOfficer\GOfficerRepository;
 use Illuminate\Support\Collection;
@@ -25,9 +26,12 @@ class GOfficerImportedTemporaryData implements ToModel, WithHeadingRow, ToCollec
     {
         $this->g_officer_repo = (new GOfficerRepository());
         $this->file_name =  $file_name;
+
     }
     public function model(array $row)
     {
+
+
 
         return new GofficerImportedData([
 
@@ -39,7 +43,7 @@ class GOfficerImportedTemporaryData implements ToModel, WithHeadingRow, ToCollec
             'password'=> bcrypt(strtolower($row['last_name'])),
             'fingerprint_data'=> $this->g_officer_repo->getDefaultFingerprints(),
             'fingerprint_length'=> $this->g_officer_repo->getFingerprintLength(),
-            'check_no'=>'0'.$row['region_id'].'-'.'0'.$row['month'].'-'.substr($row['year'], -2).'-'.$row['id'],
+            'check_no'=>'0'.$row['region_id'].'-'.'0'.$row['month'].'-'.substr($row['year'], -2).'-'.rand(1, 200000),
             'user_id'=>access()->user()->id,
             'file_name'=>$this->file_name
         ]);
@@ -50,5 +54,6 @@ class GOfficerImportedTemporaryData implements ToModel, WithHeadingRow, ToCollec
         // TODO: Implement collection() method.
 
         $data = $this->data;
+
     }
 }
