@@ -42,12 +42,12 @@ class ComplianceController extends Controller
             ->with('g_scales', $this->g_scales->getActiveForPluck())
             ->with('regions', $this->regions->getQuery()->pluck('name','id'))
             ->with('districts', $this->districts->getQuery()->pluck('name','id'))
-            ->with('facilities', Facility::paginate(15)->pluck('name', 'id'));
+            ->with('facilities', Facility::all()->pluck('name', 'id'));
     }
     public function exportallBeneficiaries()
     {
 
-        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries(), 'Beneficiaries List, exported on:'.now().'.xlsx');
+        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries(), 'Beneficiaries List, exported on:'.now().'xlsx');
 
 
     }
