@@ -25,7 +25,7 @@ class GOfficerRepository extends BaseRepository
             DB::raw('g_officers.email AS email'),
             DB::raw('g_officers.phone AS phone'),
             DB::raw("CONCAT_WS(', ',g_officers.last_name, g_officers.first_name) AS names"),
-            DB::raw("CONCAT_WS(', ',g_officers.last_name, g_officers.first_name, g_officers.phone) AS unique"),
+            DB::raw("CONCAT_WS(', ',g_officers.last_name, g_officers.first_name,  g_officers.phone) AS unique"),
             DB::raw('g_officers.uuid AS uuid'),
             DB::raw('g_officers.g_scale_id as g_scale_id'),
             DB::raw('g_scales.title AS g_scale_title'),
@@ -50,6 +50,11 @@ class GOfficerRepository extends BaseRepository
             ->leftjoin('facilities', 'facilities.id', 'facility_g_officer.facility_id')
             ->leftjoin('districts', 'districts.id', 'g_officers.district_id')
             ->groupby('g_officers.id', 'g_scales.title', 'g_rates.amount', 'regions.name', 'districts.name');
+    }
+    public function getForPluckUnique()
+    {
+        return $this->getQuery()
+            ->pluck('unique', 'id');
     }
 
     public function getActive()

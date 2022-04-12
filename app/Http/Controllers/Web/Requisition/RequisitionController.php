@@ -136,7 +136,7 @@ class RequisitionController extends Controller
             ->with('training_costs', $requisition->trainingCost)
             ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
             ->with('districts', $this->districts->getForPluck())
-            ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('names', 'id'))
+            ->with('gofficer',$this->gofficer->getForPluckUnique())
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
             ->with('mdh_rates',$this->mdh_rates->getForPluck())
             ->with('users', $this->users->getQuery()->pluck('name', 'user_id'))
