@@ -123,7 +123,7 @@ class GOfficerController extends Controller
             ->with('g_officer_facility', $this->facilities->getGofficerFacility($g_officer->id))
             ->with('regions', $this->regions->getQuery()->pluck('name','id'))
             ->with('districts', $this->districts->getQuery()->pluck('name','id'))
-            ->with('facilities', Facility::all()->pluck('name', 'id'));
+            ->with('facilities', $this->facilities->getForPLuck());
     }
 
     /**
@@ -195,7 +195,7 @@ class GOfficerController extends Controller
 
     public function confirmAndUpload()
     {
-      
+
         try {
             $upload = GofficerImportedData::query()
                 ->where('user_id','=', access()->user()->id)
