@@ -47,7 +47,7 @@ class ComplianceController extends Controller
     public function exportallBeneficiaries()
     {
 
-        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries(), 'Beneficiaries List, exported on:'.now().'xlsx');
+        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries(), 'Beneficiaries List.xlsx');
 
 
     }
