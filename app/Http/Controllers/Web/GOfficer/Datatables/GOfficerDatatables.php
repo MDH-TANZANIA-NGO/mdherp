@@ -13,7 +13,7 @@ trait GOfficerDatatables
      */
     public function allDatatable()
     {
-        return DataTables::of($this->g_officers->getActive())
+        return DataTables::of($this->g_officers->getActive()->get()->take(10))
             ->addIndexColumn()
             ->addColumn('action', function($query) {
                 return '<a href="'.route('g_officer.show', $query->uuid).'">View</a>';
