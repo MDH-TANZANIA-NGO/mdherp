@@ -18,7 +18,7 @@
         $(document).ready(function () {
 
             $("#all_projects").DataTable({
-                processing: true,
+                // processing: true,
                 serverSide: true,
                 destroy: true,
                 retrieve: true,
