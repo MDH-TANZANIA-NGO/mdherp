@@ -170,7 +170,9 @@ class GOfficerController extends Controller
 //        dd(Request::all());
         if ($request->hasFile('file')){
 
-
+            $file_name = $request->file('file')->getClientOriginalName();
+            $temporary_store = new GOfficerImportedTemporaryData($file_name);
+            $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
             try {
                 $file_name = $request->file('file')->getClientOriginalName();
                 $temporary_store = new GOfficerImportedTemporaryData($file_name);
