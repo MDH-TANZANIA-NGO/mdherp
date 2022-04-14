@@ -18,8 +18,8 @@
         $(document).ready(function () {
 
             $("#all_projects").DataTable({
-                // processing: true,
-                // serverSide: true,
+                processing: true,
+                serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,

@@ -19,6 +19,7 @@ use App\Repositories\System\RegionRepository;
 use App\Services\Generator\Number;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Excel;
 use Symfony\Component\Console\Input\Input;
 
@@ -64,6 +65,7 @@ class GOfficerController extends Controller
      */
     public function create()
     {
+
         $duplicate_entries=  GofficerImportedData::query()
                                 ->whereHas('gOfficer')
                                 ->where('uploaded', false)
