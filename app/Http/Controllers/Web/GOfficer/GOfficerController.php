@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerDatatables;
 use App\Imports\GOfficerImportedTemporaryData;
 use App\Imports\GOfficersImport;
 use App\Models\Facility\Facility;
+use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\GofficerImportedData;
 use App\Repositories\Facilities\FacilitiesRepository;
 use App\Repositories\GOfficer\GOfficerImportedDataRepository;
@@ -15,14 +16,16 @@ use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GScaleRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Repositories\System\RegionRepository;
+use App\Services\Generator\Number;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Excel;
 use Symfony\Component\Console\Input\Input;
 
 class GOfficerController extends Controller
 {
-    use GOfficerDatatables;
+    use GOfficerDatatables, Number;
 
     protected $g_officers;
     protected $g_scales;
@@ -62,6 +65,7 @@ class GOfficerController extends Controller
      */
     public function create()
     {
+
         $duplicate_entries=  GofficerImportedData::query()
                                 ->whereHas('gOfficer')
                                 ->where('uploaded', false)
@@ -168,7 +172,9 @@ class GOfficerController extends Controller
 //        dd(Request::all());
         if ($request->hasFile('file')){
 
-
+            $file_name = $request->file('file')->getClientOriginalName();
+            $temporary_store = new GOfficerImportedTemporaryData($file_name);
+            $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
             try {
                 $file_name = $request->file('file')->getClientOriginalName();
                 $temporary_store = new GOfficerImportedTemporaryData($file_name);
@@ -193,6 +199,7 @@ class GOfficerController extends Controller
 
     public function confirmAndUpload()
     {
+
         try {
             $upload = GofficerImportedData::query()
                 ->where('user_id','=', access()->user()->id)

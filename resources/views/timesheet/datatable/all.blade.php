@@ -13,13 +13,13 @@
                 </ul>
             </div>
 
-          {{-- @if($visibility)
+           @if($visibility)
                 <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                     <div class="btn-group mb-0">
                         <a href="{{ route('timesheet.initiate') }}"> <i class="fa fa-plus mr-2"></i>Create Timesheet</a>
                     </div>
                 </div>
-            @endif--}}
+            @endif
 
         </div>
 

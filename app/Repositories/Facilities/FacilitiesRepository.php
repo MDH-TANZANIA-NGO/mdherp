@@ -4,6 +4,7 @@ namespace App\Repositories\Facilities;
 
 use App\Models\Facility\Facility;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class FacilitiesRepository extends BaseRepository
 {
@@ -11,6 +12,23 @@ class FacilitiesRepository extends BaseRepository
     public function __construct()
     {
         //
+    }
+
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('facilities.id AS id'),
+            DB::raw('facilities.number AS number'),
+            DB::raw("CONCAT_WS(', ',facilities.name, facilities.number) AS unique"),
+            DB::raw('facilities.name AS name'),
+
+        ]);
+
+    }
+
+    public function getForPLuck()
+    {
+        return $this->getQuery()->pluck('unique', 'id');
     }
     public function getGofficerFacility($user_id)
     {

@@ -52,7 +52,7 @@ class RequestTrainingCostController extends Controller
 
         return view('requisition.Direct.training.forms.create')
             ->with('grates',$this->grates->getAll()->pluck('id','amount'))
-            ->with('gofficers', $this->gofficers->getAll()->pluck('id','first_name'));
+            ->with('gofficers', $this->gofficers->getForPluckUnique());
 
     }
 

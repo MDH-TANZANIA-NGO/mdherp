@@ -395,6 +395,17 @@ class RegionsTableSeeder extends Seeder
                     'exceptional' =>false,
                     'is_city'=>true,
                 ),
+            34 =>
+                array (
+                    'id' => 0,
+                    'name' => 'Unknown',
+                    'country_id' => 1,
+                    'zone_id' => 2,
+                    'hasc' => NULL,
+                    'isactive' => true,
+                    'exceptional' =>false,
+                    'is_city'=>true,
+                ),
         ));
         $this->enableForeignKeys("regions");
 
