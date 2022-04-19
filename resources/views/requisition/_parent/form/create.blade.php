@@ -252,6 +252,7 @@
                 let $region_id = "{{ access()->user()->region_id }}";
                 let $fiscal_year = null;
 
+                $get_info_button.addClass('hidden');
                 //clear output
                 clearOutput();
 
