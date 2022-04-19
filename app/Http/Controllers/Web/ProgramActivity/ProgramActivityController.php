@@ -348,7 +348,7 @@ class ProgramActivityController extends Controller
     {
         $program_activity =  $this->program_activity->findByUuid($uuid);
 
-        return \Maatwebsite\Excel\Facades\Excel::download(new ParticipantsExport($program_activity), 'participants.xlsx');
+        return \Maatwebsite\Excel\Facades\Excel::download(new ParticipantsExport($program_activity), 'Activity:'.$program_activity->number.'participants.xlsx');
 
     }
 

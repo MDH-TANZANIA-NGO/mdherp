@@ -25,7 +25,7 @@ class GOfficerRepository extends BaseRepository
             DB::raw('g_officers.email AS email'),
             DB::raw('g_officers.phone AS phone'),
             DB::raw("CONCAT_WS(', ',g_officers.last_name, g_officers.first_name) AS names"),
-            DB::raw("CONCAT_WS(', ',g_officers.last_name, g_officers.first_name, g_officers.phone) AS unique"),
+            DB::raw("CONCAT_WS(', ',g_officers.last_name, g_officers.first_name,  g_officers.phone) AS unique"),
             DB::raw('g_officers.uuid AS uuid'),
             DB::raw('g_officers.g_scale_id as g_scale_id'),
             DB::raw('g_scales.title AS g_scale_title'),
@@ -51,6 +51,11 @@ class GOfficerRepository extends BaseRepository
             ->leftjoin('districts', 'districts.id', 'g_officers.district_id')
             ->groupby('g_officers.id', 'g_scales.title', 'g_rates.amount', 'regions.name', 'districts.name');
     }
+    public function getForPluckUnique()
+    {
+        return $this->getQuery()
+            ->pluck('unique', 'id');
+    }
 
     public function getActive()
     {
@@ -68,12 +73,14 @@ class GOfficerRepository extends BaseRepository
 
         if ($inputs['check_no'] == null)
         {
-            $check_no = '0'.$region_id.'-'.sprintf('%02d', now()->month).'-'.substr(sprintf('%02d', now()->year), -2).'-';
+            $check_no = '0'.$region_id.'-'.sprintf('%02d', now()->month).'-'.substr(sprintf('%02d', now()->year), -2).'-'.rand(1, 200000);
 
         }
         else{
             $check_no = $inputs['check_no'];
         }
+
+
         return [
             'first_name' => $inputs['first_name'],
             'last_name' => $inputs['last_name'],
@@ -81,6 +88,7 @@ class GOfficerRepository extends BaseRepository
             'phone' => '255'.substr($inputs['phone'], -9),
             'g_scale_id' => $inputs['g_scale'],
             'region_id' => $region_id,
+            'gender_cv_id'=>$inputs['gender'],
             'district_id' => $inputs['district_id'],
             'country_organisation_id' => 1,
             'isactive' => 1,
@@ -97,9 +105,9 @@ class GOfficerRepository extends BaseRepository
         try {
             return DB::transaction(function () use ($inputs){
                 $id = $this->query()->create($this->inputProcess($inputs))->id;
-                $check_no =  $this->find($id)->check_no;
-                $check_no = $check_no.$id;
-                DB::update('update g_officers set check_no = ? where id = ?',[$check_no, $id] );
+                $g_officer =  $this->find($id);
+                if (isset($inputs['facilities']))
+                    $g_officer->facilities()->sync($inputs['facilities']);
 
                 alert()->success('External user registered successfully', 'Success');
                 return redirect()->back();
@@ -116,8 +124,12 @@ class GOfficerRepository extends BaseRepository
         $g_officer = $this->findByUuid($uuid);
 
         return DB::transaction(function () use ($g_officer, $inputs){
-                $g_officer->facilities()->sync($inputs['facilities']);
-            return $g_officer->update($this->inputProcess($inputs));
+          if (isset($inputs['facilities']))
+              $g_officer->facilities()->sync($inputs['facilities']);
+              return $g_officer->update($this->inputProcess($inputs));
+
+
+
         });
     }
 
@@ -125,5 +137,7 @@ class GOfficerRepository extends BaseRepository
     {
         return $this->getQuery()->where('g_officers.id',$id)->first();
     }
+
+
 
 }

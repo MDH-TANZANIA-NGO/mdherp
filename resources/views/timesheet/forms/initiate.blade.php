@@ -40,6 +40,10 @@
                             //if not a weekend add day to array
                             if($day_name != 'Sun' && $day_name != 'Sat'){
                                 $workdays[] = \Carbon\Carbon::createFromDate($today->year, $today->month, $i)->format('D d-F-Y');
+
+                            }
+                            if ($day_name != 'Fri' ){
+                                $hours =  6;
                             }
 
                     }
@@ -67,8 +71,17 @@
                         @foreach($workdays as $key => $workday)
                            <tr>
                                <td><b>{{ $workday }}</b></td>
-                               <input type="hidden" name="data[{{$key}}][date]" value="{{ $workday }}">
-                               <td><input type="number" step=any min="6" max="8.5" name="data[{{$key}}][hours]" class="form-control col-md-4"></td>
+                                @if(date('D', strtotime($workday)) == 'Fri')
+                                   <td><input type="number" step=any min="6" max="6" name="data[{{$key}}][hours]" value="6" disabled class="form-control col-md-4"></td>
+                               @else
+                                   <td><input type="number" step=any min="6" max="8.5" name="data[{{$key}}][hours]" value="8.5" disabled class="form-control col-md-4"></td>
+@endif
+                               @if(date('D', strtotime($workday)) == 'Fri')
+                                   <td><input type="number" step=any min="6" max="6" name="data[{{$key}}][hours]" value="6" hidden class="form-control col-md-4"></td>
+                               @else
+                                   <td><input type="number" step=any min="6" max="8.5" name="data[{{$key}}][hours]" value="8.5" hidden class="form-control col-md-4"></td>
+                               @endif
+                                   <input type="hidden" name="data[{{$key}}][date]" value="{{ $workday }}">
                                <td><input type="text" name="data[{{$key}}][comment]" class="form-control col-md-10"></td>
                            </tr>
                         @endforeach

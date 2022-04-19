@@ -28,6 +28,13 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
+                    <div class="form-group ">
+                        {!! Form::label('gender', __("label.gender"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::select('gender', $gender, $g_officer->gender_cv_id, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                        {!! $errors->first('gender', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
                     <div class="form-group">
                         {!! Form::label('phone', __("label.phone"),['class'=>'form-label','required_asterik']) !!}
                         {!! Form::text('phone',$g_officer->phone,['class' => 'form-control', 'placeholder' => '','required']) !!}
@@ -37,7 +44,8 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="form-group">
                         {!! Form::label('check_no', __("Check no"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::text('check_no',$g_officer->check_no,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                        {!! Form::text('check_number',$g_officer->check_no,['class' => 'form-control', 'placeholder' => '','disabled']) !!}
+                        {!! Form::text('check_no',$g_officer->check_no,['class' => 'form-control', 'placeholder' => '','hidden']) !!}
                         {!! $errors->first('check_no', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
@@ -51,7 +59,7 @@
                 <div class="col-md-4">
                     <div class="form-group ">
                         {!! Form::label('Facilities', __("Facilities"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::select('facilities[]', $facilities, null, ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']) !!}
+                        {!! Form::select('facilities[]', $facilities, $g_officer_facility, ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']) !!}
                         {!! $errors->first('facilities', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>

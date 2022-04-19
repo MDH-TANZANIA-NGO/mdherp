@@ -4,9 +4,9 @@
 
 {{--    @include('workspace.under_construction')--}}
 
-    <div class="row">
+   {{-- <div class="row">
 
-{{--       <div class="col-4 col-sm-4 col-lg-3">
+       <div class="col-4 col-sm-4 col-lg-3">
             <a href="{{route('requisition.index')}}">
                 <div class="card">
                     <div class="card-body text-center">
@@ -88,7 +88,7 @@
             </a>
         </div>
 
-    {{--    <div class="col-4 col-sm-4 col-lg-3">
+      {{--  <div class="col-4 col-sm-4 col-lg-3">
             <a href="{{ route('listing.index') }}">
                 <div class="card">
                     <div class="card-body text-center">

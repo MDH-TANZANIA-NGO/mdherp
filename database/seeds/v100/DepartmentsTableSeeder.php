@@ -27,7 +27,7 @@ class DepartmentsTableSeeder extends Seeder
             1 =>
                 array (
                     'id' => 2,
-                    'title' => 'Human Resource',
+                    'title' => 'Human Resource and Administration',
                     'initial' => 'HR',
                 ),
             2 =>
@@ -54,12 +54,7 @@ class DepartmentsTableSeeder extends Seeder
                     'title' => 'Grants',
                     'initial' => 'GR',
                 ),
-            6 =>
-                array (
-                    'id' => 7,
-                    'title' => 'Administration',
-                    'initial' => 'ADM',
-                )
+
         ));
         $this->enableForeignKeys("departments");
     }
