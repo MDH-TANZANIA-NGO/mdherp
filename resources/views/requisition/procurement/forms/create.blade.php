@@ -33,7 +33,7 @@
                                     <hr>
                                     <div>
                                         <label>District ( allocation )</label>
-                                        {!! Form::select('districts[]',$districts,null,['class' => 'form-control select2-show-search','multiple','required']) !!}
+                                        {!! Form::select('districts[]',$districts,null,['class' => 'form-control select2-show-search','multiple','required', 'id'=>'districts']) !!}
                                     </div>
                                 </td>
                                 <td class="text-right">
@@ -47,6 +47,9 @@
                                         <label>Amount</label>
                                         <input type="number" name="requested_amount" class="form-control" placeholder="" required />
                                     </div>
+
+                                    <div id="notification_alert"></div>
+
                                 </td>
                                 <td><button type="submit" class="btn btn-primary">Add</button></td>
                             </tr>
