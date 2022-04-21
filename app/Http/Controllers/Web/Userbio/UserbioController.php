@@ -37,14 +37,31 @@ class UserbioController extends Controller
             ->with('active_user_count', $this->users->getActive()->get()->count());
     }
 
-
     public function create()
+    {
+        $user = $this->users->find(access()->user()->id);
+        if ($user->assignedSupervisor())
+        {
+            $supervisor = $this->users->find($user->assignedSupervisor()->supervisor_id)->full_name;
+        }
+        else{
+            $supervisor= 'Not assigned';
+            }
+
+        $userbio = Userbio::where('user_id', access()->id())->first();
+
+        return view('userbio.forms.createbio')
+            ->with('supervisor', $supervisor)
+            ->with('userbio', $userbio?? "null");
+    }
+
+   /* public function create()
     {
         $userbio = Userbio::where('user_id', access()->id())->first();
 
         return view('userbio.forms.createbio')
             ->with('userbio', $userbio?? "null");
-    }
+    }*/
 
     public function store(Request $request)
     {
