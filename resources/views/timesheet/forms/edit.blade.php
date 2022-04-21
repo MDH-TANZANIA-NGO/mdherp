@@ -33,7 +33,7 @@
                                     <td>{{\Carbon\Carbon::parse($attendance->date)->format('d/m/Y')}}</td>
                                     <input type="hidden" name="data[{{$key}}][date]" value="{{$attendance->date }}">
                                     <td><input type="number" step=any name="data[{{$key}}][hrs]" value="{{$attendance->hrs}}" class="form-control col-md-4"></td>
-                                    <td><input type="text" name="data[{{$key}}][comment]" value="{{$attendance->comment}}" class="form-control col-md-10"></td>
+                                    <td><input type="text" name="data[{{$key}}][comment]" value="{{$attendance->comments}}" class="form-control col-md-10"></td>
                                 </tr>
                             @endforeach
                         </tbody>
