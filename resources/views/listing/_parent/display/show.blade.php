@@ -15,4 +15,46 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="card">
+           <div class="card-header">
+               {{$listing->title}}
+           </div>
+            <div class="card-body">
+                <p><strong>Department: </strong> {{ $listing->department->title }}</p>
+                <p><strong>Number of Employees: </strong> {{ $listing->number }}</p>
+
+
+                <p><strong>Position Summary</strong></p>
+                {!! $listing->content !!}
+
+                <p><strong>Education and Qualification</strong></p>
+                {!! $listing->education_and_qualification !!}
+
+                <p><strong> Practical Experience</strong></p>
+                {!! $listing->practical_experience !!}
+
+                <p><strong> Other Qualities</strong></p>
+                {!! $listing->other_qualities !!}
+
+                <p><strong> Special Qualities and Skills</strong></p>
+                {!! $listing->other_qualities !!}
+
+                <p><strong> Special Employment Condition</strong></p>
+                {!! $listing->special_employment_condition !!}
+
+                <p><strong>Employment Condition: </strong> {{ $listing->employment->name }}</p>
+
+
+                <p><strong>Working Tools</strong></p>
+                <ol>
+                    @foreach($listing->workingTools as $working_tool)
+                        <li>{{ $working_tool->name }}</li>
+                    @endforeach
+                </ol>
+
+            </div>
+        </div>
+    </div>
+
 @endsection
