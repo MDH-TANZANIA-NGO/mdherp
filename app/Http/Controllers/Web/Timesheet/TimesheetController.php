@@ -56,6 +56,7 @@ class TimesheetController extends Controller
      */
     public function create()
     {
+
         $effortLevels = EffortLevel::where('user_id', access()->id())->get();
         return view('timesheet.forms.initiate')
             ->with('effortLevels', $effortLevels);
@@ -172,6 +173,7 @@ class TimesheetController extends Controller
      */
     public function edit(Timesheet $timesheet)
     {
+
         return view('timesheet.forms.edit')
             ->with('timesheet', $timesheet);
     }

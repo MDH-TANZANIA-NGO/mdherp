@@ -8,7 +8,9 @@
         <th class="wd-25p">TITLE</th>
         <th class="wd-25p">REGION</th>
         <th class="wd-25p">FACILITY</th>
+
         <th class="wd-10p">ACTION</th>
+
     </tr>
     </thead>
 </table>

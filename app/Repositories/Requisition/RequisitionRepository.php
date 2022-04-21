@@ -358,6 +358,7 @@ class RequisitionRepository extends BaseRepository
             ->join('activities', 'activities.id', 'budgets.activity_id')
             ->join('regions', 'regions.id', 'budgets.region_id')
             ->join('fiscal_years', 'fiscal_years.id', 'budgets.fiscal_year_id')
+            ->leftjoin('payments', 'payments.requisition_id','requisitions.id')
             ->where('projects.id', $project_id)
             ->where('budgets.activity_id', $activity_id)
             ->where('budgets.region_id', $region_id);
@@ -388,7 +389,9 @@ class RequisitionRepository extends BaseRepository
         return $this->getQueryExtended($project_id, $activity_id, $region_id)
             ->where('fiscal_years.active', true)
             ->where('requisitions.wf_done', 1)
-            ->where('requisitions.done', true);
+            ->where('requisitions.done', true)
+            ->where('payments.id',null)
+            ->orwhere('payments.wf_done',0);
     }
 
     public function processComplete(Requisition $requisition)

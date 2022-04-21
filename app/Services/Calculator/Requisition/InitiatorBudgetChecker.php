@@ -15,7 +15,7 @@ trait InitiatorBudgetChecker
         return [
             'project' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->project_list,
             'activity' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->code_title,
-            'requisition_type' => $this->requisition($requisition_type_id)->title,
+//            'requisition_type' => $this->requisition($requisition_type_id)->title,
             'sub_program_area' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->sub_program_title,
             'numeric_output' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->numeric_output,
             'output_unit' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->output_unit_title,
