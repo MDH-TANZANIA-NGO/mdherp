@@ -8,9 +8,9 @@
         <th class="wd-25p">TITLE</th>
         <th class="wd-25p">REGION</th>
         <th class="wd-25p">FACILITY</th>
-        @permission('external_user_management')
+
         <th class="wd-10p">ACTION</th>
-        @endpermission
+
     </tr>
     </thead>
 </table>

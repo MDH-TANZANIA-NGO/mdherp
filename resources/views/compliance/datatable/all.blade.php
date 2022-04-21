@@ -1,8 +1,5 @@
 
-<div class="row">
-<div class="card">
-    <div class="card-body">
-        <div class="panel panel-primary">
+
             <table id="all_projects" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                 <tr>
@@ -17,11 +14,7 @@
                 </tr>
                 </thead>
             </table>
-        </div>
-    </div>
 
-</div>
-</div>
 
 
 
