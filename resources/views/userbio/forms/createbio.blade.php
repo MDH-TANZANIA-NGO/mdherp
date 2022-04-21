@@ -22,6 +22,7 @@
                             <li class="text-center">
                                 <h4 class="text-capitalize mt-3 mb-0">{{access()->user()->full_name_formatted}}</h4>
                                 <p class="text-muted text-capitalize">{{access()->user()->designation->unit->name.' '. access()->user()->designation->name}} </p>
+                                <p class="text-muted text-capitalize">Reporting to: {{$supervisor}}</p>
                             </li>
 
                             <li><br></li>
