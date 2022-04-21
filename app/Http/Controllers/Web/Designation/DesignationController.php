@@ -19,7 +19,7 @@ class DesignationController extends Controller
     public function create()
     {
 
-        return view('designation.forms.create')
+        return view('Designation.forms.create')
             ->with('departments', Department::all()->pluck('title', 'id'));
     }
     public function store(Request $request)
