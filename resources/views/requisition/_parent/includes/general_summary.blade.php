@@ -68,6 +68,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     Budgeted Amount
+
                                     <span class="badgetext badge badge-default badge-pill">{{number_2_format($budget->amount)}}</span>
                                 </li>
                                 <li class="list-group-item">

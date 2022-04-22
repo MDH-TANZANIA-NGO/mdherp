@@ -154,6 +154,10 @@ class RequisitionController extends Controller
     public function show(Requisition $requisition)
     {
 
+        dd(  Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', access()->user()->region_id)->first());
+      //            ->with('budget', Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', $requisition->user()->first()->region_id)->first())
+
+
         /* Check workflow */
         $wf_module_group_id = 1;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $requisition->id);
@@ -173,7 +177,7 @@ class RequisitionController extends Controller
             ->with('items', $requisition->items)
             ->with('travelling_costs',$requisition->travellingCost)
             ->with('budget', Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', access()->user()->region_id)->first())
-            ->with('budget', Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', $requisition->user()->first()->region_id)->first())
+//            ->with('budget', Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', $requisition->user()->first()->region_id)->first())
             ->with('training_costs', $requisition->trainingCost)
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))

@@ -21,7 +21,7 @@
 
             $("#all_projects").DataTable({
                 // processing: true,
-                serverSide: true,
+                // serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,

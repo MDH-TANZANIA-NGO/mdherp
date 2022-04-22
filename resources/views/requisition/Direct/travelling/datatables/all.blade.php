@@ -36,7 +36,7 @@
 
                                 <th>{{ number_2_format($cost->other_cost) }}</th>
                                 <th>{{ number_2_format($cost->total_amount) }}</th>
-                                <th><a href="{{route('travelling.edit',$cost->uuid)}}" class="btn btn-primary" onclick="confirm('Are you sure?')">Edit</a> <a href="{{route('travelling.delete',$cost->uuid)}}" class="btn btn-danger" onclick="confirm('Are you sure?')">Delete</a> </th>
+                                <th><a href="{{route('travelling.edit',$cost->uuid)}}" class="btn btn-primary" onclick="if (confirm('Are you sure?')){return true} else {return false}">Edit</a> <a href="{{route('travelling.delete',$cost->uuid)}}" class="btn btn-danger" onclick="confirm('Are you sure?')">Delete</a> </th>
                             </tr>
                         </tbody>
                         @endforeach

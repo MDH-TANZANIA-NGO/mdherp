@@ -59,8 +59,7 @@ class GOfficerRepository extends BaseRepository
 
     public function getActive()
     {
-        return $this->getQuery()
-            ->limit(100);
+        return $this->getQuery();
     }
     public function getNotSelectedInActivity()
     {

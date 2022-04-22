@@ -19,7 +19,7 @@
                     <div class="form-group">
                         {!! Form::label('destination', __("Destination"),['class'=>'form-label','required_asterik']) !!}
 
-                        {!! Form::select('district_id',$districts,$traveller->district->name,['class' => 'form-control select2-show-search','required']) !!}
+                        {!! Form::select('district_id',$districts,$traveller->district_id,['class' => 'form-control select2-show-search','required']) !!}
                         {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
