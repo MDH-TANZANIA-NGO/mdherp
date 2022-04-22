@@ -54,6 +54,12 @@ class DepartmentsTableSeeder extends Seeder
                     'title' => 'Grants',
                     'initial' => 'GR',
                 ),
+            6 =>
+                array (
+                    'id' => 7,
+                    'title' => 'Laboratory Department',
+                    'initial' => 'LD',
+                ),
 
         ));
         $this->enableForeignKeys("departments");

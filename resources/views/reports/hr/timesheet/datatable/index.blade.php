@@ -10,6 +10,7 @@
                     <li><a href="#processing" data-toggle="tab" class="active">Processing <span class="badge badge-primary">{{ $timesheets->getSubmittedTimesheets()->count() }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{$timesheets->getApprovedTimesheets()->count()  }}</span></a></li>
                     <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $timesheets->getRejectedTimesheets()->count()  }}</span> </a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Not Submitted <span class="badge badge-danger">{{ $users->getAllNotSubmittedTimesheet(date('m', strtotime(today())), date('Y', strtotime(today())))->count()  }}</span> </a></li>
                 </ul>
             </div>
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">

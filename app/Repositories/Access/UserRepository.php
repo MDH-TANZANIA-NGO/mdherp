@@ -307,7 +307,16 @@ class UserRepository extends BaseRepository
         return $this->getQuery()
             ->where('active', false);
     }
+    public function getAllNotSubmittedTimesheet($month, $year)
+    {
+        return $this->getQuery()
+            ->whereDoesntHave('timesheets', function ($query) use($month, $year){
+                $query ->whereMonth('timesheets.created_at', $month)
+                    ->whereYear('timesheets.created_at', $year);
+            })
 
+            ->get();
+    }
     /**
      *
      * @return mixed
