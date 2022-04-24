@@ -283,6 +283,7 @@ class UserRepository extends BaseRepository
             DB::raw('users.last_name AS last_name'),
             DB::raw('users.email AS email'),
             DB::raw('users.phone AS phone'),
+            DB::raw('users.identity_number AS identity_number'),
             DB::raw('users.uuid AS uuid'),
             DB::raw('users.country_organisation_id as country_organisation_id'),
             DB::raw('regions.name AS region'),

@@ -57,4 +57,15 @@ trait TimesheetReportDatatable
             ->make(true);
     }
 
+    public function getAllNotSubmittedTimesheet(){
+
+        $month = date('m', strtotime(today()));
+        $year =  date('Y', strtotime(today()));
+        return DataTables::of($this->users->getAllNotSubmittedTimesheet($month, $year))
+            ->addIndexColumn()
+
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
 }

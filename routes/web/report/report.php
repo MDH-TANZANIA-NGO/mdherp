@@ -4,6 +4,7 @@ Route::group(['namespace' => 'Reports', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('submitted', 'TimesheetReportController@getSubmittedTimesheets')->name('submitted');
     Route::get('approved', 'TimesheetReportController@getApprovedTimesheets')->name('approved');
     Route::get('rejected', 'TimesheetReportController@getRejectedTimesheets')->name('rejected');
+    Route::get('not_submitted', 'TimesheetReportController@getAllNotSubmittedTimesheet')->name('not_submitted');
 });
 
 Route::group(['namespace' => 'Reports', 'middleware' => ['web', 'auth'], 'prefix' => 'leave_reports', 'as' => 'leave_report.'], function () {

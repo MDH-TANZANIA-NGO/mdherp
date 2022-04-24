@@ -10,7 +10,7 @@
                     <li><a href="#processing" data-toggle="tab" class="active">Processing <span class="badge badge-primary">{{ $timesheets->getSubmittedTimesheets()->count() }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{$timesheets->getApprovedTimesheets()->count()  }}</span></a></li>
                     <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $timesheets->getRejectedTimesheets()->count()  }}</span> </a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Not Submitted <span class="badge badge-danger">{{ $users->getAllNotSubmittedTimesheet(date('m', strtotime(today())), date('Y', strtotime(today())))->count()  }}</span> </a></li>
+                    <li><a href="#not_submitted" data-toggle="tab" class="">Not Submitted <span class="badge badge-danger">{{ $users->getAllNotSubmittedTimesheet(date('m', strtotime(today())), date('Y', strtotime(today())))->count()  }}</span> </a></li>
                 </ul>
             </div>
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
@@ -82,6 +82,25 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="tab-pane" id="not_submitted">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="all_not_submitted" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th class="wd-15p">#</th>
+                                    <th class="wd-25p">Employee ID</th>
+                                    <th class="wd-25p">Employee Name</th>
+                                    <th class="wd-25p">Employee Email</th>
+                                    <th class="wd-15p">Employee Phone</th>
+                                    <th class="wd-15p">Employee Workstation</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -138,6 +157,22 @@
                             { data: 'created_at', name: 'created_at', searchable: true },
                             { data: 'wf_done_date', name: 'timesheets.wf_done_date', searchable: true },
                             { data: 'action', name: 'action', searchable: false },
+                        ]
+                    });
+
+                    $("#all_not_submitted").DataTable({
+                        destroy: true,
+                        retrieve: true,
+                        "responsive": true,
+                        "autoWidth": false,
+                        ajax: '{{ route('timesheet_report.not_submitted') }}',
+                        columns: [
+                            { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                            { data: 'identity_number', name: 'users.identity_number', searchable: true},
+                            { data: 'name', name: 'users.name', searchable: true},
+                            { data: 'email', name: 'users.email', searchable: true},
+                            { data: 'phone', name: 'users.phone', searchable: true },
+                            { data: 'region', name: 'users.region_id', searchable: true },
                         ]
                     });
 
