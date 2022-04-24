@@ -52,7 +52,7 @@
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Content</label>
-                    <textarea class="form-control" name="content" rows="4" placeholder="Paste job description here (markdown is ok!)" value="{{  $listing->content->toHTML() }}" required></textarea>
+                    <textarea class="form-control" name="content" rows="4" placeholder="Paste job description here (markdown is ok!)" value="{ !! $listing->content !!}" required></textarea>
                 </div>
                 @error('content')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
