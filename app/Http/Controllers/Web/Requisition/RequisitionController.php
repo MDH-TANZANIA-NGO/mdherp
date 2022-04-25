@@ -154,8 +154,6 @@ class RequisitionController extends Controller
     public function show(Requisition $requisition)
     {
 
-        dd(  Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', access()->user()->region_id)->first());
-      //            ->with('budget', Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', $requisition->user()->first()->region_id)->first())
 
 
         /* Check workflow */
@@ -199,6 +197,7 @@ class RequisitionController extends Controller
      */
     public function submit(Requisition $requisition)
     {
+        check_available_budget_individual($requisition,$requisition->amount);
         DB::transaction(function () use ($requisition){
             $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
             $wf_module_group_id = 1;

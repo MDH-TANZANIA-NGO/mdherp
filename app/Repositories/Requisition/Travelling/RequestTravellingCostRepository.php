@@ -11,16 +11,22 @@ use App\Models\System\District;
 use App\Models\System\Region;
 use App\Repositories\BaseRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
+use App\Repositories\Requisition\RequisitionRepository;
+use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
 use Illuminate\Support\Facades\DB;
 
 class RequestTravellingCostRepository extends BaseRepository
 {
-
+        use InitiatorBudgetChecker;
     const MODEL = requisition_travelling_cost::class;
+
     protected $mdh_rates;
+    protected $requisition;
+
     public function __construct()
     {
         $this->mdh_rates = (new mdhRatesRepository());
+        $this->requisition = (new  RequisitionRepository());
         //
     }
     public function getQuery()
@@ -110,12 +116,16 @@ class RequestTravellingCostRepository extends BaseRepository
      */
     public function store(Requisition $requisition, $inputs)
     {
+        check_available_budget_individual($requisition,$this->inputProcess($inputs)['total_amount'], $requisition->amount, $this->inputProcess($inputs)['total_amount']);
         return DB::transaction(function () use ($requisition, $inputs){
             $requisition->travellingCost()->create($this->inputProcess($inputs));
             $requisition->updatingTotalAmount();
             return $requisition;
         });
     }
+
+
+
 
     public function getRequisition()
     {
@@ -145,6 +155,7 @@ class RequestTravellingCostRepository extends BaseRepository
 
         $traveller = $this->findByUuid($uuid);
 
+        check_available_budget_individual($traveller->requisition, $this->inputProcess($inputs)['total_amount'], $traveller->total_amount, $this->inputProcess($inputs)['total_amount']);
 
         return DB::transaction(function () use ($traveller, $inputs){
             $traveller->update($this->inputProcess($inputs));

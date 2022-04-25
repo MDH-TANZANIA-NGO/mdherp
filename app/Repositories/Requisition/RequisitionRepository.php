@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Requisition;
 
+use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
 use App\Models\Project\Traits\Relationship\ActivityRelationship;
 use App\Models\Requisition\Requisition;
@@ -198,8 +199,12 @@ class RequisitionRepository extends BaseRepository
 
     public function store($inputs)
     {
+
         return DB::transaction(function () use ($inputs) {
-            return $this->query()->create($this->inputProcess($inputs));
+            $requisition_id =  $this->query()->create($this->inputProcess($inputs))->id;
+            $requisition =  $this->find($requisition_id);
+            return $this->storeIndividualAvailableBudget($requisition);
+
         });
     }
 
@@ -413,6 +418,53 @@ class RequisitionRepository extends BaseRepository
                'is_closed'=>'true',
             ]);
         });
+    }
+
+    public function storeIndividualAvailableBudget($requisition)
+    {
+
+        $budget = $this->check($requisition->requisition_type_id, $requisition->project_id,$requisition->activity_id, $requisition->region_id, $requisition->budget()->first()->fiscal_year_id);
+        $available_budget = $budget['actual'] + $budget['pipeline'];
+
+       return $requisition->fundChecker()->create([
+            'requisition_id'=>$requisition->id,
+            'available_budget'=>$available_budget,
+            'actual_amount'=>$available_budget
+        ]);
+    }
+    public function updateIndividualAvailableBudget($requisition, $current_amount = null, $updated_amount = null)
+    {
+        if ($updated_amount > $current_amount or $current_amount == null)
+        {
+
+            $difference_amount =  $updated_amount - $current_amount;
+            $actual_amount = $requisition->fundChecker()->first()->actual_amount - $difference_amount;
+            $requisition->fundChecker()->update([
+                'actual_amount'=>$actual_amount
+            ]);
+        }
+        if ($updated_amount < $current_amount)
+        {
+            $difference_amount =  $current_amount - $updated_amount;
+            $actual_amount = $requisition->fundChecker()->first()->actual_amount + $difference_amount;
+            $requisition->fundChecker()->update([
+                'actual_amount'=>$actual_amount
+            ]);
+        }
+
+
+    }
+    public function checkAvailableBudgetIndividual($requisition, $total_amount, $current_amount = null, $updated_amount = null)
+    {
+        $check_budget = $requisition->fundChecker()->first();
+        if ($check_budget->actual_amount < $total_amount){
+            throw new GeneralException('Insufficient Fund' );
+        }
+
+        return $this->updateIndividualAvailableBudget($requisition, $current_amount, $updated_amount);
+
+
+
     }
 
 
