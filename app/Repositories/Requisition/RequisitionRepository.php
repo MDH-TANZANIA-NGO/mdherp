@@ -203,7 +203,9 @@ class RequisitionRepository extends BaseRepository
         return DB::transaction(function () use ($inputs) {
             $requisition_id =  $this->query()->create($this->inputProcess($inputs))->id;
             $requisition =  $this->find($requisition_id);
-            return $this->storeIndividualAvailableBudget($requisition);
+             $this->storeIndividualAvailableBudget($requisition);
+
+             return $requisition;
 
         });
     }
@@ -367,6 +369,33 @@ class RequisitionRepository extends BaseRepository
             ->where('projects.id', $project_id)
             ->where('budgets.activity_id', $activity_id)
             ->where('budgets.region_id', $region_id);
+    }
+
+    public function getPipelines()
+    {
+        return $this->query()
+            ->where('requisitions.wf_done', 0)
+            ->where('requisitions.done', true)
+            ->whereHas('budget');
+
+    }
+
+    public function getCommitmentOnTheSameBudget()
+    {
+        return $this->query()
+            ->where('requisitions.wf_done', 1)
+            ->where('requisitions.done', true)
+            ->whereHas('budget')
+            ->whereDoesntHave('payments');
+    }
+    public function getActualExpenditure()
+    {
+        return $this->query()
+            ->where('requisitions.wf_done', 1)
+            ->where('requisitions.done', true)
+            ->whereHas('budget')
+            ->leftjoin('payments', 'payments.requisition_id', 'requisitions.id')
+            ->where('payments.wf_done', 1);
     }
 
     /**

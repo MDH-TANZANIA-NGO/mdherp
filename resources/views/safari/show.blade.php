@@ -10,25 +10,120 @@
     </div>
 </div>
 
-<div class="row">
+{{--<div class="row">
     <div class="card">
         <div class="card-header">
-            {{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}
+            --}}{{--            <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3">Pay</button>--}}{{--
             <a href=" {{route('requisition.show', $safari->travellingCost->requisition->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">View Approved Requisition</a>
 
         </div>
 
     </div>
-</div>
+</div>--}}
 
-
+<!--Row-->
 <div class="row">
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">  <a href=" {{route('requisition.show', $safari->travellingCost->requisition->uuid)}}" class="btn btn-outline-info" style="margin-left: 2%;">{{$safari->travellingCost->requisition->number}}</a>
+                </h3>
+                <div class="card-options ">
+                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                </div>
+            </div>
+            <div class="card-body">
+                @foreach($safari_details as $details)
+                <div class="card">
+                    <div class="p-3">
+                        <h3 class="card-title mb-2">Safari to: <b>{{$details->district->name}}</b></h3>
+                        <div class="row">
+                            <div class="col-4 border-right">
+                                <p class=" mb-0 fs-12  text-muted">Departure</p>
+                                <h3 class="mb-0">{{\Carbon\Carbon::parse($details->from)->format('D d-M-Y')}}</h3>
+                            </div>
+                            <div class="col-4 border-right ">
+                                <p class=" mb-0 fs-12 text-muted">Returning</p>
+                                <h3 class="mb-0">{{\Carbon\Carbon::parse($details->to)->format('D d-M-Y')}}</h3>
+                            </div>
+                            <div class="col-4">
+                                <p class=" mb-0  fs-12 text-muted">Transport means</p>
+                                <h3 class="mb-0">{{$details->transport_means}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Scope</h5>
+                            </div>
+                            <p class="mb-1">{!! html_entity_decode($safari->scope) !!}</p>
+                        </a>
+
+                    </div>
+                <br>
+                <div class="">
+                    <div class="table-responsive">
+                        <table class="table mb-0 table-vcenter table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th></th>
+                                <th>Total Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><i class="fa fa-bed"></i></td>
+                                <td>Accommodation</td>
+                                <td>{{number_2_format($details->accommodation)}}</td>
+
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-cutlery"></i></td>
+                                <td>Meals and Incidentals</td>
+                                <td>{{number_2_format($details->perdiem)}}</td>
+
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-subway"></i></td>
+                                <td>On transit</td>
+                                <td>{{number_2_format($details->ontransit)}}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-taxi"></td>
+                                <td>Ground Transportation</td>
+                                <td>{{number_2_format($details->transportation)}}</td>
+                            </tr>
+
+                            <tr>
+                                <td><i class="fa fa-exclamation"></i></td>
+                                <td>Other Cost</td>
+                                <td>{{number_2_format($details->other_costs)}}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+
+
+<!--End Row-->
+
+{{--<div class="row">
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">SAFARI ADVANCE SUMMARY</h3>
             <div class="card-options ">
                 <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-{{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
+--}}{{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}{{--
             </div>
         </div>
         <div class="card-body">
@@ -104,7 +199,7 @@
                     <label for="recipient-name" class="form-control-label">Payment Method:</label>
                 <select class="form-control" name="payment_method" >
                     <option value="tigopesa">Tigo Pesa</option>
-{{--                    <option value="bank">Bank Transfer</option>--}}
+--}}{{--                    <option value="bank">Bank Transfer</option>--}}{{--
                 </select>
                 </div>
                 <div class="form-group" id="number" >
@@ -136,7 +231,7 @@
     </div>
 </div>
 
-</div>
+</div>--}}
 
 @endsection
 

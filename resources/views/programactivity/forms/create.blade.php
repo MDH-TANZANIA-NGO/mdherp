@@ -15,7 +15,8 @@
                     </div>
                 </div>
                 @endif
-
+        </div>
+    </div>
 
 
 @include('programactivity.forms.event-schedule.create')
@@ -30,7 +31,6 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table card-table table-vcenter text-nowrap">
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <thead >
                             <tr>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table card-table table-vcenter text-nowrap">
+                        <table id="items" class="table table-striped table-bordered">
                             <thead >
                             <tr>
 
@@ -116,6 +116,15 @@
 
         </div>
     </div>
+            @push('after-scripts')
+                <script>
+                    $(document).ready(function (){
+                        $("#example").dataTable()
+                        $("#items").dataTable()
+                    })
+                </script>
+
+    @endpush
 @endsection
 
 

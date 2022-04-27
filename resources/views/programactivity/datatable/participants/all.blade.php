@@ -7,7 +7,7 @@
                 <div class="card-options ">
                     <a href="{{route('programactivity.export', $program_activity->uuid)}}"  class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i></a>
                     @permission('finance_activity')
-                    <a href="#"  class="btn btn-outline-primary" style="margin-left: 7%"><i class="fa fa-check"></i></a>
+{{--                    <a href="#"  class="btn btn-outline-primary" style="margin-left: 7%"><i class="fa fa-check"></i></a>--}}
                     @endpermission
 
 
@@ -80,7 +80,7 @@
                                         </td>
                                         <td>
                                             <div class="row">
-                                                @if(access()->user()->id == $supervisor || access()->user()->id != $program_activity->user_id )
+                                                @if(access()->user()->id == $supervisor || access()->user()->id == $program_activity->user_id )
 
                                                     {!! Form::open(['route' => ['programactivity.viewParticipantAttendance',$participants->participant_uid], 'method'=>'POST']) !!}
 
@@ -93,7 +93,7 @@
 
                                                     <a href="{{route('programactivity.pay', $participants->uuid)}}"  class="btn btn-outline-primary" style="margin-left: 7%" ><i class="fa fa-check"></i></a>
 
-
+                                                    @endpermission
                                                     <!-- Modal -->
                                                     <div class="modal fade" id="pay" tabindex="-1" role="dialog" aria-labelledby="largemodal" aria-hidden="true">
                                                         <div class="modal-dialog modal-lg " role="document">
@@ -120,7 +120,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    @endpermission
+
                                                 @else
 
 
@@ -167,5 +167,14 @@
         </div>
     </div>
 </div>
+
+@push('after-scripts')
+    <script>
+        $(document).ready(function (){
+            $("#example").dataTable()
+        })
+    </script>
+
+@endpush
 
 
