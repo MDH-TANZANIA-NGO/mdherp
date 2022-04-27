@@ -175,7 +175,8 @@ class GOfficerController extends Controller
             $file_name = $request->file('file')->getClientOriginalName();
             $temporary_store = new GOfficerImportedTemporaryData($file_name);
             $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
-            try {
+            return redirect()->back();
+           /* try {
                 $file_name = $request->file('file')->getClientOriginalName();
                 $temporary_store = new GOfficerImportedTemporaryData($file_name);
                 $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
@@ -185,7 +186,7 @@ class GOfficerController extends Controller
                  alert()->error('Something is wrong with your file. Please review and try again','Oohps');
                  $exception->getMessage();
                  return redirect()->back();
-             }
+             }*/
         }
         else{
 
@@ -199,8 +200,23 @@ class GOfficerController extends Controller
 
     public function confirmAndUpload()
     {
+        $upload = GofficerImportedData::query()
+            ->where('user_id','=', access()->user()->id)
+            ->where('uploaded', false)
+            ->each(function ($oldPost) {
+                $newPost = $oldPost->replicate(['user_id','duplicated','uploaded','file_name']);
+                $newPost->setTable('g_officers');
+                $newPost->save();
 
-        try {
+            });
+
+        if ($upload){
+            DB::update('update gofficer_imported_data set uploaded = ? where user_id = ?', [true, access()->user()->id]);
+        }
+        alert()->success('Uploaded and confirmed successfully', 'Success');
+
+        return redirect()->back();
+       /* try {
             $upload = GofficerImportedData::query()
                 ->where('user_id','=', access()->user()->id)
                 ->where('uploaded', false)
@@ -222,7 +238,7 @@ class GOfficerController extends Controller
             $exception->getMessage();
             alert()->error('You can not confirm duplicate entries','Not allowed');
             return redirect()->back();
-        }
+        }*/
 
 
 

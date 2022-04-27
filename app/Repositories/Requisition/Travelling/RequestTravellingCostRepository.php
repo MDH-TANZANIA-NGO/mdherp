@@ -57,6 +57,7 @@ class RequestTravellingCostRepository extends BaseRepository
         $datetime2 = new  \DateTime($to);
         $interval = $datetime1->diff($datetime2);
         $days = $interval->format('%a');
+        dd($days);
         $accommodation = $inputs['accommodation'];
 
         if ($destination_region == $traveller_region_id){
