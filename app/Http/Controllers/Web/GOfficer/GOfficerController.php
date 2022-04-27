@@ -204,7 +204,7 @@ class GOfficerController extends Controller
             ->where('user_id','=', access()->user()->id)
             ->where('uploaded', false)
             ->each(function ($oldPost) {
-                $newPost = $oldPost->replicate(['user_id','duplicated','uploaded','file_name']);
+                $newPost = $oldPost->replicate(['user_id','duplicated','uploaded','file_name','number']);
                 $newPost->setTable('g_officers');
                 $newPost->save();
 
