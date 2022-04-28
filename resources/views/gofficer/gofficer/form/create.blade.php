@@ -43,7 +43,7 @@
                    <div class="card-body">
                        <a href="{{route('g_officer.confirm')}}" class="btn btn-indigo" onclick="confirm('Are you Sure you want to confirm the upload?')" > <i class="fe fe-check-circle mr-2"></i>Confirm and Import</a>
                        <a href="{{route('g_officer.export_duplicate')}}" class="btn btn-success" > <i class="fe fe-download-cloud mr-2"></i>Download Duplicates</a>
-                       <a href="{{route('g_officer.clear')}}" class="btn btn-instagram" onclick="confirm('Are you sure you want to clear import history?')" > <i class="fe fe-trash-2 mr-2"></i>Clear Import History</a>
+{{--                       <a href="{{route('g_officer.clear')}}" class="btn btn-instagram" onclick="confirm('Are you sure you want to clear import history?')" > <i class="fe fe-trash-2 mr-2"></i>Clear Import History</a>--}}
 
                    </div>
                </div>
