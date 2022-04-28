@@ -197,10 +197,11 @@
                                     <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
                                 </div>
                             </div>
+
+                            <div id="increment"></div>
+
                         </div>
                     </div>
-
-                    <div id="increment"></div>
 
                     <hr>
 &nbsp;
