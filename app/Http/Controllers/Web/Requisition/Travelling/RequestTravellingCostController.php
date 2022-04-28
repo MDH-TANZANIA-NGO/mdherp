@@ -68,12 +68,13 @@ protected $requisition;
         $traveller =  $this->travellingCost->findByUuid($uuid);
         $traveller_details =  $this->travellingCost->getQuery()->first();
 
-
+        $requisition =  $this->requisition->find($traveller->requisition_id);
 
 
 
         return view('requisition.Direct.travelling.forms.edit')
             ->with('traveller', $traveller)
+            ->with('requisition', $requisition)
             ->with('user',$traveller->user()->first()->first_name )
             ->with('districts', $this->district->getForPluck())
             ->with('mdh_rates',$this->mdh_rates->getAll()->pluck('id','amount'))

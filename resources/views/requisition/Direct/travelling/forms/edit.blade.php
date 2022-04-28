@@ -83,8 +83,8 @@
                         {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-outline-info" style="margin-left:40%;">Update Traveller</button>
+                <a  href="{{route('requisition.initiate',$requisition->uuid )}}" class="btn btn-outline-success" style="margin-left:40%;">Back</a>
+                <button type="submit" class="btn btn-success" style="margin-left: 2%">Update Traveller</button>
 
             </div>
         </div>

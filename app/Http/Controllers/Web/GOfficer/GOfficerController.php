@@ -165,11 +165,7 @@ class GOfficerController extends Controller
 
     public function import(Request $request)
     {
-       /* \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
-        alert()->success('Uploaded Successfully', 'Success');
-        return redirect()->back();*/
-
-//        dd(Request::all());
+      
         if ($request->hasFile('file')){
 
             $file_name = $request->file('file')->getClientOriginalName();

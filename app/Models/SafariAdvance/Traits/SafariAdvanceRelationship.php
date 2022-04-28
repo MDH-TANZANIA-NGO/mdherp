@@ -5,6 +5,7 @@ namespace App\Models\SafariAdvance\Traits;
 use App\Models\Auth\User;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
+use App\Models\SafariAdvance\SafariAdvancePayment;
 use App\Models\System\District;
 use App\Models\System\Region;
 use App\Models\Workflow\WfTrack;
@@ -41,6 +42,11 @@ trait SafariAdvanceRelationship
     public function region()
     {
         return $this->belongsTo(Region::class);
+    }
+
+    public  function safariPayment()
+    {
+        return $this->hasOne(SafariAdvancePayment::class);
     }
 
 }

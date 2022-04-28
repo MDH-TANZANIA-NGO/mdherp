@@ -282,6 +282,13 @@ if (!function_exists('check_available_budget_individual')) {
         return (new \App\Repositories\Requisition\RequisitionRepository())->checkAvailableBudgetIndividual($model, $amount, $current_amount, $updated_amount);
     }
 }
+if (!function_exists('getNoDays')) {
+    function getNoDays($from, $to)
+    {
+        return (new \App\Repositories\Requisition\RequisitionRepository())->getNoDays($from, $to);
+    }
+}
+
 
 if (!function_exists('currency_converter')) {
     function currency_converter($amount, $currency)

@@ -66,8 +66,8 @@
                             <div class="form-group">
                                 <label class="form-label">Amount Advanced</label>
                                 {{--                    {!! Form::text('amount_paid_show', $retire_safari->amount_paid, ['class' => 'form-control', 'disabled' ]) !!}--}}
-                                <input type="text" id="a_paid" onblur="calculate('a_paid','a_spent','a_variance')" disabled name="amount_paid_show" class="form-control" value="{{$retire_safari->amount_paid}}">
-                                {!! Form::text('amount_paid', $retire_safari->amount_paid, ['class' => 'form-control', 'hidden' ]) !!}
+                                <input type="text" id="a_paid" onblur="calculate('a_paid','a_spent','a_variance')" disabled name="amount_paid_show" class="form-control" value="{{$retire_safari->disbursed_amount}}">
+                                {!! Form::text('amount_paid', $retire_safari->disbursed_amount, ['class' => 'form-control', 'hidden' ]) !!}
                             </div>
                         </div>
 

@@ -12,12 +12,13 @@ use App\Models\System\Region;
 use App\Repositories\BaseRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Services\Calculator\GetNoDays\GetNoDays;
 use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
 use Illuminate\Support\Facades\DB;
 
 class RequestTravellingCostRepository extends BaseRepository
 {
-        use InitiatorBudgetChecker;
+        use InitiatorBudgetChecker, GetNoDays;
     const MODEL = requisition_travelling_cost::class;
 
     protected $mdh_rates;
@@ -51,41 +52,84 @@ class RequestTravellingCostRepository extends BaseRepository
         $mdh_rates =  mdh_rate::query()->pluck('amount');
 
 //       dd($mdh_rates[2]);
-        $from = $inputs['from'];
+       /* $from = $inputs['from'];
         $to = $inputs['to'];
         $datetime1 = new \DateTime($from);
         $datetime2 = new  \DateTime($to);
         $interval = $datetime1->diff($datetime2);
         $days = $interval->format('%a');
-        dd($days);
+        $days = (int)$days + 1;*/
+
+        $days = getNoDays($inputs['from'], $inputs['to']);
         $accommodation = $inputs['accommodation'];
+        $total_amount = 0;
+        $perdiem_total_amount = 0;
+        $ontransit = 0;
 
         if ($destination_region == $traveller_region_id){
-            $perdiem_rate = $mdh_rates[2];
-            $ontransit = 0;
-            $perdiem_total_amount = $perdiem_rate *$days;
-            $accommodation = $accommodation * $days;
-            $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'] + $accommodation;
+            if ($days != 1)
+            {
+                $perdiem_rate = $mdh_rates[2];
+                $perdiem_total_amount = $perdiem_rate *$days;
+                $accommodation = $accommodation * $days;
+                $total_amount = $perdiem_total_amount + $inputs['transportation'] +$inputs['ticket_fair']+ $inputs['other_cost'] + $accommodation;
+
+            }
+            if ($days == 1)
+            {
+                $total_amount = $perdiem_total_amount + $ontransit + $inputs['transportation'] + $inputs['ticket_fair'] +$inputs['other_cost'] + $accommodation;
+
+            }
+
+
 
         }
-        else{
+        if ($destination_region != $traveller_region_id){
+            if ($days != 1)
+            {
                 if ($region_status == 'TRUE'){
                     $perdiem_rate = $mdh_rates[0];
-                    $perdiem_total_amount = $perdiem_rate *($days-2);
-                    $ontransit = ($perdiem_rate * (0.75)) * 2;
-                    $accommodation = $accommodation * ($days);
-                    $total_amount = $perdiem_total_amount + $ontransit + $inputs['transportation'] + $inputs['other_cost'] + $accommodation;
+                    if ($days > 2)
+                    {
+                        $perdiem_total_amount = $perdiem_rate *($days-2);
+                        $ontransit = ($mdh_rates[0] * (0.75)) * 2;
+                        $accommodation = $accommodation * ($days);
+                        $total_amount = $perdiem_total_amount + $ontransit + $inputs['transportation'] + $inputs['ticket_fair']+ $inputs['other_cost'] + $accommodation;
+
+                    }
+                    if ($days <= 2)
+                    {
+                        $total_amount = $perdiem_total_amount + $ontransit + $inputs['transportation'] +$inputs['ticket_fair']+  $inputs['other_cost'] + $accommodation;
+
+                    }
 
                 }
-                else{
+                if ($region_status == 'FALSE'){
 
                     $perdiem_rate = $mdh_rates[1];
-                    $perdiem_total_amount = $perdiem_rate *($days-2);
-                    $accommodation = $accommodation * ($days);
-                    $ontransit = ($perdiem_rate * (0.75)) * 2;
-                    $total_amount = $perdiem_total_amount + $ontransit + $inputs['transportation'] + $inputs['other_cost'] + $accommodation;
+                    if ($days > 2)
+                    {
+                        $perdiem_total_amount = $perdiem_rate *($days-2);
+                        $accommodation = $accommodation * ($days);
+                        $ontransit = ($mdh_rates[1] * (0.75)) * 2;
+                        $total_amount = $perdiem_total_amount + $ontransit + $inputs['transportation'] +$inputs['ticket_fair']+  $inputs['other_cost'] + $accommodation;
+
+                    }
+                    if ($days <= 2)
+                    {
+                        $total_amount = $perdiem_total_amount + $ontransit + $inputs['transportation'] +$inputs['ticket_fair']+  $inputs['other_cost'] + $accommodation;
+
+                    }
 
                 }
+            }
+          if ($days == 1){
+
+              $total_amount = $perdiem_total_amount + $ontransit + $inputs['transportation'] + $inputs['ticket_fair'] +$inputs['other_cost'] + $accommodation;
+
+
+          }
+
 
         }
 
@@ -100,8 +144,8 @@ class RequestTravellingCostRepository extends BaseRepository
             'other_cost' => $inputs['other_cost'],
             'others_description' => $inputs['other_cost_description'],
             'ticket_fair' => $inputs['ticket_fair'],
-            'from' => $from,
-            'to' => $to,
+            'from' => $inputs['from'],
+            'to' => $inputs['to'],
             'total_amount' =>  $total_amount,
 
         ];
