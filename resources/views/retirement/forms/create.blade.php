@@ -111,7 +111,7 @@
                     <div class="col-md-12" >
                         <div class="form-group">
                             <label class="form-label">Background Information: <span class="form-label-small">56/100</span></label>
-                            <textarea class="form-control" name="activity_report" rows="2" placeholder="Write activity report.." required></textarea>
+                            <textarea class="content" name="activity_report" rows="2" placeholder="Write activity report.." required></textarea>
                         </div>
                     </div>
 
@@ -123,7 +123,7 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">What was Planned:</label>
-                                <textarea rows="2" cols="50" class="form-control" name="planned_report" placeholder="Write the plan.." required></textarea>
+                                <textarea rows="2" cols="50" class="content" name="planned_report" placeholder="Write the plan.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                         <div class="col-md-10" >
                             <div class="form-group">
                                 <label class="form-label">Objectives:</label>
-                                <textarea rows="2" cols="50" class="form-control" name="objective_report" placeholder="Write your objectives.." required></textarea>
+                                <textarea rows="2" cols="50" class="content" name="objective_report" placeholder="Write your objectives.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -158,7 +158,7 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">Achievements:</label>
-                                <textarea rows="2" cols="50" class="form-control" name="achievement_report" placeholder="Write the Achievements.." required></textarea>
+                                <textarea rows="2" cols="50" class="content" name="achievement_report" placeholder="Write the Achievements.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">Recommendations/Action plans :</label>
-                                <textarea rows="2" cols="50" class="form-control" name="action_report" placeholder="Write the Recommendations/Action plans .." required></textarea>
+                                <textarea rows="2" cols="50" class="content" name="action_report" placeholder="Write the Recommendations/Action plans .." required></textarea>
                             </div>
                         </div>
                     </div>
