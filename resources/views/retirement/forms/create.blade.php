@@ -75,7 +75,7 @@
 
                             <div class="form-group">
                                 <label class="form-label">Amount Received </label>
-                                {!! Form::number('amount_received', $retire_safari->amount_paid, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}
+                                {!! Form::number('amount_received', $retire_safari->amount_paid, ['class' => 'form-control money', 'placeholder'=>'Enter amount you received' ]) !!}
                                 {{--                            <input type="number" name="amount_received" class="form-control" placeholder="Enter amount you received">--}}
 
                             </div>
@@ -90,7 +90,7 @@
                             <div class="form-group">
                                 <label class="form-label">Actual Amount Spent </label>
                                 {{--                            {!! Form::number('amount_spent',$retire_safari->amount_received, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}--}}
-                                <input type="number" id="a_spent" onkeydown="calculate('a_paid','a_spent','a_variance')" name="amount_spent" class="form-control" required placeholder="Enter amount you spent">
+                                <input type="number" id="a_spent" onkeyup="calculate('a_paid','a_spent','a_variance')" name="amount_spent" class="form-control money" required placeholder="Enter amount you spent">
 
                             </div>
                         </div>
@@ -184,39 +184,23 @@
                     <hr>
 
                     <div class ="row">
-                    <div class="container lst">
-                    <div class="input-group hdtuto control-group lst increment" >
+                        <div class="container lst">
+                            <div class="input-group hdtuto control-group lst" >
 
                       {{--  <div class="col-md-4" >
                         <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
                         </div>--}}
-                            <div class="col-md-4" >
-                        <input type="file" name="attachments[]" class="form-control">
+                                <div class="col-md-4" >
+                                    <input type="file" name="attachments[]" class="form-control">
+                                </div>
+                                <div class="input-group-btn col-md-4">
+                                    <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
+                                </div>
                             </div>
-                        <div class="input-group-btn col-md-4">
-                            <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
                         </div>
                     </div>
 
-                    <div class="clone hide">
-                        <div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">
-                           {{-- <div class="col-md-4" >
-                            <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
-                            </div>--}}
-                            <div class="col-md-4" >
-                            <input type="file" name="attachments[]" class="form-control">
-                            </div>
-
-                            <div class="input-group-btn col-md-4" >
-                               <button class="btn btn-danger att_button_rem" type="button"><i class=""></i>Remove attachment field</button>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    </div>
-                    </div>
+                    <div id="increment"></div>
 
                     <hr>
 &nbsp;
@@ -240,14 +224,28 @@
             calculate = function (a_paid, a_spent, a_variance) {
                 var amount_advanced = (document.getElementById(a_paid).value);
                 var amount_spent = parseFloat(document.getElementById(a_spent).value).toFixed(2);
-                var amount_variance = (amount_advanced) - (amount_spent);
+                var amount_variance = amount_advanced - amount_spent;
                 (document.getElementById(a_variance).value) = (amount_variance);
+
             }
 
             $(document).ready(function() {
-                $(".att_button").click(function(){
-                    var lsthmtl = $(".clone").html();
-                    $(".increment").after(lsthmtl);
+                $(".att_button").click(function(event){
+                    event.preventDefault();
+                    // var lsthmtl = $(".clone").html();
+                    // $(".increment").after(lsthmtl);
+                    let $increment = $("#increment");
+
+                    $increment.prepend('' +
+                            '<div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">'+
+                                '<div class="col-md-4" >'+
+                                    '<input type="file" name="attachments[]" class="form-control">'+
+                                '</div>'+
+
+                                '<div class="input-group-btn col-md-4" >'+
+                                    '<button class="btn btn-danger att_button_rem" type="button"><i class=""></i>Remove attachment field</button>'+
+                                '</div>'+
+                            '</div>')
 
                 });
                 $("body").on("click",".att_button_rem",function(){
