@@ -57,17 +57,26 @@ class GOfficerRepository extends BaseRepository
             ->pluck('unique', 'id');
     }
 
+
     public function getActive()
     {
-        return $this->getQuery()
-            ->limit(100);
+        return $this->getQuery();
     }
     public function getNotSelectedInActivity()
     {
         return $this->getQuery()
             ->whereHas('Training');
     }
-
+    public function getDuplicated()
+    {
+        return $this->query()->select([
+            DB::raw('g_officers.id AS id'),
+            DB::raw('g_officers.first_name AS first_name'),
+            DB::raw('g_officers.last_name AS last_name'),
+            DB::raw('g_officers.phone AS phone'),
+        ])
+            ->leftjoin('g_officers', 'g_officers.phone', 'g_officer_imported_data.phone');
+    }
     public function inputProcess($inputs)
     {
         $region_id = region::query()->where('id', District::query()->where('id', $inputs['district_id'])->first()->region_id)->first()->id;

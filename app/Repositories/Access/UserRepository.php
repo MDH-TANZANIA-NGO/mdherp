@@ -283,6 +283,7 @@ class UserRepository extends BaseRepository
             DB::raw('users.last_name AS last_name'),
             DB::raw('users.email AS email'),
             DB::raw('users.phone AS phone'),
+            DB::raw('users.identity_number AS identity_number'),
             DB::raw('users.uuid AS uuid'),
             DB::raw('users.country_organisation_id as country_organisation_id'),
             DB::raw('regions.name AS region'),
@@ -307,7 +308,16 @@ class UserRepository extends BaseRepository
         return $this->getQuery()
             ->where('active', false);
     }
+    public function getAllNotSubmittedTimesheet($month, $year)
+    {
+        return $this->getQuery()
+            ->whereDoesntHave('timesheets', function ($query) use($month, $year){
+                $query ->whereMonth('timesheets.created_at', $month)
+                    ->whereYear('timesheets.created_at', $year);
+            })
 
+            ->get();
+    }
     /**
      *
      * @return mixed

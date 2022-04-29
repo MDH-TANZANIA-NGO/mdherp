@@ -9,6 +9,7 @@
         <th class="wd-25p">REGION</th>
         <th class="wd-25p">FACILITY</th>
         <th class="wd-10p">ACTION</th>
+
     </tr>
     </thead>
 </table>
@@ -19,7 +20,7 @@
 
             $("#all_projects").DataTable({
                 // processing: true,
-                serverSide: true,
+                // serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,

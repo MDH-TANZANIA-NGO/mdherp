@@ -12,6 +12,7 @@ trait InitiatorBudgetChecker
 {
     public function check($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)
     {
+
         return [
             'project' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->project_list,
             'activity' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->code_title,
@@ -24,6 +25,7 @@ trait InitiatorBudgetChecker
             'actual' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->budget_actual_amount,
             'commitment' => $this->commitment($project_id, $activity_id, $region_id),
             'pipeline' => $this->pipeline($project_id, $activity_id, $region_id),
+            'actual_expenditure'=> $this->actualExpenditure(),
             'available budget' => null,
         ];
     }
@@ -40,11 +42,16 @@ trait InitiatorBudgetChecker
 
     public function pipeline($project_id, $activity_id, $region_id)
     {
-        return (new RequisitionRepository())->getSumOnPipeline($project_id, $activity_id, $region_id)->sum('requisitions.amount');
+        return (new RequisitionRepository())->getPipelines()->sum('requisitions.amount');
     }
     public function commitment($project_id, $activity_id, $region_id)
     {
-        return (new RequisitionRepository())->getCommitment($project_id, $activity_id, $region_id)->sum('requisitions.amount');
+        return (new RequisitionRepository())->getCommitmentOnTheSameBudget()->sum('requisitions.amount');
+    }
+
+    public function actualExpenditure()
+    {
+        return (new RequisitionRepository())->getActualExpenditure()->sum('payments.payed_amount');
     }
 
 }

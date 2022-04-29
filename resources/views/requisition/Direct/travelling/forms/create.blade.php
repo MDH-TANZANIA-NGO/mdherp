@@ -6,14 +6,14 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         {!! Form::label('traveller_name', __("Traveller Name"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::select('traveller_uid',$users, null, ['class' => 'form-control select2-show-search', 'required']) !!}
+                        {!! Form::select('traveller_uid',$users, null, ['class' => 'form-control select2-show-search','placeholder'=>'Select Traveler', 'required']) !!}
                         {!! $errors->first('traveller_uid', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <div class="form-group">
                         {!! Form::label('destination', __("Destination"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','required']) !!}
+                        {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','placeholder'=>'Select District','required']) !!}
                         {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>

@@ -396,9 +396,9 @@
                             <tr>
                                 <td class="content-cell">
                                     <div class="f-fallback">
-                                        <h1 style="color: #022169">Dear All Staffs, </h1>
+                                        <h1 style="color: #022169">Dear All Staff, </h1>
                                         <p style="text-align: justify">
-                                            This is a reminder that your timesheet is due tomorrow, <b>{{ \Carbon\Carbon::now()->addDay()->format('d-M-Y') }}</b>. Kindly complete and submit your timesheet before the end of business hours to allow timely processing of payroll. Failure to submit your timesheet on time may result in late payment of your Salary. If you have any questions please contact your supervisor
+                                            This is a reminder that your timesheet is due tomorrow, <b>{{ \Carbon\Carbon::now()->addDay()->format('d-M-Y') }}</b>. Kindly complete and submit your timesheet before the end of business hours to allow timely processing of payroll. Failure to submit your timesheet on time may result in late payment of your Salary. If you have any questions please contact HR or IT team.
                                         </p>
                                         &nbsp;
                                         <p>

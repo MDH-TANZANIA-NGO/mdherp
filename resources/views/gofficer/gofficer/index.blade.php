@@ -2,19 +2,12 @@
 @section('content')
 
 
-   {{-- <div class="row  mb-3">
-        <span class="col-12 text-left font-weight-bold">Individual External Users Registration</span>
-    </div>
+    <a href="{{route('compliance.export_beneficiaries')}}" class="btn btn-success" style="margin-bottom: 1%" > <i class="fe fe-download-cloud mr-2"></i>Export To Excel</a>
 
-
-    @include('gofficer.gofficer.form.create')--}}
-
-
-    {{-- Datatable starts here --}}
 
 
     <div class="row  mb-3">
-        <span class="col-12 text-center font-weight-bold">List  External Users</span>
+        <span class="col-12 text-center font-weight-bold">Beneficiaries List</span>
     </div>
 
 
@@ -27,7 +20,11 @@
                 <div class="col-12" >
 
             <div class="table-responsive">
+
                 @include('gofficer.gofficer.datatables.all')
+
+
+
             </div>
                 </div>
         </div>

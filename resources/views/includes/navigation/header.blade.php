@@ -39,7 +39,7 @@
                    </div>
             @endpermission
                 <div class="dropdown  header-option" >
-                    <a class="nav-link icon" href="{{route('compliance.beneficiaries')}}">
+                    <a class="nav-link icon" href="{{route('g_officer.index')}}">
                         <i class="fe fe-users"></i> <span class="nav-span">Beneficiaries</span>
                     </a>
                 </div>

@@ -4,6 +4,7 @@ Route::group(['namespace' => 'Listing', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('create', 'ListingController@create')->name('create');
     Route::post('store', 'ListingController@store')->name('store');
     Route::get('{listing}/show', 'ListingController@show')->name('show');
+    Route::get('{listing}/edit', 'ListingController@edit')->name('edit');
     Route::put('{listing}/update', 'ListingController@update')->name('update');
 
     /**

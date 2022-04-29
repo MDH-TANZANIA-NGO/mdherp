@@ -20,6 +20,7 @@ use App\Repositories\MdhRates\mdhRatesRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
 use App\Repositories\Requisition\Training\trainingRepository;
 use App\Repositories\System\RegionRepository;
+use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
 use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
 use App\Models\Requisition\Requisition;
@@ -36,7 +37,7 @@ use Symfony\Component\Console\Input\Input;
 
 class RequisitionController extends Controller
 {
-    use RequisitionDatatables;
+    use RequisitionDatatables, InitiatorBudgetChecker;
     protected $requisitions;
     protected $requisition_types;
     protected $projects;
@@ -154,6 +155,9 @@ class RequisitionController extends Controller
     public function show(Requisition $requisition)
     {
 
+
+        $budget = $this->check($requisition->requisition_type_id, $requisition->project_id, $requisition->activity_id, $requisition->region_id, $requisition->budget()->first()->fiscal_year_id);
+
         /* Check workflow */
         $wf_module_group_id = 1;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $requisition->id);
@@ -172,8 +176,7 @@ class RequisitionController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($requisition))
             ->with('items', $requisition->items)
             ->with('travelling_costs',$requisition->travellingCost)
-            ->with('budget', Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', access()->user()->region_id)->first())
-            ->with('budget', Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', $requisition->user()->first()->region_id)->first())
+            ->with('budget', $budget)
             ->with('training_costs', $requisition->trainingCost)
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
@@ -195,6 +198,7 @@ class RequisitionController extends Controller
      */
     public function submit(Requisition $requisition)
     {
+        check_available_budget_individual($requisition,$requisition->amount);
         DB::transaction(function () use ($requisition){
             $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
             $wf_module_group_id = 1;

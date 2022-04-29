@@ -42,14 +42,17 @@ class SafariController extends Controller
         $this->designations = (new DesignationRepository());
     }
 
+
     public function index()
     {
+
         return view('safari.index')
             ->with('safariAdvance', $this->safariAdvance =  (new SafariAdvanceRepository()));
     }
 
     public  function  create(SafariAdvance $safariAdvance)
     {
+
 
         return view('safari.forms.create')
 
@@ -59,6 +62,7 @@ class SafariController extends Controller
     }
     public  function  edit(SafariAdvance $safariAdvance)
     {
+
 
         return view('safari.forms.edit')
             ->with('safari_advance_details', $safariAdvance->SafariDetails()->first())

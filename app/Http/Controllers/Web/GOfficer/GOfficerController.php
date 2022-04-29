@@ -165,16 +165,10 @@ class GOfficerController extends Controller
 
     public function import(Request $request)
     {
-       /* \Maatwebsite\Excel\Facades\Excel::import(new GOfficersImport, \request()->file('file'));
-        alert()->success('Uploaded Successfully', 'Success');
-        return redirect()->back();*/
 
-//        dd(Request::all());
         if ($request->hasFile('file')){
 
-            $file_name = $request->file('file')->getClientOriginalName();
-            $temporary_store = new GOfficerImportedTemporaryData($file_name);
-            $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
+
             try {
                 $file_name = $request->file('file')->getClientOriginalName();
                 $temporary_store = new GOfficerImportedTemporaryData($file_name);
@@ -199,8 +193,31 @@ class GOfficerController extends Controller
 
     public function confirmAndUpload()
     {
-
         try {
+            $upload = GofficerImportedData::query()
+                ->where('user_id', '=', access()->user()->id)
+                ->where('uploaded', false)
+                ->each(function ($oldPost) {
+                    $newPost = $oldPost->replicate(['user_id', 'duplicated', 'uploaded', 'file_name', 'number']);
+                    $newPost->setTable('g_officers');
+                    $newPost->save();
+
+                });
+
+            if ($upload) {
+                GofficerImportedData::query()->where('user_id', access()->user()->id)->forceDelete();
+                alert()->success('Uploaded and confirmed successfully', 'Success');
+            }
+
+
+            return redirect()->back();
+        }catch (\Exception $exception){
+
+            $exception->getMessage();
+            alert()->error('You can not confirm duplicate entries','FAILED');
+            return redirect()->back();
+        }
+       /* try {
             $upload = GofficerImportedData::query()
                 ->where('user_id','=', access()->user()->id)
                 ->where('uploaded', false)
@@ -222,7 +239,7 @@ class GOfficerController extends Controller
             $exception->getMessage();
             alert()->error('You can not confirm duplicate entries','Not allowed');
             return redirect()->back();
-        }
+        }*/
 
 
 

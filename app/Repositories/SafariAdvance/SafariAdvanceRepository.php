@@ -153,10 +153,11 @@ class SafariAdvanceRepository extends BaseRepository
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('safari_advances.wf_done', 1)
+
+            ->where('users.id', access()->id())
 //            ->where('safari_advances.done', false)
             ->where('safari_advances.rejected', false)
-            ->where('safari_advances.amount_paid', '!=', 0 )
-            ->where('users.id', access()->id());
+            ->whereHas('safarPayments');
     }
 
     public function getSafariDetails()
@@ -215,6 +216,24 @@ class SafariAdvanceRepository extends BaseRepository
         return $this->getQuery()
             ->where('safari_advances.wf_done', 1)
             ->whereDoesntHave('retirement');
+    }
+    public function getCompletedWithRetirement()
+    {
+        return $this->getQuery()
+            ->where('safari_advances.wf_done', 1)
+            ->whereHas('retirement');
+    }
+
+    public function getPaidSafari($safari_id)
+    {
+        return $this->getQuery()
+            ->select([
+                DB::raw('safari_advance_payments.id AS payment_id'),
+                DB::raw('safari_advance_payments.account_no AS account_number'),
+                DB::raw('safari_advance_payments.disbursed_amount AS disbursed_amount'),
+            ])
+            ->leftjoin('safari_advance_payments', 'safari_advance_payments.safari_advance_id', 'safari_advances.id')
+        ->where('safari_advances.id', $safari_id);
     }
 
 

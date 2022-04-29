@@ -97,6 +97,7 @@ class ListingController extends Controller
         $wf_module_id = $workflow->wf_module_id;
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($listing, $current_level, $workflow->wf_definition_id);
+        //dd($listing);
         return view('listing._parent.display.show')
             ->with('listing', $listing)
             ->with('current_level', $current_level)
@@ -109,11 +110,21 @@ class ListingController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Listing $listing)
     {
-        //
+        $tools = WorkingTool::all();
+        $users = User::where('designation_id', '!=', null)->get();
+        return view('listing._parent.form.edit')
+            ->with('listing', $listing)
+            ->with('prospects', code_value()->query()->where('code_id', 7)->get())
+            ->with('conditions', code_value()->query()->where('code_id', 8)->get())
+            ->with('establishments', code_value()->query()->where('code_id', 9)->get())
+            ->with('departments', $this->departments->getAll()->pluck('title','id'))
+            ->with('tools', $tools )
+            ->with('users', $users)
+            ->with('regions', $this->regions->getAll()->pluck('name','id'));
     }
 
     /**
