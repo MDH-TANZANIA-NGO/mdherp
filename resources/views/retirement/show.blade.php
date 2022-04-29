@@ -131,7 +131,11 @@
                 <hr>
 
                 <div class="table-responsive">
-                    @if($retirement->getFirstMediaURL('attachments') != null)
+                    {{$retirement->getMedia('attachments')}}
+{{--                    @foreach($retirement->getMedia('attachments') as $media)--}}
+{{--                        <a href="{{ $media->original_url }}">{{ $media->file_name }}</a>--}}
+{{--                    @endforeach--}}
+                    @if($retirement->getMedia('attachments'))
                     <table class="table card-table table-vcenter text-nowrap">
                         <thead >
                         <tr>
@@ -144,13 +148,13 @@
                         </thead>
                         <tbody>
 
-                        @foreach($retirementz as $retirement)
+                        @foreach($retirement->getMedia('attachments') as $key => $media)
                             <tr>
-                                <td>1</td>
-                                <td>Attachment</td>
+                                <td>{{ $key+1 }}</td>
+                                <td>{{ $media->name }}</td>
 {{--                                <td>{{$retirement->getFirstMedia('attachments')->pluck('name')}}</td>--}}
 {{--                                {{$retirement->getRegisteredMediaCollections()}}--}}
-                                <td><a href="{{$retirement->getFirstMediaURL('attachments')}}" target="_blank">view</a></td>
+                                <td><a href="{{$media->original_url}}" target="_blank">View attachment</a></td>
                             </tr>
 
                         @endforeach
