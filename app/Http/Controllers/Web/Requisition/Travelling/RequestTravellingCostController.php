@@ -34,11 +34,14 @@ protected $requisition;
     }
 
     public function index(){
-        return view('requisition.Direct.travelling.index', );
+
+
+        return view('requisition.Direct.travelling.index' );
 
     }
 
     public function store(Request $request, Requisition $requisition){
+
 
         $this->travellingCost->store($requisition, $request->all());
         return redirect()->back();
@@ -47,8 +50,6 @@ protected $requisition;
     }
 
     public function create(){
-
-
 
         return view('requisition.Direct.travelling.forms.create')
             ->with('mdh_rates',$this->mdh_rates->getAll()->pluck('id','amount'))
@@ -67,12 +68,13 @@ protected $requisition;
         $traveller =  $this->travellingCost->findByUuid($uuid);
         $traveller_details =  $this->travellingCost->getQuery()->first();
 
-
+        $requisition =  $this->requisition->find($traveller->requisition_id);
 
 
 
         return view('requisition.Direct.travelling.forms.edit')
             ->with('traveller', $traveller)
+            ->with('requisition', $requisition)
             ->with('user',$traveller->user()->first()->first_name )
             ->with('districts', $this->district->getForPluck())
             ->with('mdh_rates',$this->mdh_rates->getAll()->pluck('id','amount'))
@@ -86,7 +88,7 @@ protected $requisition;
         $traveller =  $this->travellingCost->findByUuid($uuid);
         $traveller_details =  $this->travellingCost->getQuery()->first();
         $requisition =  Requisition::query()->where('id',    $traveller->requisition_id)->first();
-
+        check_available_budget_individual($requisition, $traveller->total_amount, $traveller->total_amount, 0);
         DB::delete('delete from requisition_travelling_costs where uuid = ?',[$uuid]);
         $this->requisition->updatingTotalAmount($requisition);
         return redirect()->back();

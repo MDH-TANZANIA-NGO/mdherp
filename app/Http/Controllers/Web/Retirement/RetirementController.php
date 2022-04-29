@@ -56,11 +56,12 @@ class RetirementController extends Controller
     }
 
     public  function  create(Retirement $retirement)
+
     {
         return view('retirement.forms.create')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
-            ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
+            ->with('retire_safaris', $this->safari_advances->getSafariDetails()->where('safari_id', $retirement->safari_advance_id));
     }
 
    /* public  function  edit(Retirement $retirement)
@@ -73,9 +74,11 @@ class RetirementController extends Controller
 
     public  function  edit(Retirement $retirement)
     {
+
         return view('retirement.forms.edit')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
+            ->with('payment_details', $this->safari_advances->getPaidSafari($retirement->safari_advance_id)->first())
             ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id))
             ->with('retirementz',$retirement->details()->get());
     }

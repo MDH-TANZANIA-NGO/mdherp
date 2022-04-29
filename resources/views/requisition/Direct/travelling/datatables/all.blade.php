@@ -12,7 +12,7 @@
                         <tr>
 
                             <th>ID</th>
-                            <th>Travellor</th>
+                            <th>name</th>
                             <th>Days</th>
                             <th>Perdiem</th>
                             <th>Ontransit</th>
@@ -36,7 +36,7 @@
 
                                 <th>{{ number_2_format($cost->other_cost) }}</th>
                                 <th>{{ number_2_format($cost->total_amount) }}</th>
-                                <th><a href="{{route('travelling.edit',$cost->uuid)}}" class="btn btn-primary" onclick="if (confirm('Are you sure?')){return true} else {return false}">Edit</a> <a href="{{route('travelling.delete',$cost->uuid)}}" class="btn btn-danger" onclick="confirm('Are you sure?')">Delete</a> </th>
+                                <th><a href="{{route('travelling.edit',$cost->uuid)}}" class="btn btn-primary" onclick="if (confirm('Are you sure you want to edit?')){return true} else {return false}"><i class="fa fa-edit"></i></a> <a href="{{route('travelling.delete',$cost->uuid)}}" class="btn btn-danger" onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash"></i></a> </th>
                             </tr>
                         </tbody>
                         @endforeach
@@ -49,5 +49,13 @@
     </div>
 </div>
 <!--End  Row -->
+@push('after-scripts')
+    <script>
+        $(document).ready(function (){
+            $("#rawquery").dataTable()
+        })
+    </script>
+
+@endpush
 
 

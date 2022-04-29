@@ -43,6 +43,7 @@ class RequestTrainingCostController extends Controller
 
     public function store(Request $request, Requisition $requisition){
 
+
         $this->trainingCost->store($requisition, $request->all());
         return redirect()->back();
 
@@ -67,11 +68,19 @@ class RequestTrainingCostController extends Controller
     }
     public function storeTraining(Requisition $requisition,Request $request)
     {
+        $from = $request->get('from');
+        $to = $request->get('to');
+        $datetime1 = new \DateTime($from);
+        $datetime2 = new  \DateTime($to);
+        $interval = $datetime1->diff($datetime2);
+        $days = $interval->format('%a');
+
         $training = new requisition_training();
         $training-> requisition_id = request('requisition_id');
         $training-> district_id = request('district_id');
         $training-> start_date = request('from');
         $training-> end_date = request('to');
+        $training->no_days = $days;
         $training->save();
 
 
@@ -86,10 +95,11 @@ class RequestTrainingCostController extends Controller
     }
     public function removeItem( $uuid)
     {
-        $requisition = Requisition::query()->where('id', requisition_training_item::query()->where('uuid', $uuid)->first()->requisition_id)->first();
+        $requisition_training_item = requisition_training_item::query()->where('uuid', $uuid)->first();
+        $requisition = Requisition::query()->where('id', $requisition_training_item->requisition_id)->first();
 
-        return DB::transaction(function () use ($requisition, $uuid){
-
+        return DB::transaction(function () use ($requisition,$requisition_training_item, $uuid){
+                check_available_budget_individual($requisition, $requisition_training_item->total_amount,$requisition_training_item->total_amount, 0 );
                 DB::delete('delete from requisition_training_items where uuid = ?',[$uuid]);
                 $requisition->updatingTotalAmount();
             return redirect()->back();
@@ -98,9 +108,10 @@ class RequestTrainingCostController extends Controller
 
     public function removeParticipant( $uuid)
     {
-        $requisition =  Requisition::query()->where('id', requisition_training_cost::query()->where('uuid', $uuid)->first()->requisition_id)->first();
-        return DB::transaction(function () use ($requisition, $uuid){
-
+        $training_cost = requisition_training_cost::query()->where('uuid', $uuid)->first();
+        $requisition =  Requisition::query()->where('id', $training_cost->requisition_id)->first();
+        return DB::transaction(function () use ($requisition, $training_cost, $uuid){
+            check_available_budget_individual($requisition, $training_cost->total_amount, $training_cost->total_amount, 0);
             DB::delete('delete from requisition_training_costs where uuid = ?',[$uuid]);
             $requisition->updatingTotalAmount();
             return redirect()->back();

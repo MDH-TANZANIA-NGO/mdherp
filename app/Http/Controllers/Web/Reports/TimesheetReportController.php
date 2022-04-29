@@ -26,4 +26,13 @@ class TimesheetReportController extends Controller
             ->with('users', $this->users)
             ->with('timesheets', $this->timesheets);
     }
+    public function getFilteredRange(Request $request)
+    {
+       $month = date('m', strtotime($request['range']));
+        $year = date('Y', strtotime($request['range']));
+        $range = $month.$year;
+
+       return $range;
+
+    }
 }

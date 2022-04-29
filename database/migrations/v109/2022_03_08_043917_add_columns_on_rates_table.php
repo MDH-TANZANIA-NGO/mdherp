@@ -14,7 +14,7 @@ class AddColumnsOnRatesTable extends Migration
     public function up()
     {
         Schema::table('rates', function (Blueprint $table) {
-            $table->string('number')->unique();
+            $table->string('number')->unique()->nullable();
             $table->decimal('amount', 15,2);
             $table->unsignedBigInteger('next_user_id')->nullable();
             $table->boolean('done')->default(false);

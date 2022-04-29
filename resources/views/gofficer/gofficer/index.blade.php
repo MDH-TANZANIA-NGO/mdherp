@@ -20,12 +20,11 @@
                 <div class="col-12" >
 
             <div class="table-responsive">
-               @if(access()->user()->permission == 30)
-                @include('gofficer.gofficer.datatables.all')
-                @else
-                    @include('compliance.datatable.all')
 
-                   @endif
+                @include('gofficer.gofficer.datatables.all')
+
+
+
             </div>
                 </div>
         </div>

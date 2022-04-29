@@ -388,8 +388,10 @@ class Workflow
                     $email_resource = (object)[
                         'link' =>  route('requisition.show',$requisition),
                         'subject' => $requisition->typeCategory->title." Requisition Need your Approval",
-                        'message' => $requisition->typeCategory->title." Requisition ".$requisition->number.' need your approval'
-                    ];
+                        'message' => 'There is new'.$requisition->typeCategory->title." Requisition ".$requisition->number."Pending your approval".' '.
+                            "<b>New</b>"
+
+];
 //                    User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
                     break;
 

@@ -1,3 +1,27 @@
+
+
+
+        {{--{!! Form::open(['route' => ['timesheet_report.filter_range']]) !!}
+
+
+        <div class="form-group" style="margin-left: 30%">
+            <label class="form-label">Filter by Month</label>
+            <div class="row gutters-xs">
+                <div class="col col-md-4">
+                    <input type="month" class="form-control" name="range" >
+                </div>
+                <span class="col-auto">
+													<button class="btn btn-success" type="submit"><i class="fe fe-filter"></i></button>
+												</span>
+            </div>
+        </div>
+
+
+
+        {!! Form::close() !!}--}}
+
+
+
 <div class="card-body p-6">
     <div class="panel panel-primary">
 
@@ -7,9 +31,9 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li><a href="#processing" data-toggle="tab" class="active">Processing <span class="badge badge-primary">{{ $timesheets->getSubmittedTimesheets()->count() }}</span></a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{$timesheets->getApprovedTimesheets()->count()  }}</span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $timesheets->getRejectedTimesheets()->count()  }}</span> </a></li>
+                    <li><a href="#processing" data-toggle="tab" class="active">Processing <span class="badge badge-primary">{{ $timesheets->getSubmittedTimesheets(date('m', strtotime(today())), date('Y', strtotime(today())))->count() }}</span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{$timesheets->getApprovedTimesheets(date('m', strtotime(today())), date('Y', strtotime(today())))->count()  }}</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $timesheets->getRejectedTimesheets(date('m', strtotime(today())), date('Y', strtotime(today())))->count()  }}</span> </a></li>
                     <li><a href="#not_submitted" data-toggle="tab" class="">Not Submitted <span class="badge badge-danger">{{ $users->getAllNotSubmittedTimesheet(date('m', strtotime(today())), date('Y', strtotime(today())))->count()  }}</span> </a></li>
                 </ul>
             </div>

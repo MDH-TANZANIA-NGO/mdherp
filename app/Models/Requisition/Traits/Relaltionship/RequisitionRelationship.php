@@ -10,6 +10,7 @@ use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\Project\Activity;
 use App\Models\Project\Project;
 use App\Models\Requisition\Item\RequisitionItem;
+use App\Models\Requisition\RequisitionFundChecker;
 use App\Models\Requisition\RequisitionType\RequisitionType;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
@@ -68,6 +69,10 @@ trait RequisitionRelationship
     public function  payments()
     {
         return $this->hasOne(Payment::class);
+    }
+    public function fundChecker()
+    {
+        return $this->hasOne(RequisitionFundChecker::class);
     }
 
 

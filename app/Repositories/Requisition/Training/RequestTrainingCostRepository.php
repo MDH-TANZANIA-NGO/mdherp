@@ -77,6 +77,7 @@ class RequestTrainingCostRepository extends BaseRepository
     public function store(Requisition $requisition, $inputs)
     {
         return DB::transaction(function () use ($requisition, $inputs){
+            check_available_budget_individual($requisition, $this->inputProcess($inputs)['total_amount'],0,$this->inputProcess($inputs)['total_amount']);
             $requisition->trainingCost()->create($this->inputProcess($inputs));
             $requisition->updatingTotalAmount();
             return $requisition;

@@ -6,6 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
+                        <a href="{{route('programactivity.show',$program_activity->uuid)}}" class="btn btn-instagram" style="margin-right: 2%" >Back</a>
                         <a href="{{route('requisition.show', $requisition->uuid)}}"><h3 class="card-title">{{$requisition->number}}</h3></a>
                     </div>
                     <div class="card-body">
@@ -96,6 +97,7 @@
 
                                 <tr>
                                     <td colspan="5" class="text-right">
+
                                         <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal3" style="margin-left: 40%;">Verify Payment </button>
 
                                     </td>
@@ -140,12 +142,17 @@
                             <label for="recipient-name" class="form-control-label">Account Number:</label>
                             {!! Form::text('number',$details->user->phone,['class'=>'form-control', 'placeholder'=>'0758698022 or 0J1468300300']) !!}
                         </div>
-
+                        @if($details->amount_paid == null)
                         <div class="form-group">
                             <label for="recipient-name" class="form-control-label">Total Amount:</label>
                             {!! Form::number('payed_amount',$details->total_amount,['class'=>'form-control', 'placeholder'=>'100,000', 'id'=>'paid_amount']) !!}
                         </div>
-
+                        @else
+                            <div class="form-group">
+                                <label for="recipient-name" class="form-control-label">Total Amount:</label>
+                                {!! Form::number('payed_amount',$details->amount_paid,['class'=>'form-control', 'placeholder'=>'100,000', 'id'=>'paid_amount']) !!}
+                            </div>
+                        @endif
                         {!! Form::number('reference',$details->id,['class'=>'form-control', 'hidden']) !!}
                         {!! Form::number('requested_amount',$details->total_amount,['class'=>'form-control', 'hidden', 'id'=>'requested_amount']) !!}
                         <div class="form-group">

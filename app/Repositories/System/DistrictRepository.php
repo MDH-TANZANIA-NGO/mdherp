@@ -150,4 +150,6 @@ class DistrictRepository extends BaseRepository
         return $this->getActive()->pluck('name', 'id');
     }
 
+
+
 }
