@@ -168,6 +168,7 @@ class GOfficerController extends Controller
 
         if ($request->hasFile('file')){
 
+
             try {
                 $file_name = $request->file('file')->getClientOriginalName();
                 $temporary_store = new GOfficerImportedTemporaryData($file_name);
@@ -261,7 +262,7 @@ class GOfficerController extends Controller
      */
     public function exportDuplicateImportedData()
     {
-        GofficerImportedData::query()->where('user_id', access()->user()->id)->forceDelete();
+
      return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportDuplicateGOfficerImportedData(), 'Duplicate Imported Entries.xlsx');
 
 
