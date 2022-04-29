@@ -131,7 +131,7 @@
                 <hr>
 
                 <div class="table-responsive">
-                    {{$retirement->getMedia('attachments')}}
+{{--                    {{$retirement->getMedia('attachments')}}--}}
 {{--                    @foreach($retirement->getMedia('attachments') as $media)--}}
 {{--                        <a href="{{ $media->original_url }}">{{ $media->file_name }}</a>--}}
 {{--                    @endforeach--}}

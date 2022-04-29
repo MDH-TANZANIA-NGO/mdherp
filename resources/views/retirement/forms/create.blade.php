@@ -61,13 +61,15 @@
                             </div>
                         </div>
 
+                        @foreach($retire_safaris_paid_amounts AS $retire_safaris_paid_amount)
+
                         <div class="col-md-4" >
 
                             <div class="form-group">
                                 <label class="form-label">Amount Advanced</label>
                                 {{--                    {!! Form::text('amount_paid_show', $retire_safari->amount_paid, ['class' => 'form-control', 'disabled' ]) !!}--}}
                                 <input type="text" id="a_paid" onblur="calculate('a_paid','a_spent','a_variance')" disabled name="amount_paid_show" class="form-control" value="{{$retire_safari->amount_paid}}">
-                                {!! Form::text('amount_paid', $retire_safari->amount_paid, ['class' => 'form-control', 'hidden' ]) !!}
+                                {!! Form::text('amount_paid', $retire_safaris_paid_amount->disbursed_amount, ['class' => 'form-control', 'hidden' ]) !!}
                             </div>
                         </div>
 
@@ -75,11 +77,13 @@
 
                             <div class="form-group">
                                 <label class="form-label">Amount Received </label>
-                                {!! Form::number('amount_received', $retire_safari->amount_paid, ['class' => 'form-control money', 'placeholder'=>'Enter amount you received' ]) !!}
+                                {!! Form::number('amount_received', $retire_safaris_paid_amount->disbursed_amount, ['class' => 'form-control money', 'placeholder'=>'Enter amount you received' ]) !!}
                                 {{--                            <input type="number" name="amount_received" class="form-control" placeholder="Enter amount you received">--}}
 
                             </div>
                         </div>
+
+                        @endforeach
 
                     </div>
 
@@ -149,7 +153,7 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">Methodology:</label>
-                                <textarea rows="2" cols="50" class="form-control" name="methodology_report" placeholder="Write the methodology.." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control content" name="methodology_report" placeholder="Write the methodology.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -167,7 +171,7 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">Challenges:</label>
-                                <textarea rows="2" cols="50" class="form-control" name="challenge_report" placeholder="Write the Challenges:.." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control content" name="challenge_report" placeholder="Write the Challenges:.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -176,7 +180,7 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">Recommendations/Action plans :</label>
-                                <textarea rows="2" cols="50" class="content" name="action_report" placeholder="Write the Recommendations/Action plans .." required></textarea>
+                                <textarea class="content" name="action_report" placeholder="Write the Recommendations/Action plans .." required></textarea>
                             </div>
                         </div>
                     </div>
