@@ -64,11 +64,13 @@ class TimesheetRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
-    public function getSubmittedTimesheets(){
+    public function getSubmittedTimesheets($month, $year){
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('timesheets.wf_done_date', null)
-            ->where('timesheets.rejected', false);
+            ->where('timesheets.rejected', false)
+            ->whereMonth('timesheets.created_at', $month)
+            ->whereYear('timesheets.created_at', $year);
     }
 
     public function getApprovedTimesheets(){
@@ -76,6 +78,8 @@ class TimesheetRepository extends BaseRepository
             ->whereHas('wfTracks')
             ->where('timesheets.wf_done', true)
             ->where('timesheets.rejected', false);
+//            ->whereMonth('timesheets.created_at', $month)
+//            ->whereYear('timesheets.created_at', $year);
     }
 
     public function getRejectedTimesheets(){
@@ -83,6 +87,8 @@ class TimesheetRepository extends BaseRepository
             ->whereHas('wfTracks')
             ->where('timesheets.wf_done', 0)
             ->where('timesheets.rejected', true);
+//            ->whereMonth('timesheets.created_at', $month)
+//            ->whereYear('timesheets.created_at', $year);
     }
 
     /**
