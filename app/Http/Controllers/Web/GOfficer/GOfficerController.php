@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Excel;
 use Symfony\Component\Console\Input\Input;
+use function PHPUnit\Framework\isEmpty;
 
 class GOfficerController extends Controller
 {
@@ -66,24 +67,13 @@ class GOfficerController extends Controller
     public function create()
     {
 
-        $duplicate_entries=  GofficerImportedData::query()
-                                ->whereHas('gOfficer')
-                                ->where('uploaded', false)
-                                ->where('user_id', access()->user()->id)
-                                ->get();
-        $uploaded_successfully=  GofficerImportedData::query()
-            ->whereHas('gOfficer')
-            ->where('uploaded', true)
-            ->where('user_id', access()->user()->id)
-            ->get();
-        $un_imported_g_officers = GofficerImportedData::query()
-            ->where('uploaded', false)
-            ->where('user_id', access()->user()->id)
-            ->get();
+        $duplicate_entries=  $this->g_officer_imported_data_repo->getAccessDuplicate()->get();
+        $uploaded_successfully=  $this->g_officer_imported_data_repo->getAccessUploadedSuccessfully()->get();
+        $un_imported_g_officers = $this->g_officer_imported_data_repo->getAccessImportedData()->get();
 
 
 
-
+//dd($un_imported_g_officers);
                     //
         return view('gofficer.gofficer.form.create')
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
@@ -193,16 +183,53 @@ class GOfficerController extends Controller
 
     public function confirmAndUpload()
     {
-        try {
-            $upload = GofficerImportedData::query()
-                ->where('user_id', '=', access()->user()->id)
-                ->where('uploaded', false)
-                ->each(function ($oldPost) {
-                    $newPost = $oldPost->replicate(['user_id', 'duplicated', 'uploaded', 'file_name', 'number']);
-                    $newPost->setTable('g_officers');
-                    $newPost->save();
+//        try {
+            $upload = $this->g_officer_imported_data_repo->getAccessImportedData()->get();
+            $duplicates = [];
+            foreach ($upload as $data)
+            {
+                $check_duplicate = $this->g_officers->getQuery()->where('phone', $data->phone);
 
-                });
+                if ($check_duplicate->count())
+                {
+                    array_push($duplicates,$data->phone);
+
+                }
+
+            }
+            if (empty($duplicates)){
+                foreach ($upload as $data)
+                {
+                    $this->g_officers->query()->create([
+                        'first_name'=>$data->first_name,
+                        'middle_name'=>$data->middle_name,
+                        'last_name'=>$data->last_name,
+                        'phone'=>$data->phone,
+                        'region_id'=>$data->region_id,
+                        'password'=>$data->password,
+                        'fingerprint_data'=>$data->fingerprint_data,
+                        'fingerprint_length'=>$data->fingerprint_length,
+                        'check_no'=>$data->check_no,
+                    ]);
+
+                }
+                $this->g_officer_imported_data_repo->getAccessImportedData()->forceDelete();
+                alert()->success('Beneficiaries have been registered successfully','Success');
+
+                return  redirect()->back();
+            }
+            if (!empty($duplicates)){
+                alert()->error('Your file has duplicate beneficiaries entries.','Failed');
+                return redirect()->back();
+            }
+//            return redirect()->back();
+/*
+//                ->each(function ($oldPost) {
+//                    $newPost = $oldPost->replicate(['user_id', 'duplicated', 'uploaded', 'file_name', 'number']);
+//                    $newPost->setTable('g_officers');
+//                    $newPost->save();
+//
+//                });
 
             if ($upload) {
                 GofficerImportedData::query()->where('user_id', access()->user()->id)->forceDelete();
@@ -216,7 +243,7 @@ class GOfficerController extends Controller
             $exception->getMessage();
             alert()->error('You can not confirm duplicate entries','FAILED');
             return redirect()->back();
-        }
+        }*/
        /* try {
             $upload = GofficerImportedData::query()
                 ->where('user_id','=', access()->user()->id)
@@ -248,10 +275,9 @@ class GOfficerController extends Controller
     public function clearImportHistory()
     {
 
+         $this->g_officer_imported_data_repo->getAccessDuplicate()->forceDelete();
 
-        $delete_imported_data =  GofficerImportedData::query()->where('user_id', access()->user()->id)->forceDelete();
-
-        alert()->success('Import history cleared successfully', 'Success');
+        alert()->success('Duplicate entries have been removed successfully', 'Success');
         return redirect()->back();
 
     }
@@ -262,8 +288,19 @@ class GOfficerController extends Controller
      */
     public function exportDuplicateImportedData()
     {
+        $get_duplicate_entries_count = $this->g_officer_imported_data_repo->getAccessDuplicate()->get()->count();
 
-     return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportDuplicateGOfficerImportedData(), 'Duplicate Imported Entries.xlsx');
+        if ($get_duplicate_entries_count > 0 )
+        {
+            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportDuplicateGOfficerImportedData(), 'Duplicate Imported Entries.xlsx');
+
+        }
+        if ($get_duplicate_entries_count <= 0)
+        {
+            alert()->error('You do not have duplicate entries to export');
+            return  redirect()->back();
+        }
+
 
 
     }
