@@ -2,7 +2,7 @@
 @section('content')
 
     <!-- Row-->
-   @if($un_sync_g_officers->count()>0 || $uploaded_and_confirmed->count()>0)
+{{--   @if($un_sync_g_officers->count()>0 )
        <div class="row">
            <div class="col-sm-12 col-md-6">
                <div class="card">
@@ -49,36 +49,49 @@
                </div>
            </div>
        </div>
-       @endif
+       @endif--}}
     <!-- End Row-->
-{{--    <div class="row  mb-3">--}}
-{{--        <span class="col-12 text-left font-weight-bold">Import Summary</span>--}}
-{{--    </div>--}}
-    {{--<div class="row">
+
+    @if($un_sync_g_officers->count()>0 )
+    <div class="row  mb-3">
+        <span class="col-12 text-left font-weight-bold">Import Summary</span>
+    </div>
+    <div class="row">
         <div class="col-lg-12 col-sm-12">
             <div class="card">
                 <div class="p-3">
                     <div class="row widget-text">
                         <div class="col-4">
-                            <h3 class="mb-0">{{$duplicate_entries->count()}}</h3>
-                            <p class=" mb-0 fs-13 text-muted">Duplicate Entries</p>
+                            <h3 class="mb-0 text ">{{$duplicate_entries->count()}}</h3>
+                            <p class=" mb-0 fs-13 text text-danger">Duplicate Entries</p>
                         </div>
                         <div class="col-4">
                             <h3 class="mb-0">{{$un_sync_g_officers->count()}}</h3>
-                            <span class=" mb-0 fs-13 text-muted">Not Confirmed Entries</span>
+                            <span class=" mb-0 fs-13 text text-info">Total Imported Entries</span>
                         </div>
                         <div class="col-4">
                             <h3 class="mb-0">{{$uploaded_and_confirmed->count()}}</h3>
-                            <span class=" mb-0  fs-13 text-muted">Uploaded and Confirmed</span>
+                            <span class=" mb-0  fs-13 text text-success">Successfully Registered</span>
                         </div>
+                     <div class="row" style="margin-top: 2%; margin-left:23%">
+                         <div class="btn-list">
+                             <a href="{{route('g_officer.export_duplicate')}}" class="btn btn-pill btn-secondary"><i class="fe fe-download-cloud mr-2"></i>Download duplicate entries</a>
+                             <a href="{{route('g_officer.confirm')}}" onclick="if (confirm('Are you sure you want to confirm?')){return true} else {return false}"class="btn btn-pill btn-info"><i class="fe fe-check-circle mr-2"></i>Confirm imported entries</a>
+                             <a href="{{route('g_officer.clear')}}" onclick="if (confirm('Are you sure you want to remove duplicate?')){return true} else {return false}" class="btn btn-pill btn-warning"><i class="fe fe-trash-2 mr-2"></i>Remove duplicate entries</a>
+{{--                             <a href="#" class="btn btn-pill btn-danger">Danger</a>--}}
+                         </div>
+                     </div>
 
-                            <a href="{{route('g_officer.confirm')}}" class="btn btn-info" style="margin-left: 40%; margin-top: 2%"> <i class="fe fe-check-circle mr-2"></i>Confirm and Import</a>
+{{--                            <a href="{{route('g_officer.confirm')}}" class="btn btn-info" style="margin-left: 20%; margin-top: 2%"> <i class="fe fe-check-circle mr-2"></i>Confirm and Register</a>--}}
+{{--                        <a href="{{route('g_officer.confirm')}}" class="btn btn-info" style="margin-left: 2%; margin-top: 2%"> <i class="fe fe-check-circle mr-2"></i>Confirm and Register</a>--}}
+{{--                        <a href="{{route('g_officer.confirm')}}" class="btn btn-info" style=" margin-left: 2%; margin-top: 2%"> <i class="fe fe-check-circle mr-2"></i>Confirm and Register</a>--}}
 
                     </div>
                 </div>
             </div>
         </div>
-    </div>--}}
+    </div>
+    @endif
     <div class="row  mb-3">
         <span class="col-12 text-left font-weight-bold">Individual External Users Registration</span>
     </div>
