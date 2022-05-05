@@ -23,7 +23,7 @@ class BudgetRepository extends BaseRepository
             DB::raw("string_agg(DISTINCT regions.name, ',') as region_list"),
         ])
             ->join('activities','activities.id','budgets.activity_id')
-            ->join('regions','regions.id','budgets.region_id')
+            ->leftjoin('regions','regions.id','budgets.region_id')
             ->join('fiscal_years','fiscal_years.id','budgets.fiscal_year_id')
             ->groupBy('activities.title','fiscal_years.title','activities.uuid','fiscal_years.uuid');
     }
