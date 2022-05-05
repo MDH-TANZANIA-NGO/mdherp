@@ -6,6 +6,7 @@ use App\Repositories\BaseRepository;
 use App\Models\Rate\Rate;
 use Illuminate\Support\Facades\DB;
 use App\Services\Generator\Number;
+use JasonGuru\LaravelMakeRepository\Exceptions\GeneralException;
 
 class RateRepository extends BaseRepository
 {
@@ -24,6 +25,15 @@ class RateRepository extends BaseRepository
     public function getAll()
     {
         return $this->getQuery()->orderBy('active', 'ASC');
+    }
+
+    public function getActive()
+    {
+        $active_rate = $this->getQuery()->where('active', true);
+        if($active_rate->count() == 0){
+            throw new GeneralException('Kindly contact system administrator to register new exchange rate');
+        }
+        return $active_rate->first();
     }
 
     /**

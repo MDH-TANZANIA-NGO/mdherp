@@ -27,7 +27,24 @@ class BudgetRepository extends BaseRepository
             ->groupBy('activities.title','fiscal_years.title','activities.uuid','fiscal_years.uuid');
     }
 
+    /**
+     * @param $inputs
+     * @return bool
+     */
     public function processStore($inputs)
+    {
+        if(isset($inputs['regions'])){
+            $this->storeRegionSpecific($inputs);
+        }else{
+            $this->storeNoneRegionSpecific($inputs);
+        }
+        return true;
+    }
+
+    /**
+     * @param $inputs
+     */
+    public function storeRegionSpecific($inputs)
     {
         foreach ($inputs['regions'] as $region){
             $input = [
@@ -37,9 +54,26 @@ class BudgetRepository extends BaseRepository
                 'numeric_output' => $inputs['output'.$region],
                 'amount' => $inputs['amount'.$region],
                 'actual_amount' => $inputs['amount'.$region],
+                'rate_id' => active_rate_id(),
             ];
             $this->store($input);
         }
+    }
+
+    /**
+     * @param $inputs
+     */
+    public function storeNoneRegionSpecific($inputs)
+    {
+            $input = [
+                'fiscal_year_id' => $inputs['fiscal_year'],
+                'activity_id' => $inputs['activity'],
+                'numeric_output' => $inputs['output'],
+                'amount' => $inputs['amount'],
+                'actual_amount' => $inputs['amount'],
+                'rate_id' => active_rate_id(),
+            ];
+            $this->store($input);
     }
 
     public function store($input)
