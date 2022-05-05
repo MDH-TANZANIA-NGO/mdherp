@@ -373,6 +373,7 @@ class UserRepository extends BaseRepository
         return DB::transaction(function () use ($uuid, $inputs){
             //TODO detach
             $sub_program = (new SubProgramRepository())->findByUuid($uuid);
+            $sub_program->detach();
             return $sub_program->users()->attach($inputs['user']);
         });
     }
