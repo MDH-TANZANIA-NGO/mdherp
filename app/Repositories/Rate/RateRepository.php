@@ -15,6 +15,7 @@ class RateRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
+            DB::raw('rates.id AS id'),
             DB::raw('rates.amount AS amount'),
             DB::raw('rates.active as active'),
             DB::raw('rates.created_at as created_at'),
