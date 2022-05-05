@@ -442,7 +442,7 @@ class UserRepository extends BaseRepository
             ->where('users.designation_id', 8);
     }
 
-    public function getCEO2()
+    public function getCeo()
     {
         return $this->query()
             ->select([
@@ -451,7 +451,7 @@ class UserRepository extends BaseRepository
             ->where('users.designation_id', 121);
     }
 
-    public function getCeo()
+    public function getCeo2()
     {
         return $this->query()
             ->select([
