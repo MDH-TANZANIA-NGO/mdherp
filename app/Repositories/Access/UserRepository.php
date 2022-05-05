@@ -459,6 +459,7 @@ class UserRepository extends BaseRepository
             ])
             ->join('designations','designations.id', 'users.id')
             ->join('units','units.id','designations.unit_id')
+            ->where('designations.id', 121)
             ->where('units.id', 5);
     }
 
