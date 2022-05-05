@@ -5,6 +5,7 @@ namespace App\Repositories\Budget;
 use App\Models\Budget\Budget;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\GeneralException;
 
 class BudgetRepository extends BaseRepository
 {
@@ -78,8 +79,19 @@ class BudgetRepository extends BaseRepository
 
     public function store($input)
     {
+        $this->checkIfBudgetHasBeenRegistered($input);
         return DB::transaction(function() use ($input){
             $this->query()->create($input);
         });
     }
+
+    public function checkIfBudgetHasBeenRegistered($input)
+    {
+        $check = $this->query()->where('fiscal_year_id', $input['fiscal_year_id'])->where('activity_id', $input['activity_id']);
+        if($check->count() > 0){
+            $budget = $check->first();
+            throw new GeneralException('Activity '.$budget->activity->code. ' - '.$budget->activity->title. ' - '.$budget->activity->description. ' of year '.$budget->fiscalYear->title. 'Already Registered');
+        }
+    }
+
 }
