@@ -248,8 +248,8 @@
 
 <!-- Data tables js-->
 {!! Html::script(url('mdh/plugins/datatable/jquery.dataTables.min.js')) !!}
-{!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}
-{!! Html::script(url('mdh/js/datatable.js')) !!}
+{{--{!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}--}}
+{{--{!! Html::script(url('mdh/js/datatable.js')) !!}--}}
 
 <!-- Bootstrap4 js-->
 {!! Html::script(url('mdh/plugins/bootstrap/popper.min.js')) !!}

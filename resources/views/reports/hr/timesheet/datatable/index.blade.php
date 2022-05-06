@@ -1,26 +1,14 @@
 
-
-
-        {{--{!! Form::open(['route' => ['timesheet_report.filter_range']]) !!}
-
-
-        <div class="form-group" style="margin-left: 30%">
-            <label class="form-label">Filter by Month</label>
-            <div class="row gutters-xs">
-                <div class="col col-md-4">
-                    <input type="month" class="form-control" name="range" >
-                </div>
-                <span class="col-auto">
-													<button class="btn btn-success" type="submit"><i class="fe fe-filter"></i></button>
-												</span>
-            </div>
-        </div>
-
-
-
-        {!! Form::close() !!}--}}
-
-
+<div class="row">
+    <div class="col-6 mt-2">
+        <label class="form-label">Select Month</label>
+        <select name="month" id="select-month" class="form-control custom-select month">
+            @foreach($months as $month)
+                <option value="{{$month->month_year}}">{{ $month->month_year }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
 
 <div class="card-body p-6">
     <div class="panel panel-primary">
@@ -53,7 +41,7 @@
                             <table id="access_processing" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th class="wd-15p">#</th>
+
                                     <th class="wd-25p">Employee ID</th>
                                     <th class="wd-25p">Employee Name</th>
                                     <th class="wd-25p">Hours</th>
@@ -73,7 +61,7 @@
                             <table id="access_rejected" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th class="wd-15p">#</th>
+{{--                                    <th class="wd-15p">#</th>--}}
                                     <th class="wd-25p">Employee ID</th>
                                     <th class="wd-25p">Employee Name</th>
                                     <th class="wd-25p">Hours</th>
@@ -93,7 +81,7 @@
                             <table id="access_approved" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th class="wd-15p">#</th>
+{{--                                    <th class="wd-15p">#</th>--}}
                                     <th class="wd-25p">Employee ID</th>
                                     <th class="wd-25p">Employee Name</th>
                                     <th class="wd-25p">Hours</th>
@@ -113,7 +101,7 @@
                             <table id="all_not_submitted" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th class="wd-15p">#</th>
+{{--                                    <th class="wd-15p">#</th>--}}
                                     <th class="wd-25p">Employee ID</th>
                                     <th class="wd-25p">Employee Name</th>
                                     <th class="wd-25p">Employee Email</th>
@@ -133,14 +121,27 @@
             <script>
                 $(document).ready(function () {
 
-                    $("#access_processing").DataTable({
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    let $access_processing = $("#access_processing");
+                    $access_processing.DataTable({
                         destroy: true,
                         retrieve: true,
                         "responsive": true,
                         "autoWidth": false,
-                        ajax: '{{ route('timesheet_report.submitted') }}',
+                        ajax: {
+                            url: "{{ route('timesheet_report.submitted') }}",
+                            type: 'GET',
+                            data: function (data) {
+                                data.month = $('.month').val()
+                            }
+                        },
                         columns: [
-                            { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                            // { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                             { data: 'identity_number', name: 'users.identity_number', searchable: true},
                             { data: 'fullname', name: 'users.fullname', searchable: true},
                             { data: 'hours', name: 'timesheets.hrs', searchable: true},
@@ -150,14 +151,24 @@
                         ]
                     });
 
-                    $("#access_rejected").DataTable({
+                    $("select[name='month']").change(function (){
+                        $access_processing.DataTable().ajax.reload()
+                        $access_rejected.DataTable().ajax.reload()
+                        $access_approved.DataTable().ajax.reload()
+                        $all_not_submitted.DataTable().ajax.reload()
+                    })
+
+                    let $access_rejected = $("#access_rejected").DataTable({
                         destroy: true,
                         retrieve: true,
                         "responsive": true,
                         "autoWidth": false,
                         ajax: '{{ route('timesheet_report.rejected') }}',
+                        data : function(data){
+                            data.month = $('.month').val()
+                        },
                         columns: [
-                            { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                            // { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                             { data: 'identity_number', name: 'users.identity_number', searchable: true},
                             { data: 'fullname', name: 'users.fullname', searchable: true},
                             { data: 'hours', name: 'timesheets.hrs', searchable: true},
@@ -167,14 +178,17 @@
                         ]
                     });
 
-                    $("#access_approved").DataTable({
+                    let $access_approved = ("#access_approved").DataTable({
                         destroy: true,
                         retrieve: true,
                         "responsive": true,
                         "autoWidth": false,
                         ajax: '{{ route('timesheet_report.approved') }}',
+                        data : function(data){
+                            data.month = $('.month').val()
+                        },
                         columns: [
-                            { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                            // { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                             { data: 'identity_number', name: 'users.identity_number', searchable: true},
                             { data: 'fullname', name: 'users.fullname', searchable: true},
                             { data: 'hours', name: 'timesheets.hrs', searchable: true},
@@ -184,14 +198,17 @@
                         ]
                     });
 
-                    $("#all_not_submitted").DataTable({
+                    let $all_not_submitted = $("#all_not_submitted").DataTable({
                         destroy: true,
                         retrieve: true,
                         "responsive": true,
                         "autoWidth": false,
                         ajax: '{{ route('timesheet_report.not_submitted') }}',
+                        data : function(data){
+                            data.month = $('.month').val()
+                        },
                         columns: [
-                            { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                             // { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                             { data: 'identity_number', name: 'users.identity_number', searchable: true},
                             { data: 'name', name: 'users.name', searchable: true},
                             { data: 'email', name: 'users.email', searchable: true},
@@ -199,7 +216,6 @@
                             { data: 'region', name: 'users.region_id', searchable: true },
                         ]
                     });
-
                 })
             </script>
         @endpush
