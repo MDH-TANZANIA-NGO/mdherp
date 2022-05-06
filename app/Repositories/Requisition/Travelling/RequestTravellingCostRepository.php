@@ -14,6 +14,9 @@ use App\Repositories\MdhRates\mdhRatesRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Services\Calculator\GetNoDays\GetNoDays;
 use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+use Faker\Provider\DateTime;
 use Illuminate\Support\Facades\DB;
 
 class RequestTravellingCostRepository extends BaseRepository
@@ -36,6 +39,8 @@ class RequestTravellingCostRepository extends BaseRepository
             DB::raw('requisition_travelling_costs.id AS id'),
             DB::raw('requisition_travelling_costs.traveller_uid AS traveller_uid'),
             DB::raw('requisition_travelling_costs.no_days AS no_days'),
+            DB::raw('requisition_travelling_costs.from AS from'),
+            DB::raw('requisition_travelling_costs.to AS to'),
             DB::raw('requisition_travelling_costs.perdiem_total_amount AS perdiem_total_amount'),
             DB::raw('requisition_travelling_costs.accommodation AS accommodation'),
             DB::raw('requisition_travelling_costs.transportation AS transportation'),
@@ -44,8 +49,15 @@ class RequestTravellingCostRepository extends BaseRepository
         ]);
     }
 
+    public function getAccessTravellingCosts()
+    {
+        return $this->getQuery()
+            ->join('users', 'users.id', 'requisition_travelling_costs.traveller_uid')
+            ->where('requisition_travelling_costs.traveller_uid', access()->user()->id);
+    }
     public function inputProcess($inputs)
     {
+
         $destination_region = District::query()->find($inputs['district_id'])->region_id;
         $traveller_region_id = User::query()->find($inputs['traveller_uid'])->region_id;
         $region_status = Region::query()->find($destination_region)->is_city;
@@ -66,12 +78,20 @@ class RequestTravellingCostRepository extends BaseRepository
         $perdiem_total_amount = 0;
         $ontransit = 0;
 
+
+
+       /* if ($inputs['from'] > $inputs['to'])
+        {
+           alert()->error('Please select correct date');
+           return redirect()->back();
+        }*/
+
         if ($destination_region == $traveller_region_id){
-            if ($days != 1)
+            if ($days > 1)
             {
                 $perdiem_rate = $mdh_rates[2];
-                $perdiem_total_amount = $perdiem_rate *$days;
-                $accommodation = $accommodation * $days;
+                $perdiem_total_amount = $perdiem_rate *($days-1);
+                $accommodation = $accommodation * ($days-1);
                 $total_amount = $perdiem_total_amount + $inputs['transportation'] +$inputs['ticket_fair']+ $inputs['other_cost'] + $accommodation;
 
             }
@@ -161,8 +181,15 @@ class RequestTravellingCostRepository extends BaseRepository
      */
     public function store(Requisition $requisition, $inputs)
     {
+        $input_process =  $this->inputProcess($inputs);
+        if ($input_process['from'] > $input_process['to'])
+        {
+            alert()->error('Check and reselect your from and to dates','Dates Error');
+            return redirect()->back();
+        }
         check_available_budget_individual($requisition,$this->inputProcess($inputs)['total_amount'], $requisition->amount, $this->inputProcess($inputs)['total_amount']);
         return DB::transaction(function () use ($requisition, $inputs){
+
             $requisition->travellingCost()->create($this->inputProcess($inputs));
             $requisition->updatingTotalAmount();
             return $requisition;
