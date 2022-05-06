@@ -127,7 +127,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'retirements.number', searchable: true},
-                    { data: 'amount', name: 'retirements.amount_paid', searchable: true},
+                    { data: 'amount', name: 'payments.payed_amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -142,7 +142,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'retirements.number', searchable: true},
-                    { data: 'amount', name: 'retirements.amount_paid', searchable: true},
+                    { data: 'amount', name: 'payments.payed_amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -157,7 +157,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'retirements.number', searchable: true},
-                    { data: 'amount_paid', name: 'retirements.amount_paid', searchable: true},
+                    { data: 'amount_paid', name: 'payments.payed_amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -173,7 +173,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'retirements.number', searchable: true},
-                    { data: 'amount', name: 'retirements.amount_paid', searchable: true},
+                    { data: 'amount', name: 'payments.payed_amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
