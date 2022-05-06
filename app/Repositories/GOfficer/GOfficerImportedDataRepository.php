@@ -33,12 +33,25 @@ class GOfficerImportedDataRepository extends  BaseRepository
 
 }
 
+public function getAccessImportedData()
+{
+    return$this->getQuery()
+        ->where('gofficer_imported_data.user_id', access()->user()->id)
+        ->where('gofficer_imported_data.uploaded', false);
+}
 public function getAccessDuplicate()
 {
     return $this->getQuery()
-        ->join('g_officers', 'g_officers.phone', 'gofficer_imported_data.phone')
         ->where('gofficer_imported_data.user_id', access()->user()->id)
-        ->where('gofficer_imported_data.uploaded', false);
+        ->where('gofficer_imported_data.uploaded', false)
+        ->whereHas('gOfficer');
+}
+public function getAccessUploadedSuccessfully()
+{
+    return $this->getQuery()
+        ->where('gofficer_imported_data.user_id', access()->user()->id)
+        ->where('gofficer_imported_data.uploaded', true)
+        ->whereHas('gOfficer');
 }
 public function getUploadedNotConfirmed()
 {
