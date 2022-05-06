@@ -61,7 +61,7 @@ class RetirementController extends Controller
         return view('retirement.forms.create')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
-            ->with('retire_safaris', $this->safari_advances->getSafariDetails()->where('safari_id', $retirement->safari_advance_id));
+            ->with('retire_safaris', $this->safari_advances->getSafariDetails()->where('safari_advances.id', $retirement->safari_advance_id)->get());
     }
 
    /* public  function  edit(Retirement $retirement)
