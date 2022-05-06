@@ -57,6 +57,7 @@ class BudgetRepository extends BaseRepository
                 'actual_amount' => $inputs['amount'.$region],
                 'rate_id' => active_rate_id(),
             ];
+//            dd(1);
             $this->store($input);
         }
     }
