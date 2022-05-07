@@ -79,14 +79,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $user = $this->users->store($request->all());
-            alert()->success($user->full_name_formatted. ' Registered Successfully');
-            return redirect()->back();
-        }catch (\Exception $exception){
-            alert()->error('User already Exist', 'Failed');
-            return redirect()->back();
-        }
+        $user = $this->users->store($request->all());
+        alert()->success($user->full_name_formatted. ' Registered Successfully');
+        return redirect()->back();
+//        try {
+//            $user = $this->users->store($request->all());
+//            alert()->success($user->full_name_formatted. ' Registered Successfully');
+//            return redirect()->back();
+//        }catch (\Exception $exception){
+//            alert()->error('User already Exist', 'Failed');
+//            return redirect()->back();
+//        }
 
     }
     public function resetPassword(User $user)
