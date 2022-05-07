@@ -80,7 +80,7 @@
                                         </td>
                                         <td>
                                             <div class="row">
-                                                @if(access()->user()->id == $supervisor || access()->user()->id == $program_activity->user_id )
+                                                @if(access()->user()->id == $supervisor || access()->user()->id != $program_activity->user_id )
 
                                                     {!! Form::open(['route' => ['programactivity.viewParticipantAttendance',$participants->participant_uid], 'method'=>'POST']) !!}
 
