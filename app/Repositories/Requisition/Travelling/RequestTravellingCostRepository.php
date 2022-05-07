@@ -105,7 +105,7 @@ class RequestTravellingCostRepository extends BaseRepository
 
         }
         if ($destination_region != $traveller_region_id){
-            if ($days != 1)
+            if ($days > 1)
             {
                 if ($region_status == 'TRUE'){
                     $perdiem_rate = $mdh_rates[0];
