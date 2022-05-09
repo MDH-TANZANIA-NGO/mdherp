@@ -86,6 +86,8 @@ class RequestTravellingCostRepository extends BaseRepository
            return redirect()->back();
         }*/
 
+        dd($mdh_rates[0]);
+
         if ($destination_region == $traveller_region_id){
             if ($days > 1)
             {
