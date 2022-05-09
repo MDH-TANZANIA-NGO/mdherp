@@ -198,7 +198,7 @@ class RequisitionController extends Controller
      */
     public function submit(Requisition $requisition)
     {
-        check_available_budget_individual($requisition,$requisition->amount);
+//        check_available_budget_individual($requisition,$requisition->amount);
         DB::transaction(function () use ($requisition){
             $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
             $wf_module_group_id = 1;

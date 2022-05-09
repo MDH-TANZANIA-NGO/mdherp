@@ -373,6 +373,7 @@ class UserRepository extends BaseRepository
         return DB::transaction(function () use ($uuid, $inputs){
             //TODO detach
             $sub_program = (new SubProgramRepository())->findByUuid($uuid);
+            $sub_program->users()->detach();
             return $sub_program->users()->attach($inputs['user']);
         });
     }
@@ -442,7 +443,7 @@ class UserRepository extends BaseRepository
             ->where('users.designation_id', 8);
     }
 
-    public function getCEO2()
+    public function getCeo()
     {
         return $this->query()
             ->select([
@@ -451,7 +452,7 @@ class UserRepository extends BaseRepository
             ->where('users.designation_id', 121);
     }
 
-    public function getCeo()
+    public function getCeo2()
     {
         return $this->query()
             ->select([
@@ -459,6 +460,7 @@ class UserRepository extends BaseRepository
             ])
             ->join('designations','designations.id', 'users.id')
             ->join('units','units.id','designations.unit_id')
+            ->where('designations.id', 121)
             ->where('units.id', 5);
     }
 

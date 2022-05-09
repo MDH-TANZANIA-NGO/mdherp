@@ -48,12 +48,7 @@ class RequestTrainingCostRepository extends BaseRepository
     public function inputProcess($inputs)
     {
         $requisition_training_details =  requisition_training::query()->where('id', $inputs['requisition_training_id'])->first();
-        $from = $requisition_training_details->start_date;
-        $to = $requisition_training_details->end_date;
-        $datetime1 = new \DateTime($from);
-        $datetime2 = new  \DateTime($to);
-        $interval = $datetime1->diff($datetime2);
-        $days = $interval->format('%a');
+        $days = getNoDays($inputs['from'], $inputs['to']);
 
         $perdiem_id = $inputs['perdiem_rate_id'];
         $perdiem_total_amount = (GRate::query()->find($perdiem_id)->amount  * $days);

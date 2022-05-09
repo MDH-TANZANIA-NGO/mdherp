@@ -176,7 +176,7 @@ class WorkflowEventSubscriber
                                     "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
                                     "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
                                     "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
-                                    "<b>Amount requested:</b>". number_2_format($requisition->amount)."(TZS)". "which is equal to". currency_converter(number_2_format($requisition->amount), 'TSH')."(USD)"
+                                    "<b>Amount requested:</b>". number_2_format($requisition->amount)."(TZS)"
                                 );
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),

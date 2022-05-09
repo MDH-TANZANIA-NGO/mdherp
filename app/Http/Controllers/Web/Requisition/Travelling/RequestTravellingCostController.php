@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Requisition\Travelling;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Requisition\Travelling\Traits\travellingCostsDatatable;
 use App\Models\Requisition\Requisition;
+use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\System\District;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
@@ -43,8 +44,9 @@ protected $requisition;
     public function store(Request $request, Requisition $requisition){
 
 
-        $this->travellingCost->store($requisition, $request->all());
-        return redirect()->back();
+        $requisition_travelling_cost_id = $this->travellingCost->store($requisition, $request->all());
+         $requisition_travelling_cost = $this->travellingCost->find($requisition_travelling_cost_id);
+        return redirect()->route('travelling.add_trip',$requisition_travelling_cost->uuid );
 
 
     }
@@ -55,6 +57,13 @@ protected $requisition;
             ->with('mdh_rates',$this->mdh_rates->getAll()->pluck('id','amount'))
             ->with('mdh_staff', $this->mdh_staff->getUserQuery()->pluck('id', 'first_name'));
 
+    }
+    public function addTrip($uuid)
+    {
+        $requisition =  $this->requisition->find($this->travellingCost->findByUuid($uuid)->requisition_id);
+        return view('requisition.Direct.travelling.forms.Trip.create')
+            ->with('requisition', $requisition)
+            ->with('districts', $this->district->forSelect());
     }
 
     public function show(){

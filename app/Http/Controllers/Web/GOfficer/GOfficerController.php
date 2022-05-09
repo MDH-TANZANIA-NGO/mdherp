@@ -158,8 +158,12 @@ class GOfficerController extends Controller
 
         if ($request->hasFile('file')){
 
-
-            try {
+            $file_name = $request->file('file')->getClientOriginalName();
+            $temporary_store = new GOfficerImportedTemporaryData($file_name);
+            $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
+            alert()->warning('Please confirm imported data', 'Confirm');
+            return redirect()->back();
+           /* try {
                 $file_name = $request->file('file')->getClientOriginalName();
                 $temporary_store = new GOfficerImportedTemporaryData($file_name);
                 $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
@@ -169,7 +173,7 @@ class GOfficerController extends Controller
                  alert()->error('Something is wrong with your file. Please review and try again','Oohps');
                  $exception->getMessage();
                  return redirect()->back();
-             }
+             }*/
         }
         else{
 

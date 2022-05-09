@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnPhone2OnGOfficalsTable extends Migration
+class CreateMdhRateRegionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class AddColumnPhone2OnGOfficalsTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('g_officers', function (Blueprint $table) {
-            $table->text('phone2')->nullable();
-
+        Schema::create('mdh_rate_regions', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('mdh_rate_id');
+            $table->bigInteger('region_id');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ class AddColumnPhone2OnGOfficalsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('mdh_rate_regions');
     }
 }
