@@ -62,30 +62,21 @@
 
             <div class="row">
                 <div class="col-6">
-                    <label class="form-label">Date Required</label>
+                    {!! Form::label('date_required', __("Date Required"),['class'=>'form-label','required_asterik']) !!}
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                             </div>
-                        </div><input class="form-control" name="date_required" placeholder="MM/DD/YYYY" type="date">
+                        </div><input class="form-control" value="{{ $listing->date_required }}" name="date_required"  type="date" min="1997-01-01" required>
                     </div>
-                    @error('date_required')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                    @enderror
+                    {!! $errors->first('date_required', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
                 <div class="col-6">
-                    <label class="form-label">Prospect for appointment</label>
-                    @foreach($prospects as $prospect)
-                        <label class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="prospect_for_appointment_cv_id" value="{{$prospect->id}}" checked>
-                            <span class="custom-control-label">{{$prospect->name}}</span>
-                        </label>
-                    @endforeach
-                    @error('prospect_for_appointment_cv_id')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                    @enderror
+                    {!! Form::label('prospect_for_appointment_cv_id', __("Prospect for Appointment"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('prospect_for_appointment_cv_id', $prospects, $listing->prospect_for_appointment_cv_id, ['class' =>'form-control custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! $errors->first('prospect_for_appointment_cv_id', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
             </div>
             &nbsp;

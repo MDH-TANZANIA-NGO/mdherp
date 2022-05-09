@@ -118,7 +118,7 @@ class ListingController extends Controller
         $users = User::where('designation_id', '!=', null)->get();
         return view('listing._parent.form.edit')
             ->with('listing', $listing)
-            ->with('prospects', code_value()->query()->where('code_id', 7)->get())
+            ->with('prospects', code_value()->query()->where('code_id', 7)->get()->pluck('name','id'))
             ->with('conditions', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())
             ->with('departments', $this->departments->getAll()->pluck('title','id'))
