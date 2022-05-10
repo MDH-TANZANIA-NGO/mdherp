@@ -6,6 +6,7 @@ use App\Models\Requisition\RequisitionType\RequisitionType;
 use App\Repositories\Project\ActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\RequisitionType\RequisitionTypeRepository;
+use App\Models\Rate\Rate;
 use Illuminate\Support\Facades\Log;
 
 trait InitiatorBudgetChecker
@@ -27,6 +28,7 @@ trait InitiatorBudgetChecker
             'pipeline' => $this->pipeline($project_id, $activity_id, $region_id),
             'actual_expenditure'=> $this->actualExpenditure(),
             'available budget' => null,
+            'exchange_rate' => $this->exchangeRate($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year),
         ];
     }
 
@@ -47,13 +49,22 @@ trait InitiatorBudgetChecker
     }
     public function commitment($project_id, $activity_id, $region_id)
     {
-        return (new RequisitionRepository())->getCommitmentOnTheSameBudget()->sum('requisitions.amount');
-//        return (new RequisitionRepository())->getCommitment($project_id, $activity_id, $region_id)->sum('requisitions.amount');
+//        return (new RequisitionRepository())->getCommitmentOnTheSameBudget()->sum('requisitions.amount');
+        return (new RequisitionRepository())->getCommitment($project_id, $activity_id, $region_id)->sum('requisitions.amount');
     }
 
     public function actualExpenditure()
     {
         return (new RequisitionRepository())->getActualExpenditure()->sum('payments.payed_amount');
+    }
+
+    public function exchangeRate($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)
+    {
+        $rate = null;
+        $rate_id = $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->rate_id;
+        if($rate_id)
+            $rate = Rate::query()->find($rate_id)->amount;
+        return $rate;
     }
 
 }
