@@ -113,17 +113,17 @@
                     <div class ="row">
                         <div class="container lst">
                             <div class="input-group hdtuto control-group lst" >
-                                
+
                                 <div class="col-md-3" >
                                     <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
                                 </div>
 
                                 <div class="col-md-3" >
-                                <input type="number" id="" name="amount_attachment" class="form-control">
+                                <input type="number" id="" name="amount_attachment[]" class="form-control">
                                 </div>
 
                                 <div class="col-md-3" >
-                                    <input type="text" id="" name="attachment_name" class="form-control">
+                                    <input type="text" id="" name="attachment_name[]" class="form-control">
                                 </div>
 
                                 <div class="input-group-btn col-md-3">
@@ -250,7 +250,8 @@
 
     @push('after-scripts')
         <script>
-            calculate = function (a_paid, a_spent, a_variance) {
+            calculate = function (a_paid, a_spent, a_variance)
+            {
                 var amount_advanced = (document.getElementById(a_paid).value);
                 var amount_spent = parseFloat(document.getElementById(a_spent).value).toFixed(2);
                 var amount_variance = amount_advanced - amount_spent;
@@ -267,11 +268,19 @@
 
                     $increment.prepend('' +
                             '<div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">'+
-                                '<div class="col-md-4" >'+
+                                '<div class="col-md-3" >'+
                                     '<input type="file" accept="application/pdf" name="attachments[]" class="form-control">'+
                                 '</div>'+
 
-                                '<div class="input-group-btn col-md-4" >'+
+                        '<div class="col-md-3" >'+
+                        '<input type="number" id="" name="amount_attachment[]" class="form-control">'+
+                        '</div>'+
+
+                        '<div class="col-md-3" >'+
+                        '<input type="text" id="" name="attachment_name[]" class="form-control">'+
+                        '</div>'+
+
+                                '<div class="input-group-btn col-md-3" >'+
                                     '<button class="btn btn-danger att_button_rem" type="button"><i class=""></i>Remove attachment field</button>'+
                                 '</div>'+
                             '</div>')
