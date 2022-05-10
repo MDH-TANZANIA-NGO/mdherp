@@ -318,3 +318,10 @@ if (!function_exists('currency_converter')) {
         return $converted;
     }
 }
+
+if (!function_exists('active_rate_id')) {
+    function active_rate_id()
+    {
+        return (new \App\Repositories\Rate\RateRepository())->getActive()->id;
+    }
+}

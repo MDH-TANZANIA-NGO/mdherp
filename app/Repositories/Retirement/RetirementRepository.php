@@ -36,11 +36,15 @@ class RetirementRepository extends BaseRepository
             DB::raw('retirements.user_id AS user_id'),
             DB::raw('retirements.number AS number'),
             DB::raw('retirements.amount_requested AS amount_requested'),
-            DB::raw('retirements.amount_paid AS amount_paid'),
+            DB::raw('payments.payed_amount AS amount_paid'),
             DB::raw('retirements.created_at AS created_at'),
             DB::raw('retirements.uuid AS uuid'),
         ])
-            ->join('users','users.id', 'retirements.user_id');
+            ->join('users','users.id', 'retirements.user_id')
+            ->join('safari_advances','safari_advances.id','retirements.safari_advance_id')
+            ->join('requisition_travelling_costs','requisition_travelling_costs.id','safari_advances.requisition_travelling_cost_id')
+            ->join('requisitions','requisitions.id','requisition_travelling_costs.requisition_id')
+            ->join('payments','payments.requisition_id','requisitions.id');
     }
 
     public function getattachment()
