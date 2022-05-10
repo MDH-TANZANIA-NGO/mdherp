@@ -12,6 +12,7 @@ trait RequisitionDatatables
      */
     public function AccessProcessingDatatable()
     {
+        //dd($this->requisitions->getAccessProcessingDatatable()->get());
         return DataTables::of($this->requisitions->getAccessProcessingDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {

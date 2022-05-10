@@ -176,6 +176,16 @@ class SafariAdvanceRepository extends BaseRepository
         ])
             ->join('safari_advance_details', 'safari_advance_details.safari_advance_id', 'safari_advances.id');
     }
+
+    public function getDisbursedAmount()
+    {
+        return $this->getQuery()->select([
+           DB::raw('safari_advance_payments.disbursed_amount AS disbursed_amount'),
+           DB::raw('safari_advances.id AS safari_id'),
+        ])
+            ->leftjoin('safari_advance_payments','safari_advance_payments.safari_advance_id','safari_advances.id');
+    }
+
     public function payment($inputs, $uuid )
     {
         return DB::transaction(function () use ($inputs, $uuid){

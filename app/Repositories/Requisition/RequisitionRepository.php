@@ -486,6 +486,7 @@ class RequisitionRepository extends BaseRepository
     public function checkAvailableBudgetIndividual($requisition, $total_amount, $current_amount = null, $updated_amount = null)
     {
         $check_budget = $requisition->fundChecker()->first();
+        //dd($check_budget);
         if ($check_budget->actual_amount < $total_amount){
             throw new GeneralException('Insufficient Fund' );
         }
