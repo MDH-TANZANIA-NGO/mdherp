@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+
 <div class="card-body">
     <div class="text-wrap">
         <div class="example">
@@ -24,7 +23,7 @@
     </div>
 </div>
 
-{!! Form::open(['class'=>'card']) !!}
+{!! Form::open(['route' => ['trip.store'],'class'=>'card']) !!}
 
 <div class="card-body">
     <div class="row">
@@ -88,11 +87,13 @@
             </div>
         </div>
 
+        <input type="number" name="traveller_uid" value="{{$travelling_cost->traveller_uid}}" hidden  >
+        <input type="number" name="requisition_travelling_cost_id" value="{{$travelling_cost->id}}" hidden>
+
         <button type="submit" class="btn btn-outline-info" style="margin-left:40%;"><i class="fa fa-bus"></i> Add Trip</button>
 
-
+    </div>
+</div>
 
     {!! Form::close() !!}
 
-
-@endsection

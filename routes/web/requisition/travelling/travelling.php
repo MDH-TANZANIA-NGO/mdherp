@@ -5,7 +5,7 @@ Route::group(['namespace' => 'Requisition\Travelling', 'middleware' => ['web', '
     Route::get('create','RequestTravellingCostController@create')->name('create');
     Route::get('{uuid}/edit','RequestTravellingCostController@edit')->name('edit');
     Route::get('{uuid}/delete','RequestTravellingCostController@delete')->name('delete');
-    Route::get('{uuid}/add_trip','RequestTravellingCostController@addTrip')->name('add_trip');
+//    Route::get('{uuid}/add_trip','RequestTravellingCostController@addTrip')->name('add_trip');
     Route::post('{uuid}/update', 'RequestTravellingCostController@update')->name('update');
 
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
