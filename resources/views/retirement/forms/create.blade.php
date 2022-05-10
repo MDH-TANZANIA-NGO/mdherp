@@ -110,6 +110,32 @@
                 @endforeach
 
                 <hr>
+                    <div class ="row">
+                        <div class="container lst">
+                            <div class="input-group hdtuto control-group lst" >
+                                
+                                <div class="col-md-3" >
+                                    <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
+                                </div>
+
+                                <div class="col-md-3" >
+                                <input type="number" id="" name="amount_attachment" class="form-control">
+                                </div>
+
+                                <div class="col-md-3" >
+                                    <input type="text" id="" name="attachment_name" class="form-control">
+                                </div>
+
+                                <div class="input-group-btn col-md-3">
+                                    <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
+                                </div>
+                            </div>
+
+                            <div id="increment"></div>
+
+                        </div>
+                    </div>
+                <hr>
 
                 <div class="row">
                     <div class="col-md-12" >
@@ -185,17 +211,15 @@
                         </div>
                     </div>
 
-                    <hr>
-
-                    <div class ="row">
+                    {{--<div class ="row">
                         <div class="container lst">
                             <div class="input-group hdtuto control-group lst" >
 
-                      {{--  <div class="col-md-4" >
+                      --}}{{--  <div class="col-md-4" >
                         <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
-                        </div>--}}
+                        </div>--}}{{--
                                 <div class="col-md-4" >
-                                    <input type="file" name="attachments[]" class="form-control">
+                                    <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
                                 </div>
                                 <div class="input-group-btn col-md-4">
                                     <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
@@ -205,7 +229,7 @@
                             <div id="increment"></div>
 
                         </div>
-                    </div>
+                    </div>--}}
 
                     <hr>
 &nbsp;
@@ -244,7 +268,7 @@
                     $increment.prepend('' +
                             '<div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">'+
                                 '<div class="col-md-4" >'+
-                                    '<input type="file" name="attachments[]" class="form-control">'+
+                                    '<input type="file" accept="application/pdf" name="attachments[]" class="form-control">'+
                                 '</div>'+
 
                                 '<div class="input-group-btn col-md-4" >'+
