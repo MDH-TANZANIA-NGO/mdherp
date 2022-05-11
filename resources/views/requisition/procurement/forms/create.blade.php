@@ -28,7 +28,7 @@
                                     <hr>
                                     <div>
                                         <label>Description</label>
-                                        <textarea name="reason" id="" class="form-control" cols="30" rows="10" required></textarea>
+                                        <textarea name="reason" id="description_editor" class="form-control" cols="30" rows="10" required></textarea>
                                     </div>
                                     <hr>
                                     <div>
@@ -65,3 +65,11 @@
 </div>
 </div>
 </div>
+
+@push('after-scripts')
+    <script>
+        $(document).ready(function (){
+            let $description_editor = new RichTextEditor("#$description_editor");
+        });
+    </script>
+@endpush
