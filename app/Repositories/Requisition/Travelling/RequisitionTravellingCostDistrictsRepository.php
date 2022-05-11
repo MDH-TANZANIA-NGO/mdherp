@@ -3,6 +3,7 @@
 namespace App\Repositories\Requisition\Travelling;
 
 use App\Models\Auth\User;
+use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
@@ -257,42 +258,43 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
     public function  updateTravellingCostAmounts($uuid, $traveller_id)
     {
 
-        $traveller_details =  $this->getTravellerTrips($traveller_id)->get();
+        $traveller_details = $this->getTravellerTrips($traveller_id)->get();
         $travelling_cost = (new RequestTravellingCostRepository())->findByUuid($uuid);
 
-        $destination_region =  $traveller_details->first()->district->region_id;
-        $days =  getNoDays($travelling_cost->from, $travelling_cost->to);
-        if ($days ==  2){
+        $destination_region = $traveller_details->first()->district->region_id;
+        $days = getNoDays($travelling_cost->from, $travelling_cost->to);
+        if ($days == 2) {
             $ontransit = $traveller_details->sum('ontransit');
-        }
-        else{
+            $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount');
+        } else {
             $get_none_traveller_regions = $this->getTripsReagions($travelling_cost->traveller_uid, $travelling_cost->user->region_id)->get();
-            if ($get_none_traveller_regions->count() > 0)
-            {
-                $ontransit =  $get_none_traveller_regions->first()->ontransit;
-            }else{
+            if ($get_none_traveller_regions->count() > 0) {
+                $ontransit = $get_none_traveller_regions->first()->ontransit;
+                $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount');
+            } else {
                 $ontransit = $traveller_details->sum('ontransit');
+                $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount') + (($traveller_details->first()->perdiem_total_amount) / ($traveller_details->first()->no_days));
+
             }
 
-        }
-        $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount');
-        $accommodation = $traveller_details->sum('total_accommodation');
-        $transportation = $traveller_details->sum('transportation');
-        $ticket_fair = $traveller_details->sum('ticket_fair');
-        $other_cost = $traveller_details->sum('other_cost');
-        $total_amount = $traveller_details->sum('total_amount');
+            $accommodation = $traveller_details->sum('total_accommodation');
+            $transportation = $traveller_details->sum('transportation');
+            $ticket_fair = $traveller_details->sum('ticket_fair');
+            $other_cost = $traveller_details->sum('other_cost');
+            $total_amount = $traveller_details->sum('total_amount');
 
-        DB::table('requisition_travelling_costs')
-            ->where('uuid', $uuid)
-            ->update([
-                'perdiem_total_amount'=> $perdiem_total_amount,
-                'ontransit'=> $ontransit,
-                'accommodation'=>$accommodation,
-                'transportation'=> $transportation,
-                'ticket_fair'=>$ticket_fair,
-                'other_cost'=>$other_cost,
-                'total_amount' =>  $total_amount,
-            ]);
+            DB::table('requisition_travelling_costs')
+                ->where('uuid', $uuid)
+                ->update([
+                    'perdiem_total_amount' => $perdiem_total_amount,
+                    'ontransit' => $ontransit,
+                    'accommodation' => $accommodation,
+                    'transportation' => $transportation,
+                    'ticket_fair' => $ticket_fair,
+                    'other_cost' => $other_cost,
+                    'total_amount' => $total_amount,
+                ]);
+        }
     }
 
     public function delete($uuid)
