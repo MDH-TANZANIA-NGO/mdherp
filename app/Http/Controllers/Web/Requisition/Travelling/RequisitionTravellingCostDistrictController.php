@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Requisition\Travelling;
 use App\Http\Controllers\Controller;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
+use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Travelling\RequestTravellingCostRepository;
 use App\Repositories\Requisition\Travelling\RequisitionTravellingCostDistrictsRepository;
@@ -30,8 +31,7 @@ class RequisitionTravellingCostDistrictController extends Controller
 
     public function store(Request $inputs)
     {
-        $this->requisition_travelling_cost_district->store($inputs);
-        alert()->success('Trip added successfully','Success');
+     $this->requisition_travelling_cost_district->store($inputs);
         return redirect()->back();
     }
 
@@ -40,24 +40,45 @@ class RequisitionTravellingCostDistrictController extends Controller
         $travelling_cost = $this->travellingCost->findByUuid($uuid);
         $trip_details =  $this->requisition_travelling_cost_district->getTravellerTrips($travelling_cost->traveller_uid);
         $requisition =  $this->requisition->find($travelling_cost->requisition_id);
+        $available_days = $travelling_cost->no_days -  $trip_details->get()->sum('no_days');
         return view('requisition.Direct.travelling.Trip.index')
             ->with('requisition', $requisition)
             ->with('travelling_cost', $travelling_cost)
             ->with('trip_details', $trip_details->get())
+            ->with('available_days', $available_days)
+            ->with('districts', $this->district->forSelect());
+    }
+    public function edit($uuid)
+    {
+        $trip_details = $this->requisition_travelling_cost_district->findByUuid($uuid);
+        $travelling_cost =  $this->travellingCost->find($trip_details->requisition_travelling_cost_id);
+        $requisition =  $this->requisition->find($travelling_cost->requisition_id);
+        $available_days = $travelling_cost->no_days -  $trip_details->get()->sum('no_days');
+        return view('requisition.Direct.travelling.forms.Trip.edit')
+            ->with('requisition', $requisition)
+            ->with('travelling_cost', $travelling_cost)
+            ->with('trip_details', $trip_details)
+            ->with('available_days', $available_days)
             ->with('districts', $this->district->forSelect());
     }
     public function delete($uuid)
     {
-        $travelling_cost_details =  $this->requisition_travelling_cost_district->findByUuid($uuid);
-        $travelling_cost =  $this->travellingCost->find($travelling_cost_details->requisition_travelling_cost_id);
-        $requisition =  $this->requisition->find($travelling_cost->requisition_id);
-        check_available_budget_individual($requisition, $travelling_cost_details->total_amount, $travelling_cost_details->total_amount, 0);
-        $this->requisition_travelling_cost_district->updateTravellingCostAmounts($uuid, $travelling_cost->traveller_uid);
-        $this->requisition->updatingTotalAmount($requisition);
-        DB::delete('delete from requisition_travelling_cost_districts where uuid = ?',[$uuid]);
 
-        alert()->success('Trip deleted successfully', 'Success');
+    $this->requisition_travelling_cost_district->delete($uuid);
+
         return redirect()->back();
+    }
+    public function update(Request $inputs, $uuid)
+    {
+        $this->requisition_travelling_cost_district->update($inputs, $uuid);
+
+        return redirect()->back();
+    }
+    public function submitAllTrips($uuid)
+    {
+        $this->requisition_travelling_cost_district->submitAllTrips($uuid);
+        alert()->success('Traveller trips added successfully','Success');
+        return redirect()->route('travelling.create');
     }
 
 }

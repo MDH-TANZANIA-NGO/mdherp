@@ -35,7 +35,7 @@
                                 <th>{{ number_2_format($cost->ticket_fair) }}</th>
                                 <th>{{ number_2_format($cost->other_cost) }}</th>
                                 <th>{{ number_2_format($cost->total_amount) }}</th>
-                                <th><a href="#" class="btn btn-primary" ><i class="fa fa-bus"></i></a> <a href="{{route('trip.delete',$cost->uuid)}}" class="btn btn-danger" onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash"></i></a> </th>
+                                <th><a href="{{route('trip.edit', $cost->uuid)}}" class="btn btn-primary" ><i class="fa fa-edit"></i></a> <a href="{{route('trip.delete',$cost->uuid)}}" class="btn btn-danger" onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash"></i></a> </th>
                             </tr>
                         </tbody>
                         @endforeach

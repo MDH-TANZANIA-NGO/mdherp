@@ -1,27 +1,65 @@
 
-<div class="card-body">
-    <div class="text-wrap">
-        <div class="example">
+
+    <div class="card">
+        <div class="card-header">
             <div class="tags">
 
                 <div class="tag">
-                    Available Fund
-                    <span class="tag-addon tag-success">
-                        @if($requisition->fundChecker == null)
-                            {{number_2_format($requisition->budget->actual_amount)}}
-                        @else
-                            {{number_2_format($requisition->fundChecker->actual_amount)}}
-                        @endif
-                    </span>
+                    Traveller's name
+                    <span class="tag-addon tag-success">{{$travelling_cost->user->first_name}} {{$travelling_cost->user->last_name}}</span>
                 </div>
+                <div class="tag tag-default" data-toggle="modal" data-target="#exampleModal">
+                    {{$travelling_cost->from}}
+                    <span class="tag-addon"><i class="fe fe-calendar"></i></span>
+                </div>
+                <div class="tag tag-default" data-toggle="modal" data-target="#exampleModal">
+                    {{$travelling_cost->to}}
+                    <span class="tag-addon"><i class="fe fe-calendar"></i></span>
+                </div>
+
                 <span class="tag tag-dark">
-														Total amount requested
-														<span class="tag-addon tag-warning">{{number_2_format($requisition->amount)}}</span>
+														Available days
+														<span class="tag-addon tag-warning">{{$available_days}}</span>
 													</span>
+            </div>
+
+        </div>
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Traveller Date Range</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {!! Form::open(['route' => ['travelling.update_date_range', $travelling_cost->uuid]]) !!}
+
+                    {!! Form::label('from', __("From Date"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::date('from',$travelling_cost->from,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                    {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}
+
+                    {!! Form::label('to', __("To Date"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::date('to',$travelling_cost->to,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                    {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}
+
+            </div>
+            <div class="modal-footer">
+
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
 </div>
+<!-- Modal -->
 
 {!! Form::open(['route' => ['trip.store'],'class'=>'card']) !!}
 
@@ -89,9 +127,9 @@
 
         <input type="number" name="traveller_uid" value="{{$travelling_cost->traveller_uid}}" hidden  >
         <input type="number" name="requisition_travelling_cost_id" value="{{$travelling_cost->id}}" hidden>
-
+        <input type="text" name="travelling_cost_uuid" value="{{$travelling_cost->uuid}}" hidden>
         <button type="submit" class="btn btn-outline-info" style="margin-left:40%;"><i class="fa fa-bus"></i> Add Trip</button>
-
+        <a href="{{route('trip.submitAllTrips', $travelling_cost->uuid)}}"  class="btn btn-outline-info" style="margin-left:2%;"><i class="fa fa-save"></i> Save and Continue</a>
     </div>
 </div>
 

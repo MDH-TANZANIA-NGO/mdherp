@@ -26,19 +26,20 @@ class RequestTravellingCostRepository extends BaseRepository
     const MODEL = requisition_travelling_cost::class;
 
     protected $mdh_rates;
-    protected $requisition;
-    protected $requisition_travelling_cost_district_repository;
+//    protected $requisition;
+//    protected $requisition_travelling_cost_district_repository;
     public function __construct()
     {
         $this->mdh_rates = (new mdhRatesRepository());
-        $this->requisition = (new  RequisitionRepository());
-        $this->requisition_travelling_cost_district_repository =  (new RequisitionTravellingCostDistrictsRepository());
+//        $this->requisition = (new  RequisitionRepository());
+//        $this->requisition_travelling_cost_district_repository =  (new RequisitionTravellingCostDistrictsRepository());
         //
     }
     public function getQuery()
     {
         return $this->query()->select([
             DB::raw('requisition_travelling_costs.id AS id'),
+            DB::raw('requisition_travelling_costs.requisition_id AS requisition_id'),
             DB::raw('requisition_travelling_costs.traveller_uid AS traveller_uid'),
             DB::raw('requisition_travelling_costs.no_days AS no_days'),
             DB::raw('requisition_travelling_costs.from AS from'),
@@ -120,9 +121,7 @@ class RequestTravellingCostRepository extends BaseRepository
         }
         check_available_budget_individual($requisition,$this->inputProcess($inputs)['total_amount'], $requisition->amount, $this->inputProcess($inputs)['total_amount']);
         return DB::transaction(function () use ($requisition, $inputs){
-
-            $id = $requisition->travellingCost()->create($this->inputProcess($inputs))->id;
-            return $id;
+            return $requisition->travellingCost()->create($this->inputProcess($inputs))->id;
 
         });
     }
@@ -153,17 +152,31 @@ class RequestTravellingCostRepository extends BaseRepository
         return $this->getRequisitionFilter()->pluck('travelling','requisition_travelling_costs.id');
 
     }
-    public function update($uuid, $inputs)
+    public function update($uuid)
     {
 
         $traveller = $this->findByUuid($uuid);
+        $traveller_trips =  requisition_travelling_cost_district::query()->where('requisition_travelling_cost_id', $traveller->id)->first();
 
-        check_available_budget_individual($traveller->requisition, $this->inputProcess($inputs)['total_amount'], $traveller->total_amount, $this->inputProcess($inputs)['total_amount']);
-
-        return DB::transaction(function () use ($traveller, $inputs){
-            $traveller->update($this->inputProcess($inputs));
+        return DB::transaction(function () use ($traveller, $traveller_trips){
+            $traveller->update(
+                [
+                    'perdiem_total_amount'=>$traveller_trips->perdiem_total_amount,
+                    'accommodation'=>$traveller_trips->total_accommodation,
+                    'transportation'=>$traveller_trips->transportation,
+                    'ontransit'=>$traveller_trips->ontransit,
+                    'other_cost'=>$traveller_trips->other_cost,
+                    'total_amount'=>$traveller_trips->total_amount,
+                ]
+            );
 
         });
+    }
+    public function getAllTravellingCostOfSameRequisition($requisition_id)
+    {
+        return $this->getQuery()
+            ->where('requisition_id', $requisition_id)
+            ->get();
     }
 
 }

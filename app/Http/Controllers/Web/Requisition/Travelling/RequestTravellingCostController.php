@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Requisition\Travelling\Traits\travellingCostsDatatable;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
+use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
 use App\Models\System\District;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
@@ -100,7 +101,19 @@ class RequestTravellingCostController extends Controller
         $this->requisition->updatingTotalAmount($requisition);
         return redirect()->back();
     }
-
+    public function updateDateRange(Request $request, $uuid)
+    {
+        $no_days = getNoDays($request['from'], $request['to']);
+        DB::table('requisition_travelling_costs')
+            ->where('uuid', $uuid)
+            ->update([
+                'from'=> $request['from'],
+                'to'=> $request['to'],
+                'no_days'=>$no_days,
+            ]);
+        alert()->success('Date range updated successfully', 'Success');
+        return redirect()->back();
+    }
     public function update($uuid, Request $request){
 
         $traveller  =  $this->travellingCost->findByUuid($uuid);
