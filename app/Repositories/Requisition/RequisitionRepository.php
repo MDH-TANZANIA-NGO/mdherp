@@ -428,6 +428,22 @@ class RequisitionRepository extends BaseRepository
             ->orwhere('payments.wf_done',0);
     }
 
+    /**
+     * @param $project_id
+     * @param $activity_id
+     * @param $region_id
+     * @return mixed
+     */
+    public function getActualExpenditures($project_id, $activity_id, $region_id)
+    {
+        return $this->getQueryExtended($project_id, $activity_id, $region_id)
+            ->where('fiscal_years.active', true)
+            ->where('requisitions.wf_done', 1)
+            ->where('requisitions.done', true)
+//            ->where('payments.id',null)
+            ->where('payments.wf_done',1);
+    }
+
     public function processComplete(Requisition $requisition)
     {
         return DB::transaction(function () use ($requisition) {

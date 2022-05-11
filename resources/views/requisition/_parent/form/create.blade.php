@@ -274,7 +274,7 @@
 
                         let $budget_amount = 'USD '+(data.budget/data.exchange_rate).toLocaleString();
                         let $available_budget_amount = 'USD '+($available_budget/data.exchange_rate).toLocaleString();
-                        let $actual_amount = 'USD '+(data.actual/data.exchange_rate).toLocaleString();
+                        let $actual_amount = 'USD '+(data.actual_expenditure/data.exchange_rate).toLocaleString();
                         let $commitment_amount = 'USD '+(data.commitment/data.exchange_rate).toLocaleString();
                         let $pipeline_amount = 'USD '+(data.pipeline/data.exchange_rate).toLocaleString();
 

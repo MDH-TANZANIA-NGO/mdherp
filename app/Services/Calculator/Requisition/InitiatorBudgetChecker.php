@@ -26,7 +26,7 @@ trait InitiatorBudgetChecker
             'actual' => $this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->budget_actual_amount,
             'commitment' => $this->commitment($project_id, $activity_id, $region_id),
             'pipeline' => $this->pipeline($project_id, $activity_id, $region_id),
-            'actual_expenditure'=> $this->actualExpenditure(),
+            'actual_expenditure'=> $this->actualExpenditure($project_id, $activity_id, $region_id),
             'available budget' => null,
             'exchange_rate' => $this->exchangeRate($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year),
         ];
@@ -53,9 +53,10 @@ trait InitiatorBudgetChecker
         return (new RequisitionRepository())->getCommitment($project_id, $activity_id, $region_id)->sum('requisitions.amount');
     }
 
-    public function actualExpenditure()
+    public function actualExpenditure($project_id, $activity_id, $region_id)
     {
-        return (new RequisitionRepository())->getActualExpenditure()->sum('payments.payed_amount');
+        return (new RequisitionRepository())->getActualExpenditures($project_id, $activity_id, $region_id)->sum('requisitions.amount');
+//        return (new RequisitionRepository())->getActualExpenditure()->sum('payments.payed_amount');
     }
 
     public function exchangeRate($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)
