@@ -477,21 +477,22 @@ class RequisitionRepository extends BaseRepository
             'actual_amount'=>$available_budget
         ]);
     }
-    public function updateIndividualAvailableBudget($requisition, $current_amount = null, $updated_amount = null)
+    public function updateIndividualAvailableBudget($requisition, $requested, $addition = null)
     {
-        if ($updated_amount > $current_amount or $current_amount == null)
+        $current_amount=0;
+        if($requisition->amount){
+            $current_amount = $requisition->amount;
+        }
+        if ($addition)
         {
-
-            $difference_amount =  $updated_amount - $current_amount;
-            $actual_amount = $requisition->fundChecker()->first()->actual_amount - $difference_amount;
+            $difference_amount =  $current_amount - $requested;
+            $actual_amount = $requisition->fundChecker()->first()->actual_amount + $difference_amount;
             $requisition->fundChecker()->update([
                 'actual_amount'=>$actual_amount
             ]);
-        }
-        if ($updated_amount < $current_amount)
-        {
-            $difference_amount =  $current_amount - $updated_amount;
-            $actual_amount = $requisition->fundChecker()->first()->actual_amount + $difference_amount;
+        }else{
+            $difference_amount =  $requested - $current_amount;
+            $actual_amount = $requisition->fundChecker()->first()->actual_amount - $difference_amount;
             $requisition->fundChecker()->update([
                 'actual_amount'=>$actual_amount
             ]);
