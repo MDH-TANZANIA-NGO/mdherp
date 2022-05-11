@@ -14,7 +14,7 @@
                             <th>From</th>
                             <th>To</th>
                             <th>Perdiem</th>
-                            <th>Ontransit</th>
+                            <th>Destination</th>
                             <th>Accommodation</th>
                             <th>Transport</th>
                             <th>Ticket Fair</th>
@@ -29,7 +29,7 @@
                                 <th>{{ $cost->from}}</th>
                                 <th>{{ $cost->to }}</th>
                                 <th>{{ number_2_format($cost->perdiem_total_amount) }}</th>
-                                <th>{{ number_2_format($cost->ontransit) }}</th>
+                                <th>{{ $cost->district->name}}</th>
                                 <th>{{ number_2_format($cost->total_accommodation) }}</th>
                                 <th>{{ number_2_format($cost->transportation) }}</th>
                                 <th>{{ number_2_format($cost->ticket_fair) }}</th>

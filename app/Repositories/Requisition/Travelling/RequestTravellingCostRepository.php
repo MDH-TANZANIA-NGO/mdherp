@@ -78,7 +78,6 @@ class RequestTravellingCostRepository extends BaseRepository
     public function inputProcess($inputs)
     {
 
-        $destination_region = District::query()->find($inputs['district_id'])->region_id;
         $traveller_region_id = User::query()->find($inputs['traveller_uid'])->region_id;
         $days = getNoDays($inputs['from'], $inputs['to']);
         $perdiem_total_amount = 0;
@@ -92,7 +91,6 @@ class RequestTravellingCostRepository extends BaseRepository
         return [
             'perdiem_total_amount'=> $perdiem_total_amount,
             'traveller_uid' => $inputs['traveller_uid'],
-            'district_id'=> $inputs['district_id'],
             'no_days' => $days,
             'ontransit'=> $ontransit,
             'from' => $inputs['from'],
@@ -152,21 +150,21 @@ class RequestTravellingCostRepository extends BaseRepository
         return $this->getRequisitionFilter()->pluck('travelling','requisition_travelling_costs.id');
 
     }
-    public function update($uuid)
+    public function update($uuid, $inputs)
     {
 
         $traveller = $this->findByUuid($uuid);
         $traveller_trips =  requisition_travelling_cost_district::query()->where('requisition_travelling_cost_id', $traveller->id)->first();
 
-        return DB::transaction(function () use ($traveller, $traveller_trips){
+        return DB::transaction(function () use ($traveller, $inputs){
             $traveller->update(
                 [
-                    'perdiem_total_amount'=>$traveller_trips->perdiem_total_amount,
-                    'accommodation'=>$traveller_trips->total_accommodation,
-                    'transportation'=>$traveller_trips->transportation,
-                    'ontransit'=>$traveller_trips->ontransit,
-                    'other_cost'=>$traveller_trips->other_cost,
-                    'total_amount'=>$traveller_trips->total_amount,
+                    'district_id'   =>$inputs['district_id'],
+                    'transportation'=>$inputs['transportation'],
+                    'ticket_fair'=>$inputs['ticket_fair'],
+                    'other_cost'=>$inputs['other_cost'],
+                    'others_description'=>$inputs['other_cost_description'],
+                    'total_amount'=>$inputs['transportation']+$inputs['ticket_fair']+ $inputs['other_cost'],
                 ]
             );
 

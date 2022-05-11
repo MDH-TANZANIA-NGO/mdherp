@@ -96,7 +96,7 @@ class RequestTravellingCostController extends Controller
         $traveller =  $this->travellingCost->findByUuid($uuid);
         $traveller_details =  $this->travellingCost->getQuery()->first();
         $requisition =  Requisition::query()->where('id',    $traveller->requisition_id)->first();
-        check_available_budget_individual($requisition, $traveller->total_amount, $traveller->total_amount, 0);
+        check_available_budget_individual($requisition, $traveller->total_amount, $traveller->total_amount);
         DB::delete('delete from requisition_travelling_costs where uuid = ?',[$uuid]);
         $this->requisition->updatingTotalAmount($requisition);
         return redirect()->back();

@@ -28,7 +28,7 @@
                         <tr>
                             <td>
                                 {{ $cost->user->full_name_formatted }}</p>
-                                <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{ $cost->district->name }}</div>
+                                <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>Mlandizi</div>
                             </td>
                             <td class="text-center">{{ date('d-M-Y', strtotime($cost->from)) }}</td>
                             <td class="text-center">{{ date('d-M-Y', strtotime($cost->to)) }}</td>

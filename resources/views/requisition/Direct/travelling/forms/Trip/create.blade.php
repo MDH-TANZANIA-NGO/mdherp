@@ -60,78 +60,142 @@
     </div>
 </div>
 <!-- Modal -->
-
-{!! Form::open(['route' => ['trip.store'],'class'=>'card']) !!}
+    @if(getNoDays($travelling_cost->from, $travelling_cost->to) == 1)
+{!! Form::open(['route' => ['travelling.update', $travelling_cost->uuid],'class'=>'card']) !!}
 
 <div class="card-body">
     <div class="row">
 
 
 
-        <div class="col-md-3">
-            <div class="form-group">
-                {!! Form::label('from', __("From Date"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::date('from',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
-                {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                {!! Form::label('to', __("To Date"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::date('to',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
-                {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <div class="form-group">
-                {!! Form::label('destination', __("Destination District"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','placeholder'=>'Select District','required']) !!}
-                {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                {!! Form::label('accommodation', __("Accommodation per night"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::number('accommodation',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
-                {!! $errors->first('accommodation', '<span class="badge badge-danger">:message</span>') !!}
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                {!! Form::label('transportation', __("Ground Transport"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::number('transportation',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
-                {!! $errors->first('transportation', '<span class="badge badge-danger">:message</span>') !!}
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                {!! Form::label('ticket_fair', __("Ticket Fair"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::number('ticket_fair',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
-                {!! $errors->first('ticket_fair', '<span class="badge badge-danger">:message</span>') !!}
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                {!! Form::label('other_cost', __("Other Cost"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::number('other_cost',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
-                {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                {!! Form::label('other_cost_description', __("Other Cost Description"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::text('other_cost_description',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
-                {!! $errors->first('other_cost_description', '<span class="badge badge-danger">:message</span>') !!}
-            </div>
-        </div>
 
-        <input type="number" name="traveller_uid" value="{{$travelling_cost->traveller_uid}}" hidden  >
-        <input type="number" name="requisition_travelling_cost_id" value="{{$travelling_cost->id}}" hidden>
-        <input type="text" name="travelling_cost_uuid" value="{{$travelling_cost->uuid}}" hidden>
-        <button type="submit" class="btn btn-outline-info" style="margin-left:40%;"><i class="fa fa-bus"></i> Add Trip</button>
-        <a href="{{route('trip.submitAllTrips', $travelling_cost->uuid)}}"  class="btn btn-outline-info" style="margin-left:2%;"><i class="fa fa-save"></i> Save and Continue</a>
+                {!! Form::date('from',$travelling_cost->from,['class' => 'form-control', 'placeholder' => '','hidden']) !!}
+                {!! Form::date('to',$travelling_cost->from,['class' => 'form-control', 'placeholder' => '','hidden']) !!}
+            {!! Form::number('accommodation',0,['class' => 'form-control', 'placeholder' => '','hidden']) !!}
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group">
+                    {!! Form::label('destination', __("Destination District"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','placeholder'=>'Select District','required']) !!}
+                    {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    {!! Form::label('transportation', __("Ground Transport"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::number('transportation',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                    {!! $errors->first('transportation', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    {!! Form::label('ticket_fair', __("Ticket Fair"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::number('ticket_fair',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                    {!! $errors->first('ticket_fair', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    {!! Form::label('other_cost', __("Other Cost"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::number('other_cost',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                    {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    {!! Form::label('other_cost_description', __("Other Cost Description"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::text('other_cost_description',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                    {!! $errors->first('other_cost_description', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+            </div>
+<br>
+
+
+            <input type="number" name="traveller_uid" value="{{$travelling_cost->traveller_uid}}" hidden  >
+            <input type="number" name="requisition_travelling_cost_id" value="{{$travelling_cost->id}}" hidden>
+            <input type="text" name="travelling_cost_uuid" value="{{$travelling_cost->uuid}}" hidden>
+        <button type="submit" class="btn btn-outline-info" style="margin-left:40%;"><i class="fa fa-save"></i> Save and Continue</button>
     </div>
 </div>
+{!! Form::close() !!}
+        @else
+        {!! Form::open(['route' => ['trip.store'],'class'=>'card']) !!}
 
-    {!! Form::close() !!}
+        <div class="card-body">
+            <div class="row">
+                @if(getNoDays($travelling_cost->from, $travelling_cost->to) == 2)
+                    {!! Form::date('from',$travelling_cost->from,['class' => 'form-control', 'placeholder' => '','hidden']) !!}
+                    {!! Form::date('to',$travelling_cost->to,['class' => 'form-control', 'placeholder' => '','hidden']) !!}
+
+                @else
+            <div class="col-md-3">
+                <div class="form-group">
+                    {!! Form::label('from', __("From Date"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::date('from',null,['class' => 'form-control', 'placeholder' => '','required','min'=>$from, 'max'=>$to]) !!}
+                    {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    {!! Form::label('to', __("To Date"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::date('to',null,['class' => 'form-control', 'placeholder' => '','required','min'=>$from,  'max'=>$to]) !!}
+                    {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+            </div>
+@endif
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group">
+                        {!! Form::label('destination', __("Destination District"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','placeholder'=>'Select District','required']) !!}
+                        {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {!! Form::label('accommodation', __("Accommodation per night"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::number('accommodation',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                        {!! $errors->first('accommodation', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {!! Form::label('transportation', __("Ground Transport"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::number('transportation',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                        {!! $errors->first('transportation', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {!! Form::label('ticket_fair', __("Ticket Fair"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::number('ticket_fair',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                        {!! $errors->first('ticket_fair', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {!! Form::label('other_cost', __("Other Cost"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::number('other_cost',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                        {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        {!! Form::label('other_cost_description', __("Other Cost Description"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::text('other_cost_description',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                        {!! $errors->first('other_cost_description', '<span class="badge badge-danger">:message</span>') !!}
+                    </div>
+                </div>
+
+                <input type="number" name="traveller_uid" value="{{$travelling_cost->traveller_uid}}" hidden  >
+                <input type="number" name="requisition_travelling_cost_id" value="{{$travelling_cost->id}}" hidden>
+                <input type="text" name="travelling_cost_uuid" value="{{$travelling_cost->uuid}}" hidden>
+                <button type="submit" class="btn btn-outline-info" style="margin-left:40%;"><i class="fa fa-bus"></i> Add Trip</button>
+                <a href="{{route('trip.submitAllTrips', $travelling_cost->uuid)}}"  class="btn btn-outline-info" style="margin-left:2%;"><i class="fa fa-save"></i> Save and Continue</a>
+
+            </div>
+</div>
+        {!! Form::close() !!}
+
+    @endif
+
+
 
