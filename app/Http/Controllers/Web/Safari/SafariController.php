@@ -10,6 +10,7 @@ use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Repositories\Hotel\HotelRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Travelling\RequestTravellingCostRepository;
 use App\Repositories\Retirement\RetirementRepository;
@@ -32,6 +33,7 @@ class SafariController extends Controller
     protected $districts;
     protected $wf_tracks;
     protected $designations;
+    protected $hotel;
 
     public function __construct()
     {
@@ -40,22 +42,21 @@ class SafariController extends Controller
         $this->districts = (new  DistrictRepository());
         $this->wf_tracks = (new WfTrackRepository());
         $this->designations = (new DesignationRepository());
+        $this->hotel = (new HotelRepository());
     }
 
 
     public function index()
     {
-
         return view('safari.index')
-            ->with('safariAdvance', $this->safariAdvance =  (new SafariAdvanceRepository()));
+            ->with('safariAdvance', $this->safariAdvance);
     }
 
     public  function  create(SafariAdvance $safariAdvance)
     {
-
-
+        $district_id = $safariAdvance->travellingCost()->first()->district_id;
         return view('safari.forms.create')
-
+            ->with('hotels', $this->hotel->getHotelByDistrict($district_id)->pluck('name', 'id'))
             ->with('travelling_cost', $safariAdvance->travellingCost)
             ->with('district', $this->districts->getForPluck())
             ->with('safari_advance', $safariAdvance);
@@ -74,7 +75,7 @@ class SafariController extends Controller
     {
         $retirements =  Retirement::query()->where('user_id', access()->user()->id)->where('wf_done', '=', false);
 
-//dd($this->safariAdvance->getCompletedWithoutRetirement()->count());
+//dd($this->travellingCost->getRequisition()->get());
         return view('safari.forms.initiate')
             ->with('travelling_costs', $this->travellingCost->getPluckRequisitionNo())
             ->with('safari_not_retired', $this->safariAdvance->getCompletedWithoutRetirement()->count())

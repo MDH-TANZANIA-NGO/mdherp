@@ -47,6 +47,7 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
             DB::raw('requisition_travelling_cost_districts.accommodation AS accommodation'),
             DB::raw('requisition_travelling_cost_districts.total_accommodation AS total_accommodation'),
             DB::raw('requisition_travelling_cost_districts.ontransit AS ontransit'),
+            DB::raw('requisition_travelling_cost_districts.ticket_fair AS ticket_fair'),
             DB::raw('requisition_travelling_cost_districts.other_cost AS other_cost'),
             DB::raw('requisition_travelling_cost_districts.other_cost_description AS other_cost_description'),
             DB::raw('requisition_travelling_cost_districts.total_amount AS total_amount'),
@@ -82,14 +83,16 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
         if ($days_difference > 2)
         {
             $perdiem_total_amount =  $this->getPerdiem($traveller_region_id,$destination_region,$days);
+            $ontransit = 0;
         }
         else{
 
             $perdiem_total_amount = $this->getTravellerTotalMealsAndIncidentials($traveller_region_id, $destination_region, $days);
+            $ontransit = 0;
         }
         $meals_and_incidential_rate_id = $this->mdh_rates->getRateIDByRegion($destination_region);
         $meals_and_incidential_rate_id = $meals_and_incidential_rate_id[0];
-        $ontransit = $this->getTravellerOntransitTotalAmount($traveller_region_id, $destination_region, $days);
+//        $ontransit = $this->getTravellerOntransitTotalAmount($traveller_region_id, $destination_region, $days);
         $accommodation = $this->getTravellerTotalAccommodation($inputs['accommodation'], $days);
         $total_amount = $perdiem_total_amount + $ontransit + $accommodation + $inputs['transportation'] + $inputs['ticket_fair'] + $inputs['other_cost'];
 
@@ -260,32 +263,35 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
 
         $traveller_details = $this->getTravellerTrips($traveller_id)->get();
         $travelling_cost = (new RequestTravellingCostRepository())->findByUuid($uuid);
-
+        $district_id = $traveller_details->first()->district_id;
         $destination_region = $traveller_details->first()->district->region_id;
         $days = getNoDays($travelling_cost->from, $travelling_cost->to);
-        if ($days == 2) {
-            $ontransit = $traveller_details->sum('ontransit');
-            $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount');
-        } else {
-            $get_none_traveller_regions = $this->getTripsReagions($travelling_cost->traveller_uid, $travelling_cost->user->region_id)->get();
-            if ($get_none_traveller_regions->count() > 0) {
-                $ontransit = $get_none_traveller_regions->first()->ontransit;
-                $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount');
-            } else {
-                $ontransit = $traveller_details->sum('ontransit');
-                $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount') + (($traveller_details->first()->perdiem_total_amount) / ($traveller_details->first()->no_days));
+        $get_none_traveller_regions = $this->getTripsReagions($travelling_cost->traveller_uid, $travelling_cost->user->region_id)->get();
+        $mdh_rate_amount =( $traveller_details->first()->perdiem_total_amount) / ($traveller_details->first()->no_days);
 
-            }
+        if ($get_none_traveller_regions->count() > 0)
+        {
+            $ontransit =  ($mdh_rate_amount * 0.75)*2;
+            $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount');
+
+        }
+        if ($get_none_traveller_regions->count() == 0){
+            $ontransit =  0;
+            $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount') + $mdh_rate_amount;
+
+        }
+
 
             $accommodation = $traveller_details->sum('total_accommodation');
             $transportation = $traveller_details->sum('transportation');
             $ticket_fair = $traveller_details->sum('ticket_fair');
             $other_cost = $traveller_details->sum('other_cost');
-            $total_amount = $traveller_details->sum('total_amount');
+            $total_amount = $accommodation + $transportation + $ticket_fair + $other_cost + $perdiem_total_amount + $ontransit;
 
             DB::table('requisition_travelling_costs')
                 ->where('uuid', $uuid)
                 ->update([
+                    'district_id'=> $district_id,
                     'perdiem_total_amount' => $perdiem_total_amount,
                     'ontransit' => $ontransit,
                     'accommodation' => $accommodation,
@@ -295,7 +301,7 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
                     'total_amount' => $total_amount,
                 ]);
         }
-    }
+
 
     public function delete($uuid)
     {

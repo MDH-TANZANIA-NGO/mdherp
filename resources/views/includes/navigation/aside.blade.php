@@ -95,6 +95,14 @@
         </li>
         @endpermission
 
+        @permission('admin_panel')
+        <li class="slide">
+            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-street-view multiple-outline text-primary"></i><span class="side-menu__label">Admin Panel</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item"  href="{{ route('admin.workspace') }}"><span>Hotels</span></a></li>
+            </ul>
+        </li>
+        @endpermission
        {{-- @permission('compliance')
 
         <li class="slide">

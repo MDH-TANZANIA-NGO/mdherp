@@ -168,8 +168,7 @@ class RequisitionController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($requisition, $current_level, $workflow->wf_definition_id);
         return view('requisition._parent.display.show')
             ->with('requisition', $requisition)
-            ->with('trips', requisition_travelling_cost_district::query()->where('requisition_travelling_cost_id', $requisition->travellingCost()->first()->id)->get())
-            ->with('training', $requisition->training()->first())
+           ->with('training', $requisition->training()->first())
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
