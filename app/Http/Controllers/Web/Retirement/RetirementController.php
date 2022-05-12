@@ -61,7 +61,8 @@ class RetirementController extends Controller
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
             ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id))
-            ->with('retire_safaris_paid_amounts', $this->safari_advances->getDisbursedAmount()->get()->where('safari_id', $retirement->safari_advance_id));
+            ->with('retire_safaris_paid_amounts', $this->safari_advances->getDisbursedAmount()->get()->where('safari_id', $retirement->safari_advance_id))
+            ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'));
 
     }
 
