@@ -34,7 +34,7 @@ trait InitiatorBudgetChecker
 
     public function activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)
     {
-        return (new ActivityRepository())->getSubQuery($activity_id, $project_id, $region_id)->first();
+        return (new ActivityRepository())->getSubQueryFilter($activity_id, $project_id, $region_id)->first();
     }
 
     public function requisition($requisition_type_id)
