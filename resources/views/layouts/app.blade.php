@@ -252,7 +252,7 @@
 {!! Html::script(url('mdh/js/datatables.js')) !!}
 
 <!-- Bootstrap4 js-->
-{{--{!! Html::script(url('mdh/plugins/bootstrap/popper.min.js')) !!}--}}
+{!! Html::script(url('mdh/plugins/bootstrap/popper.min.js')) !!}
 {!! Html::script(url('mdh/plugins/bootstrap/js/bootstrap.min.js')) !!}
 
 <!--Othercharts js-->
