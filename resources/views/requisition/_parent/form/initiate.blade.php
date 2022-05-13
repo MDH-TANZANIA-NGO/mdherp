@@ -31,7 +31,7 @@
         </div>
     @endif
 
-    @include('requisition._parent.includes.budget_checker', ['requisition' => $requisition])
+{{--    @include('requisition._parent.includes.budget_checker', ['requisition' => $requisition])--}}
 
     @switch($requisition->requisition_type_id)
         @case(1)
