@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
+
+
     <!-- Row-->
     <div class="row">
         <div class="col-md-12">
@@ -127,7 +129,7 @@
                             {!! Form::close() !!}
                         </table>
                     </div>
-                    <p class="text-muted text-center">Thank you very much for doing business with us. We look forward to working with you again!</p>
+                    <p class="text-muted text-center">Please verify amount paid before submit for approval!</p>
                 </div>
             </div>
         </div>

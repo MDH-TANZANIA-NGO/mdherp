@@ -51,56 +51,63 @@
                             <tr class=" ">
                                 <th class="text-center " style="width: 1%"></th>
                                 <th>Travel Requirements</th>
+                                {!! Form::open(['route'=> 'finance.store_safari_payment','method'=>'POST']) !!}
                                 <th class="text-right" style="width: 20%">Amount</th>
                             </tr>
                             <tr>
                                 <td class="text-center">1</td>
                                 <td>
-                                    <p class="font-w600 mb-1">Accommodation</p>
+
+                                    <p class="font-w600 mb-1">Accommodation <b class="text-danger text align-items-center" style="margin-left: 10%">@if($hotel_reserved->count() > 0) Hotel is prebooked do not pay accommodation @endif</b></p>
                                 </td>
 
-                                <td class="text-right">{{number_2_format($safari_advance->travellingCost->accommodation)}}</td>
+                                <td class="text-right">
+                                    @if($hotel_reserved->count() > 0) {!! Form::number('accommodation', 0.00, ['class'=>'form-control','id'=>'id-1'])  !!}
+                                    @else
+                                    {!! Form::number('accommodation', $safari_advance->travellingCost->accommodation, ['class'=>'form-control','id'=>'id-1'])  !!}
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td class="text-center">2</td>
                                 <td>
                                     <p class="font-w600 mb-1">Meals and Incidentals</p>
                                 </td>
-                                <td class="text-right">{{number_2_format($safari_advance->travellingCost->perdiem_total_amount)}}</td>
+                                <td class="text-right"> {!! Form::number('perdiem_total_amount', $safari_advance->travellingCost->perdiem_total_amount, ['class'=>'form-control','id'=>'id-2'])  !!}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">3</td>
                                 <td>
                                     <p class="font-w600 mb-1">Ticket Fair</p>
                                 </td>
-                                <td class="text-right">{{number_2_format($safari_advance->travellingCost->ticket_fair)}}</td>
+                                <td class="text-right"> {!! Form::number('ticket_fair', $safari_advance->travellingCost->ticket_fair, ['class'=>'form-control','id'=>'id-3'])  !!}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">4</td>
                                 <td>
                                     <p class="font-w600 mb-1">Ontransit Allowance</p>
                                 </td>
-                                <td class="text-right">{{number_2_format($safari_advance->travellingCost->ontransit)}}</td>
+                                <td class="text-right"> {!! Form::number('ontransit', $safari_advance->travellingCost->ontransit, ['class'=>'form-control','id'=>'id-4'])  !!}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">5</td>
                                 <td>
                                     <p class="font-w600 mb-1">Ground Transport To Airport</p>
                                 </td>
-                                <td class="text-right">{{number_2_format($safari_advance->travellingCost->transportation)}}</td>
+                                <td class="text-right"> {!! Form::number('transportation', $safari_advance->travellingCost->transportation, ['class'=>'form-control','id'=>'id-5'])  !!}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">6</td>
                                 <td>
-                                    <p class="font-w600 mb-1">Ticket Fair</p>
+                                    <p class="font-w600 mb-1">Other Cost</p>
                                 </td>
-                                <td class="text-right">{{number_2_format($safari_advance->travellingCost->other_cost)}}</td>
+                                <td class="text-right"> {!! Form::number('other_cost', $safari_advance->travellingCost->other_cost, ['class'=>'form-control','id'=>'id-6'])  !!}</td>
 
                                 <div class="text-muted">{{$safari_advance->travellingCost->others_description}}</div>
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w600 text-right">Account No</td>
-                                {!! Form::open(['route'=> 'finance.store_safari_payment','method'=>'POST']) !!}
+
                                 {!! Form::number('requisition_id', $requisition->id, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('requested_amount', $requisition->amount, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('safari_advance_id', $safari_advance->id, ['class'=>'form-control','hidden'])  !!}
@@ -110,7 +117,14 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w600 text-right">Total Amount </td>
-                                <td class="font-weight-bold text-right">{!! Form::number('total_amount', $safari_advance->travellingCost->total_amount, ['class'=>'form-control'])  !!}</td>
+                                <td class="font-weight-bold text-right">  {!! Form::number('total_amount', null, ['class'=>'form-control','id'=>'id-7','required'])  !!}</td>
+
+
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="font-w800 text-right">Remarks:</td>
+                                <td class="font-weight-bold text-right">
+                                    {!! Form::text('remarks', null, ['class'=>'form-control'])  !!}</td>
                             </tr>
 
                             <tr>
@@ -129,3 +143,13 @@
     <!-- End row-->
 
 @endsection
+
+@push('after-scripts')
+    <script>
+        $(function () {
+            $("#id-1, #id-2, #id-3, #id-4,#id-5,#id-6").keyup(function () {
+                $("#id-7").val(+$("#id-1").val() + +$("#id-2").val() + +$("#id-3").val()+ +$("#id-4").val()+ +$("#id-5").val()+ +$("#id-6").val());
+            });
+        });
+    </script>
+@endpush

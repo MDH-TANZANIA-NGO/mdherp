@@ -11,6 +11,7 @@ use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Models\SafariAdvance\SafariAdvanceHotelSelection;
+use App\Models\System\Region;
 use App\Repositories\Hotel\HotelRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Travelling\RequestTravellingCostRepository;
@@ -56,8 +57,9 @@ class SafariController extends Controller
     public  function  create(SafariAdvance $safariAdvance)
     {
         $district_id = $safariAdvance->travellingCost()->first()->district_id;
+        $region_id = $this->districts->find($district_id)->region_id;
         return view('safari.forms.create')
-            ->with('hotels', $this->hotel->getHotelByDistrict($district_id)->pluck('name', 'id'))
+            ->with('hotels', $this->hotel->getHotelByRegion($region_id)->pluck('name', 'id'))
             ->with('hotels_reserved', $this->hotel->getSelectedHotelForSafari($safariAdvance->id))
             ->with('travelling_cost', $safariAdvance->travellingCost)
             ->with('district', $this->districts->getForPluck())
@@ -154,6 +156,7 @@ class SafariController extends Controller
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($safariAdvance))
             ->with('safari', $safariAdvance)
+            ->with('travelling_costs', $safariAdvance->travellingCost()->get())
             ->with('safari_details',$safariAdvance->SafariDetails()->getQuery()->get()->all())
             ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation));
     }

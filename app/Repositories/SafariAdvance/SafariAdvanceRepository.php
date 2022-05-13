@@ -108,6 +108,10 @@ class SafariAdvanceRepository extends BaseRepository
         return $this->query()->select([
             DB::raw('safari_advances.id AS id'),
             DB::raw('safari_advances.user_id AS user_id'),
+            DB::raw("concat_ws(' ', users.first_name, users.last_name) as full_name"),
+            DB::raw('users.email AS email'),
+            DB::raw('users.phone AS phone'),
+            DB::raw('safari_advances.number AS number'),
             DB::raw('safari_advances.number AS number'),
             DB::raw('safari_advances.amount_requested AS amount_requested'),
             DB::raw('safari_advances.amount_paid AS amount_paid'),
