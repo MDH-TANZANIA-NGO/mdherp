@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\FilesAttachment\FilesAttachment;
 use App\Models\Retirement\Retirement;
 use App\Models\Retirement\RetirementDetail;
+use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\System\DistrictRepository;
@@ -27,6 +28,7 @@ class RetirementController extends Controller
     protected $district;
     protected $wf_tracks;
     protected $designations;
+    protected $finance;
 
     public function __construct()
     {
@@ -34,6 +36,8 @@ class RetirementController extends Controller
         $this->safari_advances = (new SafariAdvanceRepository());
         $this->district=(new DistrictRepository());
         $this->wf_tracks = (new WfTrackRepository());
+        $this->finance = (new FinanceActivityRepository());
+
     }
 
     /*public function index(RetirementRepository $retirementRepository)
@@ -57,12 +61,15 @@ class RetirementController extends Controller
 
     public  function  create(Retirement $retirement)
     {
+
+        $safariDetails = $this->finance->getPaidSafari($retirement->safari_advance_id)->first();
         return view('retirement.forms.create')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
             ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id))
             ->with('retire_safaris_paid_amounts', $this->safari_advances->getDisbursedAmount()->get()->where('safari_id', $retirement->safari_advance_id))
-            ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'));
+            ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
+            ->with('safariDetails', $safariDetails);
 
     }
 
