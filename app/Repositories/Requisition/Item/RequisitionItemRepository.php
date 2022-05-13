@@ -27,7 +27,7 @@ class RequisitionItemRepository extends BaseRepository
 
     public function store(Requisition $requisition, $inputs)
     {
-        $this->storecheck($requisition,$inputs);
+        check_available_budget_individual($requisition, $this->inputProcess($inputs)['total_amount']);
         return DB::transaction(function () use ($requisition, $inputs){
             $item = $requisition->items()->create($this->inputProcess($inputs));
             $item->districts()->sync($inputs['districts']);
