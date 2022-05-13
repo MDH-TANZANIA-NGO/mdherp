@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\Safari\Datatables\SafariDatatables;
 use App\Models\Auth\User;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Models\SafariAdvance\SafariAdvanceHotelSelection;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
@@ -60,6 +61,19 @@ class SafariAdvanceRepository extends BaseRepository
     {
         return DB::transaction(function () use ($inputs){
             return $this->query()->create($this->inputProcess($inputs));
+        });
+    }
+    public function storeHotelReservation($inputs)
+    {
+        return DB::transaction(function () use ($inputs){
+            return SafariAdvanceHotelSelection::query()->create(
+                [
+                    'safari_advance_id'=>$inputs['safari_advance_id'],
+                    'hotel_id'=>$inputs['hotel_id'],
+                    'priority_level'=>$inputs['priority_level'],
+
+                ]
+            );
         });
     }
 

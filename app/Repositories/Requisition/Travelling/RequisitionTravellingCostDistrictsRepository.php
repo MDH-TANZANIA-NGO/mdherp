@@ -3,6 +3,7 @@
 namespace App\Repositories\Requisition\Travelling;
 
 use App\Models\Auth\User;
+use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
@@ -46,29 +47,53 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
             DB::raw('requisition_travelling_cost_districts.accommodation AS accommodation'),
             DB::raw('requisition_travelling_cost_districts.total_accommodation AS total_accommodation'),
             DB::raw('requisition_travelling_cost_districts.ontransit AS ontransit'),
+            DB::raw('requisition_travelling_cost_districts.ticket_fair AS ticket_fair'),
             DB::raw('requisition_travelling_cost_districts.other_cost AS other_cost'),
             DB::raw('requisition_travelling_cost_districts.other_cost_description AS other_cost_description'),
             DB::raw('requisition_travelling_cost_districts.total_amount AS total_amount'),
         ]);
     }
 
-    public function getTravellerTrips($user_id)
+    public function getTravellerTrips($user_id, $travelling_cost_id)
     {
         return $this->getQuery()
             ->join('requisition_travelling_costs', 'requisition_travelling_costs.id', 'requisition_travelling_cost_districts.requisition_travelling_cost_id')
-            ->where('requisition_travelling_costs.traveller_uid', $user_id);
+            ->where('requisition_travelling_costs.traveller_uid', $user_id)
+            ->where('requisition_travelling_costs.id', $travelling_cost_id);
     }
-
+    public  function getTripsReagions($user_id, $traveller_region,$travelling_cost_id )
+    {
+        return $this->getTravellerTrips($user_id, $travelling_cost_id)
+            ->join('districts', 'requisition_travelling_cost_districts.district_id', 'districts.id')
+            ->join('regions', 'regions.id', 'districts.region_id')
+            ->where('regions.id','!=',$traveller_region);
+    }
+    public function getOntransit($user_id, $travelling_cost_id)
+    {
+        return $this->getTravellerTrips($user_id, $travelling_cost_id)
+            ->where('requisition_travelling_cost_districts.ontransit', '!=', 0)
+            ->first();
+    }
     public function TripInputProcess($inputs)
     {
         $destination_region = District::query()->find($inputs['district_id'])->region_id;
         $traveller_region_id = User::query()->find($inputs['traveller_uid'])->region_id;
         $days = getNoDays($inputs['from'], $inputs['to']);
+        $travelling_cost =  (new RequestTravellingCostRepository())->find($inputs['requisition_travelling_cost_id']);
+        $days_difference = getNoDays($travelling_cost->from, $travelling_cost->to);
+        if ($days_difference > 2)
+        {
+            $perdiem_total_amount =  $this->getPerdiem($traveller_region_id,$destination_region,$days);
+            $ontransit = 0;
+        }
+        else{
+
+            $perdiem_total_amount = $this->getTravellerTotalMealsAndIncidentials($traveller_region_id, $destination_region, $days);
+            $ontransit = 0;
+        }
         $meals_and_incidential_rate_id = $this->mdh_rates->getRateIDByRegion($destination_region);
         $meals_and_incidential_rate_id = $meals_and_incidential_rate_id[0];
-        $meals_and_incidential_rate = $this->mdh_rates->getRateByRegion($destination_region);
-        $perdiem_total_amount = $this->getTravellerTotalMealsAndIncidentials($traveller_region_id, $destination_region, $days);
-        $ontransit = $this->getTravellerOntransitTotalAmount($traveller_region_id, $destination_region, $days);
+//        $ontransit = $this->getTravellerOntransitTotalAmount($traveller_region_id, $destination_region, $days);
         $accommodation = $this->getTravellerTotalAccommodation($inputs['accommodation'], $days);
         $total_amount = $perdiem_total_amount + $ontransit + $accommodation + $inputs['transportation'] + $inputs['ticket_fair'] + $inputs['other_cost'];
 
@@ -94,7 +119,24 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
         ];
     }
 
+    public function getPerdiem($traveller_region, $destination_region, $days)
+    {
+        if ($traveller_region == $destination_region) {
+                $meals_and_incident = 60000;
+                $meals_and_incident_total_amount = $meals_and_incident * ($days);
 
+
+        }
+        if ($traveller_region != $destination_region) {
+                $meals_and_incidential_rate = $this->mdh_rates->getRateByRegion($destination_region);
+                $meals_and_incident = $meals_and_incidential_rate[0];
+                $meals_and_incident_total_amount = $meals_and_incident * ($days);
+
+
+        }
+
+        return $meals_and_incident_total_amount;
+    }
     public function getTravellerTotalMealsAndIncidentials($traveller_region, $destination_region, $days)
     {
         if ($traveller_region == $destination_region) {
@@ -160,79 +202,113 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
     {
         $travelling_cost = (new RequestTravellingCostRepository())->findByUuid($inputs['travelling_cost_uuid']);
         $requisition = $this->requisition->find($travelling_cost->requisition_id);
-        $get_total_trips_days = $this->getTravellerTrips($travelling_cost->traveller_uid)->get();
+        $get_total_trips = $this->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
+//        $get_trip_range = $this->getTripDateRange($inputs['from'],$inputs['to'],$travelling_cost->traveller_uid);
+
+//        Check If Dates are entered correctly
+
         if ($inputs['from'] > $inputs['to']) {
             alert()->error('Dates selected are ambiguous', 'Error');
         }
-        if ($inputs['from'] >= $travelling_cost->from and $inputs['to'] <= $travelling_cost->to) {
-            if ($get_total_trips_days->count() == 0) {
-                return DB::transaction(function () use ($inputs) {
-                    $this->query()->create($this->TripInputProcess($inputs));
-                    alert()->success('Trip added successfully', 'Success');
-                });
-            }
-            if ($get_total_trips_days->count() > 0) {
-                if ($get_total_trips_days->sum('no_days') >= $travelling_cost->no_days) {
-                    alert()->error('You have no  available days');
-                } else {
-                    $get_trip_range = $this->getTripDateRange($inputs['from'], $inputs['to']);
-//                    dd($get_trip_range);
-                    if ($get_trip_range->count() > 0) {
-                        alert()->error('Date range is already selected', 'Error');
-                    } else {
-                        return DB::transaction(function () use ($inputs) {
-                            $this->query()->create($this->TripInputProcess($inputs));
-                            alert()->success('Trip added successfully', 'Success');
-                        });
 
-                    }
-                }
-            }
+//        Check If It is first trip then submit(Add Trip)
+        if (!$get_total_trips){
+            return DB::transaction(function () use ($inputs) {
+                $this->query()->create($this->TripInputProcess($inputs));
+                alert()->success('Trip added successfully', 'Success');
+            });
         }
-        else {
-            alert()->error('Dates selected must be within range', 'Error');
+
+//        If it is not first trip
+
+//        Check If there is available days
+        if (($get_total_trips->sum('no_days') - $travelling_cost->no_days) != 0){
+            return DB::transaction(function () use ($inputs) {
+                $this->query()->create($this->TripInputProcess($inputs));
+                alert()->success('Trip added successfully', 'Success');
+            });
         }
+        if (($get_total_trips->sum('no_days') - $travelling_cost->no_days) == 0)
+        {
+            alert()->error('No available days','Failed');
+        }
+
+////        Check If Date Range already Exist
+//        if ($get_trip_range)
+//        {
+//            alert()->error('Date range is already selected', 'Error');
+//        }
+//        if (!$get_trip_range){
+//            return DB::transaction(function () use ($inputs) {
+//                $this->query()->create($this->TripInputProcess($inputs));
+//                alert()->success('Trip added successfully', 'Success');
+//            });
+//        }
+
+
 
     }
 
 
-    public function getTripDateRange($from, $to)
+    public function getTripDateRange($from,$to, $user_id, $travelling_cost_id)
     {
-        return $this->getQuery()
-            ->whereDate('from', '>=', $from)
-            ->whereDate('to','<=', $to)
+        return $this->getTravellerTrips($user_id, $travelling_cost_id)
+            ->whereDate('requisition_travelling_cost_districts.from','>', $from)
+//            ->whereDate('requisition_travelling_cost_districts.to','<', $to)
             ->get();
     }
 
-    public function  updateTravellingCostAmounts($uuid, $traveller_id)
-    {
-        $traveller_details =  $this->getTravellerTrips($traveller_id)->get();
-        $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount');
-        $ontransit = $traveller_details->sum('ontransit');
-        $accommodation = $traveller_details->sum('accommodation');
-        $transportation = $traveller_details->sum('transportation');
-        $ticket_fair = $traveller_details->sum('ticket_fair');
-        $other_cost = $traveller_details->sum('other_cost');
-        $total_amount = $traveller_details->sum('total_amount');
 
-        DB::table('requisition_travelling_costs')
-            ->where('uuid', $uuid)
-            ->update([
-                'perdiem_total_amount'=> $perdiem_total_amount,
-                'ontransit'=> $ontransit,
-                'accommodation'=>$accommodation,
-                'transportation'=> $transportation,
-                'ticket_fair'=>$ticket_fair,
-                'other_cost'=>$other_cost,
-                'total_amount' =>  $total_amount,
-            ]);
-    }
+    public function  updateTravellingCostAmounts($uuid, $traveller_id, $travelling_cost_id)
+    {
+        $travelling_cost = (new RequestTravellingCostRepository())->findByUuid($uuid);
+        $traveller_details = $this->getTravellerTrips($traveller_id, $travelling_cost->id)->get();
+
+        $district_id = $traveller_details->first()->district_id;
+        $destination_region = $traveller_details->first()->district->region_id;
+        $days = getNoDays($travelling_cost->from, $travelling_cost->to);
+        $get_none_traveller_regions = $this->getTripsReagions($travelling_cost->traveller_uid, $travelling_cost->user->region_id, $travelling_cost->id)->get();
+        $mdh_rate_amount =( $traveller_details->first()->perdiem_total_amount) / ($traveller_details->first()->no_days);
+
+        if ($get_none_traveller_regions->count() > 0)
+        {
+            $ontransit =  ($mdh_rate_amount * 0.75)*2;
+            $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount');
+
+        }
+        if ($get_none_traveller_regions->count() == 0){
+            $ontransit =  0;
+            $perdiem_total_amount = $traveller_details->sum('perdiem_total_amount') + $mdh_rate_amount;
+
+        }
+
+
+            $accommodation = $traveller_details->sum('total_accommodation');
+            $transportation = $traveller_details->sum('transportation');
+            $ticket_fair = $traveller_details->sum('ticket_fair');
+            $other_cost = $traveller_details->sum('other_cost');
+            $total_amount = $accommodation + $transportation + $ticket_fair + $other_cost + $perdiem_total_amount + $ontransit;
+
+            DB::table('requisition_travelling_costs')
+                ->where('uuid', $uuid)
+                ->update([
+                    'district_id'=> $district_id,
+                    'perdiem_total_amount' => $perdiem_total_amount,
+                    'ontransit' => $ontransit,
+                    'accommodation' => $accommodation,
+                    'transportation' => $transportation,
+                    'ticket_fair' => $ticket_fair,
+                    'other_cost' => $other_cost,
+                    'total_amount' => $total_amount,
+                ]);
+        }
+
 
     public function delete($uuid)
     {
         $travelling_cost_details = $this->findByUuid($uuid);
         $travelling_cost = (new RequestTravellingCostRepository())->find($travelling_cost_details->requisition_travelling_cost_id);
-        $get_traveller_trips = $this->getTravellerTrips($travelling_cost->traveller_uid)->get();
+        $get_traveller_trips = $this->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
 
         if ($get_traveller_trips->count() != 1)
         {
@@ -250,45 +326,27 @@ public function update($inputs, $uuid)
     $trip_details = $this->findByUuid($uuid);
     $travelling_cost = (new RequestTravellingCostRepository())->findByUuid($inputs['travelling_cost_uuid']);
     $requisition = $this->requisition->find($travelling_cost->requisition_id);
-    $get_total_trips_days = $this->getTravellerTrips($travelling_cost->traveller_uid)->get();
+    $get_total_trips_days = $this->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
+    $days = getNoDays($inputs['from'], $inputs['to']);
+
+//    Check if Dates are correct inserted
     if ($inputs['from'] > $inputs['to']) {
         alert()->error('Dates selected are ambiguous', 'Error');
     }
-    if ($inputs['from'] >= $travelling_cost->from and $inputs['to'] <= $travelling_cost->to) {
-        if ($get_total_trips_days->count() == 0) {
-            return DB::transaction(function () use ($inputs, $trip_details) {
-                $trip_details->update($this->TripInputProcess($inputs));
-                alert()->success('Trip updated successfully', 'Success');
-            });
-        }
-        if ($get_total_trips_days->count() > 0) {
-            if ($get_total_trips_days->sum('no_days') >= $travelling_cost->no_days) {
-                alert()->error('You have no  available days');
-            } else {
-                $get_trip_range = $this->getTripDateRange($inputs['from'], $inputs['to']);
-//                    dd($get_trip_range);
-                if ($get_trip_range->count() > 0) {
-                    alert()->error('Date range is already selected', 'Error');
-                } else {
-                    return DB::transaction(function () use ($inputs, $trip_details) {
-                        $trip_details->update($this->TripInputProcess($inputs));
-                        alert()->success('Trip updated successfully', 'Success');
-                    });
 
-                }
-            }
-        }
-    }
-
+    return DB::transaction(function () use ($inputs, $trip_details) {
+        $trip_details->update($this->TripInputProcess($inputs));
+        alert()->success('Trip updated successfully', 'Success');
+    });
 
 }
 
 public function submitAllTrips($uuid)
 {
     $travelling_cost =  (new RequestTravellingCostRepository())->findByUuid($uuid);
-    $get_traveller_trips =  $this->getTravellerTrips($travelling_cost->traveller_uid)->get();
+    $get_traveller_trips =  $this->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
     $requisition =  $this->requisition->find($travelling_cost->requisition_id);
-    check_available_budget_individual($requisition,$requisition->amount,$requisition->amount,$get_traveller_trips->sum('total_amount'));
+    check_available_budget_individual($requisition,$get_traveller_trips->sum('total_amount'));
     $this->updateTravellingCostAmounts($uuid, $travelling_cost->traveller_uid);
     $this->requisition->updatingTotalAmount($requisition);
 }

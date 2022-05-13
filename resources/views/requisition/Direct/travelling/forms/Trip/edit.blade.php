@@ -72,14 +72,14 @@
         <div class="col-md-3">
             <div class="form-group">
                 {!! Form::label('from', __("From Date"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::date('from',$trip_details->from,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                {!! Form::date('from',$trip_details->from,['class' => 'form-control', 'placeholder' => '','min'=>$travelling_cost->from, 'max'=>$travelling_cost->to, 'required']) !!}
                 {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 {!! Form::label('to', __("To Date"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::date('to',$trip_details->to,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                {!! Form::date('to',$trip_details->to,['class' => 'form-control', 'placeholder' => '','min'=>$travelling_cost->from, 'max'=>$travelling_cost->to, 'required']) !!}
                 {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>

@@ -2,44 +2,218 @@
 
 @section('content')
 
+
+    <div class="card">
+        <div class="card-header">
+            <div class="tags">
+
+                <div class="tag">
+                    Traveller's name
+                    <span class="tag-addon tag-success">{{$travelling_cost->user->first_name}} {{$travelling_cost->user->last_name}}</span>
+                </div>
+                <div class="tag tag-default" data-toggle="modal" data-target="#exampleModal">
+                    {{$travelling_cost->from}}
+                    <span class="tag-addon"><i class="fe fe-calendar"></i></span>
+                </div>
+                <div class="tag tag-default" data-toggle="modal" data-target="#exampleModal">
+                    {{$travelling_cost->to}}
+                    <span class="tag-addon"><i class="fe fe-calendar"></i></span>
+                </div>
+
+                <div class="tag">
+                    Total travelling cost
+                    <span class="tag-addon tag-success">{{number_2_format($travelling_cost->total_amount)}}</span>
+                </div>
+                <div class="tag">
+                    Total perdiem
+                    <span class="tag-addon tag-success">{{number_2_format($travelling_cost->perdiem_total_amount)}}</span>
+                </div>
+                <div class="tag">
+                    Total accommodation
+                    <span class="tag-addon tag-success">{{number_2_format($travelling_cost->accommodation)}}</span>
+                </div>
+                <div class="tag">
+                    Ontransit
+                    <span class="tag-addon tag-success">{{number_2_format($travelling_cost->ontransit)}}</span>
+                </div>
+
+            </div>
+            <div class="card-options ">
+                <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+            </div>
+        </div>
+        <div class="card-body">
+            @if($travelling_cost->trips->count() > 0)
+                <div class="table-responsive push">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th class="text-center" >Destination</th>
+                            <th class="text-center" >Departure</th>
+                            <th class="text-center" >Returning</th>
+                            <th class="text-right" style="width: 1%">Perdiem</th>
+                            <th class="text-right" style="width: 2%">Ticket</th>
+                            <th class="text-right" style="width: 1%">Accomodation</th>
+                            <th class="text-right" style="width: 1%">Transportation</th>
+                            <th class="text-right" style="width: 1%">Others</th>
+                            <th class="text-right" style="width: 1%">Total</th>
+                        </tr>
+
+                        @foreach($travelling_cost->trips as $trips)
+                            <tr>
+                                <td>
+                                    <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{$trips->district->name}}</div>
+                                </td>
+                                <td class="text-center">{{ date('d-M-Y', strtotime($trips->from)) }}</td>
+                                <td class="text-center">{{ date('d-M-Y', strtotime($trips->to)) }}</td>
+                                <td class="text-right">{{ number_2_format($trips->perdiem_total_amount )}}</td>
+                                <td class="text-right">{{ number_2_format($trips->ticket_fair )}}</td>
+                                <td class="text-right">{{ number_2_format($trips->total_accommodation )}}</td>
+                                <td class="text-right">{{ number_2_format($trips->transportation) }}</td>
+                                <td class="text-right">{{ number_2_format($trips->other_cost) }}   <div class="nn" style="color: green">{{ $trips->others_description }}</div></td>
+
+                                <td class="text-right">{{ number_2_format($trips->total_amount) }}</td>
+                            </tr>
+                        @endforeach
+
+                        {{--                        <tr>--}}
+                        {{--                            <td colspan="6" class="font-w600 text-right">Total TZS</td>--}}
+                        {{--                            <td class="text-right">240,000.00</td>--}}
+                        {{--                        </tr>--}}
+                        <tr>
+                            <td colspan="8" class="font-weight-bold text-uppercase text-right"> Total </td>
+                            <td class="font-weight-bold text-right">{{ number_2_format($travelling_cost->total_amount) }}</td>
+                        </tr>
+
+                    </table>
+                </div>
+            @else
+                {{--                    {{$cost}}--}}
+                <div class="table-responsive push">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th class="text-center" >Destination</th>
+                            <th class="text-center" >Departure</th>
+                            <th class="text-center" >Returning</th>
+                            <th class="text-right" style="width: 1%">Perdiem</th>
+                            <th class="text-right" style="width: 2%">Ticket</th>
+                            <th class="text-right" style="width: 1%">Accomodation</th>
+                            <th class="text-right" style="width: 1%">Transportation</th>
+                            <th class="text-right" style="width: 1%">Others</th>
+                            <th class="text-right" style="width: 1%">Total</th>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="nn" style="color: green"><i class="fe fe-map-pin"></i>{{$travelling_cost->district->name}}</div>
+                            </td>
+                            <td class="text-center">{{ date('d-M-Y', strtotime($travelling_cost->from)) }}</td>
+                            <td class="text-center">{{ date('d-M-Y', strtotime($travelling_cost->to)) }}</td>
+                            <td class="text-right">{{ number_2_format($travelling_cost->perdiem_total_amount )}}</td>
+                            <td class="text-right">{{ number_2_format($travelling_cost->ticket_fair )}}</td>
+                            <td class="text-right">{{ number_2_format($travelling_cost->accommodation )}}</td>
+                            <td class="text-right">{{ number_2_format($travelling_cost->transportation) }}</td>
+                            <td class="text-right">{{ number_2_format($travelling_cost->other_cost) }}   <div class="nn" style="color: green">{{ $travelling_cost->others_description }}</div></td>
+
+                            <td class="text-right">{{ number_2_format($travelling_cost->total_amount) }}</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="8" class="font-weight-bold text-uppercase text-right"> Total </td>
+                            <td class="font-weight-bold text-right">{{ number_2_format($travelling_cost->total_amount) }}</td>
+                        </tr>
+
+                    </table>
+                </div>
+            @endif
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header" style="background-color: rgb(238, 241, 248)">
-                    <h3 class="card-title">Request Summary</h3>
+                    <h3 class="card-title">Logistics Arrangements</h3>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table card-table table-vcenter text-nowrap">
-                            <thead >
-                            <tr>
+                    <!-- Row -->
+                    <div class="row">
+                        @if($hotels->count() > 0)
+                        <div class="col-sm-12 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Hotel Reservation</h3>
+                                    <div class="card-options ">
+                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                        <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    {!! Form::open(['route' => 'safari.storeHotelReservation','class'=>'card']) !!}
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group ">
+                                                    {!! Form::label('hotel', __("Choose Hotel"),['class'=>'form-label','required_asterik']) !!}
+                                                    {!! Form::select('hotel_id', $hotels, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                                                    {!! $errors->first('hotel_id', '<span class="badge badge-danger">:message</span>') !!}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group ">
+                                                    {!! Form::label('hotel', __("Priority Level"),['class'=>'form-label','required_asterik']) !!}
+                                                  <select name="priority_level" class="form-control">
+                                                      <option value="1">First</option>
+                                                      <option value="2">Second</option>
+                                                      <option value="3">Third</option>
+                                                      <option value="4">Fourth</option>
+                                                  </select>
+                                                    {!! $errors->first('hotel_id', '<span class="badge badge-danger">:message</span>') !!}
+                                                </div>
+                                            </div>
+<input type="number" name="safari_advance_id" value="{{$safari_advance->id}}" hidden class="form-control" >
 
-                                <th>Name</th>
-                                <th>Duration</th>
-                                <th>Perdiem</th>
-                                <th>Accomodation</th>
-                                <th>Transport</th>
-                                <th>Ontransit</th>
-                                <th>Others</th>
-                                <th>Total</th>
+                                            <button type="submit" class="btn btn-info" style="margin-left:45%;"><i class="fa fa-paper-plane mr-2"></i>Submit</button>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
+                                        </div>
+                                    </div>
 
-                                <td>{{$travelling_cost->user->full_name}}</td>
-                                <td>{{$travelling_cost->no_days}}</td>
-                                <td>{{number_2_format($travelling_cost->perdiem_total_amount)}}</td>
-                                <td>{{number_2_format($travelling_cost->accommodation)}}</td>
-                                <td>{{number_2_format($travelling_cost->transportation)}}</td>
-                                <td>{{number_2_format($travelling_cost->ontransit)}}</td>
-                                <td>{{number_2_format($travelling_cost->other_cost)}}</td>
-                                <td>{{number_2_format($travelling_cost->total_amount)}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                    {!! Form::close() !!}
+                                    <ul class="list-group">
+                                        @if($hotels_reserved->count() > 0)
+                                            @foreach($hotels_reserved as $hotels)
+                                                <li class="list-group-item justify-content-between">
+                                                    <a class="btn btn-outline-danger" href="{{route('safari.removeHotel', $hotels->uuid)}}" onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash text-danger" aria-hidden="true" ></i></a> {{$hotels->name}}
+                                                    <span class="badgetext badge badge-primary badge-pill">
+                                                        @if($hotels->priority_level == 1)
+                                                            First
+                                                        @elseif($hotels->priority_level == 2)
+                                                            Second
+                                                        @elseif($hotels->priority_level == 3)
+                                                        Third
+                                                        @elseif($hotels->priority_level == 4)
+                                                        Fourth
+                                                            @endif
+
+
+                                                    </span>
+
+
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            No hotel reserved
+                                        @endif
+                                        @if($hotels_reserved->count() > 0)
+
+
+                                            @endif
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </div>
+                    <!-- End Row -->
                     <!-- table-responsive -->
                 </div>
             </div>

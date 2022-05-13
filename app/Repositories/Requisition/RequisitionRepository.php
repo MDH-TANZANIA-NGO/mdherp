@@ -487,7 +487,7 @@ class RequisitionRepository extends BaseRepository
         if ($addition) {
             $difference_amount = $current_amount - $requested;
 
-//  
+//
             $actual_amount = $requisition->fundChecker()->first()->actual_amount + $difference_amount;
 
             $requisition->fundChecker()->update([

@@ -38,7 +38,9 @@ class RequisitionTravellingCostDistrictController extends Controller
     public function create($uuid)
     {
         $travelling_cost = $this->travellingCost->findByUuid($uuid);
-        $trip_details =  $this->requisition_travelling_cost_district->getTravellerTrips($travelling_cost->traveller_uid);
+        $from =  date('Y-m-d', strtotime($travelling_cost->from . ' +1 day'));
+        $to =  date('Y-m-d', strtotime($travelling_cost->to . ' -1 day'));
+        $trip_details =  $this->requisition_travelling_cost_district->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id);
         $requisition =  $this->requisition->find($travelling_cost->requisition_id);
         $available_days = $travelling_cost->no_days -  $trip_details->get()->sum('no_days');
         return view('requisition.Direct.travelling.Trip.index')
@@ -46,14 +48,19 @@ class RequisitionTravellingCostDistrictController extends Controller
             ->with('travelling_cost', $travelling_cost)
             ->with('trip_details', $trip_details->get())
             ->with('available_days', $available_days)
+            ->with('from', $from)
+            ->with('to', $to)
             ->with('districts', $this->district->forSelect());
     }
     public function edit($uuid)
     {
+
         $trip_details = $this->requisition_travelling_cost_district->findByUuid($uuid);
         $travelling_cost =  $this->travellingCost->find($trip_details->requisition_travelling_cost_id);
         $requisition =  $this->requisition->find($travelling_cost->requisition_id);
-        $available_days = $travelling_cost->no_days -  $trip_details->get()->sum('no_days');
+        $get_all_trips =  $this->requisition_travelling_cost_district->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
+        $available_days = $travelling_cost->no_days -  $get_all_trips->sum('no_days');
+//        dd($available_days);
         return view('requisition.Direct.travelling.forms.Trip.edit')
             ->with('requisition', $requisition)
             ->with('travelling_cost', $travelling_cost)
@@ -76,9 +83,11 @@ class RequisitionTravellingCostDistrictController extends Controller
     }
     public function submitAllTrips($uuid)
     {
+        $travelling_cost =  $this->travellingCost->findByUuid($uuid);
+        $requisition =  $this->requisition->find($travelling_cost->requisition_id);
         $this->requisition_travelling_cost_district->submitAllTrips($uuid);
         alert()->success('Traveller trips added successfully','Success');
-        return redirect()->route('travelling.create');
+        return redirect()->route('requisition.initiate', $requisition);
     }
 
 }

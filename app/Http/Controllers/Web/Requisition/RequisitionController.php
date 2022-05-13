@@ -11,6 +11,7 @@ use App\Models\Payment\Payment;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
+use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Finance\FinancialReportsRepository;
@@ -154,8 +155,6 @@ class RequisitionController extends Controller
      */
     public function show(Requisition $requisition)
     {
-
-
         $budget = $this->check($requisition->requisition_type_id, $requisition->project_id, $requisition->activity_id, $requisition->region_id, $requisition->budget()->first()->fiscal_year_id);
 
         /* Check workflow */
@@ -169,7 +168,7 @@ class RequisitionController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($requisition, $current_level, $workflow->wf_definition_id);
         return view('requisition._parent.display.show')
             ->with('requisition', $requisition)
-            ->with('training', $requisition->training()->first())
+           ->with('training', $requisition->training()->first())
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
