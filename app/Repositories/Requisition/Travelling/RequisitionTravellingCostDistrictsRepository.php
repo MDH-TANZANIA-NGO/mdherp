@@ -346,8 +346,8 @@ public function submitAllTrips($uuid)
     $travelling_cost =  (new RequestTravellingCostRepository())->findByUuid($uuid);
     $get_traveller_trips =  $this->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
     $requisition =  $this->requisition->find($travelling_cost->requisition_id);
-    check_available_budget_individual($requisition,$get_traveller_trips->sum('total_amount'));
-    $this->updateTravellingCostAmounts($uuid, $travelling_cost->traveller_uid);
+//    check_available_budget_individual($requisition,$get_traveller_trips->sum('total_amount'));
+    $this->updateTravellingCostAmounts($uuid, $travelling_cost->traveller_uid, $travelling_cost->id);
     $this->requisition->updatingTotalAmount($requisition);
 }
 }
