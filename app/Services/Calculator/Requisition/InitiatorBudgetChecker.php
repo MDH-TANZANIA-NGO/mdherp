@@ -45,7 +45,8 @@ trait InitiatorBudgetChecker
     public function pipeline($project_id, $activity_id, $region_id)
     {
 //        return (new RequisitionRepository())->getPipelines()->sum('requisitions.amount');
-        return (new RequisitionRepository())->getSumOnPipeline($project_id, $activity_id, $region_id)->sum('requisitions.amount');
+//        return (new RequisitionRepository())->getSumOnPipeline($project_id, $activity_id, $region_id)->sum('requisitions.amount');
+        return (new RequisitionRepository())->getAboveSiteSumPipeline($project_id, $activity_id, $region_id)->sum('requisitions.amount');
     }
     public function commitment($project_id, $activity_id, $region_id)
     {

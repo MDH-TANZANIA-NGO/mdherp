@@ -13,6 +13,7 @@ use App\Services\Generator\Number;
 use App\Services\Workflow\Traits\WorkflowUserSelector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\Project\Project;
 
 class RequisitionRepository extends BaseRepository
 {
@@ -399,6 +400,7 @@ class RequisitionRepository extends BaseRepository
     }
 
     /**
+     * Get sum pipeline for treatment and care
      * @param $project_id
      * @param $activity_id
      * @param $region_id
@@ -410,6 +412,33 @@ class RequisitionRepository extends BaseRepository
             ->where('fiscal_years.active', true)
             ->where('requisitions.wf_done', 0)
             ->where('requisitions.done', true);
+    }
+
+    /**
+     * get Above Site Sum Pipeline
+     * @param $project_id
+     * @param $activity_id
+     * @return mixed
+     */
+    public function getAboveSiteSumPipeline($project_id, $activity_id)
+    {
+        return $this->query()
+            ->join('projects', 'projects.id', 'requisitions.project_id')
+            ->join('budgets', 'budgets.id', 'requisitions.budget_id')
+            ->join('activities', 'activities.id', 'budgets.activity_id')
+            ->leftjoin('regions', 'regions.id', 'budgets.region_id')
+            ->join('fiscal_years', 'fiscal_years.id', 'budgets.fiscal_year_id')
+            ->leftjoin('payments', 'payments.requisition_id','requisitions.id')
+            ->where('projects.id', $project_id)
+            ->where('budgets.activity_id', $activity_id)
+            ->where('fiscal_years.active', true)
+            ->where('requisitions.wf_done', 0)
+            ->where('requisitions.done', true);
+    }
+
+    public function getSumOnPipelineFilter($project_id, $activity_id, $region_id)
+    {
+        return Project::query()->where('id',$project_id)->first()->is_above_site ? $this->getAboveSiteSumPipeline($project_id, $activity_id) : $this->getSumOnPipeline($project_id, $activity_id, $region_id);
     }
 
     /**
@@ -485,7 +514,7 @@ class RequisitionRepository extends BaseRepository
 //        }
 //
 //        //$item->audits()->orderBy('id', 'DESC')->first()->old_values['total_amount']
-//        
+//
 //        if($options['updated']){
 //            if($options['item']){
 //                if($options['item']->total_amount < $requested_amount){
