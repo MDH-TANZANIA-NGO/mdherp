@@ -14,8 +14,116 @@
             </div>
             {!! Form::open(['route' => ['retirement.update',$retirement], 'enctype'=>'multipart/form-data']) !!}
             <div class="card-body">
+                @foreach($retire_safaris AS $retire_safari)
+                    <div class="row">
 
-                
+                        <div class="col-md-4" >
+                            <div class="form-group">
+                                <label class="form-label">Destination</label>
+                                <div class="input-group">
+                                    {!! Form::select('district_id',$district, $retire_safari->district_id, ['class' => 'form-control', 'hidden']) !!}
+                                    {!! Form::select('district_id_show',$district, $retire_safari->district_id, ['class' => 'form-control select2-show-search', 'disabled']) !!}
+                                    {!! Form:: text('safari_advance_id', $retire_safari->safari_id,['class'=>'form-control','hidden'])!!}
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="form-label">Travel Date:</label>
+                                {!! Form::date('from_show', $retire_safari->from, ['class' => 'form-control', 'disabled', 'id'=>'from']) !!}
+                                {!! Form::date('from', $retire_safari->from, ['class' => 'form-control','hidden', 'required', 'id'=>'from']) !!}
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="form-label">Return Date:</label>
+                                {!! Form::date('to', $retire_safari->to, ['class' => 'form-control', 'required','id'=>'to']) !!}
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4" >
+
+                            <div class="form-group">
+                                <label class="form-label">Amount Requested & Approved</label>
+                                <div class="input-group">
+                                    {!! Form::text('amount_requested_show', $retire_safari->amount_requested, ['class' => 'form-control', 'disabled' ]) !!}
+                                    {!! Form::text('amount_requested', $retire_safari->amount_requested, ['class' => 'form-control', 'hidden' ]) !!}
+                                </div>
+                            </div>
+                        </div>
+
+                        @foreach($retire_safaris_paid_amounts AS $retire_safaris_paid_amount)
+
+                        <div class="col-md-4" >
+
+                            <div class="form-group">
+                                <label class="form-label">Amount Advanced</label>
+                                {{--                    {!! Form::text('amount_paid_show', $retire_safari->amount_paid, ['class' => 'form-control', 'disabled' ]) !!}--}}
+                                <input type="text" id="a_paid" onblur="calculate('a_paid','a_spent','a_variance')" disabled name="amount_paid_show" class="form-control" value="{{$retire_safari->amount_paid}}">
+                                {!! Form::text('amount_paid', $retire_safaris_paid_amount->disbursed_amount, ['class' => 'form-control', 'hidden' ]) !!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" >
+
+                            <div class="form-group">
+                                <label class="form-label">Amount Received </label>
+                                {!! Form::number('amount_received', $retire_safaris_paid_amount->disbursed_amount, ['class' => 'form-control money', 'placeholder'=>'Enter amount you received' ]) !!}
+                                {{--                            <input type="number" name="amount_received" class="form-control" placeholder="Enter amount you received">--}}
+
+                            </div>
+                        </div>
+
+                        @endforeach
+
+                    </div>
+
+                <div class="row">
+
+                    <div class="col-md-4 col-lg-4 col-xl-4">
+                        {!! Form::select('attachment_type[]', $attachment_type, null, ['class' =>'form-control select2-show-search ', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-group">
+                            <input type="number" id=""  name="" class="form-control money" required placeholder="Enter amount you spent">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-xl-4">
+                        <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
+                    </div>
+
+                </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6" >
+
+                            <div class="form-group">
+                                <label class="form-label">Actual Amount Spent </label>
+                                {{--                            {!! Form::number('amount_spent',$retire_safari->amount_received, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}--}}
+                                <input type="number" id="a_spent" onkeyup="calculate('a_paid','a_spent','a_variance')" name="amount_spent" class="form-control money" required placeholder="Enter amount you spent">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6" >
+
+                            <div class="form-group">
+                                <label class="form-label">Variance Amount</label>
+                                <input type="number" id="a_variance" onblur="calculate('a_paid','a_spent','a_variance')" name="amount_variance" class="form-control" placeholder="">
+                            </div>
+                        </div>
+
+                    </div>
+                @endforeach
 
                 <hr>
                     <div class ="row">
@@ -78,7 +186,7 @@
                         <div class="col-md-10" >
                             <div class="form-group">
                                 <label class="form-label">Objectives:</label>
-                                <textarea rows="2" cols="50" class="content2" name="objective_report" placeholder="Write your objectives.." required></textarea>
+                                <textarea rows="2" cols="50" class="content" name="objective_report" placeholder="Write your objectives.." required></textarea>
                             </div>
                         </div>
                     </div>
