@@ -81,8 +81,13 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
         $days = getNoDays($inputs['from'], $inputs['to']);
         $travelling_cost =  (new RequestTravellingCostRepository())->find($inputs['requisition_travelling_cost_id']);
         $days_difference = getNoDays($travelling_cost->from, $travelling_cost->to);
+        $get_traveller_trips = $this->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id);
         if ($days_difference > 2)
         {
+            if ($get_traveller_trips->count() == 0)
+            {
+                $accommodation = $inputs['accommodation']*(getNoDays($travelling_cost->from, $inputs['to']));
+            }
             $perdiem_total_amount =  $this->getPerdiem($traveller_region_id,$destination_region,$days);
             $ontransit = 0;
         }
