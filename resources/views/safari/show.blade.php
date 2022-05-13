@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-4">
                                 <p class=" mb-0  fs-12 text-muted">Transport means</p>
-                                <h3 class="mb-0">{{$details->transport_means}}</h3>
+                                <h3 class="mb-0">{{$transport_means->type}}</h3>
                             </div>
                         </div>
                     </div>

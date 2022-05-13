@@ -63,7 +63,8 @@ class SafariController extends Controller
             ->with('hotels_reserved', $this->hotel->getSelectedHotelForSafari($safariAdvance->id))
             ->with('travelling_cost', $safariAdvance->travellingCost)
             ->with('district', $this->districts->getForPluck())
-            ->with('safari_advance', $safariAdvance);
+            ->with('safari_advance', $safariAdvance)
+            ->with('transport_means', DB::table('transport_means')->get()->pluck('type','id'));
     }
     public  function  edit(SafariAdvance $safariAdvance)
     {
@@ -148,6 +149,7 @@ class SafariController extends Controller
 
         $designation = access()->user()->designation_id;
 //        $getUnit = $designation->unit()->id;
+        $transport_means = DB::table('transport_means')->where('id', $safariAdvance->SafariDetails()->first()->transport_means)->first();
 
         return view('safari.show')
             ->with('hotels_reserved', $this->hotel->getSelectedHotelForSafari($safariAdvance->id))
@@ -158,7 +160,8 @@ class SafariController extends Controller
             ->with('safari', $safariAdvance)
             ->with('travelling_costs', $safariAdvance->travellingCost()->get())
             ->with('safari_details',$safariAdvance->SafariDetails()->getQuery()->get()->all())
-            ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation));
+            ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation))
+            ->with('transport_means', $transport_means);
     }
     public function payment(Request $request, $uuid)
     {

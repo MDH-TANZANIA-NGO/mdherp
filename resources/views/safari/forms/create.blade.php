@@ -258,11 +258,13 @@
                                 <tr>
                                     <td> {!! Form::select('district_id',$district, $travelling_cost->district_id, ['class' => 'form-control select2-show-search', 'required', 'disabled']) !!}</td>
                                     <td>
-                                        <select name="transport_means" class="form-control">
+                                        {!! Form::select('transport_means', $transport_means, null, ['class' =>'form-control select2-show-search ', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                                       {{-- <select name="transport_means" class="form-control">
                                             <option value="flight">Flight</option>
                                             <option value="vehicle">MDH Vehicle</option>
-                                            <option value="land public transport">Land Public Transport</option>
-                                        </select>
+                                            <option value="public_transport">Public Transport</option>
+                                            <option value="sea_transport">Land Public Transport</option>
+                                        </select>--}}
                                     </td>
                                     </td>
                                     <td>
