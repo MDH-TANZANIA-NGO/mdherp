@@ -15,7 +15,7 @@
             {!! Form::open(['route' => ['retirement.update',$retirement], 'enctype'=>'multipart/form-data']) !!}
             <div class="card-body">
 
-                
+
 
                 <hr>
                     <div class ="row">
