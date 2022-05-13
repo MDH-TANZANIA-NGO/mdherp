@@ -18,6 +18,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <span>Safari Advance No.</span><br>
+
                                 <a href="{{route('safari.show',$safari_advance->uuid)}}" ><strong>{{$safari_advance->number}}</strong></a>
                             </div>
                             <div class="col-sm-6 text-right">
@@ -32,8 +33,8 @@
                             <p class="h3">Safari Info</p>
                             <address>
                                 Destination: {{$safari_advance->travellingCost->district->name}}<br>
-                                Departure: {{date('d-M-Y', strtotime($safari_advance->safariDetails->from))}}<br>
-                                Return: {{date('d-M-Y', strtotime($safari_advance->safariDetails->to))}}<br>
+                                Departure: {{date('d-M-Y', strtotime($safari_advance->from))}}<br>
+                                Return: {{date('d-M-Y', strtotime($safari_advance->to))}}<br>
 
                             </address>
                         </div>
@@ -107,7 +108,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w600 text-right">Account No</td>
-
+                                {!! Form::open(['route'=> ['finance.update_safari_payment', $payment->uuid],'method'=>'POST']) !!}
                                 {!! Form::number('requisition_id', $requisition->id, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('requested_amount', $requisition->amount, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('safari_advance_id', $safari_advance->id, ['class'=>'form-control','hidden'])  !!}

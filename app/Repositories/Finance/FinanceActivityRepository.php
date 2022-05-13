@@ -40,7 +40,8 @@ class FinanceActivityRepository extends BaseRepository
     public function store($inputs)
     {
         return DB::transaction(function () use ($inputs){
-            return $this->query()->create($this->inputProcess($inputs));
+            $payment_id = $this->query()->create($this->inputProcess($inputs))->id;
+            return $payment_id;
         });
 
 

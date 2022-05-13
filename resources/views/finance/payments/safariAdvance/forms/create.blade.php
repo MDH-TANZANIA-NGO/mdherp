@@ -51,21 +51,18 @@
                             <tr class=" ">
                                 <th class="text-center " style="width: 1%"></th>
                                 <th>Travel Requirements</th>
-                                {!! Form::open(['route'=> 'finance.store_safari_payment','method'=>'POST']) !!}
+
                                 <th class="text-right" style="width: 20%">Amount</th>
                             </tr>
                             <tr>
                                 <td class="text-center">1</td>
                                 <td>
 
-                                    <p class="font-w600 mb-1">Accommodation <b class="text-danger text align-items-center" style="margin-left: 10%">@if($hotel_reserved->count() > 0) Hotel is prebooked do not pay accommodation @endif</b></p>
+                                    <p class="font-w600 mb-1">Accommodation <b class="text-danger text align-items-center" style="margin-left: 10%">@if($hotel_reserved->count() > 0) Hotel is pre-booked do not pay accommodation @endif</b></p>
                                 </td>
 
                                 <td class="text-right">
-                                    @if($hotel_reserved->count() > 0) {!! Form::number('accommodation', 0.00, ['class'=>'form-control','id'=>'id-1'])  !!}
-                                    @else
-                                        {!! Form::number('accommodation', $safari_advance->travellingCost->accommodation, ['class'=>'form-control','id'=>'id-1'])  !!}
-                                    @endif
+                                    {{$safari_advance_payment->accommodation}}
                                 </td>
                             </tr>
                             <tr>
@@ -73,63 +70,65 @@
                                 <td>
                                     <p class="font-w600 mb-1">Meals and Incidentals</p>
                                 </td>
-                                <td class="text-right"> {!! Form::number('perdiem_total_amount', $safari_advance->travellingCost->perdiem_total_amount, ['class'=>'form-control','id'=>'id-2'])  !!}</td>
+                                <td class="text-right"> {{$safari_advance_payment->perdiem_total_amount}}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">3</td>
                                 <td>
                                     <p class="font-w600 mb-1">Ticket Fair</p>
                                 </td>
-                                <td class="text-right"> {!! Form::number('ticket_fair', $safari_advance->travellingCost->ticket_fair, ['class'=>'form-control','id'=>'id-3'])  !!}</td>
+                                <td class="text-right">{{$safari_advance_payment->ticket_fair}}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">4</td>
                                 <td>
                                     <p class="font-w600 mb-1">Ontransit Allowance</p>
                                 </td>
-                                <td class="text-right"> {!! Form::number('ontransit', $safari_advance->travellingCost->ontransit, ['class'=>'form-control','id'=>'id-4'])  !!}</td>
+                                <td class="text-right">{{$safari_advance_payment->ontransit}}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">5</td>
                                 <td>
                                     <p class="font-w600 mb-1">Ground Transport To Airport</p>
                                 </td>
-                                <td class="text-right"> {!! Form::number('transportation', $safari_advance->travellingCost->transportation, ['class'=>'form-control','id'=>'id-5'])  !!}</td>
+                                <td class="text-right"> {{$safari_advance_payment->transportation}}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">6</td>
                                 <td>
                                     <p class="font-w600 mb-1">Other Cost</p>
                                 </td>
-                                <td class="text-right"> {!! Form::number('other_cost', $safari_advance->travellingCost->other_cost, ['class'=>'form-control','id'=>'id-6'])  !!}</td>
+                                <td class="text-right">{{$safari_advance_payment->other_cost}}</td>
 
-                                <div class="text-muted">{{$safari_advance->travellingCost->others_description}}</div>
+                                <div class="text-muted">{{$travelling_cost->others_description}}</div>
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w600 text-right">Account No</td>
+                                {!! Form::open(['route'=> ['finance.sendSafariPaymentForApproval', $payment->uuid],'method'=>'POST']) !!}
                                 {!! Form::number('requisition_travelling_cost_id', $travelling_cost->id, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('requisition_id', $requisition->id, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('requested_amount', $requisition->amount, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('safari_advance_id', $safari_advance->id, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('region_id', $requisition->region_id, ['class'=>'form-control','hidden'])  !!}
 
-                                <td class="text-right">{!! Form::text('phone', $safari_advance->user->phone, ['class'=>'form-control'])  !!}</td>
+                                <td class="text-right">{{$safari_advance_payment->account_no}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w600 text-right">Total Amount </td>
-                                <td class="font-weight-bold text-right">  {!! Form::number('total_amount', null, ['class'=>'form-control','id'=>'id-7','required'])  !!}</td>
+                                <td class="font-weight-bold text-right"> {{$safari_advance_payment->disbursed_amount}}</td>
 
 
                             </tr>
                             <tr>
                                 <td colspan="2" class="font-w800 text-right">Remarks:</td>
                                 <td class="font-weight-bold text-right">
-                                    {!! Form::text('remarks', null, ['class'=>'form-control'])  !!}</td>
+                                    {{$payment->remarks}}</td>
                             </tr>
 
                             <tr>
                                 <td colspan="5" class="text-right">
-                                    <button type="submit" class="btn btn-primary" ><i class="si si-wallet"></i> Pay Safari</button>
+                                    <button type="submit" class="btn btn-primary" ><i class="si si-paper-plane"></i> Send for Approval</button>
+                                    <a href="{{route('finance.edit_safari_payment', $safari_advance->uuid)}}" class="btn btn-secondary"><i class="fa fa-edit"></i> Edit</a
                                 </td>
                             </tr>
                             {!! Form::close() !!}
