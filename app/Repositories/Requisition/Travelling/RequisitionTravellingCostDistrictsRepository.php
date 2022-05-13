@@ -88,18 +88,21 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
             {
                 $accommodation = $inputs['accommodation']*(getNoDays($travelling_cost->from, $inputs['to']));
             }
+            else{
+                $accommodation = $this->getTravellerTotalAccommodation($inputs['accommodation'], $days);
+            }
             $perdiem_total_amount =  $this->getPerdiem($traveller_region_id,$destination_region,$days);
             $ontransit = 0;
         }
         else{
-
+            $accommodation = $this->getTravellerTotalAccommodation($inputs['accommodation'], $days);
             $perdiem_total_amount = $this->getTravellerTotalMealsAndIncidentials($traveller_region_id, $destination_region, $days);
             $ontransit = 0;
         }
         $meals_and_incidential_rate_id = $this->mdh_rates->getRateIDByRegion($destination_region);
         $meals_and_incidential_rate_id = $meals_and_incidential_rate_id[0];
 //        $ontransit = $this->getTravellerOntransitTotalAmount($traveller_region_id, $destination_region, $days);
-        $accommodation = $this->getTravellerTotalAccommodation($inputs['accommodation'], $days);
+
         $total_amount = $perdiem_total_amount + $ontransit + $accommodation + $inputs['transportation'] + $inputs['ticket_fair'] + $inputs['other_cost'];
 
 
