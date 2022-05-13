@@ -137,7 +137,7 @@
                 <div class="card-body">
                     <!-- Row -->
                     <div class="row">
-
+                        @if($hotels->count() > 0)
                         <div class="col-sm-12 col-md-12">
                             <div class="card">
                                 <div class="card-header">
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    {!! Form::open(['route' => 'admin.store','class'=>'card']) !!}
+                                    {!! Form::open(['route' => 'safari.storeHotelReservation','class'=>'card']) !!}
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -161,7 +161,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group ">
                                                     {!! Form::label('hotel', __("Priority Level"),['class'=>'form-label','required_asterik']) !!}
-                                                  <select name="priority_leve" class="form-control">
+                                                  <select name="priority_level" class="form-control">
                                                       <option value="1">First</option>
                                                       <option value="2">Second</option>
                                                       <option value="3">Third</option>
@@ -179,22 +179,39 @@
 
                                     {!! Form::close() !!}
                                     <ul class="list-group">
-                                        <li class="list-group-item justify-content-between">
-                                            Cras justo odio
-                                            <span class="badgetext badge badge-primary badge-pill">14</span>
-                                        </li>
-                                        <li class="list-group-item justify-content-between">
-                                            Dapibus ac facilisis in
-                                            <span class="badgetext badge badge-danger badge-pill">2</span>
-                                        </li>
-                                        <li class="list-group-item justify-content-between">
-                                            Morbi leo risus
-                                            <span class="badgetext badge badge-success badge-pill">1</span>
-                                        </li>
+                                        @if($hotels_reserved->count() > 0)
+                                            @foreach($hotels_reserved as $hotels)
+                                                <li class="list-group-item justify-content-between">
+                                                    <a class="btn btn-outline-danger" href="{{route('safari.removeHotel', $hotels->uuid)}}" onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash text-danger" aria-hidden="true" ></i></a> {{$hotels->name}}
+                                                    <span class="badgetext badge badge-primary badge-pill">
+                                                        @if($hotels->priority_level == 1)
+                                                            First
+                                                        @elseif($hotels->priority_level == 2)
+                                                            Second
+                                                        @elseif($hotels->priority_level == 3)
+                                                        Third
+                                                        @elseif($hotels->priority_level == 4)
+                                                        Fourth
+                                                            @endif
+
+
+                                                    </span>
+
+
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            No hotel reserved
+                                        @endif
+                                        @if($hotels_reserved->count() > 0)
+
+
+                                            @endif
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                     <!-- End Row -->
                     <!-- table-responsive -->

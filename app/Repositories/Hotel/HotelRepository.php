@@ -59,7 +59,19 @@ class HotelRepository extends BaseRepository
     public function getSelectedHotelForSafari($safari_id)
     {
         return $this->getQuery()
+            ->select([
+                DB::raw('safari_advance_hotel_selections.priority_level AS priority_level'),
+                DB::raw('safari_advance_hotel_selections.reserved AS reserved'),
+                DB::raw('hotels.id AS id'),
+                DB::raw('hotels.name AS name'),
+                DB::raw('hotels.district_id AS district_id'),
+                DB::raw('hotels.remarks AS remarks'),
+                DB::raw('safari_advance_hotel_selections.uuid AS uuid'),
+                DB::raw('districts.name AS district_name'),
+                DB::raw('regions.name AS region_name'),
+            ])
             ->leftjoin('safari_advance_hotel_selections', 'safari_advance_hotel_selections.hotel_id','hotels.id')
+            ->where('safari_advance_hotel_selections.safari_advance_id', $safari_id)
             ->get();
     }
 }

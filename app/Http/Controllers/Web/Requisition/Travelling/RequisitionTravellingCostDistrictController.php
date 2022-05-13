@@ -40,7 +40,7 @@ class RequisitionTravellingCostDistrictController extends Controller
         $travelling_cost = $this->travellingCost->findByUuid($uuid);
         $from =  date('Y-m-d', strtotime($travelling_cost->from . ' +1 day'));
         $to =  date('Y-m-d', strtotime($travelling_cost->to . ' -1 day'));
-        $trip_details =  $this->requisition_travelling_cost_district->getTravellerTrips($travelling_cost->traveller_uid);
+        $trip_details =  $this->requisition_travelling_cost_district->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id);
         $requisition =  $this->requisition->find($travelling_cost->requisition_id);
         $available_days = $travelling_cost->no_days -  $trip_details->get()->sum('no_days');
         return view('requisition.Direct.travelling.Trip.index')
@@ -58,7 +58,7 @@ class RequisitionTravellingCostDistrictController extends Controller
         $trip_details = $this->requisition_travelling_cost_district->findByUuid($uuid);
         $travelling_cost =  $this->travellingCost->find($trip_details->requisition_travelling_cost_id);
         $requisition =  $this->requisition->find($travelling_cost->requisition_id);
-        $get_all_trips =  $this->requisition_travelling_cost_district->getTravellerTrips($travelling_cost->traveller_uid)->get();
+        $get_all_trips =  $this->requisition_travelling_cost_district->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
         $available_days = $travelling_cost->no_days -  $get_all_trips->sum('no_days');
 //        dd($available_days);
         return view('requisition.Direct.travelling.forms.Trip.edit')

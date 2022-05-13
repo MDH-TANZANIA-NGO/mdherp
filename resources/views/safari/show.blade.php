@@ -111,10 +111,82 @@
                 </div>
             </div>
             @endforeach
+
+        </div>
+
+    </div>
+<!-- Row -->
+<div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Hotel Reservation</h3>
+                <div class="card-options ">
+                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                </div>
+            </div>
+            <div class="card-body text-center">
+<div class="table-responsive">
+    <table class="table  table-bordered border-left-0 border-right-0 text-nowrap border-bottom-0 mb-0">
+        <thead>
+        <tr>
+            <th>NO</th>
+            <th>Hotel Name</th>
+            <th>Priority Level</th>
+            <th>Status</th>
+            @permission('admin_panel')
+            <th>Action</th>
+            @endpermission
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            @if($hotels_reserved->count() > 0)
+                @foreach($hotels_reserved as $key=>$hotels)
+
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{$hotels->name}}</td>
+                    <td>     @if($hotels->priority_level == 1)
+                            First
+                        @elseif($hotels->priority_level == 2)
+                            Second
+                        @elseif($hotels->priority_level == 3)
+                            Third
+                        @elseif($hotels->priority_level == 4)
+                            Fourth
+                        @endif
+                    </td>
+                    <td>
+                        @if($hotels->reserved == false)
+                            Not reserved
+                        @else
+                            Reserved
+                        @endif
+                    </td>
+                    @permission('admin_panel')
+                    <td>
+
+                        @if($hotels->reserved == false)
+                            <a href="{{route('safari.reserveHotel', $hotels->uuid)}}" onclick="if (confirm('Are you sure you want to book?')){return true} else {return false}"><span class="btn btn-sm btn-primary"><i class="fe fe-check-square"></i>Book</span></a>
+                        @else
+                            <a  href="{{route('safari.reserveHotel', $hotels->uuid)}}"><span class="btn btn-sm btn-primary"><i class="fa fa-undo"></i>Undo</span></a>
+                        @endif
+                    </td>
+                    @endpermission
+                @endforeach
+            @else
+                No Hotel reserved
+
+            @endif
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+            </div>
         </div>
     </div>
-
-
 <!--End Row-->
 
 {{--<div class="row">

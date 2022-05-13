@@ -10,6 +10,7 @@ use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Models\SafariAdvance\SafariAdvanceHotelSelection;
 use App\Repositories\Hotel\HotelRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Travelling\RequestTravellingCostRepository;
@@ -57,6 +58,7 @@ class SafariController extends Controller
         $district_id = $safariAdvance->travellingCost()->first()->district_id;
         return view('safari.forms.create')
             ->with('hotels', $this->hotel->getHotelByDistrict($district_id)->pluck('name', 'id'))
+            ->with('hotels_reserved', $this->hotel->getSelectedHotelForSafari($safariAdvance->id))
             ->with('travelling_cost', $safariAdvance->travellingCost)
             ->with('district', $this->districts->getForPluck())
             ->with('safari_advance', $safariAdvance);
@@ -146,6 +148,7 @@ class SafariController extends Controller
 //        $getUnit = $designation->unit()->id;
 
         return view('safari.show')
+            ->with('hotels_reserved', $this->hotel->getSelectedHotelForSafari($safariAdvance->id))
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
@@ -157,6 +160,36 @@ class SafariController extends Controller
     public function payment(Request $request, $uuid)
     {
         $this->safariAdvance->payment($request->all(), $uuid);
+        return redirect()->back();
+    }
+
+    public function storeHotelReservation(Request $request)
+    {
+        $this->safariAdvance->storeHotelReservation($request);
+        alert()->success('Hotel reserved successfully','Success');
+        return redirect()->back();
+    }
+
+    public function removeHotel($uuid)
+    {
+        SafariAdvanceHotelSelection::query()->where('uuid', $uuid)->forceDelete();
+        alert()->success('Hotel reserved deleted successfully','Success');
+        return redirect()->back();
+    }
+    public function reserveHotel($uuid)
+    {
+        $reserved_hotel = SafariAdvanceHotelSelection::query()->where('uuid', $uuid)->first();
+        if ($reserved_hotel->reserved ==  false)
+        {
+            $reserved_hotel->update(['reserved'=>'true']);
+            alert()->success('Hotel reserved successfully','Success');
+        }
+        else{
+            $reserved_hotel->update(['reserved'=>'false']);
+            alert()->success('Undo Hotel reserved successfully','Success');
+        }
+
+
         return redirect()->back();
     }
 

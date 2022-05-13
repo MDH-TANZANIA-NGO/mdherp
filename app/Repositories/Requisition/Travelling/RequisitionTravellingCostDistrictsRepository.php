@@ -54,22 +54,23 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
         ]);
     }
 
-    public function getTravellerTrips($user_id)
+    public function getTravellerTrips($user_id, $travelling_cost_id)
     {
         return $this->getQuery()
             ->join('requisition_travelling_costs', 'requisition_travelling_costs.id', 'requisition_travelling_cost_districts.requisition_travelling_cost_id')
-            ->where('requisition_travelling_costs.traveller_uid', $user_id);
+            ->where('requisition_travelling_costs.traveller_uid', $user_id)
+            ->where('requisition_travelling_costs.id', $travelling_cost_id);
     }
-    public  function getTripsReagions($user_id, $traveller_region)
+    public  function getTripsReagions($user_id, $traveller_region,$travelling_cost_id )
     {
-        return $this->getTravellerTrips($user_id)
+        return $this->getTravellerTrips($user_id, $travelling_cost_id)
             ->join('districts', 'requisition_travelling_cost_districts.district_id', 'districts.id')
             ->join('regions', 'regions.id', 'districts.region_id')
             ->where('regions.id','!=',$traveller_region);
     }
-    public function getOntransit($user_id)
+    public function getOntransit($user_id, $travelling_cost_id)
     {
-        return $this->getTravellerTrips($user_id)
+        return $this->getTravellerTrips($user_id, $travelling_cost_id)
             ->where('requisition_travelling_cost_districts.ontransit', '!=', 0)
             ->first();
     }
@@ -201,7 +202,7 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
     {
         $travelling_cost = (new RequestTravellingCostRepository())->findByUuid($inputs['travelling_cost_uuid']);
         $requisition = $this->requisition->find($travelling_cost->requisition_id);
-        $get_total_trips = $this->getTravellerTrips($travelling_cost->traveller_uid)->get();
+        $get_total_trips = $this->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
 //        $get_trip_range = $this->getTripDateRange($inputs['from'],$inputs['to'],$travelling_cost->traveller_uid);
 
 //        Check If Dates are entered correctly
@@ -249,24 +250,24 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
     }
 
 
-    public function getTripDateRange($from,$to, $user_id)
+    public function getTripDateRange($from,$to, $user_id, $travelling_cost_id)
     {
-        return $this->getTravellerTrips($user_id)
+        return $this->getTravellerTrips($user_id, $travelling_cost_id)
             ->whereDate('requisition_travelling_cost_districts.from','>', $from)
 //            ->whereDate('requisition_travelling_cost_districts.to','<', $to)
             ->get();
     }
 
 
-    public function  updateTravellingCostAmounts($uuid, $traveller_id)
+    public function  updateTravellingCostAmounts($uuid, $traveller_id, $travelling_cost_id)
     {
-
-        $traveller_details = $this->getTravellerTrips($traveller_id)->get();
         $travelling_cost = (new RequestTravellingCostRepository())->findByUuid($uuid);
+        $traveller_details = $this->getTravellerTrips($traveller_id, $travelling_cost->id)->get();
+
         $district_id = $traveller_details->first()->district_id;
         $destination_region = $traveller_details->first()->district->region_id;
         $days = getNoDays($travelling_cost->from, $travelling_cost->to);
-        $get_none_traveller_regions = $this->getTripsReagions($travelling_cost->traveller_uid, $travelling_cost->user->region_id)->get();
+        $get_none_traveller_regions = $this->getTripsReagions($travelling_cost->traveller_uid, $travelling_cost->user->region_id, $travelling_cost->id)->get();
         $mdh_rate_amount =( $traveller_details->first()->perdiem_total_amount) / ($traveller_details->first()->no_days);
 
         if ($get_none_traveller_regions->count() > 0)
@@ -307,7 +308,7 @@ class RequisitionTravellingCostDistrictsRepository extends BaseRepository
     {
         $travelling_cost_details = $this->findByUuid($uuid);
         $travelling_cost = (new RequestTravellingCostRepository())->find($travelling_cost_details->requisition_travelling_cost_id);
-        $get_traveller_trips = $this->getTravellerTrips($travelling_cost->traveller_uid)->get();
+        $get_traveller_trips = $this->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
 
         if ($get_traveller_trips->count() != 1)
         {
@@ -325,7 +326,7 @@ public function update($inputs, $uuid)
     $trip_details = $this->findByUuid($uuid);
     $travelling_cost = (new RequestTravellingCostRepository())->findByUuid($inputs['travelling_cost_uuid']);
     $requisition = $this->requisition->find($travelling_cost->requisition_id);
-    $get_total_trips_days = $this->getTravellerTrips($travelling_cost->traveller_uid)->get();
+    $get_total_trips_days = $this->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
     $days = getNoDays($inputs['from'], $inputs['to']);
 
 //    Check if Dates are correct inserted
@@ -343,7 +344,7 @@ public function update($inputs, $uuid)
 public function submitAllTrips($uuid)
 {
     $travelling_cost =  (new RequestTravellingCostRepository())->findByUuid($uuid);
-    $get_traveller_trips =  $this->getTravellerTrips($travelling_cost->traveller_uid)->get();
+    $get_traveller_trips =  $this->getTravellerTrips($travelling_cost->traveller_uid, $travelling_cost->id)->get();
     $requisition =  $this->requisition->find($travelling_cost->requisition_id);
     check_available_budget_individual($requisition,$get_traveller_trips->sum('total_amount'));
     $this->updateTravellingCostAmounts($uuid, $travelling_cost->traveller_uid);
