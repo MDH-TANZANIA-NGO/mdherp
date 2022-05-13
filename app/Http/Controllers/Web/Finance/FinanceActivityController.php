@@ -285,10 +285,16 @@ class FinanceActivityController extends Controller
 
 
         $payment = $this->finance->findByUuid($uuid);
-       dd($payment->requisition->travellingCost->safariAdvance->get());
+        $travelling_cost = $payment->requisition->travellingCost->first();
+        $requisition = $payment->requisition()->first();
+        $safari_advance = $travelling_cost->safariAdvance->first();
+        $safari_advance_payment =  SafariAdvancePayment::query()->where('requisition_travelling_cost_id', $travelling_cost->id)->first();
+
         return view('finance.payments.safariAdvance.forms.create')
             ->with('safari_advance', $safari_advance)
             ->with('requisition', $requisition)
+            ->with('travelling_cost', $travelling_cost)
+            ->with('hotel_reserved', $this->hotel->getSelectedHotelForSafari($safari_advance->id))
             ->with('safari_advance_payment', $safari_advance_payment)
             ->with('payment', $payment)
             ;
@@ -358,7 +364,6 @@ class FinanceActivityController extends Controller
         $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $safari_advance->id)->first();
         return view('finance.payments.safariAdvance.forms.edit')
             ->with('safari_advance', $safari_advance)
-            ->with('hotel_reserved', $this->hotel->getSelectedHotelForSafari($safari_advance->id))
             ->with('requisition', $requisition)
             ->with('safari_advance_payment', $safari_advance_payment)
             ->with('payment',$payment)
