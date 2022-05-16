@@ -63,21 +63,11 @@
                     @enderror
                 </div>
             </div>
-            &nbsp
+            &nbsp;
             <div class="row">
                 <div class="col-12 mt-1">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Content</h3>
-                            <div class="card-options ">
-                                <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <textarea class="content2" name="content"></textarea>
-                        </div>
-                    </div>
+                    <label class="form-label">Content</label>
+                    <textarea class="form-control" name="content" rows="4" placeholder="Paste job description here (markdown is ok!)" required></textarea>
                 </div>
                 @error('content')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -116,18 +106,8 @@
             &nbsp;
             <div class="row">
                 <div class="col-12 mt-1">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Education and Qualification</h3>
-                            <div class="card-options ">
-                                <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <textarea class="content2" name="education_and_qualification"></textarea>
-                        </div>
-                    </div>
+                    <label class="form-label">Education</label>
+                    <textarea class="form-control" name="education_and_qualification" rows="3" placeholder="Describe the requirements for education and qualifications for this post" required></textarea>
                 </div>
                 @error('education_and_qualification')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -136,24 +116,24 @@
             &nbsp;
             <div class="row">
                 <div class="col-12 mt-1">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Other Qualities</h3>
-                            <div class="card-options ">
-                                <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <textarea class="content2" name="other_qualities"></textarea>
-                        </div>
-                    </div>
+                    <label class="form-label">Practical Experience</label>
+                    <textarea class="form-control" name="practical_experience" rows="4" placeholder="Practical experience required for this post" required></textarea>
+                </div>
+                @error('practical_experience')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                @enderror
+            </div>
+            &nbsp;
+            <div class="row">
+                <div class="col-12 mt-1">
+                    <label class="form-label">Other Special Qualities/Skills</label>
+                    <textarea class="form-control" name="other_qualities" rows="4" placeholder="Other Special Qualities or Skills" required></textarea>
                 </div>
                 @error('other_qualities')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                 @enderror
             </div>
-            &nbsp
+            &nbsp;
             <div class="row">
                 <div class="col-6">
                     <label class="form-label">Employment Condition</label>
@@ -174,6 +154,7 @@
                 @error('special_employment_condition')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                 @enderror
+
             </div>
             &nbsp;
             <div class="row">
