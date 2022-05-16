@@ -324,8 +324,28 @@ class WorkflowEventSubscriber
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     }
-
                     break;
+
+                case 9:
+                    $listing_repo = (new ListingRepository());
+                    $listing  = $listing_repo->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+//                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $listing->update(['rejected' => false]);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('listing.show', $listing),
+                                'subject' => $listing->id . " Needs your Approval",
+                                'message' =>  $listing->id . ' needs your approval'
+                            ];
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+                    break;
+
             }
 
             $workflow->forward($data);

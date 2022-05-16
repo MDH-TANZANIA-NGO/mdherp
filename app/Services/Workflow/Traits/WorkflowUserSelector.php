@@ -221,11 +221,11 @@ trait WorkflowUserSelector
                 switch ($level) {
                     case 1:
                         $user_dept = $listing->user->designation->department->id;
-                        $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept);;
+                        $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept)->get();
                         if (!$next_user) {
                             throw new GeneralException('Director of Department is not yet registered. Please contact system administrator');
                         }
-                        $user_id = $next_user->user_id;
+                        $user_id = $next_user->first()->user_id;
                         break;
                     case 2:
                         $next_user = (new UserRepository())->getDirectorOfHR();;

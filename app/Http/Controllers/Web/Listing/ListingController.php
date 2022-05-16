@@ -132,13 +132,15 @@ class ListingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Listing $listing
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Listing $listing)
     {
-        dd($request->all());
+        $this->listing->update($request->all(), $listing);
+        alert()->success('Hire Requisition Updated Successfully');
+        return redirect()->route('listing.show', $listing);
     }
 
     /**

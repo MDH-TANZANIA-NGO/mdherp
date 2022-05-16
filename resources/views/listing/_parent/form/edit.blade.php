@@ -19,9 +19,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6" >
-                    {!! Form::label('region_id', __("Select Department"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::select('region_id', $regions, $listing->region_id,['class' => 'form-control select2-show-search', 'required']) !!}
-                    {!! $errors->first('region_id', '<span class="badge badge-danger">:message</span>') !!}
+                    {!! Form::label('department_id', __("Select Department"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('department_id', $departments, $listing->department_id,['class' => 'form-control select2-show-search', 'required']) !!}
+                    {!! $errors->first('department_id', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
                 <div class="col-6">
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="col-6">
-                    {!! Form::label('region_id', __("Select Department"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::label('region_id', __("Select Region"),['class'=>'form-label','required_asterik']) !!}
                     {!! Form::select('region_id', $regions, $listing->region_id,['class' => 'form-control select2-show-search', 'required']) !!}
                     {!! $errors->first('region_id', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
@@ -176,7 +176,7 @@
                                 }
                             @endphp
                             <label class="custom-control custom-checkbox">
-                                <input type="checkbox"  {{ $checked }} class="custom-control-input" name="tools" value="{{ $tool->id}}">
+                                <input type="checkbox"  {{ $checked }} class="custom-control-input" name="tools[]" value="{{ $tool->id}}">
                                 <span class="custom-control-label">{{ $tool->name }}</span>
                             </label>
                         @endforeach
