@@ -15,11 +15,10 @@
                 {!! $errors->first('fiscal_year', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>
-
         <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4 hidden" id="amount_holder">
             <div class="form-group">
                 {!! Form::label('amount', __("Amount"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::number('amount', null, old('amount'),['class' =>'form-control', 'placeholder' => __('Amount'), 'required']) !!}
+                <input type="number" name="amount" class="form-control" placeholder="Amount" disabled>
                 {!! $errors->first('amount', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>
@@ -27,7 +26,7 @@
         <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4 hidden" id="numeric_output_holder">
             <div class="form-group">
                 {!! Form::label('output', __("Numeric Output"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::number('output', null, old('output'),['class' =>'form-control', 'placeholder' => __('Numeric Output'), 'required']) !!}
+                <input type="number" name="output" class="form-control" placeholder="Numeric Output" disabled>
                 {!! $errors->first('output', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>
@@ -94,8 +93,10 @@
                         $additional_table.addClass('hidden');
                         $numeric_output_holder.removeClass('hidden');
                         $numeric_output.attr('disabled',false);
+                        $numeric_output.attr('required',true);
                         $amount_holder.removeClass('hidden');
                         $amount_input.attr('disabled',false);
+                        $amount_input.attr('required',true);
                     }
                 });
             }

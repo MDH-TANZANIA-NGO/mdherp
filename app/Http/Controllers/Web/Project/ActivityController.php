@@ -108,7 +108,8 @@ class ActivityController extends Controller
      */
     public function getActivitiesJson(Request $request)
     {
-        $activities =$this->activities->getActivities($request->only('user_id'),$request->only('region_id'),$request->only('project_id'));
+//        $activities =$this->activities->getActivities($request->only('user_id'),$request->only('region_id'),$request->only('project_id'));
+        $activities =$this->activities->getActivitiesFilter($request->only('user_id'),$request->only('region_id'),$request->only('project_id'));
         return response()->json($activities);
     }
 }

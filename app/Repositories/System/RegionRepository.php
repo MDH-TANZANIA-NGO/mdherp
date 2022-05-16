@@ -91,6 +91,7 @@ class RegionRepository extends BaseRepository
         return $this->query()->select([
             DB::raw('regions.id AS id'),
             DB::raw('regions.name AS name'),
+            DB::raw('projects.project_type_cv_id AS project_type'),
         ])
             ->join('project_region','project_region.region_id','regions.id')
             ->join('projects','projects.id', 'project_region.project_id')
@@ -98,7 +99,7 @@ class RegionRepository extends BaseRepository
             ->join('program_areas','program_areas.id','program_area_project.program_area_id')
             ->join('sub_programs','sub_programs.program_area_id','program_areas.id')
             ->join('activities','activities.sub_program_id','sub_programs.id')
-            ->groupBy('regions.id','regions.name')
+            ->groupBy('regions.id','regions.name','projects.project_type_cv_id')
             ->where('activities.id',$activity_id)
             ->get();
     }
