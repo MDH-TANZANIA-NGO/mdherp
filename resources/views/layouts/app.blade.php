@@ -248,8 +248,10 @@
 
 <!-- Data tables js-->
 {!! Html::script(url('mdh/plugins/datatable/jquery.dataTables.min.js')) !!}
-{{--{!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}--}}
-{{--{!! Html::script(url('mdh/js/datatable.js')) !!}--}}
+
+{!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}
+{!! Html::script(url('mdh/js/datatables.js')) !!}
+
 
 <!-- Bootstrap4 js-->
 {!! Html::script(url('mdh/plugins/bootstrap/popper.min.js')) !!}
@@ -302,8 +304,38 @@
 {!! Html::script(url('mdh/js/custom.js')) !!}
 
 <!--Accordion-Wizard-Form js-->
-<script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>
-<script src="mdh/js/form-wizard.js"></script>
+{{--<script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>--}}
+{{--<script src="mdh/js/form-wizard.js"></script>--}}
+
+@stack('in-scripts')
+<!-- AdminLTE App -->
+{{--{!! Html::script(url('dist/js/adminlte.min.js')) !!}--}}
+
+{{--{!! Html::script(url('plugins/summernote/summernote-bs4.min.js')) !!}--}}
+
+{!! Html::script(url('plugins/maskmoney/jquery.maskMoney.js')) !!}
+<script>
+    $(document).ready(function () {
+        $('.textarea').summernote({
+            height: 140,
+            spellCheck: true,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['view', ['fullscreen']],
+            ],
+        });
+        $(".money").maskMoney({
+            precision: 2,
+            allowZero: false,
+            affixesStay: false,
+            thousands: '',
+        });
+    })
+</script>
+
+@stack('after-scripts')
 
 
 

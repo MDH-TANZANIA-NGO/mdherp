@@ -4,29 +4,29 @@
 
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         {!! Form::label('traveller_name', __("Traveller Name"),['class'=>'form-label','required_asterik']) !!}
                         {!! Form::select('traveller_uid',$users, null, ['class' => 'form-control select2-show-search','placeholder'=>'Select Traveler', 'required']) !!}
                         {!! $errors->first('traveller_uid', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-6">
-                    <div class="form-group">
-                        {!! Form::label('destination', __("Destination"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','placeholder'=>'Select District','required']) !!}
-                        {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}
-                    </div>
-                </div>
+{{--                <div class="col-sm-6 col-md-6">--}}
+{{--                    <div class="form-group">--}}
+{{--                        {!! Form::label('destination', __("Destination"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                        {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','placeholder'=>'Select District','required']) !!}--}}
+{{--                        {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         {!! Form::label('from', __("From Date"),['class'=>'form-label','required_asterik']) !!}
                         {!! Form::date('from',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
                         {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         {!! Form::label('to', __("To Date"),['class'=>'form-label','required_asterik']) !!}
                         {!! Form::date('to',null,['class' => 'form-control', 'placeholder' => '','required']) !!}

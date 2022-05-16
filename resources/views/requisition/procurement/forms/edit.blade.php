@@ -62,4 +62,4 @@
 </div>
 @endsection
 
-@include('requisition.procurement.items.includes.fetch_script')
+@include('requisition.procurement.items.includes.fetch_script', ['requisition' => $item->requisition])

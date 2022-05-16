@@ -42,6 +42,8 @@ class DatabaseSeeder extends Seeder
         $this->call(OwnershipTableSeeder::class);
         $this->call(LeaveTypesTableSeeder::class);
         $this->call(WorkingToolsTableSeeder::class);
+        $this->call(AttachmentTypeSeeder::class);
+//        $this->call(ServicesSeeder::class);
        // $this->call(mdh_ratesTableSeeder::class);
 
 

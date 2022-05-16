@@ -34,9 +34,11 @@
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">#</th>
-                                    <th class="wd-15p">NUMBER</th>
+                                    <th class="wd-15p">NAME</th>
+                                    <th class="wd-15p">EMAIL</th>
+                                    <th class="wd-15p">PHONE</th>
+                                    <th class="wd-15p">REF. NO</th>
                                     <th class="wd-25p">AMOUNT REQUESTED</th>
-                                    <th class="wd-25p">AMOUNT PAID</th>
                                     <th class="wd-25p">CREATED ON</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -134,9 +136,11 @@
                 ajax: '{{ route('finance.datatable.access.safari_advance') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                    { data: 'full_name', name: 'users.full_name', searchable: true},
+                    { data: 'email', name: 'users.email', searchable: true},
+                    { data: 'phone', name: 'users.phone', searchable: true},
                     { data: 'number', name: 'safari_advances.number', searchable: true},
                     { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
-                    { data: 'amount_paid', name: 'safari_advances.amount_paid', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount', name: 'requisitions.amount', searchable: true},

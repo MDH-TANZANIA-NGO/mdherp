@@ -431,7 +431,7 @@ class WorkflowEventSubscriber
                     $email_resource = (object)[
                         'link' =>  route('leave.show',$leave),
                         'subject' => "Approved Successfully",
-                        'message' => 'These Application has been Approved successfully'
+                        'message' => 'The Leave Application has been Approved successfully'
                     ];
                     $delegeted_email = (object)[
                         'link' =>  route('leave.show',$leave),

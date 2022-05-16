@@ -31,12 +31,14 @@
         </div>
     @endif
 
+{{--    @include('requisition._parent.includes.budget_checker', ['requisition' => $requisition])--}}
+
     @switch($requisition->requisition_type_id)
         @case(1)
+        @include('requisition.procurement.forms.create',['items'=>$requisition->items])
         @if($items->count() > 0)
             @include('requisition.procurement.items.details')
         @endif
-        @include('requisition.procurement.forms.create',['items'=>$requisition->items])
 
         @break
 
@@ -83,20 +85,21 @@
                 $.get("{{ route('equipment.get_by_id') }}", { equipment_id: $equipment, uuid: "{{$requisition->uuid}}"},
                     function(data, status){
                         if(data){
+                            console.log(data);
                             $equipment_type.text(data.equipment.equipment_title)
-                            $specs.text(data.specs)
+                            $specs.text(data.equipment.specs)
                             $requested_amount.attr('placeholder', data.equipment.price_range_from +' - ' +data.equipment.price_range_to)
                             $requested_amount.attr('min', data.equipment.price_range_from)
                             $requested_amount.attr('max', data.equipment.price_range_to)
                             let $available_budget = data.budget_summary.actual - data.budget_summary.pipeline;
                             if($available_budget >= data.equipment.price_range_to){
-                                $specs.attr('disabled',false);
+                                // $specs.attr('disabled',false);
                                 $quantity.attr('disabled',false);
                                 $requested_amount.attr('disabled',false);
                                 $description.attr('disabled', false);
                                 $districts.attr('disabled', false);
                             }else{
-                                $specs.attr('disabled',true);
+                                // $specs.attr('disabled',true);
                                 $quantity.attr('disabled',true);
                                 $requested_amount.attr('disabled',true);
                                 $notification_alert.html("<div class='text text-danger'>Insufficient Fund <br> Remaining Fund: "+$available_budget +"</div>");

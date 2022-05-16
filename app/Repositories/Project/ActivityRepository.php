@@ -5,6 +5,7 @@ namespace App\Repositories\Project;
 use App\Models\Project\Activity;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use App\Models\Project\Project;
 
 class ActivityRepository extends BaseRepository
 {
@@ -101,6 +102,7 @@ class ActivityRepository extends BaseRepository
             DB::raw('budgets.amount AS budget_amount'),
             DB::raw('budgets.actual_amount AS budget_actual_amount'),
             DB::raw('budgets.id AS budget_id'),
+            DB::raw('budgets.rate_id AS rate_id'),
         ])
             ->join('output_units','output_units.id','activities.output_unit_id')
             ->join('sub_programs','sub_programs.id', 'activities.sub_program_id')
@@ -125,6 +127,36 @@ class ActivityRepository extends BaseRepository
             ->get();
     }
 
+    public function getSubQueryForAboveSite($activity_id, $project_id)
+    {
+        return $this->getQueryTwo()
+            ->leftjoin('project_region','project_region.project_id','projects.id')
+            ->leftjoin('regions','regions.id','project_region.region_id')
+            ->where('budgets.active', true)
+            ->where('projects.id',$project_id)
+            ->where('activities.id', $activity_id)
+            ->get();
+    }
+
+    /**
+     * SubQuery For Both Above Site and Care and Treatment Filter
+     * @param $activity_id
+     * @param $project_id
+     * @param $region_id
+     * @return mixed
+     */
+    public function getSubQueryFilter($activity_id, $project_id, $region_id)
+    {
+        return Project::query()->where('id',$project_id)->first()->is_above_site ? $this->getSubQueryForAboveSite($activity_id, $project_id) : $this->getSubQuery($activity_id, $project_id, $region_id);
+    }
+
+    /**
+     * Get Care And Treatment Activities
+     * @param $user_id
+     * @param $region_id
+     * @param $project_id
+     * @return mixed
+     */
     public function getActivities($user_id, $region_id, $project_id)
     {
         return $this->getQuery()
@@ -137,4 +169,28 @@ class ActivityRepository extends BaseRepository
             ->where('projects.id',$project_id)
             ->get();
     }
+
+    /**
+     * Get Care And Above Site Activities
+     * @param $user_id
+     * @param $project_id
+     * @return mixed
+     */
+    public function getAboveSiteActivities($user_id,$project_id)
+    {
+        return $this->getQuery()
+            ->join('project_user','project_user.project_id','projects.id')
+            ->join('users','users.id','project_user.user_id')
+            ->leftjoin('project_region','project_region.project_id','projects.id')
+            ->leftjoin('regions','regions.id','project_region.region_id')
+            ->where('users.id', $user_id)
+            ->where('projects.id',$project_id)
+            ->get();
+    }
+
+    public function getActivitiesFilter($user_id, $region_id, $project_id)
+    {
+        return Project::query()->where('id',$project_id)->first()->is_above_site ? $this->getAboveSiteActivities($user_id,$project_id) : $this->getActivities($user_id, $region_id, $project_id);
+    }
+
 }
