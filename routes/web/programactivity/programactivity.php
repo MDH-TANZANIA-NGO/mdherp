@@ -14,7 +14,7 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::get('{uuid}/editParticipant', 'ProgramActivityController@editParticipant')->name('editParticipant');
     Route::post('{uuid}/updateParticipant', 'ProgramActivityController@updateParticipant')->name('updateParticipant');
     Route::post('{uuid}/updateProgramActivity', 'ProgramActivityController@updateProgramActivity')->name('updateProgramActivity');
-    Route::post('{uuid}/programActivityAttendance', 'ProgramActivityController@programActivityAttendance')->name('programActivityAttendance');
+            Route::post('{uuid}/programActivityAttendance', 'ProgramActivityController@programActivityAttendance')->name('programActivityAttendance');
     Route::get('{uuid}/undoEverything', 'ProgramActivityController@undoEverything')->name('undoEverything');
     Route::get('{uuid}/pay', 'ProgramActivityController@pay')->name('pay');
     Route::post('{id}/viewParticipantAttendance', 'ProgramActivityController@viewParticipantAttendance')->name('viewParticipantAttendance');

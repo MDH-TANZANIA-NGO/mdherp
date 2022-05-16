@@ -47,15 +47,21 @@ class ListingRepository extends BaseRepository
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('listings.wf_done', 0)
-            ->where('listings.rejected', null)
+            ->where('listings.rejected', false)
+            ->where('users.id', access()->id());
+    }
+
+    public function getAccessDeniedDatatable(){
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('listings.rejected', true)
             ->where('users.id', access()->id());
     }
     public function getAccessRejectedDatatable()
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('listings.wf_done', 0)
-            ->where('listings.rejected', true)
+            ->where('listings.wf_done', 5)
             ->where('users.id', access()->id());
     }
 
@@ -101,6 +107,22 @@ class ListingRepository extends BaseRepository
     }
 
     /**
+     * Store new Project
+     * @param $inputs
+     * @param Listing $listing
+     * @return mixed
+     */
+    public function update($inputs, Listing $listing)
+    {
+        return DB::transaction(function () use($inputs, $listing){
+            $listing->update($this->inputsProcessor($inputs));
+            if(isset($inputs['tools']))
+                $listing->workingTools()->sync($inputs['tools']);
+            return $listing;
+        });
+    }
+
+    /**
      * Get applicant level
      * @param $wf_module_id
      * @return int|null
@@ -110,7 +132,7 @@ class ListingRepository extends BaseRepository
     {
         $level = null;
         switch ($wf_module_id) {
-            case 8:
+            case 9:
                 $level = 1;
                 break;
         }
@@ -127,7 +149,7 @@ class ListingRepository extends BaseRepository
     {
         $level = null;
         switch ($wf_module_id) {
-            case 8:
+            case 9:
                 $level = 2;
                 break;
         }

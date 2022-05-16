@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Listing\Traits;
 
+use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\DataTables;
 
 trait ListingDatatable
@@ -20,6 +21,19 @@ trait ListingDatatable
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('listing.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function AccessDeniedDatatable(){
+        return DataTables::of($this->listing->getAccessDeniedDatatable())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateString();
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('listing.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. ' '. '<a href="'.route('listing.edit', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);

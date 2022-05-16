@@ -199,7 +199,7 @@
                     <div class="custom-controls-stacked">
                         @foreach($tools as $tool)
                             <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" name="tools" value="{{ $tool->id}}">
+                                <input type="checkbox" class="custom-control-input" name="tools[]" value="{{ $tool->id}}">
                                 <span class="custom-control-label">{{ $tool->name }}</span>
                             </label>
                         @endforeach

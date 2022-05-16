@@ -19,9 +19,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6" >
-                    {!! Form::label('region_id', __("Select Department"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::select('region_id', $regions, $listing->region_id,['class' => 'form-control select2-show-search', 'required']) !!}
-                    {!! $errors->first('region_id', '<span class="badge badge-danger">:message</span>') !!}
+                    {!! Form::label('department_id', __("Select Department"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('department_id', $departments, $listing->department_id,['class' => 'form-control select2-show-search', 'required']) !!}
+                    {!! $errors->first('department_id', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
                 <div class="col-6">
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="col-6">
-                    {!! Form::label('region_id', __("Select Department"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::label('region_id', __("Select Region"),['class'=>'form-label','required_asterik']) !!}
                     {!! Form::select('region_id', $regions, $listing->region_id,['class' => 'form-control select2-show-search', 'required']) !!}
                     {!! $errors->first('region_id', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
@@ -52,7 +52,9 @@
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Content</label>
-                    <textarea class="form-control" name="content" rows="4" placeholder="Paste job description here (markdown is ok!)" value="{{  $listing->content->toHTML() }}" required></textarea>
+                    <textarea class="form-control" id="job_description" name="content" rows="4" required>
+                        {{$listing->content}}
+                    </textarea>
                 </div>
                 @error('content')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -62,37 +64,30 @@
 
             <div class="row">
                 <div class="col-6">
-                    <label class="form-label">Date Required</label>
+                    {!! Form::label('date_required', __("Date Required"),['class'=>'form-label','required_asterik']) !!}
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
                                 <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                             </div>
-                        </div><input class="form-control" name="date_required" placeholder="MM/DD/YYYY" type="date">
+                        </div><input class="form-control" value="{{ $listing->date_required }}" name="date_required"  type="date" min="1997-01-01" required>
                     </div>
-                    @error('date_required')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                    @enderror
+                    {!! $errors->first('date_required', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
 
                 <div class="col-6">
-                    <label class="form-label">Prospect for appointment</label>
-                    @foreach($prospects as $prospect)
-                        <label class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="prospect_for_appointment_cv_id" value="{{$prospect->id}}" checked>
-                            <span class="custom-control-label">{{$prospect->name}}</span>
-                        </label>
-                    @endforeach
-                    @error('prospect_for_appointment_cv_id')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                    @enderror
+                    {!! Form::label('prospect_for_appointment_cv_id', __("Prospect for Appointment"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('prospect_for_appointment_cv_id', $prospects, $listing->prospect_for_appointment_cv_id, ['class' =>'form-control custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! $errors->first('prospect_for_appointment_cv_id', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
             </div>
             &nbsp;
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Education</label>
-                    <textarea class="form-control" name="education_and_qualification" rows="3" placeholder="Describe the requirements for education and qualifications for this post" required></textarea>
+                    <textarea class="form-control" id="education" name="education_and_qualification" rows="4" required>
+                        {{$listing->education_and_qualification}}
+                    </textarea>
                 </div>
                 @error('education_and_qualification')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -102,7 +97,9 @@
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Practical Experience</label>
-                    <textarea class="form-control" name="practical_experience" rows="4" placeholder="Practical experience required for this post" required></textarea>
+                    <textarea class="form-control" id="practical" name="practical_experience" rows="4" required>
+                        {{$listing->practical_experience}}
+                    </textarea>
                 </div>
                 @error('practical_experience')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -111,8 +108,10 @@
             &nbsp;
             <div class="row">
                 <div class="col-12 mt-1">
-                    <label class="form-label">Other Special Qualities/Skills</label>
-                    <textarea class="form-control" name="other_qualities" rows="4" placeholder="Other Special Qualities or Skills" required></textarea>
+                    <label class="form-label">Other Qualities</label>
+                    <textarea class="form-control" id="other_qualities" name="other_qualities" rows="4" required>
+                        {{$listing->other_qualities}}
+                    </textarea>
                 </div>
                 @error('other_qualities')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -120,21 +119,9 @@
             </div>
             &nbsp;
             <div class="row">
-                <div class="col-6">
-                    <label class="form-label">Employment Condition</label>
-                    @foreach($conditions as $condition)
-                        <label class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="employment_condition_cv_id" value="{{$condition->id}}" checked>
-                            <span class="custom-control-label">{{$condition->name}}</span>
-                        </label>
-                    @endforeach
-                    @error('employment_condition_cv_id')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                    @enderror
-                </div>
-                <div class="col-6">
+                <div class="col-12">
                     <label class="form-label">Explain any Special Employment Condition</label>
-                    <textarea class="form-control" name="special_employment_condition" rows="2" placeholder="Explain any Special Employment Condition" required></textarea>
+                    <textarea class="special" id="special" name="special_employment_condition" rows="2"  required> {{ $listing->special_employment_condition }}</textarea>
                 </div>
                 @error('special_employment_condition')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -143,18 +130,17 @@
             </div>
             &nbsp;
             <div class="row">
-                <div class="col-6">
-                    <label class="form-label">Establishment</label>
-                    <select name="establishment_cv_id" id="select-establishment" class="form-control custom-select establishment">
-                        <option value=""  disabled selected hidden>Select Establishment</option>
-                        @foreach($establishments as $establishment)
-                            <option value="{{$establishment->id}}">{{$establishment->name}}</option>
-                        @endforeach
-                    </select>
-                    @error('establishment_cv_id')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                    @enderror
-                    <div class="col-6 budget" style="display: none">
+                <div class="col-4">
+                    {!! Form::label('employment_condition_cv_id', __("Employment Condition"),['class'=>'form-label','required_asterik']) !!}
+                    {!! Form::select('employment_condition_cv_id', $conditions, $listing->employment_condition_cv_id, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! $errors->first('employment_condition_cv_id', '<span class="badge badge-danger">:message</span>') !!}
+                </div>
+                <div class="col-4">
+                    {!! Form::label('establishment_cv_id', __("Establishment"),['class'=>'form-label','required_asterik', 'id' => 'select-establishment']) !!}
+                    {!! Form::select('establishment_cv_id', $establishments, $listing->establishment_cv_id, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                    {!! $errors->first('establishment_cv_id', '<span class="badge badge-danger">:message</span>') !!}
+
+                    <div class="col-4 budget" style="display: none">
                         <div class="form-label">Is there a budget for this position?</div>
                         <div class="custom-controls-stacked">
                             <label class="custom-control  custom-radio">
@@ -167,7 +153,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-6 employee mt-2" style="display: none">
+                    <div class="col-4 employee mt-2" style="display: none">
                         <label class="form-label">Staff to be replaced</label>
                         <select name="employee_id" id="select-employee" class="form-control custom-select">
                             <option value=""  disabled selected hidden>Select Staff to be replaced </option>
@@ -179,12 +165,18 @@
                 </div>
 
 
-                <div class="col-6">
+                <div class="col-4">
                     <div class="form-label">Working Tools</div>
                     <div class="custom-controls-stacked">
                         @foreach($tools as $tool)
+                            @php
+                                $checked = "";
+                                if(in_array($tool->id,$working_tools)){
+                                    $checked = "checked";
+                                }
+                            @endphp
                             <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" name="tools" value="{{ $tool->id}}">
+                                <input type="checkbox"  {{ $checked }} class="custom-control-input" name="tools[]" value="{{ $tool->id}}">
                                 <span class="custom-control-label">{{ $tool->name }}</span>
                             </label>
                         @endforeach
@@ -197,7 +189,7 @@
 
                 <div class="col-12">
                     <div style="text-align: center;">
-                        <button type="submit" class="btn btn-azure"  >Create Requisition </button>
+                        <button type="submit" class="btn btn-azure">Update Requisition </button>
                     </div>
                 </div>
 
@@ -222,6 +214,14 @@
                     $('.budget').hide()
                 }
             })
+        })
+
+        $(document).ready(function (){
+            let $job_description = $('#job_description').richText();
+            let $education = $('#education').richText();
+            let $practical = $('#practical').richText();
+            let $other_qualities = $('#other_qualities').richText();
+            let $special = $('#special').richText();
         })
 
     </script>
