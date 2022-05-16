@@ -161,10 +161,10 @@ class ProgramActivityController extends Controller
         $requisitionss= $this->requisition->find($requisition_id);
         $requisition_training_items = requisition_training_item::all()->where('requisition_id', $requisition_id);
         $supervisor = SupervisorUser::where('user_id', $programActivity->user_id)->first();
-        $training_details =  requisition_training::query()->where('requisition_id', $requisition_id)->first();
+        $requisition_training =  requisition_training::query()->where('requisition_id', $requisition_id)->first();
         $attendance = $programActivity->attendance()->getQuery()->get();
 
-        $group_attendance = $training_details->trainingCost()->whereHas('programActivityAttendance');
+        $group_attendance = $requisition_training->trainingCost()->whereHas('programActivityAttendance');
 
         return view('programactivity.display.show')
             ->with('current_level', $current_level)
@@ -176,14 +176,14 @@ class ProgramActivityController extends Controller
             ->with('requisition', Requisition::query()->where('id', $requisition_id)->first())
             ->with('attendance', $attendance)
             ->with('group_attendance', $group_attendance)
-            ->with('activity_details',$training_details)
-            ->with('activity_location', $training_details->district->name)
-            ->with('activity_participants', $training_details->trainingCost()->get()->all())
-            ->with('activity_participants_count', $training_details->trainingCost()->count())
+            ->with('activity_details',$requisition_training)
+            ->with('activity_location', $requisition_training->district->name)
+            ->with('activity_participants', $requisition_training->trainingCost()->get()->all())
+            ->with('activity_participants_count', $requisition_training->trainingCost()->count())
             ->with('gofficers', $this->gOfficer->getAll()->pluck('id','first_name'))
             ->with('requisition_uuid',   $this->requisition->find($requisition_id)->pluck('uuid')->toArray())
-            ->with('training_items', $training_details->trainingItems()->get()->all())
-            ->with('training_items_count',$training_details->trainingItems()->count())
+            ->with('training_items', $requisition_training->trainingItems()->get()->all())
+            ->with('training_items_count',$requisition_training->trainingItems()->count())
             ->with('supervisor', $supervisor->supervisor_id);
     }
 

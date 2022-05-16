@@ -3,9 +3,9 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Activity Summary</h3>
-                <a href="{{route('requisition.show', $requisition_uuid)}}" class="btn btn-sm btn-info float-right" style="margin-left: 75%"><i class="fa fa-info-circle"></i>
-                    {{$requisition->number }}
-                </a>
+{{--                <a href="{{route('requisition.show', $requisition_uuid)}}" class="btn btn-sm btn-info float-right" style="margin-left: 75%"><i class="fa fa-info-circle"></i>--}}
+{{--                    {{$requisition->number }}--}}
+{{--                </a>--}}
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
