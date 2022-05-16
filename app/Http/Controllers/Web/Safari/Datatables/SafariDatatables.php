@@ -78,6 +78,7 @@ trait SafariDatatables
      */
     public function AccessDatatable()
     {
+
         return DataTables::of($this->safariAdvance->getAccessSavedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {

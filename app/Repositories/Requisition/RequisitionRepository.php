@@ -344,6 +344,7 @@ class RequisitionRepository extends BaseRepository
                 switch ($requisition->requisition_type_category) {
                     case 1:
                         $total_amount = $requisition->travellingCost()->sum('total_amount');
+
                         break;
                     case 2:
                         $total_amount1 = $requisition->trainingCost()->sum('total_amount');
@@ -506,6 +507,7 @@ class RequisitionRepository extends BaseRepository
             'actual_amount'=>$available_budget
         ]);
     }
+
     public function updateIndividualAvailableBudget($requisition, $available_budget,$requested_amount,$options)
     {
 //        $calculated_actual_amount = 0;
@@ -557,6 +559,7 @@ class RequisitionRepository extends BaseRepository
     {
         $check_budget = $requisition->fundChecker()->first();
         if ($check_budget->actual_amount < $requested_amount){
+
             throw new GeneralException('Insufficient Fund' );
         }
         return $this->updateIndividualAvailableBudget($requisition, $check_budget->actual_amount,$requested_amount, $options);
