@@ -1,6 +1,6 @@
 {{--{{ Html::script(asset_url(). "/nextbyte/plugins/select2/js/select2.min.js") }}--}}
 <script>
-    $(function() {
+    $(document).ready(function (){
         $(".wf-module-select").select2();
         $(".search-select").select2();
         var $wf_module_group_id = 1;
@@ -133,44 +133,43 @@
             oTable.draw();
             e.preventDefault();
         });
+
+        function get_module_group($module) {
+            return $.post("{{ url('/') }}/getModuleGroup", {'module': $module}, function ($data) {}, "json");
+        }
+        function reset_filter() {
+            $(".notification_select").hide();
+            $(".employer_select").hide();
+            $(".receipt_select").hide();
+            $(".payroll_select").hide();
+        }
+        function employer_filter() {
+            reset_filter();
+            $(".notification_select").hide();
+            $(".employer_select").show();
+
+        }
+        function notification_filter() {
+            reset_filter();
+            $(".notification_select").show();
+        }
+        function receipt_filter() {
+            reset_filter();
+            $(".receipt_select").show();
+        }
+
+        function payroll_filter() {
+            reset_filter();
+            $(".payroll_select").show();
+            $("#dependent_div").hide();
+            $("#pensioner_div").hide();
+            $("#dependent_id").val(0).change();
+            $("#pensioner_id").val(0).change();
+            $("#member_type_id").val(0).change();
+        }
+
+        // function trigger_module_click(){
+        //     var $module_id = $('')
+        // }
     });
-    function get_module_group($module) {
-        return $.post("{{ url('/') }}/getModuleGroup", {'module': $module}, function ($data) {}, "json");
-    }
-    function reset_filter() {
-        $(".notification_select").hide();
-        $(".employer_select").hide();
-        $(".receipt_select").hide();
-        $(".payroll_select").hide();
-    }
-    function employer_filter() {
-        reset_filter();
-        $(".notification_select").hide();
-        $(".employer_select").show();
-
-    }
-    function notification_filter() {
-        reset_filter();
-        $(".notification_select").show();
-    }
-    function receipt_filter() {
-        reset_filter();
-        $(".receipt_select").show();
-    }
-
-    function payroll_filter() {
-        reset_filter();
-        $(".payroll_select").show();
-        $("#dependent_div").hide();
-        $("#pensioner_div").hide();
-        $("#dependent_id").val(0).change();
-        $("#pensioner_id").val(0).change();
-        $("#member_type_id").val(0).change();
-    }
-
-    // function trigger_module_click(){
-    //     var $module_id = $('')
-    // }
-
-
 </script>

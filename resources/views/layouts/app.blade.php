@@ -59,78 +59,7 @@
 <!-- Accordion Css -->
     {{ Html::style(url('mdh/plugins/accordion/accordion.css')) }}
 
-
-
-{{--    <link href="mdh/css/style.css" rel="stylesheet" />--}}
-
-{{--    <!--Horizontal css -->--}}
-{{--    <link id="effect" href="mdh/plugins/horizontal-menu/dropdown-effects/fade-up.css" rel="stylesheet" />--}}
-{{--    <link href="mdh/plugins/horizontal-menu/horizontal.css" rel="stylesheet" />--}}
-
-{{--    <!--Sidemenu css -->--}}
-{{--    <link href="mdh/plugins/sidemenu/combine-menu/combine-menu.css" rel="stylesheet">--}}
-
-{{--    <!-- P-scroll bar css-->--}}
-{{--    <link href="mdh/plugins/p-scrollbar/p-scrollbar.css" rel="stylesheet" />--}}
-
-{{--    <!---Icons css-->--}}
-{{--    <link href="mdh/plugins/web-fonts/icons.css" rel="stylesheet" />--}}
-{{--    <link href="mdh/plugins/web-fonts/font-awesome/font-awesome.min.css" rel="stylesheet">--}}
-{{--    <link href="mdh/plugins/web-fonts/plugin.css" rel="stylesheet" />--}}
-
-{{--    <!-- Select2 css -->--}}
-{{--    <link href="mdh/plugins/select2/select2.min.css" rel="stylesheet" />--}}
-
-{{--    <!-- Time picker css -->--}}
-{{--    <link href="mdh/plugins/time-picker/jquery.timepicker.css" rel="stylesheet" />--}}
-
-{{--    <!-- Date Picker css -->--}}
-{{--    <link href="mdh/plugins/date-picker/date-picker.css" rel="stylesheet" />--}}
-
-{{--    <!-- File Uploads css-->--}}
-{{--    <link href="mdh/plugins/fileupload/css/dropify.css" rel="stylesheet" type="text/css" />--}}
-
-{{--    <!-- Skin css-->--}}
-{{--    <link href="mdh/css/skins.css" rel="stylesheet" />--}}
-
     @stack('after-styles')
-
-{{--<script>--}}
-{{--    // $('.fromdate').datepicker({--}}
-{{--    //     dateFormat: 'yy-mm-dd',--}}
-{{--    //     changeMonth: true,--}}
-{{--    //     changeYear: true,--}}
-{{--    // });--}}
-{{--    // $('.todate').datepicker({--}}
-{{--    //     dateFormat: 'yy-mm-dd',--}}
-{{--    //     changeMonth: true,--}}
-{{--    //     changeYear: true,--}}
-{{--    // });--}}
-{{--    // $('#from').datepicker().bind("change", function () {--}}
-{{--    //     var minValue = $(this).val();--}}
-{{--    //     minValue = $.datepicker.parseDate("yy-mm-dd", minValue);--}}
-{{--    //     $('#to').datepicker("option", "minDate", minValue);--}}
-{{--    //     calculate();--}}
-{{--    // });--}}
-{{--    // $('#to').datepicker().bind("change", function () {--}}
-{{--    //     var maxValue = $(this).val();--}}
-{{--    //     maxValue = $.datepicker.parseDate("yy-mm-dd", maxValue);--}}
-{{--    //     $('#from').datepicker("option", "maxDate", maxValue);--}}
-{{--    //     calculate();--}}
-{{--    // });--}}
-
-{{--    // function calculate() {--}}
-{{--    //     var d1 = $('#from').datepicker('getDate');--}}
-{{--    //     var d2 = $('#to').datepicker('getDate');--}}
-{{--    //     var oneDay = 24*60*60*1000;--}}
-{{--    //     var diff = 0;--}}
-{{--    //     if (d1 && d2) {--}}
-{{--    //--}}
-{{--    //         diff = Math.round(Math.abs((d2.getTime() - d1.getTime())/(oneDay)));--}}
-{{--    //     }--}}
-{{--    //     $('.calculated').val(diff);--}}
-{{--    // }--}}
-{{--</script>--}}
     {!! Html::script(url('dist/sweetalert.min.js')) !!}
 
 
@@ -200,44 +129,6 @@
 <!-- Back to top -->
 <a href="#top" id="back-to-top" style="display: inline;"><i class="fa fa-angle-up"></i></a>
 
-{{--<!-- Jquery js-->--}}
-
-
-
-
-{{--<!-- Bootstrap4 js-->--}}
-
-
-{{--<!--Othercharts js-->--}}
-
-
-{{--<!--Horizontal js-->--}}
-
-
-{{--<!--Sidemenu js-->--}}
-
-
-{{--<!-- P-scroll js-->--}}
-
-
-{{--<!-- Datepicker js -->--}}
-
-
-
-{{--<!-- Datepicker js -->--}}
-
-
-{{--<!--Select2 js -->--}}
-
-
-{{--<!-- Custom js-->--}}
-
-
-
-{{--<!-- File uploads js -->--}}
-{{-- <script src="mdh/plugins/fileupload/js/dropify.js"></script>--}}
-{{--<script src="mdh/js/filupload.js"></script>--}}
-
 @stack('before-scripts')
 
 <script>
@@ -248,8 +139,8 @@
 
 <!-- Data tables js-->
 {!! Html::script(url('mdh/plugins/datatable/jquery.dataTables.min.js')) !!}
-{!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}
-{!! Html::script(url('mdh/js/datatables.js')) !!}
+{{--{!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}--}}
+{{--{!! Html::script(url('mdh/js/datatables.js')) !!}--}}
 
 <!-- Bootstrap4 js-->
 {!! Html::script(url('mdh/plugins/bootstrap/popper.min.js')) !!}
@@ -302,14 +193,14 @@
 {!! Html::script(url('mdh/js/custom.js')) !!}
 
 <!--Accordion-Wizard-Form js-->
-{{--<script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>--}}
-{{--<script src="mdh/js/form-wizard.js"></script>--}}
+<script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>
+<script src="mdh/js/form-wizard.js"></script>
 
 @stack('in-scripts')
 <!-- AdminLTE App -->
-{{--{!! Html::script(url('dist/js/adminlte.min.js')) !!}--}}
+{!! Html::script(url('dist/js/adminlte.min.js')) !!}
 
-{{--{!! Html::script(url('plugins/summernote/summernote-bs4.min.js')) !!}--}}
+{!! Html::script(url('plugins/summernote/summernote-bs4.min.js')) !!}
 
 {!! Html::script(url('plugins/maskmoney/jquery.maskMoney.js')) !!}
 <script>
