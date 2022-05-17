@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
     <meta content="MDH - ERP" name="description">
-    <meta content="Spruko Technologies Private Limited" name="author">
-    <meta name="keywords" content="Admin, Admin Template, Dashboard, Responsive, Admin Dashboard, Bootstrap, Bootstrap 4, Clean, Backend, Jquery, Modern, Web App, Admin Panel, Ui, Premium Admin Templates, Flat, Admin Theme, Ui Kit, Bootstrap Admin, Responsive Admin, Application, Template, Admin Themes, Dashboard Template"/>
+    <meta content="Management For Development and Health" name="author">
+    <meta name="keywords" content="Mimosa"/>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
@@ -139,8 +139,8 @@
 
 <!-- Data tables js-->
 {!! Html::script(url('mdh/plugins/datatable/jquery.dataTables.min.js')) !!}
-{{--{!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}--}}
-{{--{!! Html::script(url('mdh/js/datatables.js')) !!}--}}
+{!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}
+{!! Html::script(url('mdh/js/datatables.js')) !!}
 
 <!-- Bootstrap4 js-->
 {!! Html::script(url('mdh/plugins/bootstrap/popper.min.js')) !!}
@@ -175,8 +175,8 @@
 {{--<script src="mdh/plugins/time-picker/toggles.min.js"></script>--}}
 
 <!-- Datepicker js -->
-{!! Html::script(url('mdh/plugins/date-picker/date-picker.js')) !!}
-{!! Html::script(url('mdh/plugins/date-picker/jquery-ui.js')) !!}
+{{--{!! Html::script(url('mdh/plugins/date-picker/date-picker.js')) !!}--}}
+{{--{!! Html::script(url('mdh/plugins/date-picker/jquery-ui.js')) !!}--}}
 {!! Html::script(url('mdh/plugins/input-mask/jquery.maskedinput.js')) !!}
 
 <!-- File uploads js -->
@@ -193,14 +193,14 @@
 {!! Html::script(url('mdh/js/custom.js')) !!}
 
 <!--Accordion-Wizard-Form js-->
-<script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>
-<script src="mdh/js/form-wizard.js"></script>
+{{--<script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>--}}
+{{--<script src="mdh/js/form-wizard.js"></script>--}}
 
 @stack('in-scripts')
 <!-- AdminLTE App -->
-{!! Html::script(url('dist/js/adminlte.min.js')) !!}
+{{--{!! Html::script(url('dist/js/adminlte.min.js')) !!}--}}
 
-{!! Html::script(url('plugins/summernote/summernote-bs4.min.js')) !!}
+{{--{!! Html::script(url('plugins/summernote/summernote-bs4.min.js')) !!}--}}
 
 {!! Html::script(url('plugins/maskmoney/jquery.maskMoney.js')) !!}
 <script>

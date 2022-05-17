@@ -57,10 +57,11 @@
             //dom : 'Bfrtip',
             buttons : ['reload', 'colvis'],
             initComplete : function () {
-                oTable.buttons().container()
-                    .insertBefore('#pending-workflow-table');
+                // oTable.buttons().container()
+                //     .insertBefore('#pending-workflow-table');
             },
             // processing: true,
+            retrieve: true,
             serverSide: false,
             info : true,
             ajax: {
