@@ -22,6 +22,7 @@ class RequestTrainingCostRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('requisition_training_costs.id AS id'),
+            DB::raw('requisition_training_costs.requisition_training_id AS requisition_training_id'),
             DB::raw('requisition_training_costs.perdiem_total_amount AS perdiem_total_amount'),
             DB::raw('requisition_training_costs.transportation AS transportation'),
             DB::raw('requisition_training_costs.total_amount AS total_amount'),

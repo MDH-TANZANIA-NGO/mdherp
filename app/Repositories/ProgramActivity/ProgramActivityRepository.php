@@ -323,11 +323,11 @@ ProgramActivityRepository extends BaseRepository
             ->where('program_activities.supervised_by', access()->id());
     }
 
-    public function submitPayment($inputs, $uuid)
+    public function submitPayment($amount_paid, $remarks, $id)
     {
-        return DB::transaction(function () use ($inputs, $uuid){
-            $amount_paid = $inputs['payed_amount'];
-            DB::update('update requisition_training_costs set amount_paid= ? where uuid= ?', [$amount_paid, $uuid]);
+        return DB::transaction(function () use ($amount_paid,$remarks, $id){
+
+            DB::update('update requisition_training_costs set amount_paid= ?, remarks=? where id= ?', [$amount_paid,$remarks, $id]);
         });
     }
 

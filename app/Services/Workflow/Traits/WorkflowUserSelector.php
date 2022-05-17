@@ -9,6 +9,7 @@ use App\Models\Auth\User;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\UserWfDefinition;
 use App\Models\Workflow\WfDefinition;
+use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Listing\ListingRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
@@ -197,6 +198,20 @@ trait WorkflowUserSelector
                             throw new GeneralException('CEO is not assigned');
                         }
                         $user_id = $next_user->id;
+                        break;
+                }
+                break;
+            case 7:
+                $finance_repo = (new FinanceActivityRepository());
+                $payment = $finance_repo->find($resource_id);
+                /*check levels*/
+                switch ($level) {
+                    case 1:
+                        $next_user = $payment->user->assignedSupervisor();
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user->supervisor_id;
                         break;
                 }
                 break;

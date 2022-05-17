@@ -18,8 +18,8 @@ class ProgramActivityPaymentRepository extends BaseRepository
         return [
             'program_activity_report_id'=>$input['program_activity_report_id'],
             'amount_requested'=>(int)$input['requested_amount'],
-            'total_items_amount_paid'=>$input['total_items'],
-            'total_participant_amount_paid'=>$input['total_participants'],
+//            'total_items_amount_paid'=>$input['total_items'],
+            'total_participant_amount_paid'=>$input['total_amount'],
             'total_amount_paid'=>$input['total_amount'],
 
 

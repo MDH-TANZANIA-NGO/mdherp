@@ -159,6 +159,7 @@ class FinanceActivityController extends Controller
     }
     public function view(Payment $payment)
     {
+
         $wf_module_group_id = 6;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $payment->id);
         $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $payment->id, 'type' => $wf_module->type]);
@@ -315,12 +316,22 @@ class FinanceActivityController extends Controller
     }
     public function storeActivityPayment(Request $request)
     {
+
+
         $pay = $this->finance->store($request->all());
         $this->program_activity_payment_repo->storeActivityPayment($request->all());
+        $payment = $this->finance->find($pay);
+        $number = $this->finance->generateNumber($payment);
+        DB::update('update payments set done = ?, number = ? where uuid = ?',[1,$number, $payment->uuid]);
         DB::update('update program_activity_reports set status = ? where id = ?',['paid', $request['program_activity_report_id']]);
-        DB::update('update program_activity_payments set payment_id = ? where program_activity_report_id = ?', [$pay->id, $request['program_activity_report_id']]);
-        alert()->success('Payment initiated Successfully', 'Success');
-        return redirect()->route('finance.activity_payment_for_approval', $pay->uuid);
+        DB::update('update program_activity_payments set payment_id = ? where program_activity_report_id = ?', [$payment->id, $request['program_activity_report_id']]);
+
+        $wf_module_group_id = 6;
+        $next_user = $payment->user->assignedSupervisor()->supervisor_id;
+        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $payment->id,'region_id' => $payment->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+
+        alert()->success('Payment sent Successfully', 'Success');
+        return redirect()->route('finance.view', $payment->uuid);
     }
     public function updateActivityPayment(Request $request, $uuid)
     {

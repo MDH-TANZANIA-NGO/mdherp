@@ -396,30 +396,6 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 17,
                     'level' => '2',
-                    'unit_id' => 73,
-                    'designation_id' => 126,
-                    'description' => 'Endorse Payment',
-                    'msg_next' => 'Endorse Payment',
-                    'wf_module_id' => '7',
-                    'active' => '1',
-                    'allow_rejection' => 1,
-                    'allow_repeat_participate' => 0,
-                    'created_at' => '2021-11-22 10:15:25',
-                    'updated_at' => NULL,
-                    'deleted_at' => NULL,
-                    'is_approval' => 0,
-                    'has_next_start_optional' => 0,
-                    'is_optional' => 0,
-                    'can_close' => 0,
-                    'action_description' => 'Endorse',
-                    'status_description' => 'Endorsed',
-//                'assign_next_user' => 0,
-                ),
-
-            17 =>
-                array (
-                    'id' => 18,
-                    'level' => '3',
                     'unit_id' => 72,
                     'designation_id' => 125,
                     'description' => 'Approve Payment',
@@ -434,14 +410,16 @@ class WfDefinitionsTableSeeder extends Seeder
                     'is_approval' => 0,
                     'has_next_start_optional' => 0,
                     'is_optional' => 0,
-                    'can_close' => 1,
+                    'can_close' => 0,
                     'action_description' => 'Approve',
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-            18 =>
+
+
+            17 =>
                 array (
-                    'id' => 19,
+                    'id' => 18,
                     'level' => '1',
                     'unit_id' => 69,
                     'designation_id' => 124,
@@ -462,9 +440,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Requested',
 //                'assign_next_user' => 0,
                 ),
-            19 =>
+            18 =>
                 array (
-                    'id' => 20,
+                    'id' => 19,
                     'level' => '2',
                     'unit_id' => 74,
                     'designation_id' => 124,
@@ -486,9 +464,9 @@ class WfDefinitionsTableSeeder extends Seeder
 //                'assign_next_user' => 0,
                 ),
 
-            20 =>
+            19 =>
                 array (
-                    'id' => 21,
+                    'id' => 20,
                     'level' => '4',
                     'unit_id' => 71,
                     'designation_id' => 123,
@@ -510,9 +488,9 @@ class WfDefinitionsTableSeeder extends Seeder
 //                'assign_next_user' => 0,
                 ),
 
-            21 =>
+            20 =>
                 array (
-                    'id' => 22,
+                    'id' => 21,
                     'level' => '5',
                     'unit_id' => 2,
                     'designation_id' => 4,
@@ -533,9 +511,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Endorsed',
 //                'assign_next_user' => 0,
                 ),
-            22 =>
+            21 =>
                 array (
-                    'id' => 23,
+                    'id' => 22,
                     'level' => '6',
                     'unit_id' => 5,
                     'designation_id' => 121,
@@ -556,9 +534,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-            23 =>
+            22 =>
                 array (
-                    'id' => 24,
+                    'id' => 23,
                     'level' => '1',
                     'unit_id' => 69,
                     'designation_id' => 124,
@@ -579,9 +557,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Completed',
 //                'assign_next_user' => 0,
                 ),
-            24 =>
+            23 =>
                 array (
-                    'id' => 25,
+                    'id' => 24,
                     'level' => '2',
                     'unit_id' => 72,
                     'designation_id' => 125,
@@ -602,9 +580,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-            25 =>
+            24 =>
                 array (
-                    'id' => 26,
+                    'id' => 25,
                     'level' => '1',
                     'unit_id' => 69,
                     'designation_id' => 124,
@@ -625,9 +603,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Submitted',
 //                'assign_next_user' => 0,
                 ),
-            26 =>
+            25 =>
                 array (
-                    'id' => 27,
+                    'id' => 26,
                     'level' => '2',
                     'unit_id' => 71,
                     'designation_id' => 123,
@@ -648,9 +626,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-            27 =>
+            26 =>
                 array (
-                    'id' => 28,
+                    'id' => 27,
                     'level' => '3',
                     'unit_id' => 1,
                     'designation_id' => 8,
@@ -671,9 +649,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Confirmed',
 //                'assign_next_user' => 0,
                 ),
-            28 =>
+            27 =>
                 array (
-                    'id' => 29,
+                    'id' => 28,
                     'level' => '4',
                     'unit_id' => 5,
                     'designation_id' => 121,
@@ -694,9 +672,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Authorized',
 //                'assign_next_user' => 0,
                 ),
-            29 =>
+            28 =>
                 array (
-                    'id' => 30,
+                    'id' => 29,
                     'level' => '1',
                     'unit_id' => 69,
                     'designation_id' => 124,
@@ -704,7 +682,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'msg_next' => 'Submit Program Activity Report',
                     'wf_module_id' => '10',
                     'active' => '1',
-                    'allow_rejection' => 0,
+                    'allow_rejection' => 1,
                     'allow_repeat_participate' => 0,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
@@ -717,9 +695,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Submitted',
 //                'assign_next_user' => 0,
                 ),
-            30 =>
+            29 =>
                 array (
-                    'id' => 31,
+                    'id' => 30,
                     'level' => '2',
                     'unit_id' => 72,
                     'designation_id' => 125,
@@ -740,9 +718,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-            31 =>
+            30 =>
                 array (
-                    'id' => 32,
+                    'id' => 31,
                     'level' => '3',
                     'unit_id' => 41,
                     'designation_id' => 82,

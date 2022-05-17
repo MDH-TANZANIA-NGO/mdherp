@@ -36,7 +36,13 @@ use Number;
             ->join('users','users.id', 'program_activity_reports.user_id')
             ->join('program_activities','program_activities.id','program_activity_reports.program_activity_id');
     }
-
+public function getPaidReports($program_activity_report_id)
+{
+    return $this->getQuery()
+        ->join('program_activity_payments', 'program_activity_reports.id', 'program_activity_payments.program_activity_report_id')
+        ->where('program_activity_payments.program_activity_report_id', $program_activity_report_id)
+        ->get();
+}
     public function getOnprogressActivityReports(){
         return $this->getQuery()
             ->where('program_activity_reports.wf_done', 0)
