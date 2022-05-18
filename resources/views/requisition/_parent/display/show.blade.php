@@ -1,13 +1,15 @@
 @extends('layouts.app')
 @section('content')
 
+    <div class="col-md-12">
+        <a href="#" class="btn btn-primary"><i class="fas fa-file-pdf mr-2"></i>Print</a>
+    </div>
 
     <div class="align-content-center" style="background-color: rgb(238, 241, 248); height: 40px;">
         <div class="row text-center" style="font-size: large">
             <span class="col-12 text-center font-weight-bold" style="margin-top: 10px"><b>Requisition No.  {{ $requisition->number }}</b></span>
         </div>
     </div>
-
     <!-- start: page -->
     <div class="row mb-2">
         <div class="col-lg-12">
