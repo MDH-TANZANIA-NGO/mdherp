@@ -31,6 +31,11 @@ class RequisitionTrainingItemsRepository extends BaseModel
         ])->join('requisitions','requisitions.id','requisition_training_items.requisition_id');
 
     }
+    public function getItemsByRequisition($requisition_id)
+    {
+        return $this->trainingItems()
+            ->where('requisition_training_items.requisition_id', $requisition_id);
+    }
     public function inputProcess($input)
     {
 

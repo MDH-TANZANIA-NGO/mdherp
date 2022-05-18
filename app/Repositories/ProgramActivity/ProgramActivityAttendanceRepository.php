@@ -19,9 +19,12 @@ class ProgramActivityAttendanceRepository extends BaseRepository
 
         return $this->query()->select([
             DB::raw('program_activity_attendances.id AS id'),
-            DB::raw('count(program_activity_attendances.id ) AS total'),
+//            DB::raw('count(program_activity_attendances.id ) AS total'),
             DB::raw('program_activity_attendances.date AS date'),
+            DB::raw('program_activity_attendances.requisition_training_cost_id AS requisition_training_cost_id'),
             DB::raw('program_activity_attendances.checkin_time AS checkin_time'),
+            DB::raw('program_activity_attendances.checkout_time AS checkout_time'),
+            DB::raw('program_activity_attendances.created_at AS created_at'),
             DB::raw('program_activity_attendances.checkin_longitude AS checkin_longitude'),
             DB::raw('program_activity_attendances.checkin_latitude AS checkin_latitude'),
             DB::raw('program_activity_attendances.checkin_location AS checkin_location'),
@@ -34,6 +37,33 @@ class ProgramActivityAttendanceRepository extends BaseRepository
         ])
             ->join('program_activities', 'program_activities.id','program_activity_attendances.program_activity_id')
             ->join('requisition_trainings', 'requisition_trainings.id', 'program_activities.requisition_training_id');
+    }
+    public function getAttendanceByDate($program_activity_id, $report_date)
+    {
+        return $this->getQuery()
+            ->where('program_activity_attendances.program_activity_id', $program_activity_id)
+            ->where('requisition_trainings.start_date','<=', $report_date);
+    }
+
+    public function getParticipantAttendanceofActivity($requisition_training_cost_id)
+    {
+        return $this->getQuery()
+            ->join('requisition_training_costs', 'requisition_training_costs.id','program_activity_attendances.requisition_training_cost_id')
+            ->where('program_activity_attendances.requisition_training_cost_id', $requisition_training_cost_id)
+            ->get();
+    }
+    public function checkTodayAttendance($requisition_training_cost_id)
+    {
+        return $this->getQuery()
+            ->whereIn('program_activity_attendances.requisition_training_cost_id', $requisition_training_cost_id)
+            ->whereDate('program_activity_attendances.created_at', Carbon::today());
+    }
+    public function getIndividualTodayAttendance($requisition_training_cost_id)
+    {
+        return $this->getQuery()
+            ->where('program_activity_attendances.requisition_training_cost_id', $requisition_training_cost_id)
+            ->whereDate('program_activity_attendances.created_at', Carbon::today())
+            ->first();
     }
     public function getAggregateAttendanceForEachParticipant()
     {

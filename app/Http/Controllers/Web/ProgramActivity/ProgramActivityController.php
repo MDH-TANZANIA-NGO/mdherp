@@ -34,6 +34,7 @@ use App\Services\Workflow\Workflow;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Excel;
 
 class ProgramActivityController extends Controller
@@ -232,42 +233,12 @@ class ProgramActivityController extends Controller
     public function programActivityAttendance(Request $request, $uuid)
     {
 
-        $checkin = ProgramActivityAttendance::query()->whereDate('checkin_time',Carbon::now())->where('g_officer_id', $request['g_officer_id'])->first();
-        $checkout = ProgramActivityAttendance::query()->whereDate('checkout_time',Carbon::now())->where('g_officer_id', $request['g_officer_id'])->first();
-        $attendance = ProgramActivityAttendance::query()->whereDate('created_at',Carbon::now())->where('g_officer_id', $request['g_officer_id'])->first();
-        $program_activity = ProgramActivity::query()->where('id', $request['program_activity_id'])->first();
-        $training =  requisition_training::query()->where('id', $program_activity->requisition_training_id)->first();
-
-        if (date("Y-m-d",strtotime(Carbon::now()))  <= $training->end_date)
-        {
-
-            if (!$checkin)
-            {
-
-                ProgramActivityAttendance::create([
-                    'g_officer_id' => $request['g_officer_id'],
-                    'program_activity_id' => $request['program_activity_id'],
-                    'checkin_time' => Carbon::now(),
-                ]);
-                alert()->success('Checked In Successfully', ' Success');
-            }
-            elseif (!$checkout)
-            {
-                DB::update('update program_activity_attendances set checkout_time = ? where uuid = ?',[Carbon::now(), $attendance->uuid] );
-//            $this->program_activity->attended($request->all(), $uuid);
-                alert()->success('Checked Out Successfully', ' Success');
-            }
-            elseif ($checkout || $checkin)
-            {
-                alert()->error("Today's Attendance was captured",'Not Allowed');
-            }
-        }elseif (date("Y-m-d",strtotime(Carbon::now())) > $training->end_date)
-        {
-            alert()->error('Activity Has been Expired', 'Oohps Sorry');
-        }
+        $request['ids'] == null ? alert()->error('Select at least one participant','Error') : $this->program_activity->storeActivityAttendance($request['ids'],$uuid);
+        return  redirect()->back();
 
 
-        return redirect()->back();
+
+
     }
     public function undoEverything(Request $request, $uuid)
     {
@@ -336,7 +307,7 @@ class ProgramActivityController extends Controller
     public function viewParticipantAttendance(Request  $request, $id)
     {
 
-        $attendance = ProgramActivityAttendance::query()->where('program_activity_id', $request['program_activity_id'])->where('g_officer_id', $id)->get();
+        $attendance = $this->program_activity_attendance->getParticipantAttendanceofActivity($id);
 
 
 

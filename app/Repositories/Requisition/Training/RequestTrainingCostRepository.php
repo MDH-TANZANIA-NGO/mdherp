@@ -36,7 +36,11 @@ class RequestTrainingCostRepository extends BaseRepository
             ->join('requisition_trainings', 'requisition_trainings.id', 'requisition_training_costs.requisition_training_id')
             ->join('program_activities', 'program_activities.requisition_training_id', 'requisition_trainings.id');
     }
-
+public function getParticipantsByRequisition($requisition_id)
+{
+    return $this->getQuery()
+        ->where('requisition_training_costs.requisition_id', $requisition_id);
+}
     public function getActivityParticipants($uuid)
     {
         return $this->getQuery()

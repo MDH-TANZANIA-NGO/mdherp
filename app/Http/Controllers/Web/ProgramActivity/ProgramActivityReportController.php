@@ -151,6 +151,7 @@ class ProgramActivityReportController extends Controller
         $program_activity_report =  $this->program_activity_report->findByUuid($uuid);
         $program_activity = $this->program_activities->find($program_activity_report->program_activity_id);
         $requisition =  $this->requisition->find($program_activity->requisition_id);
+
         $training_cost = $this->training_cost->getParticipantsByRequisition($requisition->id)->get();
         $attendance_on_reporting_date = $this->activity_attendance->getAttendanceByDate($program_activity->id, $program_activity_report->created_at)->get();
         $training =  $this->training->find($training_cost->first()->requisition_training_id);
