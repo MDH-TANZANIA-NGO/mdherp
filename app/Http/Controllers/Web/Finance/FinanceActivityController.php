@@ -316,11 +316,8 @@ class FinanceActivityController extends Controller
     }
     public function storeActivityPayment(Request $request)
     {
-
-
-        $pay = $this->finance->store($request->all());
+        $payment = $this->finance->store($request->all());
         $this->program_activity_payment_repo->storeActivityPayment($request->all());
-        $payment = $this->finance->find($pay);
         $number = $this->finance->generateNumber($payment);
         DB::update('update payments set done = ?, number = ? where uuid = ?',[1,$number, $payment->uuid]);
         DB::update('update program_activity_reports set status = ? where id = ?',['paid', $request['program_activity_report_id']]);

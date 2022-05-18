@@ -371,12 +371,16 @@ public function checkOutParticipant($attendance)
             ->where('program_activities.supervised_by', access()->id());
     }
 
-    public function submitPayment($amount_paid, $remarks, $id)
+    public function submitPayment($inputs)
     {
-        return DB::transaction(function () use ($amount_paid,$remarks, $id){
-
+        $ids = $inputs['ids'];
+        $amount_paid = $inputs['amount_paid'];
+        $remarks = $inputs['remarks'];
+        foreach ($ids as $id)
+        {
             DB::update('update requisition_training_costs set amount_paid= ?, remarks=? where id= ?', [$amount_paid,$remarks, $id]);
-        });
+        }
+
     }
 
 

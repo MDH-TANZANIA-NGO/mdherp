@@ -27,13 +27,13 @@ class FinanceActivityRepository extends BaseRepository
 
         return[
 
-            'region_id'=> $inputs['region_id'],
-            'requisition_id' => $inputs['requisition_id'],
-            'requested_amount'=> $inputs['requested_amount'],
+            'region_id'=> (int) $inputs['region_id'],
+            'requisition_id' =>(int) $inputs['requisition_id'],
+            'requested_amount'=> (int)$inputs['requested_amount'],
             'user_id'=>access()->user()->id,
-//            'remarks'=>$inputs['remarks'],
+            'remarks'=>$inputs['remarks'],
 
-            'payed_amount'=>$inputs['total_amount'],
+            'payed_amount'=>(int) $inputs['total_amount'],
 
         ];
     }

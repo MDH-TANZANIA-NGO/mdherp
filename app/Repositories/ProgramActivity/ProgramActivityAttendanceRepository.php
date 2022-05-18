@@ -40,7 +40,25 @@ class ProgramActivityAttendanceRepository extends BaseRepository
     }
     public function getAttendanceByDate($program_activity_id, $report_date)
     {
-        return $this->getQuery()
+        return $this->query()->select([
+            'requisition_training_costs.participant_uid AS participant_uid',
+            'requisition_training_costs.transportation AS transportation',
+            'requisition_training_costs.other_cost AS other_cost',
+            'g_officers.first_name AS first_name',
+            'g_officers.last_name AS last_name',
+            'g_officers.phone AS phone',
+            'requisition_training_costs.perdiem_total_amount AS perdiem_total_amount',
+            'requisition_training_costs.total_amount AS total_amount',
+            'requisition_training_costs.amount_paid AS amount_paid',
+            'requisition_training_costs.is_substitute AS is_substitute',
+            'program_activity_attendances.id AS id',
+            'program_activity_attendances.requisition_training_cost_id AS requisition_training_cost_id',
+
+        ])
+            ->join('program_activities', 'program_activities.id','program_activity_attendances.program_activity_id')
+            ->join('requisition_trainings', 'requisition_trainings.id', 'program_activities.requisition_training_id')
+            ->join('requisition_training_costs','requisition_training_costs.id','program_activity_attendances.requisition_training_cost_id')
+            ->join('g_officers','g_officers.id','requisition_training_costs.participant_uid')
             ->where('program_activity_attendances.program_activity_id', $program_activity_id)
             ->where('requisition_trainings.start_date','<=', $report_date);
     }

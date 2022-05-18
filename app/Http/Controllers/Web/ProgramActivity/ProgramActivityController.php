@@ -259,10 +259,9 @@ class ProgramActivityController extends Controller
         alert()->success('Activity Report Submitted Successfully', 'Succeeded');
         return redirect(route('programactivity.show', $uuid));
     }
-    public function submitPayment(Request $request, $uuid)
+    public function submitPayment(Request $request)
     {
-
-        $this->program_activity->submitPayment($request->all(), $uuid);
+        $this->program_activity->submitPayment($request->all());
         alert()->success('Payment Done Successfully', 'Succeeded');
         return redirect()->back();
     }

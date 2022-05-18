@@ -79,13 +79,12 @@
 
                         @foreach($attendance as $key=> $participants)
 
-
                             <tr>
                                 <td><input type="checkbox" name="ids[]" class="selectbox" value="{{$participants->requisition_training_cost_id}}"></td>
 
                                 {!! Form::close() !!}
-                                <td>{{$participants->trainingCost->user->first_name}} {{$participants->trainingCost->user->last_name}}</td>
-                                <td>{{$participants->trainingCost->user->phone}}</td>
+                                <td>{{$participants->first_name}} {{$participants->last_name}}</td>
+                                <td>{{$participants->phone}}</td>
                                 <td>{{number_2_format($participants->perdiem_total_amount)}}</td>
                                 <td>{{number_2_format($participants->transportation)}}</td>
                                 <td>{{number_2_format($participants->other_cost)}} <span class="text-default">{{$participants->others_description}}</span></td>
@@ -146,7 +145,7 @@
                     </div>
                 </div>
                 <label>Remarks<span class="text-danger">*</span></label>
-                <input type="textarea" name="remarks" class="form-control" required>
+                <input type="text" name="remarks" class="form-control" >
             </div>
             <input type="number" value="{{$attendance->sum('total_amount')}}" name="total_amount" hidden>
             <input type="number" value="{{$requisition->region_id}}" name="region_id" hidden>
