@@ -57,12 +57,12 @@
 
                                         <div>
                                             <label>Amount</label>
-                                            <div>${{ number_2_format($item->amount) }}</div>
+                                            <div>{{ number_2_format($item->amount) }}</div>
                                         </div>
 
                                         <div>
                                             <label>Total Amount</label>
-                                            <div>${{ number_2_format($item->total_amount) }}</div>
+                                            <div>{{ number_2_format($item->total_amount) }}</div>
                                         </div>
                                     </td>
                                     @if($can_edit_resource)<td><a href="{{ route('requisition_item.edit',[$item,'view']) }}" class="btn btn-primary">Edit</a></td>@endif
