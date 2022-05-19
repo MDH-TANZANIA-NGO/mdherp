@@ -2,6 +2,12 @@
 <head>
     <meta http-equiv=Content-Type content="text/html; charset=UTF-8">
     <style type="text/css">
+        .bold-text{
+            font-weight : bolder;
+        }
+        .text-italic {
+            font-style: italic;
+        }
         .signature{
             top: 0px;
         }
@@ -22,6 +28,7 @@
         .content .header {
             float: left;
             width: 100%;
+            height: 60px;
         }
         .content .header .top {
             /*width : 138px; <!-- -120 -->*/
@@ -32,6 +39,7 @@
         }
         .content .header .logo {
             width: 100%;
+            float: left;
         }
         .content .header .document-title {
             width: 100%;
@@ -44,11 +52,18 @@
             text-align: center;
             border-bottom: solid 1px #000;
         }
-        .bold-text{
-            font-weight : bolder;
+        .summary-info {
+            widht: 100%;
+            margin-top: 150px;
         }
-        .text-italic {
-            font-style: italic;
+        table{
+            widht: 100%;
+        }
+        .fixed-width {
+            width: 25%;
+        }
+        .text-left {
+            text-align: left !important;
         }
         -->
     </style>
@@ -74,9 +89,32 @@
         <!--END Head Information -->
 
         <!--START Requester and project Information -->
-
+        <div class="summary-info">
+            <table width="100%">
+                <tbody>
+                <tr>
+                    <td class="bold-text fixed-width">ID NO :</td> <td class="fixed-width text-left">{{ $requisition->user->identity_number }}</td>
+                </tr>
+                <tr>
+                    <td class="bold-text fixed-width">NAME :</td> <td class="fixed-width text-left">{{ $requisition->user->fullname }}</td> <td class="bold-text fixed-width">PROJECT :</td> <td class="fixed-width text-left">{{ $requisition->project->title }}</td>
+                </tr>
+                <tr>
+                    <td class="bold-text fixed-width">EMAIL :</td> <td class="fixed-width text-left">{{ $requisition->user->email }}</td> <td class="bold-text fixed-width">PROGRAM AREA :</td> <td class="fixed-width text-left">{{ $requisition->activity->subProgram->title }}</td>
+                </tr>
+                <tr>
+                    <td class="bold-text fixed-width">REGION :</td> <td class="fixed-width text-left">{{ $requisition->user->region->name }}</td> <td class="bold-text fixed-width">REQUESTED AMOUNT :</td> <td class="fixed-width text-left">{{ number_format($requisition->amount) }} TZS</td>
+                </tr>
+                <tr>
+                    <td class="bold-text fixed-width">SUPERVISOR :</td> <td class="fixed-width text-left">{{ $requisition->user->assignedSupervisor() ? \App\Models\Auth\User::find($requisition->user->assignedSupervisor()->user_id) : 'Not yet Assigned'  }}</td> <td class="bold-text fixed-width">SUB PROG AREA :</td> <td class="fixed-width text-left">{{ $requisition->activity->subProgram->title }}</td>
+                </tr>
+                <tr>
+                    <td class="bold-text fixed-width">ACTIVITY</td><td colspan="3"><b>{{ $requisition->activity->code }}</b>{{ $requisition->activity->title }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <!--END Requester and project Information -->
-        
+
     </div>
 @endif
 </body>
