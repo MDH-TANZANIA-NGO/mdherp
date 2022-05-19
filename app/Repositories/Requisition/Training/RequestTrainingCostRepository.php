@@ -54,19 +54,24 @@ public function getParticipantsByRequisition($requisition_id)
     {
         $requisition_training_details =  requisition_training::query()->where('id', $inputs['requisition_training_id'])->first();
         $days = getNoDays($requisition_training_details->start_date, $requisition_training_details->end_date);
+        if ( isset($inputs['perdiem_rate_id']) ){
+            $perdiem_rate_amount = GRate::query()->find($inputs['perdiem_rate_id'])->first()->amount;
+            $perdiem_rate_id  = $inputs['perdiem_rate_id'];
+        }
+        else{
+            $perdiem_rate_amount = 0;
+            $perdiem_rate_id = 0;
+        }
 
-        $perdiem_id = $inputs['perdiem_rate_id'];
-        $perdiem_total_amount = (GRate::query()->find($perdiem_id)->first()->amount  * $days);
+        $perdiem_total_amount = ($perdiem_rate_amount  * $days);
         $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'];
         return [
             'requisition_training_id'=>$inputs['requisition_training_id'],
-            'peridem_rate_amount'=> $inputs['perdiem_rate_id'],
+            'peridem_rate_amount'=> $perdiem_rate_amount,
             'participant_uid' => $inputs['participant_uid'],
-//            'description' => $inputs['description'],
-//            'district_id'=> $inputs['district_id'],
             'perdiem_total_amount' => $perdiem_total_amount,
             'no_days' => $days,
-            'perdiem_rate_id' => $inputs['perdiem_rate_id'],
+            'perdiem_rate_id' => $perdiem_rate_id,
             'transportation' => $inputs['transportation'],
             'other_cost' => $inputs['other_cost'],
             'others_description' => $inputs['others_description'],
