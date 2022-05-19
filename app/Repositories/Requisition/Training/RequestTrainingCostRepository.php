@@ -56,7 +56,7 @@ public function getParticipantsByRequisition($requisition_id)
         $days = getNoDays($requisition_training_details->start_date, $requisition_training_details->end_date);
 
         $perdiem_id = $inputs['perdiem_rate_id'];
-        $perdiem_total_amount = (GRate::query()->find($perdiem_id)->amount  * $days);
+        $perdiem_total_amount = (GRate::query()->find($perdiem_id)->first()->amount  * $days);
         $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'];
         return [
             'requisition_training_id'=>$inputs['requisition_training_id'],
