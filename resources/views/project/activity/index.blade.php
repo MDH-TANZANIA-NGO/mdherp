@@ -5,6 +5,8 @@
     </div> --}}
     @include('project.activity.form.create')
 
+    @include('project.activity.form.bulk_upload')
+
     {{-- <div class="row  mb-3">
         <span class="col-12 text-center font-weight-bold">List of Activities</span>
     </div> --}}
