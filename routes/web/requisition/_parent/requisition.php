@@ -11,6 +11,7 @@ Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'pr
     Route::put('{activity}/update', 'RequisitionController@update')->name('update');
     Route::get('{requisition}/updateActualAmount', 'RequisitionController@updateActualAmount')->name('updateActualAmount');
     Route::get('get-json', 'RequisitionController@getResultsJson')->name('get_json');
+    Route::get('{requisition}/print', 'RequisitionController@print')->name('print');
 
     /**
      * Datatables

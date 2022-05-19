@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Controller\Http\Web\Requisition\Traits;
+namespace App\Http\Controllers\Web\Requisition\Traits;
+use App\Models\Requisition\Requisition;
 
 trait RequisitionExtension
 {
@@ -51,7 +52,7 @@ trait RequisitionExtension
         return view('requisition.description.forms.create')
             ->with('requisition', $requisition);
     }
-    
+
     public function workflowSubmit(Requisition $requisition)
     {
         DB::transaction(function () use ($requisition){
@@ -71,4 +72,47 @@ trait RequisitionExtension
             event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $requisition->type],[],['next_user_id' => $next_user]));
         });
     }
+
+    public function print(Requisition $requisition)
+    {
+        switch($requisition->requisition_type_id)
+        {
+            case 1:
+                return $this->procurement($requisition);
+            break;
+            case 2:
+                switch($requisition->requisition_type_category)
+                {
+                    case 1:
+                        return $this->travel($requisition);
+                    break;
+                    case 2:
+                        return $this->training($requisition);
+                    break;
+                }
+            break;
+        }
+    }
+
+    public function procurement(Requisition $requisition)
+    {
+        $view = view('printables.requisition.procurement.index')->with('requisition', $requisition)/*->with('trips', $taf->trips)->with('components', $this->components->getAll()->get()*/->render();
+        $pdf = \PDF::loadHTML($view)->setPaper('a4', 'potrait');
+        return $pdf->download($requisition->number.' '.$requisition->typeCategory->title.' '.$requisition->region->name.' ' .$requisition->created_at.'.pdf');
+    }
+
+    public function travel(Requisition $requisition)
+    {
+        $view = view('printables.requisition.travel.index')->with('requisition', $requisition)/*->with('trips', $taf->trips)->with('components', $this->components->getAll()->get()*/->render();
+        $pdf = \PDF::loadHTML($view)->setPaper('a4', 'potrait');
+        return $pdf->download($requisition->number.' '.$requisition->typeCategory->title.' '.$requisition->region->name.' ' .$requisition->created_at.'.pdf');
+    }
+
+    public function training(Requisition $requisition)
+    {
+        $view = view('printables.requisition.training.index')->with('requisition', $requisition)/*->with('trips', $taf->trips)->with('components', $this->components->getAll()->get()*/->render();
+        $pdf = \PDF::loadHTML($view)->setPaper('a4', 'potrait');
+        return $pdf->download($requisition->number.' '.$requisition->typeCategory->title.' '.$requisition->region->name.' ' .$requisition->created_at.'.pdf');
+    }
+
 }

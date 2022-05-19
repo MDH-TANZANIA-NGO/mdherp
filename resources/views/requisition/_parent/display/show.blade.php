@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="col-md-12">
-        <a href="#" class="btn btn-primary"><i class="fas fa-file-pdf mr-2"></i>Print</a>
+        <a href="{{ route('requisition.print', $requisition) }}" class="btn btn-primary"><i class="fas fa-file-pdf mr-2"></i>Print</a>
     </div>
 
     <div class="align-content-center" style="background-color: rgb(238, 241, 248); height: 40px;">

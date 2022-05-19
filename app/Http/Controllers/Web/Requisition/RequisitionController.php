@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\Requisition\Datatables\RequisitionDatatables;
 use App\Models\Budget\Budget;
 use App\Models\GOfficer\GOfficer;
 use App\Models\Payment\Payment;
+use App\Models\Requisition\Requisition;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
@@ -23,7 +24,6 @@ use App\Repositories\System\RegionRepository;
 use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
 use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
-use App\Models\Requisition\Requisition;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Requisition\Equipment\EquipmentRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -31,10 +31,7 @@ use App\Repositories\Requisition\RequisitionType\RequisitionTypeRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\Location;
-use Symfony\Component\Console\Input\Input;
-use App\Controller\Http\Web\Requisition\Traits\RequisitionExtension;
+use App\Http\Controllers\Web\Requisition\Traits\RequisitionExtension;
 
 class RequisitionController extends Controller
 {
