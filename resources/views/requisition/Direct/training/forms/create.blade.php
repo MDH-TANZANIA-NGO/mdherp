@@ -1,9 +1,33 @@
 <!-- Row -->
-<div class="row">
 
+<div class="row">
+    <div class="col-md-12 col-lg-12">
         <div class="card">
             <div class="card-header" style="background-color: rgb(238, 241, 248)">
                 <h3 class="card-title">Add Activity Costs</h3>
+
+                <div class="tags" style="margin-left: 2%">
+
+
+                    <div class="tag" >
+                        Start date
+                        <span class="tag-addon tag-success">{{$training_details->start_date}}</span>
+                    </div>
+                    <div class="tag">
+                        End date
+                        <span class="tag-addon tag-success">{{$training_details->end_date}}</span>
+                    </div>
+                    <div class="tag">
+                       Activity Location
+                        <span class="tag-addon tag-success">{{$training_details->district->name}}</span>
+                    </div>
+                    <div class="tag">
+                        Change Event Schedule
+                        <span class="tag-addon tag-primary" data-toggle="modal" data-target="#largeModal">Click Here</span>
+                    </div>
+
+                </div>
+
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
@@ -152,8 +176,59 @@
 
 
         </div>
+    </div>
+
+    </div>
 
 
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="largemodal1">Change Event Schedule</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            <div class="modal-body">
+       {!! Form::open(['route' => ['training.updateSchedule',$training_details->uuid], 'method'=>'POST']) !!}
+
+       {!! Form::number('requisition_id', $requisition->id,['class' => 'form-control', 'required', 'hidden']) !!}
+       <div class="row">
+           <div class="col-md-4">
+               <div class="form-group">
+                   {!! Form::label('from', __("Start Date"),['class'=>'form-label','required_asterik']) !!}
+                   <input type="date" min="{{ now()->toDateString('Y-m-d') }}" class="form-control" name="from" value="{{$training_details->start_date}}">
+                   {!! $errors->first('from', '<span class="badge badge-danger">:message</span>') !!}
+               </div>
+           </div>
+           <div class="col-md-4">
+               <div class="form-group">
+                   {!! Form::label('to', __("End Date"),['class'=>'form-label','required_asterik']) !!}
+                   {!! Form::date('to',$training_details->end_date,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'to']) !!}
+                   {!! $errors->first('to', '<span class="badge badge-danger">:message</span>') !!}
+               </div>
+           </div>
+           <div class="col-md-4">
+               <div class="form-group">
+                   {!! Form::label('activity_location', __("Activity Location"),['class'=>'form-label','required_asterik']) !!}
+                   {!! Form::select('district_id',$districts,$training_details->district_id,['class' => 'form-control select2-show-search','required','style'=>'width:100%']) !!}
+                   {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}
+               </div>
+           </div>
+       </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+            {!! Form::close() !!}
+   </div>
+        </div>
     </div>
 
 
