@@ -344,6 +344,7 @@ class RequisitionRepository extends BaseRepository
                 switch ($requisition->requisition_type_category) {
                     case 1:
                         $total_amount = $requisition->travellingCost()->sum('total_amount');
+
                         break;
                     case 2:
                         $total_amount1 = $requisition->trainingCost()->sum('total_amount');
@@ -506,7 +507,35 @@ class RequisitionRepository extends BaseRepository
             'actual_amount'=>$available_budget
         ]);
     }
-    public function updateIndividualAvailableBudget($requisition, $available_budget,$requested_amount,$options)
+
+    public function updateIndividualAvailableBudget($requisition, $requested, $addition = null)
+    {
+        $current_amount = 0;
+        if ($requisition->amount) {
+            $current_amount = $requisition->amount;
+        }
+        if ($addition) {
+            $difference_amount = $current_amount - $requested;
+
+//
+            $actual_amount = $requisition->fundChecker()->first()->actual_amount + $difference_amount;
+
+            $requisition->fundChecker()->update([
+                'actual_amount' => $actual_amount
+            ]);
+
+
+        }
+    }
+    /*public function checkAvailableBudgetIndividual($requisition, $total_amount, $current_amount = null, $updated_amount = null)
+    {
+        $check_budget = $requisition->fundChecker()->first();
+//        dd($check_budget);
+        if ($check_budget->actual_amount < $total_amount) {
+        }
+    }*/
+
+   /* public function updateIndividualAvailableBudget($requisition, $available_budget,$requested_amount,$options)
     {
 //        $calculated_actual_amount = 0;
 //        if($options['stored']){
@@ -552,11 +581,12 @@ class RequisitionRepository extends BaseRepository
 //        }
 
 
-    }
+    }*/
     public function checkAvailableBudgetIndividual($requisition, $requested_amount,$options = [])
     {
         $check_budget = $requisition->fundChecker()->first();
         if ($check_budget->actual_amount < $requested_amount){
+
             throw new GeneralException('Insufficient Fund' );
         }
         return $this->updateIndividualAvailableBudget($requisition, $check_budget->actual_amount,$requested_amount, $options);

@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\Safari\Datatables\SafariDatatables;
 use App\Models\Auth\User;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Models\SafariAdvance\SafariAdvanceHotelSelection;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
@@ -62,6 +63,19 @@ class SafariAdvanceRepository extends BaseRepository
             return $this->query()->create($this->inputProcess($inputs));
         });
     }
+    public function storeHotelReservation($inputs)
+    {
+        return DB::transaction(function () use ($inputs){
+            return SafariAdvanceHotelSelection::query()->create(
+                [
+                    'safari_advance_id'=>$inputs['safari_advance_id'],
+                    'hotel_id'=>$inputs['hotel_id'],
+                    'priority_level'=>$inputs['priority_level'],
+
+                ]
+            );
+        });
+    }
 
     public function update($inputs, $uuid)
     {
@@ -94,6 +108,10 @@ class SafariAdvanceRepository extends BaseRepository
         return $this->query()->select([
             DB::raw('safari_advances.id AS id'),
             DB::raw('safari_advances.user_id AS user_id'),
+            DB::raw("concat_ws(' ', users.first_name, users.last_name) as full_name"),
+            DB::raw('users.email AS email'),
+            DB::raw('users.phone AS phone'),
+            DB::raw('safari_advances.number AS number'),
             DB::raw('safari_advances.number AS number'),
             DB::raw('safari_advances.amount_requested AS amount_requested'),
             DB::raw('safari_advances.amount_paid AS amount_paid'),

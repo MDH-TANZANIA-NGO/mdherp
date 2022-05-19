@@ -23,6 +23,7 @@ use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Models\SafariAdvance\SafariAdvancePayment;
 use App\Models\SafariAdvance\Traits\SafariAdvanceRelationship;
 use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\Hotel\HotelRepository;
 use App\Repositories\ProgramActivity\ProgramActivityPaymentRepository;
 use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
@@ -54,6 +55,7 @@ class FinanceActivityController extends Controller
     protected $program_activity_reports;
     protected $designations;
     protected $program_activity_payment_repo;
+    protected $hotel;
 
     public function __construct()
     {
@@ -68,6 +70,7 @@ class FinanceActivityController extends Controller
         $this->program_activity_reports =  (new ProgramActivityReportRepository());
         $this->designations = (new DesignationRepository());
         $this->program_activity_payment_repo =  (new ProgramActivityPaymentRepository());
+        $this->hotel = (new HotelRepository());
 
     }
     public function index()
@@ -269,8 +272,12 @@ class FinanceActivityController extends Controller
     public function safariPayment($uuid){
 
         $safari_advance =  $this->safariAdvance->findByUuid($uuid);
-        $requisition = $this->safariAdvance->findByUuid($uuid)->travellingCost->requisition()->first();
+        $travelling_cost = $safari_advance->travellingCost()->first();
+
+        $requisition = $safari_advance->travellingCost->requisition()->first();
         return view('finance.payments.safariAdvance.forms.initiate')
+            ->with('travelling_cost', $travelling_cost)
+            ->with('hotel_reserved', $this->hotel->getSelectedHotelForSafari($safari_advance->id))
             ->with('safari_advance', $safari_advance)
             ->with('requisition', $requisition)
             ;
@@ -279,12 +286,16 @@ class FinanceActivityController extends Controller
 
 
         $payment = $this->finance->findByUuid($uuid);
-        $requisition = $this->finance->findByUuid($uuid)->requisition()->first();
-        $safari_advance = SafariAdvance::query()->where('requisition_travelling_cost_id', requisition_travelling_cost::query()->where('requisition_id',$requisition->id)->first()->id)->first();
-        $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $safari_advance->id)->first();
+        $travelling_cost = $payment->requisition->travellingCost->first();
+        $requisition = $payment->requisition()->first();
+        $safari_advance = $travelling_cost->safariAdvance->first();
+        $safari_advance_payment =  SafariAdvancePayment::query()->where('requisition_travelling_cost_id', $travelling_cost->id)->first();
+
         return view('finance.payments.safariAdvance.forms.create')
             ->with('safari_advance', $safari_advance)
             ->with('requisition', $requisition)
+            ->with('travelling_cost', $travelling_cost)
+            ->with('hotel_reserved', $this->hotel->getSelectedHotelForSafari($safari_advance->id))
             ->with('safari_advance_payment', $safari_advance_payment)
             ->with('payment', $payment)
             ;
@@ -310,9 +321,12 @@ class FinanceActivityController extends Controller
     }
     public function storeSafariPayment(Request $request)
     {
+        $safari = $this->safari_advance_payment->storeSafariPayment($request->all())->id;
         $pay = $this->finance->store($request->all());
-        $this->safari_advance_payment->storeSafariPayment($request->all());
-        return redirect()->route('finance.safari_payment_for_approval', $pay->uuid);
+       DB::update('update safari_advance_payments set payment_id = ? where id=?',[$pay,$safari]);
+        $safari_payment = $this->safari_advance_payment->find($safari);
+        $payment = $this->finance->find($pay);
+        return redirect()->route('finance.safari_payment_for_approval', $payment->uuid);
     }
     public function storeActivityPayment(Request $request)
     {
@@ -357,10 +371,11 @@ class FinanceActivityController extends Controller
         $safari_advance =  $this->safariAdvance->findByUuid($uuid);
         $requisition = $safari_advance->travellingCost->requisition()->first();
         $payment =  $safari_advance->travellingCost->requisition->payments()->first();
-
+        dd($payment);
         $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $safari_advance->id)->first();
         return view('finance.payments.safariAdvance.forms.edit')
             ->with('safari_advance', $safari_advance)
+            ->with('hotel_reserved', $this->hotel->getSelectedHotelForSafari($safari_advance->id))
             ->with('requisition', $requisition)
             ->with('safari_advance_payment', $safari_advance_payment)
             ->with('payment',$payment)
@@ -391,13 +406,13 @@ class FinanceActivityController extends Controller
     }
     public function sendSafariPaymentForApproval(Request $request, $uuid){
 
+
         return DB::transaction(function () use ( $request, $uuid){
-            $payment = Payment::query()->where('uuid', $uuid)->first();
+            $payment = $this->finance->findByUuid($uuid);
             $number = $this->finance->generateNumber($payment);
-            $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $request->get('safari_advance_id'))->first();
+            $safari_advance_payment = SafariAdvancePayment::query()->where('payment_id', $payment->id)->first();
             $safari_advance =  $this->safariAdvance->find($safari_advance_payment->safari_advance_id);
             DB::update('update payments set done = ?, number = ? where uuid = ?',[1,$number, $uuid]);
-            DB::update('update safari_advance_payments set payment_id = ? where uuid = ?',[Payment::query()->where('uuid', $uuid)->first()->id, $safari_advance_payment->uuid]);
             DB::update('update safari_advances set paid = ? where uuid = ?',[true, $safari_advance->uuid]);
             $wf_module_group_id = 6;
             $next_user = $payment->user->assignedSupervisor()->supervisor_id;
