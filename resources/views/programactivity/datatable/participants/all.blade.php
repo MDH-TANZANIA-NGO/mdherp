@@ -11,7 +11,9 @@
             <div class="card-body">
                 <div class="table-responsive">
                     {!! Form::open(['route' => ['programactivity.programActivityAttendance',$program_activity->uuid ], 'method'=>'POST']) !!}
+                    @if($program_activity->user_id == access()->user()->id)
                     <button type="submit" class="btn btn-outline-info " data-toggle="modal" data-target="#exampleModal"><i class="fa fa-list"></i> Attendance</button>
+                    @endif
 <br>
                     <br>
                     <table id="example" class="table table-striped table-bordered" style="width:100%">

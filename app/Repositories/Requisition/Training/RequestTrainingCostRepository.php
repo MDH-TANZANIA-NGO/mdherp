@@ -54,8 +54,10 @@ public function getParticipantsByRequisition($requisition_id)
     {
         $requisition_training_details =  requisition_training::query()->where('id', $inputs['requisition_training_id'])->first();
         $days = getNoDays($requisition_training_details->start_date, $requisition_training_details->end_date);
+//        dd($days);
         if ( isset($inputs['perdiem_rate_id']) ){
-            $perdiem_rate_amount = GRate::query()->find($inputs['perdiem_rate_id'])->first()->amount;
+            $perdiem_rate_amount = GRate::query()->find($inputs['perdiem_rate_id'])->amount;
+
             $perdiem_rate_id  = $inputs['perdiem_rate_id'];
         }
         else{

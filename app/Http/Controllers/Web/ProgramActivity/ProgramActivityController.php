@@ -123,6 +123,23 @@ class ProgramActivityController extends Controller
             ->with('trainings', $this->trainings->getPluckRequisitionNo());
     }
 
+    public function updateEventSchedule(Request $request, $uuid)
+    {
+        $training =  $this->trainings->findByUuid($uuid);
+        $previous_no_days = $training->no_days;
+        $no_days = getNoDays($request['from'], $request['to']);
+
+        if ($no_days <= $previous_no_days)
+        {
+            $training->update($this->trainings->inputProcess($request));
+            alert()->success('Event schedule updated successfully','Success');
+        }
+        if ($no_days > $previous_no_days){
+            alert()->error('No days are limited to '.$previous_no_days.' days','Failed');
+        }
+        return redirect()->back();
+    }
+
 /*    Store initiated program activty*/
     public function store(Request $request)
     {

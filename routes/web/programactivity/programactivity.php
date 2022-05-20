@@ -7,7 +7,7 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::get('{programActivity}/create', 'ProgramActivityController@create')->name('create');
     Route::get('{uuid}/export', 'ProgramActivityController@exportParticipants')->name('export');
     Route::post('{uuid}/update', 'ProgramActivityController@update')->name('update');
-
+ Route::post('{uuid}/updateEventSchedule', 'ProgramActivityController@updateEventSchedule')->name('updateEventSchedule');
     Route::get('{programActivity}/show', 'ProgramActivityController@show')->name('show');
     Route::get('{programActivity}/report', 'ProgramActivityController@programActivityReport')->name('report');
     Route::get('reports', 'ProgramActivityController@reports')->name('reports');

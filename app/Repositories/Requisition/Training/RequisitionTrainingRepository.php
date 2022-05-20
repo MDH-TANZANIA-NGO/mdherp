@@ -64,8 +64,8 @@ class RequisitionTrainingRepository extends BaseRepository
     {
 
         return [
-            'from' => $input['from'],
-            'to' => $input['to'],
+            'start_date' => $input['from'],
+            'end_date' => $input['to'],
             'requisition_id' => $input['requisition_id'],
             'district_id' => $input['district_id'],
 
@@ -95,7 +95,8 @@ class RequisitionTrainingRepository extends BaseRepository
             {
                 $perdiem_amount_rate = $costs->perdiem_total_amount/$costs->no_days;
                 $new_perdiem_total_amount =  $perdiem_amount_rate*$no_days;
-                requisition_training_cost::query()->where('id', $costs->id)->update(['perdiem_total_amount'=> $new_perdiem_total_amount]);
+                $total_amount = ($costs->total_amount - $costs->perdiem_total_amount) + $new_perdiem_total_amount;
+                requisition_training_cost::query()->where('id', $costs->id)->update(['perdiem_total_amount'=> $new_perdiem_total_amount, 'total_amount'=>$total_amount]);
             }
             else{
                 requisition_training_cost::query()->where('id', $costs->id)->update(['no_days'=> $no_days]);

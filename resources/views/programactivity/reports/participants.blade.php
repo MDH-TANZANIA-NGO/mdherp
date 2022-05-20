@@ -11,7 +11,7 @@
             <div class="card-body">
 
 {{--                Finance Permission goes here--}}
-
+                @permission('finance_activity')
 
                 {!! Form::open(['route' => ['programactivity.submitPayment'], 'method'=>'POST']) !!}
                 <input type="number" value="{{$program_activity->id}}" name="program_activity_id" hidden>
@@ -24,7 +24,7 @@
                 @elseif($attendance->sum('amount_paid') > 0 and $paid_report->count() > 0)
                     <button class="btn btn-primary" style="margin-left: 1%">Edit submitted payment</button>
                 @endif
-
+                @endpermission
                 <br>
 
                 <br>
