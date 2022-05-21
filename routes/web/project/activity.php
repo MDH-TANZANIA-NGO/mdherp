@@ -7,6 +7,7 @@ Route::group(['namespace' => 'Project', 'middleware' => ['web', 'auth'], 'prefix
     Route::put('{activity}/update', 'ActivityController@update')->name('update');
     Route::put('{activity}/activate', 'ActivityController@activate')->name('activate');
     Route::get('json-filer', 'ActivityController@getActivitiesJson')->name('json_filter');
+    Route::post('import', 'ActivityController@import')->name('import');
 
     /**
      * Datatables
