@@ -1,5 +1,8 @@
 <?php
 
+use Database\seeds\v100\AttachmentTypeSeeder;
+use Database\seeds\v100\TransportMeansSeeder;
+use Database\seeds\v100\WorkingToolsTableSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -43,8 +46,8 @@ class DatabaseSeeder extends Seeder
         $this->call(LeaveTypesTableSeeder::class);
         $this->call(WorkingToolsTableSeeder::class);
         $this->call(TransportMeansSeeder::class);
-       // $this->call(AttachmentTypeSeeder::class);
-        //$this->call(ServicesSeeder::class);
+        $this->call(AttachmentTypeSeeder::class);
+        $this->call(ServicesSeeder::class);
        // $this->call(mdh_ratesTableSeeder::class);
 
 

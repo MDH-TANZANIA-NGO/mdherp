@@ -1,5 +1,5 @@
 <?php
-
+namespace Database\seeds\v100;
 use Illuminate\Database\Seeder;
 
 class AttachmentTypeSeeder extends Seeder
