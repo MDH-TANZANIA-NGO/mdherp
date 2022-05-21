@@ -1,6 +1,7 @@
 <?php
 
 use Database\seeds\v100\AttachmentTypeSeeder;
+use Database\seeds\v100\LeaveTypesTableSeeder;
 use Database\seeds\v100\TransportMeansSeeder;
 use Database\seeds\v100\WorkingToolsTableSeeder;
 use Illuminate\Database\Seeder;
