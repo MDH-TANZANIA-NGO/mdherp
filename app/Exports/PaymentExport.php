@@ -6,6 +6,7 @@ use App\Models\Payment\Payment;
 use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training_cost;
+use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
 use http\Env\Request;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -14,28 +15,55 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class PaymentExport implements FromQuery
+class PaymentExport implements FromCollection, WithMapping, WithHeadings
 {
 
-    protected $uuid;
+    protected $attendance_on_reporting_date;
+    protected $requisition_training_cost;
 
-    public function __construct($uuid)
+    public function __construct( $attendance_on_reporting_date)
     {
-        $this->uuid = $uuid;
+
+        $this->attendance_on_reporting_date = $attendance_on_reporting_date;
+        $this->requisition_training_cost =  (new RequestTrainingCostRepository());
+
+
+    }
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function collection()
+    {
+
+        return $this->attendance_on_reporting_date;
     }
 
-
-
-
-    public function query()
+    public function map($row): array
     {
-        $uuid= $this->uuid;
-        $requisition_id = ProgramActivity::where('uuid', $uuid)->get()->first()->requisition_id;
-        $participant = requisition_training_cost::query()->where('requisition_id', $requisition_id);
-        // TODO: Implement query() method.
-//        dd(requisition_training_cost::query()->where('requisition_id', $requisition_id)->get());
-        return $participant;
+        return [
+            $row->first_name,
+            $row->last_name,
+            substr($row->phone, -9),
+            $row->perdiem_total_amount,
+            $row->transportation,
+            $row->other_cost,
+            $row->amount_paid,
+            $row->total_amount,
 
+        ];
+    }
 
+    public function headings(): array
+    {
+        return [
+            'First Name',
+            'Last Name',
+            'Phone',
+            'Total Perdiem',
+            'Transport Cost',
+            'Other Costs',
+            'Amount Paid',
+            'Total Amount Requested'
+        ];
     }
 }

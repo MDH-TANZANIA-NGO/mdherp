@@ -39,6 +39,9 @@ use Number;
 public function getPaidReports($program_activity_report_id)
 {
     return $this->getQuery()
+        ->addSelect([
+            'program_activity_payments.uuid AS uuid',
+        ])
         ->join('program_activity_payments', 'program_activity_reports.id', 'program_activity_payments.program_activity_report_id')
         ->where('program_activity_payments.program_activity_report_id', $program_activity_report_id)
         ->get();
@@ -73,6 +76,14 @@ public function getPaidReports($program_activity_report_id)
 
     public function getAllApprovedActivityReports(){
         return $this->getQuery()
+            ->addSelect([
+                'projects.code AS code',
+                'projects.title AS title',
+                'regions.name as region_name'
+            ])
+            ->join('requisitions', 'requisitions.id', 'program_activities.requisition_id')
+            ->join('regions','regions.id', 'requisitions.region_id')
+            ->join('projects','projects.id', 'requisitions.project_id')
             ->where('program_activity_reports.wf_done', 1)
             ->where('program_activity_reports.done', true)
             ->where('program_activity_reports.rejected', false)
@@ -249,6 +260,8 @@ public function getPaidReports($program_activity_report_id)
             return $activity_report->update(['rejected' => $rejected]);
         });
     }
+
+
 
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\ProgramActivity;
 
 use App\Events\NewWorkflow;
+use App\Exports\PaymentExport;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\ProgramActivity\Datatable\ProgramActivityDatatable;
 use App\Http\Controllers\Web\ProgramActivity\Datatable\ProgramActivityReportDatatable;
@@ -181,6 +182,15 @@ class ProgramActivityReportController extends Controller
             ->with('paid_report', $paid_report)
             ->with('training_items', $training_item)
             ->with('activity_participants', $training_cost);
+
+    }
+    public function exportParticipants( $uuid)
+    {
+        $program_activity_report =  $this->program_activity_report->findByUuid($uuid);
+        $program_activity = $this->program_activities->find($program_activity_report->program_activity_id);
+        $attendance_on_reporting_date = $this->activity_attendance->getAttendanceByDate($program_activity->id, $program_activity_report->created_at)->get();
+
+        return \Maatwebsite\Excel\Facades\Excel::download(new PaymentExport($attendance_on_reporting_date), 'Activity:'.$program_activity->number.'participants_export_for_payment.xlsx');
 
     }
 

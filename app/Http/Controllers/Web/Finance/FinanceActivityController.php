@@ -344,25 +344,16 @@ class FinanceActivityController extends Controller
         alert()->success('Payment sent Successfully', 'Success');
         return redirect()->route('finance.view', $payment->uuid);
     }
-    public function updateActivityPayment(Request $request, $uuid)
+    public function updateActivityPayment(Request $request, $id)
     {
-        $payment =  $this->finance->findByUuid($uuid);
+        $program_activity_payment = ProgramActivityPayment::query()->where('program_activity_report_id', $id)->first();
+        $this->program_activity_payment_repo->updateActivityPayment($request, $program_activity_payment->uuid);
+        $payment =  $this->finance->find($program_activity_payment->payment_id);
         $pay = $payment->update($request->all());
         $program_activity_payment_uuid = $payment->activityPayment->uuid;
 
-
-        DB::update('update program_activity_payments set total_items_amount_paid = ?, total_participant_amount_paid = ?, total_amount_paid = ? where uuid = ?', [$request['total_items'], $request['total_participants'], $request['total_amount'], $program_activity_payment_uuid]);
-        DB::update('update payments set payed_amount = ? where uuid = ?',[$request->get('total_amount'), $uuid]);
-        $activity_payment = $this->program_activity_payment_repo->findByUuid($program_activity_payment_uuid)->update($request->all());
-
         alert()->success('Payment updated Successfully', 'Success');
-        if ($payment->done == 0)
-        {
-            return redirect()->route('finance.activity_payment_for_approval', $payment->uuid);
-        }
-        else{
-            return redirect()->route('finance.view', $payment->uuid);
-        }
+        return redirect()->route('finance.view', $payment->uuid);
 
     }
     public function safariPaymentEditForApproval($uuid){

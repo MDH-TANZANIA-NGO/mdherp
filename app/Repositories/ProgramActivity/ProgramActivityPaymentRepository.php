@@ -31,9 +31,10 @@ class ProgramActivityPaymentRepository extends BaseRepository
             return $this->query()->create($this->inputProcessActivityPayment($input));
         });
     }
-    public function updateActivityPayment($input){
-        return DB::transaction(function () use ($input){
-            return $this->query()->update($this->inputProcessActivityPayment($input));
+    public function updateActivityPayment($input, $uuid){
+        return DB::transaction(function () use ($input, $uuid){
+           $program_activity_payment =  $this->findByUuid($uuid);
+            return $program_activity_payment->update($this->inputProcessActivityPayment($input));
         });
     }
 }

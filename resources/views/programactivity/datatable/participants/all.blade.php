@@ -5,14 +5,14 @@
                 <h3 class="card-title">Participants List</h3>
 
                 <div class="card-options ">
-                    <a href="{{route('programactivity.export', $program_activity->uuid)}}"  class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i> Export Excel</a>
+{{--                    <a href="{{route('programactivity.export', $program_activity->uuid)}}"  class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i> Export Excel</a>--}}
        </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     {!! Form::open(['route' => ['programactivity.programActivityAttendance',$program_activity->uuid ], 'method'=>'POST']) !!}
                     @if($program_activity->user_id == access()->user()->id)
-                    <button type="submit" class="btn btn-outline-info " data-toggle="modal" data-target="#exampleModal"><i class="fa fa-list"></i> Attendance</button>
+                    <button type="submit" class="btn btn-outline-info " data-toggle="modal" data-target="#exampleModal">Capture Attendance</button>
                     @endif
 <br>
                     <br>
@@ -50,9 +50,9 @@
                                     <td><input type="checkbox" name="ids[]" class="selectbox" value="{{$participants->id}}"></td>
 
                                     {!! Form::close() !!}
-                                    <td>{{$participants->user->first_name}} {{$participants->user->last_name}}</td>
+                                    <td>  {{$participants->user->first_name}} {{$participants->user->last_name}}</td>
                                     <td>{{$participants->user->phone}}</td>
-                                    <td>{{$attendance->where('g_officer_id', $participants->participant_uid)->count()}}/ {{$activity_details->no_days}}</td>
+                                    <td>{{$participants->programActivityAttendance->count()}}/ {{$activity_details->no_days}}</td>
                                     <td>{{number_2_format($participants->perdiem_total_amount)}}</td>
                                     <td>{{number_2_format($participants->transportation)}}</td>
                                     <td>{{number_2_format($participants->other_cost)}} <span class="text-default">{{$participants->others_description}}</span></td>

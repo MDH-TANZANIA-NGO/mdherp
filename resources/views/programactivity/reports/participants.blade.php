@@ -5,7 +5,7 @@
                 <h3 class="card-title">Participants List</h3>
 
                 <div class="card-options ">
-                    <a href="{{route('programactivity.export', $program_activity->uuid)}}"  class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i> Export Excel</a>
+                    <a href="{{route('programactivityreport.exportParticipants', $program_activity_report->uuid)}}"  class="btn btn-outline-success"><i class="fa fa-file-excel-o"></i> Export Excel</a>
                 </div>
             </div>
             <div class="card-body">
@@ -22,7 +22,7 @@
                 @if($attendance->sum('amount_paid') > 0 and $paid_report->count() == 0)
                     <a href="#" data-toggle="modal" data-target="#exampleModal1" class="btn btn-primary" style="margin-left: 1%">Send payments for approval</a>
                 @elseif($attendance->sum('amount_paid') > 0 and $paid_report->count() > 0)
-                    <button class="btn btn-primary" style="margin-left: 1%">Edit submitted payment</button>
+                    <a href="#" data-toggle="modal" class="btn btn-primary" data-target="#exampleModal2" style="margin-left: 1%">Edit submitted payment</a>
                 @endif
                 @endpermission
                 <br>
@@ -139,7 +139,7 @@
                 <div class="col-md-12 ">
                     <div class="card text-center">
                         <div class="card-body"> <span>You are paying total amount of</span>
-                            <h1 class=" mb-1 mt-1 text-dark">{{number_2_format($attendance->sum('total_amount'))}} (TZS)</h1>
+                            <h1 class=" mb-1 mt-1 text-dark">{{number_2_format($attendance->sum('amount_paid'))}} (TZS)</h1>
                             <div class="text-muted"><i class="si si-arrow-up-circle text-warning"></i> <span class=""></span> To {{$attendance->count()}} participants for an activity report: {{$program_activity_report->number}}</div>
                         </div>
                     </div>
@@ -158,11 +158,52 @@
                 <button type="submit" class="btn btn-primary">Confirm Payment</button>
             </div>
         </div>
+        {!! Form::close() !!}
     </div>
 </div>
 <!-- Modal -->
 
+@if($attendance->sum('amount_paid') > 0 and $paid_report->count() > 0)
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Payment Amount</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            {!! Form::open(['route' => ['finance.update_activity_payment', $paid_report->first()->id], 'method'=>'POST']) !!}
+            <div class="modal-body">
+                <div class="col-md-12 ">
+                    <div class="card text-center">
+                        <div class="card-body"> <span>You are paying total amount of</span>
+                            <h1 class=" mb-1 mt-1 text-dark">{{number_2_format($attendance->sum('amount_paid'))}} (TZS)</h1>
+                            <div class="text-muted"><i class="si si-arrow-up-circle text-warning"></i> <span class=""></span> To {{$attendance->count()}} participants for an activity report: {{$program_activity_report->number}}</div>
+                        </div>
+                    </div>
+                </div>
+                <label>Remarks<span class="text-danger">*</span></label>
+                <input type="text" name="remarks" class="form-control" >
+            </div>
+            <input type="number" value="{{$attendance->sum('total_amount')}}" name="total_amount" hidden>
+            <input type="number" value="{{$requisition->region_id}}" name="region_id" hidden>
+            <input type="number" value="{{$requisition->user_id}}" name="user_id" hidden>
+            <input type="number" value="{{$requisition->amount}}" name="requested_amount" hidden>
+            <input type="number" value="{{$requisition->id}}" name="requisition_id" hidden>
+            <input type="number" value="{{$program_activity_report->id}}" name="program_activity_report_id" hidden>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Confirm Payment</button>
+            </div>
+        </div>
 
+        {!! Form::close() !!}}
+    </div>
+</div>
+<!-- Modal -->
+@endif
 
 
 @push('after-scripts')

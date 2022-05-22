@@ -83,6 +83,9 @@
                                     <th class="wd-15p">REPORT NUMBER</th>
                                     <th class="wd-25p">ACTIVITY NUMBER</th>
                                     <th class="wd-25p">REQUESTER</th>
+                                    <th class="wd-25p">REGION</th>
+                                    <th class="wd-25p">PROJECT</th>
+                                    <th class="wd-25p">TYPE</th>
                                     <th class="wd-25p">CREATED ON</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -180,7 +183,9 @@
                     { data: 'number', name: 'program_activity_reports.number', searchable: true},
                     { data: 'activity_number', name: 'program_activities.number', searchable: true},
                     { data: 'name', name: 'users.name', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
+                    { data: 'region_name', name: 'regions.name', searchable: true},
+                    { data: 'title', name: 'projects.title', searchable: true},
+                    { data: 'status', name: 'program_activity_reports.status', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount_paid', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
