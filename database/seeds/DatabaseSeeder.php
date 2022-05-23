@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(WfDefinitionsTableSeeder::class);
 //        $this->call(RequisitionTypeCategoriesTableSeeder::class);
 //        $this->call(RetirementTypeSeeder::class);
+//<<<<<<< HEAD
 //       // $this->call(CountryTableSeeder::class);
 //        $this->call(OrganisationTableSeeder::class);
 //        $this->call(CountryOrganisationTableSeeder::class);
@@ -49,7 +50,21 @@ class DatabaseSeeder extends Seeder
 //        $this->call(TransportMeansSeeder::class);
 //        $this->call(AttachmentTypeSeeder::class);
 //        $this->call(ServicesSeeder::class);
-       // $this->call(mdh_ratesTableSeeder::class);
+//=======
+       // $this->call(CountryTableSeeder::class);
+        $this->call(OrganisationTableSeeder::class);
+//        $this->call(CountryOrganisationTableSeeder::class);
+        $this->call(FacilityCategoryTableSeeder::class);
+        $this->call(FacilityTypeTableSeeder::class);
+        $this->call(OwnershipCategoryTableSeeder::class);
+        $this->call(OwnershipTableSeeder::class);
+        $this->call(LeaveTypesTableSeeder::class);
+        $this->call(WorkingToolsTableSeeder::class);
+//        $this->call(TransportMeansSeeder::class);
+       // $this->call(AttachmentTypeSeeder::class);
+        //$this->call(ServicesSeeder::class);
+//>>>>>>> 9c174dd12df25aab16c97f7aac867424cc6034ca
+       $this->call(mdh_ratesTableSeeder::class);
 
 
         DB::commit();
