@@ -6,6 +6,7 @@ use App\Models\Budget\Budget;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 use App\Exceptions\GeneralException;
+use Illuminate\Support\Facades\Log;
 
 class BudgetRepository extends BaseRepository
 {
@@ -57,7 +58,6 @@ class BudgetRepository extends BaseRepository
                 'actual_amount' => $inputs['amount'.$region],
                 'rate_id' => active_rate_id(),
             ];
-//            dd(1);
             $this->store($input);
         }
     }
@@ -80,18 +80,18 @@ class BudgetRepository extends BaseRepository
 
     public function store($input)
     {
-        $this->checkIfBudgetHasBeenRegistered($input);
         return DB::transaction(function() use ($input){
-            $this->query()->create($input);
+            if($this->checkIfBudgetHasBeenRegistered($input)->count() == 0)
+                $this->query()->create($input);
         });
     }
 
     public function checkIfBudgetHasBeenRegistered($input)
     {
-        $check = $this->query()->where('fiscal_year_id', $input['fiscal_year_id'])->where('activity_id', $input['activity_id']);
-        if($check->count() > 0){
-            $budget = $check->first();
-            throw new GeneralException('Activity '.$budget->activity->code. ' - '.$budget->activity->title. ' - '.$budget->activity->description. ' of year '.$budget->fiscalYear->title. 'Already Registered');
+        if(isset($input['region_id'])){
+            return $this->query()->where('fiscal_year_id', $input['fiscal_year_id'])->where('region_id', $input['region_id'])->where('activity_id', $input['activity_id']);
+        }else{
+            return $this->query()->where('fiscal_year_id', $input['fiscal_year_id'])->where('activity_id', $input['activity_id']);
         }
     }
 
