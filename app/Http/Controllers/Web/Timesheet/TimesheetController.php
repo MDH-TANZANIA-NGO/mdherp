@@ -234,6 +234,7 @@ class TimesheetController extends Controller
     }
 
     public function effortUpdate(Request $request){
+        //dd($request->all());
         $effort_levels = EffortLevel::where('user_id', $request['data'][0]['user_id'])->get();
         //dd($effort_levels);
             foreach ($effort_levels as $effort_level){
