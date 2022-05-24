@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Requisition\Travelling\Traits\travellingCostsDatatable;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
+use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
 use App\Models\System\District;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Travelling\RequestTravellingCostRepository;
+use App\Repositories\Requisition\Travelling\RequisitionTravellingCostDistrictsRepository;
 use App\Repositories\System\DistrictRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +26,8 @@ class RequestTravellingCostController extends Controller
     protected $mdh_rates;
     protected $travellingCost;
     protected $district;
-protected $requisition;
+    protected $requisition;
+
     public function __construct()
     {
         $this->mdh_rates = (new mdhRatesRepository());
@@ -32,6 +35,7 @@ protected $requisition;
         $this->travellingCost = (new RequestTravellingCostRepository());
         $this->district =  (new DistrictRepository());
         $this->requisition = (new RequisitionRepository());
+
     }
 
     public function index(){
@@ -46,7 +50,7 @@ protected $requisition;
 
         $requisition_travelling_cost_id = $this->travellingCost->store($requisition, $request->all());
          $requisition_travelling_cost = $this->travellingCost->find($requisition_travelling_cost_id);
-        return redirect()->route('travelling.add_trip',$requisition_travelling_cost->uuid );
+        return redirect()->route('trip.create',$requisition_travelling_cost->uuid );
 
 
     }
@@ -58,13 +62,8 @@ protected $requisition;
             ->with('mdh_staff', $this->mdh_staff->getUserQuery()->pluck('id', 'first_name'));
 
     }
-    public function addTrip($uuid)
-    {
-        $requisition =  $this->requisition->find($this->travellingCost->findByUuid($uuid)->requisition_id);
-        return view('requisition.Direct.travelling.forms.Trip.create')
-            ->with('requisition', $requisition)
-            ->with('districts', $this->district->forSelect());
-    }
+
+
 
     public function show(){
 
@@ -97,12 +96,24 @@ protected $requisition;
         $traveller =  $this->travellingCost->findByUuid($uuid);
         $traveller_details =  $this->travellingCost->getQuery()->first();
         $requisition =  Requisition::query()->where('id',    $traveller->requisition_id)->first();
-        check_available_budget_individual($requisition, $traveller->total_amount, $traveller->total_amount, 0);
+        check_available_budget_individual($requisition, $traveller->total_amount, $traveller->total_amount);
         DB::delete('delete from requisition_travelling_costs where uuid = ?',[$uuid]);
         $this->requisition->updatingTotalAmount($requisition);
         return redirect()->back();
     }
-
+    public function updateDateRange(Request $request, $uuid)
+    {
+        $no_days = getNoDays($request['from'], $request['to']);
+        DB::table('requisition_travelling_costs')
+            ->where('uuid', $uuid)
+            ->update([
+                'from'=> $request['from'],
+                'to'=> $request['to'],
+                'no_days'=>$no_days,
+            ]);
+        alert()->success('Date range updated successfully', 'Success');
+        return redirect()->back();
+    }
     public function update($uuid, Request $request){
 
         $traveller  =  $this->travellingCost->findByUuid($uuid);

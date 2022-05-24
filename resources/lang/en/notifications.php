@@ -9,7 +9,7 @@ return [
     'permission_assigned' => 'Permission Assigned Successfully',
     'workflow' => [
         'title' => 'Workflow',
-        'participate' => 'Thank you!, You have participated successfully',
+        'participate' => 'Success',
         'error' => 'This workflow has already been forwarded! Please reload the workflow table',
     ],
 ];

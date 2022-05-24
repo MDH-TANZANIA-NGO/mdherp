@@ -102,7 +102,7 @@ class WorkflowEventSubscriber
                                 $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
                                 $string = htmlentities(
-                                    "There is new"." ".$requisition->typeCategory->title." "."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
+                                    "There is new"." ".$requisition->typeCategory->title." "."From ".$requisition->user->first_name."".$requisition->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
                                     "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
                                     "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
                                     "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
@@ -120,7 +120,7 @@ class WorkflowEventSubscriber
 //                                $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
                                 $string = htmlentities(
-                                    "There is new"." ".$requisition->typeCategory->title." "."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
+                                    "There is new"." ".$requisition->typeCategory->title." "."From ".$requisition->user->first_name."".$requisition->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
                                     "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
                                     "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
                                     "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
@@ -137,7 +137,7 @@ class WorkflowEventSubscriber
                                 case 3:
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
                                     $string = htmlentities(
-                                        "There is new"." ".$requisition->typeCategory->title." "."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
+                                        "There is new"." ".$requisition->typeCategory->title." "."From ".$requisition->user->first_name."".$requisition->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
                                         "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
                                         "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
                                         "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
@@ -155,7 +155,7 @@ class WorkflowEventSubscriber
                             case 4:
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level,$requisition->user->designation->department_id);
                                 $string = htmlentities(
-                                    "There is new"." ".$requisition->typeCategory->title." "."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
+                                    "There is new"." ".$requisition->typeCategory->title." "."From ".$requisition->user->first_name."".$requisition->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
                                     "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
                                     "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
                                     "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
@@ -172,11 +172,11 @@ class WorkflowEventSubscriber
                             case 5:
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
                                 $string = htmlentities(
-                                    "There is new"." ".$requisition->typeCategory->title." "."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
+                                    "There is new"." ".$requisition->typeCategory->title." "."From ".$requisition->user->first_name."".$requisition->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
                                     "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
                                     "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
                                     "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
-                                    "<b>Amount requested:</b>". number_2_format($requisition->amount)."(TZS)"
+                                    "<b>Amount requested:</b>". number_2_format($requisition->amount)
                                 );
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),
@@ -216,11 +216,17 @@ class WorkflowEventSubscriber
                         case 1: //Applicant level
                             $program_activity_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
-
+                            $string = htmlentities(
+                                "There is new"." "."Program Activity Initiated"." "."by ".$program_activity->user->first_name."".$program_activity->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$program_activity->number."<br>".
+                                "<b>Project:</b>".$program_activity->requisition->project->title." (". $program_activity->requisition->project->code.")"."<br>".
+                                "<b>Activity:</b>".$program_activity->requisition->activity->code.": ".$program_activity->requisition->activity->title."<br>".
+                                "<b>Activity Location:</b>". $program_activity->training->district->name."<br>".
+                                "<b>Amount requested:</b>". number_2_format($program_activity->requisition->amount)
+                            );
                             $email_resource = (object)[
                                 'link' => route('programactivity.show', $program_activity),
-                                'subject' => $program_activity->number . " Need your Approval",
-                                'message' =>  $program_activity->number . ' need your approval'
+                                'subject' =>  $program_activity->number . " Need your Approval",
+                                'message' => html_entity_decode($string)
                             ];
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -304,6 +310,30 @@ class WorkflowEventSubscriber
                             User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
+                    }
+
+                    break;
+                case 7:
+                    $payment_repo = (new FinanceActivityRepository());
+                    $payment = $payment_repo->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $payment_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                            $string = htmlentities(
+                                "There is new"." "."Payment batch"." "."from ".$payment->user->first_name."".$payment->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$payment->number."<br>".
+                                "<b>Project:</b>".$payment->requisition->project->title." (". $payment->requisition->project->code.")"."<br>".
+                                "<b>Activity:</b>".$payment->requisition->activity->code.": ".$payment->requisition->activity->title."<br>".
+                                "<b>Amount requested:</b>". number_2_format($payment->requisition->amount)
+                            );
+                            $email_resource = (object)[
+                                'link' => route('programactivity.show', $payment),
+                                'subject' =>  $payment->number . " Need your Approval",
+                                'message' => html_entity_decode($string)
+                            ];
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
                     }
 
                     break;
@@ -431,7 +461,7 @@ class WorkflowEventSubscriber
                     $email_resource = (object)[
                         'link' =>  route('leave.show',$leave),
                         'subject' => "Approved Successfully",
-                        'message' => 'These Application has been Approved successfully'
+                        'message' => 'The Leave Application has been Approved successfully'
                     ];
                     $delegeted_email = (object)[
                         'link' =>  route('leave.show',$leave),
@@ -443,8 +473,9 @@ class WorkflowEventSubscriber
                     $delegeted_user->notify(new WorkflowNotification($delegeted_email));
                     break;
                 case 7:
-                    $financerepo = (new FinanceActivityRepository());
-                    $finance = $financerepo->find($resource_id);
+                    $finance_repo = (new FinanceActivityRepository());
+                    $finance = $finance_repo->find($resource_id);
+
                     $this->updateWfDone($finance);
 //                $requisition_repo->processComplete($safari);
                     $email_resource = (object)[
@@ -452,7 +483,14 @@ class WorkflowEventSubscriber
                         'subject' => $finance->number." Approved Successfully",
                         'message' => $finance->number.':This payment batch has been Approved successfully'
                     ];
+                    $activity_owner_email = (object)[
+                        'link' =>  route('programactivityreport.show',$finance->activityPayment->activityReport->uuid),
+                        'subject' => "Activity Payment Approved",
+                        'message' => 'Your activity payments has been approved'
+                    ];
+                    $activity_owner = User::query()->where('id', $finance->activityPayment->activityReport->user_id)->first();
                     $finance->user->notify(new WorkflowNotification($email_resource));
+                    $activity_owner->notify(new WorkflowNotification(($activity_owner_email)));
                     break;
                 case 8:
                     $timesheetrepo = (new TimesheetRepository());

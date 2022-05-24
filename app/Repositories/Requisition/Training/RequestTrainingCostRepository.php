@@ -22,6 +22,7 @@ class RequestTrainingCostRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('requisition_training_costs.id AS id'),
+            DB::raw('requisition_training_costs.requisition_training_id AS requisition_training_id'),
             DB::raw('requisition_training_costs.perdiem_total_amount AS perdiem_total_amount'),
             DB::raw('requisition_training_costs.transportation AS transportation'),
             DB::raw('requisition_training_costs.total_amount AS total_amount'),
@@ -35,7 +36,11 @@ class RequestTrainingCostRepository extends BaseRepository
             ->join('requisition_trainings', 'requisition_trainings.id', 'requisition_training_costs.requisition_training_id')
             ->join('program_activities', 'program_activities.requisition_training_id', 'requisition_trainings.id');
     }
-
+public function getParticipantsByRequisition($requisition_id)
+{
+    return $this->getQuery()
+        ->where('requisition_training_costs.requisition_id', $requisition_id);
+}
     public function getActivityParticipants($uuid)
     {
         return $this->getQuery()
@@ -48,20 +53,27 @@ class RequestTrainingCostRepository extends BaseRepository
     public function inputProcess($inputs)
     {
         $requisition_training_details =  requisition_training::query()->where('id', $inputs['requisition_training_id'])->first();
-        $days = getNoDays($inputs['from'], $inputs['to']);
+        $days = getNoDays($requisition_training_details->start_date, $requisition_training_details->end_date);
+//        dd($days);
+        if ( isset($inputs['perdiem_rate_id']) ){
+            $perdiem_rate_amount = GRate::query()->find($inputs['perdiem_rate_id'])->amount;
 
-        $perdiem_id = $inputs['perdiem_rate_id'];
-        $perdiem_total_amount = (GRate::query()->find($perdiem_id)->amount  * $days);
+            $perdiem_rate_id  = $inputs['perdiem_rate_id'];
+        }
+        else{
+            $perdiem_rate_amount = 0;
+            $perdiem_rate_id = 0;
+        }
+
+        $perdiem_total_amount = ($perdiem_rate_amount  * $days);
         $total_amount = $perdiem_total_amount + $inputs['transportation'] + $inputs['other_cost'];
         return [
             'requisition_training_id'=>$inputs['requisition_training_id'],
-            'peridem_rate_amount'=> $inputs['perdiem_rate_id'],
+            'peridem_rate_amount'=> $perdiem_rate_amount,
             'participant_uid' => $inputs['participant_uid'],
-//            'description' => $inputs['description'],
-//            'district_id'=> $inputs['district_id'],
             'perdiem_total_amount' => $perdiem_total_amount,
             'no_days' => $days,
-            'perdiem_rate_id' => $inputs['perdiem_rate_id'],
+            'perdiem_rate_id' => $perdiem_rate_id,
             'transportation' => $inputs['transportation'],
             'other_cost' => $inputs['other_cost'],
             'others_description' => $inputs['others_description'],
@@ -72,7 +84,7 @@ class RequestTrainingCostRepository extends BaseRepository
     public function store(Requisition $requisition, $inputs)
     {
         return DB::transaction(function () use ($requisition, $inputs){
-            check_available_budget_individual($requisition, $this->inputProcess($inputs)['total_amount'],0,$this->inputProcess($inputs)['total_amount']);
+//            check_available_budget_individual($requisition, $this->inputProcess($inputs)['total_amount'],0,$this->inputProcess($inputs)['total_amount']);
             $requisition->trainingCost()->create($this->inputProcess($inputs));
             $requisition->updatingTotalAmount();
             return $requisition;
