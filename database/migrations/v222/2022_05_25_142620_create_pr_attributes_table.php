@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrCompetenceKeysTable extends Migration
+class CreatePrAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreatePrCompetenceKeysTable extends Migration
      */
     public function up()
     {
-        Schema::create('pr_competence_keys', function (Blueprint $table) {
+        Schema::create('pr_attributes', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->comment('competence key title');
+            $table->string('title')->comment('title of attribute');
+            $table->timestamps();
         });
-        \DB::statement("ALTER TABLE 'pr_competence_keys' comment 'Store Performance Review Competence Keys'");
+        \DB::statement("ALTER TABLE 'pr_attributes' comment 'Store Performance Review Attributes for probation form'");
     }
 
     /**
@@ -27,6 +28,6 @@ class CreatePrCompetenceKeysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pr_competence_keys');
+        Schema::dropIfExists('pr_attributes');
     }
 }

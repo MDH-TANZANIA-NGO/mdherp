@@ -16,8 +16,7 @@ class CreatePrRateScalesTable extends Migration
         Schema::create('pr_rate_scales', function (Blueprint $table) {
             $table->id();
             $table->string('description')->comment('description of rate');
-            $table->decimal('rate','',1)->comment('numerical Representative of score');
-            $table->timestamps();
+            $table->smallInteger('rate','',1)->comment('numerical Representative of score');
         });
         \DB::statement("ALTER TABLE 'pr_rate_scales' comment 'Store Performance Review Rate Scales'");
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Database\TruncateTable;
 use Database\DisableForeignKeys;
 
-class PrTypesTableSeeder extends Seeder
+class PrCompetenceKeysTableSeeder extends Seeder
 {
     use DisableForeignKeys, TruncateTable;
     /**
@@ -14,70 +14,70 @@ class PrTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->disableForeignKeys("pr_types");
-        $this->delete('pr_types');
-        \DB::table('codes')->insert(array (
+        $this->disableForeignKeys("pr_competence_keys");
+        $this->delete('pr_competence_keys');
+        \DB::table('pr_competence_keys')->insert(array (
             0 =>
                 array (
                     'id' => 1,
-                    'title' => 'KNOWLEDGE OF THE JOB',
+                    'title' => 'Knowledge of the job',
                 ),
             1 =>
                 array (
                     'id' => 2,
-                    'title' => 'ACCOUNTABILITY & OWNERSHIP',
+                    'title' => 'Accountability and ownership',
                 ),
             2 =>
                 array (
                     'id' => 3,
-                    'title' => 'COMMUNICATION',
+                    'title' => 'Communication',
                 ),
             3 =>
                 array (
                     'id' => 4,
-                    'title' => 'PUNCTUALITY AND ATTENDANCE',
+                    'title' => 'Punctuality and attendance',
                 ),
             4 =>
                 array (
                     'id' => 5,
-                    'title' => 'RESULTS ORIENTATION',
+                    'title' => 'Results orientation',
                 ),
             5 =>
                 array (
                     'id' => 6,
-                    'title' => 'PROFESSIONAL CONDUCT',
+                    'title' => 'Professional conduct',
                 ),
             6 =>
                 array (
                     'id' => 7,
-                    'title' => 'COLLABORATION & TEAM WORK',
+                    'title' => 'Collaboration & team work',
                 ),
             7 =>
                 array (
                     'id' => 8,
-                    'title' => 'INITIATIVE AND CREATIVITY',
+                    'title' => 'Initiative and creativity',
                 ),
             8 =>
                 array (
                     'id' => 9,
-                    'title' => 'MANAGING WORK',
+                    'title' => 'Managing work',
                 ),
             9 =>
                 array (
                     'id' => 10,
-                    'title' => '*DEVELOPING OTHERS',
+                    'title' => '*developing others',
                 ),
             10 =>
                 array (
                     'id' => 11,
-                    'title' => '*STRATEGIC DECISION MAKING',
+                    'title' => '*strategic decision making',
                 ),
             11 =>
                 array (
                     'id' => 12,
-                    'title' => '*VALUING DIFFERENCE',
+                    'title' => '*valuing difference',
                 ),
         ));
-        $this->enableForeignKeys("pr_types");
+        $this->enableForeignKeys("pr_competence_keys");
     }
 }
