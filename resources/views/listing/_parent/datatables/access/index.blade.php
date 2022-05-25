@@ -4,7 +4,8 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">Requested <span class="badge badge-primary">{{ $listing_access->getAccessProcessingDatatable()->count() }}</span></a></li>
+                    <li><a href="#processing" class="active" data-toggle="tab">Requested <span class="badge badge-primary">{{ $listing_access->getAccessProcessingDatatable()->count() }}</span></a></li>
+                    <li><a href="#returned" data-toggle="tab">Returned for Modification <span class="badge badge-warning">{{ $listing_access->getAccessDeniedDatatable()->count() }}</span></a></li>
                     <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $listing_access->getAccessRejectedDatatable()->count() }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $listing_access->getAccessProvedDatatable()->count() }}</span></a></li>
                 </ul>
@@ -21,9 +22,7 @@
         <div class="panel-body tabs-menu-body" style="background-color:#FFFFFF">
             <div class="tab-content">
                 <div class="tab-pane active" id="processing">
-
                     <div class="card-body">
-
                         <div class="table-responsive">
                             <table id="access_processing" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
@@ -40,13 +39,31 @@
                                 </thead>
                             </table>
                         </div>
-
                     </div>
+                </div>
 
+                <div class="tab-pane " id="returned">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="access_returned" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th class="wd-15p">#</th>
+                                    <th class="wd-15p">TITLE</th>
+                                    <th class="wd-15p">REGION</th>
+                                    <th class="wd-15p">DATE REQUIRED</th>
+                                    <th class="wd-25p"># OF EMPLOYEES</th>
+                                    <th class="wd-25p">BUDGET</th>
+                                    <th class="wd-25p">CREATED AT</th>
+                                    <th class="wd-25p">ACTION</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="tab-pane" id="saved">
-
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="access_saved" class="table table-striped table-bordered" style="width:100%">
@@ -65,11 +82,9 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="tab-pane" id="approved">
-
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="access_approved" class="table table-striped table-bordered" style="width:100%">
@@ -88,11 +103,9 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="tab-pane" id="rejected">
-
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="access_rejected" class="table table-striped table-bordered" style="width:100%">
@@ -111,7 +124,6 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
 
             </div>
@@ -134,6 +146,26 @@
                 "responsive": true,
                 "autoWidth": false,
                 ajax: '{{ route('listing.datatable.access.processing') }}',
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                    { data: 'title', name: 'listings.title', searchable: true},
+                    { data: 'region', name: 'regions.name', searchable: true},
+                    { data: 'date_required', name: 'listings.date_required', searchable: true},
+                    { data: 'number', name: 'listings.number', searchable: true },
+                    { data: 'budget', name: 'listings.budget', searchable: true },
+                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'action', name: 'action', searchable: false },
+                ]
+            });
+
+            $("#access_returned").DataTable({
+                //processing: true,
+                //serverSide: true,
+                destroy: true,
+                retrieve: true,
+                "responsive": true,
+                "autoWidth": false,
+                ajax: '{{ route('listing.datatable.access.returned') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},

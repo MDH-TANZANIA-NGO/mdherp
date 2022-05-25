@@ -29,9 +29,9 @@
                         @foreach($attendance as $attendances)
                             <tr>
 
-                                <td>{{date('d-M-Y', strtotime($attendances->created_at))}}</td>
+                                <td>{{date('D d-M-Y', strtotime($attendances->created_at))}}</td>
                                 <td>{{date('h:i:s', strtotime($attendances->checkin_time)) }}</td>
-                                <td>{{date('h:i:s', strtotime($attendances->checkout_time)) }}</td>
+                                <td>@if($attendances->checkout_time != null){{date('h:i:s', strtotime($attendances->checkout_time))}}@endif</td>
                                 <td>{{$attendances->checkin_location}}</td>
                                 <td>{{$attendances->checkout_location}}</td>
 

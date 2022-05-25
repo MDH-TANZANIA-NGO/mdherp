@@ -1,5 +1,5 @@
 <?php
-
+namespace Database\seeds\v100;
 use Database\DisableForeignKeys;
 use Database\TruncateTable;
 use Illuminate\Database\Seeder;

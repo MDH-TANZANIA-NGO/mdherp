@@ -16,11 +16,11 @@ class ProgramActivityPaymentRepository extends BaseRepository
 
     public function inputProcessActivityPayment($input){
         return [
-            'program_activity_report_id'=>$input['program_activity_report_id'],
+            'program_activity_report_id'=>(int)$input['program_activity_report_id'],
             'amount_requested'=>(int)$input['requested_amount'],
-            'total_items_amount_paid'=>$input['total_items'],
-            'total_participant_amount_paid'=>$input['total_participants'],
-            'total_amount_paid'=>$input['total_amount'],
+//            'total_items_amount_paid'=>$input['total_items'],
+            'total_participant_amount_paid'=>(int)$input['total_amount'],
+            'total_amount_paid'=>(int)$input['total_amount'],
 
 
         ];
@@ -31,9 +31,10 @@ class ProgramActivityPaymentRepository extends BaseRepository
             return $this->query()->create($this->inputProcessActivityPayment($input));
         });
     }
-    public function updateActivityPayment($input){
-        return DB::transaction(function () use ($input){
-            return $this->query()->update($this->inputProcessActivityPayment($input));
+    public function updateActivityPayment($input, $uuid){
+        return DB::transaction(function () use ($input, $uuid){
+           $program_activity_payment =  $this->findByUuid($uuid);
+            return $program_activity_payment->update($this->inputProcessActivityPayment($input));
         });
     }
 }

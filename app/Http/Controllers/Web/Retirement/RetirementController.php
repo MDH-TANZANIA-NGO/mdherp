@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\FilesAttachment\FilesAttachment;
 use App\Models\Retirement\Retirement;
 use App\Models\Retirement\RetirementDetail;
+use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Repositories\System\DistrictRepository;
@@ -27,6 +28,7 @@ class RetirementController extends Controller
     protected $district;
     protected $wf_tracks;
     protected $designations;
+    protected $finance;
 
     public function __construct()
     {
@@ -34,6 +36,8 @@ class RetirementController extends Controller
         $this->safari_advances = (new SafariAdvanceRepository());
         $this->district=(new DistrictRepository());
         $this->wf_tracks = (new WfTrackRepository());
+        $this->finance = (new FinanceActivityRepository());
+
     }
 
     /*public function index(RetirementRepository $retirementRepository)
@@ -56,12 +60,17 @@ class RetirementController extends Controller
     }
 
     public  function  create(Retirement $retirement)
-
     {
+
+        $safariDetails = $this->finance->getPaidSafari($retirement->safari_advance_id)->first();
         return view('retirement.forms.create')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
-            ->with('retire_safaris', $this->safari_advances->getSafariDetails()->where('safari_advances.id', $retirement->safari_advance_id)->get());
+            ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id))
+            ->with('retire_safaris_paid_amounts', $this->safari_advances->getDisbursedAmount()->get()->where('safari_id', $retirement->safari_advance_id))
+            ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
+            ->with('safariDetails', $safariDetails);
+
     }
 
    /* public  function  edit(Retirement $retirement)
@@ -74,11 +83,9 @@ class RetirementController extends Controller
 
     public  function  edit(Retirement $retirement)
     {
-
         return view('retirement.forms.edit')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
-            ->with('payment_details', $this->safari_advances->getPaidSafari($retirement->safari_advance_id)->first())
             ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id))
             ->with('retirementz',$retirement->details()->get());
     }

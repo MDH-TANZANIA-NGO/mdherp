@@ -9,6 +9,7 @@ use App\Models\Auth\User;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\UserWfDefinition;
 use App\Models\Workflow\WfDefinition;
+use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Listing\ListingRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
@@ -200,6 +201,20 @@ trait WorkflowUserSelector
                         break;
                 }
                 break;
+            case 7:
+                $finance_repo = (new FinanceActivityRepository());
+                $payment = $finance_repo->find($resource_id);
+                /*check levels*/
+                switch ($level) {
+                    case 1:
+                        $next_user = $payment->user->assignedSupervisor();
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user->supervisor_id;
+                        break;
+                }
+                break;
             case 8:
                 $timesheet_repo = (new TimesheetRepository());
                 $timesheet = $timesheet_repo->find($resource_id);
@@ -221,11 +236,11 @@ trait WorkflowUserSelector
                 switch ($level) {
                     case 1:
                         $user_dept = $listing->user->designation->department->id;
-                        $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept);;
+                        $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept)->get();
                         if (!$next_user) {
                             throw new GeneralException('Director of Department is not yet registered. Please contact system administrator');
                         }
-                        $user_id = $next_user->user_id;
+                        $user_id = $next_user->first()->user_id;
                         break;
                     case 2:
                         $next_user = (new UserRepository())->getDirectorOfHR();;

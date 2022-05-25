@@ -10,6 +10,9 @@ use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Models\SafariAdvance\SafariAdvanceHotelSelection;
+use App\Models\System\Region;
+use App\Repositories\Hotel\HotelRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Travelling\RequestTravellingCostRepository;
 use App\Repositories\Retirement\RetirementRepository;
@@ -32,6 +35,7 @@ class SafariController extends Controller
     protected $districts;
     protected $wf_tracks;
     protected $designations;
+    protected $hotel;
 
     public function __construct()
     {
@@ -40,25 +44,27 @@ class SafariController extends Controller
         $this->districts = (new  DistrictRepository());
         $this->wf_tracks = (new WfTrackRepository());
         $this->designations = (new DesignationRepository());
+        $this->hotel = (new HotelRepository());
     }
 
 
     public function index()
     {
-
         return view('safari.index')
-            ->with('safariAdvance', $this->safariAdvance =  (new SafariAdvanceRepository()));
+            ->with('safariAdvance', $this->safariAdvance);
     }
 
     public  function  create(SafariAdvance $safariAdvance)
     {
-
-
+        $district_id = $safariAdvance->travellingCost()->first()->district_id;
+        $region_id = $this->districts->find($district_id)->region_id;
         return view('safari.forms.create')
-
+            ->with('hotels', $this->hotel->getHotelByRegion($region_id)->pluck('name', 'id'))
+            ->with('hotels_reserved', $this->hotel->getSelectedHotelForSafari($safariAdvance->id))
             ->with('travelling_cost', $safariAdvance->travellingCost)
             ->with('district', $this->districts->getForPluck())
-            ->with('safari_advance', $safariAdvance);
+            ->with('safari_advance', $safariAdvance)
+            ->with('transport_means', DB::table('transport_means')->get()->pluck('type','id'));
     }
     public  function  edit(SafariAdvance $safariAdvance)
     {
@@ -74,7 +80,7 @@ class SafariController extends Controller
     {
         $retirements =  Retirement::query()->where('user_id', access()->user()->id)->where('wf_done', '=', false);
 
-//dd($this->safariAdvance->getCompletedWithoutRetirement()->count());
+//dd($this->travellingCost->getRequisition()->get());
         return view('safari.forms.initiate')
             ->with('travelling_costs', $this->travellingCost->getPluckRequisitionNo())
             ->with('safari_not_retired', $this->safariAdvance->getCompletedWithoutRetirement()->count())
@@ -143,19 +149,53 @@ class SafariController extends Controller
 
         $designation = access()->user()->designation_id;
 //        $getUnit = $designation->unit()->id;
+        $transport_means = DB::table('transport_means')->where('id', $safariAdvance->SafariDetails()->first()->transport_means)->first();
 
         return view('safari.show')
+            ->with('hotels_reserved', $this->hotel->getSelectedHotelForSafari($safariAdvance->id))
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($safariAdvance))
             ->with('safari', $safariAdvance)
+            ->with('travelling_costs', $safariAdvance->travellingCost()->get())
             ->with('safari_details',$safariAdvance->SafariDetails()->getQuery()->get()->all())
-            ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation));
+            ->with('unit', $this->designations->getQueryDesignationUnit()->find($designation))
+            ->with('transport_means', $transport_means);
     }
     public function payment(Request $request, $uuid)
     {
         $this->safariAdvance->payment($request->all(), $uuid);
+        return redirect()->back();
+    }
+
+    public function storeHotelReservation(Request $request)
+    {
+        $this->safariAdvance->storeHotelReservation($request);
+        alert()->success('Hotel reserved successfully','Success');
+        return redirect()->back();
+    }
+
+    public function removeHotel($uuid)
+    {
+        SafariAdvanceHotelSelection::query()->where('uuid', $uuid)->forceDelete();
+        alert()->success('Hotel reserved deleted successfully','Success');
+        return redirect()->back();
+    }
+    public function reserveHotel($uuid)
+    {
+        $reserved_hotel = SafariAdvanceHotelSelection::query()->where('uuid', $uuid)->first();
+        if ($reserved_hotel->reserved ==  false)
+        {
+            $reserved_hotel->update(['reserved'=>'true']);
+            alert()->success('Hotel reserved successfully','Success');
+        }
+        else{
+            $reserved_hotel->update(['reserved'=>'false']);
+            alert()->success('Undo Hotel reserved successfully','Success');
+        }
+
+
         return redirect()->back();
     }
 

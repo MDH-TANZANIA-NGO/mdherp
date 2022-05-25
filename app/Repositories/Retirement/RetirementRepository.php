@@ -119,15 +119,15 @@ class RetirementRepository extends BaseRepository
         $retirement = Retirement::where('safari_advance_id', $safari_advance->id)->first();
 
         return[
-
-//            'retirement_id'=> $retirement->id,
-//            'safari_advance_id'=>$inputs['safari_advance_id'],
-//            'from'=>$inputs['from'],
-//            'to'=>$inputs['to'],
-//            'district_id'=>$inputs['district_id'],
-//            'amount_requested'=>$inputs['amount_requested'],
-//            'amount_paid'=>$inputs['amount_paid'],
-//            'amount_received'=>$inputs['amount_received'],
+/*
+            'retirement_id'=> $retirement->id,
+            'safari_advance_id'=>$inputs['safari_advance_id'],
+            'from'=>$inputs['from'],
+            'to'=>$inputs['to'],
+            'district_id'=>$inputs['district_id'],
+            'amount_requested'=>$inputs['amount_requested'],
+            'amount_paid'=>$inputs['amount_paid'],
+            'amount_received'=>$inputs['amount_received'],*/
             'amount_spent'=>$inputs['amount_spent'],
             'amount_variance'=>$inputs['amount_variance'],
             'activity_report'=>$inputs['activity_report'],

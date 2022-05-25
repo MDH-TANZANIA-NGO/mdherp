@@ -252,6 +252,14 @@ class PermissionsTableSeeder extends Seeder
                     'description' => 'External User Management',
                     'ischecker' => 1,
                 ),
+            30 =>
+                array(
+                    'id' => 31,
+                    'name' => 'admin_panel',
+                    'display_name' => 'Admin Panel',
+                    'description' => 'Admin Panel',
+                    'ischecker' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("permissions");

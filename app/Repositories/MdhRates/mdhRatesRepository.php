@@ -27,6 +27,28 @@ class mdhRatesRepository extends BaseRepository
         return $this->getQueryRates();
     }
 
+    public function getNotAssignedRegionRate()
+    {
+        return $this->getQueryRates()
+            ->whereDoesntHave('regions');
+    }
+    public function getRateIDByRegion($region_id)
+    {
+        return $this->getQueryRates()
+            ->leftjoin('mdh_rate_regions', 'mdh_rate_regions.mdh_rate_id', 'mdh_rates.id')
+            ->where('mdh_rate_regions.region_id', $region_id)
+            ->get()
+            ->pluck('id');
+    }
+    public function getRateByRegion($region_id)
+    {
+        return $this->getQueryRates()
+            ->leftjoin('mdh_rate_regions', 'mdh_rate_regions.mdh_rate_id', 'mdh_rates.id')
+            ->where('mdh_rate_regions.region_id', $region_id)
+            ->get()
+            ->pluck('amount');
+    }
+
     public function getForPluck()
     {
         return $this->getActive()->pluck('amount','id');
@@ -64,7 +86,7 @@ class mdhRatesRepository extends BaseRepository
         return DB::transaction(function () use ($inputs){
             if(isset($inputs['scales'])){
                 $rate = $this->find($inputs['rate']);
-//                $rate->scales()->sync($inputs['scales']);
+                $rate->regions()->sync($inputs['scales']);
             }
         });
     }

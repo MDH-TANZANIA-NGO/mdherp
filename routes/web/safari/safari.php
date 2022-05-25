@@ -5,8 +5,10 @@ Route::group(['namespace' => 'Safari', 'middleware' => ['web', 'auth'], 'prefix'
     Route::get('{safariAdvance}/edit', 'SafariController@edit')->name('edit');
     Route::get('initiate', 'SafariController@initiate')->name('initiate');
     Route::post('store', 'SafariController@store')->name('store');
+    Route::post('storeHotelReservation', 'SafariController@storeHotelReservation')->name('storeHotelReservation');
     Route::post('{uuid}/update', 'SafariController@update')->name('update');
-
+    Route::get('{uuid}/removeHotel', 'SafariController@removeHotel')->name('removeHotel');
+    Route::get('{uuid}/reserveHotel', 'SafariController@reserveHotel')->name('reserveHotel');
     Route::get('{safariAdvance}/show', 'SafariController@show')->name('show');
 
     Route::post('{uuid}/payment', 'SafariController@payment')->name('payment');

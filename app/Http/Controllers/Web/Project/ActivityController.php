@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Web\Project;
 
 use App\Http\Controllers\Controller;
@@ -8,7 +7,10 @@ use App\Models\Project\Activity;
 use App\Repositories\Project\ActivityRepository;
 use App\Repositories\Project\OutputUnitRepository;
 use App\Repositories\Project\SubProgramRepository;
+use App\Imports\ActivitiesImport;
+use App\Exports\ActivitiesExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ActivityController extends Controller
 {
@@ -108,7 +110,25 @@ class ActivityController extends Controller
      */
     public function getActivitiesJson(Request $request)
     {
-        $activities =$this->activities->getActivities($request->only('user_id'),$request->only('region_id'),$request->only('project_id'));
+//        $activities =$this->activities->getActivities($request->only('user_id'),$request->only('region_id'),$request->only('project_id'));
+        $activities =$this->activities->getActivitiesFilter($request->only('user_id'),$request->only('region_id'),$request->only('project_id'));
         return response()->json($activities);
+    }
+
+    public function import(Request $request)
+    {
+      
+        if ($request->hasFile('file')){
+            $activities = new ActivitiesImport();
+            $import_to_temporary_store = Excel::import($activities, \request()->file('file'));
+            alert()->warning('Please confirm imported data', 'Confirm');
+            return redirect()->back()
+                    ->with('importedRows', $activities->getImportedRowsCount())
+                    ->with('importedDuplicates',$activities->getDuplicateRowsCount());
+        }
+        else{
+            alert()->error('You have not attach any file', 'Failed');
+            return redirect()->back();
+        }
     }
 }

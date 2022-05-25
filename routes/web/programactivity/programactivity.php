@@ -7,18 +7,18 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::get('{programActivity}/create', 'ProgramActivityController@create')->name('create');
     Route::get('{uuid}/export', 'ProgramActivityController@exportParticipants')->name('export');
     Route::post('{uuid}/update', 'ProgramActivityController@update')->name('update');
-
+ Route::post('{uuid}/updateEventSchedule', 'ProgramActivityController@updateEventSchedule')->name('updateEventSchedule');
     Route::get('{programActivity}/show', 'ProgramActivityController@show')->name('show');
     Route::get('{programActivity}/report', 'ProgramActivityController@programActivityReport')->name('report');
     Route::get('reports', 'ProgramActivityController@reports')->name('reports');
     Route::get('{uuid}/editParticipant', 'ProgramActivityController@editParticipant')->name('editParticipant');
     Route::post('{uuid}/updateParticipant', 'ProgramActivityController@updateParticipant')->name('updateParticipant');
     Route::post('{uuid}/updateProgramActivity', 'ProgramActivityController@updateProgramActivity')->name('updateProgramActivity');
-    Route::post('{uuid}/programActivityAttendance', 'ProgramActivityController@programActivityAttendance')->name('programActivityAttendance');
+            Route::post('{uuid}/programActivityAttendance', 'ProgramActivityController@programActivityAttendance')->name('programActivityAttendance');
     Route::get('{uuid}/undoEverything', 'ProgramActivityController@undoEverything')->name('undoEverything');
     Route::get('{uuid}/pay', 'ProgramActivityController@pay')->name('pay');
-    Route::post('{id}/viewParticipantAttendance', 'ProgramActivityController@viewParticipantAttendance')->name('viewParticipantAttendance');
-    Route::post('{uuid}/submitPayment', 'ProgramActivityController@submitPayment')->name('submitPayment');
+    Route::get('{id}/viewParticipantAttendance', 'ProgramActivityController@viewParticipantAttendance')->name('viewParticipantAttendance');
+    Route::post('submitPayment', 'ProgramActivityController@submitPayment')->name('submitPayment');
     Route::post('{uuid}/submit', 'ProgramActivityController@submit')->name('submit');
     Route::post('{uuid}/approveReport', 'ProgramActivityController@approveReport')->name('approveReport');
 

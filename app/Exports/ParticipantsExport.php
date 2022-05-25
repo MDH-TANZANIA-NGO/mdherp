@@ -32,7 +32,8 @@ class ParticipantsExport implements FromCollection, WithMapping, WithHeadings
     */
     public function collection()
     {
-
+        $attendance = $this->program_activity->attendance()->getQuery()->get();
+        dd($this->program_activity->attendance()->getDataForPaymentExport($this->program_activity->id));
         $requisition_training = $this->requisition_training_cost->getActivityParticipants($this->program_activity->uuid)->get();
          return $requisition_training;
     }
