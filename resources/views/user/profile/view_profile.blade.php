@@ -188,6 +188,7 @@
                                             {!! Form::label('projects', __("label.project").'(s)',['class'=>'form-label','required_asterik']) !!}
                                             {!! Form::select('projects[]', $projects, $user_projects, ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']) !!}
                                             {!! $errors->first('projects', '<span class="badge badge-danger">:message</span>') !!}
+
                                         </div>
                                     </div>
                                     {{--    <div class="col-md-4">
@@ -443,34 +444,18 @@
                         </div>
 
                         <div class="tab-pane " id="tab7">
-                            @if(count($effort_levels) < 1)
-                                {!! Form::open(['route' => ['timesheet.setup'],'method' => 'POST']) !!}
+                                {!! Form::open(['route' => ['timesheet.effortUpdate'],'method' => 'POST']) !!}
                                 <ul class="list-group">
                                     @foreach($user_projects AS $key => $project)
                                         <input type="number" value="{{$user->id}}" name="data[{{$key}}][user_id]" hidden >
                                         <li class="list-group-item justify-content-between">
                                             {{$project->title}}<input type="number" value="{{$project->id}}" name="data[{{$key}}][project_id]" hidden>
-                                            <span class="badgetext badge  badge-pill"><input type="number"  name="data[{{$key}}][percentage]" class="form-control"></span>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                                <button class="btn btn-outline-primary" type="submit" style="margin-left: 40%; margin-top: 2%">Submit</button>
-                                {!! Form::close() !!}
-                            @else
-                                {!! Form::open(['route' => ['timesheet.effortUpdate'],'method' => 'POST']) !!}
-                                <ul class="list-group">
-                                    @foreach($effort_levels AS $key => $effort_level)
-                                        <input type="number" value="{{$user->id}}" name="data[{{$key}}][user_id]" hidden >
-                                        <li class="list-group-item justify-content-between">
-                                            {{$effort_level->projects->title}}<input type="number" value="{{$effort_level->projects->id}}" name="data[{{$key}}][project_id]" hidden>
-                                            <span class="badgetext badge  badge-pill"><input type="number" value="{{$effort_level->percentage}}" name="data[{{$key}}][percentage]" class="form-control"></span>
+                                            <span class="badgetext badge  badge-pill"><input type="number" value="{{$project->percentage}}" name="data[{{$key}}][percentage]" class="form-control"></span>
                                         </li>
                                     @endforeach
                                 </ul>
                                 <button class="btn btn-outline-primary" type="submit" style="margin-left: 40%; margin-top: 2%">Update</button>
                                 {!! Form::close() !!}
-                            @endif
-
                         </div>
 
                         <div class="tab-pane " id="tab8">

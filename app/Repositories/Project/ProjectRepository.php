@@ -135,7 +135,8 @@ class ProjectRepository extends BaseRepository
     {
         return $this->query()->select([
             'projects.id AS id',
-            'projects.title AS title'
+            'projects.title AS title',
+            'project_user.percentage AS percentage'
         ])
             ->leftjoin('project_user','project_user.project_id','projects.id')
             ->leftjoin('users','users.id','project_user.user_id')

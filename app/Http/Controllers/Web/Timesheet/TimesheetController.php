@@ -9,6 +9,7 @@ use App\Mail\TimesheetNotification;
 use App\Models\Attendance\Attendance;
 use App\Models\Leave\LeaveBalance;
 use App\Models\Project\Project;
+use App\Models\Project\ProjectUser;
 use App\Models\Timesheet\EffortLevel;
 use App\Models\Timesheet\StartedTimesheet;
 use App\Models\Timesheet\Timesheet;
@@ -234,9 +235,7 @@ class TimesheetController extends Controller
     }
 
     public function effortUpdate(Request $request){
-        //dd($request->all());
-        $effort_levels = EffortLevel::where('user_id', $request['data'][0]['user_id'])->get();
-        //dd($effort_levels);
+        $effort_levels = ProjectUser::where('user_id', $request['data'][0]['user_id'])->get();
             foreach ($effort_levels as $effort_level){
                 for ($i = 0; $i < count($request['data']); $i++ ){
                     if ($request['data'][$i]['project_id'] == $effort_level->project_id){
