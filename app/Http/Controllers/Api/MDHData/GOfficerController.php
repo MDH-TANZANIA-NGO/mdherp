@@ -80,6 +80,7 @@ class GOfficerController extends BaseController
             'last_name' => $request['last_name'],
             'email' => $request['email'],
             'phone' => $request['phone'],
+            'phone2' => $request['phone2'],
             'g_scale_id' => $request['g_scale'],
             'region_id' => $request['region_id'],
             'district_id' => $request['district_id'],
@@ -106,10 +107,10 @@ class GOfficerController extends BaseController
             ->selectRaw('facilities.name as facility_name')
             ->selectRaw('facilities.number as facility_number')
             ->selectRaw('facility_types.name as facility_type')
-            ->leftJoin('facility_g_officer', 'facility_g_officer.g_officer_id', '=','g_officers.id')
-            ->leftJoin('facilities', 'facilities.id', '=', 'facility_g_officer.facility_id')
-            ->leftJoin('facility_types', 'facility_types.id', '=', 'facilities.facility_type_id')
-            ->leftJoin('facility_categories', 'facility_categories.id', '=', 'facility_types.facility_category_id')
+            ->join('facility_g_officer', 'facility_g_officer.g_officer_id', '=','g_officers.id')
+            ->join('facilities', 'facilities.id', '=', 'facility_g_officer.facility_id')
+            ->join('facility_types', 'facility_types.id', '=', 'facilities.facility_type_id')
+            ->join('facility_categories', 'facility_categories.id', '=', 'facility_types.facility_category_id')
             ->where('g_officers.id', $id)
             ->get();
 
