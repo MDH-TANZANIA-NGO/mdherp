@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<form action="{{route('listing.store')}}" method="post">
+<form action="{{route('hirerequisition.store')}}" method="post">
     @csrf
 <!-- Large Modal -->
 <div class="col-lg-12 col-md-12">

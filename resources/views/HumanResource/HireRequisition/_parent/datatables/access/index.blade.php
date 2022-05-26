@@ -13,7 +13,7 @@
 
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('listing.create') }}"> <i class="fa fa-plus mr-2"></i>Create Request</a>
+                    <a href="{{ route('hirerequisition.create') }}"> <i class="fa fa-plus mr-2"></i>Create Request</a>
                 </div>
             </div>
 
@@ -145,7 +145,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('HireRequisition.datatable.access.processing') }}',
+                ajax: '{{ route('hirerequisition.datatable.access.processing') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},
@@ -165,7 +165,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('HireRequisition.datatable.access.returned') }}',
+                ajax: '{{ route('hirerequisition.datatable.access.returned') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},
@@ -184,7 +184,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('listing.datatable.access.rejected') }}',
+                ajax: '{{ route('hirerequisition.datatable.access.rejected') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},
@@ -203,7 +203,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('listing.datatable.access.approved') }}',
+                ajax: '{{ route('hirerequisition.datatable.access.approved') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},

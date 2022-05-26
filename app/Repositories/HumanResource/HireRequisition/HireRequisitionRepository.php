@@ -1,16 +1,18 @@
 <?php
 
 namespace App\Repositories\HumanResource\HireRequisition;
+//app/Repositories/HumanResource/HireRequisition/HireRequistionRepository.php
 
 use App\Models\Auth\User;
-use App\Models\Listing\Listing;
+//use App\Models\HumanResource\HireRequisition\HireRequisition;
+use App\Models\HumanResource\HireRequisition\HireRequisition;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
 class HireRequisitionRepository extends BaseRepository
 {
-    const MODEL = Listing::class;
+    const MODEL = HireRequisition::class;
 
     public function getQuery(){
         return $this->query()->select([

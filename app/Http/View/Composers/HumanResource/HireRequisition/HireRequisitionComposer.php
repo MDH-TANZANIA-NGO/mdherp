@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\View\Composers\HumanResource\HireRequisition;
-
+//app\Repositories\HumanResource\HireRequisition\HireRequistionRepository.php
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
+//use App\Repositories\Leave\LeaveRepository;
 use Illuminate\View\View;
 
 class HireRequisitionComposer
@@ -22,6 +23,6 @@ class HireRequisitionComposer
      */
     public function compose(View $view)
     {
-        $view->with('hire_requistion', $this->listings);
+        $view->with('hire_requisition', $this->listings);
     }
 }

@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HireRequisitionDatatable;
 use App\Models\Auth\User;
 use App\Models\System\WorkingTool;
-use App\Models\HumanResource\HireRequisition\HireRequisition;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Repositories\System\RegionRepository;
@@ -54,7 +53,7 @@ class HireRequisitionController extends Controller
     {
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
-        return view('listing._parent.form.create')
+        return view('HumanResource.HireRequisition._parent.form.create')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('conditions', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())
@@ -77,7 +76,7 @@ class HireRequisitionController extends Controller
         $next_user = $listing->user->assignedSupervisor()->supervisor_id;
         event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $listing->id,'region_id' => $listing->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
         alert()->success('Hire Requisition Created Successfully','success');
-        return redirect()->route('listing.index');
+        return redirect()->route('hirerequisition.index');
     }
 
     /**
@@ -98,7 +97,7 @@ class HireRequisitionController extends Controller
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($listing, $current_level, $workflow->wf_definition_id);
 
-        return view('listing._parent.display.show')
+        return view('hirerequisition._parent.display.show')
             ->with('listing', $listing)
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
@@ -112,7 +111,7 @@ class HireRequisitionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function edit(HireRequisition $listing)
+    public function edit(Listing $listing)
     {
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
@@ -133,10 +132,10 @@ class HireRequisitionController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param HireRequisition $listing
+     * @param Listing $listing
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, HireRequisition $listing)
+    public function update(Request $request, Listing $listing)
     {
         $this->listing->update($request->all(), $listing);
         alert()->success('Hire Requisition Updated Successfully');
@@ -155,12 +154,12 @@ class HireRequisitionController extends Controller
     }
 
     public function getVacancies() {
-        $listings = HireRequisition::where('is_active', true)->get();
+        $listings = Listing::where('is_active', true)->get();
         return view('listing.vacancy.index')
             ->with('listings', $listings);
     }
 
-    public function getVacancy(HireRequisition $listing){
+    public function getVacancy(Listing $listing){
         return view('listing.vacancy.show')
             ->with('listing', $listing);
     }

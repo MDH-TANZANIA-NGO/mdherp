@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Listing;
+namespace App\Models\HumanResource\HireRequisition;
 
 use App\Models\Auth\User;
 use App\Models\BaseModel;
@@ -10,7 +10,7 @@ use App\Models\Workflow\WfTrack;
 
 class HireRequisition extends BaseModel
 {
-    protected $table= 'listing';
+    protected $table= 'listings';
     public function user()
     {
         return $this->belongsTo(User::class);
