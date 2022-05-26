@@ -14,6 +14,8 @@ use App\Models\Timesheet\Timesheet;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\WfDefinition;
 use App\Models\Workflow\WfTrack;
+use App\Models\HumanResource\PerformanceReview\PrReport;
+use App\Models\Auth\UserContract;
 
 
 trait UserRelationship
@@ -97,4 +99,15 @@ trait UserRelationship
     {
         return $this->belongsToMany(SubProgram::class, 'sub_program_user');
     }
+
+    public function prReports()
+    {
+        return $this->hasMany(PrReport::class);
+    }
+
+    public function contracts()
+    {
+        return $this->hasMany(UserContract::class);
+    }
+
 }
