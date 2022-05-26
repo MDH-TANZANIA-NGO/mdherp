@@ -11,7 +11,7 @@ use App\Models\Workflow\UserWfDefinition;
 use App\Models\Workflow\WfDefinition;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Leave\LeaveRepository;
-use App\Repositories\Listing\ListingRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Retirement\RetirementRepository;
@@ -230,7 +230,7 @@ trait WorkflowUserSelector
                 }
                 break;
             case 9:
-                $listing_repo = (new ListingRepository());
+                $listing_repo = (new HireRequisitionRepository());
                 $listing = $listing_repo->find($resource_id);
                 /*check levels*/
                 switch ($level) {

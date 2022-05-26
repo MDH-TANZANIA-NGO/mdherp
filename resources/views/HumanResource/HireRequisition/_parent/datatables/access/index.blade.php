@@ -4,10 +4,10 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li><a href="#processing" class="active" data-toggle="tab">Requested <span class="badge badge-primary">{{ $listing_access->getAccessProcessingDatatable()->count() }}</span></a></li>
-                    <li><a href="#returned" data-toggle="tab">Returned for Modification <span class="badge badge-warning">{{ $listing_access->getAccessDeniedDatatable()->count() }}</span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $listing_access->getAccessRejectedDatatable()->count() }}</span></a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $listing_access->getAccessProvedDatatable()->count() }}</span></a></li>
+                    <li><a href="#processing" class="active" data-toggle="tab">Requested <span class="badge badge-primary">{{ $hire_requisition->getAccessProcessingDatatable()->count() }}</span></a></li>
+                    <li><a href="#returned" data-toggle="tab">Returned for Modification <span class="badge badge-warning">{{ $hire_requisition->getAccessDeniedDatatable()->count() }}</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $hire_requisition->getAccessRejectedDatatable()->count() }}</span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $hire_requisition->getAccessProvedDatatable()->count() }}</span></a></li>
                 </ul>
             </div>
 
@@ -145,7 +145,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('listing.datatable.access.processing') }}',
+                ajax: '{{ route('HireRequisition.datatable.access.processing') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},
@@ -165,7 +165,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('listing.datatable.access.returned') }}',
+                ajax: '{{ route('HireRequisition.datatable.access.returned') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},

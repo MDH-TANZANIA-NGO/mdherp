@@ -8,7 +8,7 @@ use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Leave\LeaveRepository;
-use App\Repositories\Listing\ListingRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -357,7 +357,7 @@ class WorkflowEventSubscriber
                     break;
 
                 case 9:
-                    $listing_repo = (new ListingRepository());
+                    $listing_repo = (new HireRequisitionRepository());
                     $listing  = $listing_repo->find($resource_id);
                     /*check levels*/
                     switch ($level) {
@@ -504,7 +504,7 @@ class WorkflowEventSubscriber
                     $timesheet->user->notify(new WorkflowNotification($email_resource));
                     break;
                 case 9:
-                    $listingrepo = (new ListingRepository());
+                    $listingrepo = (new HireRequisitionRepository());
                     $listing = $listingrepo->find($resource_id);
                     $this->updateWfDone($listing);
                     $email_resource = (object)[
@@ -582,7 +582,7 @@ class WorkflowEventSubscriber
                 (new TimesheetRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
             case 9:
-                (new ListingRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
+                (new HireRequisitionRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
             case 10:
                 (new ProgramActivityReportRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);

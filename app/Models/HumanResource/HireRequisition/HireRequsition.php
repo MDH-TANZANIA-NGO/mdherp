@@ -8,9 +8,9 @@ use App\Models\System\CodeValue;
 use App\Models\Unit\Department;
 use App\Models\Workflow\WfTrack;
 
-class Listing extends BaseModel
+class HireRequisition extends BaseModel
 {
-    //protected $with= 'working_tools';
+    protected $table= 'listing';
     public function user()
     {
         return $this->belongsTo(User::class);

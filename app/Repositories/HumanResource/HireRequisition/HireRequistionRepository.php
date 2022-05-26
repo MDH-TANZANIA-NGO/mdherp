@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Listing;
+namespace App\Repositories\HumanResource\HireRequisition;
 
 use App\Models\Auth\User;
 use App\Models\Listing\Listing;
@@ -8,7 +8,7 @@ use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
-class ListingRepository extends BaseRepository
+class HireRequisitionRepository extends BaseRepository
 {
     const MODEL = Listing::class;
 

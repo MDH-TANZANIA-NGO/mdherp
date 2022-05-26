@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Web\Listing;
+namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
 
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\Listing\Traits\ListingDatatable;
+use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HireRequisitionDatatable;
 use App\Models\Auth\User;
-use App\Models\Listing\Listing;
 use App\Models\System\WorkingTool;
+use App\Models\HumanResource\HireRequisition\HireRequisition;
 use App\Repositories\Access\UserRepository;
-use App\Repositories\Listing\ListingRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DepartmentRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -17,9 +17,9 @@ use App\Services\Workflow\Workflow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
-class ListingController extends Controller
+class HireRequisitionController extends Controller
 {
-    use ListingDatatable;
+    use HireRequisitionDatatable;
     protected $listing;
     protected $regions;
     protected $departments;
@@ -28,7 +28,7 @@ class ListingController extends Controller
 
     public  function __construct()
     {
-        $this->listing = (new ListingRepository());
+        $this->listing = (new HireRequisitionRepository());
         $this->regions = (new RegionRepository());
         $this->departments = (new DepartmentRepository());
         $this->users = (new UserRepository());
@@ -42,7 +42,7 @@ class ListingController extends Controller
      */
     public function index()
     {
-        return view('listing._parent.index');
+        return view('HumanResource/HireRequisition._parent.index');
     }
 
     /**
@@ -86,7 +86,7 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function show(Listing $listing)
+    public function show(HireRequisition $listing)
     {
         /* Check workflow */
         $wf_module_group_id = 8;
@@ -112,7 +112,7 @@ class ListingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function edit(Listing $listing)
+    public function edit(HireRequisition $listing)
     {
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
@@ -133,10 +133,10 @@ class ListingController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Listing $listing
+     * @param HireRequisition $listing
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Listing $listing)
+    public function update(Request $request, HireRequisition $listing)
     {
         $this->listing->update($request->all(), $listing);
         alert()->success('Hire Requisition Updated Successfully');
@@ -155,12 +155,12 @@ class ListingController extends Controller
     }
 
     public function getVacancies() {
-        $listings = Listing::where('is_active', true)->get();
+        $listings = HireRequisition::where('is_active', true)->get();
         return view('listing.vacancy.index')
             ->with('listings', $listings);
     }
 
-    public function getVacancy(Listing $listing){
+    public function getVacancy(HireRequisition $listing){
         return view('listing.vacancy.show')
             ->with('listing', $listing);
     }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Web\Listing\Traits;
+namespace App\Http\Controllers\Web\HumanResource\HireRequisition\Traits;
 
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\DataTables;
 
-trait ListingDatatable
+trait HireRequisitionDatatable
 {
     public function AccessProcessingDatatable(){
         return DataTables::of($this->listing->getAccessProcessingDatatable())

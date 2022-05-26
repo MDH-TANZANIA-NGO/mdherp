@@ -11,7 +11,7 @@ use App\Models\Workflow\WfTrack;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
-use App\Repositories\Listing\ListingRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Report\ReportRepository;
@@ -456,7 +456,7 @@ class Workflow
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
                 case 9:
-                    $listingrepo = (new ListingRepository());
+                    $listingrepo = (new HireRequisitionRepository());
                     $listing = $listingrepo->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('listing.show',$listing),
@@ -540,7 +540,7 @@ class Workflow
                 break;
             case 8:
                 /*Listing */
-                $listingrepo = (new ListingRepository());
+                $listingrepo = (new HireRequisitionRepository());
                 $listing = $listingrepo->find($resourceId);
                 $listing->wfTracks()->save($wfTrack);
                 break;
