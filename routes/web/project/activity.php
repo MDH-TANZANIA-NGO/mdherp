@@ -14,5 +14,6 @@ Route::group(['namespace' => 'Project', 'middleware' => ['web', 'auth'], 'prefix
      */
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('all', 'ActivityController@allDatatable')->name('all');
+
     });
 });

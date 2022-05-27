@@ -137,7 +137,7 @@ class LeaveController extends Controller
         $days = $start->diffInDays($end) + 1;
         $type = LeaveType::where('id', $leave->leave_type_id)->first();
         $remaining_days = LeaveBalance::query()->where('user_id', $leave->user_id)
-                                                ->where('leave_type_id', $leave->leave_type_id)->first()->remaining_days;
+            ->where('leave_type_id', $leave->leave_type_id)->first()->remaining_days;
 
 
         return view('leave._parent.display.show')

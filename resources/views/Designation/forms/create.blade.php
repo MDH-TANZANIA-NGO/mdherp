@@ -17,7 +17,7 @@
                        <div class="col-md-4">
                            <div class="form-group">
                                {!! Form::label('designation', __("Designation"),['class'=>'form-label','required_asterik']) !!}
-                               {!! Form::select('designation', ['Officer'=>'Officer','Manager'=>'Manager', 'Assistance'=>'Assistance'], null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                               {!! Form::select('designation', ['Officer'=>'Officer','Manager'=>'Manager', 'Assistance'=>'Assistance','Advisor'=>'Advisor'], null, ['class' =>'form-control select2 custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
 
                                {!! $errors->first('first_name', '<span class="badge badge-danger">:message</span>') !!}
                            </div>

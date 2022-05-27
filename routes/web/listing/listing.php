@@ -13,6 +13,7 @@ Route::group(['namespace' => 'Listing', 'middleware' => ['web', 'auth'], 'prefix
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
             Route::get('processing', 'ListingController@AccessProcessingDatatable')->name('processing');
+            Route::get('returned', 'ListingController@AccessDeniedDatatable')->name('returned');
             Route::get('rejected', 'ListingController@AccessRejectedDatatable')->name('rejected');
             Route::get('approved', 'ListingController@AccessProvedDatatable')->name('approved');
         });

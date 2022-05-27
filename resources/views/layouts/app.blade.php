@@ -139,6 +139,7 @@
 
 <!-- Data tables js-->
 {!! Html::script(url('mdh/plugins/datatable/jquery.dataTables.min.js')) !!}
+
 {!! Html::script(url('mdh/plugins/datatable/dataTables.bootstrap4.min.js')) !!}
 {!! Html::script(url('mdh/js/datatables.js')) !!}
 
