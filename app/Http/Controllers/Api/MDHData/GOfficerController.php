@@ -75,18 +75,32 @@ class GOfficerController extends BaseController
      */
     public function store(Request $request)
     {
+        if ($request['check_no'] == null)
+        {
+            $check_no = '0'.$request['region_id'].'-'.sprintf('%02d', now()->month).'-'.substr(sprintf('%02d', now()->year), -2).'-'.rand(1, 200000);
+
+        }
+        else{
+            $check_no = $request['check_no'];
+        }
+
         $g_officer = GOfficer::create([
             'first_name' => $request['first_name'],
+            'middle_name' => $request['middle_name'],
             'last_name' => $request['last_name'],
             'email' => $request['email'],
-            'phone' => $request['phone'],
-            'phone2' => $request['phone2'],
+            'phone' => '255'.substr($request['phone'], -9),
+            'phone2' => '255'.substr($request['phone2'], -9),
             'g_scale_id' => $request['g_scale'],
             'region_id' => $request['region_id'],
             'district_id' => $request['district_id'],
+            'gender_cv_id'=>$request['gender'],
             'country_organisation_id' => $request['country_organisation_id'],
             'fingerprint_data' => $request['fingerprint_data'],
             'fingerprint_length' => $request['fingerprint_length'],
+            'password' => bcrypt(strtolower($request['last_name'])),
+            'isactive' => 1,
+            'check_no'=> $check_no,
         ]);
         $success['g_officer'] = $g_officer;
 
