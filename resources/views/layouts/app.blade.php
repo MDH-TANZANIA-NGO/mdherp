@@ -59,6 +59,11 @@
 <!-- Accordion Css -->
     {{ Html::style(url('mdh/plugins/accordion/accordion.css')) }}
 
+   <!-- smartwizard js -->
+   {!! Html::style(url('mdh/css/forn-wizard.min.css')) !!}
+    {!! Html::style(url('mdh/css/smart_wizard.min.css')) !!}
+    {!! Html::style(url('mdh/css/smart_wizard_theme_circles.min.css')) !!}
+
     @stack('after-styles')
     {!! Html::script(url('dist/sweetalert.min.js')) !!}
 
@@ -204,6 +209,11 @@
 {{--{!! Html::script(url('plugins/summernote/summernote-bs4.min.js')) !!}--}}
 
 {!! Html::script(url('plugins/maskmoney/jquery.maskMoney.js')) !!}
+
+<!-- smartwizard js -->
+{!! Html::script(url('mdh/js/jquery.smartWizard.min.js')) !!}
+{!! Html::script(url('mdh/js/fromwizard.js')) !!}
+
 <script>
     $(document).ready(function () {
         $('.textarea').summernote({

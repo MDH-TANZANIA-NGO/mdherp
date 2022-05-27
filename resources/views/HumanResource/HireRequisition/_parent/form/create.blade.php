@@ -1,23 +1,30 @@
 @extends('layouts.app')
 @section('content')
-
-<form action="{{route('hirerequisition.store')}}" method="post">
-    @csrf
-<!-- Large Modal -->
-<div class="col-lg-12 col-md-12">
-    <div class="card">
-        <div class="card-header" style="background-color: rgb(238, 241, 248)">
-            <div class="row text-center">
-                <span class="col-12 text-center font-weight-bold">Create Hire Request</span>
-            </div>
-
-            <div class="card-options ">
-                <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-            </div>
-
+<div class="panel panel-primary">
+    <div class=" tab-menu-heading card-header sw-theme-dots" style="background-color: rgb(238, 241, 248)">
+        <div class="tabs-menu1">
+            <!-- Tabs -->
+            <ul class="nav panel-tabs step-anchor">
+                <li><a href="#processing" class="active" data-toggle="tab">1.General</a></li>
+                <li><a href="#returned" data-toggle="tab">2.Criteria</li>
+            </ul>
         </div>
 
-        <div class="card-body">
+        <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
+            <div class="btn-group mb-0">
+                <a href="{{ route('hirerequisition.create') }}"> <i class="fa fa-plus mr-2"></i>Create Request</a>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body tabs-menu-body" style="background-color:#FFFFFF">
+        <div class="tab-content">
+        <form action="{{route('hirerequisition.store')}}" method="post">
+            @csrf
+        <!-- Large Modal -->
+        <div class="col-lg-12 col-md-12">
+            <ol class="breadcrumb1">
+                <li class="breadcrumb-item1 active">General</li>
+            </ol>
             <div class="row">
                 <div class="col-6" >
                     <label class="form-label">Department</label>
@@ -40,7 +47,6 @@
                     @enderror
                 </div>
             </div>
-            &nbsp;
             <div class="row">
                 <div class="col-6" >
                     <label class="form-label">Number of Employees</label>
@@ -103,7 +109,9 @@
                     @enderror
                 </div>
             </div>
-            &nbsp;
+            <ol class="breadcrumb1">
+                <li class="breadcrumb-item1 active"> Person Requirement </li>
+            </ol>
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Education</label>
@@ -113,7 +121,7 @@
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                 @enderror
             </div>
-            &nbsp;
+        
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Practical Experience</label>
@@ -133,7 +141,10 @@
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                 @enderror
             </div>
-            &nbsp;
+           
+            <ol class="breadcrumb1">
+                <li class="breadcrumb-item1 active">  Employment Condition </li>
+            </ol>
             <div class="row">
                 <div class="col-6">
                     <label class="form-label">Employment Condition</label>
@@ -156,7 +167,7 @@
                 @enderror
 
             </div>
-            &nbsp;
+  
             <div class="row">
                 <div class="col-6">
                     <label class="form-label">Establishment</label>
@@ -206,22 +217,18 @@
                     </div>
                 </div>
             </div>
-            &nbsp;
-            &nbsp;
             <div class="row">
-
                 <div class="col-12">
                     <div style="text-align: center;">
-                        <button type="submit" class="btn btn-azure"  >Create Requisition </button>
+                        <button type="submit" class="btn btn-success"> Save </button>
+                        <button type="submit" class="btn btn-azure"> Add </button>
+                        <button type="submit" class="btn btn-azure"> Next </button>
                     </div>
                 </div>
-
             </div>
-
-        </div>
+        </form>
     </div>
 </div>
-</form>
 @endsection
 
 @push('after-scripts')
