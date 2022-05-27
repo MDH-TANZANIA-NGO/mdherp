@@ -39,6 +39,24 @@ class TimesheetController extends Controller
      */
     public function index()
     {
+       $project_users  = ProjectUser::all();
+
+        try {
+            foreach ($project_users as $project_user){
+                $percentage = \DB::table('effort_levels')->select('percentage')->where('user_id', $project_user->user_id)
+                    ->where('project_id', $project_user->project_id)->first();
+
+                $project_user->update(
+                    ['percentage' => $percentage->percentage]
+                );
+            }
+        } catch (\Exception $e){
+            $e->getMessage();
+        }
+
+
+
+
         $visibility = true;
         $lasttimesheet = Timesheet::where('user_id', access()->id())->latest()->first();
         if ($lasttimesheet != null && $lasttimesheet->created_at->format('m') == Carbon::now()->format('m')){
@@ -128,7 +146,7 @@ class TimesheetController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($timesheet, $current_level, $workflow->wf_definition_id);
 
         $designation = access()->user()->designation_id;
-        $effort_levels = EffortLevel::where('user_id', $timesheet->user_id)->get();
+        $effort_levels = ProjectUser::where('user_id', $timesheet->user_id)->get();
       $time_perc = [];
         foreach ($effort_levels as  $effort_level){
               array_push($time_perc, array(
