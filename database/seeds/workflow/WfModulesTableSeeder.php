@@ -100,7 +100,7 @@ class WfModulesTableSeeder extends Seeder
                     'deleted_at' => NULL,
                     'isactive' => '1',
                     'type' => '1',
-                    'description' => 'Leave Requisition',
+                    'description' => 'Leave',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
