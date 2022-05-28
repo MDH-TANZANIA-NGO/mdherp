@@ -433,7 +433,7 @@ class Workflow
                         'subject' => " Need your Approval",
                         'message' => 'need your approval'
                     ];
-//                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
                 case 7:
                     $financerepo = (new FinanceActivityRepository());
