@@ -39,20 +39,20 @@ class TimesheetController extends Controller
      */
     public function index()
     {
-       $project_users  = ProjectUser::all();
-
-        try {
-            foreach ($project_users as $project_user){
-                $percentage = \DB::table('effort_levels')->select('percentage')->where('user_id', $project_user->user_id)
-                    ->where('project_id', $project_user->project_id)->first();
-
-                $project_user->update(
-                    ['percentage' => $percentage->percentage]
-                );
-            }
-        } catch (\Exception $e){
-            $e->getMessage();
-        }
+//       $project_users  = ProjectUser::all();
+//   this code is specifically for copying level of efforts from effort_levels table to project_user pivot
+//        try {
+//            foreach ($project_users as $project_user){
+//                $percentage = \DB::table('effort_levels')->select('percentage')->where('user_id', $project_user->user_id)
+//                    ->where('project_id', $project_user->project_id)->first();
+//
+//                $project_user->update(
+//                    ['percentage' => $percentage->percentage]
+//                );
+//            }
+//        } catch (\Exception $e){
+//            $e->getMessage();
+//        }
 
 
 
@@ -97,23 +97,23 @@ class TimesheetController extends Controller
             $next_user = access()->user()->assignedSupervisor()->supervisor_id;
             //dd(access()->user()->assignedSupervisor()->supervisor_id);
 
-        $timesheet = Timesheet::create([
-            'user_id' => access()->id()
-        ]);
-        for ($i = 0; $i < count($request['data']); $i++ ){
-            Attendance::create([
-                'user_id' => access()->id(),
-                'timesheet_id' => $timesheet->id,
-                'comments' => $request['data'][$i]['comment'],
-                'hrs' => $request['data'][$i]['hours'],
-                'date' => Carbon::createFromFormat('D d-F-Y', $request['data'][$i]['date'])->format('Y-m-d')
-            ]);
-        }
-        $totalHrs = Attendance::where(['user_id' => access()->id(), 'timesheet_id' => $timesheet->id])->sum('hrs');
-        $timesheet->update([
-            'hrs' => $totalHrs
-        ]);
-        $wf_module_group_id = 7;
+                $timesheet = Timesheet::create([
+                    'user_id' => access()->id()
+                ]);
+                for ($i = 0; $i < count($request['data']); $i++ ){
+                    Attendance::create([
+                        'user_id' => access()->id(),
+                        'timesheet_id' => $timesheet->id,
+                        'comments' => $request['data'][$i]['comment'],
+                        'hrs' => $request['data'][$i]['hours'],
+                        'date' => Carbon::createFromFormat('D d-F-Y', $request['data'][$i]['date'])->format('Y-m-d')
+                    ]);
+                }
+                $totalHrs = Attendance::where(['user_id' => access()->id(), 'timesheet_id' => $timesheet->id])->sum('hrs');
+                $timesheet->update([
+                    'hrs' => $totalHrs
+                ]);
+                $wf_module_group_id = 7;
 
             if ($next_user){
                 event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $timesheet->id,'region_id' => $timesheet->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
