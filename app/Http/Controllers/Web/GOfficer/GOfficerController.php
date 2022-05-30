@@ -310,4 +310,13 @@ class GOfficerController extends Controller
 
     }
 
+    public function getDistricts($id)
+    {
+        return response()->json($this->districts->query()->where('region_id', $id)->get());
+    }
+    public function getFacilities($id)
+    {
+        return response()->json($this->facilities->query()->where('district_id', $id)->get());
+    }
+
 }
