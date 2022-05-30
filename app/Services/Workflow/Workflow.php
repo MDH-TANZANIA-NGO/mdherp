@@ -392,7 +392,7 @@ class Workflow
                             "<b>New</b>"
 
 ];
-//                    User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
+                    User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
                     break;
 
                     case 3:
