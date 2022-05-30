@@ -141,7 +141,7 @@
                         <td class="text-title fixed-width">REGION :</td> <td class="fixed-width text-left">{{ $requisition->user->region->name }}</td> <td class="text-title fixed-width">SUB PROG AREA :</td> <td class="fixed-width text-left">{{ $requisition->activity->subProgram->title }}</td>
                     </tr>
                     <tr>
-                        <td class="text-title fixed-width">SUPERVISOR :</td> <td class="fixed-width text-left">{{ $requisition->user->assignedSupervisor() ? \App\Models\Auth\User::find($requisition->user->assignedSupervisor()->user_id) : 'Not yet Assigned'  }}</td> <td class="text-title fixed-width">REQUESTED AMOUNT :</td> <td class="fixed-width text-left">{{ number_format($requisition->amount) }} TZS</td>
+                        <td class="text-title fixed-width">SUPERVISOR :</td> <td class="fixed-width text-left">{{ $requisition->user->assignedSupervisor() ? \App\Models\Auth\User::find($requisition->user->assignedSupervisor()->supervisor_id)->fullname : 'Not yet Assigned'  }}</td> <td class="text-title fixed-width">REQUESTED AMOUNT :</td> <td class="fixed-width text-left">{{ number_format($requisition->amount) }} TZS</td>
                     </tr>
                     <tr>
                         <td class="text-title fixed-width">ACTIVITY</td><td colspan="3"><b>{{ $requisition->activity->code }}</b>{{ $requisition->activity->title }}</td>
