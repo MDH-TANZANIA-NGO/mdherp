@@ -56,7 +56,8 @@ class GOfficerController extends Controller
         return view('gofficer.gofficer.index')
             ->with('g_scales', $this->g_scales->getActiveForPluck())
             ->with('regions', $this->regions->getQuery()->pluck('name','id'))
-            ->with('districts', $this->districts->getQuery()->pluck('name','id'));
+            ->with('districts', $this->districts->getQuery()->pluck('name','id'))
+            ->with('facilities', $this->facilities->getForPLuck());
     }
 
     /**
