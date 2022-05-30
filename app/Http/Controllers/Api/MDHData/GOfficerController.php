@@ -15,9 +15,12 @@ use App\Repositories\System\RegionRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Models\GOfficer\GOfficer;
 use Illuminate\Support\Facades\DB;
+use App\Services\Generator\DefaultFingerprints;
 
 class GOfficerController extends BaseController
 {
+
+    use DefaultFingerprints;
 
     protected $g_officers;
     protected $g_scales;
@@ -94,10 +97,10 @@ class GOfficerController extends BaseController
             'g_scale_id' => $request['g_scale'],
             'region_id' => $request['region_id'],
             'district_id' => $request['district_id'],
-            'gender_cv_id'=>$request['gender'],
+            'gender_cv_id'=>$request['gender_cv_id'],
             'country_organisation_id' => $request['country_organisation_id'],
-            'fingerprint_data' => $request['fingerprint_data'],
-            'fingerprint_length' => $request['fingerprint_length'],
+            'fingerprint_data' => $this->getDefaultFingerprints(),
+            'fingerprint_length' => $this->getFingerprintLength(),
             'password' => bcrypt(strtolower($request['last_name'])),
             'isactive' => 1,
             'check_no'=> $check_no,
