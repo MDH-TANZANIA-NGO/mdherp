@@ -41,7 +41,6 @@ class WfDefinitionRepository extends BaseRepository
     public function getLevel($sign = 1, $wf_definition_id)
     {
         $wf_definition = $this->getCurrentLevel($wf_definition_id);
-        //$nextLevel = $this->query()->where(['wf_module_id' => $wf_definition->wf_module_id, 'level' => $wf_definition->level + $sign])->first();
         $nextLevel = $this->query()->where(['wf_module_id' => $wf_definition->wf_module_id, 'level' => $wf_definition->level + $sign])->first();
 
         if (empty($nextLevel)){

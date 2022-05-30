@@ -392,7 +392,7 @@ class Workflow
                             "<b>New</b>"
 
 ];
-//                    User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
+                    User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
                     break;
 
                     case 3:
@@ -636,8 +636,8 @@ class Workflow
                     $level = $this->nextLevel();
                 }
             }
-//             $level = $this->nextLevel();
-//             $insert['wf_definition_id'] = $this->nextDefinition($input['sign']);
+//            $level = $this->nextLevel();
+//            $insert['wf_definition_id'] = $this->nextDefinition($input['sign']);
         }
         //round robin can be implemented Here
         event(new BroadcastWorkflowUpdated($this->wf_module_id, $this->resource_id, $level));
