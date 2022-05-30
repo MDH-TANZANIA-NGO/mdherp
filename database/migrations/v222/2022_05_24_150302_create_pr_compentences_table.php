@@ -25,7 +25,6 @@ class CreatePrCompentencesTable extends Migration
             $table->foreign('pr_competence_key_narration_id')->references('id')->on('pr_competence_key_narrations')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('pr_rate_scale_id')->references('id')->on('pr_rate_scales')->onUpdate('CASCADE')->onDelete('RESTRICT');
         });
-        \DB::statement("ALTER TABLE 'pr_competences' comment 'Store Performance Review Competences'");
     }
 
     /**

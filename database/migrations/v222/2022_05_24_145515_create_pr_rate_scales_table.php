@@ -18,7 +18,6 @@ class CreatePrRateScalesTable extends Migration
             $table->string('description')->comment('description of rate');
             $table->smallInteger('rate','',1)->comment('numerical Representative of score');
         });
-        \DB::statement("ALTER TABLE 'pr_rate_scales' comment 'Store Performance Review Rate Scales'");
     }
 
     /**

@@ -25,7 +25,6 @@ class CreatePrObjectivesTable extends Migration
             $table->foreign('pr_report_id')->references('id')->on('pr_reports')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('pr_rate_scale_id')->references('id')->on('pr_rate_scales')->onUpdate('CASCADE')->onDelete('RESTRICT');
         });
-        \DB::statement("ALTER TABLE 'pr_objectives' comment 'Store Performance objectives'");
     }
 
     /**

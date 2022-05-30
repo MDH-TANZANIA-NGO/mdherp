@@ -17,7 +17,6 @@ class CreatePrTypesTable extends Migration
             $table->id();
             $table->string('title')->comment('This column represent type of Performance review. i.e Probationary, mid year and Final Review at the End of the Year');
         });
-        \DB::statement("ALTER TABLE 'pr_types' comment 'Store Performance Review Types'");
     }
 
     /**

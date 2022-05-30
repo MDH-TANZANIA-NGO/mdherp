@@ -34,7 +34,6 @@ class CreatePrReportsTable extends Migration
             $table->foreign('parent_id')->references('id')->on('pr_reports')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('fiscal_year_id')->references('id')->on('fiscal_years')->onUpdate('CASCADE')->onDelete('RESTRICT');
         });
-        \DB::statement("ALTER TABLE 'pr_reports' comment 'Store Performance Review Reports'");
     }
 
     /**

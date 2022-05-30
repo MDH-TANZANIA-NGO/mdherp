@@ -17,7 +17,6 @@ class CreatePrCompetenceKeysTable extends Migration
             $table->id();
             $table->string('title')->comment('competence key title');
         });
-        \DB::statement("ALTER TABLE 'pr_competence_keys' comment 'Store Performance Review Competence Keys'");
     }
 
     /**

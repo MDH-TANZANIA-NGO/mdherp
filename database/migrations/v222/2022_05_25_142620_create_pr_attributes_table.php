@@ -18,7 +18,6 @@ class CreatePrAttributesTable extends Migration
             $table->string('title')->comment('title of attribute');
             $table->timestamps();
         });
-        \DB::statement("ALTER TABLE 'pr_attributes' comment 'Store Performance Review Attributes for probation form'");
     }
 
     /**

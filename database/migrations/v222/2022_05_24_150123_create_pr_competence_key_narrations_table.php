@@ -20,7 +20,6 @@ class CreatePrCompetenceKeyNarrationsTable extends Migration
             $table->timestamps();
             $table->foreign('pr_competence_key_id')->references('id')->on('pr_competence_keys')->onUpdate('CASCADE')->onDelete('RESTRICT');
         });
-        \DB::statement("ALTER TABLE 'pr_competence_key_narrations' comment 'Competence keys narrations'");
     }
 
     /**

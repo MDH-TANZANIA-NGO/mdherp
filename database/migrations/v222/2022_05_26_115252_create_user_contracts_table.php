@@ -24,7 +24,6 @@ class CreateUserContractsTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
         });
-        \DB::statement("ALTER TABLE 'user_contracts' comment 'Store Contracts of a specific user'");
     }
 
     /**

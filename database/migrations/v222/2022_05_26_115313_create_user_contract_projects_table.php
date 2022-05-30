@@ -21,7 +21,6 @@ class CreateUserContractProjectsTable extends Migration
             $table->foreign('user_contract_id')->references('id')->on('user_contracts')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('project_id')->references('id')->on('projects')->onUpdate('CASCADE')->onDelete('RESTRICT');
         });
-        \DB::statement("ALTER TABLE 'user_contract_projects' comment 'Store projects of a specific contract of a certain user'");
     }
 
     /**
