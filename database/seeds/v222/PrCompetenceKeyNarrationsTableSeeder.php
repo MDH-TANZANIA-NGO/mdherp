@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Database\DisableForeignKeys;
+use Database\TruncateTable;
 
 class PrCompetenceKeyNarrationsTableSeeder extends Seeder
 {
-    //pr_competence_key_id
     use DisableForeignKeys, TruncateTable;
     /**
      * Run the database seeds.

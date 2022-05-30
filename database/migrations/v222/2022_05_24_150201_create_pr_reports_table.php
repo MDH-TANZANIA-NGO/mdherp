@@ -24,7 +24,7 @@ class CreatePrReportsTable extends Migration
             $table->date('from_at')->comment('start date of review');
             $table->date('to_at')->comment('end date of review');
             $table->smallInteger('wf_done')->default(0)->comment('workflow status');
-            $table->timestamps('wf_done_date')->nullable()->comment('workflow completion date');
+            $table->dateTime('wf_done_date')->nullable()->comment('workflow completion date');
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();

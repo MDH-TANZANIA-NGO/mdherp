@@ -24,7 +24,7 @@ class PrReportController extends Controller
      */
     public function index()
     {
-        //
+        return view('HumanResource.PerformanceReview.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class PrReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('HumanResource.PerformanceReview.create');
     }
 
     /**

@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PrRateScaleTableSeeder::class);
         $this->call(PrCompetenceKeysTableSeeder::class);
         $this->call(PrCompetenceKeyNarrationsTableSeeder::class);
-        $this->call(PrAttributeTableSeeder::class);
+        $this->call(PrAttributesTableSeeder::class);
         DB::commit();
     }
 }
