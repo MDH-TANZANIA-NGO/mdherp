@@ -195,13 +195,18 @@ class WorkflowEventSubscriber
                     /*check levels*/
                     switch ($level) {
                         case 1: //Applicant level
+
+                            $string = htmlentities(
+                                "<p>There is new Safari Advance from"."<b> ".$safari->user->first_name. " ".$safari->user->last_name. "</b>"."Who is planning to travel to". "<b>".$safari->district->name."</b> </p><br>.".
+                                        "<p><b>Scope:</b>".$safari->scope."</p>"
+                            );
                             $safari_advance_repo_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
 
                             $email_resource = (object)[
                                 'link' => route('safari.show', $safari),
                                 'subject' => $safari->number . " Need your Approval",
-                                'message' =>  $safari->number . ' need your approval'
+                                'message' =>  html_entity_decode($string)
                             ];
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -243,7 +248,7 @@ class WorkflowEventSubscriber
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
 
                             $email_resource = (object)[
-                                'link' => route('programactivity.show', $retirement),
+                                'link' => route('retirement.show', $retirement),
                                 'subject' => $retirement->number . " Need your Approval",
                                 'message' =>  $retirement->number . ' need your approval'
                             ];
@@ -257,7 +262,19 @@ class WorkflowEventSubscriber
                     $leave = $leave_repo->find($resource_id);
                     /*check levels*/
                     switch ($level) {
-                        case 1: //Applicant level
+                        case 1:
+                            //Applicant level
+                            $string = htmlentities(
+                                "There is new"." "."leave application"." "."from ".$leave->user->first_name."".$leave->user->last_name."pending for your approval."."<br>". "<br>".
+                                "<b>Region:</b>".$leave->region->name."<br>".
+                                "<b>Leave Type:</b>".$leave->type->name."<br>".
+                                "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
+                                "<b>Comments:</b>". $leave->comment."<br>".
+                                "<b>Starting Date</b>". $leave->start_date."<br>".
+                                "<b>End Date</b>". $leave->end_date."<br>".
+                                "<b>Requested Days</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
+
+                            );
                             $leave_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
 
