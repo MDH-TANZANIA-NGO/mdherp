@@ -5,12 +5,3 @@
     </div>
     @include('reports.hr.timesheet.datatable.index')
 @endsection
-
-{{--@push('after-scripts')--}}
-{{--    <script>--}}
-{{--        $(document).ready(function (){--}}
-{{--            --}}
-{{--        })--}}
-
-{{--    </script>--}}
-{{--@endpush--}}
