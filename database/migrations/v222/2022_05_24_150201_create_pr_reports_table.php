@@ -24,6 +24,8 @@ class CreatePrReportsTable extends Migration
             $table->string('number')->nullable()->comment('unique number of performance review report');
             $table->date('from_at')->comment('start date of review');
             $table->date('to_at')->comment('end date of review');
+            $table->boolean('done')->default(false);
+            $table->boolean('rejected')->default(false);
             $table->smallInteger('wf_done')->default(0)->comment('workflow status');
             $table->dateTime('wf_done_date')->nullable()->comment('workflow completion date');
             $table->uuid('uuid');
