@@ -15,6 +15,7 @@ class CreatePrReportsTable extends Migration
     {
         Schema::create('pr_reports', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pr_type_id')->comment('Type of performance review');
             $table->unsignedBigInteger('user_id')->comment('User how owns the performance');
             $table->unsignedInteger('designation_id')->comment('designation of the user who owns performance report');
             $table->unsignedBigInteger('supervisor_id')->comment('User how supervise the user');
@@ -28,6 +29,7 @@ class CreatePrReportsTable extends Migration
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
+            $table->foreign('pr_type_id')->references('id')->on('pr_types')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('designation_id')->references('id')->on('designations')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('supervisor_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
