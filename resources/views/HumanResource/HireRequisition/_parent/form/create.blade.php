@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+@include('HumanResource.HireRequisition._parent.datatables.index')
+
 <div class="panel panel-primary">
     <div class=" tab-menu-heading card-header sw-theme-dots" style="background-color: rgb(238, 241, 248)">
         <div class="tabs-menu1">
@@ -22,13 +24,17 @@
             @csrf
         <!-- Large Modal -->
         <div class="col-lg-12 col-md-12">
-            <ol class="breadcrumb1">
-                <li class="breadcrumb-item1 active">General</li>
-            </ol>
             <div class="row">
-                <div class="col-6" >
+                <div class="col-lg-12">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1  h5"> General </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
                     <label class="form-label">Department</label>
-                    <select name="department_id" id="select-department" class="form-control custom-select"  >
+                    <select name="department_id" id="select-department" class="form-control select2-show-search">
                         <option value=""  disabled selected hidden>Select Department</option>
                         @foreach($departments as $department)
                             <option value="{{$department->id}}">{{$department->title}}</option>
@@ -58,7 +64,7 @@
 
                 <div class="col-6">
                     <label class="form-label">Location</label>
-                    <select name="region_id" id="select-region" class="form-control custom-select">
+                    <select name="region_id" id="select-region" class="form-control custom-select select2-show-search" multiple>
                         <option value=""  disabled selected hidden>Select Location</option>
                         @foreach($regions as $region)
                             <option value="{{$region->id}}">{{$region->name}}</option>
@@ -69,18 +75,16 @@
                     @enderror
                 </div>
             </div>
-            &nbsp;
+
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Content</label>
-                    <textarea class="form-control" name="content" rows="4" placeholder="Paste job description here (markdown is ok!)" required></textarea>
+                    <textarea class="form-control content" name="content" rows="2" placeholder="Paste job description here (markdown is ok!)" required></textarea>
                 </div>
                 @error('content')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                 @enderror
             </div>
-            &nbsp;
-
             <div class="row">
                 <div class="col-6">
                     <label class="form-label">Date Required</label>
@@ -110,12 +114,12 @@
                 </div>
             </div>
             <ol class="breadcrumb1">
-                <li class="breadcrumb-item1 active"> Person Requirement </li>
+                <li class="breadcrumb-item1 h5"> Person Requirement </li>
             </ol>
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Education</label>
-                    <textarea class="form-control" name="education_and_qualification" rows="3" placeholder="Describe the requirements for education and qualifications for this post" required></textarea>
+                    <textarea class="form-control " id = "education" name="education_and_qualification" rows="2" placeholder="Describe the requirements for education and qualifications for this post" required></textarea>
                 </div>
                 @error('education_and_qualification')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -125,26 +129,28 @@
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Practical Experience</label>
-                    <textarea class="form-control" name="practical_experience" rows="4" placeholder="Practical experience required for this post" required></textarea>
+                    <textarea class="form-control practical_experience" name="practical_experience" rows="4" placeholder="Practical experience required for this post" required></textarea>
                 </div>
                 @error('practical_experience')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                 @enderror
             </div>
-            &nbsp;
             <div class="row">
                 <div class="col-12 mt-1">
                     <label class="form-label">Other Special Qualities/Skills</label>
-                    <textarea class="form-control" name="other_qualities" rows="4" placeholder="Other Special Qualities or Skills" required></textarea>
+                    <textarea class="form-control other_qualities" name="other_qualities" rows="4" placeholder="Other Special Qualities or Skills" required></textarea>
                 </div>
                 @error('other_qualities')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                 @enderror
             </div>
-           
-            <ol class="breadcrumb1">
-                <li class="breadcrumb-item1 active">  Employment Condition </li>
-            </ol>
+            <div class="row">
+                <div class="col-12 mt-1">
+                    <ol class="breadcrumb1">
+                        <li class="breadcrumb-item1 h5"> Employment Condition </li>
+                    </ol>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-6">
                     <label class="form-label">Employment Condition</label>
@@ -171,7 +177,7 @@
             <div class="row">
                 <div class="col-6">
                     <label class="form-label">Establishment</label>
-                    <select name="establishment_cv_id" id="select-establishment" class="form-control custom-select establishment">
+                    <select name="establishment_cv_id" id="select-establishment" class="form-control custom-select establishment select2">
                         <option value=""  disabled selected hidden>Select Establishment</option>
                         @foreach($establishments as $establishment)
                             <option value="{{$establishment->id}}">{{$establishment->name}}</option>
@@ -195,8 +201,8 @@
                     </div>
                     <div class="col-6 employee mt-2" style="display: none">
                         <label class="form-label">Staff to be replaced</label>
-                        <select name="employee_id" id="select-employee" class="form-control custom-select">
-                            <option value=""  disabled selected hidden>Select Staff to be replaced </option>
+                        <select name="employee_id" id="select-employee" class="form-control select2-show-search">
+                            <option value=""   selected hidden>Select Staff to be replaced </option>
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->fullName}}</option>
                             @endforeach
@@ -206,24 +212,35 @@
 
 
                 <div class="col-6">
-                    <div class="form-label">Working Tools</div>
-                    <div class="custom-controls-stacked">
+                    <label class="form-label">Working Tools</label>
+                    <select name="tools[]" id="select-region" class="form-control custom-select select2-show-search" multiple>
+                        <option value=""  disabled selected hidden>Select Working Tools</option>
+                        @foreach($tools as $tool)
+                            <option value="{{$tool->id}}">{{$tool->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('tool_id')
+                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                    @enderror
+
+                    <!-- <div class="custom-controls-stacked">
                         @foreach($tools as $tool)
                             <label class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" name="tools[]" value="{{ $tool->id}}">
                                 <span class="custom-control-label">{{ $tool->name }}</span>
                             </label>
                         @endforeach
-                    </div>
+                    </div> -->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div style="text-align: center;">
+            <div class="row mt-3">
+                <div class="col-6">
+                   
+                </div>
+                <div class="col-6">
                         <button type="submit" class="btn btn-success"> Save </button>
                         <button type="submit" class="btn btn-azure"> Add </button>
                         <button type="submit" class="btn btn-azure"> Next </button>
-                    </div>
                 </div>
             </div>
         </form>
@@ -243,8 +260,14 @@
                     $('.employee').show()
                     $('.budget').hide()
                 }
-            })
-        })
+            });
+            $("#education").richText({ 
+                preview: true,
+                adaptiveHeight: true,
+            });
+            $(".practical_experience").richText();
+            $(".other_qualities").richText();
+        });
 
     </script>
 

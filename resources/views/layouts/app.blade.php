@@ -192,7 +192,7 @@
 
 {!! Html::script(url('mdh/plugins/wysiwyag/jquery.richtext.js')) !!}
 {!! Html::script(url('mdh/js/form-editor.js')) !!}
-@stack('after-scripts')
+<!-- @stack('after-scripts') -->
 
 
 <!-- Custom js-->
