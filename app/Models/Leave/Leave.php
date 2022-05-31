@@ -4,6 +4,7 @@ namespace App\Models\Leave;
 
 use App\Models\Auth\User;
 use App\Models\BaseModel;
+use App\Models\System\Region;
 use App\Models\Workflow\WfTrack;
 
 class Leave extends BaseModel
@@ -25,7 +26,7 @@ class Leave extends BaseModel
     }
 
     public function type(){
-        return $this->belongsTo(LeaveType::class);
+        return $this->belongsTo(LeaveType::class, 'leave_type_id', 'id');
     }
 
     public function balance(){
@@ -37,5 +38,10 @@ class Leave extends BaseModel
         return "<b>".$this->id."</b> <br>".
             $this->user->full_name_formatted."<br>".
             $this->user->designation_title;
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
     }
 }
