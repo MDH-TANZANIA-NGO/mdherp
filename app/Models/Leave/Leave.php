@@ -26,7 +26,7 @@ class Leave extends BaseModel
     }
 
     public function type(){
-        return $this->belongsTo(LeaveType::class);
+        return $this->belongsTo(LeaveType::class, 'leave_type_id', 'id');
     }
 
     public function balance(){
