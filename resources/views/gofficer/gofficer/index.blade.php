@@ -48,7 +48,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group ">
                                         {!! Form::label('Facilities', __("Facilities"),['class'=>'form-label','required_asterik']) !!}
-                                        {!! Form::select('facilities', $facilities, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required','style'=>'width:100%']) !!}
+{{--                                        {!! Form::select('facilities', $facilities, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required','style'=>'width:100%']) !!}--}}
+                                        <select name="facilities" class="form-control"></select>
                                         {!! $errors->first('facilities', '<span class="badge badge-danger">:message</span>') !!}
                                     </div>
                                 </div>
@@ -108,7 +109,7 @@
                         type: "GET",
                         dataType: "json",
                         success: function(data){
-                            $('select[name="state"]').empty();
+                            $('select[name="districts"]').empty();
                             $.each(data,function(key,value){
                                 $('select[name="districts"]').append('<option value="'+value.id+'">'+value.name+'</option>');
                             });
@@ -117,27 +118,31 @@
                 }else {
                     $('select[name="districts"]').empty();
                 }
+
+
             });
-            
-            {{--$('select[name="districts"]').on('change',function(){--}}
-            {{--    var state_id= $(this).val();--}}
-            {{--    if (state_id) {--}}
-            {{--        $.ajax({--}}
-            {{--            url: "{{url('/getCities/')}}/"+state_id,--}}
-            {{--            type: "GET",--}}
-            {{--            dataType: "json",--}}
-            {{--            success: function(data){--}}
-            {{--                console.log(data);--}}
-            {{--                $('select[name="city"]').empty();--}}
-            {{--                $.each(data,function(key,value){--}}
-            {{--                    $('select[name="city"]').append('<option value="'+key+'">'+value+'</option>');--}}
-            {{--                });--}}
-            {{--            }--}}
-            {{--        });--}}
-            {{--    }else {--}}
-            {{--        $('select[name="city"]').empty();--}}
-            {{--    }--}}
-            {{--});--}}
+
+
+            $('select[name="districts"]').on('change',function(){
+                var state_id= $(this).val();
+                var url = '{{ route("g_officer.getFacilities", ":id") }}';
+                if (state_id) {
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data){
+                            console.log(data);
+                            $('select[name="facilities"]').empty();
+                            $.each(data,function(key,value){
+                                $('select[name="facilities"]').append('<option value="'+value.id+'">'+value.name+'</option>');
+                            });
+                        }
+                    });
+                }else {
+                    $('select[name="facilities"]').empty();
+                }
+            });
         });
     </script>
 @endpush
