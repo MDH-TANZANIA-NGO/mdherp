@@ -281,7 +281,7 @@ class WorkflowEventSubscriber
                             $email_resource = (object)[
                                 'link' => route('leave.show', $leave),
                                 'subject' => $leave->id . " Needs your Approval",
-                                'message' =>  $leave->id . ' needs your approval'
+                                'message' => html_entity_decode($string)
                             ];
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -289,40 +289,84 @@ class WorkflowEventSubscriber
 //                                $leave_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
 
+                            $string = htmlentities(
+                                "There is new"." "."leave application"." "."from ".$leave->user->first_name."".$leave->user->last_name."pending for your approval."."<br>". "<br>".
+                                "<b>Region:</b>".$leave->region->name."<br>".
+                                "<b>Leave Type:</b>".$leave->type->name."<br>".
+                                "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
+                                "<b>Comments:</b>". $leave->comment."<br>".
+                                "<b>Starting Date</b>". $leave->start_date."<br>".
+                                "<b>End Date</b>". $leave->end_date."<br>".
+                                "<b>Requested Days</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
+
+                            );
                             $email_resource = (object)[
                                 'link' =>  route('leave.show',$leave),
                                 'subject' => $leave->id." Need your Approval",
-                                'message' => $leave->id.' need your approval'
+                                'message' => html_entity_decode($string)
                             ];
                            // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
                         case 3:
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
+                            $string = htmlentities(
+                                "There is new"." "."leave application"." "."from ".$leave->user->first_name."".$leave->user->last_name."pending for your approval."."<br>". "<br>".
+                                "<b>Region:</b>".$leave->region->name."<br>".
+                                "<b>Leave Type:</b>".$leave->type->name."<br>".
+                                "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
+                                "<b>Comments:</b>". $leave->comment."<br>".
+                                "<b>Starting Date</b>". $leave->start_date."<br>".
+                                "<b>End Date</b>". $leave->end_date."<br>".
+                                "<b>Requested Days</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
+
+                            );
                             $email_resource = (object)[
                                 'link' =>  route('leave.show',$leave),
                                 'subject' => $leave->id." Need your Approval",
-                                'message' => $leave->id."need your approval"
+                                'message' => html_entity_decode($string)
                             ];
                             //User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
                         case 4:
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level,$leave->user->designation->department_id);
+                            $string = htmlentities(
+                                "There is new"." "."leave application"." "."from ".$leave->user->first_name."".$leave->user->last_name."pending for your approval."."<br>". "<br>".
+                                "<b>Region:</b>".$leave->region->name."<br>".
+                                "<b>Leave Type:</b>".$leave->type->name."<br>".
+                                "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
+                                "<b>Comments:</b>". $leave->comment."<br>".
+                                "<b>Starting Date</b>". $leave->start_date."<br>".
+                                "<b>End Date</b>". $leave->end_date."<br>".
+                                "<b>Requested Days</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
+
+                            );
                             $email_resource = (object)[
                                 'link' =>  route('leave.show',$leave),
                                 'subject' => $leave->id." Need your Approval",
-                                'message' => $leave->id." ".$leave->id.' need your approval'
+                                'message' => html_entity_decode($string)
                             ];
                            // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
                         case 5:
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
+                            $string = htmlentities(
+                                "There is new"." "."leave application"." "."from ".$leave->user->first_name."".$leave->user->last_name."pending for your approval."."<br>". "<br>".
+                                "<b>Region:</b>".$leave->region->name."<br>".
+                                "<b>Leave Type:</b>".$leave->type->name."<br>".
+                                "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
+                                "<b>Comments:</b>". $leave->comment."<br>".
+                                "<b>Starting Date</b>". $leave->start_date."<br>".
+                                "<b>End Date</b>". $leave->end_date."<br>".
+                                "<b>Requested Days</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
+
+                            );
                             $email_resource = (object)[
                                 'link' =>  route('leave.show',$leave),
                                 'subject' => $leave->id." Need your Approval",
-                                'message' =>$leave->id." ".$leave->id.' need your approval'
+                                'message' => html_entity_decode($string)
                             ];
                             User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
