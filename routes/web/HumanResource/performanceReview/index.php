@@ -11,10 +11,10 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         //Datatables
         Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
             Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
-                Route::get('processing', 'PrReportController@AccessProcessingDatatable')->name('processing');
-                Route::get('returned-for-modications', 'PrReportController@AccessRejectedDatatable')->name('retur');
-                Route::get('approved', 'PrReportController@AccessApprovedDatatable')->name('approved');
-                Route::get('saved', 'PrReportController@AccessSavedDatatable')->name('saved');
+                Route::get('processing', 'PrReportController@accessProcessingDatatable')->name('processing');
+                Route::get('returned-for-modications', 'PrReportController@accessReturnedForModificationDatatable')->name('return_for_modification');
+                Route::get('approved', 'PrReportController@qccessApprovedDatatable')->name('approved');
+                Route::get('saved', 'PrReportController@accessSavedDatatable')->name('saved');
             });
         });
         //Attribute Rate

@@ -8,7 +8,7 @@
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
                     <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary">{{ $requisition_access->getAccessProcessingDatatable()->count() }}</span></a></li>
-                    <li><a href="#returned" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning">{{ $requisition_access->getAccessRejectedDatatable()->count() }}</span></a></li>
+                    <li><a href="#returned_for_modification" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning">{{ $requisition_access->getAccessRejectedDatatable()->count() }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $requisition_access->getAccessApprovedDatatable()->count() }}</span></a></li>
                     <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $requisition_access->getAccessSavedDatatable()->count() }}</span> </a></li>
                 </ul>
@@ -24,10 +24,9 @@
 
         <div class="panel-body tabs-menu-body" style="background-color:#FFFFFF">
             <div class="tab-content">
+
                 <div class="tab-pane active" id="processing">
-
                     <div class="card-body">
-
                         <div class="table-responsive">
                             <table id="access_processing" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
@@ -35,34 +34,28 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
-{{--                                    <th class="wd-15p">PROJECT</th>--}}
-                                    <th class="wd-15p">ACTIVITY</th>
-                                    <th class="wd-25p">AMOUNT</th>
+                                    <th class="wd-15p">START DATE</th>
+                                    <th class="wd-25p">END DATE</th>
                                     <th class="wd-25p">APPLIED DATE</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
                             </table>
                         </div>
-
                     </div>
-
                 </div>
 
-
-                <div class="tab-pane" id="saved">
-
+                <div class="tab-pane" id="returned_for_modification">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="access_saved" class="table table-striped table-bordered" style="width:100%">
+                            <table id="access_returned_for_modification class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
-{{--                                    <th class="wd-15p">PROJECT</th>--}}
-                                    <th class="wd-15p">ACTIVITY</th>
-                                    <th class="wd-25p">AMOUNT</th>
+                                    <th class="wd-15p">START DATE</th>
+                                    <th class="wd-25p">END DATE</th>
                                     <th class="wd-25p">APPLIED DATE</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -70,35 +63,9 @@
                             </table>
                         </div>
                     </div>
-
-                </div>
-                <div class="tab-pane" id="paid">
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="access_paid" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th class="wd-15p">#</th>
-                                    <th class="wd-15p">NUMBER</th>
-                                    <th class="wd-15p">TYPE</th>
-                                    {{--                                    <th class="wd-15p">PROJECT</th>--}}
-                                    <th class="wd-15p">ACTIVITY</th>
-                                    <th class="wd-25p">REQUESTED</th>
-                                    <th class="wd-25p">PAID</th>
-                                    <th class="wd-25p">STATUS</th>
-                                    <th class="wd-25p">APPLIED DATE</th>
-                                    <th class="wd-25p">ACTION</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
                 </div>
 
                 <div class="tab-pane" id="approved">
-
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="access_approved" class="table table-striped table-bordered" style="width:100%">
@@ -107,9 +74,8 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
-{{--                                    <th class="wd-15p">PROJECT</th>--}}
-                                    <th class="wd-15p">ACTIVITY</th>
-                                    <th class="wd-25p">AMOUNT</th>
+                                    <th class="wd-15p">START DATE</th>
+                                    <th class="wd-25p">END DATE</th>
                                     <th class="wd-25p">APPLIED DATE</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -117,22 +83,19 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="tab-pane" id="rejected">
-
+                <div class="tab-pane" id="saved">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="access_rejected" class="table table-striped table-bordered" style="width:100%">
+                            <table id="access_saved" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
-{{--                                    <th class="wd-15p">PROJECT</th>--}}
-                                    <th class="wd-15p">ACTIVITY</th>
-                                    <th class="wd-25p">AMOUNT</th>
+                                    <th class="wd-15p">START DATE</th>
+                                    <th class="wd-25p">END DATE</th>
                                     <th class="wd-25p">APPLIED DATE</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -140,30 +103,6 @@
                             </table>
                         </div>
                     </div>
-
-                </div>
-
-                <div class="tab-pane" id="denied">
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="access_denied" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th class="wd-15p">#</th>
-                                    <th class="wd-15p">NUMBER</th>
-                                    <th class="wd-15p">TYPE</th>
-{{--                                    <th class="wd-15p">PROJECT</th>--}}
-                                    <th class="wd-15p">ACTIVITY</th>
-                                    <th class="wd-25p">AMOUNT</th>
-                                    <th class="wd-25p">APPLIED DATE</th>
-                                    <th class="wd-25p">ACTION</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-
                 </div>
 
             </div>
@@ -179,78 +118,31 @@
         $(document).ready(function () {
 
             $("#access_processing").DataTable({
-                // processing: true,
-                // serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('requisition.datatable.access.processing') }}',
+                ajax: "{{ route('hr.pr.datatable.access.processing') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'requisitions.number', searchable: true},
                     { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
                     { data: 'activity_title', name: 'activities.title', searchable: true},
                     { data: 'amount', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
-            $("#access_paid").DataTable({
-                // processing: true,
-                // serverSide: true,
+            $("#access_returned_for_modification").DataTable({
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('requisition.datatable.access.paid') }}',
+                ajax: "{{ route('hr.pr.datatable.access.return_for_modification') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'requisitions.number', searchable: true},
                     { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
-                    { data: 'payed_amount', name: 'payments.payed_amount', searchable: true},
-                    { data: 'is_closed', name: 'requisitions.is_closed', searchable: true},
-                    { data: 'created_at', name: 'created_at', searchable: true },
-                    { data: 'action', name: 'action', searchable: false },
-                ]
-            });
-            $("#access_rejected").DataTable({
-                // processing: true,
-                // serverSide: true,
-                destroy: true,
-                retrieve: true,
-                "responsive": true,
-                "autoWidth": false,
-                ajax: '{{ route('requisition.datatable.access.rejected') }}',
-                columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
-                    { data: 'created_at', name: 'created_at', searchable: true },
-                    { data: 'action', name: 'action', searchable: false },
-                ]
-            });
-
-            $("#access_denied").DataTable({
-                // processing: true,
-                // serverSide: true,
-                destroy: true,
-                retrieve: true,
-                "responsive": true,
-                "autoWidth": false,
-                ajax: '{{ route('requisition.datatable.access.denied') }}',
-                columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
                     { data: 'activity_title', name: 'activities.title', searchable: true},
                     { data: 'amount', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
@@ -258,18 +150,15 @@
                 ]
             });
             $("#access_approved").DataTable({
-                // processing: true,
-                // serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('requisition.datatable.access.approved') }}',
+                ajax: "{{ route('hr.pr.datatable.access.approved') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'requisitions.number', searchable: true},
                     { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
                     { data: 'activity_title', name: 'activities.title', searchable: true},
                     { data: 'amount', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
@@ -277,18 +166,15 @@
                 ]
             });
             $("#access_saved").DataTable({
-                // processing: true,
-                // serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('requisition.datatable.access.saved') }}',
+                ajax: "{{ route('hr.pr.datatable.access.saved') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'requisitions.number', searchable: true},
                     { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    // { data: 'project_title', name: 'projects.title', searchable: true},
                     { data: 'activity_title', name: 'activities.title', searchable: true},
                     { data: 'amount', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },

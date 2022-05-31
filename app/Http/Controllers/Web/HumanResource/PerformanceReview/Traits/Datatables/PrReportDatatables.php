@@ -10,7 +10,7 @@ trait PrReportDatatables
      * @return mixed
      * @throws \Exception
      */
-    public function AccessProcessingDatatable()
+    public function accessProcessingDatatable()
     {
         return DataTables::of($this->pr_reports->getAccessProcessing())
             ->addIndexColumn()
@@ -28,7 +28,7 @@ trait PrReportDatatables
      * @return mixed
      * @throws \Exception
      */
-    public function getAccessReturnedForModificationDatatable()
+    public function accessReturnedForModificationDatatable()
     {
         return DataTables::of($this->pr_reports->getAccessReturnedForModification())
             ->addIndexColumn()
@@ -46,7 +46,7 @@ trait PrReportDatatables
      * @return mixed
      * @throws \Exception
      */
-    public function getAccessApprovedDatatable()
+    public function accessApprovedDatatable()
     {
         return DataTables::of($this->pr_reports->getAccessApproved())
             ->addIndexColumn()
@@ -64,7 +64,7 @@ trait PrReportDatatables
      * @return mixed
      * @throws \Exception
      */
-    public function getAccessSavedDatatable()
+    public function accessSavedDatatable()
     {
         return DataTables::of($this->pr_reports->getAccessSaved())
             ->addIndexColumn()

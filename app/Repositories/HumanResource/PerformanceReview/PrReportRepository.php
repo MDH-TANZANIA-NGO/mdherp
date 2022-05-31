@@ -14,9 +14,18 @@ class PrReportRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
-
+            'pr_reports.id AS id',
+            'pr_reports.number AS number',
+            'pr_reports.start_date AS start_date',
+            'pr_reports.end_date AS end_date',
+            'pr_reports.submited_at AS submited_at',
+            'pr_reports.uuid AS uuid',
+            'pr_types.title AS pr_type_title',
+            'fiscal_years.title AS fiscal_year_title'
         ])
-        ->join('users','users.id','pr_reports.user_id');
+        ->join('users','users.id','pr_reports.user_id')
+        ->join('pr_types','pr_types.id','pr_reports.pr_type_id')
+        ->join('fiscal_years','fiscal_years.id','pr_reports.fiscal_year_id');
     }
 
     public function getAccessProcessing()

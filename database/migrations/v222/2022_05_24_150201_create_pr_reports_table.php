@@ -28,6 +28,7 @@ class CreatePrReportsTable extends Migration
             $table->boolean('rejected')->default(false);
             $table->smallInteger('wf_done')->default(0)->comment('workflow status');
             $table->dateTime('wf_done_date')->nullable()->comment('workflow completion date');
+            $table->timestamp('submited_at')->nullable()->comment('Submited date of a report');
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
