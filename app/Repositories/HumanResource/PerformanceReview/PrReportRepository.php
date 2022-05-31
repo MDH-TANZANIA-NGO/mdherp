@@ -3,11 +3,11 @@
 namespace App\Repositories\HumanResource\PerformanceReview;
 
 use App\Models\HumanResource\PrReport;
-use App\Repositories\BaseRepositoy;
 use App\Models\Budget\FiscalYear;
+use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
-class PrReportRepository extends BaseRepositoy
+class PrReportRepository extends BaseRepository
 {
     const MODEL = PrReport::class;
 
