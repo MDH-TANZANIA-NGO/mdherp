@@ -6,8 +6,8 @@
             <div class="card-header">
                 <div class="d-flex align-items-center flex-wrap gap-2">
 
-                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#largeModal"><i class="fa fa-filter"></i> Filter</button>
-{{--                   <a href="{{route('compliance.export_beneficiaries')}}" class="btn btn-success" style="margin-bottom: 1%" > <i class="fe fe-download-cloud mr-2"></i>Export To Excel</a>--}}
+{{--                    <button class="btn btn-outline-info" data-toggle="modal" data-target="#largeModal"><i class="fa fa-filter"></i> Filter</button>--}}
+                   <a href="{{route('compliance.export_beneficiaries')}}" class="btn btn-success" style="margin-bottom: 1%" > <i class="fe fe-download-cloud mr-2"></i>Export To Excel</a>
 
 
                 </div>
