@@ -58,7 +58,7 @@
 
 
 
-                <form action="{{route('timesheet.store')}}" method="post">
+                <form id="timesheet" name="timesheet-form" action="{{route('timesheet.store')}}" method="post">
                     @csrf
                     <table id="" class="table table-striped table-bordered" style="width:100%">
                         <thead>
@@ -94,7 +94,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Submit For Approval</button>
+                                <button type="submit" id="submit_btn" class="btn btn-outline-info timesheet" style="margin-left:40%;">Submit For Apprl</button>
                             </div>
                         </div>
                     </div>
@@ -106,9 +106,16 @@
 
 @endsection
 
-@push('after_scripts')
+@push('after-scripts')
     <script>
-
+        $(document).ready(function(){
+            $("form[name='timesheet-form']").submit(function (){
+                $("#submit_btn").attr('disabled',true);
+            });
+            // $("#submit_btn").click(function (){
+            //     $(this).attr('disabled',true);
+            // });
+        });
     </script>
 @endpush
 
