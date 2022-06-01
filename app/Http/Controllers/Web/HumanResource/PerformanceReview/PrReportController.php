@@ -49,7 +49,7 @@ class PrReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
