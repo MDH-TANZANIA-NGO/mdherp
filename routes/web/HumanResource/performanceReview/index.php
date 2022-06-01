@@ -6,6 +6,8 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         Route::get('', 'PrReportController@index')->name('index');
         Route::get('create', 'PrReportController@create')->name('create');
         Route::post('store', 'PrReportController@store')->name('store');
+        Route::get('{prReport}/saved', 'PrReportController@saved')->name('saved');
+        Route::get('{prReport}/show', 'PrReportController@show')->name('show');
         Route::put('{prReport}/update', 'PrReportController@update')->name('update');
         Route::post('{prReport}/submit', 'PrReportController@store')->name('store');
         //Datatables
@@ -13,7 +15,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
             Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
                 Route::get('processing', 'PrReportController@accessProcessingDatatable')->name('processing');
                 Route::get('returned-for-modications', 'PrReportController@accessReturnedForModificationDatatable')->name('return_for_modification');
-                Route::get('approved', 'PrReportController@qccessApprovedDatatable')->name('approved');
+                Route::get('approved', 'PrReportController@accessApprovedDatatable')->name('approved');
                 Route::get('saved', 'PrReportController@accessSavedDatatable')->name('saved');
             });
         });

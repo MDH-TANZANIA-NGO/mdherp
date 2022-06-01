@@ -7,16 +7,16 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary">{{ $requisition_access->getAccessProcessingDatatable()->count() }}</span></a></li>
-                    <li><a href="#returned_for_modification" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning">{{ $requisition_access->getAccessRejectedDatatable()->count() }}</span></a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $requisition_access->getAccessApprovedDatatable()->count() }}</span></a></li>
-                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $requisition_access->getAccessSavedDatatable()->count() }}</span> </a></li>
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary">{{ $processing_count }}</span></a></li>
+                    <li><a href="#returned_for_modification" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning">{{ $return_for_modification_count }}</span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $approved_count }}</span></a></li>
+                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $saved_count }}</span> </a></li>
                 </ul>
             </div>
 
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('requisition.create') }}"> <i class="fa fa-plus mr-2"></i>Create Request</a>
+                    <a href="{{ route('hr.pr.create') }}"> <i class="fa fa-plus mr-2"></i>Create Request</a>
                 </div>
             </div>
 
@@ -34,6 +34,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
+                                    <th class="wd-15p">FISCAL YEAR</th>
                                     <th class="wd-15p">START DATE</th>
                                     <th class="wd-25p">END DATE</th>
                                     <th class="wd-25p">APPLIED DATE</th>
@@ -48,12 +49,13 @@
                 <div class="tab-pane" id="returned_for_modification">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="access_returned_for_modification class="table table-striped table-bordered" style="width:100%">
+                            <table id="access_returned_for_modification" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
+                                    <th class="wd-15p">FISCAL YEAR</th>
                                     <th class="wd-15p">START DATE</th>
                                     <th class="wd-25p">END DATE</th>
                                     <th class="wd-25p">APPLIED DATE</th>
@@ -74,6 +76,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
+                                    <th class="wd-15p">FISCAL YEAR</th>
                                     <th class="wd-15p">START DATE</th>
                                     <th class="wd-25p">END DATE</th>
                                     <th class="wd-25p">APPLIED DATE</th>
@@ -94,6 +97,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
+                                    <th class="wd-15p">FISCAL YEAR</th>
                                     <th class="wd-15p">START DATE</th>
                                     <th class="wd-25p">END DATE</th>
                                     <th class="wd-25p">APPLIED DATE</th>
@@ -125,11 +129,12 @@
                 ajax: "{{ route('hr.pr.datatable.access.processing') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
-                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'number', name: 'pr_reports.number', searchable: true},
+                    { data: 'pr_type_title', name: 'pr_types.title', searchable: true},
+                    { data: 'fiscal_year_title', name: 'fiscal_years.title', searchable: true},
+                    { data: 'from_at', name: 'pr_reports.from_at', searchable: true},
+                    { data: 'to_at', name: 'pr_reports.to_at', searchable: true },
+                    { data: 'submited_at', name: 'pr_reports.submited_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
@@ -141,11 +146,12 @@
                 ajax: "{{ route('hr.pr.datatable.access.return_for_modification') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
-                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'number', name: 'pr_reports.number', searchable: true},
+                    { data: 'pr_type_title', name: 'pr_types.title', searchable: true},
+                    { data: 'fiscal_year_title', name: 'fiscal_years.title', searchable: true},
+                    { data: 'from_at', name: 'pr_reports.from_at', searchable: true},
+                    { data: 'to_at', name: 'pr_reports.to_at', searchable: true },
+                    { data: 'submited_at', name: 'pr_reports.submited_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
@@ -157,11 +163,12 @@
                 ajax: "{{ route('hr.pr.datatable.access.approved') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
-                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'number', name: 'pr_reports.number', searchable: true},
+                    { data: 'pr_type_title', name: 'pr_types.title', searchable: true},
+                    { data: 'fiscal_year_title', name: 'fiscal_years.title', searchable: true},
+                    { data: 'from_at', name: 'pr_reports.from_at', searchable: true},
+                    { data: 'to_at', name: 'pr_reports.to_at', searchable: true },
+                    { data: 'submited_at', name: 'pr_reports.submited_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
@@ -173,11 +180,12 @@
                 ajax: "{{ route('hr.pr.datatable.access.saved') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'requisitions.number', searchable: true},
-                    { data: 'type_title', name: 'requisitions.title', searchable: true},
-                    { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'amount', name: 'requisitions.amount', searchable: true},
-                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'number', name: 'pr_reports.number', searchable: true},
+                    { data: 'pr_type_title', name: 'pr_types.title', searchable: true},
+                    { data: 'fiscal_year_title', name: 'fiscal_years.title', searchable: true},
+                    { data: 'from_at', name: 'pr_reports.from_at', searchable: true},
+                    { data: 'to_at', name: 'pr_reports.to_at', searchable: true },
+                    { data: 'submited_at', name: 'pr_reports.submited_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

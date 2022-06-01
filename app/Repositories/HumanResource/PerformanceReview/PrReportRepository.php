@@ -2,8 +2,8 @@
 
 namespace App\Repositories\HumanResource\PerformanceReview;
 
-use App\Models\HumanResource\PrReport;
 use App\Models\Budget\FiscalYear;
+use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -16,8 +16,8 @@ class PrReportRepository extends BaseRepository
         return $this->query()->select([
             'pr_reports.id AS id',
             'pr_reports.number AS number',
-            'pr_reports.start_date AS start_date',
-            'pr_reports.end_date AS end_date',
+            'pr_reports.from_at AS from_at',
+            'pr_reports.to_at AS to_at',
             'pr_reports.submited_at AS submited_at',
             'pr_reports.uuid AS uuid',
             'pr_types.title AS pr_type_title',

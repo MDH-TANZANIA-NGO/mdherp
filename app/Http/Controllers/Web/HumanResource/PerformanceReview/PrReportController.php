@@ -24,7 +24,11 @@ class PrReportController extends Controller
      */
     public function index()
     {
-        return view('HumanResource.PerformanceReview.index');
+        return view('HumanResource.PerformanceReview.index')
+        ->with('processing_count', $this->pr_reports->getAccessProcessing()->count())
+        ->with('return_for_modification_count', $this->pr_reports->getAccessReturnedForModification()->count())
+        ->with('approved_count', $this->pr_reports->getAccessApproved()->count())
+        ->with('saved_count', $this->pr_reports->getAccessSaved()->count());
     }
 
     /**
