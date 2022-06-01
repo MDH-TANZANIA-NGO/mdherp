@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <div class="form-group">
-						<label class="form-label">Enter Name</label>
+						<label class="form-label">Start Date</label>
 						<input type="text" value="{{ access()->user()->employed_date }}" class="form-control" name="example-text-input" placeholder="Name" disabled>
                     </div>
                 </div>
