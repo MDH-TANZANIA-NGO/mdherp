@@ -15,6 +15,7 @@ class AddColumnNoDaysOnRequisitionTrainingsTable extends Migration
     {
         //
         Schema::table('requisition_trainings', function (Blueprint $table) {
+
             $table->bigInteger('no_days')->nullable();
 
         });
