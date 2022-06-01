@@ -1924,531 +1924,531 @@ class wardsSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            84 =>
+            191 =>
                 array (
-                    'id' => 85,
-                    'name' => 'Magugu',
-                    'district_id' => '63',
+                    'id' => 192,
+                    'name' => 'Bakoba',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            85 =>
+            192 =>
                 array (
-                    'id' => 86,
-                    'name' => 'Maisaka',
-                    'district_id' => '63',
+                    'id' => 193,
+                    'name' => 'Bilele',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            86 =>
+            193 =>
                 array (
-                    'id' => 87,
-                    'name' => 'Mamire',
-                    'district_id' => '63',
+                    'id' => 194,
+                    'name' => 'Buhembe',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            87 =>
+            194 =>
                 array (
-                    'id' => 88,
-                    'name' => 'Mutuka',
-                    'district_id' => '63',
+                    'id' => 195,
+                    'name' => 'Buhendangabo',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            88 =>
+            195 =>
                 array (
-                    'id' => 89,
-                    'name' => 'Mwada',
-                    'district_id' => '63',
+                    'id' => 196,
+                    'name' => 'Bujugo',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            89 =>
+            196 =>
                 array (
-                    'id' => 90,
-                    'name' => 'Nar',
-                    'district_id' => '63',
+                    'id' => 197,
+                    'name' => 'Butelankuzi',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            90 =>
+            197 =>
                 array (
-                    'id' => 91,
-                    'name' => 'Nkaiti',
-                    'district_id' => '63',
+                    'id' => 198,
+                    'name' => 'Butulage',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            91 =>
+            198 =>
                 array (
-                    'id' => 92,
-                    'name' => 'Qash',
-                    'district_id' => '63',
+                    'id' => 199,
+                    'name' => 'Hamugembe',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            92 =>
+            199 =>
                 array (
-                    'id' => 93,
-                    'name' => 'Riroda',
-                    'district_id' => '63',
+                    'id' => 200,
+                    'name' => 'Ibwera',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            93 =>
+            200 =>
                 array (
-                    'id' => 94,
-                    'name' => 'Singe',
-                    'district_id' => '63',
+                    'id' => 201,
+                    'name' => 'Ijuganyondo',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            94 =>
+            201 =>
                 array (
-                    'id' => 95,
-                    'name' => 'Ufana',
-                    'district_id' => '63',
+                    'id' => 202,
+                    'name' => 'Izimbya',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            95 =>
+            202 =>
                 array (
-                    'id' => 96,
-                    'name' => 'Bwilingu',
-                    'district_id' => '119',
+                    'id' => 203,
+                    'name' => 'Kaagya',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            96 =>
+            203 =>
                 array (
-                    'id' => 97,
-                    'name' => 'Dunda',
-                    'district_id' => '119',
+                    'id' => 204,
+                    'name' => 'Kahororo',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            97 =>
+            204 =>
                 array (
-                    'id' => 98,
-                    'name' => 'Fukayosi',
-                    'district_id' => '119',
+                    'id' => 205,
+                    'name' => 'Kaibanja',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            98 =>
+            205 =>
                 array (
-                    'id' => 99,
-                    'name' => 'Kerege',
-                    'district_id' => '119',
+                    'id' => 206,
+                    'name' => 'Kanyangereko',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            99 =>
+            206 =>
                 array (
-                    'id' => 100,
-                    'name' => 'Kibindu',
-                    'district_id' => '119',
+                    'id' => 207,
+                    'name' => 'Karabagaine',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            100 =>
+            207 =>
                 array (
-                    'id' => 101,
-                    'name' => 'Kimange',
-                    'district_id' => '119',
+                    'id' => 208,
+                    'name' => 'Kashai',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            101 =>
+            208 =>
                 array (
-                    'id' => 102,
-                    'name' => 'Kiromo',
-                    'district_id' => '119',
+                    'id' => 209,
+                    'name' => 'Kasharu',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            102 =>
+            209 =>
                 array (
-                    'id' => 103,
-                    'name' => 'Kiwangwa',
-                    'district_id' => '119',
+                    'id' => 210,
+                    'name' => 'Katoma',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            103 =>
+            210 =>
                 array (
-                    'id' => 104,
-                    'name' => 'Lugoba',
-                    'district_id' => '119',
+                    'id' => 211,
+                    'name' => 'Katoro',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            104 =>
+            211 =>
                 array (
-                    'id' => 105,
-                    'name' => 'Magomeni',
-                    'district_id' => '119',
+                    'id' => 212,
+                    'name' => 'Kemondo',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            105 =>
+            212 =>
                 array (
-                    'id' => 106,
-                    'name' => 'Mandera',
-                    'district_id' => '119',
+                    'id' => 213,
+                    'name' => 'Kibirizi',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            106 =>
+            213 =>
                 array (
-                    'id' => 107,
-                    'name' => 'Mapinga',
-                    'district_id' => '119',
+                    'id' => 214,
+                    'name' => 'Kikomero',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            107 =>
+            214 =>
                 array (
-                    'id' => 108,
-                    'name' => 'Mbwewe',
-                    'district_id' => '119',
+                    'id' => 215,
+                    'name' => 'Kishanje',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            108 =>
+            215 =>
                 array (
-                    'id' => 109,
-                    'name' => 'Miono',
-                    'district_id' => '119',
+                    'id' => 216,
+                    'name' => 'Kishogo',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            109 =>
+            216 =>
                 array (
-                    'id' => 110,
-                    'name' => 'Mkange',
-                    'district_id' => '119',
+                    'id' => 217,
+                    'name' => 'Kitendaguro',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            110 =>
+            217 =>
                 array (
-                    'id' => 111,
-                    'name' => 'Msata',
-                    'district_id' => '119',
+                    'id' => 218,
+                    'name' => 'Kyamulaile',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            111 =>
+            218 =>
                 array (
-                    'id' => 112,
-                    'name' => 'Msoga',
-                    'district_id' => '119',
+                    'id' => 219,
+                    'name' => 'Maruku',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            112 =>
+            219 =>
                 array (
-                    'id' => 113,
-                    'name' => 'Talawanda',
-                    'district_id' => '119',
+                    'id' => 220,
+                    'name' => 'Miembeni',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            113 =>
+            220 =>
                 array (
-                    'id' => 114,
-                    'name' => 'Ubenazomozi',
-                    'district_id' => '119',
+                    'id' => 221,
+                    'name' => 'Mikoni',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            114 =>
+            221 =>
                 array (
-                    'id' => 115,
-                    'name' => 'Vigwaza',
-                    'district_id' => '119',
+                    'id' => 222,
+                    'name' => 'Nshambya',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            115 =>
+            222 =>
                 array (
-                    'id' => 116,
-                    'name' => 'Yombo',
-                    'district_id' => '119',
+                    'id' => 223,
+                    'name' => 'Nyakato',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            116 =>
+            223 =>
                 array (
-                    'id' => 117,
-                    'name' => 'Zinga',
-                    'district_id' => '119',
+                    'id' => 224,
+                    'name' => 'Nyakibimbili',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            117 =>
+            224 =>
                 array (
-                    'id' => 118,
-                    'name' => 'Babayu',
-                    'district_id' => '13',
+                    'id' => 225,
+                    'name' => 'Nyanga',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            118 =>
+            225 =>
                 array (
-                    'id' => 119,
-                    'name' => 'Bahi',
-                    'district_id' => '13',
+                    'id' => 226,
+                    'name' => 'Rubafu',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            119 =>
+            226 =>
                 array (
-                    'id' => 120,
-                    'name' => 'Chali',
-                    'district_id' => '13',
+                    'id' => 227,
+                    'name' => 'Rubale',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            120 =>
+            227 =>
                 array (
-                    'id' => 121,
-                    'name' => 'Chibelela',
-                    'district_id' => '13',
+                    'id' => 228,
+                    'name' => 'Ruhunga',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            121 =>
+            228 =>
                 array (
-                    'id' => 122,
-                    'name' => 'Chikola',
-                    'district_id' => '13',
+                    'id' => 229,
+                    'name' => 'Rukoma',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            122 =>
+            229 =>
                 array (
-                    'id' => 123,
-                    'name' => 'Chipanga',
-                    'district_id' => '13',
+                    'id' => 230,
+                    'name' => 'Rwamishenye',
+                    'district_id' => '31',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            123 =>
+            230 =>
                 array (
-                    'id' => 124,
-                    'name' => 'Ibihwa',
-                    'district_id' => '13',
+                    'id' => 231,
+                    'name' => 'Bugelenga',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            124 =>
+            231 =>
                 array (
-                    'id' => 125,
-                    'name' => 'Ibugule',
-                    'district_id' => '13',
+                    'id' => 232,
+                    'name' => 'Bukombe',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            125 =>
+            232 =>
                 array (
-                    'id' => 126,
-                    'name' => 'Ilindi',
-                    'district_id' => '13',
+                    'id' => 233,
+                    'name' => 'Bulangwa',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            126 =>
+            233 =>
                 array (
-                    'id' => 127,
-                    'name' => 'Kigwe',
-                    'district_id' => '13',
+                    'id' => 234,
+                    'name' => 'Bulega',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            127 =>
+            234 =>
                 array (
-                    'id' => 128,
-                    'name' => 'Lamaiti',
-                    'district_id' => '13',
+                    'id' => 235,
+                    'name' => 'Iyogelo',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            128 =>
+            235 =>
                 array (
-                    'id' => 129,
-                    'name' => 'Makanda',
-                    'district_id' => '13',
+                    'id' => 236,
+                    'name' => 'Katente',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            129 =>
+            236 =>
                 array (
-                    'id' => 130,
-                    'name' => 'Mpalanga',
-                    'district_id' => '13',
+                    'id' => 237,
+                    'name' => 'Katome',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            130 =>
+            237 =>
                 array (
-                    'id' => 131,
-                    'name' => 'Mpamantwa',
-                    'district_id' => '13',
+                    'id' => 238,
+                    'name' => 'Namonge',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            131 =>
+            238 =>
                 array (
-                    'id' => 132,
-                    'name' => 'Msisi',
-                    'district_id' => '13',
+                    'id' => 239,
+                    'name' => 'Runzewe Mashariki',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            132 =>
+            239 =>
                 array (
-                    'id' => 133,
-                    'name' => 'Mtitaa',
-                    'district_id' => '13',
+                    'id' => 240,
+                    'name' => 'Ushirombo',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            133 =>
+            240 =>
                 array (
-                    'id' => 134,
-                    'name' => 'Mundemu',
-                    'district_id' => '13',
+                    'id' => 241,
+                    'name' => 'Uyovu',
+                    'district_id' => '20',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            134 =>
+            241 =>
                 array (
-                    'id' => 135,
-                    'name' => 'Mwitikira',
-                    'district_id' => '13',
+                    'id' => 242,
+                    'name' => 'Balili',
+                    'district_id' => '176',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            135 =>
+            242 =>
                 array (
-                    'id' => 136,
-                    'name' => 'Nondwa',
-                    'district_id' => '13',
+                    'id' => 243,
+                    'name' => 'Bunda Mjini',
+                    'district_id' => '176',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            136 =>
+            243 =>
                 array (
-                    'id' => 137,
-                    'name' => 'Zanka',
-                    'district_id' => '13',
+                    'id' => 244,
+                    'name' => 'Bunda Stoo',
+                    'district_id' => '176',
                     'isactive' => '1',
                     'created_at' => '2020-07-08 20:16:49',
                     'updated_at' => NULL,
