@@ -16,6 +16,7 @@ class PrReportController extends Controller
     public function __construct()
     {
         $this->pr_reports = (new PrReportRepository());
+        $this->middleware('auth');
     }
 
     /**

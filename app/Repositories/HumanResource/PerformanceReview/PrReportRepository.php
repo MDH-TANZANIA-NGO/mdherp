@@ -19,6 +19,7 @@ class PrReportRepository extends BaseRepository
             'pr_reports.from_at AS from_at',
             'pr_reports.to_at AS to_at',
             'pr_reports.submited_at AS submited_at',
+            'pr_reports.created_at AS created_at',
             'pr_reports.uuid AS uuid',
             'pr_types.title AS pr_type_title',
             'fiscal_years.title AS fiscal_year_title'
