@@ -29,11 +29,3 @@
         </div>
     </div>
 </div>
-
-@push('after-scripts')
-    <script>
-        $(document).ready(function (){
-            // let $description_editor = $("#description_editor").richText();
-        });
-    </script>
-@endpush

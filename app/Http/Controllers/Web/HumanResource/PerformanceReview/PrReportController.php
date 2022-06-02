@@ -63,7 +63,8 @@ class PrReportController extends Controller
      */
     public function saved(PrReport $pr_report)
     {
-        return redirect()->route('hr.pr.saved', $pr_report);
+        return view('HumanResource.PerformanceReview.saved')
+        ->with('pr_report', $pr_report);
     }
 
     /**
