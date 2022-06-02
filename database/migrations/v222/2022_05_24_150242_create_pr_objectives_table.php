@@ -16,10 +16,10 @@ class CreatePrObjectivesTable extends Migration
         Schema::create('pr_objectives', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pr_report_id')->comment('performance review report id');
-            $table->unsignedBigInteger('pr_rate_scale_id')->comment('performance review rate scale id');
+            $table->unsignedBigInteger('pr_rate_scale_id')->nullable()->comment('performance review rate scale id');
             $table->longText('goal')->comment('Goal to act upon');
-            $table->longText('accomplishment')->comment('Accomplishment upon goal set');
-            $table->longText('challenge')->comment('challenge again goal');
+            $table->longText('accomplishment')->nullable()->comment('Accomplishment upon goal set');
+            $table->longText('challenge')->nullable()->comment('challenge again goal');
             $table->uuid('uuid');
             $table->timestamps();
             $table->foreign('pr_report_id')->references('id')->on('pr_reports')->onUpdate('CASCADE')->onDelete('RESTRICT');

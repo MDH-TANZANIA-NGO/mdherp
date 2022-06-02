@@ -27,7 +27,7 @@ class PrObjectiveRequest extends FormRequest
         {
             case 'POST': case 'PUT':
                 return [
-                    'goal' => 'required|min:10|unique:goal,pr_objectives',
+                    'goal' => 'required|min:10|unique:pr_objectives,goal',
                 ];
             break;
         }

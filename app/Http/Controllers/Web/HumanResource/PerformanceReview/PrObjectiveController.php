@@ -48,6 +48,7 @@ class PrObjectiveController extends Controller
     public function store(PrObjectiveRequest $request, PrReport $pr_report)
     {
         $this->pr_objectives->store($pr_report, $request->all());
+        alert()->success('Objective/Goals Addedd Successfully');
         return redirect()->back();
     }
 
