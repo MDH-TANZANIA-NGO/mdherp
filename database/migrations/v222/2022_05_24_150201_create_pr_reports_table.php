@@ -18,8 +18,8 @@ class CreatePrReportsTable extends Migration
             $table->unsignedBigInteger('pr_type_id')->comment('Type of performance review');
             $table->unsignedBigInteger('user_id')->comment('User how owns the performance');
             $table->unsignedInteger('designation_id')->comment('designation of the user who owns performance report');
-            $table->unsignedBigInteger('supervisor_id')->comment('User how supervise the user');
-            $table->unsignedBigInteger('parent_id')->comment('self join, id of the previous performance review report');
+            $table->unsignedBigInteger('supervisor_id')->nullable()->comment('User how supervise the user');
+            $table->unsignedBigInteger('parent_id')->nullable()->comment('self join, id of the previous performance review report');
             $table->unsignedBigInteger('fiscal_year_id')->comment('Current Fiscal Year');
             $table->string('number')->nullable()->comment('unique number of performance review report');
             $table->date('from_at')->comment('start date of review');

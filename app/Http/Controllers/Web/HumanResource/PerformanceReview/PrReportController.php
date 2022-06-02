@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\HumanResource\PerformanceReview;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrReportDatatables;
+use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use Illuminate\Http\Request;
 
@@ -47,9 +48,22 @@ class PrReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function probationStore()
     {
+        $pr_report = $this->pr_reports->probationStore();
+        alert()->success('Probation Appraisal initiated Successfully');
+        return redirect()->route('hr.pr.saved', $pr_report);
+    }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function saved(PrReport $pr_report)
+    {
+        return redirect()->route('hr.pr.saved', $pr_report);
     }
 
     /**
