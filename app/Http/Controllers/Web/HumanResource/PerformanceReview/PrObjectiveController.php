@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Web\HumanResource\PerformanceReview;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrObjectiveDatatables;
-use App\Repositories\HumanResource\PerformanceReview\PrObjectRepository;
+use App\Http\Requests\HumanResource\PerformanceReview\PrObjectiveRequest;
+use App\Models\HumanResource\PerformanceReview\PrReport;
+use App\Repositories\HumanResource\PerformanceReview\PrObjectiveRepository;
 use Illuminate\Http\Request;
 
 class PrObjectiveController extends Controller
@@ -14,7 +16,7 @@ class PrObjectiveController extends Controller
 
     public function __construct()
     {
-        $this->pr_objectives = (new PrObjectRepository());
+        $this->pr_objectives = (new PrObjectiveRepository());
     }
 
     /**
@@ -43,9 +45,10 @@ class PrObjectiveController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PrObjectiveRequest $request, PrReport $pr_report)
     {
-        //
+        $this->pr_objectives->store($pr_report, $request->all());
+        return redirect()->back();
     }
 
     /**
