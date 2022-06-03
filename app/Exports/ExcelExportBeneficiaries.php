@@ -14,6 +14,7 @@ class ExcelExportBeneficiaries implements FromCollection, WithHeadings, WithMapp
     {
 
         $this->g_officers = $get_g_officers;
+      
     }
     /**
     * @return \Illuminate\Support\Collection
@@ -66,7 +67,7 @@ class ExcelExportBeneficiaries implements FromCollection, WithHeadings, WithMapp
             $row->last_name,
             substr($row->phone, -9),
             $row->region->name,
-            $row->district->name,
+            $row->district,
             $row->g_scale_id,
             $row->check_no,
             $row->region_id,
