@@ -12,7 +12,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($pr_report->objectives() AS $key => $objective)
+                            @foreach($pr_objectives AS $key => $objective)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $objective->goal }}</td>
