@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Web\GOfficer\Datatables;
 
-trait GOfficerImportedDatatables
+trait TemporaryImportedBeneficiaryDatatable
 {
 
 }

@@ -6,6 +6,7 @@ use App\Exports\ExcelExportBeneficiaries;
 use App\Exports\ExcelExportDuplicateGOfficerImportedData;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerDatatables;
+use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerImportedDatatables;
 use App\Imports\GOfficerImportedTemporaryData;
 use App\Imports\GOfficersImport;
 use App\Models\Facility\Facility;
@@ -29,6 +30,7 @@ use function PHPUnit\Framework\isEmpty;
 class GOfficerController extends Controller
 {
     use GOfficerDatatables, Number;
+
 
     protected $g_officers;
     protected $g_scales;
