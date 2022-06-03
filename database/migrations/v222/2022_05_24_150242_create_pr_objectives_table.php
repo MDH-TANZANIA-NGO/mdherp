@@ -21,6 +21,7 @@ class CreatePrObjectivesTable extends Migration
             $table->longText('accomplishment')->nullable()->comment('Accomplishment upon goal set');
             $table->longText('challenge')->nullable()->comment('challenge again goal');
             $table->uuid('uuid');
+            $table->softDeletes();
             $table->timestamps();
             $table->foreign('pr_report_id')->references('id')->on('pr_reports')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('pr_rate_scale_id')->references('id')->on('pr_rate_scales')->onUpdate('CASCADE')->onDelete('RESTRICT');

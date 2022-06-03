@@ -26,4 +26,11 @@ class PrObjectiveRepository extends BaseRepository
         });
     }
 
+    public function destroy(PrObjective $pr_objective)
+    {
+        return DB::transaction(function() use($pr_objective){
+            return $pr_objective->forceDelete();
+        });
+    }
+
 }

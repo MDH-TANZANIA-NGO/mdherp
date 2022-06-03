@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\HumanResource\PerformanceReview;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrObjectiveDatatables;
 use App\Http\Requests\HumanResource\PerformanceReview\PrObjectiveRequest;
+use App\Models\HumanResource\PerformanceReview\PrObjective;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\HumanResource\PerformanceReview\PrObjectiveRepository;
 use Illuminate\Http\Request;
@@ -92,8 +93,10 @@ class PrObjectiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PrObjective $pr_objective)
     {
-        //
+        alert()->success('Objective/Goals Removed Successfully');
+        $this->pr_objectives->destroy($pr_objective);
+        return redirect()->back();
     }
 }

@@ -12,16 +12,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                    
                             @foreach($pr_objectives AS $key => $objective)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $objective->goal }}</td>
-                                    <td><a href="" class="mr-2">Edit</a> | <a href="" onclick="if(confirm('Are you sure you want to deleted this objective')){ return true; } else { return false; }" class=" ml-2" data-objective-id>Delete</a></td>
+                                    <td><a href="#" class="mr-2">Edit</a> | <a href="{{ route('hr.pr.objective.destroy',$objective) }}" onclick="if(confirm('Are you sure you want to deleted this objective')){ return true; } else { return false; }" class=" ml-2" data-objective-id>Delete</a></td>
                                 </tr>
+
+                                <!-- Modal -->
+	
                             @endforeach
-                        
-                            <!-- {!! Form::open(['method' => 'deleted']) !!}
-                            {!! Form::close() !!} -->
                         </tbody>
                     </table>
                 </div>
