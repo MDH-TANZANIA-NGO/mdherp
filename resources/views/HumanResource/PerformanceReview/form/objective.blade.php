@@ -3,7 +3,7 @@
     <div class="col-md-11 col-sm-11 col-lg-11 col-xl-11">
         <div class="form-group">
 			<label class="form-label">Objective</label>
-			<input type="text" class="form-control" name="goal" placeholder="Type one objective" required/>
+			<textarea class="form-control" name="goal" placeholder="Type one objective" required></textarea>
         </div>
     </div>
     <div class="col-md-1 col-sm-1 col-lg-1 col-xl-1">

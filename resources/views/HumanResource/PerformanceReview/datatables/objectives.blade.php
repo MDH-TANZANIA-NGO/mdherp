@@ -12,15 +12,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                    
                             @foreach($pr_objectives AS $key => $objective)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $objective->goal }}</td>
-                                    <td><a href="#" class="mr-2">Edit</a> | <a href="{{ route('hr.pr.objective.destroy',$objective) }}" onclick="if(confirm('Are you sure you want to deleted this objective')){ return true; } else { return false; }" class=" ml-2" data-objective-id>Delete</a></td>
+                                    <td><a href="#" class="mr-2" data-toggle="modal" data-target="#objectiveModel{{ $objective->uuid }}">Edit</a> | <a href="{{ route('hr.pr.objective.destroy',$objective) }}" onclick="if(confirm('Are you sure you want to deleted this objective')){ return true; } else { return false; }" class=" ml-2" data-objective-id>Delete</a></td>
                                 </tr>
 
                                 <!-- Modal -->
+                                {!! Form::open(['route' => ['hr.pr.objective.update',$objective]]) !!}
+                                <div class="modal fade" id="objectiveModel{{ $objective->uuid }}" tabindex="-1" role="dialog" aria-labelledby="objectiveModel{{ $objective->uuid }}Title" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Update</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+                                                    <div class="form-group">
+						                                <label class="form-label">Objective/Goal</label>
+						                                <textarea name='goal' class="form-control" placeholder="" required>{{ $objective->goal }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <input type="submit" value="Update" class="btn btn-primary">
+                                        </div>
+                                    </div>
+                                </div>
+                                {!! Form::close() !!}
+                                <!-- end modal -->
 	
                             @endforeach
                         </tbody>
