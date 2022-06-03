@@ -42,17 +42,23 @@
         <div class="row flex-lg-nowrap">
             <div class="col mb-3">
                 <div class="e-panel card">
-                    <div class="card-header">
-                        <h3 class="card-title">Users</h3>
-                        <div class="card-options ">
-                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-                        </div>
-                    </div>
+
                     <div class="card-body">
                         <div class="e-table">
                             <div class="table-responsive table-lg mt-3">
-                                to be displayed
+                                <div class="col-lg-12 col-sm-12">
+                                    <form action="{{ route('g_officer.import') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="file" name="file" class="dropify">
+                                        <div class="row" style="margin-left: 43%">
+                                            <br>
+
+
+                                        </div>
+                                        <button class="btn btn-info" style="margin-left: 43%"><i class="fe fe-upload mr-2"></i>Upload User Data</button>
+                                        {{--            <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a>--}}
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,6 +69,20 @@
 
 
     </div>
+</div>
+<div class="col-12">
+<div class="row">
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Recheck your data</h3>
+        </div>
+        <div class="card-body">
+            @include('gofficer.gofficer.datatables.all')
+        </div>
+    </div>
+
+</div>
 </div>
 @endsection
 @push('after-scripts')

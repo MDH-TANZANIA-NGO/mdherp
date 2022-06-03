@@ -2,6 +2,7 @@
 
 namespace App\Repositories\GOfficer;
 
+use App\Exports\ExcelExportBeneficiaries;
 use App\Models\GOfficer\GOfficer;
 use App\Models\Regions\region;
 use App\Models\System\District;
@@ -158,5 +159,23 @@ public function getFilterGOfficerByDistrict($district_id)
         ->where('g_officers.district_id', $district_id);
 }
 
+//public function filterGOfficer($inputs)
+//{
+//
+//    if (isset($inputs['region']) and $inputs['districts']== null)
+//    {
+//        $get_filtered_g_officers_by_region = $this->getFilteredGofficerByRegion($inputs['region'])->get();
+//        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_region), 'Beneficiaries List.xlsx');
+//
+//
+//    }
+//    if (isset($inputs['districts']))
+//    {
+//        $get_filtered_g_officers_by_district =  $this->getFilterGOfficerByDistrict($inputs['districts'])->get();
+//        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_district), 'Beneficiaries List.xlsx');
+//
+//
+//    }
+//}
 
 }

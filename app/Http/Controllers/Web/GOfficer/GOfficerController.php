@@ -347,9 +347,7 @@ class GOfficerController extends Controller
 
         }
 
-        else{
-            alert()->error('No data within selected range');
-        }
+
 
         return  redirect()->back();
 

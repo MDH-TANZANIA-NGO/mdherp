@@ -12,6 +12,7 @@ class ExcelExportBeneficiaries implements FromCollection, WithHeadings, WithMapp
     protected $g_officers;
     public function __construct($get_g_officers)
     {
+
         $this->g_officers = $get_g_officers;
     }
     /**
@@ -32,13 +33,16 @@ class ExcelExportBeneficiaries implements FromCollection, WithHeadings, WithMapp
             'Phone',
             'Region',
             'District',
-            'Gender',
             'Scale',
-            'Check Number'
+            'Check Number',
+            'region_id',
+            'district_id',
         ];
     }
 
     public function map($row): array
+    {
+    if ($row->district_id ==  null)
     {
 
         return [
@@ -47,10 +51,29 @@ class ExcelExportBeneficiaries implements FromCollection, WithHeadings, WithMapp
             $row->last_name,
             substr($row->phone, -9),
             $row->region->name,
-            $row->district->name,
-            $row->gender,
-            $row->check_no
+            $row->district_id,
+            $row->g_scale_id,
+            $row->check_no,
+             $row->region_id,
 
         ];
+    }
+    if ($row->district_id !=  null)
+    {
+        return [
+            $row->first_name,
+            $row->middle_name,
+            $row->last_name,
+            substr($row->phone, -9),
+            $row->region->name,
+            $row->district->name,
+            $row->g_scale_id,
+            $row->check_no,
+            $row->region_id,
+            $row->district_id,
+
+        ];
+    }
+
     }
 }
