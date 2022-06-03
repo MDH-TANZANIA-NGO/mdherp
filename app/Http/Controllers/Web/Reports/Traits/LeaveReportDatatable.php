@@ -11,6 +11,9 @@ trait LeaveReportDatatable
     {
         return DataTables::of($this->leaves->getSubmittedLeaves())
             ->addIndexColumn()
+            ->editColumn('comment', function ($query) {
+                return substr($query->comment, 0, 50)."...";
+            })
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->format('d/m/Y');
             })
@@ -32,6 +35,9 @@ trait LeaveReportDatatable
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->format('d/m/Y');
             })
+            ->editColumn('comment', function ($query) {
+                return substr($query->comment, 0, 50)."...";
+            })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('leave.show', $query->uuid).'">View</a>';
             })
@@ -49,6 +55,9 @@ trait LeaveReportDatatable
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->format('d/m/Y');
+            })
+            ->editColumn('comment', function ($query) {
+                return substr($query->comment, 0, 50)."...";
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('leave.show', $query->uuid).'">View</a>';
