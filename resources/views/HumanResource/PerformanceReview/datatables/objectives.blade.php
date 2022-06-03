@@ -32,19 +32,19 @@
                                             </div>
                                             <div class="modal-body">
 
-                                            <div class="row">
-                                                <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
-                                                    <div class="form-group">
-						                                <label class="form-label">Objective/Goal</label>
-						                                <textarea name='goal' class="form-control" placeholder="" required>{{ $objective->goal }}</textarea>
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+                                                        <div class="form-group">
+						                                    <label class="form-label">Objective/Goal</label>
+						                                    <textarea name='goal' class="form-control" placeholder="" required>{{ $objective->goal }}</textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            </div>
                                             <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <input type="submit" value="Update" class="btn btn-primary">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <input type="submit" value="Update" class="btn btn-primary">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
