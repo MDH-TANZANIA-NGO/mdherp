@@ -64,7 +64,7 @@ class GOfficerController extends Controller
 
     public function bulkUpdate()
     {
-        return view('gofficer.gofficer.index')
+        return view('gofficer.gofficer.form.bulkupdate')
             ->with('g_scales', $this->g_scales->getActiveForPluck())
             ->with('regions', $this->regions->getQuery()->pluck('name','id'))
             ->with('districts', $this->districts->getQuery()->pluck('name','id'))
