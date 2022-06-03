@@ -36,6 +36,8 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
             // Route::get('{pr_report}/create', 'PrObjectiveController@create')->name('create');
             Route::post('{pr_report}/store', 'PrObjectiveController@store')->name('store');
             Route::put('{pr_report}/{prObjective}/update', 'PrObjectiveController@update')->name('update');
+            Route::delete('{pr_objective}/destroy', 'PrObjectiveController@destroy')->name('destroy');
+        
         });
     });
 

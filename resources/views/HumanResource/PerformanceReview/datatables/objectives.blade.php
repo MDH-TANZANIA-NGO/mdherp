@@ -6,9 +6,9 @@
                     <table id="objectives" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="wd-15p">#</th>
-                                <th class="wd-15p">OBJECTIVE/GOAL</th>
-                                <th class="wd-15p">ACTION</th>
+                                <th style ="">#</th>
+                                <th style ="">OBJECTIVE/GOAL</th>
+                                <th style ="width:10%">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -16,9 +16,12 @@
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $objective->goal }}</td>
-                                    <td><a href="" class="btn btn-primary">Edit</a></td>
+                                    <td><a href="" class="mr-2">Edit</a> | <a href="" onclick="if(confirm('Are you sure you want to deleted this objective')){ return true; } else { return false; }" class=" ml-2" data-objective-id>Delete</a></td>
                                 </tr>
                             @endforeach
+                        
+                            <!-- {!! Form::open(['method' => 'deleted']) !!}
+                            {!! Form::close() !!} -->
                         </tbody>
                     </table>
                 </div>
