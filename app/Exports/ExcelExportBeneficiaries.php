@@ -9,13 +9,18 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class ExcelExportBeneficiaries implements FromCollection, WithHeadings, WithMapping
 {
+    protected $g_officers;
+    public function __construct($get_g_officers)
+    {
+        $this->g_officers = $get_g_officers;
+    }
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        $g_officer =  GOfficer\GOfficer::all();
-        return $g_officer;
+
+        return $this->g_officers;
     }
 
     public function headings(): array
@@ -26,6 +31,9 @@ class ExcelExportBeneficiaries implements FromCollection, WithHeadings, WithMapp
             'Last Name',
             'Phone',
             'Region',
+            'District',
+            'Gender',
+            'Scale',
             'Check Number'
         ];
     }
@@ -39,6 +47,8 @@ class ExcelExportBeneficiaries implements FromCollection, WithHeadings, WithMapp
             $row->last_name,
             substr($row->phone, -9),
             $row->region->name,
+            $row->district->name,
+            $row->gender,
             $row->check_no
 
         ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\GOfficer;
 
+use App\Exports\ExcelExportBeneficiaries;
 use App\Exports\ExcelExportDuplicateGOfficerImportedData;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerDatatables;
@@ -10,6 +11,7 @@ use App\Imports\GOfficersImport;
 use App\Models\Facility\Facility;
 use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\GofficerImportedData;
+use App\Models\System\District;
 use App\Repositories\Facilities\FacilitiesRepository;
 use App\Repositories\GOfficer\GOfficerImportedDataRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
@@ -316,7 +318,32 @@ class GOfficerController extends Controller
     }
     public function getFacilities($id)
     {
-        return response()->json($this->facilities->query()->where('district_id', $id)->get());
+        return response()->json($this->districts->getFacilitiesByDistrict($id)->get());
+    }
+    public function filterGofficer(Request $request)
+    {
+
+        if (isset($request['region']) and $request['districts']== null)
+        {
+            $get_filtered_g_officers_by_region = $this->g_officers->getFilteredGofficerByRegion($request['region'])->get();
+            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_region), 'Beneficiaries List.xlsx');
+
+
+        }
+        if (isset($request['districts']))
+        {
+            $get_filtered_g_officers_by_district =  $this->g_officers->getFilterGOfficerByDistrict($request['districts'])->get();
+            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_district), 'Beneficiaries List.xlsx');
+
+
+        }
+
+        else{
+            alert()->error('No data within selected range');
+        }
+
+        return  redirect()->back();
+
     }
 
 }

@@ -12,6 +12,7 @@ Route::group(['namespace' => 'GOfficer', 'middleware' => ['web', 'auth'], 'prefi
     Route::put('{uuid}/update', 'GOfficerController@update')->name('update');
     Route::put('{uuid}/activate', 'GOfficerController@activate')->name('activate');
     Route::post('import', 'GOfficerController@import')->name('import');
+    Route::post('filter', 'GOfficerController@filterGofficer')->name('filter');
 
     /**
      * Datatables

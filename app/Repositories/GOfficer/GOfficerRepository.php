@@ -147,7 +147,16 @@ class GOfficerRepository extends BaseRepository
     {
         return $this->getQuery()->where('g_officers.id',$id)->first();
     }
-
+public function getFilteredGofficerByRegion($region_id)
+{
+    return $this->getQuery()
+        ->where('g_officers.region_id', $region_id);
+}
+public function getFilterGOfficerByDistrict($district_id)
+{
+    return $this->getQuery()
+        ->where('g_officers.district_id', $district_id);
+}
 
 
 }
