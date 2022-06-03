@@ -62,6 +62,15 @@ class GOfficerController extends Controller
             ->with('facilities', $this->facilities->getForPLuck());
     }
 
+    public function bulkUpdate()
+    {
+        return view('gofficer.gofficer.index')
+            ->with('g_scales', $this->g_scales->getActiveForPluck())
+            ->with('regions', $this->regions->getQuery()->pluck('name','id'))
+            ->with('districts', $this->districts->getQuery()->pluck('name','id'))
+            ->with('facilities', $this->facilities->getForPLuck());
+    }
+
     /**
      * Show the form for creating a new resource.
      *

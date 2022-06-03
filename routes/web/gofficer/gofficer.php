@@ -2,6 +2,7 @@
 Route::group(['namespace' => 'GOfficer', 'middleware' => ['web', 'auth'], 'prefix' => 'government-officers', 'as' => 'g_officer.'], function () {
     Route::get('', 'GOfficerController@index')->name('index');
     Route::get('create', 'GOfficerController@create')->name('create');
+    Route::get('bulk_update', 'GOfficerController@bulkUpdate')->name('bulk_update');
     Route::get('confirm', 'GOfficerController@confirmAndUpload')->name('confirm');
     Route::get('clear', 'GOfficerController@clearImportHistory')->name('clear');
     Route::get('export_duplicate', 'GOfficerController@exportDuplicateImportedData')->name('export_duplicate');

@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(ServicesSeeder::class);
 
        // $this->call(mdh_ratesTableSeeder::class);
-        $this->call(wardsSeeder::class);
+//        $this->call(wardsSeeder::class);
 
 
         DB::commit();
