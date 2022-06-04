@@ -73,7 +73,7 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        //departmentment director
+        //department director
         $is_assigned = Leave::all()->where('employee_id', access()->user()->id)->where('end_date', '>=', $request['end_date']);
         $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_type_id', $request['leave_type_id'])->first();
         $start = Carbon::parse($request['start_date']);

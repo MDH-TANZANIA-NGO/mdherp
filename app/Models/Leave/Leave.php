@@ -44,4 +44,12 @@ class Leave extends BaseModel
     {
         return $this->belongsTo(Region::class);
     }
+
+    public function getRemainingDays(){
+        $balance = LeaveBalance::where('leave_type_id', $this->leave_type_id)
+            ->where('user_id', $this->user_id)
+            ->first();
+        return $balance->remaining_days;
+    }
+
 }
