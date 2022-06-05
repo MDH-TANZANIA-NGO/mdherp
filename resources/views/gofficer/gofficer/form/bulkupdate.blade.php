@@ -8,11 +8,11 @@
     <div class="col-12 col-lg-3 mb-3">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Filter</h3>
+                <span class="text-small text-success">Filter and export for bulk update</span>
             </div>
             <div class="card-body">
 
-                {!! Form::open(['route' => 'g_officer.filter']) !!}
+                {!! Form::open(['route' => 'g_officer.filterBulkGOfficer']) !!}
 
 
                         <div class="form-group ">
@@ -47,12 +47,11 @@
                         <div class="e-table">
                             <div class="table-responsive table-lg mt-3">
                                 <div class="col-lg-12 col-sm-12">
-                                    <form action="{{ route('g_officer.import') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('g_officer.bulk_update_import') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <input type="file" name="file" class="dropify">
                                         <div class="row" style="margin-left: 43%">
                                             <br>
-
 
                                         </div>
                                         <button class="btn btn-info" style="margin-left: 43%"><i class="fe fe-upload mr-2"></i>Upload User Data</button>
@@ -76,9 +75,18 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Recheck your data</h3>
+            <div class="card-options ">
+                @if($my_import->count() > 0)
+                <a href="{{route('g_officer.pushBulkUpdate')}}" onclick="if (confirm('Are you sure you want to confirm update?')){return true} else {return false}" class="btn btn-indigo"><i class="fa fa-check-circle"></i> Confirm bulk update</a>
+                    <a href="{{route('g_officer.clear')}}" style="margin-left: 1%" onclick="if (confirm('Are you sure you want to remove duplicate?')){return true} else {return false}" class="btn  btn-danger"><i class="fe fe-trash-2 mr-2"></i>Clear Imports</a>
+
+                @endif
+            </div>
+
         </div>
+
         <div class="card-body">
-            @include('gofficer.gofficer.datatables.all')
+            @include('gofficer.gofficer.datatables.bulkimported')
         </div>
     </div>
 
