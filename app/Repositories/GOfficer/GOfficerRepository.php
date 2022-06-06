@@ -3,6 +3,7 @@
 namespace App\Repositories\GOfficer;
 
 use App\Exports\ExcelExportBeneficiaries;
+use App\Imports\GOfficerImportedTemporaryData;
 use App\Models\GOfficer\GOfficer;
 use App\Models\Regions\region;
 use App\Models\System\District;
@@ -142,6 +143,24 @@ class GOfficerRepository extends BaseRepository
 
 
         });
+    }
+
+    public function import($inputs,$file_name )
+    {
+        $temporary_store = new GOfficerImportedTemporaryData($file_name);
+        $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
+        alert()->warning('Please confirm imported data', 'Confirm');
+        return redirect()->back();
+//        try {
+//            $temporary_store = new GOfficerImportedTemporaryData($file_name);
+//            $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
+//            alert()->warning('Please confirm imported data', 'Confirm');
+//            return redirect()->back();
+//        }catch (\Exception $exception){
+//            alert()->error('Something is wrong with your file. Please review and try again','Oohps');
+//            $exception->getMessage();
+//            return redirect()->back();
+//        }
     }
 
     public function getGOfficerAuth($id)
