@@ -23,6 +23,6 @@ trait PrReportRelationship
 
     public function objectives()
     {
-        return $this->hasMany(PrObjective::class);
+        return $this->hasMany(PrObjective::class)->orderBy('id');
     }
 }
