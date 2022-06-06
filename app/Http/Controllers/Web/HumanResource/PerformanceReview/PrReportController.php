@@ -78,9 +78,11 @@ class PrReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(PrReport $pr_report)
     {
-        //
+        return view('HumanResource.PerformanceReview.show')
+        ->with('pr_report', $pr_report)
+        ->with('pr_objectives', $pr_report->objectives);
     }
 
     /**
@@ -91,7 +93,7 @@ class PrReportController extends Controller
      */
     public function submit(PrReport $pr_report)
     {   
-        $this->startWorkflow($pr_report, $pr_report->type, access()->user()->assignedSupervisor()->supervisor_id);
+        $this->startWorkflow($pr_report, $pr_report->type->id, access()->user()->assignedSupervisor()->supervisor_id);
         $this->pr_reports->updateDoneAssignNextUserIdAndGenerateNumber($pr_report); 
         alert()->success(__('Submitted Successfully'), __('Performance Review'));
         return redirect()->route('hr.pr.show', $pr_report);

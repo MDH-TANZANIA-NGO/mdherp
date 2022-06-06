@@ -15,7 +15,6 @@ trait WorkflowInitiator
     public function startWorkflow(Model $model, $type, $next_user_id = null)
     {
         return DB::transaction(function () use ($model, $type, $next_user_id){
-            $model::query()->updateDoneAssignNextUserIdAndGenerateNumber($model);
             $wf_module_group_id = $this->getWfModuleGroupId($model);
             event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $model->id,'region_id' => $model->region_id, 'type' => $type],[],['next_user_id' => $next_user_id]));
         });

@@ -85,7 +85,7 @@ trait Number
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
 
-            case 'requisitions':
+            case 'pr_reports':
                 $reference = "PRNUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
@@ -93,7 +93,7 @@ trait Number
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             default:
-                throw new GeneralException(__('exceptions.general.number_not_set'));
+                throw new GeneralException(__('Number Not Set. Kindly contact system developer'));
                 break;
 
         }

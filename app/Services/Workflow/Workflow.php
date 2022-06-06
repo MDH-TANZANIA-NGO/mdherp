@@ -26,6 +26,7 @@ use App\Repositories\Workflow\WfModuleRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
 use App\Exceptions\GeneralException;
+use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
@@ -549,6 +550,11 @@ class Workflow
                 $program_activity_report_repo = (new ProgramActivityReportRepository());
                 $program_activity_report = $program_activity_report_repo->find($resourceId);
                 $program_activity_report->wfTracks()->save($wfTrack);
+                break;
+            case 10:
+                /*Performance Report */
+                $pr_report_repo = (new PrReportRepository())->find($resourceId);;
+                $pr_report_repo->wfTracks()->save($wfTrack);
                 break;
         }
     }
