@@ -17,4 +17,10 @@ class UserLoginTokenRepository extends  BaseRepository
     {
         $this->query()->where('token', $token)->first();
     }
+    public function update($token)
+    {
+        $this->query()->where('token', $token)->update([
+            'valid'=>true
+        ]);
+    }
 }
