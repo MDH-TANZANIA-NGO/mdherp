@@ -37,6 +37,7 @@ class BeneficiaryFilteredExport implements FromCollection,  WithHeadings, WithMa
             'g_scale_id',
             'check_no',
             'gender_cv_id',
+            'is_government_employed',
             'government_scale_id',
             'referenced_uuid',
         ];
@@ -54,6 +55,7 @@ class BeneficiaryFilteredExport implements FromCollection,  WithHeadings, WithMa
             $row->g_scale_id,
             $row->check_no,
             $row->gender_cv_id,
+            $row->is_government_employed,
             $row->government_scale_id,
             $row->uuid,
 

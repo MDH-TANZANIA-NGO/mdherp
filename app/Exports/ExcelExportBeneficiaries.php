@@ -36,6 +36,7 @@ class ExcelExportBeneficiaries implements FromCollection, WithHeadings, WithMapp
             'District',
             'Scale',
             'Check Number',
+            'Government Employed',
             'region_id',
             'district_id',
         ];
@@ -53,6 +54,7 @@ class ExcelExportBeneficiaries implements FromCollection, WithHeadings, WithMapp
             $row->district,
             $row->g_scale_id,
             $row->check_no,
+            $row->is_governement_employed,
             $row->region_id,
             $row->district_id,
 
