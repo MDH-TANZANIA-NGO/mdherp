@@ -8,6 +8,7 @@
                     <li><a href="#returned" data-toggle="tab">Returned for Modification <span class="badge badge-warning">{{ $hire_requisition->getAccessDeniedDatatable()->count() }}</span></a></li>
                     <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $hire_requisition->getAccessRejectedDatatable()->count() }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $hire_requisition->getAccessProvedDatatable()->count() }}</span></a></li>
+ 
                 </ul>
             </div>
 
@@ -30,10 +31,10 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">TITLE</th>
                                     <th class="wd-15p">REGION</th>
-                                    <th class="wd-15p">DATE REQUIRED</th>
+                              
                                     <th class="wd-25p"># OF EMPLOYEES</th>
-                                    <th class="wd-25p">BUDGET</th>
                                     <th class="wd-25p">CREATED AT</th>
+                                 
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -51,10 +52,10 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">TITLE</th>
                                     <th class="wd-15p">REGION</th>
-                                    <th class="wd-15p">DATE REQUIRED</th>
+                             
                                     <th class="wd-25p"># OF EMPLOYEES</th>
-                                    <th class="wd-25p">BUDGET</th>
                                     <th class="wd-25p">CREATED AT</th>
+                              
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -72,10 +73,10 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">TITLE</th>
                                     <th class="wd-15p">REGION</th>
-                                    <th class="wd-15p">DATE REQUIRED</th>
+                              
                                     <th class="wd-25p"># OF EMPLOYEES</th>
-                                    <th class="wd-25p">BUDGET</th>
                                     <th class="wd-25p">CREATED AT</th>
+                             
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -93,10 +94,10 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">TITLE</th>
                                     <th class="wd-15p">REGION</th>
-                                    <th class="wd-15p">DATE REQUIRED</th>
+                               
                                     <th class="wd-25p"># OF EMPLOYEES</th>
-                                    <th class="wd-25p">BUDGET</th>
                                     <th class="wd-25p">CREATED AT</th>
+                         
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -114,10 +115,30 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">TITLE</th>
                                     <th class="wd-15p">REGION</th>
-                                    <th class="wd-15p">DATE REQUIRED</th>
+                                 
                                     <th class="wd-25p"># OF EMPLOYEES</th>
-                                    <th class="wd-25p">BUDGET</th>
                                     <th class="wd-25p">CREATED AT</th>
+                               
+                                    <th class="wd-25p">ACTION</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="access_saved">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="access_rejected" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th class="wd-15p">#</th>
+                                    <th class="wd-15p">TITLE</th>
+                                    <th class="wd-15p">REGION</th>
+                                   
+                                    <th class="wd-25p"># OF EMPLOYEES</th>
+                                    <th class="wd-25p">CREATED AT</th>
+                                  
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -150,9 +171,9 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},
                     { data: 'region', name: 'regions.name', searchable: true},
-                    { data: 'date_required', name: 'listings.date_required', searchable: true},
-                    { data: 'number', name: 'listings.number', searchable: true },
-                    { data: 'budget', name: 'listings.budget', searchable: true },
+                   
+                    { data: 'total', name: 'listings.total', searchable: true },
+             
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -170,9 +191,9 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},
                     { data: 'region', name: 'regions.name', searchable: true},
-                    { data: 'date_required', name: 'listings.date_required', searchable: true},
-                    { data: 'number', name: 'listings.number', searchable: true },
-                    { data: 'budget', name: 'listings.budget', searchable: true },
+                  
+                    { data: 'total', name: 'listings.total', searchable: true },
+           
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -189,32 +210,35 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},
                     { data: 'region', name: 'regions.name', searchable: true},
-                    { data: 'date_required', name: 'listings.date_required', searchable: true},
-                    { data: 'number', name: 'listings.number', searchable: true },
-                    { data: 'budget', name: 'listings.budget', searchable: true },
+ 
+                    { data: 'total', name: 'listings.total', searchable: true },
+                
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
-            $("#access_approved").DataTable({
+
+            $("#access_saved").DataTable({
                 // processing: true,
                 // serverSide: true,
                 destroy: true,
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('hirerequisition.datatable.access.approved') }}',
+                ajax: '{{ route('hirerequisition.datatable.access.rejected') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},
                     { data: 'region', name: 'regions.name', searchable: true},
-                    { data: 'date_required', name: 'listings.date_required', searchable: true},
-                    { data: 'number', name: 'listings.number', searchable: true },
-                    { data: 'budget', name: 'listings.budget', searchable: true },
+                   
+                    { data: 'total', name: 'listings.total', searchable: true },
+                   
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
+           
+            
         })
     </script>
 @endpush

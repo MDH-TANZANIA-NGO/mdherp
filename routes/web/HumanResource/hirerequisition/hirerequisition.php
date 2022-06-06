@@ -2,7 +2,10 @@
 Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['web', 'auth'], 'prefix' => 'hirerequisition', 'as' => 'hirerequisition.'], function () {
     Route::get('', 'HireRequisitionController@index')->name('index');
     Route::get('create', 'HireRequisitionController@create')->name('create');
+    Route::get('initiate/{uuid}', 'HireRequisitionController@initiate')->name('initiate');
+    Route::post('initiate/{uuid}', 'HireRequisitionController@addRequisition')->name('addRequisition');\
     Route::post('store', 'HireRequisitionController@store')->name('store');
+    Route::post('submit/{uuid}', 'HireRequisitionController@submit')->name('submit');
     Route::get('{hirerequisition}/show', 'HireRequisitionController@show')->name('show');
     Route::get('{hirerequisition}/edit', 'HireRequisitionController@edit')->name('edit');
     Route::put('{hirerequisition}/update', 'HireRequisitionController@update')->name('update');

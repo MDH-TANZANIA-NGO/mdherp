@@ -84,6 +84,15 @@ trait Number
                 $number = '-'.$month.'-'.$year.'-'.$value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
+            case 'hr_hire_requisitions':
+                #generate Reference number
+                $reference = "CHECKNO";
+                $year = $this->year();
+                $month = $this->month();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = 'MDH-HR-'.$month.'-'.$year.'-'.$value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
             default:
                 throw new GeneralException(__('exceptions.general.number_not_set'));
                 break;

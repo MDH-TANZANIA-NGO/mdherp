@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHrRequestsTable extends Migration
+class CreateHrHireRequisitionWorkingToolsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,26 +13,23 @@ class CreateHrRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hr_requests', function (Blueprint $table) {
+        Schema::create('hr_hire_requisition_working_tools', function (Blueprint $table) { 
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->smallInteger('done')->nullable();
-            $table->decimal('rejected')->nullable();
-            $table->smallInteger('wf_done')->nullable();
-            $table->date('wf_done_date')->nullable();
+            $table->unsignedBigInteger('hr_requisitions_jobs_id');
+            $table->unsignedBigInteger('working_tool_id');
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
         });
-    }
+    }    
 
     /**
      * Reverse the migrations.
-     *
+     *                
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('hr_requests');
+        Schema::dropIfExists('hr_hire_requisitions_working_tools');
     }
 }

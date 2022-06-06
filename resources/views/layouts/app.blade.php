@@ -25,6 +25,7 @@
 
 {{--    text editor--}}
 {{ Html::style(url('mdh/plugins/wysiwyag/richtext.css')) }}
+{{ Html::style(url('mdh/css/summernote.min.css')) }}
 
         <!-- Date Picker css -->
     {!! Html::script(url('mdh/plugins/date-picker/date-picker.css')) !!}
@@ -60,7 +61,7 @@
     {{ Html::style(url('mdh/plugins/accordion/accordion.css')) }}
 
    <!-- smartwizard js -->
-   {!! Html::style(url('mdh/css/forn-wizard.min.css')) !!}
+   <!-- {!! Html::style(url('mdh/css/forn-wizard.min.css')) !!} -->
     {!! Html::style(url('mdh/css/smart_wizard.min.css')) !!}
     {!! Html::style(url('mdh/css/smart_wizard_theme_circles.min.css')) !!}
 
@@ -206,7 +207,7 @@
 <!-- AdminLTE App -->
 {{--{!! Html::script(url('dist/js/adminlte.min.js')) !!}--}}
 
-{{--{!! Html::script(url('plugins/summernote/summernote-bs4.min.js')) !!}--}}
+{!! Html::script(url('mdh/js/summernote.min.js')) !!}
 
 {!! Html::script(url('plugins/maskmoney/jquery.maskMoney.js')) !!}
 
@@ -226,6 +227,7 @@
                 ['view', ['fullscreen']],
             ],
         });
+        
         $(".money").maskMoney({
             precision: 2,
             allowZero: false,

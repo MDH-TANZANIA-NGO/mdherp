@@ -459,7 +459,7 @@ class Workflow
                     $listingrepo = (new HireRequisitionRepository());
                     $listing = $listingrepo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('listing.show',$listing),
+                        'link' =>  route('hirerequisition.show',$listing),
                         'subject' =>  "Hire Requisition Approval",
                         'message' => 'This Hire Requisition Needs your Approval'
                     ];

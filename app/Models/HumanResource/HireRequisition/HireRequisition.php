@@ -7,17 +7,19 @@ use App\Models\BaseModel;
 use App\Models\System\CodeValue;
 use App\Models\Unit\Department;
 use App\Models\Workflow\WfTrack;
+use App\Models\HumanResource\HireRequisition\HireRequisitionWorkingTool;
+use App\Models\System\WorkingTool;
 
 class HireRequisition extends BaseModel
 {
-    protected $table= 'listings';
+    protected $table= 'hr_hire_requisitions';
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
     public function workingTools(){
-        return $this->belongsToMany(WorkingTool::class, 'listing_working_tool');
+        return $this->hasMany(HireRequisitionWorkingTool::class);
     }
 
     public function wfTracks()
