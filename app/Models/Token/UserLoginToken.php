@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Usertoken;
+namespace App\Models\Token;
 
 use Illuminate\Database\Eloquent\Model;
 
