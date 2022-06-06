@@ -20,7 +20,7 @@
                                 </tr>
 
                                 <!-- Modal -->
-                                {!! Form::open(['route' => ['hr.pr.objective.update',$objective]]) !!}
+                               
                                 <div class="modal fade" id="objectiveModel{{ $objective->uuid }}" tabindex="-1" role="dialog" aria-labelledby="objectiveModel{{ $objective->uuid }}Title" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                         <div class="modal-content">
@@ -30,8 +30,9 @@
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
+                                            {!! Form::open(['route' => ['hr.pr.objective.update',$objective], 'method' => 'put']) !!}
                                             <div class="modal-body">
-
+                                           
                                                 <div class="row">
                                                     <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
                                                         <div class="form-group">
@@ -45,10 +46,11 @@
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <input type="submit" value="Update" class="btn btn-primary">
                                             </div>
+                                            {!! Form::close() !!}
                                         </div>
                                     </div>
                                 </div>
-                                {!! Form::close() !!}
+                               
                                 <!-- end modal -->
 	
                             @endforeach
