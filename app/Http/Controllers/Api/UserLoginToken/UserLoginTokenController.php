@@ -17,6 +17,6 @@ class UserLoginTokenController extends Controller
 
     public function verifyToken()
     {
-       return $this->login_token->query()->where('token', \request()->input('token'))->first();
+       return response()->json($this->login_token->query()->where('token', \request()->input('token'))->first());
     }
 }
