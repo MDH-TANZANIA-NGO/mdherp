@@ -15,6 +15,12 @@ class CreateUserLoginTokensTable extends Migration
     {
         Schema::create('user_login_tokens', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->string('token');
+            $table->boolean('valid')->default(false);
+            $table->bigInteger('session_time');
+            $table->date('deleted_at')->nullable();
+            $table->string('uuid');
             $table->timestamps();
         });
     }

@@ -110,8 +110,9 @@
     @endpermission
 
     @permission('cqi_dashboard')
+
         <div class="col-4 col-sm-4 col-lg-3">
-            <a href="{{ url('http://41.188.137.37:8080/dfqi/index.php?token=1234') }}">
+            <a href="{{ 'http://41.188.137.37:8080/dfqi/index.php?token='.access()->user()->loginToken->token}}" target="_blank">
                 <div class="card">
                     <div class="card-body text-center">
                         <div class="h2 m-0"><i class="fa fa-bar-chart-o multiple-outline text-primary"></i></div>
@@ -120,6 +121,7 @@
                 </div>
             </a>
         </div>
+
     @endpermission
 
     @permission('hire_requisition')
