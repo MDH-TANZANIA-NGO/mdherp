@@ -73,7 +73,11 @@ class DatabaseSeeder extends Seeder
 =======
 
        // $this->call(mdh_ratesTableSeeder::class);
+<<<<<<< HEAD
 >>>>>>> 0c95c8a40975e42ccc033f5f45947b3f95d76f46
+=======
+//        $this->call(wardsSeeder::class);
+>>>>>>> 3dffb45c5c547fe778c0f88794bd5c126672acdf
 
 
         DB::commit();

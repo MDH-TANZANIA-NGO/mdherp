@@ -5,11 +5,9 @@
         <th class="wd-20p">NAMES</th>
         <th class="wd-25p">CHECK NO</th>
         <th class="wd-10p">PHONE</th>
-        <th class="wd-25p">TITLE</th>
         <th class="wd-25p">REGION</th>
-        <th class="wd-25p">DISTRICT</th>
-        <th class="wd-25p">FACILITY</th>
-        <th class="wd-10p">ACTION</th>
+        <th class="wd-10p">DISTRICT</th>
+        <th class="wd-10p">TITLE</th>
 
     </tr>
     </thead>
@@ -20,6 +18,9 @@
         $(document).ready(function () {
 
             $("#all_projects").DataTable({
+                select: {
+                    style:'multi',
+                },
                 // dom: 'Bfrtip',
                 // buttons: [
                 //     'copy', 'csv', 'excel', 'pdf', 'print'
@@ -30,17 +31,15 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('g_officer.datatable.all') }}',
+                ajax: '{{ route('g_officer.datatable.bulk_imported') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'names', name: 'names', searchable: true},
-                    { data: 'check_no', name: 'g_officers.email', searchable: true},
-                    { data: 'phone', name: 'g_officers.phone', searchable: true},
-                    { data: 'g_scale_title', name: 'g_scales.title', searchable: true},
+                    { data: 'check_no', name: 'gofficer_imported_data.email', searchable: true},
+                    { data: 'phone', name: 'gofficer_imported_data.phone', searchable: true},
                     { data: 'region_name', name: 'regions.name', searchable: true},
-                    { data: 'district', name: 'districts.name', searchable: true},
-                    { data: 'facilities', name: 'facilities.name', searchable: true},
-                    { data: 'action', name: 'action', searchable: false },
+                    { data: 'district_name', name: 'districts.name', searchable: true},
+                    { data: 'g_scale_title', name: 'g_scales.title', searchable: true},
                 ],
 
 

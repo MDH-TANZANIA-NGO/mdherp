@@ -2,6 +2,8 @@
 
 namespace App\Repositories\GOfficer;
 
+use App\Exports\ExcelExportBeneficiaries;
+use App\Imports\GOfficerImportedTemporaryData;
 use App\Models\GOfficer\GOfficer;
 use App\Models\Regions\region;
 use App\Models\System\District;
@@ -143,11 +145,56 @@ class GOfficerRepository extends BaseRepository
         });
     }
 
+    public function import($inputs,$file_name )
+    {
+        $temporary_store = new GOfficerImportedTemporaryData($file_name);
+        $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
+        alert()->warning('Please confirm imported data', 'Confirm');
+        return redirect()->back();
+//        try {
+//            $temporary_store = new GOfficerImportedTemporaryData($file_name);
+//            $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
+//            alert()->warning('Please confirm imported data', 'Confirm');
+//            return redirect()->back();
+//        }catch (\Exception $exception){
+//            alert()->error('Something is wrong with your file. Please review and try again','Oohps');
+//            $exception->getMessage();
+//            return redirect()->back();
+//        }
+    }
+
     public function getGOfficerAuth($id)
     {
         return $this->getQuery()->where('g_officers.id',$id)->first();
     }
+public function getFilteredGofficerByRegion($region_id)
+{
+    return $this->getQuery()
+        ->where('g_officers.region_id', $region_id);
+}
+public function getFilterGOfficerByDistrict($district_id)
+{
+    return $this->getQuery()
+        ->where('g_officers.district_id', $district_id);
+}
 
-
+//public function filterGOfficer($inputs)
+//{
+//
+//    if (isset($inputs['region']) and $inputs['districts']== null)
+//    {
+//        $get_filtered_g_officers_by_region = $this->getFilteredGofficerByRegion($inputs['region'])->get();
+//        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_region), 'Beneficiaries List.xlsx');
+//
+//
+//    }
+//    if (isset($inputs['districts']))
+//    {
+//        $get_filtered_g_officers_by_district =  $this->getFilterGOfficerByDistrict($inputs['districts'])->get();
+//        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_district), 'Beneficiaries List.xlsx');
+//
+//
+//    }
+//}
 
 }

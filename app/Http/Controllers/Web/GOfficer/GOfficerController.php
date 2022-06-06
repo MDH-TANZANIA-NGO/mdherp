@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers\Web\GOfficer;
 
+use App\Exports\BeneficiaryFilteredExport;
+use App\Exports\ExcelExportBeneficiaries;
 use App\Exports\ExcelExportDuplicateGOfficerImportedData;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerDatatables;
+use App\Http\Controllers\Web\GOfficer\Datatables\GOfficerImportedDatatables;
+use App\Http\Controllers\Web\GOfficer\Datatables\TemporaryImportedBeneficiaryDatatable;
+use App\Imports\BulkUpdateBeneficiariesImport;
 use App\Imports\GOfficerImportedTemporaryData;
 use App\Imports\GOfficersImport;
 use App\Models\Facility\Facility;
 use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\GofficerImportedData;
+use App\Models\System\District;
 use App\Repositories\Facilities\FacilitiesRepository;
 use App\Repositories\GOfficer\GOfficerImportedDataRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
@@ -26,7 +32,9 @@ use function PHPUnit\Framework\isEmpty;
 
 class GOfficerController extends Controller
 {
-    use GOfficerDatatables, Number;
+    use GOfficerDatatables, Number, TemporaryImportedBeneficiaryDatatable;
+
+
 
     protected $g_officers;
     protected $g_scales;
@@ -54,6 +62,16 @@ class GOfficerController extends Controller
     public function index()
     {
         return view('gofficer.gofficer.index')
+            ->with('g_scales', $this->g_scales->getActiveForPluck())
+            ->with('regions', $this->regions->getQuery()->pluck('name','id'))
+            ->with('districts', $this->districts->getQuery()->pluck('name','id'))
+            ->with('facilities', $this->facilities->getForPLuck());
+    }
+
+    public function bulkUpdate()
+    {
+        return view('gofficer.gofficer.form.bulkupdate')
+            ->with('my_import', $this->g_officer_imported_data_repo->getAccessImportedData()->get())
             ->with('g_scales', $this->g_scales->getActiveForPluck())
             ->with('regions', $this->regions->getQuery()->pluck('name','id'))
             ->with('districts', $this->districts->getQuery()->pluck('name','id'))
@@ -156,25 +174,40 @@ class GOfficerController extends Controller
 
     public function import(Request $request)
     {
+        $file_name = $request->file('file')->getClientOriginalName();
+
+        if ($request->hasFile('file')) {
+            $this->g_officers->import($request->all(), $file_name);
+        }
+        else{
+            alert()->error('You have not attach any file', 'Failed');
+        }
+        return redirect()->back();
+
+
+    }
+
+    public function bulkUpdateImport(Request $request)
+    {
 
         if ($request->hasFile('file')){
 
-//            $file_name = $request->file('file')->getClientOriginalName();
-//            $temporary_store = new GOfficerImportedTemporaryData($file_name);
-//            $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
-//            alert()->warning('Please confirm imported data', 'Confirm');
-//            return redirect()->back();
-            try {
-                $file_name = $request->file('file')->getClientOriginalName();
-                $temporary_store = new GOfficerImportedTemporaryData($file_name);
-                $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
-                alert()->warning('Please confirm imported data', 'Confirm');
-                 return redirect()->back();
-             }catch (\Exception $exception){
-                 alert()->error('Something is wrong with your file. Please review and try again','Oohps');
-                 $exception->getMessage();
-                 return redirect()->back();
-             }
+            $file_name = $request->file('file')->getClientOriginalName();
+            $temporary_store = new BulkUpdateBeneficiariesImport($file_name);
+            $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
+            alert()->warning('Please confirm imported data', 'Confirm');
+            return redirect()->back();
+//            try {
+//                $file_name = $request->file('file')->getClientOriginalName();
+//                $temporary_store = new BulkUpdateBeneficiariesImport($file_name);
+//                $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
+//                alert()->warning('Please confirm imported data', 'Confirm');
+//                return redirect()->back();
+//            }catch (\Exception $exception){
+//                alert()->error('Something is wrong with your file. Please review and try again','Oohps');
+//                $exception->getMessage();
+//                return redirect()->back();
+//            }
         }
         else{
 
@@ -227,54 +260,40 @@ class GOfficerController extends Controller
                 alert()->error('Your file has duplicate beneficiaries entries.','Failed');
                 return redirect()->back();
             }
-//            return redirect()->back();
-/*
-//                ->each(function ($oldPost) {
-//                    $newPost = $oldPost->replicate(['user_id', 'duplicated', 'uploaded', 'file_name', 'number']);
-//                    $newPost->setTable('g_officers');
-//                    $newPost->save();
-//
-//                });
+    }
 
-            if ($upload) {
-                GofficerImportedData::query()->where('user_id', access()->user()->id)->forceDelete();
-                alert()->success('Uploaded and confirmed successfully', 'Success');
+    public function pushBulkUpdate()
+    {
+        $upload = $this->g_officer_imported_data_repo->getAccessImportedData()->get();
+        $tobe_updated = [];
+        foreach ($upload as $data) {
+            $check_data = $this->g_officers->getQuery()->where('g_officers.uuid', $data->referenced_uuid);
+
+
+            if ($check_data->count() > 0)
+            {
+                $check_data->update([
+                    'first_name'=>$data->first_name,
+                    'middle_name'=>$data->middle_name,
+                    'last_name'=>$data->last_name,
+                    'phone'=>$data->phone,
+                    'phone2'=>$data->phone2,
+                    'region_id'=>$data->region_id,
+                    'password'=>$data->password,
+                    'fingerprint_data'=>$data->fingerprint_data,
+                    'fingerprint_length'=>$data->fingerprint_length,
+                    'check_no'=>$data->check_no,
+                    'district_id'=>$data->district_id,
+                    'gender_cv_id'=> $data->gender_cv_id == null ? 6: $data->gender_cv_id,
+                    'g_scale_id'=>$data->g_scale_id,
+                    'government_scale_id'=>$data->government_scale_id,
+                ]);
             }
+        }
+        $this->g_officer_imported_data_repo->getAccessImportedData()->forceDelete();
 
-
-            return redirect()->back();
-        }catch (\Exception $exception){
-
-            $exception->getMessage();
-            alert()->error('You can not confirm duplicate entries','FAILED');
-            return redirect()->back();
-        }*/
-       /* try {
-            $upload = GofficerImportedData::query()
-                ->where('user_id','=', access()->user()->id)
-                ->where('uploaded', false)
-                ->each(function ($oldPost) {
-                    $newPost = $oldPost->replicate(['user_id','duplicated','uploaded','file_name']);
-                    $newPost->setTable('g_officers');
-                    $newPost->save();
-
-                });
-
-            if ($upload){
-                DB::update('update gofficer_imported_data set uploaded = ? where user_id = ?', [true, access()->user()->id]);
-            }
-            alert()->success('Uploaded and confirmed successfully', 'Success');
-
-            return redirect()->back();
-        }catch (\Exception $exception){
-
-            $exception->getMessage();
-            alert()->error('You can not confirm duplicate entries','Not allowed');
-            return redirect()->back();
-        }*/
-
-
-
+        alert()->success('You have updated bulk beneficiaries successfully','Success');
+        return redirect()->back();
     }
 
     public function clearImportHistory()
@@ -316,7 +335,53 @@ class GOfficerController extends Controller
     }
     public function getFacilities($id)
     {
-        return response()->json($this->facilities->query()->where('district_id', $id)->get());
+        return response()->json($this->districts->getFacilitiesByDistrict($id)->get());
+    }
+    public function filterGofficer(Request $request)
+    {
+
+        if (isset($request['region']) and $request['districts']== null)
+        {
+            $get_filtered_g_officers_by_region = $this->g_officers->getFilteredGofficerByRegion($request['region'])->get();
+            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_region), 'Beneficiaries List.xlsx');
+
+
+        }
+        if (isset($request['districts']))
+        {
+            $get_filtered_g_officers_by_district =  $this->g_officers->getFilterGOfficerByDistrict($request['districts'])->get();
+            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_district), 'Beneficiaries List.xlsx');
+
+
+        }
+
+
+
+        return  redirect()->back();
+
+    }
+    public function filterBulkGOfficer(Request $request)
+    {
+
+        if (isset($request['region']) and $request['districts']== null)
+        {
+            $get_filtered_g_officers_by_region = $this->g_officers->getFilteredGofficerByRegion($request['region'])->get();
+            return \Maatwebsite\Excel\Facades\Excel::download(new BeneficiaryFilteredExport($get_filtered_g_officers_by_region), 'Beneficiaries List.xlsx');
+
+
+        }
+        if (isset($request['districts']))
+        {
+            $get_filtered_g_officers_by_district =  $this->g_officers->getFilterGOfficerByDistrict($request['districts'])->get();
+            return \Maatwebsite\Excel\Facades\Excel::download(new BeneficiaryFilteredExport($get_filtered_g_officers_by_district), 'Beneficiaries List.xlsx');
+
+
+        }
+
+
+
+        return  redirect()->back();
+
     }
 
 }

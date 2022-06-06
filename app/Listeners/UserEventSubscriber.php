@@ -2,9 +2,11 @@
 
 namespace App\Listeners;
 
+use App\Models\Token\UserLoginToken;
 use App\Repositories\Access\UserLogRepository;
 use App\Repositories\System\CodeValueRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Jenssegers\Agent\Agent;
 
 /**
@@ -71,6 +73,7 @@ class UserEventSubscriber
     {
         $data = ['user_id' => $event->user->id, 'user_log_cv_id' => $this->codeValue->getUserLogTypeLogIn()];
         $this->createLogData($data);
+        $this->storeUserToken();
         //Save this login
         $user = $event->user;
         $user->last_login = Carbon::now();
@@ -84,6 +87,7 @@ class UserEventSubscriber
     {
         $data = ['user_id' => $event->user->id, 'user_log_cv_id' => $this->codeValue->getUserLogTypeLogOut()];
         $this->createLogData($data);
+        $this->updateUserToken($event->user->loginToken->uuid);
     }
 
     /**
@@ -121,6 +125,22 @@ class UserEventSubscriber
     public function onUserRegistered($event)
     {
 
+    }
+
+    public function storeUserToken()
+    {
+        UserLoginToken::query()->create([
+            'user_id'=>access()->id(),
+            'token'=>Str::random(64),
+            'session_time'=>90,
+
+        ]);
+    }
+    public function updateUserToken($uuid)
+    {
+        UserLoginToken::query()->where('uuid', $uuid)->update([
+            'valid'=>false
+        ]);
     }
 
     /**
