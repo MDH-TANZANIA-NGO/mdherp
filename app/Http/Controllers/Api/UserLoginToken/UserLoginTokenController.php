@@ -23,7 +23,7 @@ class UserLoginTokenController extends BaseController
         $results['details'] = $user_token;
         if ($user_token)
         {
-            
+
              return $this->sendResponse($results,'Token is valid');
         }
         else{
