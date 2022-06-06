@@ -28,7 +28,9 @@
         <div class="card-body">
         @switch($pr_report->pr_type_id)
             @case(1)
+                @if($can_edit_resource)
                 @include('HumanResource.PerformanceReview.form.objective',['pr_report' => $pr_report])
+                @endif
                 @include('HumanResource.PerformanceReview.datatables.objectives',['pr_objectives' => $pr_objectives])
             @break
         @endswitch

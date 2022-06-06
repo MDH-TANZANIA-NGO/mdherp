@@ -27,6 +27,18 @@ trait WorkflowResourceModificationStageTrait
 //                        break;
                 }
                 break;
+
+                /*Performance Report Module*/
+            case 'pr_reports':
+                switch ($pending_level){
+                    case 1: //Applicant level
+                        if($model->user_id == access()->id()){
+                            $allow = true;
+                        }
+                        break;
+
+                }
+                break;
         }
         return $allow;
     }
