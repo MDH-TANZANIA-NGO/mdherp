@@ -2,6 +2,7 @@
 
 namespace App\Repositories\GOfficer;
 
+use App\Exports\ExcelExportBeneficiaries;
 use App\Models\GOfficer\GOfficer;
 use App\Models\Regions\region;
 use App\Models\System\District;
@@ -147,7 +148,34 @@ class GOfficerRepository extends BaseRepository
     {
         return $this->getQuery()->where('g_officers.id',$id)->first();
     }
+public function getFilteredGofficerByRegion($region_id)
+{
+    return $this->getQuery()
+        ->where('g_officers.region_id', $region_id);
+}
+public function getFilterGOfficerByDistrict($district_id)
+{
+    return $this->getQuery()
+        ->where('g_officers.district_id', $district_id);
+}
 
-
+//public function filterGOfficer($inputs)
+//{
+//
+//    if (isset($inputs['region']) and $inputs['districts']== null)
+//    {
+//        $get_filtered_g_officers_by_region = $this->getFilteredGofficerByRegion($inputs['region'])->get();
+//        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_region), 'Beneficiaries List.xlsx');
+//
+//
+//    }
+//    if (isset($inputs['districts']))
+//    {
+//        $get_filtered_g_officers_by_district =  $this->getFilterGOfficerByDistrict($inputs['districts'])->get();
+//        return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_district), 'Beneficiaries List.xlsx');
+//
+//
+//    }
+//}
 
 }

@@ -27,6 +27,7 @@
             <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">External User </span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('g_officer.create') }}"><span>Register</span></a></li>
+                <li><a class="slide-item"  href="{{ route('g_officer.bulk_update') }}"><span>Bulk Update</span></a></li>
                 <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>List</span></a></li>
             </ul>
         </li>
@@ -91,6 +92,7 @@
                 <li><a class="slide-item"  href="{{ route('leave_report.index') }}"><span>Leave Reports</span></a></li>
                 <li><a class="slide-item"  href="{{ route('timesheet_report.index') }}"><span>Timesheet Reports</span></a></li>
                 <li><a class="slide-item"  href="{{ route('employee.index') }}"><span>Employees</span></a></li>
+                <li><a class="slide-item"  href="{{ route('designation.create') }}"><span>Add Designation</span></a></li>
             </ul>
         </li>
         @endpermission

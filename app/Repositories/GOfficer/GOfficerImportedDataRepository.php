@@ -29,6 +29,11 @@ class GOfficerImportedDataRepository extends  BaseRepository
             DB::raw('gofficer_imported_data.check_no as check_no'),
             DB::raw('gofficer_imported_data.fingerprint_data as fingerprint_data'),
             DB::raw('gofficer_imported_data.fingerprint_length as fingerprint_length'),
+            DB::raw('gofficer_imported_data.district_id AS district_id'),
+            DB::raw('gofficer_imported_data.g_scale_id as g_scale_id'),
+            DB::raw('gofficer_imported_data.gender_cv_id as gender_cv_id'),
+            DB::raw('gofficer_imported_data.referenced_uuid as referenced_uuid'),
+            DB::raw('gofficer_imported_data.government_scale_id as government_scale_id'),
         ]);
 
 }
@@ -58,6 +63,17 @@ public function getUploadedNotConfirmed()
         return $this->getQuery()
             ->where('gofficer_imported_data.user_id', access()->user()->id)
             ->whereDoesntHave('gOfficer');
+}
+public function getAccessandJoinOtherTables()
+{
+    return $this->getAccessImportedData()
+        ->addSelect('regions.name AS region_name',
+                'districts.name AS district_name',
+            'g_scales.title AS g_scale_title'
+        )
+        ->join('regions','regions.id','gofficer_imported_data.region_id')
+        ->leftjoin('districts', 'districts.id', 'gofficer_imported_data.district_id')
+        ->leftjoin('g_scales', 'g_scales.id', 'gofficer_imported_data.g_scale_id');
 }
 
 }
