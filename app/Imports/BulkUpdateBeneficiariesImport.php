@@ -45,6 +45,7 @@ class BulkUpdateBeneficiariesImport implements ToModel, WithHeadingRow, ToCollec
             'check_no'=>$row['check_no'],
             'government_scale_id'=>$row['government_scale_id'],
             'g_scale_id'=>$row['g_scale_id'],
+            'is_government_employed'=>$row['is_government_employed'],
             'referenced_uuid'=>$row['referenced_uuid'],
             'user_id'=>access()->user()->id,
             'file_name'=>$this->file_name
