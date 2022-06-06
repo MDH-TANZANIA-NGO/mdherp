@@ -174,32 +174,15 @@ class GOfficerController extends Controller
 
     public function import(Request $request)
     {
+        $file_name = $request->file('file')->getClientOriginalName();
 
-        if ($request->hasFile('file')){
-
-//            $file_name = $request->file('file')->getClientOriginalName();
-//            $temporary_store = new GOfficerImportedTemporaryData($file_name);
-//            $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
-//            alert()->warning('Please confirm imported data', 'Confirm');
-//            return redirect()->back();
-            try {
-                $file_name = $request->file('file')->getClientOriginalName();
-                $temporary_store = new GOfficerImportedTemporaryData($file_name);
-                $import_to_temporary_store = \Maatwebsite\Excel\Facades\Excel::import($temporary_store, \request()->file('file'));
-                alert()->warning('Please confirm imported data', 'Confirm');
-                 return redirect()->back();
-             }catch (\Exception $exception){
-                 alert()->error('Something is wrong with your file. Please review and try again','Oohps');
-                 $exception->getMessage();
-                 return redirect()->back();
-             }
+        if ($request->hasFile('file')) {
+            $this->g_officers->import($request->all(), $file_name);
         }
         else{
-
             alert()->error('You have not attach any file', 'Failed');
-
-            return redirect()->back();
         }
+        return redirect()->back();
 
 
     }
