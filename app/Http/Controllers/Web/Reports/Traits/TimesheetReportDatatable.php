@@ -9,17 +9,12 @@ trait TimesheetReportDatatable
 {
 
     public function getSubmittedTimesheets(){
-//        $month = date('m', strtotime(today()));
-//        $year =  date('Y', strtotime(today()));
         $data = request()->input('month');
-
-
         if (isset($data)){
             $timestamp = explode("-", $data);
             $month = $timestamp[0];
             $year = $timestamp[1];
         }
-
         return DataTables::of($this->timesheets->getSubmittedTimesheets($month, $year))
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
@@ -37,11 +32,7 @@ trait TimesheetReportDatatable
     }
 
     public function getApprovedTimesheets(){
-//        $month = date('m', strtotime(today()));
-//        $year =  date('Y', strtotime(today()));
         $data = request()->input('month');
-
-
         if (isset($data)){
             $timestamp = explode("-", $data);
             $month = $timestamp[0];
@@ -64,11 +55,7 @@ trait TimesheetReportDatatable
     }
 
     public function getRejectedTimesheets(){
-//        $month = date('m', strtotime(today()));
-//        $year =  date('Y', strtotime(today()));
         $data = request()->input('month');
-
-
         if (isset($data)){
             $timestamp = explode("-", $data);
             $month = $timestamp[0];
@@ -91,12 +78,7 @@ trait TimesheetReportDatatable
     }
 
     public function getAllNotSubmittedTimesheet( ){
-
-//        $month = date('m', strtotime(today()));
-//        $year =  date('Y', strtotime(today()));
         $data = request()->input('month');
-
-
         if (isset($data)){
             $timestamp = explode("-", $data);
             $month = $timestamp[0];
@@ -104,7 +86,6 @@ trait TimesheetReportDatatable
         }
         return DataTables::of($this->users->getAllNotSubmittedTimesheet($month, $year))
             ->addIndexColumn()
-
             ->rawColumns(['action'])
             ->make(true);
     }

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
+
     <div class="col-lg-12 col-md-12">
     {!! Form::open(['route' => 'g_officer.filter']) !!}
 
@@ -10,8 +11,7 @@
                 {!! Form::label('region', __("label.region"),['class'=>'form-label','required_asterik']) !!}
                 {!! Form::select('region', $regions, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required', 'style'=>'width:100%']) !!}
                 {!! $errors->first('region', '<span class="badge badge-danger">:message</span>') !!}
-            </div>
-        </div>
+
         <div class="col-md-4">
             <div class="form-group ">
                 {!! Form::label('Districts', __("Districts"),['class'=>'form-label','required_asterik']) !!}
