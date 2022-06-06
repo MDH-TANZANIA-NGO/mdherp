@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Web\HumanResource\PerformanceReview;
 
+use App\Events\NewWorkflow;
+use Illuminate\Http\Request;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrReportDatatables;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrReportDatatables;
+use App\Services\Workflow\Traits\WorkflowInitiator;
 
 class PrReportController extends Controller
 {
-    use PrReportDatatables;
+    use PrReportDatatables, WorkflowInitiator;
     protected $pr_reports;
 
     public function __construct()
@@ -83,34 +86,14 @@ class PrReportController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  PrReport $pr_report
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function submit(PrReport $pr_report)
+    {   
+        $this->startWorkflow($pr_report, $pr_report->type, access()->user()->assignedSupervisor()->supervisor_id);
+        $this->pr_reports->updateDoneAssignNextUserIdAndGenerateNumber($pr_report); 
+        alert()->success(__('Submitted Successfully'), __('Performance Review'));
+        return redirect()->route('hr.pr.show', $pr_report);
     }
 }

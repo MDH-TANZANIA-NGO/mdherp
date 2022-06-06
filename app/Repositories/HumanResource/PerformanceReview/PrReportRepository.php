@@ -5,11 +5,14 @@ namespace App\Repositories\HumanResource\PerformanceReview;
 use App\Models\Budget\FiscalYear;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\BaseRepository;
+use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 
 class PrReportRepository extends BaseRepository
 {
     const MODEL = PrReport::class;
+
+    use Number;
 
     public function getQuery()
     {
@@ -83,6 +86,23 @@ class PrReportRepository extends BaseRepository
                 'fiscal_year_id' => FiscalYear::query()->where('active', true)->first()->id,
                 'designation_id' => access()->user()->designation_id,
                 'pr_type_id' => 1
+            ]);
+        });
+    }
+
+
+    /**
+     * Update is done column and generate number
+     * @param Requisition $requisition
+     * @return mixed
+     */
+    public function updateDoneAssignNextUserIdAndGenerateNumber(PrReport $pr_report)
+    {
+        return DB::transaction(function () use ($pr_report) {
+            return $pr_report->update([
+                'done' => true,
+                'supervisor_id' => access()->user()->assignedSupervisor()->supervisor_id,
+                'number' => $this->generateNumber($pr_report)
             ]);
         });
     }
