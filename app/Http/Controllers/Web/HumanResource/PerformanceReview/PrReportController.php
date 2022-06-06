@@ -4,21 +4,25 @@ namespace App\Http\Controllers\Web\HumanResource\PerformanceReview;
 
 use App\Events\NewWorkflow;
 use Illuminate\Http\Request;
+use App\Services\Workflow\Workflow;
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
+use App\Repositories\Workflow\WfTrackRepository;
+use App\Services\Workflow\Traits\WorkflowInitiator;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrReportDatatables;
-use App\Services\Workflow\Traits\WorkflowInitiator;
 
 class PrReportController extends Controller
 {
     use PrReportDatatables, WorkflowInitiator;
     protected $pr_reports;
+    protected $wf_tracks;
 
     public function __construct()
     {
         $this->pr_reports = (new PrReportRepository());
+        $this->wf_tracks = (new WfTrackRepository());
         $this->middleware('auth');
     }
 
@@ -80,9 +84,19 @@ class PrReportController extends Controller
      */
     public function show(PrReport $pr_report)
     {
+        $wf_module_group_id = 10;
+        $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $pr_report->id);
+        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $pr_report->id, 'type' => $wf_module->type]);
+        $current_wf_track = $workflow->currentWfTrack();
+        $current_level = $workflow->currentLevel();
+        $can_edit_resource = $this->wf_tracks->canEditResource($pr_report, $current_level, $workflow->wf_definition_id);
         return view('HumanResource.PerformanceReview.show')
         ->with('pr_report', $pr_report)
-        ->with('pr_objectives', $pr_report->objectives);
+        ->with('pr_objectives', $pr_report->objectives)
+            ->with('current_level', $current_level)
+            ->with('current_wf_track', $current_wf_track)
+            ->with('can_edit_resource', $can_edit_resource)
+            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($pr_report));
     }
 
     /**

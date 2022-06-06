@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('content')
-    <!-- @include('HumanResource.PerformanceReview.form.probation') -->
+
+    <div class="row mb-2">
+        <div class="col-lg-12">
+            @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
+        </div>
+    </div>
+
 <div class="row">
 
     <div class="col-sm-12 col-lg-12 col-xl-12 col-md-12 mb-3">
