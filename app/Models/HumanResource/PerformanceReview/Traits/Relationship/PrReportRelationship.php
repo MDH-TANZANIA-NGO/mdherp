@@ -2,6 +2,7 @@
 
 namespace App\Models\HumanResource\PerformanceReview\Traits\Relationship;
 
+use App\Models\Auth\User;
 use App\Models\HumanResource\PerformanceReview\PrObjective;
 use App\Models\HumanResource\PerformanceReview\PrType;
 use App\Models\Workflow\WfTrack;
@@ -24,5 +25,10 @@ trait PrReportRelationship
     public function objectives()
     {
         return $this->hasMany(PrObjective::class)->orderBy('id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

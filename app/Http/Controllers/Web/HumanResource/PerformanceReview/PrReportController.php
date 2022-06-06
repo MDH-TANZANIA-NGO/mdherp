@@ -84,7 +84,7 @@ class PrReportController extends Controller
      */
     public function show(PrReport $pr_report)
     {
-        $wf_module_group_id = 10;
+        $wf_module_group_id = $this->getWfModuleGroupId($pr_report);
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $pr_report->id);
         $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $pr_report->id, 'type' => $wf_module->type]);
         $current_wf_track = $workflow->currentWfTrack();
