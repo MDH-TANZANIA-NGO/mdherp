@@ -478,6 +478,16 @@ class Workflow
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
 
+                case 11:
+                    $pr_report = (new PrReportRepository())->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('hr.pr.show',$pr_report),
+                        'subject' =>  " Need your review",
+                        'message' => ' Performance Appraisal'
+                    ];
+                    // User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
+
             }
 
 

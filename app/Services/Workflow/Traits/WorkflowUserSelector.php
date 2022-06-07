@@ -20,6 +20,7 @@ use App\Repositories\Timesheet\TimesheetRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Access\UserRepository;
+use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 
 trait WorkflowUserSelector
 {
@@ -258,6 +259,20 @@ trait WorkflowUserSelector
                         $user_id = $next_user->user_id;
                         break;
                 }
+                break;
+
+            case 11:
+                    $pr_report = (new PrReportRepository())->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1:
+                            $next_user = $pr_report->user->assignedSupervisor();
+                            if (!$next_user) {
+                                throw new GeneralException('This user has not assigned supervisor');
+                            }
+                            $user_id = $next_user->supervisor_id;
+                            break;
+                    }
                 break;
         }
 

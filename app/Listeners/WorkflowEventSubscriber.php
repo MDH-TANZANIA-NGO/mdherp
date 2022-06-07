@@ -22,6 +22,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use App\Models\Auth\User;
+use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
+use App\Services\Workflow\WorkflowAction;
 use League\CommonMark\Util\Html5EntityDecoder;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
 
@@ -79,6 +81,8 @@ class WorkflowEventSubscriber
         $sign = 1;
         $input = $event->input;
         $current_level = $wfTrack->wfDefinition->level;
+
+        $workflow_action = (new WorkflowAction());
 
         /* check if there is next level */
         if (!is_null($workflow->nextLevel())) {
@@ -376,6 +380,11 @@ class WorkflowEventSubscriber
                     }
                     break;
 
+                case 11:
+                    //workflowAction class
+                    $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id,$resource_id, $level)['next_user_id'];
+                    break;
+
             }
 
             $workflow->forward($data);
@@ -524,6 +533,18 @@ class WorkflowEventSubscriber
                         'message' => $program_activity_report->number.'This  Activity Report has been Approved successfully'
                     ];
                     $program_activity_report->user->notify(new WorkflowNotification($email_resource));
+                    break;
+
+                case 11:
+                    $pr_report = (new PrReportRepository())->find($resource_id);
+                    $this->updateWfDone($pr_report);
+                    $email_resource = (object)[
+                        'link' =>  route('hr.pr.show',$pr_report),
+                        'subject' => $pr_report->number. ' '.$pr_report->type->title.": Has been Approved Successfully",
+                        'message' => $pr_report->number. ' '.$pr_report->type->title.' Has been Approved successfully'
+                    ];
+                    $pr_report->user->notify(new WorkflowNotification($email_resource));
+                    User::query()->find($pr_report->supervisor_id)->notify(new WorkflowNotification($email_resource));
                     break;
             }
 
