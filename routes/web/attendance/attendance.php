@@ -40,13 +40,6 @@ Route::get('/event.delete/{id}', [App\Http\Controllers\Web\Events\EventControlle
 
 
 
-// Roles
-Route::resource('roles', Roles\RolesController::class);
-
-// Permissions
-Route::resource('permissions', Permission\PermissionsController::class);
-
-
 //Time
 Route::get('/time', [App\Http\Controllers\web\Time\TimeController::class, 'time'])->name('time');
 Route::post('/time/store', [App\Http\Controllers\web\Time\TimeController::class, 'store'])->name('store-time');

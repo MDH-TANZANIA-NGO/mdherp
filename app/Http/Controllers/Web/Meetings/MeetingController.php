@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Web\Meetings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Meet\User;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use App\Models\Meet\Meet;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 
@@ -29,12 +27,12 @@ class MeetingController extends Controller
 
     public function index()
     {
-        $user = User::with('roles');
-        $internal = User::all()->where('user', "Internal");
-        $external = User::all()->where('user', "External");
+       
+        $internal = Meet::all()->where('user', "Internal");
+        $external = Meet::all()->where('user', "External");
 
         return view('meetings.index')
-        ->with('user' , $user)
+       
            
         ->with('internal', $internal)
             ->with('external', $external);
@@ -49,9 +47,9 @@ class MeetingController extends Controller
 
     public function create()
     {
-        $meet = User::all();
-        $roles = Role::all();       
-        return view('meetings.create', ['roles' => $roles]);
+        $meet = Meet::all();
+     
+        return view('meetings.create');
        
     }
 
@@ -60,15 +58,12 @@ class MeetingController extends Controller
         $this->validate($request, [
 
             'name'=>'required',
-            'email' => 'required',
-            'password' => 'required',
             'mobile_number' => 'required',
             'registration_name' => 'required',
             'work_place' => 'required',
             'title' => 'required',
             'district_name' => 'required',
             'user' => 'required',
-            'role_id' =>  'required',
             'status' =>  'required',
             
            
@@ -76,21 +71,17 @@ class MeetingController extends Controller
        ]);
 
 
-        $meet = new User;
+        $meet = new Meet;
         $meet->name = $request->input('name');
-        $meet->email = $request->input('email');
-        $meet->password = Hash::make($request->password);
         $meet->mobile_number = $request->input('mobile_number');
         $meet->registration_name = $request->input('registration_name ');
         $meet->work_place = $request->input('work_place');
         $meet->title = $request->input('title');
         $meet->user = $request->input('user');
         $meet->district_name = $request->input('district_name');
-        $meet->role_id = $request->input('role_id');
         $meet->status = $request->input('status');
         $meet->save();
-        $meet->assignRole($meet->role_id);
-        // $meet->assignRole($request->input('Admin'));
+      
         return redirect('meeting')
             ->with('success', 'Stuff Created Successfully');
     }
@@ -98,13 +89,13 @@ class MeetingController extends Controller
 
 
 
-    public function edit(User $meet)
+    public function edit(Meet $meet)
     {
-        $roles = Role::all();
+       
 
         return view('meetings.edit')
         ->with([
-            'roles' => $roles,
+           
             'meet'  => $meet
         ]);
     }
@@ -114,34 +105,27 @@ class MeetingController extends Controller
         $this->validate($request, [
 
             'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
             'mobile_number' => 'required',
             'registration_name' => 'required',
             'work_place' => 'required',
             'title' => 'required',
             'district_name' => 'required',
             'user' => 'required',
-            'role_id'=>  'required',
             'status'=>  'required',
         ]);
 
 
-        $meet  = User::find($id);
+        $meet  = Meet::find($id);
         $meet->name = $request->input('name');
-        $meet->email = $request->input('email');
-        $meet->password = Hash::make($request->password);
         $meet->mobile_number = $request->input('mobile_number');
         $meet->registration_name = $request->input('registration_name ');
         $meet->work_place = $request->input('work_place');
         $meet->title = $request->input('title');
         $meet->user = $request->input('user');
         $meet->district_name = $request->input('district_name');
-        $meet->role_id = $request->input('role_id');
         $meet->status = $request->input('status');
         $meet->save();
-        $meet->assignRole($meet->role_id);
-
+     
         return redirect('meeting')
             ->with('success', 'Stuff Updated Successfully');
             
@@ -185,7 +169,7 @@ class MeetingController extends Controller
 
     public function delete($id)
     {
-        $meet = User::find($id);
+        $meet = Meet::find($id);
         $meet->delete();
         return redirect()->back();
     }

@@ -41,13 +41,13 @@
                                 <tr>
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">Full name</th>
-                                    <th class="wd-15p">Email</th>
+                                   
                                     <th class="wd-15p">Phone number</th>
                                     <th class="wd-10p">Reg name</th>
                                     <th class="wd-25p">Work place</th>
                                     <th class="wd-25p">Title</th>
                                     <th class="wd-25p">District</th>
-                                    <th class="wd-25p">Role</th>
+                                    
                                     <th class="wd-25p">Status</th>
                                     <th class="wd-25p">Status Update</th>
                                     <th class="wd-25p">Action</th>
@@ -59,13 +59,13 @@
 
                                     <td>{{$data->id}}</td>
                                     <td>{{$data->name}}</td>
-                                    <td>{{$data->email}}</td>
+                                   
                                     <td> {{$data->mobile_number}}</td>
                                     <td>{{$data->registration_name}}</td>
                                     <td>{{$data->work_place}}</td>
                                     <td>{{$data->title}}</td>
                                     <td>{{$data->district_name}}</td>
-                                    <td>{{ $data->roles ? $data->roles->pluck('name')->first() : 'N/A' }}</td>
+                               
                                     <td>
                                         @if ($data->status == 0)
                                         <span class="badge badge-danger">Inactive</span>
@@ -119,13 +119,13 @@
                                 <tr>
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">Full name</th>
-                                    <th class="wd-15p">Email</th>
+                                   
                                     <th class="wd-15p">Phone number</th>
                                     <th class="wd-10p">Reg name</th>
                                     <th class="wd-25p">Work place</th>
                                     <th class="wd-25p">Title</th>
                                     <th class="wd-25p">District</th>
-                                    <th class="wd-25p">Role</th>
+                                   
                                     <th class="wd-25p">Status</th>
                                     <th class="wd-25p">Status Update</th>
                                     <th class="wd-25p">Action</th>
@@ -137,14 +137,14 @@
 
                                     <td>{{$data->id}}</td>
                                     <td>{{$data->name}}</td>
-                                    <td>{{$data->email}}</td>
+                                   
                                     <td> {{$data->mobile_number}}</td>
                                     <td>{{$data->registration_name}}</td>
                                     <td>{{$data->work_place}}</td>
                                     <td>{{$data->title}}</td>
                                     <td>{{$data->district_name}}</td>
 
-                                    <td>{{ $data->roles ? $data->roles->pluck('name')->first() : 'N/A' }}</td>
+                                   
                                     <td>
                                         @if ($data->status == 0)
                                         <span class="badge badge-danger">Inactive</span>

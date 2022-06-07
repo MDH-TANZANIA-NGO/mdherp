@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class Meet extends Authenticatable
 {
     use HasApiTokens,  Notifiable , HasRoles;
     use SoftDeletes;
@@ -21,11 +21,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name',    
         'registration_name',
-        'role_id',
         'status',
         'created_at',
         'updated_at',

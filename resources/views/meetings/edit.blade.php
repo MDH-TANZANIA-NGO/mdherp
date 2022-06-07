@@ -37,20 +37,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" placeholder="Email" name="email" value="{{$meet->email}}">
-                                    <div class="alert-danger">{{$errors->first('email')}} </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Password</label>
-                                    <input type="password" class="form-control" placeholder="Password" name="password" value="{{$meet->password}}">
-                                    <div class="alert-danger">{{$errors->first('password')}} </div>
-                                </div>
-                            </div>
+                           
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">User</label>
@@ -117,22 +104,7 @@
 
 
 
-                        {{-- Role --}}
-                        <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
-                            <span style="color:red;">*</span>Role</label>
-                            <!-- {{ $roles}} -->
-                            <select class="form-control form-control-user @error('role_id') is-invalid @enderror" name="role_id">
-                                <option selected disabled>Select Role</option>
-                                @foreach ($roles as $role)
-                                <option value="{{$role->id}}" {{old('role_id') ? ((old('role_id') == $role->id) ? 'selected' : '') : (($meet->role_id == $role->id) ? 'selected' : '')}}>
-                                    {{$role->name}}
-                                </option>
-                                @endforeach
-                            </select>
-                            @error('role_id')
-                            <span class="text-danger">{{$message}}</span>
-                            @enderror
-                        </div>
+                       
 
                         {{-- Status --}}
                         <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
