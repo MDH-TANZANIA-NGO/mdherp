@@ -35,8 +35,6 @@ class TimeController extends Controller
         $time = date('Y-m-d H:i:s');
         $data = ['time_start' => $time, 'user_id' => Auth::user()->id];
         Time::create($data);
-
-      
         return redirect()->back();
     }
 
@@ -50,7 +48,16 @@ class TimeController extends Controller
         $end->save();
         return redirect()->back();
 
-    }   
+    }
+
+    public function show()
+    {
+        $times = Time::all();
+        $current = Carbon::now();
+        $check = Time::query()->where('user_id', Auth::user()->id)->whereNull('time_end')->get();
+        return view('time.show', ['current' => $current, 'times' => $times, 'check' => $check]);
+    }
+
 }
 
 

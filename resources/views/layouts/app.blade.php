@@ -243,7 +243,7 @@
     @stack('before-scripts')
 
     <script>
-        var base_url = "{!! url("/") !!}";
+        var base_url = "{!! url(" / ") !!}";
     </script>
     <!-- Jquery js-->
     {!! Html::script(url('mdh/js/vendors/jquery-3.4.0.min.js')) !!}
