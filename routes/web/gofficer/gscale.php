@@ -2,7 +2,7 @@
 Route::group(['namespace' => 'GOfficer', 'middleware' => ['web', 'auth'], 'prefix' => 'government-scales', 'as' => 'g_scale.'], function () {
     Route::get('', 'GScaleController@index')->name('index');
     Route::post('store', 'GScaleController@store')->name('store');
-    Route::post('store-government-scale', 'GScaleController@storeGovernmentScale')->name('storeGovernmentScale');
+    Route::post('store-government-scale', 'GScaleController@storeGovernmentScale')->name('store-government-scale');
     Route::get('{uuid}/show', 'GScaleController@show')->name('show');
     Route::put('{uuid}/update', 'GScaleController@update')->name('update');
     Route::put('{uuid}/update-government-scale', 'GScaleController@updateGovernmentScale')->name('updateGovernmentScale');
@@ -16,5 +16,6 @@ Route::group(['namespace' => 'GOfficer', 'middleware' => ['web', 'auth'], 'prefi
      */
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::get('all', 'GScaleController@allDatatable')->name('all');
+        Route::get('all-gov-scales', 'GScaleController@allGovernmentScales')->name('all-gov-scales');
     });
 });

@@ -27,6 +27,10 @@ class GovernmentRateRepository extends BaseRepository
     {
         return $this->getQuery();
     }
+    public function getForPluck()
+    {
+        return $this->getActive()->pluck('amount','id');
+    }
 
     public function inputsProcessor($inputs)
     {

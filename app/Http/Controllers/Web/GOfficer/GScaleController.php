@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\GOfficer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\GOfficer\Datatables\GScaleDatatables;
+use App\Http\Controllers\Web\GOfficer\Datatables\NewGovernmentScaleDatatables;
 use App\Http\Requests\GOfficer\GScaleRequest;
 use App\Repositories\GOfficer\GovernmentRateRepository;
 use App\Repositories\GOfficer\GovernmentScaleRepository;
@@ -13,7 +14,7 @@ use Illuminate\Http\Request;
 
 class GScaleController extends Controller
 {
-    use GScaleDatatables;
+    use GScaleDatatables, NewGovernmentScaleDatatables;
 
     protected $g_scales;
     protected $g_rates;
@@ -36,7 +37,8 @@ class GScaleController extends Controller
     public function index()
     {
         return view('gofficer.gscale.index')
-            ->with('g_rates', $this->g_rates->getForPluck());
+            ->with('g_rates', $this->g_rates->getForPluck())
+            ->with('gov_rates', $this->government_rate->getForPluck());
     }
 
     /**
@@ -103,6 +105,7 @@ class GScaleController extends Controller
 
     public function getNewForDualiList()
     {
+
         return response()->json($this->government_scale->getForDualList());
     }
 
