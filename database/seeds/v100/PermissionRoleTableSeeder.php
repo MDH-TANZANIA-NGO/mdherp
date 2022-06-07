@@ -164,42 +164,6 @@ class PermissionRoleTableSeeder extends Seeder
                     'permission_id' => 24,
                     'role_id' => 1,
                 ),
-            24 =>
-                array (
-                    'id' => 25,
-                    'permission_id' => 25,
-                    'role_id' => 1,
-                ),
-            25 =>
-                array (
-                    'id' => 26,
-                    'permission_id' => 26,
-                    'role_id' => 1,
-                ),
-            26 =>
-                array (
-                    'id' => 27,
-                    'permission_id' => 27,
-                    'role_id' => 1,
-                ),
-            27 =>
-                array (
-                    'id' => 28,
-                    'permission_id' => 28,
-                    'role_id' => 1,
-                ),
-            28 =>
-                array (
-                    'id' => 29,
-                    'permission_id' => 29,
-                    'role_id' => 1,
-                ),
-            29 =>
-                array (
-                    'id' => 30,
-                    'permission_id' => 30,
-                    'role_id' => 1,
-                ),
         ));
         $this->enableForeignKeys("permission_role");
 

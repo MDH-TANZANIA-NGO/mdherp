@@ -15,12 +15,9 @@ use App\Repositories\System\RegionRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Models\GOfficer\GOfficer;
 use Illuminate\Support\Facades\DB;
-use App\Services\Generator\DefaultFingerprints;
 
 class GOfficerController extends BaseController
 {
-
-    use DefaultFingerprints;
 
     protected $g_officers;
     protected $g_scales;
@@ -78,32 +75,17 @@ class GOfficerController extends BaseController
      */
     public function store(Request $request)
     {
-        if ($request['check_no'] == null)
-        {
-            $check_no = '0'.$request['region_id'].'-'.sprintf('%02d', now()->month).'-'.substr(sprintf('%02d', now()->year), -2).'-'.rand(1, 200000);
-
-        }
-        else{
-            $check_no = $request['check_no'];
-        }
-
         $g_officer = GOfficer::create([
             'first_name' => $request['first_name'],
-            'middle_name' => $request['middle_name'],
             'last_name' => $request['last_name'],
             'email' => $request['email'],
-            'phone' => '255'.substr($request['phone'], -9),
-            'phone2' => '255'.substr($request['phone2'], -9),
+            'phone' => $request['phone'],
             'g_scale_id' => $request['g_scale'],
             'region_id' => $request['region_id'],
             'district_id' => $request['district_id'],
-            'gender_cv_id'=>$request['gender_cv_id'],
             'country_organisation_id' => $request['country_organisation_id'],
-            'fingerprint_data' => $this->getDefaultFingerprints(),
-            'fingerprint_length' => $this->getFingerprintLength(),
-            'password' => bcrypt(strtolower($request['last_name'])),
-            'isactive' => 1,
-            'check_no'=> $check_no,
+            'fingerprint_data' => $request['fingerprint_data'],
+            'fingerprint_length' => $request['fingerprint_length'],
         ]);
         $success['g_officer'] = $g_officer;
 
@@ -124,10 +106,10 @@ class GOfficerController extends BaseController
             ->selectRaw('facilities.name as facility_name')
             ->selectRaw('facilities.number as facility_number')
             ->selectRaw('facility_types.name as facility_type')
-            ->join('facility_g_officer', 'facility_g_officer.g_officer_id', '=','g_officers.id')
-            ->join('facilities', 'facilities.id', '=', 'facility_g_officer.facility_id')
-            ->join('facility_types', 'facility_types.id', '=', 'facilities.facility_type_id')
-            ->join('facility_categories', 'facility_categories.id', '=', 'facility_types.facility_category_id')
+            ->leftJoin('facility_g_officer', 'facility_g_officer.g_officer_id', '=','g_officers.id')
+            ->leftJoin('facilities', 'facilities.id', '=', 'facility_g_officer.facility_id')
+            ->leftJoin('facility_types', 'facility_types.id', '=', 'facilities.facility_type_id')
+            ->leftJoin('facility_categories', 'facility_categories.id', '=', 'facility_types.facility_category_id')
             ->where('g_officers.id', $id)
             ->get();
 

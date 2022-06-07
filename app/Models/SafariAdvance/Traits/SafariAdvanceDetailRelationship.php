@@ -7,6 +7,5 @@ trait SafariAdvanceDetailRelationship
 public function district()
 {
 //
-
 }
 }

@@ -252,7 +252,6 @@
                 let $region_id = "{{ access()->user()->region_id }}";
                 let $fiscal_year = null;
 
-                $get_info_button.addClass('hidden');
                 //clear output
                 clearOutput();
 
@@ -271,20 +270,12 @@
                         $sub_program.text(data.sub_program_area);
                         $numeric_output.text(data.numeric_output);
                         $output_unit.text(data.output_unit);
-
-                        let $budget_amount = 'USD '+(data.budget/data.exchange_rate).toLocaleString();
-                        let $available_budget_amount = 'USD '+($available_budget/data.exchange_rate).toLocaleString();
-                        let $actual_amount = 'USD '+(data.actual_expenditure/data.exchange_rate).toLocaleString();
-                        let $commitment_amount = 'USD '+(data.commitment/data.exchange_rate).toLocaleString();
-                        let $pipeline_amount = 'USD '+(data.pipeline/data.exchange_rate).toLocaleString();
-
-
-                        $budget.text($budget_amount);
-                        $actual.text($actual_amount);
-                        $commitment.text($commitment_amount);
+                        $budget.text(data.budget);
+                        $actual.text(data.commitment);
+                        $commitment.text(data.actual);
                         // $reprogrammed.text(data.)
-                        $pipeline.text($pipeline_amount);
-                        $available.text($available_budget_amount);
+                        $pipeline.text(data.pipeline);
+                        $available.text($available_budget);
                         $budget_id_input.val(data.budget_id);
 
                         if($available_budget != 0){

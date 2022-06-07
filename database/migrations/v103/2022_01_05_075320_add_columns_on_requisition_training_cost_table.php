@@ -15,7 +15,7 @@ class AddColumnsOnRequisitionTrainingCostTable extends Migration
     {
         //
         Schema::table('requisition_training_costs', function (Blueprint $table) {
-            $table->boolean('is_substitute')->default('FALSE');
+            $table->boolean('is_substitute')->default(FALSE);
             $table->unsignedBigInteger('substituted_user_id')->nullable();
         });
     }

@@ -21,56 +21,26 @@ class FinanceActivityRepository extends BaseRepository
         //
     }
 
-    public function getQuery()
-    {
-        {
-            return $this->query()->select([
-                DB::raw('payments.id AS id'),
-                DB::raw('payments.payed_amount AS payed_amount'),
-                //DB::raw("concat_ws(' ', users.first_name, users.last_name) as full_name"),
-                DB::raw('payments.requested_amount AS requested_amount'),
-                DB::raw('payments.number AS number'),
-                DB::raw('safari_advance_payments.disbursed_amount AS disbursed_amount'),
-                DB::raw('safari_advance_payments.account_no AS account_no'),
-                DB::raw('safari_advance_payments.perdiem_total_amount AS perdiem_total_amount'),
-                DB::raw('safari_advance_payments.transportation AS transportation'),
-                DB::raw('safari_advance_payments.requisition_travelling_cost_id AS requisition_travelling_cost_id'),
-                DB::raw('safari_advance_payments.accommodation AS accommodation'),
-                DB::raw('safari_advance_payments.ontransit AS ontransit'),
-                DB::raw('safari_advance_payments.other_cost AS other_cost'),
-                DB::raw('safari_advance_payments.ticket_fair AS ticket_fair'),
-            ])
-                ->leftjoin('safari_advance_payments','safari_advance_payments.payment_id', 'payments.id');
-        }
-    }
-
-    public function getPaidSafari($safari_id)
-    {
-        return $this->getQuery()->where('safari_advance_payments.safari_advance_id', $safari_id);
-    }
-
-
 
     public function inputProcess($inputs)
     {
 
         return[
 
-            'region_id'=> (int) $inputs['region_id'],
-            'requisition_id' =>(int) $inputs['requisition_id'],
-            'requested_amount'=> (int)$inputs['requested_amount'],
+            'region_id'=> $inputs['region_id'],
+            'requisition_id' => $inputs['requisition_id'],
+            'requested_amount'=> $inputs['requested_amount'],
             'user_id'=>access()->user()->id,
-            'remarks'=>$inputs['remarks'],
+//            'remarks'=>$inputs['remarks'],
 
-            'payed_amount'=>(int) $inputs['total_amount'],
+            'payed_amount'=>$inputs['total_amount'],
 
         ];
     }
     public function store($inputs)
     {
         return DB::transaction(function () use ($inputs){
-            $payment_id = $this->query()->create($this->inputProcess($inputs))->id;
-            return $payment_id;
+            return $this->query()->create($this->inputProcess($inputs));
         });
 
 
@@ -159,7 +129,7 @@ class FinanceActivityRepository extends BaseRepository
                     'subject' =>$payment->number. " Has been revised to your level",
                     'message' => $payment->number. ' need modification.. Please do the need and send it back for approval'
                 ];
-//                User::query()->find($payment->user_id)->notify(new WorkflowNotification($email_resource));
+                User::query()->find($payment->user_id)->notify(new WorkflowNotification($email_resource));
 
                 break;
             case $head_of_dept_level:

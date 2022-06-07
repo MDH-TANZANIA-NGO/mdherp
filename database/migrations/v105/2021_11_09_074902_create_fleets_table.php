@@ -31,6 +31,8 @@ class CreateFleetsTable extends Migration
             $table->string('deleted_at')->nullable();
             $table->timestamps();
         });
+
+        
     }
 
     /**

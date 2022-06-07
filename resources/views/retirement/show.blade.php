@@ -7,7 +7,7 @@
     <div class="row mb-2">
         <div class="col-lg-12">
             @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
-        </div>
+        </div>  
     </div>
 
     <div class="row">
@@ -131,11 +131,7 @@
                 <hr>
 
                 <div class="table-responsive">
-{{--                    {{$retirement->getMedia('attachments')}}--}}
-{{--                    @foreach($retirement->getMedia('attachments') as $media)--}}
-{{--                        <a href="{{ $media->original_url }}">{{ $media->file_name }}</a>--}}
-{{--                    @endforeach--}}
-                    @if($retirement->getMedia('attachments'))
+                    @if($retirement->getFirstMediaURL('attachments') != null)
                     <table class="table card-table table-vcenter text-nowrap">
                         <thead >
                         <tr>
@@ -148,13 +144,13 @@
                         </thead>
                         <tbody>
 
-                        @foreach($retirement->getMedia('attachments') as $key => $media)
+                        @foreach($retirementz as $retirement)
                             <tr>
-                                <td>{{ $key+1 }}</td>
-                                <td>{{ $media->name }}</td>
+                                <td>1</td>
+                                <td>Attachment</td>
 {{--                                <td>{{$retirement->getFirstMedia('attachments')->pluck('name')}}</td>--}}
 {{--                                {{$retirement->getRegisteredMediaCollections()}}--}}
-                                <td><a href="{{$media->original_url}}" target="_blank">View attachment</a></td>
+                                <td><a href="{{$retirement->getFirstMediaURL('attachments')}}" target="_blank">view</a></td>
                             </tr>
 
                         @endforeach
@@ -164,7 +160,7 @@
                     @else
 
                             <div class="col-md-12 align-content-center">
-                            <label class="">No Attachment</label>
+                            <label class="">No Attachment</label> 
                             </div>
 
                     @endif

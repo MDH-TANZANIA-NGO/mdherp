@@ -22,7 +22,7 @@
                             <th class="wd-10p">Transport</th>
                             <th class="wd-10p">Others</th>
                             <th class="wd-25p">Others Description</th>
-                            <th class="wd-15p">Total</th>
+{{--                            <th class="wd-15p">Workstation</th>--}}
 {{--                            <th class="wd-15p">District</th>--}}
                             <th class="wd-4p">Action</th>
 
@@ -39,10 +39,9 @@
                                 <td>{{number_2_format($participants->transportation)}}</td>
                                 <td>{{number_2_format($participants->other_cost)}}</td>
                                 <td>{{$participants->others_description}}</td>
-                                <td>{{number_2_format($participants->total_amount)}}</td>
 {{--                                <td>{{$participants->user->facilities->name}}</td>--}}
 {{--                                <td>{{$participants->user->district->name}}</td>--}}
-                                <td><a  href="{{route('training.removeParticipant', $participants->uuid)}}"  onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash"></i></a></td>
+                                <td><a  href="{{route('training.removeParticipant', $participants->uuid)}}"  onclick="confirm('Are you sure you need to delete participant?')"><i class="fa fa-trash"></i></a></td>
 
                             </tr>
 
@@ -75,7 +74,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table  class="table table-striped table-bordered" style="width:100%" id="items">
+                    <table  class="table card-table table-vcenter text-nowrap" style="width:100%">
                         <thead>
                         <tr>
                             <th class="wd-15p">Item Name</th>
@@ -106,13 +105,3 @@
         </div>
     </div>
 </div>
-
-@push('after-scripts')
-    <script>
-        $(document).ready(function (){
-            $("#example").dataTable()
-            $("#items").dataTable()
-        })
-    </script>
-
-@endpush

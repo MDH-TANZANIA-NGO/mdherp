@@ -74,7 +74,6 @@ class PersonController extends Controller
     }
 
     public function updateHealth(Request $request, Employee $employee){
-        dd($employee);
         $employee->update($request->all());
         return redirect()->back();
     }

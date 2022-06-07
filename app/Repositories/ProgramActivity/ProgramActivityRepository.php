@@ -42,59 +42,11 @@ ProgramActivityRepository extends BaseRepository
             DB::raw('program_activities.amount_paid AS amount_paid'),
             DB::raw('program_activities.created_at AS created_at'),
             DB::raw('program_activities.uuid AS uuid'),
-//            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
+            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
             DB::raw('program_activities.region_id AS region_id'),
         ])
             ->join('users','users.id', 'program_activities.user_id');
     }
-public function getActivityAttendance($program_activity_id)
-{
-    $this->getQuery()
-        ->join('program_activity_attendances', 'program_activity_attendances.program_activity_id','program_activities.id')
-        ->where('program_activity_attendances.program_activity_id', $program_activity_id);
-}
-
-public function storeActivityAttendance($inputs, $uuid)
-{
-
-    foreach ($inputs as $id)
-    {
-        $attendance =  ProgramActivityAttendance::query()->where('requisition_training_cost_id',$id)->whereDate('created_at', Carbon::today())->first();
-        $attendance == null ? $this->checkInParticipants($id,$uuid) : false;
-        $attendance != null and $attendance->checkout_time != null ? alert()->error('Today attendance was captured') : false;
-        $attendance != null and $attendance->checkout_time == null ? $this->checkOutParticipant($attendance) : false;
-    }
-    return redirect()->back();
-}
-public function checkInParticipants($id, $uuid)
-{
-    $program_activity = $this->findByUuid($uuid);
-    return DB::transaction(function () use ($id, $program_activity){
-
-        ProgramActivityAttendance::query()->create([
-            'program_activity_id'=>$program_activity->id,
-            'requisition_training_cost_id'=>$id,
-            'checkin_time'=>Carbon::now()
-        ]);
-        alert()->success('Check in successfully','Success');
-    });
-
-
-
-}
-
-public function checkOutParticipant($attendance)
-{
-
-    return DB::transaction(function () use ($attendance){
-
-        $attendance->update([
-            'checkout_time'=>Carbon::now()
-        ]);
-        alert()->success('Check out successfully','Success');
-    });
-
-}
 
     public function getActivitiesWithoutReports(){
         return $this->getQuery()
@@ -315,7 +267,7 @@ public function checkOutParticipant($attendance)
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('program_activities.wf_done', 1)
+            ->where('program_activities.wf_done', 0)
             ->where('program_activities.done', 1)
             ->where('program_activities.rejected', false)
             ->where('users.id', access()->id());
@@ -371,16 +323,12 @@ public function checkOutParticipant($attendance)
             ->where('program_activities.supervised_by', access()->id());
     }
 
-    public function submitPayment($inputs)
+    public function submitPayment($inputs, $uuid)
     {
-        $ids = $inputs['ids'];
-        $amount_paid = $inputs['amount_paid'];
-        $remarks = $inputs['remarks'];
-        foreach ($ids as $id)
-        {
-            DB::update('update requisition_training_costs set amount_paid= ?, remarks=? where id= ?', [$amount_paid,$remarks, $id]);
-        }
-
+        return DB::transaction(function () use ($inputs, $uuid){
+            $amount_paid = $inputs['payed_amount'];
+            DB::update('update requisition_training_costs set amount_paid= ? where uuid= ?', [$amount_paid, $uuid]);
+        });
     }
 
 

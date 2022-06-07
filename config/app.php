@@ -163,7 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Yajra\DataTables\DataTablesServiceProvider::class,
-        Yajra\DataTables\ButtonsServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -183,6 +183,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
 //        RSmalc\Noty\NotyServiceProvider::class,
+ Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

@@ -15,20 +15,11 @@
 
         @permission('user_management')
         <li class="slide">
-            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Internal User</span><i class="angle fa fa-angle-right"></i></a>
+            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User Management</span><i class="angle fa fa-angle-right"></i></a>
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('user.index') }}"><span>List</span></a></li>
                 <li><a class="slide-item"  href="{{ route('user.create') }}"><span>Register</span></a></li>
-            </ul>
-        </li>
-        @endpermission
-        @permission('external_user_management')
-        <li class="slide">
-            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">External User </span><i class="angle fa fa-angle-right"></i></a>
-            <ul class="slide-menu">
-                <li><a class="slide-item"  href="{{ route('g_officer.create') }}"><span>Register</span></a></li>
-                <li><a class="slide-item"  href="{{ route('g_officer.bulk_update') }}"><span>Bulk Update</span></a></li>
-                <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>List</span></a></li>
+                <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>External users</span></a></li>
             </ul>
         </li>
         @endpermission
@@ -91,30 +82,10 @@
             <ul class="slide-menu">
                 <li><a class="slide-item"  href="{{ route('leave_report.index') }}"><span>Leave Reports</span></a></li>
                 <li><a class="slide-item"  href="{{ route('timesheet_report.index') }}"><span>Timesheet Reports</span></a></li>
-                <li><a class="slide-item"  href="{{ route('employee.index') }}"><span>Employees</span></a></li>
-                <li><a class="slide-item"  href="{{ route('designation.create') }}"><span>Add Designation</span></a></li>
+                <li><a class="slide-item"  href="{{ route('timesheet_report.index') }}"><span>Employees</span></a></li>
             </ul>
         </li>
         @endpermission
-
-        @permission('admin_panel')
-        <li class="slide">
-            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-street-view multiple-outline text-primary"></i><span class="side-menu__label">Admin Panel</span><i class="angle fa fa-angle-right"></i></a>
-            <ul class="slide-menu">
-                <li><a class="slide-item"  href="{{ route('admin.workspace') }}"><span>Hotels</span></a></li>
-            </ul>
-        </li>
-        @endpermission
-       {{-- @permission('compliance')
-
-        <li class="slide">
-            <a class="side-menu__item"  data-toggle="slide" href="#"><i class="side-menu__icon fa fa-database multiple-outline text-primary"></i><span class="side-menu__label">Compliance</span><i class="angle fa fa-angle-right"></i></a>
-            <ul class="slide-menu">
-                <li><a class="slide-item"  href="{{ route('g_officer.index') }}"><span>Add Beneficiaries</span></a></li>
-                   <li><a class="slide-item"  href="{{ route('compliance.beneficiaries') }}"><span>Beneficiaries List</span></a></li>
-            </ul>
-        </li>
-        @endpermission--}}
 
     </ul>
 </aside>

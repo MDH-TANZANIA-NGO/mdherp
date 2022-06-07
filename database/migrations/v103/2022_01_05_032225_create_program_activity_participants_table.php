@@ -17,9 +17,9 @@ class CreateProgramActivityParticipantsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('g_officer_id');
             $table->unsignedBigInteger('program_activity_id');
-            $table->boolean('attended')->default('FALSE');
-            $table->boolean('is_substitute')->default('FALSE');
-            $table->boolean('substituted')->default('FALSE');
+            $table->boolean('attended')->default(FALSE);
+            $table->boolean('is_substitute')->default(FALSE);
+            $table->boolean('substituted')->default(FALSE);
             $table->unsignedBigInteger('substituted_with')->nullable();
             $table->string('uuid');
             $table->date('deleted_at')->nullable();

@@ -1,5 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    @include('fleet.datatable.all')
-@endsection
+@include('fleet.datatable.allrequest')
 
+@endsection

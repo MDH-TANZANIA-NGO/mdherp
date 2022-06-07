@@ -273,23 +273,6 @@ if (!function_exists('true_false_pluck')) {
     }
 }
 
-/**
- *
- */
-if (!function_exists('check_available_budget_individual')) {
-    function check_available_budget_individual(Model $model, $amount, $current_amount = null, $updated_amount = null)
-    {
-        return (new \App\Repositories\Requisition\RequisitionRepository())->checkAvailableBudgetIndividual($model, $amount, $current_amount, $updated_amount);
-    }
-}
-if (!function_exists('getNoDays')) {
-    function getNoDays($from, $to)
-    {
-        return (new \App\Repositories\Requisition\RequisitionRepository())->getNoDays($from, $to);
-    }
-}
-
-
 if (!function_exists('currency_converter')) {
     function currency_converter($amount, $currency)
     {
@@ -316,12 +299,5 @@ if (!function_exists('currency_converter')) {
         }
 
         return $converted;
-    }
-}
-
-if (!function_exists('active_rate_id')) {
-    function active_rate_id()
-    {
-        return (new \App\Repositories\Rate\RateRepository())->getActive()->id;
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,3 +44,5 @@ Route::get('/updateuser', 'updateuser@index')->name('updateuser');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+

@@ -32,8 +32,7 @@ class ParticipantsExport implements FromCollection, WithMapping, WithHeadings
     */
     public function collection()
     {
-        $attendance = $this->program_activity->attendance()->getQuery()->get();
-        dd($this->program_activity->attendance()->getDataForPaymentExport($this->program_activity->id));
+
         $requisition_training = $this->requisition_training_cost->getActivityParticipants($this->program_activity->uuid)->get();
          return $requisition_training;
     }
@@ -43,7 +42,7 @@ class ParticipantsExport implements FromCollection, WithMapping, WithHeadings
 return [
     $row->user->first_name,
     $row->user->last_name,
-    substr($row->user->phone, -9),
+    $row->user->phone,
     $row->perdiem_total_amount,
     $row->transportation,
     $row->other_cost,

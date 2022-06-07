@@ -50,21 +50,15 @@ class ProgramActivityController extends BaseController
                 'checkout_location' => $request['checkout_location']
             ]);
 
-            return $this->sendResponse($attendance, "Maudhurio yamechukuliwa kikamilifu");
+            return $this->sendResponse($attendance, "Attendance created successfully");
         }
 
     }
 
     public function getAllValidActivities(){
 
-        $valid_program_activities = $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
-
-        $success['program_activities'] = $valid_program_activities;
-
-        return $this->sendResponse($success, "All Valid Program Activities");
-
+        return $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
     }
-
     public function submitActivityNumberGetDetails(Request $request){
         $program_activity = $this->program_activity_repo->find($request['id']);
 

@@ -12,25 +12,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\GOfficer\GOfficer;
 use App\Repositories\GOfficer\GOfficerRepository;
-use App\Models\ProgramActivity\ProgramActivityAttendance;
-use App\Models\Requisition\Training\requisition_training;
-use App\Models\Requisition\Training\requisition_training_cost;
-use App\Repositories\ProgramActivity\ProgramActivityAttendanceRepository;
-use App\Repositories\ProgramActivity\ProgramActivityRepository;
-use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
-
 
 trait AuthenticationTrait
 {
     protected $g_officers;
-    protected $program_activity_repo;
-    protected $requisition_training_repo;
 
     public function __construct()
     {
         $this->g_officers = (new GOfficerRepository());
-        $this->program_activity_repo =  (new ProgramActivityRepository());
-        $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
     }
 
     public function loginValidator()
@@ -200,11 +189,6 @@ trait AuthenticationTrait
         $g_officer_covids = DB::table("covids")
             ->where('covids.data_clerk_id', $gOfficer->id)->count();
         $success['g_officer_covids_sent'] = $g_officer_covids;
-
-
-        $valid_program_activities = $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
-
-        $success['program_activities'] = $valid_program_activities;
 
         return  $this->sendResponse($success, 'GOfficer Log in successfully');
 

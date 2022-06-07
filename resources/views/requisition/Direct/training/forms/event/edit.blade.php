@@ -32,7 +32,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('activity_location', __("Activity Location"),['class'=>'form-label','required_asterik']) !!}
-                            {!! Form::select('district_id',$districts,$training_details->district_id,['class' => 'form-control select2-show-search','required']) !!}
+                            {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','required']) !!}
                             {!! $errors->first('district_id', '<span class="badge badge-danger">:message</span>') !!}
                         </div>
                     </div>

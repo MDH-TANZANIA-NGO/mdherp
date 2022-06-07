@@ -3,7 +3,7 @@
 @include('includes.datatable_assets')
 
 @push('after-styles')
-    {{--{{ Html::style(asset_url() . "/nextbyte/plugins/select2/css/select2.min.css") }}--}}
+    {{ Html::style(asset_url() . "/nextbyte/plugins/select2/css/select2.min.css") }}
     <style>
         .custom_filter:after {
             background-color: #F5F5F5;
@@ -37,7 +37,7 @@
 
         <div class="col">
 
-            {{--<div class="row">--}}
+            <div class="row">
 
                 <!-- Put the page specifically for this page here -->
                 @include("system/workflow/count_summary")
@@ -50,7 +50,7 @@
                 <br>
 
 
-            {{--</div>--}}
+            </div>
 
         </div>
 

@@ -23,7 +23,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('leave.datatable.access.processing') }}',
+                ajax: "'{{ route('leave.datatable.access.processing') }}'",
                 columns: [
 
                 ]

@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="attendance" class="table table-striped table-bordered" style="width:100%">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead >
                         <tr>
 
@@ -29,9 +29,9 @@
                         @foreach($attendance as $attendances)
                             <tr>
 
-                                <td>{{date('D d-M-Y', strtotime($attendances->created_at))}}</td>
+                                <td>{{date('d-M-Y', strtotime($attendances->created_at))}}</td>
                                 <td>{{date('h:i:s', strtotime($attendances->checkin_time)) }}</td>
-                                <td>@if($attendances->checkout_time != null){{date('h:i:s', strtotime($attendances->checkout_time))}}@endif</td>
+                                <td>{{date('h:i:s', strtotime($attendances->checkout_time)) }}</td>
                                 <td>{{$attendances->checkin_location}}</td>
                                 <td>{{$attendances->checkout_location}}</td>
 
@@ -47,12 +47,4 @@
         </div>
     </div>
 </div>
-@push('after-scripts')
-    <script>
-        $(document).ready(function (){
-            $("#attendance").dataTable()
-        })
-    </script>
-
-@endpush
 @endsection

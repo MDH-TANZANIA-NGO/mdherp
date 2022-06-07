@@ -54,7 +54,7 @@
     <div class="row">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Hour Distribution Based on project's level of efforts (LOE)</h3>
+                <h3 class="card-title">Hour Distribution Based on LOE</h3>
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
@@ -90,7 +90,7 @@
     <div class="row">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Hourly Description on Daily Basis </h3>
+                <h3 class="card-title">Hourly Description on Daily Base </h3>
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
@@ -116,7 +116,7 @@
                         @foreach($attendances as $attendance)
                             <tr>
                                 <td>{{\Carbon\Carbon::parse($attendance['date'])->format('d/m/Y')}}</td>
-                                <td>{{$attendance['comments']}}</td>
+                                <td>{{$attendance['comment']}}</td>
                                 <td>{{$attendance['hours']}}</td>
                                 @foreach($attendance['percentage'] as $percent)
                                     <td>{{$percent['daily_percent']}}</td>

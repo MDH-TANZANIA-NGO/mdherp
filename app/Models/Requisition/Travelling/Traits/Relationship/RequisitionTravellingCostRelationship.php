@@ -5,7 +5,6 @@ namespace App\Models\Requisition\Travelling\Traits\Relationship;
 use App\Models\Auth\User;
 use App\Models\MdhRates\mdh_rate;
 use App\Models\Requisition\Requisition;
-use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Models\System\District;
 
@@ -21,7 +20,7 @@ trait RequisitionTravellingCostRelationship {
 
     public function district()
     {
-        return $this->belongsTo(District::class, 'district_id', 'id');
+        return $this->belongsTo(District::class);
     }
     public function user()
     {
@@ -36,11 +35,5 @@ trait RequisitionTravellingCostRelationship {
     {
         return $this->hasOne(SafariAdvance::class);
     }
-
-    public function trips()
-    {
-        return $this->hasMany(requisition_travelling_cost_district::class);
-    }
-
 
 }

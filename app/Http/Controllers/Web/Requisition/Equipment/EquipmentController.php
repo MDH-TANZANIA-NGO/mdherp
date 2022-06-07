@@ -5,16 +5,13 @@ namespace App\Http\Controllers\Web\Requisition\Equipment;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Requisition\Equipment\datatables\EquipmentDatatables;
 use App\Http\Requests\Requisition\Equipment\EquipmentRequest;
-use App\Models\Requisition\Requisition;
 use App\Repositories\Requisition\Equipment\EquipmentRepository;
 use App\Repositories\Requisition\Equipment\EquipmentTypeRepository;
-use App\Repositories\Requisition\RequisitionRepository;
-use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
 use Illuminate\Http\Request;
 
 class EquipmentController extends Controller
 {
-    use EquipmentDatatables, InitiatorBudgetChecker;
+    use EquipmentDatatables;
     protected $equipments;
     protected $equipment_types;
 
@@ -91,11 +88,6 @@ class EquipmentController extends Controller
      */
     public function getById(Request $request)
     {
-        $requisition = Requisition::query()->where('uuid', $request->input('uuid'))->first();
-        $data = [
-            'equipment' => $this->equipments->getById($request->all()),
-            'budget_summary' => $this->check($requisition->requisition_type_id, $requisition->project_id, $requisition->activity_id, $requisition->region_id, null)
-        ];
-        return response()->json($data);
+        return response()->json($this->equipments->getById($request->all()));
     }
 }

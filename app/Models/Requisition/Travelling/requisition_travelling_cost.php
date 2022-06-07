@@ -9,6 +9,4 @@ use Illuminate\Database\Eloquent\Model;
 class requisition_travelling_cost extends BaseModel
 {
     use RequisitionTravellingCostRelationship;
-
-
 }

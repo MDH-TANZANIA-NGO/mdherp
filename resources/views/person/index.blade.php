@@ -27,7 +27,6 @@
                             <div class="form-group">
                                 {!! Form::label('identity_number', "Staff Identity Number",['class'=>'form-label','required_asterik']) !!}
                                 {!! Form::text('identity_number',$user->identity_number,['class' => 'form-control', 'placeholder' => '','disabled']) !!}
-                                {!! Form::text('identity_number',$user->identity_number,['class' => 'form-control', 'placeholder' => '','hidden']) !!}
                                 {!! $errors->first('identity_number', '<span class="badge badge-danger">:message</span>') !!}
                             </div>
                         </div>

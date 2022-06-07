@@ -44,27 +44,27 @@
                                         @endif
                                     </dl>
 
-                                    {{--                                    <h6 class="mt-6 font-weight-semibold">Employee Details</h6>--}}
-                                    {{--                                    <table class="table table-striped table-bordered m-top20">--}}
-                                    {{--                                        <tbody>--}}
-                                    {{--                                        <tr>--}}
-                                    {{--                                            <th scope="row">Phone Number:</th>--}}
-                                    {{--                                            <td>{{$user->phone}}</td>--}}
-                                    {{--                                        </tr>--}}
-                                    {{--                                        <tr>--}}
-                                    {{--                                            <th scope="row">Email:</th>--}}
-                                    {{--                                            <td>{{$user->email}}</td>--}}
-                                    {{--                                        </tr>--}}
-                                    {{--                                        <tr>--}}
-                                    {{--                                            <th scope="row">Working Station:</th>--}}
-                                    {{--                                            <td>Dar es Salaam</td>--}}
-                                    {{--                                        </tr>--}}
-                                    {{--                                        <tr>--}}
-                                    {{--                                            <th scope="row">Designation:</th>--}}
-                                    {{--                                            <td>{{$user->designation->unit->name.' '. $user->designation->name}} </td>--}}
-                                    {{--                                        </tr>--}}
-                                    {{--                                        </tbody>--}}
-                                    {{--                                    </table>--}}
+                                                                   <h6 class="mt-6 font-weight-semibold">Employee Details</h6>
+                                                                       <table class="table table-striped table-bordered m-top20">
+                                                                            <tbody>
+                                                                          <tr>
+                                                                               <th scope="row">Phone Number:</th>
+                                                                                <td>{{$user->phone}}</td>
+                                                                           </tr>
+                                                                           <tr>
+                                                                               <th scope="row">Email:</th>
+                                                                               <td>{{$user->email}}</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                               <th scope="row">Working Station:</th>
+                                                                            <td>Dar es Salaam</td>
+                                                                           </tr>
+                                                                            <tr>
+                                                                                <th scope="row">Designation:</th>
+                                                                                <td>{{$user->designation->unit->name.' '. $user->designation->name}} </td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
                                     <div class="card panel-theme rounded shadow">
                                         <div class="card-header">
                                             <div class="float-left">
@@ -73,7 +73,7 @@
                                             <div class="card-options text-right">
                                                 <a href="#" class="btn btn-sm btn-primary mr-2"><i class="fa fa-facebook"></i></a>
                                                 <a href="#" class="btn btn-sm btn-primary mr-2"><i class="fa fa-twitter"></i></a>
-                                                <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-linkedin"></i></a>
+                                                <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-google-plus"></i></a>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>

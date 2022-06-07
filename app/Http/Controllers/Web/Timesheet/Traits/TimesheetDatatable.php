@@ -18,7 +18,7 @@ trait TimesheetDatatable
                 return $query->wf_done_dateformat('d/m/Y');
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('timesheet.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. '&nbsp' .'<a href="'.route('timesheet.edit', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
+                return '<a href="'.route('timesheet.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

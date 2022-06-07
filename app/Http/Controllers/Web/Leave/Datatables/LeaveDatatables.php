@@ -18,8 +18,7 @@ trait LeaveDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('leave.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. '&nbsp' .'<a href="'.route('leave.edit', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
-
+                return '<a href="'.route('leave.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

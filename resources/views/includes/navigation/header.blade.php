@@ -32,28 +32,36 @@
                 </div>
             </div> --}}
             @permission('online_checkin')
-                   <div class="dropdown  header-option">
-                    <a class="nav-link icon">
-                        <i class="fe fe-clock"></i> <span class="nav-span">Check In</span>
-                    </a>
-                   </div>
+            
+                  @if ($check_time->count() == 0)
+               
+                        <form action="{{route('store-time')}}" method="POST">
+                            @csrf
+                            <div class="punch-btn-section">
+
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                                <button type="submit"  class="btn btn-success punch-btn"> <i class="fe fe-clock"></i>Check In</button>
+                            </div>
+                        </form>
+                        @else
+                        <form action="{{route('update-time')}}" method="POST">
+                            @csrf
+                            <div class="punch-btn-section">
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                                <button type="submit"  class="btn btn-danger punch-btn"> <i class="fe fe-clock"></i>Check Out</button>
+                            </div>
+                            </form>
+                           @endif    
             @endpermission
-                <div class="dropdown  header-option" >
-                    <a class="nav-link icon" href="{{route('g_officer.index')}}">
-                        <i class="fe fe-users"></i> <span class="nav-span">Beneficiaries</span>
-                    </a>
-                </div>
-
-
             <div class="d-flex order-lg-2 ml-auto">
                 <a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="fa fa-search"></i></a>
                 <div class="mt-1">
-                    {{--<form class="form-inline">
+                    <form class="form-inline">
                         <div class="search-element">
                             <input type="search" class="form-control header-search" placeholder="Search…" aria-label="Search" tabindex="1">
                             <button class="btn btn-primary-color" type="submit"><i class="fa fa-search text-dark"></i></button>
                         </div>
-                    </form>--}}
+                    </form>
                 </div><!-- SEARCH -->
 
                 <div class="dropdown   header-fullscreen" >
@@ -111,12 +119,7 @@
                 <div class="dropdown ">
                     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
 										<span>
-                                             @if(access()->user()->getMedia('profile_pic')->first() != null)
-                                                <img src="{{access()->user()->getMedia('profile_pic')->first()->getUrl()}}" alt="img" class="avatar avatar-md brround">
-                                            @else
-                                                <img src="{{ asset('mdh/images/users/16.jpg') }}" alt="img" class="avatar avatar-md brround">
-                                            @endif
-
+											<img src="{{ asset('mdh/images/users/16.jpg') }}" alt="img" class="avatar avatar-md brround">
 										</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">

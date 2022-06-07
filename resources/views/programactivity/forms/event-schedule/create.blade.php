@@ -10,9 +10,9 @@
             </div>
 
             <div class="card-body">
-                {!! Form::open(['route' => ['programactivity.updateEventSchedule',$requisition_training->uuid], 'method'=>'POST']) !!}
+                {!! Form::open(['route' => ['training.updateSchedule',$requisition_training->uuid], 'method'=>'POST']) !!}
 
-                    {!! Form::number('requisition_id', $requisition_training->requisition_id,['class' => 'form-control', 'required', 'hidden']) !!}
+                {{--    {!! Form::number('requisition_id', $requisition->id,['class' => 'form-control', 'required', 'hidden']) !!}--}}
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">

@@ -5,7 +5,7 @@
 
 
     <br>
-{{--    @include('programactivity.display.generalSumarry')--}}
+    @include('programactivity.display.generalSumarry')
 
     @include('programactivity.datatable.participants.all')
 
@@ -13,6 +13,4 @@
 
 
     @endsection
-
-
 

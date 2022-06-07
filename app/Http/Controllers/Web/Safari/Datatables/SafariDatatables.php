@@ -62,8 +62,8 @@ trait SafariDatatables
             ->addColumn('amount_requested', function ($query) {
                 return number_2_format($query->amount_requested);
             })
-            ->addColumn('disbursed_amount', function ($query) {
-                return number_2_format($query->disbursed_amount);
+            ->addColumn('amount_paid', function ($query) {
+                return number_2_format($query->amount_paid);
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('safari.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>';
@@ -78,7 +78,6 @@ trait SafariDatatables
      */
     public function AccessDatatable()
     {
-
         return DataTables::of($this->safariAdvance->getAccessSavedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {

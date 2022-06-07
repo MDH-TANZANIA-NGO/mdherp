@@ -4,26 +4,6 @@
 
     {!! Form::open(['route' => ['leave.store']]) !!}
     @csrf
-
- @if(access()->user()->assignedSupervisor() == null)
-
-     <div class="row">
-         <div class="col-12 col-sm-12">
-             <div class="card ">
-                 <div class="card-header">
-                     <p style="margin-left: 40%; font-size: large"> You have not been assigned supervisor</p>
-
-                 </div>
-                 <div>
-
-                 </div>
-             </div>
-         </div>
-     </div>
-
-
-
- @else
     <!-- Large Modal -->
         <div class="col-lg-12 col-md-12">
             <div class="card">
@@ -159,7 +139,7 @@
         </div>
     {!! Form::close() !!}
 
-@endif
+
 
 @endsection
 

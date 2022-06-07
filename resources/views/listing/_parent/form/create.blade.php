@@ -83,7 +83,7 @@
                             <div class="input-group-text">
                                 <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                             </div>
-                        </div><input class="form-control" name="date_required" placeholder="MM/DD/YYYY" type="date">
+                        </div><input class="form-control fc-datepicker" name="date_required" placeholder="MM/DD/YYYY" type="date">
                     </div>
                     @error('date_required')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -199,7 +199,7 @@
                     <div class="custom-controls-stacked">
                         @foreach($tools as $tool)
                             <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" name="tools[]" value="{{ $tool->id}}">
+                                <input type="checkbox" class="custom-control-input" name="tools" value="{{ $tool->id}}">
                                 <span class="custom-control-label">{{ $tool->name }}</span>
                             </label>
                         @endforeach
@@ -228,11 +228,11 @@
     <script>
         $(document).ready(function (){
             $(document).on('change', '.establishment', function (){
-                if($(this).val() == 23){
+                if($(this).val() == 21){
                     $('.budget').show()
                     $('.employee').hide()
                 }
-                if ($(this).val() == 22){
+                if ($(this).val() == 20){
                     $('.employee').show()
                     $('.budget').hide()
                 }

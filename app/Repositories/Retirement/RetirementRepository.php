@@ -36,15 +36,11 @@ class RetirementRepository extends BaseRepository
             DB::raw('retirements.user_id AS user_id'),
             DB::raw('retirements.number AS number'),
             DB::raw('retirements.amount_requested AS amount_requested'),
-            DB::raw('payments.payed_amount AS amount_paid'),
+            DB::raw('retirements.amount_paid AS amount_paid'),
             DB::raw('retirements.created_at AS created_at'),
             DB::raw('retirements.uuid AS uuid'),
         ])
-            ->join('users','users.id', 'retirements.user_id')
-            ->join('safari_advances','safari_advances.id','retirements.safari_advance_id')
-            ->join('requisition_travelling_costs','requisition_travelling_costs.id','safari_advances.requisition_travelling_cost_id')
-            ->join('requisitions','requisitions.id','requisition_travelling_costs.requisition_id')
-            ->join('payments','payments.requisition_id','requisitions.id');
+            ->join('users','users.id', 'retirements.user_id');
     }
 
     public function getattachment()
@@ -119,15 +115,15 @@ class RetirementRepository extends BaseRepository
         $retirement = Retirement::where('safari_advance_id', $safari_advance->id)->first();
 
         return[
-/*
-            'retirement_id'=> $retirement->id,
-            'safari_advance_id'=>$inputs['safari_advance_id'],
-            'from'=>$inputs['from'],
-            'to'=>$inputs['to'],
-            'district_id'=>$inputs['district_id'],
-            'amount_requested'=>$inputs['amount_requested'],
-            'amount_paid'=>$inputs['amount_paid'],
-            'amount_received'=>$inputs['amount_received'],*/
+
+//            'retirement_id'=> $retirement->id,
+//            'safari_advance_id'=>$inputs['safari_advance_id'],
+//            'from'=>$inputs['from'],
+//            'to'=>$inputs['to'],
+//            'district_id'=>$inputs['district_id'],
+//            'amount_requested'=>$inputs['amount_requested'],
+//            'amount_paid'=>$inputs['amount_paid'],
+//            'amount_received'=>$inputs['amount_received'],
             'amount_spent'=>$inputs['amount_spent'],
             'amount_variance'=>$inputs['amount_variance'],
             'activity_report'=>$inputs['activity_report'],

@@ -4,13 +4,10 @@ namespace App\Models\Listing;
 
 use App\Models\Auth\User;
 use App\Models\BaseModel;
-use App\Models\System\CodeValue;
-use App\Models\Unit\Department;
 use App\Models\Workflow\WfTrack;
 
 class Listing extends BaseModel
 {
-    //protected $with= 'working_tools';
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -23,14 +20,6 @@ class Listing extends BaseModel
     public function wfTracks()
     {
         return $this->morphMany(WfTrack::class, 'resource');
-    }
-
-    public function department(){
-        return $this->belongsTo(Department::class);
-    }
-
-    public function employment(){
-        return $this->belongsTo(CodeValue::class, 'employment_condition_cv_id');
     }
 
     public function getResourceNameAttribute()

@@ -16,7 +16,7 @@ class CreateRatesTable extends Migration
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->boolean('active')->default('false');
+            $table->boolean('active')->default(false);
             $table->smallInteger('wf_done')->default(0);
             $table->dateTime('wf_done_date')->nullable();
             $table->uuid('uuid');

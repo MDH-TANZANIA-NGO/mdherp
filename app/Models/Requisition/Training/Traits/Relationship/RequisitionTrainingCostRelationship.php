@@ -38,7 +38,7 @@ trait RequisitionTrainingCostRelationship {
 
     public function programActivityAttendance()
     {
-        return $this->hasMany(ProgramActivityAttendance::class, 'requisition_training_cost_id', 'id');
+        return $this->hasMany(ProgramActivityAttendance::class, 'g_officer_id', 'participant_uid');
     }
 
 

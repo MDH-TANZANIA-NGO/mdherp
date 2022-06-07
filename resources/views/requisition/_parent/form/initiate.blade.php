@@ -31,14 +31,12 @@
         </div>
     @endif
 
-{{--    @include('requisition._parent.includes.budget_checker', ['requisition' => $requisition])--}}
-
     @switch($requisition->requisition_type_id)
         @case(1)
-        @include('requisition.procurement.forms.create',['items'=>$requisition->items])
         @if($items->count() > 0)
             @include('requisition.procurement.items.details')
         @endif
+        @include('requisition.procurement.forms.create',['items'=>$requisition->items])
 
         @break
 
@@ -69,11 +67,7 @@
             let $equipment_id = $("select[name='equipment_id']");
             let $equipment_type = $("#equipment_type");
             let $specs = $("#specs");
-            let $quantity = $("input[name='quantity']");
             let $requested_amount = $("input[name='requested_amount']");
-            let $notification_alert = $("#notification_alert");
-            let $description = $("textarea[name='reason']");
-            let $districts = $("#districts");
 
 
             $equipment_id.change(function (event){
@@ -81,32 +75,14 @@
                 let $equipment = $(this).val();
                 $requested_amount.attr('min', '');
                 $requested_amount.attr('max', '');
-                $notification_alert.empty();
-                $.get("{{ route('equipment.get_by_id') }}", { equipment_id: $equipment, uuid: "{{$requisition->uuid}}"},
+                $.get("{{ route('equipment.get_by_id') }}", { equipment_id: $equipment},
                     function(data, status){
                         if(data){
-                            console.log(data);
-                            $equipment_type.text(data.equipment.equipment_title)
-                            $specs.text(data.equipment.specs)
-                            $requested_amount.attr('placeholder', data.equipment.price_range_from +' - ' +data.equipment.price_range_to)
-                            $requested_amount.attr('min', data.equipment.price_range_from)
-                            $requested_amount.attr('max', data.equipment.price_range_to)
-                            let $available_budget = data.budget_summary.actual - data.budget_summary.pipeline;
-                            if($available_budget >= data.equipment.price_range_to){
-                                // $specs.attr('disabled',false);
-                                $quantity.attr('disabled',false);
-                                $requested_amount.attr('disabled',false);
-                                $description.attr('disabled', false);
-                                $districts.attr('disabled', false);
-                            }else{
-                                // $specs.attr('disabled',true);
-                                $quantity.attr('disabled',true);
-                                $requested_amount.attr('disabled',true);
-                                $notification_alert.html("<div class='text text-danger'>Insufficient Fund <br> Remaining Fund: "+$available_budget +"</div>");
-                                $description.attr('disabled', true);
-                                $districts.attr('disabled', true);
-                            }
-
+                            $equipment_type.text(data.equipment_title)
+                            $specs.text(data.specs)
+                            $requested_amount.attr('placeholder', data.price_range_from +' - ' +data.price_range_to)
+                            $requested_amount.attr('min', data.price_range_from)
+                            $requested_amount.attr('max', data.price_range_to)
                         }else{
                             $equipment_type.text('');
                             $specs.text('');
@@ -115,7 +91,6 @@
                 });
 
             });
-
         });
     </script>
 @endpush

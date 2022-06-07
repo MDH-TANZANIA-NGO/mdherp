@@ -22,9 +22,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use App\Models\Auth\User;
-use League\CommonMark\Util\Html5EntityDecoder;
-use PhpOffice\PhpSpreadsheet\Writer\Html;
-
+use App\Repositories\Fleet\FleetRepository;
 
 class WorkflowEventSubscriber
 {
@@ -101,87 +99,52 @@ class WorkflowEventSubscriber
                             case 1: //Applicant level
                                 $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
-                                $string = htmlentities(
-                                    "There is new"." ".$requisition->typeCategory->title." "."From ".$requisition->user->first_name."".$requisition->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
-                                    "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
-                                    "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
-                                    "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
-                                    "<b>Amount requested:</b>". number_2_format($requisition->amount)
-                                );
+
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),
                                     'subject' => $requisition->typeCategory->title." Need your Approval",
-                                    'message' => html_entity_decode($string)
-
+                                    'message' => $requisition->typeCategory->title." ".$requisition->number.' need your approval'
                                 ];
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
                             case 2:
 //                                $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
-                                $string = htmlentities(
-                                    "There is new"." ".$requisition->typeCategory->title." "."From ".$requisition->user->first_name."".$requisition->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
-                                    "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
-                                    "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
-                                    "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
-                                    "<b>Amount requested:</b>". number_2_format($requisition->amount)
-                                );
+
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),
                                     'subject' => $requisition->typeCategory->title." Need your Approval",
-                                    'message' => html_entity_decode($string)
+                                    'message' => $requisition->typeCategory->title." ".$requisition->number.' need your approval'
                                 ];
                                 User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
 
                                 case 3:
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
-                                    $string = htmlentities(
-                                        "There is new"." ".$requisition->typeCategory->title." "."From ".$requisition->user->first_name."".$requisition->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
-                                        "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
-                                        "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
-                                        "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
-                                        "<b>Amount requested:</b>". number_2_format($requisition->amount)
-                                    );
-                                    $email_resource = (object)[
-                                        'link' =>  route('requisition.show',$requisition),
-                                        'subject' => $requisition->typeCategory->title." Need your Approval",
-                                        'message' => html_entity_decode($string)
-
-                                    ];
+                                $email_resource = (object)[
+                                    'link' =>  route('requisition.show',$requisition),
+                                    'subject' => $requisition->typeCategory->title." Need your Approval",
+                                    'message' => $requisition->typeCategory->title." ".$requisition->number.' need your approval'
+                                ];
                                 User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
 
                             case 4:
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level,$requisition->user->designation->department_id);
-                                $string = htmlentities(
-                                    "There is new"." ".$requisition->typeCategory->title." "."From ".$requisition->user->first_name."".$requisition->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
-                                    "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
-                                    "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
-                                    "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
-                                    "<b>Amount requested:</b>". number_2_format($requisition->amount)
-                                );
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),
                                     'subject' => $requisition->typeCategory->title." Need your Approval",
-                                    'message' => html_entity_decode($string)
+                                    'message' => $requisition->typeCategory->title." ".$requisition->number.' need your approval'
                                 ];
                                 User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
 
                             case 5:
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
-                                $string = htmlentities(
-                                    "There is new"." ".$requisition->typeCategory->title." "."From ".$requisition->user->first_name."".$requisition->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$requisition->number."<br>".
-                                    "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
-                                    "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
-                                    "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
-                                    "<b>Amount requested:</b>". number_2_format($requisition->amount)
-                                );
                                 $email_resource = (object)[
                                     'link' =>  route('requisition.show',$requisition),
                                     'subject' => $requisition->typeCategory->title." Need your Approval",
-                                    'message' => html_entity_decode($string)
+                                    'message' => $requisition->typeCategory->title." ".$requisition->number.' need your approval'
                                 ];
                                 User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                                 break;
@@ -195,18 +158,13 @@ class WorkflowEventSubscriber
                     /*check levels*/
                     switch ($level) {
                         case 1: //Applicant level
-
-                            $string = htmlentities(
-                                "<p>There is new Safari Advance from"."<b> ".$safari->user->first_name. " ".$safari->user->last_name. "</b>"."Who is planning to travel to". "<b>".$safari->district->name."</b> </p><br>.".
-                                        "<p><b>Scope:</b>".$safari->scope."</p>"
-                            );
                             $safari_advance_repo_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
 
                             $email_resource = (object)[
                                 'link' => route('safari.show', $safari),
                                 'subject' => $safari->number . " Need your Approval",
-                                'message' =>  html_entity_decode($string)
+                                'message' =>  $safari->number . ' need your approval'
                             ];
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -221,17 +179,11 @@ class WorkflowEventSubscriber
                         case 1: //Applicant level
                             $program_activity_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
-                            $string = htmlentities(
-                                "There is new"." "."Program Activity Initiated"." "."by ".$program_activity->user->first_name."".$program_activity->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$program_activity->number."<br>".
-                                "<b>Project:</b>".$program_activity->requisition->project->title." (". $program_activity->requisition->project->code.")"."<br>".
-                                "<b>Activity:</b>".$program_activity->requisition->activity->code.": ".$program_activity->requisition->activity->title."<br>".
-                                "<b>Activity Location:</b>". $program_activity->training->district->name."<br>".
-                                "<b>Amount requested:</b>". number_2_format($program_activity->requisition->amount)
-                            );
+
                             $email_resource = (object)[
                                 'link' => route('programactivity.show', $program_activity),
-                                'subject' =>  $program_activity->number . " Need your Approval",
-                                'message' => html_entity_decode($string)
+                                'subject' => $program_activity->number . " Need your Approval",
+                                'message' =>  $program_activity->number . ' need your approval'
                             ];
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -248,7 +200,7 @@ class WorkflowEventSubscriber
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
 
                             $email_resource = (object)[
-                                'link' => route('retirement.show', $retirement),
+                                'link' => route('programactivity.show', $retirement),
                                 'subject' => $retirement->number . " Need your Approval",
                                 'message' =>  $retirement->number . ' need your approval'
                             ];
@@ -262,26 +214,14 @@ class WorkflowEventSubscriber
                     $leave = $leave_repo->find($resource_id);
                     /*check levels*/
                     switch ($level) {
-                        case 1:
-                            //Applicant level
-                            $string = htmlentities(
-                                "There is new"." "."leave application"." "."from ".$leave->user->first_name."".$leave->user->last_name."pending for your approval."."<br>". "<br>".
-                                "<b>Region:</b>".$leave->region->name."<br>".
-                                "<b>Leave Type:</b>".$leave->type->name."<br>".
-                                "<b>Remaining days:</b>".$leave->getRemainingDays()."<br>".
-                                "<b>Comments:</b>". $leave->comment."<br>".
-                                "<b>Starting Date</b>". $leave->start_date."<br>".
-                                "<b>End Date</b>". $leave->end_date."<br>".
-                                "<b>Requested Days</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
-
-                            );
+                        case 1: //Applicant level
                             $leave_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
 
                             $email_resource = (object)[
                                 'link' => route('leave.show', $leave),
                                 'subject' => $leave->id . " Needs your Approval",
-                                'message' => html_entity_decode($string)
+                                'message' =>  $leave->id . ' needs your approval'
                             ];
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -289,112 +229,44 @@ class WorkflowEventSubscriber
 //                                $leave_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
 
-                            $string = htmlentities(
-                                "There is new"." "."leave application"." "."from ".$leave->user->first_name."".$leave->user->last_name."pending for your approval."."<br>". "<br>".
-                                "<b>Region:</b>".$leave->region->name."<br>".
-                                "<b>Leave Type:</b>".$leave->type->name."<br>".
-                                "<b>Remaining days:</b>".$leave->getRemainingDays()."<br>".
-                                "<b>Comments:</b>". $leave->comment."<br>".
-                                "<b>Starting Date</b>". $leave->start_date."<br>".
-                                "<b>End Date</b>". $leave->end_date."<br>".
-                                "<b>Requested Days</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
-
-                            );
                             $email_resource = (object)[
                                 'link' =>  route('leave.show',$leave),
                                 'subject' => $leave->id." Need your Approval",
-                                'message' => html_entity_decode($string)
+                                'message' => $leave->id.' need your approval'
                             ];
                            // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
                         case 3:
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
-                            $string = htmlentities(
-                                "There is new"." "."leave application"." "."from ".$leave->user->first_name."".$leave->user->last_name."pending for your approval."."<br>". "<br>".
-                                "<b>Region:</b>".$leave->region->name."<br>".
-                                "<b>Leave Type:</b>".$leave->type->name."<br>".
-                                "<b>Remaining days:</b>".$leave->getRemainingDays()."<br>".
-                                "<b>Comments:</b>". $leave->comment."<br>".
-                                "<b>Starting Date</b>". $leave->start_date."<br>".
-                                "<b>End Date</b>". $leave->end_date."<br>".
-                                "<b>Requested Days</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
-
-                            );
                             $email_resource = (object)[
                                 'link' =>  route('leave.show',$leave),
                                 'subject' => $leave->id." Need your Approval",
-                                'message' => html_entity_decode($string)
+                                'message' => $leave->id."need your approval"
                             ];
                             //User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
                         case 4:
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level,$leave->user->designation->department_id);
-                            $string = htmlentities(
-                                "There is new"." "."leave application"." "."from ".$leave->user->first_name."".$leave->user->last_name."pending for your approval."."<br>". "<br>".
-                                "<b>Region:</b>".$leave->region->name."<br>".
-                                "<b>Leave Type:</b>".$leave->type->name."<br>".
-                                "<b>Remaining days:</b>".$leave->getRemainingDays()."<br>".
-                                "<b>Comments:</b>". $leave->comment."<br>".
-                                "<b>Starting Date</b>". $leave->start_date."<br>".
-                                "<b>End Date</b>". $leave->end_date."<br>".
-                                "<b>Requested Days</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
-
-                            );
                             $email_resource = (object)[
                                 'link' =>  route('leave.show',$leave),
                                 'subject' => $leave->id." Need your Approval",
-                                'message' => html_entity_decode($string)
+                                'message' => $leave->id." ".$leave->id.' need your approval'
                             ];
                            // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
                         case 5:
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id,$resource_id,$level);
-                            $string = htmlentities(
-                                "There is new"." "."leave application"." "."from ".$leave->user->first_name."".$leave->user->last_name."pending for your approval."."<br>". "<br>".
-                                "<b>Region:</b>".$leave->region->name."<br>".
-                                "<b>Leave Type:</b>".$leave->type->name."<br>".
-                                "<b>Remaining days:</b>".$leave->getRemainingDays()."<br>".
-                                "<b>Comments:</b>". $leave->comment."<br>".
-                                "<b>Starting Date</b>". $leave->start_date."<br>".
-                                "<b>End Date</b>". $leave->end_date."<br>".
-                                "<b>Requested Days</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
-
-                            );
                             $email_resource = (object)[
                                 'link' =>  route('leave.show',$leave),
                                 'subject' => $leave->id." Need your Approval",
-                                'message' => html_entity_decode($string)
+                                'message' =>$leave->id." ".$leave->id.' need your approval'
                             ];
                             User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
-                    }
-
-                    break;
-                case 7:
-                    $payment_repo = (new FinanceActivityRepository());
-                    $payment = $payment_repo->find($resource_id);
-                    /*check levels*/
-                    switch ($level) {
-                        case 1: //Applicant level
-                            $payment_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
-                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
-                            $string = htmlentities(
-                                "There is new"." "."Payment batch"." "."from ".$payment->user->first_name."".$payment->user->last_name."pending your approval."."<br>". "<b>Number:</b>".$payment->number."<br>".
-                                "<b>Project:</b>".$payment->requisition->project->title." (". $payment->requisition->project->code.")"."<br>".
-                                "<b>Activity:</b>".$payment->requisition->activity->code.": ".$payment->requisition->activity->title."<br>".
-                                "<b>Amount requested:</b>". number_2_format($payment->requisition->amount)
-                            );
-                            $email_resource = (object)[
-                                'link' => route('programactivity.show', $payment),
-                                'subject' =>  $payment->number . " Need your Approval",
-                                'message' => html_entity_decode($string)
-                            ];
-//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
-                            break;
                     }
 
                     break;
@@ -415,28 +287,8 @@ class WorkflowEventSubscriber
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     }
+
                     break;
-
-                case 9:
-                    $listing_repo = (new ListingRepository());
-                    $listing  = $listing_repo->find($resource_id);
-                    /*check levels*/
-                    switch ($level) {
-                        case 1: //Applicant level
-//                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
-                            $listing->update(['rejected' => false]);
-                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
-
-                            $email_resource = (object)[
-                                'link' => route('listing.show', $listing),
-                                'subject' => $listing->id . " Needs your Approval",
-                                'message' =>  $listing->id . ' needs your approval'
-                            ];
-//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
-                            break;
-                    }
-                    break;
-
             }
 
             $workflow->forward($data);
@@ -449,17 +301,10 @@ class WorkflowEventSubscriber
                     $requisition = $requisition_repo->find($resource_id);
                     $this->updateWfDone($requisition);
                     $requisition_repo->processComplete($requisition);
-                $string = htmlentities(
-                    "Your"." ".$requisition->typeCategory->title." "."has been approved successfully."."<br>". "<b>Number:</b>".$requisition->number."<br>".
-                    "<b>Project:</b>".$requisition->project->title." (". $requisition->project->code.")"."<br>".
-                    "<b>Activity:</b>".$requisition->activity->code.": ".$requisition->activity->title."<br>".
-                    "<b>Requisition Description:</b>". $requisition->descriptions."<br>".
-                    "<b>Amount requested:</b>". number_2_format($requisition->amount)."(TZS)". "which is equal to". number_2_format(currency_converter($requisition->amount, 'TSH'))."(USD)"
-                );
                     $email_resource = (object)[
                         'link' =>  route('requisition.show',$requisition),
                         'subject' => $requisition->typeCategory->title." ".$requisition->number." Approved Successfully",
-                        'message' => html_entity_decode($string)
+                        'message' => 'These Application has been Approved successfully'
                     ];
                     $requisition->user->notify(new WorkflowNotification($email_resource));
                     break;
@@ -522,21 +367,13 @@ class WorkflowEventSubscriber
                     $email_resource = (object)[
                         'link' =>  route('leave.show',$leave),
                         'subject' => "Approved Successfully",
-                        'message' => 'The Leave Application has been Approved successfully'
+                        'message' => 'These Application has been Approved successfully'
                     ];
-                    $delegeted_email = (object)[
-                        'link' =>  route('leave.show',$leave),
-                        'subject' => "Delegated Responsibilities",
-                        'message' => $leave->user->first_name. ' '.$leave->user->last_name. 'Have gone for '. $leave->balance->leaveType->name. 'until'.' '. $leave->end_date. '. You have been delegated hi/her responsibilities.'
-                    ];
-                    $delegeted_user = User::query()->where('id', $leave->employee_id)->first();
                     $leave->user->notify(new WorkflowNotification($email_resource));
-                    $delegeted_user->notify(new WorkflowNotification($delegeted_email));
                     break;
                 case 7:
-                    $finance_repo = (new FinanceActivityRepository());
-                    $finance = $finance_repo->find($resource_id);
-
+                    $financerepo = (new FinanceActivityRepository());
+                    $finance = $financerepo->find($resource_id);
                     $this->updateWfDone($finance);
 //                $requisition_repo->processComplete($safari);
                     $email_resource = (object)[
@@ -544,14 +381,7 @@ class WorkflowEventSubscriber
                         'subject' => $finance->number." Approved Successfully",
                         'message' => $finance->number.':This payment batch has been Approved successfully'
                     ];
-                    $activity_owner_email = (object)[
-                        'link' =>  route('programactivityreport.show',$finance->activityPayment->activityReport->uuid),
-                        'subject' => "Activity Payment Approved",
-                        'message' => 'Your activity payments has been approved'
-                    ];
-                    $activity_owner = User::query()->where('id', $finance->activityPayment->activityReport->user_id)->first();
                     $finance->user->notify(new WorkflowNotification($email_resource));
-                    $activity_owner->notify(new WorkflowNotification(($activity_owner_email)));
                     break;
                 case 8:
                     $timesheetrepo = (new TimesheetRepository());
@@ -586,6 +416,41 @@ class WorkflowEventSubscriber
                     ];
                     $program_activity_report->user->notify(new WorkflowNotification($email_resource));
                     break;
+
+
+                case 11:
+                    $fleet_repo = (new FleetRepository());
+                    $fleet = $fleet_repo->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $fleet_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('fleet.show', $fleet),
+                                'subject' => $fleet->number . " Need your Approval",
+                                'message' =>  $fleet->number . ' need your approval'
+                            ];
+                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+
+                        case 2:
+                           
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' =>  route('requisition.show', $fleet),
+                                'subject' => $fleet->typeCategory->title . " Need your Approval",
+                                'message' => $fleet->typeCategory->title . " " . $fleet->number . ' need your approval'
+                            ];
+                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+
+                    break;
+
+               
             }
 
 
@@ -642,12 +507,13 @@ class WorkflowEventSubscriber
             case 8:
                 (new TimesheetRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
-            case 9:
-                (new ListingRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
-                break;
             case 10:
                 (new ProgramActivityReportRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
+            case 11:
+                (new FleetRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
+                break;
+
 
         }
     }

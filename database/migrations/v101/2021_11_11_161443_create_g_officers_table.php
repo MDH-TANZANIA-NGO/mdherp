@@ -18,8 +18,7 @@ class CreateGOfficersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->string('phone')->unique();
-            $table->string('phone2');
+            $table->string('phone');
             $table->unsignedBigInteger('g_scale_id');
             $table->uuid('uuid');
             $table->softDeletes();

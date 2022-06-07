@@ -10,7 +10,6 @@ use App\Models\Project\SubProgram;
 use App\Models\System\CodeValue;
 use App\Models\System\Region;
 use App\Models\Taf\Taf;
-use App\Models\Timesheet\Timesheet;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\WfDefinition;
 use App\Models\Workflow\WfTrack;
@@ -49,10 +48,6 @@ trait UserRelationship
     public function logs()
     {
         return $this->hasMany('user_logs','user_id','id');
-    }
-    public function timesheets()
-    {
-        return $this->hasMany(Timesheet::class);
     }
 
     /**

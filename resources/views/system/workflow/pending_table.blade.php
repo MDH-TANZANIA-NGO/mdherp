@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 col-sm-12">
-        <table class="table table-bordered table-striped mb-0" id="pending-workflow-table" cellspacing="0" width="100%">
+        <table class="table table-bordered table-striped mb-0" id = "pending-workflow-table" cellspacing="0" width="100%">
             <thead>
             <tr >
 {{--                <th>#</th>--}}

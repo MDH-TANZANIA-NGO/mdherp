@@ -91,7 +91,7 @@ class WfModuleGroupsTableSeeder extends Seeder
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now(),
                     'deleted_at' => NULL,
-                ),
+                ), 
             8 =>
                 array (
                     'id' => 9,
@@ -101,6 +101,16 @@ class WfModuleGroupsTableSeeder extends Seeder
                     'updated_at' => \Carbon\Carbon::now(),
                     'deleted_at' => NULL,
                 ),
+
+            9 =>
+            array(
+                'id' => 10,
+                'name' => 'Fleet',
+                'table_name' => 'fleet',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+                'deleted_at' => NULL,
+            ),
         ));
 
         $this->enableForeignKeys('wf_module_groups');

@@ -22,12 +22,12 @@ class CreateRetirementTable extends Migration
             $table->decimal('amount_paid', 15, 2);
             $table->decimal('amount_received', 15, 2);
             $table->longText('activity_report');
-            $table->boolean('wf_done')->default('FALSE');
+            $table->boolean('wf_done')->default(FALSE);
             $table->timestamp('wf_done_date');
             $table->string('uuid');
             $table->timestamp('deleted_at')->nullable();
-            $table->boolean('rejected')->default('FALSE');
-            $table->boolean('done')->default('FALSE');
+            $table->boolean('rejected')->default(FALSE);
+            $table->boolean('done')->default(FALSE);
 
             $table->timestamps();
         });

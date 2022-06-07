@@ -75,15 +75,6 @@ trait Number
                 $number = "MDH-RT-".$year.$value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
-            case 'g_officers':
-                #generate Reference number
-                $reference = "CHECKNO";
-                $year = $this->year();
-                $month = $this->month();
-                $value = $this->getSysDefCurrentValue($reference);
-                $number = '-'.$month.'-'.$year.'-'.$value;
-                return $this->getSpecific($model, $reference, $value, $number);
-                break;
             default:
                 throw new GeneralException(__('exceptions.general.number_not_set'));
                 break;
@@ -157,9 +148,5 @@ trait Number
     private function year()
     {
         return Carbon::now()->format('y');
-    }
-    private function month()
-    {
-        return Carbon::now()->format('m');
     }
 }

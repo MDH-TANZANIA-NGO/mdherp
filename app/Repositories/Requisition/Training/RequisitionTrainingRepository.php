@@ -3,7 +3,6 @@
 namespace App\Repositories\Requisition\Training;
 
 use App\Models\Requisition\Training\requisition_training;
-use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\Traits\Relationship\RequisitionTrainingRelationship;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +24,7 @@ class RequisitionTrainingRepository extends BaseRepository
             DB::raw('requisition_trainings.district_id AS district_id'),
             DB::raw('requisitions.id AS requisition_ID'),
             DB::raw('requisition_trainings.requisition_id AS requisition_id'),
-//            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
+            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
             DB::raw('program_activities.id AS program_activity_id'),
             DB::raw('program_activities.number AS program_activity_number'),
 
@@ -64,8 +63,8 @@ class RequisitionTrainingRepository extends BaseRepository
     {
 
         return [
-            'start_date' => $input['from'],
-            'end_date' => $input['to'],
+            'from' => $input['from'],
+            'to' => $input['to'],
             'requisition_id' => $input['requisition_id'],
             'district_id' => $input['district_id'],
 
@@ -73,41 +72,10 @@ class RequisitionTrainingRepository extends BaseRepository
     }
 
     public function update($uuid, $inputs){
-
-
-
         return DB::transaction(function () use ($uuid, $inputs){
 
-
-            return $this->updatePerdiemAmount($inputs,$uuid);
+            return $this->query()->update($this->inputProcess($uuid,$inputs));
         });
-    }
-    public function updatePerdiemAmount($inputs,$uuid)
-    {
-        $get_inputs = $this->inputProcess($inputs);
-        $requisition_training = $this->findByUuid($uuid);
-        $requisition_training_costs =  requisition_training_cost::query()->where('requisition_id', $requisition_training->requisition_id)->get();
-        $no_days =  getNoDays($inputs['from'], $inputs['to']);
-
-        foreach ($requisition_training_costs as $costs)
-        {
-            if ($no_days != $costs->no_days)
-            {
-                $perdiem_amount_rate = $costs->perdiem_total_amount/$costs->no_days;
-                $new_perdiem_total_amount =  $perdiem_amount_rate*$no_days;
-                $total_amount = ($costs->total_amount - $costs->perdiem_total_amount) + $new_perdiem_total_amount;
-                requisition_training_cost::query()->where('id', $costs->id)->update(['perdiem_total_amount'=> $new_perdiem_total_amount, 'total_amount'=>$total_amount]);
-            }
-            else{
-                requisition_training_cost::query()->where('id', $costs->id)->update(['no_days'=> $no_days]);
-
-            }
-
-        }
-
-        return $requisition_training->update($this->inputProcess($inputs));
-
-
     }
 
 

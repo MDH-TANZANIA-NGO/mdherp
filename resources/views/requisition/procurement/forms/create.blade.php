@@ -28,12 +28,12 @@
                                     <hr>
                                     <div>
                                         <label>Description</label>
-                                        <textarea name="reason" id="description_editor" class="form-control" cols="30" rows="10" required></textarea>
+                                        <textarea name="reason" id="" class="form-control" cols="30" rows="10" required></textarea>
                                     </div>
                                     <hr>
                                     <div>
                                         <label>District ( allocation )</label>
-                                        {!! Form::select('districts[]',$districts,null,['class' => 'form-control select2-show-search','multiple','required', 'id'=>'districts']) !!}
+                                        {!! Form::select('districts[]',$districts,null,['class' => 'form-control select2-show-search','multiple','required']) !!}
                                     </div>
                                 </td>
                                 <td class="text-right">
@@ -47,9 +47,6 @@
                                         <label>Amount</label>
                                         <input type="number" name="requested_amount" class="form-control" placeholder="" required />
                                     </div>
-
-                                    <div id="notification_alert"></div>
-
                                 </td>
                                 <td><button type="submit" class="btn btn-primary">Add</button></td>
                             </tr>
@@ -63,11 +60,5 @@
         </div>
     </div>
 </div>
-
-@push('after-scripts')
-    <script>
-        $(document).ready(function (){
-            // let $description_editor = $("#description_editor").richText();
-        });
-    </script>
-@endpush
+</div>
+</div>

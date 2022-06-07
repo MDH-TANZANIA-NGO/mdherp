@@ -37,7 +37,7 @@
 
         <div class="col">
 
-            {{--<div class="row">--}}
+            <div class="row">
 
                 <!-- Put the page specifically for this page here -->
                 @include("system/workflow/count_summary")
@@ -50,7 +50,7 @@
                 <br>
 
 
-            {{--</div>--}}
+            </div>
 
         </div>
 

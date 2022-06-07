@@ -396,6 +396,30 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 17,
                     'level' => '2',
+                    'unit_id' => 73,
+                    'designation_id' => 126,
+                    'description' => 'Endorse Payment',
+                    'msg_next' => 'Endorse Payment',
+                    'wf_module_id' => '7',
+                    'active' => '1',
+                    'allow_rejection' => 1,
+                    'allow_repeat_participate' => 0,
+                    'created_at' => '2021-11-22 10:15:25',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'is_approval' => 0,
+                    'has_next_start_optional' => 0,
+                    'is_optional' => 0,
+                    'can_close' => 0,
+                    'action_description' => 'Endorse',
+                    'status_description' => 'Endorsed',
+//                'assign_next_user' => 0,
+                ),
+
+            17 =>
+                array (
+                    'id' => 18,
+                    'level' => '3',
                     'unit_id' => 72,
                     'designation_id' => 125,
                     'description' => 'Approve Payment',
@@ -410,16 +434,14 @@ class WfDefinitionsTableSeeder extends Seeder
                     'is_approval' => 0,
                     'has_next_start_optional' => 0,
                     'is_optional' => 0,
-                    'can_close' => 0,
+                    'can_close' => 1,
                     'action_description' => 'Approve',
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-
-
-            17 =>
+            18 =>
                 array (
-                    'id' => 18,
+                    'id' => 19,
                     'level' => '1',
                     'unit_id' => 69,
                     'designation_id' => 124,
@@ -428,7 +450,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'wf_module_id' => '6',
                     'active' => '1',
                     'allow_rejection' => 1,
-                    'allow_repeat_participate' => 1,
+                    'allow_repeat_participate' => 0,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
@@ -436,16 +458,16 @@ class WfDefinitionsTableSeeder extends Seeder
                     'has_next_start_optional' => 0,
                     'is_optional' => 0,
                     'can_close' => 0,
-                    'action_description' => 'Request',
-                    'status_description' => 'Requested',
+                    'action_description' => 'Complete',
+                    'status_description' => 'Completed',
 //                'assign_next_user' => 0,
                 ),
-            18 =>
+            19 =>
                 array (
-                    'id' => 19,
+                    'id' => 20,
                     'level' => '2',
                     'unit_id' => 74,
-                    'designation_id' => 124,
+                    'designation_id' => 127,
                     'description' => 'Review Leave Request',
                     'msg_next' => 'Review Leave Request',
                     'wf_module_id' => '6',
@@ -464,10 +486,10 @@ class WfDefinitionsTableSeeder extends Seeder
 //                'assign_next_user' => 0,
                 ),
 
-            19 =>
+            20 =>
                 array (
-                    'id' => 20,
-                    'level' => '4',
+                    'id' => 21,
+                    'level' => '3',
                     'unit_id' => 71,
                     'designation_id' => 123,
                     'description' => 'Authorize Leave Request',
@@ -475,23 +497,23 @@ class WfDefinitionsTableSeeder extends Seeder
                     'wf_module_id' => '6',
                     'active' => '1',
                     'allow_rejection' => 1,
-                    'allow_repeat_participate' => 1,
+                    'allow_repeat_participate' => 0,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                     'is_approval' => 0,
                     'has_next_start_optional' => 0,
                     'is_optional' => 0,
-                    'can_close' => 0,
+                    'can_close' => 1,
                     'action_description' => 'Authorize',
                     'status_description' => 'Authorized',
 //                'assign_next_user' => 0,
                 ),
 
-            20 =>
+            21 =>
                 array (
-                    'id' => 21,
-                    'level' => '5',
+                    'id' => 22,
+                    'level' => '4',
                     'unit_id' => 2,
                     'designation_id' => 4,
                     'description' => 'Endorse Leave Request',
@@ -499,7 +521,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'wf_module_id' => '6',
                     'active' => '1',
                     'allow_rejection' => 1,
-                    'allow_repeat_participate' => 1,
+                    'allow_repeat_participate' => 0,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
@@ -511,10 +533,10 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Endorsed',
 //                'assign_next_user' => 0,
                 ),
-            21 =>
+            22 =>
                 array (
-                    'id' => 22,
-                    'level' => '6',
+                    'id' => 23,
+                    'level' => '5',
                     'unit_id' => 5,
                     'designation_id' => 121,
                     'description' => 'Approve Leave Request',
@@ -522,7 +544,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'wf_module_id' => '6',
                     'active' => '1',
                     'allow_rejection' => 1,
-                    'allow_repeat_participate' => 1,
+                    'allow_repeat_participate' => 0,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
@@ -534,9 +556,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-            22 =>
+            23 =>
                 array (
-                    'id' => 23,
+                    'id' => 24,
                     'level' => '1',
                     'unit_id' => 69,
                     'designation_id' => 124,
@@ -557,9 +579,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Completed',
 //                'assign_next_user' => 0,
                 ),
-            23 =>
+            24 =>
                 array (
-                    'id' => 24,
+                    'id' => 25,
                     'level' => '2',
                     'unit_id' => 72,
                     'designation_id' => 125,
@@ -580,17 +602,17 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-            24 =>
+            25 =>
                 array (
-                    'id' => 25,
+                    'id' => 26,
                     'level' => '1',
-                    'unit_id' => 69,
-                    'designation_id' => 124,
+                    'unit_id' => 1,
+                    'designation_id' => 12,
                     'description' => 'Submit Hire Requisition',
                     'msg_next' => 'Submit Hire Requisition',
                     'wf_module_id' => '9',
                     'active' => '1',
-                    'allow_rejection' => 1,
+                    'allow_rejection' => 0,
                     'allow_repeat_participate' => 0,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
@@ -599,21 +621,21 @@ class WfDefinitionsTableSeeder extends Seeder
                     'has_next_start_optional' => 0,
                     'is_optional' => 0,
                     'can_close' => 0,
-                    'action_description' => 'Submit',
+                    'action_description' => 'Submitted',
                     'status_description' => 'Submitted',
 //                'assign_next_user' => 0,
                 ),
-            25 =>
+            26 =>
                 array (
-                    'id' => 26,
+                    'id' => 27,
                     'level' => '2',
-                    'unit_id' => 71,
-                    'designation_id' => 123,
+                    'unit_id' => 1,
+                    'designation_id' => 12,
                     'description' => 'Approve Hire Requisition',
                     'msg_next' => 'Approve Hire Requisition',
                     'wf_module_id' => '9',
                     'active' => '1',
-                    'allow_rejection' => 1,
+                    'allow_rejection' => 0,
                     'allow_repeat_participate' => 0,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
@@ -626,17 +648,17 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-            26 =>
+            27 =>
                 array (
-                    'id' => 27,
+                    'id' => 28,
                     'level' => '3',
                     'unit_id' => 1,
-                    'designation_id' => 8,
+                    'designation_id' => 12,
                     'description' => 'Confirm Hire Requisition',
                     'msg_next' => 'Confirm Hire Requisition',
                     'wf_module_id' => '9',
                     'active' => '1',
-                    'allow_rejection' => 1,
+                    'allow_rejection' => 0,
                     'allow_repeat_participate' => 0,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
@@ -649,17 +671,17 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Confirmed',
 //                'assign_next_user' => 0,
                 ),
-            27 =>
+            28 =>
                 array (
-                    'id' => 28,
+                    'id' => 29,
                     'level' => '4',
-                    'unit_id' => 5,
-                    'designation_id' => 121,
+                    'unit_id' => 1,
+                    'designation_id' => 12,
                     'description' => 'Authorize Hire Requisition',
                     'msg_next' => 'Authorize Hire Requisition',
                     'wf_module_id' => '9',
                     'active' => '1',
-                    'allow_rejection' => 1,
+                    'allow_rejection' => 0,
                     'allow_repeat_participate' => 0,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
@@ -672,9 +694,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Authorized',
 //                'assign_next_user' => 0,
                 ),
-            28 =>
+            29 =>
                 array (
-                    'id' => 29,
+                    'id' => 30,
                     'level' => '1',
                     'unit_id' => 69,
                     'designation_id' => 124,
@@ -682,7 +704,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'msg_next' => 'Submit Program Activity Report',
                     'wf_module_id' => '10',
                     'active' => '1',
-                    'allow_rejection' => 1,
+                    'allow_rejection' => 0,
                     'allow_repeat_participate' => 0,
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => NULL,
@@ -695,9 +717,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Submitted',
 //                'assign_next_user' => 0,
                 ),
-            29 =>
+            30 =>
                 array (
-                    'id' => 30,
+                    'id' => 32,
                     'level' => '2',
                     'unit_id' => 72,
                     'designation_id' => 125,
@@ -718,29 +740,59 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-            30 =>
-                array (
-                    'id' => 31,
-                    'level' => '3',
-                    'unit_id' => 41,
-                    'designation_id' => 82,
-                    'description' => 'Verify Leave Request',
-                    'msg_next' => 'Verify Leave Request',
-                    'wf_module_id' => '6',
-                    'active' => '1',
-                    'allow_rejection' => 1,
-                    'allow_repeat_participate' => 1,
-                    'created_at' => '2021-11-22 10:15:25',
-                    'updated_at' => NULL,
-                    'deleted_at' => NULL,
-                    'is_approval' => 0,
-                    'has_next_start_optional' => 0,
-                    'is_optional' => 0,
-                    'can_close' => 0,
-                    'action_description' => 'Verified',
-                    'status_description' => 'Verified',
-//                'assign_next_user' => 0,
-                ),
+
+            31 =>
+              array(
+                'id' => 33,
+                'level' => '1',
+                'unit_id' => 69,
+                'designation_id' => 124,
+                'description' => 'Request Fleet',
+                'msg_next' => 'Request Fleet',
+                'wf_module_id' => '11',
+                'active' => '1',
+                'allow_rejection' => 1,
+                'allow_repeat_participate' => 0,
+                'created_at' => '2021-11-22 10:15:25',
+                'updated_at' => NULL,
+                'deleted_at' => NULL,
+                'is_approval' => 0,
+                'has_next_start_optional' => 0,
+                'is_optional' => 0,
+                'can_close' => 0,
+                'action_description' => 'Complete',
+                'status_description' => 'Completed',
+               
+            ),
+                
+                32 =>
+                  array(
+                'id' => 34,
+                'level' => '2',
+                'unit_id' => 70,
+                'designation_id' => 40,
+                'description' => 'Approve Fleet',
+                'msg_next' => 'Approve Fleet',
+                'wf_module_id' => '11',
+                'active' => '1',
+                'allow_rejection' => 1,
+                'allow_repeat_participate' => 0,
+                'created_at' => '2021-11-22 10:15:25',
+                'updated_at' => NULL,
+                'deleted_at' => NULL,
+                'is_approval' => 1,
+                'has_next_start_optional' => 0,
+                'is_optional' => 0,
+                'can_close' => 1,
+                'action_description' => 'Approved',
+                'status_description' => 'Approved',
+               
+            ),
+
+
+
+
+
 
         ));
 

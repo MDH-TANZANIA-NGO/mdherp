@@ -8,7 +8,7 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::post('store', 'ProgramActivityReportController@store')->name('store');
     Route::post('{uuid}/update', 'ProgramActivityReportController@update')->name('update');
     Route::get('{uuid}/show', 'ProgramActivityReportController@show')->name('show');
-    Route::get('{uuid}/exportParticipants', 'ProgramActivityReportController@exportParticipants')->name('exportParticipants');
+
 
 
 

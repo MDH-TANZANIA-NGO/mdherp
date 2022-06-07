@@ -21,7 +21,7 @@ class CreateSafariAdvancePaymentsTable extends Migration
             $table->decimal('requested_amount', 15, 2)->nullable();
             $table->decimal('disbursed_amount',15 , 2)->nullable();
             $table->text('account_no')->nullable();
-            $table->boolean('done')->default('false');
+            $table->boolean('done')->default(false);
             $table->timestamps();
         });
 

@@ -15,14 +15,13 @@
 
                                 {!! Form::open(['route' => ['userbio.uploadpic', access()->user()->uuid], 'method' => 'post', 'enctype'=>'multipart/form-data']) !!}
 
-                                    <input type="file" name="profile_pic" class="dropify" data-default-file="" data-height="180"  />
+                                    <input type="file" name="profile_pic" class="dropify" data-default-file="../../assets/images/photos/media1.jpg" data-height="180"  />
 
 
                             </li>
                             <li class="text-center">
                                 <h4 class="text-capitalize mt-3 mb-0">{{access()->user()->full_name_formatted}}</h4>
                                 <p class="text-muted text-capitalize">{{access()->user()->designation->unit->name.' '. access()->user()->designation->name}} </p>
-                                <p class="text-muted text-capitalize">Reporting to: {{$supervisor}}</p>
                             </li>
 
                             <li><br></li>
@@ -32,8 +31,8 @@
 
                                     {!! Form::close() !!}
 
-{{--                                    <a href="" class="btn btn-primary"><i class="fe fe-settings mr-2"></i>Edit Account</a>--}}
-{{--                                    <a href="" class="btn btn-outline-primary"><i class="fe fe-alert-circle mr-2"></i>Logout</a>--}}
+                                    <a href="" class="btn btn-primary"><i class="fe fe-settings mr-2"></i>Edit Account</a>
+                                    <a href="" class="btn btn-outline-primary"><i class="fe fe-alert-circle mr-2"></i>Logout</a>
                                 </div>
                             </li>
                         </ul>
@@ -77,7 +76,7 @@
                             </div>
                         </div>
                     {!! Form::close() !!}
-
+ 
                     </div>
 
                 </div>

@@ -100,7 +100,7 @@ class WfModulesTableSeeder extends Seeder
                     'deleted_at' => NULL,
                     'isactive' => '1',
                     'type' => '1',
-                    'description' => 'Leave',
+                    'description' => 'Leave Requisition',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
@@ -160,6 +160,21 @@ class WfModulesTableSeeder extends Seeder
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
+
+            10 =>
+            array(
+                'id' => 11,
+                'name' => 'Fleet',
+                'wf_module_group_id' => '10',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+                'deleted_at' => NULL,
+                'isactive' => '1',
+                'type' => '1',
+                'description' => 'Fleet',
+                'allow_repeat' => 0,
+                'allow_decline' => 0,
+            ),
         ));
 
         $this->enableForeignKeys('wf_modules');

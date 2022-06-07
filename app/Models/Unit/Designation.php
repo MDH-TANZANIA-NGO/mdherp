@@ -10,5 +10,4 @@ class Designation extends Model
 {
     use DesignationRelationship, DesignationAttribute;
     //
-    protected $guarded=[];
 }

@@ -384,7 +384,7 @@
                 <tr>
                     <td class="email-masthead">
                         <a href="#" class="f-fallback email-masthead_name"  style="color: #022169; font-weight: bold">
-                            MIMOSA
+                            MDH ERP
                         </a>
                     </td>
                 </tr>
@@ -396,15 +396,9 @@
                             <tr>
                                 <td class="content-cell">
                                     <div class="f-fallback">
-                                        <h1 style="color: #022169">Dear All Staff, </h1>
-                                        <p style="text-align: justify">
-                                            This is a reminder that your timesheet is due tomorrow, <b>{{ \Carbon\Carbon::now()->addDay()->format('d-M-Y') }}</b>. Kindly complete and submit your timesheet before the end of business hours to allow timely processing of payroll. Failure to submit your timesheet on time may result in late payment of your Salary. If you have any questions please contact HR or IT team.
-                                        </p>
-                                        &nbsp;
+                                        <h1 style="color: #022169">Dear All Users</h1>
                                         <p>
-                                            Best Regards
-                                           <br />
-                                            HR Unit
+                                            You are kindly reminded to complete your timesheet.
                                         </p>
                                         <!-- Action -->
                                         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
@@ -426,7 +420,7 @@
                                             <tr>
                                                 <td>
                                                     <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                                                    <p class="f-fallback sub">{{ "mimosa.mdh.or.tz/timesheet/initiate" }}</p>
+                                                    <p class="f-fallback sub">{{ "mdherp.test/timesheet/initiate" }}</p>
                                                 </td>
                                             </tr>
                                         </table>

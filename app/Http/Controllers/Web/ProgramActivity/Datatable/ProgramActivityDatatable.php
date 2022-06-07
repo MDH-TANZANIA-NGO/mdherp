@@ -21,7 +21,7 @@ trait ProgramActivityDatatable
                 return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('programactivity.show', $query->uuid).'">View</a> <a href="'.route('programactivity.create', $query->uuid).'">edit</a>';
+                return '<a href="'.route('programactivity.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -42,7 +42,7 @@ trait ProgramActivityDatatable
                 return number_2_format($query->amount_requested);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('programactivity.show', $query->uuid).'">View</a> <a href="'.route('programactivity.create', $query->uuid).'">edit</a>';
+                return '<a href="'.route('programactivity.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

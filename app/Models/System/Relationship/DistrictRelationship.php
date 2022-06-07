@@ -11,7 +11,6 @@ namespace App\Models\System\Relationship;
 
 use App\Models\Separate\Separate;
 use App\Models\System\Region;
-use App\Models\System\Ward;
 
 trait DistrictRelationship
 {
@@ -23,9 +22,5 @@ trait DistrictRelationship
     public function separate()
     {
         return $this->belongsTo(Separate::class);
-    }
-    public function wards()
-    {
-        return $this->hasMany(Ward::class);
     }
 }

@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 class AccountController extends Controller
 {
     /**
+     * 
      * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request

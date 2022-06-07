@@ -149,18 +149,5 @@ class DistrictRepository extends BaseRepository
     {
         return $this->getActive()->pluck('name', 'id');
     }
-public function getFacilitiesByDistrict($id)
-{
-    return $this->query()
-        ->addSelect([
-            'facilities.id AS facility_id',
-            'facilities.name As facility_name',
-
-        ])
-        ->join('wards','wards.district_id','districts.id')
-        ->join('facilities','facilities.ward_id','wards.id')
-        ->where('districts.id',$id);
-}
-
 
 }

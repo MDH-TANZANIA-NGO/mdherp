@@ -88,7 +88,7 @@
                 <hr>
             <div class="table-responsive push">
                 <h3 class="card-title">ITEMS LIST</h3>
-                <table id="items" class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover">
                     <thead>
                     <tr class=" ">
                         <th  class="text-center">ID</th>
@@ -143,12 +143,3 @@
         </div>
     </div>
 </div>
-@push('after-scripts')
-    <script>
-        $(document).ready(function (){
-            $("#example").dataTable()
-            $("#items").dataTable()
-        })
-    </script>
-
-@endpush

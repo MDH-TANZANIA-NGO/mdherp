@@ -195,7 +195,7 @@
                     { data: 'amount_requested', name: 'safari_advances.amount_requested', searchable: true},
                     // { data: 'project_title', name: 'projects.title', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
-                    { data: 'disbursed_amount', name: 'safari_advance_payments.disbursed_amount', searchable: true},
+                    { data: 'amount_paid', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]

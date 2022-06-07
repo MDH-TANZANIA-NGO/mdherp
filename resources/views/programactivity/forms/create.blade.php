@@ -1,22 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-
-    @if($program_activity->done == 0)
     {!! Form::open(['route' => ['programactivity.update',$program_activity]]) !!}
     <div class="row">
         <div class="col-lg-12 mb-3">
     <button type="submit" class="btn btn-primary float-right" >Submit For Approval</button>
     {!! Form::close() !!}
-            @elseif($program_activity->done == 1)
-                <div class="row">
-                    <div class="col-lg-12 mb-3">
-                <a href="{{route('programactivity.show', $program_activity)}}" class="btn btn-primary float-right" >Back</a>
-                    </div>
-                </div>
-                @endif
+
         </div>
-    </div>
+        </div>
 
 
 @include('programactivity.forms.event-schedule.create')
@@ -31,6 +23,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
+                        <table class="table card-table table-vcenter text-nowrap">
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <thead >
                             <tr>
@@ -80,7 +73,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="items" class="table table-striped table-bordered">
+                        <table class="table card-table table-vcenter text-nowrap">
                             <thead >
                             <tr>
 
@@ -116,15 +109,6 @@
 
         </div>
     </div>
-            @push('after-scripts')
-                <script>
-                    $(document).ready(function (){
-                        $("#example").dataTable()
-                        $("#items").dataTable()
-                    })
-                </script>
-
-    @endpush
 @endsection
 
 

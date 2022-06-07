@@ -1,23 +1,80 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<!--aside closed-->
+
+
+<!--Row-->
+<div class="row">
+
+    <div class="col-4 col-sm-4 col-lg-3">
+        <a href="{{route('meeting')}}">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                <div class="card-body text-center">
+                    <div class="h2 m-0"><i class="fa fa-handshake-o multiple-outline text-primary"></i></div>
+                    <div class="text-muted mb-0">Meetings</div>
                 </div>
             </div>
-        </div>
+        </a>
+
     </div>
+
+    <div class="col-4 col-sm-4 col-lg-3">
+        <a href="{{route('event')}}">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="h2 m-0"><i class="fa fa-calendar-plus-o multiple-outline text-primary"></i></div>
+                    <div class="text-muted mb-0">Events</div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    
+
+
+    <div class="col-4 col-sm-4 col-lg-3">
+        <a href="{{route('time')}}">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="h2 m-0"><i class="side-menu__icon fa fa-clock-o multiple-outline text-primary"> </i></div>
+                    <div class="text-muted mb-0"> Time</div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    
+    <div class="col-4 col-sm-4 col-lg-3">
+        <a href="{{ route('roles.index') }}">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="h2 m-0"><i class="side-menu__icon fa fa-user-secret multiple-outline text-primary"> </i></div>
+                    <div class="text-muted mb-0"> Role</div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    
+    <div class="col-4 col-sm-4 col-lg-3">
+        <a  href="{{ route('permissions.index') }}">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="h2 m-0"><i class="side-menu__icon fa fa-user-secret  multiple-outline text-primary"> </i></div>
+                    <div class="text-muted mb-0"> Permission</div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    
+
+
 </div>
+<!--End row-->
 @endsection

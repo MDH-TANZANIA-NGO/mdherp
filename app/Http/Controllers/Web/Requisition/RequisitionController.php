@@ -11,7 +11,6 @@ use App\Models\Payment\Payment;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
-use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Finance\FinancialReportsRepository;
@@ -21,7 +20,6 @@ use App\Repositories\MdhRates\mdhRatesRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
 use App\Repositories\Requisition\Training\trainingRepository;
 use App\Repositories\System\RegionRepository;
-use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
 use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
 use App\Models\Requisition\Requisition;
@@ -38,7 +36,7 @@ use Symfony\Component\Console\Input\Input;
 
 class RequisitionController extends Controller
 {
-    use RequisitionDatatables, InitiatorBudgetChecker;
+    use RequisitionDatatables;
     protected $requisitions;
     protected $requisition_types;
     protected $projects;
@@ -138,7 +136,7 @@ class RequisitionController extends Controller
             ->with('training_costs', $requisition->trainingCost)
             ->with('equipments', $this->equipments->getQuery()->get()->pluck('title','id'))
             ->with('districts', $this->districts->getForPluck())
-            ->with('gofficer',$this->gofficer->getForPluckUnique())
+            ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('names', 'id'))
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
             ->with('mdh_rates',$this->mdh_rates->getForPluck())
             ->with('users', $this->users->getQuery()->pluck('name', 'user_id'))
@@ -155,7 +153,6 @@ class RequisitionController extends Controller
      */
     public function show(Requisition $requisition)
     {
-        $budget = $this->check($requisition->requisition_type_id, $requisition->project_id, $requisition->activity_id, $requisition->region_id, $requisition->budget()->first()->fiscal_year_id);
 
         /* Check workflow */
         $wf_module_group_id = 1;
@@ -168,14 +165,15 @@ class RequisitionController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($requisition, $current_level, $workflow->wf_definition_id);
         return view('requisition._parent.display.show')
             ->with('requisition', $requisition)
-           ->with('training', $requisition->training()->first())
+            ->with('training', $requisition->training()->first())
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($requisition))
             ->with('items', $requisition->items)
             ->with('travelling_costs',$requisition->travellingCost)
-            ->with('budget', $budget)
+            ->with('budget', Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', access()->user()->region_id)->first())
+            ->with('budget', Budget::query()->where('activity_id', $requisition->activity()->first()->id)->where('region_id', $requisition->user()->first()->region_id)->first())
             ->with('training_costs', $requisition->trainingCost)
             ->with('gofficer',$this->gofficer->getQuery()->get()->pluck('first_name', 'id'))
             ->with('grate',$this->grate->getQuery()->get()->pluck('amount','id'))
@@ -197,7 +195,6 @@ class RequisitionController extends Controller
      */
     public function submit(Requisition $requisition)
     {
-//        check_available_budget_individual($requisition,$requisition->amount);
         DB::transaction(function () use ($requisition){
             $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
             $wf_module_group_id = 1;

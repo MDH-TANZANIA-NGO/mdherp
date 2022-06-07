@@ -3,7 +3,6 @@
 namespace App\Models\Facility;
 
 use App\Models\GOfficer\GOfficer;
-use App\Models\System\Ward;
 use Illuminate\Database\Eloquent\Model;
 
 class Facility extends Model
@@ -25,9 +24,5 @@ class Facility extends Model
     public function g_officers()
     {
         return $this->belongsToMany(GOfficer::class)->withPivot('id');
-    }
-    public function ward()
-    {
-        return $this->belongsTo(Ward::class);
     }
 }

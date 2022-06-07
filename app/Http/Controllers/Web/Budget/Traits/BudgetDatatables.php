@@ -18,10 +18,6 @@ trait BudgetDatatables
             ->addColumn('action', function($query) {
                 return '<a href="'.route('activity.show_fiscal_year', [$query->activity_uuid,$query->fiscal_year_uuid]).'">View</a>';
             })
-            ->editColumn('region_list', function ($query){
-                return $query->region_list ? $query->region_list : "<span class='badge badge-warning'>Above site</span>";
-            })
-            ->rawColumns(['region_list','action'])
             ->make(true);
     }
 }

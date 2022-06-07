@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Time\Time;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,6 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(['*'], 'App\Http\View\Composers\Requisition\RequisitionComposer');
         View::composer(['*'], 'App\Http\View\Composers\Leave\LeaveComposer');
         View::composer(['*'], 'App\Http\View\Composers\Listing\ListingComposer');
-
+        View::composer(['*'], 'App\Http\View\Composers\Time\TimeComposer');
     }
 }

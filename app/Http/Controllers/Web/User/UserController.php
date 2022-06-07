@@ -7,7 +7,6 @@ use App\Http\Controllers\Web\User\Datatables\UserDatatables;
 use App\Models\Auth\Relationship\UserRelationship;
 use App\Models\Auth\SupervisorUser;
 use App\Models\Auth\User;
-use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
 use App\Models\Project\ProjectUser;
 use App\Models\Timesheet\EffortLevel;
@@ -17,11 +16,9 @@ use App\Repositories\Project\ProjectRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\Workflow\WfModuleGroupRepository;
-use Doctrine\DBAL\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use UxWeb\SweetAlert\SweetAlert;
-use function PHPUnit\Framework\isEmpty;
 
 class UserController extends Controller
 {
@@ -81,15 +78,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $user = $this->users->store($request->all());
-            alert()->success($user->full_name_formatted. ' Registered Successfully');
-            return redirect()->back();
-        }catch (\Exception $exception){
-            alert()->error('User already Exist', 'Failed');
-            return redirect()->back();
-        }
-
+        $user = $this->users->store($request->all());
+        alert()->success($user->full_name_formatted. ' Registered Successfully');
+        return redirect()->back();
     }
     public function resetPassword(User $user)
     {
@@ -118,21 +109,10 @@ class UserController extends Controller
             }
 
             $effort_levels = EffortLevel::where('user_id', $user->id)->get();
-//            if(count($effort_levels) ){
-//                return $effort_levels;
-//            }else{
-//                return "No effort levels";
-//            }
-//            //dd($effort_levels);
 
 
-            $leaveBalances = LeaveBalance::where('user_id', $user->id)->get();
-            $female_leave_balances = LeaveType::query()->where('id','!=', 5)->get();
-            $male_leave_balances = LeaveType::query()->where('id','!=', 4)->get();
-
-
-
-        return view('user.profile.index')
+//dd($this->users->getAllUsersWithThisSupervisorGet($user->id));
+        return view('user.profile.view_profile')
             ->with('user', $user)
             ->with('gender', code_value()->query()->where('code_id',2)->pluck('name','id'))
             ->with('marital', code_value()->query()->where('code_id',3)->pluck('name','id'))
@@ -145,12 +125,8 @@ class UserController extends Controller
             ->with('permissions', $this->permissions->getAll())
             ->with('leave_types', $leave_types)
             ->with('user_projects', $this->projects->getUserProjects($user->id))
-            ->with('effort_levels', $effort_levels)
-            ->with('leave_balances', $leaveBalances?? "This user does not have leave balances")
-            ->with('supervisor', $supervisor)
-            ->with('male_leave', $male_leave_balances)
-            ->with('female_leave', $female_leave_balances)
-            ->with('supervisors', $this->users->allSupervisors()->where('user_id', '!=',$user->id)->get()->pluck('name', 'user_id'));
+            ->with('effort_levels', $effort_levels?? NULL)
+            ->with('supervisor', $supervisor);
     }
 
     /**
@@ -232,16 +208,6 @@ class UserController extends Controller
     {
         $this->users->updatePermissions($user, $request->all());
         alert()->success(__('notifications.permission_assigned'), __('notifications.user.title'));
-        return redirect()->back();
-    }
-
-    public function assignSupervisorIndividual(Request $request)
-    {
-        SupervisorUser::query()->create([
-            'supervisor_id'=>$request['supervisor'],
-            'user_id'=>$request['user_id']
-        ]);
-        alert()->success('Supervisor assigned successfully', 'Success');
         return redirect()->back();
     }
 

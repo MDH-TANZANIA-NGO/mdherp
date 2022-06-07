@@ -7,7 +7,6 @@ use App\Http\Controllers\Web\Safari\Datatables\SafariDatatables;
 use App\Models\Auth\User;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
-use App\Models\SafariAdvance\SafariAdvanceHotelSelection;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
@@ -63,19 +62,6 @@ class SafariAdvanceRepository extends BaseRepository
             return $this->query()->create($this->inputProcess($inputs));
         });
     }
-    public function storeHotelReservation($inputs)
-    {
-        return DB::transaction(function () use ($inputs){
-            return SafariAdvanceHotelSelection::query()->create(
-                [
-                    'safari_advance_id'=>$inputs['safari_advance_id'],
-                    'hotel_id'=>$inputs['hotel_id'],
-                    'priority_level'=>$inputs['priority_level'],
-
-                ]
-            );
-        });
-    }
 
     public function update($inputs, $uuid)
     {
@@ -108,10 +94,6 @@ class SafariAdvanceRepository extends BaseRepository
         return $this->query()->select([
             DB::raw('safari_advances.id AS id'),
             DB::raw('safari_advances.user_id AS user_id'),
-            DB::raw("concat_ws(' ', users.first_name, users.last_name) as full_name"),
-            DB::raw('users.email AS email'),
-            DB::raw('users.phone AS phone'),
-            DB::raw('safari_advances.number AS number'),
             DB::raw('safari_advances.number AS number'),
             DB::raw('safari_advances.amount_requested AS amount_requested'),
             DB::raw('safari_advances.amount_paid AS amount_paid'),
@@ -171,13 +153,11 @@ class SafariAdvanceRepository extends BaseRepository
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('safari_advances.wf_done', 1)
-
-            ->where('users.id', access()->id())
 //            ->where('safari_advances.done', false)
             ->where('safari_advances.rejected', false)
-            ->whereHas('safarPayments');
+            ->where('safari_advances.amount_paid', '!=', 0 )
+            ->where('users.id', access()->id());
     }
-
     public function getSafariDetails()
     {
         return $this->getQuery()->select([
@@ -194,16 +174,6 @@ class SafariAdvanceRepository extends BaseRepository
         ])
             ->join('safari_advance_details', 'safari_advance_details.safari_advance_id', 'safari_advances.id');
     }
-
-    public function getDisbursedAmount()
-    {
-        return $this->getQuery()->select([
-           DB::raw('safari_advance_payments.disbursed_amount AS disbursed_amount'),
-           DB::raw('safari_advances.id AS safari_id'),
-        ])
-            ->leftjoin('safari_advance_payments','safari_advance_payments.safari_advance_id','safari_advances.id');
-    }
-
     public function payment($inputs, $uuid )
     {
         return DB::transaction(function () use ($inputs, $uuid){
@@ -234,24 +204,6 @@ class SafariAdvanceRepository extends BaseRepository
         return $this->getQuery()
             ->where('safari_advances.wf_done', 1)
             ->whereDoesntHave('retirement');
-    }
-    public function getCompletedWithRetirement()
-    {
-        return $this->getQuery()
-            ->where('safari_advances.wf_done', 1)
-            ->whereHas('retirement');
-    }
-
-    public function getPaidSafari($safari_id)
-    {
-        return $this->getQuery()
-            ->select([
-                DB::raw('safari_advance_payments.id AS payment_id'),
-                DB::raw('safari_advance_payments.account_no AS account_number'),
-                DB::raw('safari_advance_payments.disbursed_amount AS disbursed_amount'),
-            ])
-            ->leftjoin('safari_advance_payments', 'safari_advance_payments.safari_advance_id', 'safari_advances.id')
-        ->where('safari_advances.id', $safari_id);
     }
 
 

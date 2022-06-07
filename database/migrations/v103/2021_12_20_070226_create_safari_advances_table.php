@@ -21,11 +21,11 @@ class CreateSafariAdvancesTable extends Migration
             $table->decimal('amount_paid', 15, 2);
             $table->text('number')->nullable();
             $table->longText('scope');
-            $table->boolean('wf_done')->default('FALSE');
+            $table->boolean('wf_done')->default(FALSE);
             $table->timestamp('wf_done_date');
             $table->string('uuid');
             $table->timestamp('deleted_at')->nullable();
-            $table->boolean('rejected')->default('FALSE');
+            $table->boolean('rejected')->default(FALSE);
             $table->unsignedBigInteger('done')->default(0);
             $table->timestamps();
         });

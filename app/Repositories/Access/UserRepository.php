@@ -165,17 +165,10 @@ class UserRepository extends BaseRepository
      * Reset Password and send email
      * @param User $user
      */
-   /* public function resetPassword(User $user)
-    {
-        $reset_link = $this->resetLink($user);
-        $user->notify(new ResetPasswordNotification($reset_link));
-    }*/
-
     public function resetPassword(User $user)
     {
         $reset_link = $this->resetLink($user);
-        Log::info($reset_link);
-        $user->notify(new UserRegistrationNotification($reset_link));
+        $user->notify(new ResetPasswordNotification($reset_link));
     }
 
     /**
@@ -194,8 +187,6 @@ class UserRepository extends BaseRepository
         }
     }
 
-
-
     /**
      * @return mixed
      */
@@ -212,7 +203,6 @@ class UserRepository extends BaseRepository
     private function processInputs($inputs)
     {
         return [
-            'identity_number'=>$inputs['identity_number'],
             'first_name' => $inputs['first_name'],
             'middle_name' => $inputs['middle_name'],
             'last_name' => $inputs['last_name'],
@@ -252,7 +242,6 @@ class UserRepository extends BaseRepository
     {
         return DB::transaction(function () use ($user, $inputs){
             $user->update([
-
                 'first_name' => $inputs['first_name'],
                 'middle_name' => $inputs['middle_name'],
                 'last_name' => $inputs['last_name'],
@@ -262,8 +251,7 @@ class UserRepository extends BaseRepository
                 'dob' => $inputs['dob'],
                 'designation_id' => $inputs['designation'],
                 'region_id' => $inputs['region'],
-                'employed_date' => $inputs['employed_date'],
-                'identity_number' => $inputs['identity_number'],
+                
                 'marital_status_cv_id' => $inputs['marital'],
                 'supervisor' => isset($inputs['supervisor'])??false,
 //                'active' => $inputs['active']
@@ -283,7 +271,6 @@ class UserRepository extends BaseRepository
             DB::raw('users.last_name AS last_name'),
             DB::raw('users.email AS email'),
             DB::raw('users.phone AS phone'),
-            DB::raw('users.identity_number AS identity_number'),
             DB::raw('users.uuid AS uuid'),
             DB::raw('users.country_organisation_id as country_organisation_id'),
             DB::raw('regions.name AS region'),
@@ -308,16 +295,7 @@ class UserRepository extends BaseRepository
         return $this->getQuery()
             ->where('active', false);
     }
-    public function getAllNotSubmittedTimesheet($month, $year)
-    {
-        return $this->getQuery()
-            ->whereDoesntHave('timesheets', function ($query) use($month, $year){
-                $query ->whereMonth('timesheets.created_at', $month)
-                    ->whereYear('timesheets.created_at', $year);
-            })
 
-            ->get();
-    }
     /**
      *
      * @return mixed
@@ -342,7 +320,6 @@ class UserRepository extends BaseRepository
             DB::raw('users.phone AS phone'),
             DB::raw('users.uuid AS uuid'),
             DB::raw('users.dob as dob'),
-            DB::raw('users.supervisor as supervisor'),
             DB::raw('users.employed_date as employed_date'),
             DB::raw('users.country_organisation_id as country_organisation_id'),
             DB::raw('regions.name AS region'),
@@ -362,18 +339,12 @@ class UserRepository extends BaseRepository
     {
         return $this->getQuery()->pluck('name', 'user_id');
     }
-    public function allSupervisors()
-    {
-        return $this->getActive()
-            ->where('supervisor', true);
-    }
 
     public function assignSubProgramArea($uuid, $inputs)
     {
         return DB::transaction(function () use ($uuid, $inputs){
             //TODO detach
             $sub_program = (new SubProgramRepository())->findByUuid($uuid);
-            $sub_program->users()->detach();
             return $sub_program->users()->attach($inputs['user']);
         });
     }
@@ -408,11 +379,8 @@ class UserRepository extends BaseRepository
     {
         return DB::transaction(function () use ($user_id, $inputs){
             if(isset($inputs['users'])){
-
-
-//                SupervisorUser::query()->where('supervisor_id', $user_id)->delete();
+                SupervisorUser::query()->where('supervisor_id', $user_id)->delete();
                 foreach($inputs['users'] as $user_selected_id){
-
                     SupervisorUser::query()->create([
                         'supervisor_id' => $user_id,
                         'user_id' => $user_selected_id
@@ -428,19 +396,10 @@ class UserRepository extends BaseRepository
             ->select([
                 'users.id AS user_id',
             ])
-            ->join('designations','designations.id', 'users.designation_id')
+            ->join('designations','designations.id', 'users.id')
             ->join('departments','departments.id','designations.department_id')
             ->where('departments.id',$department_id)
             ->where('designations.unit_id', 1);
-    }
-
-    public function getDirectorOfHR()
-    {
-        return $this->query()
-            ->select([
-                'users.id AS user_id',
-            ])
-            ->where('users.designation_id', 8);
     }
 
     public function getCeo()
@@ -449,18 +408,8 @@ class UserRepository extends BaseRepository
             ->select([
                 'users.id AS user_id',
             ])
-            ->where('users.designation_id', 121);
-    }
-
-    public function getCeo2()
-    {
-        return $this->query()
-            ->select([
-                'users.id AS user_id',
-            ])
             ->join('designations','designations.id', 'users.id')
             ->join('units','units.id','designations.unit_id')
-            ->where('designations.id', 121)
             ->where('units.id', 5);
     }
 

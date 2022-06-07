@@ -21,12 +21,12 @@ class CreateProgramActivitiesTable extends Migration
             $table->decimal('amount_paid', 15, 2);
             $table->text('number')->nullable();
             $table->longText('scope');
-            $table->boolean('wf_done')->default('FALSE');
+            $table->boolean('wf_done')->default(FALSE);
             $table->timestamp('wf_done_date')->nullable();
             $table->string('uuid');
             $table->bigInteger('done')->default('0');
             $table->timestamp('deleted_at')->nullable();
-            $table->boolean('rejected')->default('FALSE');
+            $table->boolean('rejected')->default(FALSE);
             $table->timestamps();
         });
     }

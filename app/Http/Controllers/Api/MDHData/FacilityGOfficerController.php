@@ -9,14 +9,14 @@ use App\Models\GOfficer\GOfficer;
 
 class FacilityGOfficerController extends BaseController
 {
-    public function assignUserToFacility(Request $request)
+    public function assignUserToFacility(Request  $request)
     {
-        $content = json_encode($request->all());
-        $data = json_decode($content, true);
-        
-        $g_officer = GOfficer::find($data['g_officer_id']);
+        $input = $request->all();
+        $input['Facility_GOfficer'] = $request->input("Facility_GOfficer");
 
-        $result = $g_officer->facilities()->sync($data['facilities']);
+        $g_officer = GOfficer::find($input['g_officer_id']);
+
+        $result = $g_officer->facilities()->sync($input['facilities']);
 
         $success['facility_g_officer'] = $result;
         return $this->sendResponse($success, "Facility Successfully Assigned To User");

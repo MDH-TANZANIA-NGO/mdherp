@@ -1,6 +1,7 @@
 {{--Completed wf tracks--}}
 @include('includes.workflow.workflow_track_tool')
-@if($wf_done == 1 && $wf_track->user_id == access()->id())
+
+@if($wf_done == 1 && $wf_track->user_id = access()->id())
     <a href='#' class='btn btn-warning' onclick="event.preventDefault();if(confirm('Are you sure you want to recall this application to your level')){document.getElementById('workflow_resume_form').submit()}">
         {{ __('label.recall') }}
     </a>
@@ -8,6 +9,7 @@
         @csrf
     </form>
 @endif
+
 {{--<br/>--}}
 {{--Only access this when worklow is not completed--}}
 @if($wf_done == 0)

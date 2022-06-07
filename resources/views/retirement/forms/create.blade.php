@@ -14,128 +14,104 @@
             </div>
             {!! Form::open(['route' => ['retirement.update',$retirement], 'enctype'=>'multipart/form-data']) !!}
             <div class="card-body">
+                @foreach($retire_safaris AS $retire_safari)
+                    <div class="row">
 
-                <div class="row pt-4">
-                    <div class="col-lg-6 ">
-                        <p class="h3">Safari Advance Details</p>
-                        <address>
-                           {{-- Destination: {{$safari_advance->travellingCost->district->name}}<br>
-                            Departure: {{date('d-M-Y', strtotime($safari_advance->safariDetails->from))}}<br>
-                            Return: {{date('d-M-Y', strtotime($safari_advance->safariDetails->to))}}<br>--}}
-
-                        </address>
-                    </div>
-                    <div class="col-lg-6 text-right">
-                        <p class="h3">Paid To</p>
-                        <address>
-                            {{--{{$safari_advance->user->full_name_formatted}}<br>
-                            {{$safari_advance->user->phone}}<br>
-                            {{$safari_advance->user->email}}--}}
-                        </address>
-                    </div>
-                </div>
-                <div class="table-responsive push">
-                    <table class="table table-bordered table-hover">
-                        <tr class=" ">
-                            <th class="text-center " style="width: 1%"></th>
-                            <th>Travel Requirements</th>
-                            <th class="text-right" style="width: 20%">Amount</th>
-                        </tr>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>
-                                <p class="font-w600 mb-1">Accommodation</p>
-                            </td>
-
-                            <td class="text-right">{{number_2_format($safariDetails->accommodation)}}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>
-                                <p class="font-w600 mb-1">Meals and Incidentals</p>
-                            </td>
-                            <td class="text-right">{{number_2_format($safariDetails->perdiem_total_amount)}}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">3</td>
-                            <td>
-                                <p class="font-w600 mb-1">Ticket Fair</p>
-                            </td>
-                            <td class="text-right">{{number_2_format($safariDetails->ticket_fair)}}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">4</td>
-                            <td>
-                                <p class="font-w600 mb-1">Ontransit Allowance</p>
-                            </td>
-                            <td class="text-right">{{number_2_format($safariDetails->ontransit)}}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">5</td>
-                            <td>
-                                <p class="font-w600 mb-1">Ground Transport To Airport</p>
-                            </td>
-                            <td class="text-right">{{number_2_format($safariDetails->transportation)}}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">6</td>
-                            <td>
-                                <p class="font-w600 mb-1">Ticket Fair</p>
-                            </td>
-                            <td class="text-right">{{number_2_format($safariDetails->other_cost)}}</td>
-
-                            <div class="text-muted"></div>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="font-w600 text-right">Account No</td>
+                        <div class="col-md-4" >
+                            <div class="form-group">
+                                <label class="form-label">Destination</label>
+                                <div class="input-group">
+                                    {!! Form::select('district_id',$district, $retire_safari->district_id, ['class' => 'form-control', 'hidden']) !!}
+                                    {!! Form::select('district_id_show',$district, $retire_safari->district_id, ['class' => 'form-control select2-show-search', 'disabled']) !!}
+                                    {!! Form:: text('safari_advance_id', $retire_safari->safari_id,['class'=>'form-control','hidden'])!!}
 
 
-                            <td class="text-right">{{$safariDetails->account_no}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="font-w600 text-right">Total Amount Requested</td>
-                            <td class="font-weight-bold text-right">{{number_2_format($safariDetails->total_amount)}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="font-w600 text-right">Total Amount Paid</td>
-                            <td class="font-weight-bold text-right">{{number_2_format($safariDetails->disbursed_amount)}}</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <hr>
-                    <div class ="row">
-                        <div class="container lst">
-                            <div class="input-group hdtuto control-group lst" >
-
-                                <div class="col-md-3 col-lg-3 col-xl-3" >
-                                    <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
-                                </div>
-
-                                <div class="col-md-3 col-lg-3 col-xl-3" >
-                                <input type="number" id="" name="amount_attachment[]" placeholder="Total Amount of the receipts" class="form-control">
-                                </div>
-
-                                <div class="col-md-3 col-lg-3 col-xl-3" >
-                                    {!! Form::select('attachment_type[]', $attachment_type, null, ['class' =>'form-control select2-show-search ', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
-                                </div>
-
-                                <div class="input-group-btn col-md-3 col-lg-3 col-xl-3">
-                                    <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
                                 </div>
                             </div>
-
-                            <div id="increment"></div>
-
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="form-label">Travel Date:</label>
+                                {!! Form::date('from_show', $retire_safari->from, ['class' => 'form-control', 'disabled', 'id'=>'from']) !!}
+                                {!! Form::date('from', $retire_safari->from, ['class' => 'form-control','hidden', 'required', 'id'=>'from']) !!}
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="form-label">Return Date:</label>
+                                {!! Form::date('to', $retire_safari->to, ['class' => 'form-control', 'required','id'=>'to']) !!}
+
+                            </div>
+                        </div>
+
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-4" >
+
+                            <div class="form-group">
+                                <label class="form-label">Amount Requested & Approved</label>
+                                <div class="input-group">
+                                    {!! Form::text('amount_requested_show', $retire_safari->amount_requested, ['class' => 'form-control', 'disabled' ]) !!}
+                                    {!! Form::text('amount_requested', $retire_safari->amount_requested, ['class' => 'form-control', 'hidden' ]) !!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" >
+
+                            <div class="form-group">
+                                <label class="form-label">Amount Advanced</label>
+                                {{--                    {!! Form::text('amount_paid_show', $retire_safari->amount_paid, ['class' => 'form-control', 'disabled' ]) !!}--}}
+                                <input type="text" id="a_paid" onblur="calculate('a_paid','a_spent','a_variance')" disabled name="amount_paid_show" class="form-control" value="{{$retire_safari->amount_paid}}">
+                                {!! Form::text('amount_paid', $retire_safari->amount_paid, ['class' => 'form-control', 'hidden' ]) !!}
+                            </div>
+                        </div>
+
+                        <div class="col-md-4" >
+
+                            <div class="form-group">
+                                <label class="form-label">Amount Received </label>
+                                {!! Form::number('amount_received', $retire_safari->amount_paid, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}
+                                {{--                            <input type="number" name="amount_received" class="form-control" placeholder="Enter amount you received">--}}
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6" >
+
+                            <div class="form-group">
+                                <label class="form-label">Actual Amount Spent </label>
+                                {{--                            {!! Form::number('amount_spent',$retire_safari->amount_received, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}--}}
+                                <input type="number" id="a_spent" onkeydown="calculate('a_paid','a_spent','a_variance')" name="amount_spent" class="form-control" required placeholder="Enter amount you spent">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6" >
+
+                            <div class="form-group">
+                                <label class="form-label">Variance Amount</label>
+                                <input type="number" id="a_variance" onblur="calculate('a_paid','a_spent','a_variance')" name="amount_variance" class="form-control" placeholder="">
+                            </div>
+                        </div>
+
+                    </div>
+                @endforeach
+
                 <hr>
 
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
                             <label class="form-label">Background Information: <span class="form-label-small">56/100</span></label>
-                            <textarea class="content" name="activity_report" rows="2" placeholder="Write activity report.." required></textarea>
+                            <textarea class="form-control" name="activity_report" rows="2" placeholder="Write activity report.." required></textarea>
                         </div>
                     </div>
 
@@ -147,7 +123,7 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">What was Planned:</label>
-                                <textarea rows="2" cols="50" class="content" name="planned_report" placeholder="Write the plan.." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control" name="planned_report" placeholder="Write the plan.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -164,7 +140,7 @@
                         <div class="col-md-10" >
                             <div class="form-group">
                                 <label class="form-label">Objectives:</label>
-                                <textarea rows="2" cols="50" class="content2" name="objective_report" placeholder="Write your objectives.." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control" name="objective_report" placeholder="Write your objectives.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -173,7 +149,7 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">Methodology:</label>
-                                <textarea rows="2" cols="50" class="form-control content" name="methodology_report" placeholder="Write the methodology..." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control" name="methodology_report" placeholder="Write the methodology.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -182,7 +158,7 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">Achievements:</label>
-                                <textarea rows="2" cols="50" class="content" name="achievement_report" placeholder="Write the Achievements..." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control" name="achievement_report" placeholder="Write the Achievements.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -191,7 +167,7 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">Challenges:</label>
-                                <textarea rows="2" cols="50" class="form-control content" name="challenge_report" placeholder="Write the Challenges:..." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control" name="challenge_report" placeholder="Write the Challenges:.." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -200,30 +176,47 @@
                         <div class="col-md-12" >
                             <div class="form-group">
                                 <label class="form-label">Recommendations/Action plans :</label>
-                                <textarea class="content" name="action_report" placeholder="Write the Recommendations/Action plans..." required></textarea>
+                                <textarea rows="2" cols="50" class="form-control" name="action_report" placeholder="Write the Recommendations/Action plans .." required></textarea>
                             </div>
                         </div>
                     </div>
 
-                    {{--<div class ="row">
-                        <div class="container lst">
-                            <div class="input-group hdtuto control-group lst" >
+                    <hr>
 
-                      --}}{{--  <div class="col-md-4" >
+                    <div class ="row">
+                    <div class="container lst">
+                    <div class="input-group hdtuto control-group lst increment" >
+
+                      {{--  <div class="col-md-4" >
                         <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
-                        </div>--}}{{--
-                                <div class="col-md-4" >
-                                    <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
-                                </div>
-                                <div class="input-group-btn col-md-4">
-                                    <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
-                                </div>
+                        </div>--}}
+                            <div class="col-md-4" >
+                        <input type="file" name="attachments[]" class="form-control">
+                            </div>
+                        <div class="input-group-btn col-md-4">
+                            <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
+                        </div>
+                    </div>
+
+                    <div class="clone hide">
+                        <div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">
+                           {{-- <div class="col-md-4" >
+                            <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
+                            </div>--}}
+                            <div class="col-md-4" >
+                            <input type="file" name="attachments[]" class="form-control">
                             </div>
 
-                            <div id="increment"></div>
+                            <div class="input-group-btn col-md-4" >
+                               <button class="btn btn-danger att_button_rem" type="button"><i class=""></i>Remove attachment field</button>
+                            </div>
 
                         </div>
-                    </div>--}}
+                    </div>
+
+
+                    </div>
+                    </div>
 
                     <hr>
 &nbsp;
@@ -247,36 +240,14 @@
             calculate = function (a_paid, a_spent, a_variance) {
                 var amount_advanced = (document.getElementById(a_paid).value);
                 var amount_spent = parseFloat(document.getElementById(a_spent).value).toFixed(2);
-                var amount_variance = amount_advanced - amount_spent;
+                var amount_variance = (amount_advanced) - (amount_spent);
                 (document.getElementById(a_variance).value) = (amount_variance);
-
             }
 
             $(document).ready(function() {
-                $(".att_button").click(function(event){
-                    event.preventDefault();
-                    // var lsthmtl = $(".clone").html();
-                    // $(".increment").after(lsthmtl);
-                    let $increment = $("#increment");
-
-                    $increment.prepend('' +
-                            '<div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">'+
-                                '<div class="col-md-3 col-lg-3 col-xl-3" >'+
-                                    '<input type="file" accept="application/pdf" name="attachments[]" class="form-control">'+
-                                '</div>'+
-
-                        '<div class="col-md-3 col-lg-3 col-xl-3" >'+
-                        '<input type="number" id="" name="amount_attachment[]" placeholder="Total Amount of the receipts"  class="form-control">'+
-                        '</div>'+
-
-                        '<div class="col-md-3 col-lg-3 col-xl-3" >'+
-                        '{!! Form::select("attachment_type[]", $attachment_type, null, ["class" =>"form-control select2-show-search", "placeholder" => __("label.select") , "aria-describedby" => "", "required"]) !!}'+
-                        '</div>'+
-
-                                '<div class="input-group-btn col-md-3 col-lg-3 col-xl-3" >'+
-                                    '<button class="btn btn-danger att_button_rem" type="button"><i class=""></i>Remove attachment field</button>'+
-                                '</div>'+
-                            '</div>')
+                $(".att_button").click(function(){
+                    var lsthmtl = $(".clone").html();
+                    $(".increment").after(lsthmtl);
 
                 });
                 $("body").on("click",".att_button_rem",function(){

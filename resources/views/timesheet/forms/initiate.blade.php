@@ -40,11 +40,6 @@
                             //if not a weekend add day to array
                             if($day_name != 'Sun' && $day_name != 'Sat'){
                                 $workdays[] = \Carbon\Carbon::createFromDate($today->year, $today->month, $i)->format('D d-F-Y');
-                                $workdays_for_comments[] = \Carbon\Carbon::createFromDate($today->year, $today->month, $i)->format('d-m-Y');
-
-                            }
-                            if ($day_name != 'Fri' ){
-                                $hours =  6;
                             }
 
                     }
@@ -56,9 +51,8 @@
 
                 @endphp
 
-
-
-                <form id="timesheet" name="timesheet-form" action="{{route('timesheet.store')}}" method="post">
+                <form action="{{route('timesheet.store')}}" method="post">
+                    
                     @csrf
                     <table id="" class="table table-striped table-bordered" style="width:100%">
                         <thead>
@@ -74,17 +68,8 @@
                         @foreach($workdays as $key => $workday)
                            <tr>
                                <td><b>{{ $workday }}</b></td>
-                                @if(date('D', strtotime($workday)) == 'Fri')
-                                   <td><input type="number" step=any min="6" max="6" name="data[{{$key}}][hours]" value="6" disabled class="form-control col-md-4"></td>
-                               @else
-                                   <td><input type="number" step=any min="6" max="8.5" name="data[{{$key}}][hours]" value="8.5" disabled class="form-control col-md-4"></td>
-@endif
-                               @if(date('D', strtotime($workday)) == 'Fri')
-                                   <input type="number" step=any min="6" max="6" name="data[{{$key}}][hours]" value="6" hidden class="form-control col-md-4">
-                               @else
-                                  <input type="number" step=any min="6" max="8.5" name="data[{{$key}}][hours]" value="8.5" hidden class="form-control col-md-4">
-                               @endif
-                                   <input type="hidden" name="data[{{$key}}][date]" value="{{ $workday }}">
+                               <input type="hidden" name="data[{{$key}}][date]" value="{{ $workday }}">
+                               <td><input type="number" step=any min="6" max="8.5" name="data[{{$key}}][hours]" class="form-control col-md-4"></td>
                                <td><input type="text" name="data[{{$key}}][comment]" class="form-control col-md-10"></td>
                            </tr>
                         @endforeach
@@ -94,7 +79,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button type="submit" id="submit_btn" class="btn btn-outline-info timesheet" style="margin-left:40%;">Submit For Apprl</button>
+                                <button type="submit" class="btn btn-outline-info" style="margin-left:40%;" >Submit For Approval</button>
                             </div>
                         </div>
                     </div>
@@ -105,17 +90,4 @@
     </div>
 
 @endsection
-
-@push('after-scripts')
-    <script>
-        $(document).ready(function(){
-            $("form[name='timesheet-form']").submit(function (){
-                $("#submit_btn").attr('disabled',true);
-            });
-            // $("#submit_btn").click(function (){
-            //     $(this).attr('disabled',true);
-            // });
-        });
-    </script>
-@endpush
 

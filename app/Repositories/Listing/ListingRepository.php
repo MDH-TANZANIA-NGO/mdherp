@@ -2,9 +2,7 @@
 
 namespace App\Repositories\Listing;
 
-use App\Models\Auth\User;
 use App\Models\Listing\Listing;
-use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -47,21 +45,15 @@ class ListingRepository extends BaseRepository
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('listings.wf_done', 0)
-            ->where('listings.rejected', false)
-            ->where('users.id', access()->id());
-    }
-
-    public function getAccessDeniedDatatable(){
-        return $this->getQuery()
-            ->whereHas('wfTracks')
-            ->where('listings.rejected', true)
+            ->where('listings.rejected', null)
             ->where('users.id', access()->id());
     }
     public function getAccessRejectedDatatable()
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('listings.wf_done', 5)
+            ->where('listings.wf_done', 0)
+            ->where('listings.rejected', true)
             ->where('users.id', access()->id());
     }
 
@@ -105,115 +97,5 @@ class ListingRepository extends BaseRepository
             return $listing;
         });
     }
-
-    /**
-     * Store new Project
-     * @param $inputs
-     * @param Listing $listing
-     * @return mixed
-     */
-    public function update($inputs, Listing $listing)
-    {
-        return DB::transaction(function () use($inputs, $listing){
-            $listing->update($this->inputsProcessor($inputs));
-            if(isset($inputs['tools']))
-                $listing->workingTools()->sync($inputs['tools']);
-            return $listing;
-        });
-    }
-
-    /**
-     * Get applicant level
-     * @param $wf_module_id
-     * @return int|null
-     * Get fron desk level per module id
-     */
-    public function getApplicantLevel($wf_module_id)
-    {
-        $level = null;
-        switch ($wf_module_id) {
-            case 9:
-                $level = 1;
-                break;
-        }
-        return $level;
-    }
-
-    /**
-     * Get applicant level
-     * @param $wf_module_id
-     * @return int|null
-     * Get fron desk level per module id
-     */
-    public function getHeadOfDeptLevel($wf_module_id)
-    {
-        $level = null;
-        switch ($wf_module_id) {
-            case 9:
-                $level = 2;
-                break;
-        }
-        return $level;
-    }
-
-    /**
-     * @param $resource_id
-     * @param $wf_module_id
-     * @param $current_level
-     * @param int $sign
-     * @param array $inputs
-     * @throws \App\Exceptions\GeneralException
-     */
-    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])
-    {
-        $listing = $this->find($resource_id);
-        $applicant_level = $this->getApplicantLevel($wf_module_id);
-        $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
-//        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
-//        if($requisition->rejected){}
-        switch ($inputs['rejected_level'] ?? $current_level) {
-            case $applicant_level:
-                $this->updateRejected($resource_id, $sign);
-
-                $email_resource = (object)[
-                    'link' => route('listing.show', $listing),
-                    'subject' =>$listing->id. " Has been revised to your level",
-                    'message' => $listing->id. ' need modification.. Please do the need and send it back for approval'
-                ];
-                User::query()->find($listing->user_id)->notify(new WorkflowNotification($email_resource));
-
-                break;
-            case $head_of_dept_level:
-                $this->updateRejected($resource_id, $sign);
-
-                $email_resource = (object)[
-                    'link' => route('listing.show', $listing),
-                    'subject' => " Has been revised to your level",
-                    'message' =>  ' need modification. Please do the need and send it back for approval'
-                ];
-//                  User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
-
-                break;
-        }
-    }
-
-    /**
-     * Update rejected column
-     * @param $id
-     * @param $sign
-     * @return mixed
-     */
-    public function updateRejected($id, $sign)
-    {
-        $listing = $this->query()->find($id);
-        return DB::transaction(function () use ($listing, $sign) {
-            $rejected = 0;
-            if ($sign == -1) {
-                $rejected = 1;
-            }
-            return $listing->update(['rejected' => $rejected]);
-        });
-    }
-
 
 }

@@ -121,6 +121,7 @@
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
+            
 
             $("#access_rejected").DataTable({
                 destroy: true,

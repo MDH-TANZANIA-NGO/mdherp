@@ -21,10 +21,6 @@
         <div class="card">
             <div class="card-header" style="background-color: rgb(152, 186, 217)">
                 <h3 class="card-title">REQUISITION SUMMARY</h3>
-                <div class="card-options ">
-                    <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                    <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-                </div>
             </div>
             <div class="card-body">
                 @if($requisition->user_id==access()->id())
@@ -72,24 +68,23 @@
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     Budgeted Amount
-
-                                    <span class="badgetext badge badge-default badge-pill"><b>$(USD) </b>{{number_2_format(currency_converter($budget['budget'], 'TSH'))}}</span>
+                                    <span class="badgetext badge badge-default badge-pill">{{number_2_format($budget->amount)}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     Actual Expenditure
-                                    <span class="badgetext badge badge-default badge-pill"><b>$(USD) </b>{{number_2_format(currency_converter($budget['actual_expenditure'], 'TSH'))}}</span>
+                                    <span class="badgetext badge badge-default badge-pill">{{number_2_format($payed_and_closed)}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     Commitment
-                                    <span class=" badgetext badge badge-default badge-pill"><b>$(USD) </b>{{number_2_format(currency_converter($budget['commitment'], 'TSH'))}}</span>
+                                    <span class=" badgetext badge badge-default badge-pill">{{number_2_format($approved_requisitions)}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     Pipeline
-                                    <span class=" badgetext badge badge-default badge-pill"><b>$(USD) </b>{{number_2_format(currency_converter($budget['pipeline'], 'TSH'))}}</span>
+                                    <span class=" badgetext badge badge-default badge-pill">{{number_2_format($not_approved_requisitions)}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     Available
-                                    <span class=" badgetext badge badge-default badge-pill"><b>$(USD) </b>{{number_2_format(currency_converter(($budget['actual'] - $budget['pipeline']), 'TSH'))}}</span>
+                                    <span class=" badgetext badge badge-default badge-pill">{{number_2_format(($budget->amount)-(($payed_and_closed)+($approved_requisitions)+($not_approved_requisitions)+($denied_requisitions)))}}</span>
                                 </li>
 
                             </ul>
