@@ -57,9 +57,12 @@ class GovernmentRateRepository extends BaseRepository
     public function assignRate($inputs)
     {
         return DB::transaction(function () use ($inputs){
+            $rate = $this->find($inputs['rate']);
             if(isset($inputs['scales'])){
-                $rate = $this->find($inputs['rate']);
+
                 $rate->govScales()->sync($inputs['scales']);
+            }else{
+                $rate->govScales()->detach();
             }
         });
     }

@@ -40,7 +40,7 @@
                 let $selected = $(this).val();
                 $rates_list.empty();
                 let $route = "{{ route('g_scale.government_rate') }}";
-                $.getJSON($route, function (data) {
+                $.get($route, function (data) {
                     console.log(data);
                     $.each(data, function (i, item) {
                         let $check_if_selected = "";
