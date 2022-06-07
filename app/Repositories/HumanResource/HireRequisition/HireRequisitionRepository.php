@@ -16,10 +16,11 @@ class HireRequisitionRepository extends BaseRepository
 
     public function getQuery(){
         return $this->query()->select([
-            DB::raw("hr_hire_requisitions.id AS id" ),
-            DB::raw("string_agg( designations.name, ',') as title"),
-            DB::raw("sum(hr_hire_requisitions_jobs.empoyees_required) as total"),
-            DB::raw("string_agg( regions.name, ',') as region"),
+            DB::raw("hr_hire_requisitions.id AS id"),
+            DB::raw("string_agg(DISTINCT designations.name, ',') as title"),
+            DB::raw("0 as total"),
+            ///DB::raw("hr_hire_requisitions_jobs.empoyees_required as total"),
+            DB::raw("string_agg(DISTINCT regions.name, ',') as region"),
             DB::raw("hr_hire_requisitions.created_at"),
             DB::raw("hr_hire_requisitions.uuid")
         ])
@@ -27,19 +28,8 @@ class HireRequisitionRepository extends BaseRepository
         ->join('designations','designations.id', 'hr_hire_requisitions_jobs.designation_id')
         ->join('hr_hire_requisition_locations','hr_hire_requisition_locations.hr_requisition_job_id', 'hr_hire_requisitions_jobs.id')
         ->join('regions','regions.id', 'hr_hire_requisition_locations.region_id')
-        ->groupby(['hr_hire_requisitions.id','hr_hire_requisitions_jobs.id']);
+        ->groupby(['hr_hire_requisitions.id','hr_hire_requisitions.created_at','hr_hire_requisitions.uuid']);
     }
-
-//     select
-//     jb.id,string_agg( ds.name, ',') as title,sum(hr.empoyees_required) as total,string_agg( rg.name, ',') as regions,jb.created_at
-// from
-//     hr_hire_requisitions jb
-//     join hr_hire_requisitions_jobs hr ON jb.id = hr.hire_requisition_id
-//     join designations ds ON ds.id = hr.designation_id
-//     join hr_hire_requisition_locations hl ON hl.hr_requisition_job_id = hr.id
-//     join  regions rg ON rg.id = hl.region_id
-// group by jb.id,hr.id
-
 
     public function getAccessProcessingDatatable()
     {
@@ -57,6 +47,7 @@ class HireRequisitionRepository extends BaseRepository
             ->where('hr_hire_requisitions.user_id', access()->id());
     }
     
+    
     public function getAccessRejectedDatatable()
     {
         return $this->getQuery()
@@ -69,7 +60,19 @@ class HireRequisitionRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('hr_hire_requisitions.wf_done', true)
+            ->where('hr_hire_requisitions.wf_done', 1)
+            ->where('hr_hire_requisitions.done', true)
+            ->where('hr_hire_requisitions.done', false)
+            ->where('hr_hire_requisitions.user_id', access()->id());
+    }
+
+    public function getAccessSavedDatatable()
+    {
+        return $this->getQuery()
+            ->whereDoesntHave('wfTracks')
+            ->where('hr_hire_requisitions.wf_done', 0)
+            ->where('hr_hire_requisitions.done', 0)
+            ->where('hr_hire_requisitions.rejected', false)
             ->where('hr_hire_requisitions.user_id', access()->id());
     }
 

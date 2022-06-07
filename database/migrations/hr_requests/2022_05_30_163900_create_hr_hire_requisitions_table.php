@@ -17,14 +17,15 @@ class CreateHrHireRequisitionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('department_id');
-            $table->smallInteger('done')->nullable();
-            $table->decimal('rejected')->nullable();
-            $table->smallInteger('wf_done')->nullable();
+            $table->smallInteger('done')->default(0);
+            $table->smallInteger('rejected')->nullable();
+            $table->smallInteger('wf_done')->default(0);
             $table->date('wf_done_date')->nullable();
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
         });
+
     }
 
     /**

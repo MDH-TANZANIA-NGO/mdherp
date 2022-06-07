@@ -4,7 +4,7 @@
 
     <div class="align-content-center" style="background-color: rgb(238, 241, 248); height: 40px;">
         <div class="row text-center" style="font-size: large">
-            <span class="col-12 text-center font-weight-bold" style="margin-top: 10px"><b>Listing </b></span>
+            <span class="col-12 text-center font-weight-bold" style="margin-top: 10px"><b>Hire Requisition </b></span>
         </div>
     </div>
 
@@ -15,46 +15,44 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="card">
-           <div class="card-header">
-               {{$listing->title}}
-           </div>
-            <div class="card-body">
-                <p><strong>Department: </strong> {{ $listing->department->title }}</p>
-                <p><strong>Number of Employees: </strong> {{ $listing->number }}</p>
-
-
-                <p><strong>Position Summary</strong></p>
-                {!! $listing->content !!}
-
-                <p><strong>Education and Qualification</strong></p>
-                {!! $listing->education_and_qualification !!}
-
-                <p><strong> Practical Experience</strong></p>
-                {!! $listing->practical_experience !!}
-
-                <p><strong> Other Qualities</strong></p>
-                {!! $listing->other_qualities !!}
-
-                <p><strong> Special Qualities and Skills</strong></p>
-                {!! $listing->other_qualities !!}
-
-                <p><strong> Special Employment Condition</strong></p>
-                {!! $listing->special_employment_condition !!}
-
-                <p><strong>Employment Condition: </strong> {{ $listing->employment->name }}</p>
-
-
-                <p><strong>Working Tools</strong></p>
-                <ol>
-                    @foreach($listing->workingTools as $working_tool)
-                        <li>{{ $working_tool->name }}</li>
-                    @endforeach
-                </ol>
-
-            </div>
-        </div>
+    <div class="card p-4 mb-4">
+    <div class="card-header">
+     Number: {{ $hireRequisition->number }}  
     </div>
+    
+    <form action=method="post">
+        @csrf
+        <div class="card-body">
+                <table   class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th class="wd-15p">#</th>
+                        <th class="wd-15p">TITLE</th>
+                        <th class="wd-15p">REGION</th>
+                        <th class="wd-15p">DATE REQUIRED</th>
+                        <th class="wd-25p"># OF EMPLOYEES</th>
+                        <th class="wd-25p">ACTION</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                        @foreach( $hireRequisitionJobs as $key=>$hireRequisitionJob )
+                        <tr>
+                            <td> {{ $key+1 }} </td>
+                            <td> {{ $hireRequisitionJob->title }} </td>
+                            <td> {{ $hireRequisitionJob->regions  }}</td>
+                            <td> {{ $hireRequisitionJob->date_required }} </td>
+                            <td> {{ $hireRequisitionJob->empoyees_required  }} </td>
+                            <td> <a href="#"> View </a> | <a href="#">Edit</a> | <a href="#">Delete</a> </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                
+        </div>
+</form>
+</div>
+
+    
 
 @endsection

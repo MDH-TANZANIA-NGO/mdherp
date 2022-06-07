@@ -3,7 +3,7 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
     Route::get('', 'HireRequisitionController@index')->name('index');
     Route::get('create', 'HireRequisitionController@create')->name('create');
     Route::get('initiate/{uuid}', 'HireRequisitionController@initiate')->name('initiate');
-    Route::post('initiate/{uuid}', 'HireRequisitionController@addRequisition')->name('addRequisition');\
+    Route::post('initiate/{uuid}', 'HireRequisitionController@addRequisition')->name('addRequisition');
     Route::post('store', 'HireRequisitionController@store')->name('store');
     Route::post('submit/{uuid}', 'HireRequisitionController@submit')->name('submit');
     Route::get('{hirerequisition}/show', 'HireRequisitionController@show')->name('show');
@@ -19,6 +19,7 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
             Route::get('returned', 'HireRequisitionController@AccessDeniedDatatable')->name('returned');
             Route::get('rejected', 'HireRequisitionController@AccessRejectedDatatable')->name('rejected');
             Route::get('approved', 'HireRequisitionController@AccessProvedDatatable')->name('approved');
+            Route::get('saved', 'HireRequisitionController@AccessSavedDatatable')->name('saved');
         });
     });
 });

@@ -13,12 +13,10 @@ trait HireRequisitionDatatable
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();
             })
-            // ->editColumn('budget', function ($query) {
-            //     if ($query->budget == true){
-            //         return "Available";
-            //     }
-            //     return "No Budget";
-            // })
+            ->editColumn('total', function ($query) {
+                return $this->hireRequisitionJobRepository->query()->where('hr_hire_requisitions_jobs.hire_requisition_id',$query->id)->sum('empoyees_required');
+                
+            })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('hirerequisition.show', $query->uuid).'">View</a>';
             })
@@ -31,6 +29,10 @@ trait HireRequisitionDatatable
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();
+            })
+            ->editColumn('total', function ($query) {
+                return $this->hireRequisitionJobRepository->query()->where('hr_hire_requisitions_jobs.hire_requisition_id',$query->id)->sum('empoyees_required');
+                
             })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('hirerequisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. ' '. '<a href="'.route('hireRequisition.edit', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
@@ -45,6 +47,14 @@ trait HireRequisitionDatatable
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();
             })
+            ->editColumn('total', function ($query) {
+                return $this->hireRequisitionJobRepository->query()->where('hr_hire_requisitions_jobs.hire_requisition_id',$query->id)->sum('empoyees_required');
+                
+            })
+            ->editColumn('total', function ($query) {
+                return $this->hireRequisitionJobRepository->query()->where('hr_hire_requisitions_jobs.hire_requisition_id',$query->id)->sum('empoyees_required');
+                
+            })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('hirerequisition.show', $query->uuid).'">View</a>';
             })
@@ -58,8 +68,29 @@ trait HireRequisitionDatatable
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();
             })
+            ->editColumn('total', function ($query) {
+                return $this->hireRequisitionJobRepository->query()->where('hr_hire_requisitions_jobs.hire_requisition_id',$query->id)->sum('empoyees_required');
+                
+            })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('hirerequisition.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function AccessSavedDatatable(){
+        return DataTables::of($this->hireRequisition->getAccessSavedDatatable())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateString();
+            })
+            ->editColumn('total', function ($query) {
+                return $this->hireRequisitionJobRepository->query()->where('hr_hire_requisitions_jobs.hire_requisition_id',$query->id)->sum('empoyees_required');
+                
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('hirerequisition.initiate', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

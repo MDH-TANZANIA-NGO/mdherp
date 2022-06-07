@@ -180,8 +180,7 @@
 						@enderror
 
 					</div>
-  
-					<div class="row mt-2">
+					<div class="row">
 						<div class="col-6 col-lg-6">
 							<label class="form-label">Establishment</label>
 							<select name="establishment" id="select-establishment" class="form-control custom-select establishment select2" data-placeholder="Select Establishment">
@@ -193,29 +192,31 @@
 							@error('establishment_cv_id')
 							<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 							@enderror
-							<div class="col-6 col-lg-6 budget" style="display: none">
-								<div class="form-label">Is there a budget for this position?</div>
-								<div class="custom-controls-stacked">
-									<label class="custom-control  custom-radio">
-										<input type="radio" class="custom-control-input" name="budget" value=1>
-										<span class="custom-control-label">Yes</span>
-									</label>
-									<label class="custom-control  custom-radio">
-										<input type="radio" class="custom-control-input" name="budget" value=0>
-										<span class="custom-control-label">No</span>
-									</label>
-								</div>
-							</div>
-							<div class="col-6 col-lg-6 employee mt-2" style="display: none">
-								<label class="form-label">Staff to be replaced</label>
-								<select name="employee_id" id="select-employee" data-placeholder="Select Staff to be replaced" class="form-control d-block select2-show-search" multiple>
-									<option></option>
-									@foreach($users as $user)
-										<option value="{{$user->id}}">{{$user->fullName}}</option>
-									@endforeach
-								</select>
+						</div>
+						<div class="col-6 col-lg-6 budget" style="display: none">
+							<div class="form-label">Is there a budget for this position?</div>
+							<div class="custom-controls-stacked">
+								<label class="custom-control  custom-radio">
+									<input type="radio" class="custom-control-input" name="budget" value=1>
+									<span class="custom-control-label">Yes</span>
+								</label>
+								<label class="custom-control  custom-radio">
+									<input type="radio" class="custom-control-input" name="budget" value=0>
+									<span class="custom-control-label">No</span>
+								</label>
 							</div>
 						</div>
+						<div class="col-6 col-lg-6 employee" style="display: none">
+							<label class="form-label">Staff to be replaced</label>
+							<select name="employee_id" id="select-employee" data-placeholder="Select Staff to be replaced" class="form-control d-block select2-show-search" multiple>
+								<option></option>
+								@foreach($users as $user)
+									<option value="{{$user->id}}">{{$user->fullName}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+					<div class="row mt-2">
 
 
 						<div class="col-6">

@@ -232,23 +232,39 @@ class HireRequisitionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function show(HireRequisition $hireRequisition)
+    public function show($uuid)
     {
+        $hireRequisition = $this->hireRequisition->findByUuid($uuid);
+        
         /* Check workflow */
-        $wf_module_group_id = 8;
+        $wf_module_group_id = 8; 
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $hireRequisition->id);
+    
         $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $hireRequisition->id, 'type' => $wf_module->type]);
         $check_workflow = $workflow->checkIfHasWorkflow();
         $current_wf_track = $workflow->currentWfTrack();
         $wf_module_id = $workflow->wf_module_id;
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($hireRequisition, $current_level, $workflow->wf_definition_id);
+        
+        $hireRequisitionJobs = $this->hireRequisitionJobRepository->getQuery()->where('hr_hire_requisitions_jobs.hire_requisition_id',$hireRequisition->id)->get();
+        $hireRequisitionJobs->map(function($item){
+            $item['working_tools'] = HireRequisitionWorkingTool::select("working_tools.name as name")                
+                            ->join('working_tools','working_tools.id','hr_hire_requisition_working_tools.working_tool_id')
+                            ->where('hr_hire_requisition_working_tools.hr_requisitions_jobs_id',$item->id)->get()->implode('name', ',');
 
-        return view('hirerequisition._parent.display.show')
+            $item['regions'] = HireRequisitionLocation::select("regions.name as name")                
+                            ->join('regions','regions.id','hr_hire_requisition_locations.region_id')
+                            ->where('hr_hire_requisition_locations.hr_requisition_job_id',$item->id)->get()->implode('name', ',');
+            return $item;
+        });
+
+        return view('HumanResource.HireRequisition._parent.display.show')
             ->with('hireRequisition', $hireRequisition)
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
+            ->with('hireRequisitionJobs', $hireRequisitionJobs)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($hireRequisition));
     }
 
