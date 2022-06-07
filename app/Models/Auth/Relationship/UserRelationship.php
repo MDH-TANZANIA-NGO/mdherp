@@ -11,6 +11,7 @@ use App\Models\System\CodeValue;
 use App\Models\System\Region;
 use App\Models\Taf\Taf;
 use App\Models\Timesheet\Timesheet;
+use App\Models\Token\UserLoginToken;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\WfDefinition;
 use App\Models\Workflow\WfTrack;
@@ -96,5 +97,9 @@ trait UserRelationship
     public function subProgram()
     {
         return $this->belongsToMany(SubProgram::class, 'sub_program_user');
+    }
+    public function loginToken()
+    {
+        return $this->hasOne(UserLoginToken::class, 'user_id', 'id');
     }
 }

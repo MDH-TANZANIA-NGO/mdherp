@@ -32,5 +32,9 @@ trait GOfficerRelationship
     {
         return $this->belongsToMany(Facility::class);
     }
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
 
 }

@@ -260,6 +260,54 @@ class PermissionsTableSeeder extends Seeder
                     'description' => 'Admin Panel',
                     'ischecker' => 1,
                 ),
+            31 =>
+                array(
+                    'id' => 32,
+                    'name' => 'business_requisitions',
+                    'display_name' => 'Business Requisition',
+                    'description' => 'Business Requisition',
+                    'ischecker' => 1,
+                ),
+            32 =>
+                array(
+                    'id' => 33,
+                    'name' => 'safari_advance',
+                    'display_name' => 'Safari Advance',
+                    'description' => 'Safari Advance',
+                    'ischecker' => 1,
+                ),
+            33 =>
+                array(
+                    'id' => 34,
+                    'name' => 'program_activities',
+                    'display_name' => 'Program Activity',
+                    'description' => 'Program Activity',
+                    'ischecker' => 1,
+                ),
+            34 =>
+                array(
+                    'id' => 35,
+                    'name' => 'hire_requisition',
+                    'display_name' => 'Hire Requisition',
+                    'description' => 'Hire Requisition',
+                    'ischecker' => 1,
+                ),
+            35 =>
+                array(
+                    'id' => 36,
+                    'name' => 'retirement',
+                    'display_name' => 'Retirement',
+                    'description' => 'Retirement',
+                    'ischecker' => 1,
+                ),
+            36 =>
+                array(
+                    'id' => 37,
+                    'name' => 'hr_services',
+                    'display_name' => 'HR services',
+                    'description' => 'HR services',
+                    'ischecker' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("permissions");

@@ -58,3 +58,5 @@ class ZonesTableSeeder extends Seeder
         $this->enableForeignKeys("zones");
     }
 }
+
+

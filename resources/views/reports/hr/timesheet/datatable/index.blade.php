@@ -1,6 +1,6 @@
 
 <div class="row">
-    <div class="col-6 mt-2">
+    <div class="col-2 mt-2">
         <label class="form-label">Select Month</label>
         <select name="month" id="select-month" class="form-control custom-select month">
             @foreach($months as $month)
@@ -12,9 +12,6 @@
 
 <div class="card-body p-6">
     <div class="panel panel-primary">
-
-
-
         <div class=" tab-menu-heading card-header" style="background-color: rgb(238, 241, 248)">
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
@@ -41,7 +38,6 @@
                             <table id="access_processing" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-
                                     <th class="wd-25p">Employee ID</th>
                                     <th class="wd-25p">Employee Name</th>
                                     <th class="wd-25p">Hours</th>
@@ -81,7 +77,6 @@
                             <table id="access_approved" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-{{--                                    <th class="wd-15p">#</th>--}}
                                     <th class="wd-25p">Employee ID</th>
                                     <th class="wd-25p">Employee Name</th>
                                     <th class="wd-25p">Hours</th>
@@ -101,7 +96,6 @@
                             <table id="all_not_submitted" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-{{--                                    <th class="wd-15p">#</th>--}}
                                     <th class="wd-25p">Employee ID</th>
                                     <th class="wd-25p">Employee Name</th>
                                     <th class="wd-25p">Employee Email</th>
@@ -141,7 +135,76 @@
                             }
                         },
                         columns: [
-                            // { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                            { data: 'identity_number', name: 'users.identity_number', searchable: true},
+                            { data: 'fullname', name: 'users.fullname', searchable: true},
+                            { data: 'hours', name: 'timesheets.hrs', searchable: true},
+                            { data: 'created_at', name: 'created_at', searchable: true },
+                            { data: 'wf_done_date', name: 'timesheets.wf_done_date', searchable: true },
+                            { data: 'action', name: 'action', searchable: false },
+                        ]
+                    });
+
+
+                    let $access_rejected = $("#access_rejected");
+                    $access_rejected.DataTable({
+                        destroy: true,
+                        retrieve: true,
+                        "responsive": true,
+                        "autoWidth": false,
+                        ajax: {
+                            url: "{{ route('timesheet_report.rejected') }}",
+                            type: 'GET',
+                            data: function (data) {
+                                data.month = $('.month').val()
+                            }
+                        },
+                        columns: [
+                            { data: 'identity_number', name: 'users.identity_number', searchable: true},
+                            { data: 'fullname', name: 'users.fullname', searchable: true},
+                            { data: 'hours', name: 'timesheets.hrs', searchable: true},
+                            { data: 'created_at', name: 'created_at', searchable: true },
+                            { data: 'wf_done_date', name: 'timesheets.wf_done_date', searchable: true },
+                            { data: 'action', name: 'action', searchable: false },
+                        ]
+                    });
+
+                    let $access_approved = $("#access_approved");
+                    $access_approved.DataTable({
+                        destroy: true,
+                        retrieve: true,
+                        "responsive": true,
+                        "autoWidth": false,
+                        ajax: {
+                            url: "{{ route('timesheet_report.approved') }}",
+                            type: 'GET',
+                            data: function (data) {
+                                data.month = $('.month').val()
+                            }
+                        },
+                        columns: [
+                            { data: 'identity_number', name: 'users.identity_number', searchable: true},
+                            { data: 'fullname', name: 'users.fullname', searchable: true},
+                            { data: 'hours', name: 'timesheets.hrs', searchable: true},
+                            { data: 'created_at', name: 'created_at', searchable: true },
+                            { data: 'wf_done_date', name: 'timesheets.wf_done_date', searchable: true },
+                            { data: 'action', name: 'action', searchable: false },
+                        ]
+                    });
+
+                    let $all_not_submitted = $("#all_not_submitted");
+                    $all_not_submitted.DataTable({
+                        destroy: true,
+                        retrieve: true,
+                        "responsive": true,
+                        "autoWidth": false,
+                        ajax: {
+                            url: "{{ route('timesheet_report.not_submitted') }}",
+                            type: 'GET',
+                            data: function (data) {
+                                data.month = $('.month').val()
+                            }
+                        },
+                        columns: [
                             { data: 'identity_number', name: 'users.identity_number', searchable: true},
                             { data: 'fullname', name: 'users.fullname', searchable: true},
                             { data: 'hours', name: 'timesheets.hrs', searchable: true},
@@ -157,65 +220,6 @@
                         $access_approved.DataTable().ajax.reload()
                         $all_not_submitted.DataTable().ajax.reload()
                     })
-
-                    let $access_rejected = $("#access_rejected").DataTable({
-                        destroy: true,
-                        retrieve: true,
-                        "responsive": true,
-                        "autoWidth": false,
-                        ajax: '{{ route('timesheet_report.rejected') }}',
-                        data : function(data){
-                            data.month = $('.month').val()
-                        },
-                        columns: [
-                            // { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                            { data: 'identity_number', name: 'users.identity_number', searchable: true},
-                            { data: 'fullname', name: 'users.fullname', searchable: true},
-                            { data: 'hours', name: 'timesheets.hrs', searchable: true},
-                            { data: 'created_at', name: 'created_at', searchable: true },
-                            { data: 'wf_done_date', name: 'timesheets.wf_done_date', searchable: true },
-                            { data: 'action', name: 'action', searchable: false },
-                        ]
-                    });
-
-                    let $access_approved = ("#access_approved").DataTable({
-                        destroy: true,
-                        retrieve: true,
-                        "responsive": true,
-                        "autoWidth": false,
-                        ajax: '{{ route('timesheet_report.approved') }}',
-                        data : function(data){
-                            data.month = $('.month').val()
-                        },
-                        columns: [
-                            // { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                            { data: 'identity_number', name: 'users.identity_number', searchable: true},
-                            { data: 'fullname', name: 'users.fullname', searchable: true},
-                            { data: 'hours', name: 'timesheets.hrs', searchable: true},
-                            { data: 'created_at', name: 'created_at', searchable: true },
-                            { data: 'wf_done_date', name: 'timesheets.wf_done_date', searchable: true },
-                            { data: 'action', name: 'action', searchable: false },
-                        ]
-                    });
-
-                    let $all_not_submitted = $("#all_not_submitted").DataTable({
-                        destroy: true,
-                        retrieve: true,
-                        "responsive": true,
-                        "autoWidth": false,
-                        ajax: '{{ route('timesheet_report.not_submitted') }}',
-                        data : function(data){
-                            data.month = $('.month').val()
-                        },
-                        columns: [
-                             // { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                            { data: 'identity_number', name: 'users.identity_number', searchable: true},
-                            { data: 'name', name: 'users.name', searchable: true},
-                            { data: 'email', name: 'users.email', searchable: true},
-                            { data: 'phone', name: 'users.phone', searchable: true },
-                            { data: 'region', name: 'users.region_id', searchable: true },
-                        ]
-                    });
                 })
             </script>
         @endpush

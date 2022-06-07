@@ -6,7 +6,7 @@
     <div class="col-12">
         <div class="form-group">
             <label>{{ __('RATES') }}</label>
-            {!! Form::select('rate',$g_rates,old('rate'),['class'=>'form-control','placeholder' => 'Select Rate']) !!}
+            {!! Form::select('rate',$gov_rates,old('rate'),['class'=>'form-control','placeholder' => 'Select Rate']) !!}
         </div>
 
         <div class="form-group">
@@ -39,12 +39,13 @@
                 event.preventDefault();
                 let $selected = $(this).val();
                 $rates_list.empty();
-                let $route = "{{ route('g_scale.g_rate') }}";
-                $.getJSON($route, function (data) {
+                let $route = "{{ route('g_scale.government_rate') }}";
+                $.get($route, function (data) {
+                    console.log(data);
                     $.each(data, function (i, item) {
                         let $check_if_selected = "";
-                        if (item.g_rate_id != null) {
-                            if (item.g_rate_id == $selected) {
+                        if (item.government_rate_id != null) {
+                            if (item.government_rate_id == $selected) {
                                 $check_if_selected = 'selected';
                             }
                         }

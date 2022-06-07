@@ -7,6 +7,7 @@
         <th class="wd-10p">PHONE</th>
         <th class="wd-25p">TITLE</th>
         <th class="wd-25p">REGION</th>
+        <th class="wd-25p">DISTRICT</th>
         <th class="wd-25p">FACILITY</th>
         <th class="wd-10p">ACTION</th>
 
@@ -19,6 +20,10 @@
         $(document).ready(function () {
 
             $("#all_projects").DataTable({
+                // dom: 'Bfrtip',
+                // buttons: [
+                //     'copy', 'csv', 'excel', 'pdf', 'print'
+                // ],
                 // processing: true,
                 // serverSide: true,
                 destroy: true,
@@ -33,9 +38,12 @@
                     { data: 'phone', name: 'g_officers.phone', searchable: true},
                     { data: 'g_scale_title', name: 'g_scales.title', searchable: true},
                     { data: 'region_name', name: 'regions.name', searchable: true},
+                    { data: 'district', name: 'districts.name', searchable: true},
                     { data: 'facilities', name: 'facilities.name', searchable: true},
                     { data: 'action', name: 'action', searchable: false },
-                ]
+                ],
+
+
             });
         })
     </script>

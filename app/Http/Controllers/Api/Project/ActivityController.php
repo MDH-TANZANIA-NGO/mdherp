@@ -19,6 +19,6 @@ class ActivityController extends BaseController
     {
         $activities = $this->activities->getActivities($request->only('user_id'),$request->only('region_id'),$request->only('project_id'));
         $results['activity_details'] = $activities;
-        return $this->sendResponse($results,'User Logout Successfully');;
+        return $this->sendResponse($results,'User Logout Successfully');
     }
 }
