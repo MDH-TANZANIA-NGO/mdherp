@@ -10,10 +10,11 @@ use App\Models\Project\SubProgram;
 use App\Models\System\CodeValue;
 use App\Models\System\Region;
 use App\Models\Taf\Taf;
+use App\Models\Time\Time;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\WfDefinition;
 use App\Models\Workflow\WfTrack;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait UserRelationship
 {
@@ -91,5 +92,10 @@ trait UserRelationship
     public function subProgram()
     {
         return $this->belongsToMany(SubProgram::class, 'sub_program_user');
+    }
+
+    public function times()
+    {
+        return $this->hasMany(Time::class);
     }
 }

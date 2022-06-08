@@ -10,9 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use App\Models\Auth\User;
-
-
-
+use App\Models\Time\Time;
+use Illuminate\Validation\Rules\Exists;
 
 if (!function_exists('get_uri')) {
     /**
@@ -299,5 +298,46 @@ if (!function_exists('currency_converter')) {
         }
 
         return $converted;
+    }
+
+}
+
+if(!function_exists('month_days')){
+    function month_days(){
+        $workdays = array();
+        $today = today();
+        $type = CAL_GREGORIAN;
+        $month = date('n'); // Month ID, 1 through to 12.
+        $year = date('Y'); // Year in 4 digit 2009 format.
+        $day_count = cal_days_in_month($type, $month, $year); // Get the amount of days
+
+        //loop through all days
+        for ($i = 1; $i <= $day_count; $i++) {
+
+            $date = $year . '/' . $month . '/' . $i; //format date
+            $get_name = date('l', strtotime($date)); //get week day
+            $day_name = substr($get_name, 0, 3); // Trim day name to 3 chars
+
+            //if not a weekend add day to array
+            if ($day_name != 'Sun' && $day_name != 'Sat') {
+                $workdays[] = \Carbon\Carbon::createFromDate($today->year, $today->month, $i)->format('D d-F-Y');
+            }
+        }
+        return $workdays;
+    }
+}
+
+if(!function_exists('get_working_hours')){
+    function get_working_hours($workday){
+        $hours = "";
+        $date_format = Carbon::create($workday)->format('Y-m-d');
+        $exist = Time::query()->where('user_id', access()->id())->whereDate('time_start', $date_format);
+        if($exist->count() > 0){
+            $time_start = new DateTime($exist->first()->time_start);
+            $time_end = new DateTime($exist->first()->time_end);
+            $interval = $time_start->diff($time_end);
+            $hours = $interval->format('%h');
+        }
+        return $hours;
     }
 }

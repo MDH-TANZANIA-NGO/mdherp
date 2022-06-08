@@ -14,7 +14,7 @@ class CreateTimesTable extends Migration
     public function up()
     {
         Schema::create('times', function (Blueprint $table) {
-           $table->increments('id');
+            $table->increments('id');
             $table->datetime('time_start');
             $table->datetime('time_end')->nullable();
             $table->unsignedInteger('user_id');

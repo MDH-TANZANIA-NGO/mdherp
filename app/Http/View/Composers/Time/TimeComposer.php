@@ -19,6 +19,11 @@ class TimeComposer
      */
     public function compose(View $view)
     {
-        $view->with('check_time',Time::query()->where('user_id', Auth::user()->id)->whereNull('time_end')->get());
+        $time = [];
+        if(Auth::check())
+        {
+            $time = Time::query()->where('user_id', Auth::user()->id)->whereNull('time_end')->get();
+        }
+        $view->with('check_time', $time);
     }
 }

@@ -22,9 +22,10 @@ class TimeController extends Controller
     public function time()
     {
         $times = Time::all();
+        $user = User::all();
         $current = Carbon::now();
        
-        return view('time.time', ['current' => $current, 'times' => $times ]);
+        return view('time.time', ['current' => $current, 'times' => $times, 'user' => $user ]);
 
      }
 
@@ -33,17 +34,18 @@ class TimeController extends Controller
     {
 
         $time = date('Y-m-d H:i:s');
-        $data = ['time_start' => $time, 'user_id' => Auth::user()->id];
+        $data = ['time_start' => $time, 'user_id' => Auth::user()->id, 'name' => Auth::user()->first_name];
         Time::create($data);
+
+      
         return redirect()->back();
     }
 
     public function update(Request $request)
     {
         $time = date('Y-m-d H:i:s');
-        $data = ['time_start' => $time, 'user_id' => Auth::user()->id];
         $end= Time::where('user_id', Auth::user()->id)->whereNull('time_end')->first();
-       
+    //    {{ access()->user()->full_name_formatted }}
         $end->time_end= $time;
         $end->save();
         return redirect()->back();
@@ -58,6 +60,7 @@ class TimeController extends Controller
         return view('time.show', ['current' => $current, 'times' => $times, 'check' => $check]);
     }
 
+   
 }
 
 
