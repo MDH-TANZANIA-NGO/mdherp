@@ -27,8 +27,19 @@ class WorkflowAction {
                             'subject' =>  " Need your review",
                             'message' => ' Performance Appraisal'
                         ];
-                        // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                        User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                         break;
+
+                    case 3: //Applicant level
+                        $pr_report->update(['rejected' => false]);
+                        $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                        $email_resource = (object)[
+                            'link' =>  route('hr.pr.show',$pr_report),
+                            'subject' =>  " Need your review",
+                            'message' => ' Performance Appraisal'
+                        ];
+                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
                 }
                 break;
         }
