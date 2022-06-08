@@ -8,6 +8,7 @@
                             <tr>
                                 <th style ="">#</th>
                                 <th style ="">OBJECTIVE/GOAL</th>
+                                <th>ACTION PLAN</th>
                                 @if($can_edit_resource)<th style ="width:10%">ACTION</th>@endif
                             </tr>
                         </thead>
@@ -16,6 +17,7 @@
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $objective->goal }}</td>
+                                    <td>{{ $objective->plan }}</td>
                                     @if($can_edit_resource)<td><a href="#" class="mr-2" data-toggle="modal" data-target="#objectiveModel{{ $objective->uuid }}">Edit</a> | <a href="{{ route('hr.pr.objective.destroy',$objective) }}" onclick="if(confirm('Are you sure you want to deleted this objective')){ return true; } else { return false; }" class=" ml-2" data-objective-id>Delete</a></td>@endif
                                 </tr>
 
@@ -37,7 +39,13 @@
                                                     <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
                                                         <div class="form-group">
 						                                    <label class="form-label">Objective/Goal</label>
-						                                    <textarea name='goal' class="form-control" placeholder="" required>{{ $objective->goal }}</textarea>
+						                                    <input type="text" name='goal' value="{{ $objective->goal }}" class="form-control" placeholder="" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+                                                        <div class="form-group">
+						                                    <label class="form-label">Action Plan</label>
+						                                    <textarea name='plan' class="form-control" placeholder="" required>{{ $objective->plan }}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>

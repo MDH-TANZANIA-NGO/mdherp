@@ -15,7 +15,7 @@
     <div class="col-md-1 col-sm-1 col-lg-1 col-xl-1">
         <div class="form-group">
 			<label class="form-label">&nbsp;</label>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Add</button>
         </div>
     </div>
 </div>
