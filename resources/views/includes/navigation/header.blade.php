@@ -3,12 +3,12 @@
         <div class="d-flex">
             <a id="horizontal-navtoggle" class="animated-arrow hor-toggle"><span></span></a><!-- sidebar-toggle-->
             <a class="header-brand" href="{{route('workspace.invoke')}}">
-               <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img desktop-lgo" alt="MDH logo">
-               <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img dark-logo" alt="MDH logo">
-               <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img mobile-logo" alt="MDH logo">
-               <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img darkmobile-logo" alt="MDH logo">
+                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img desktop-lgo" alt="MDH logo">
+                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img dark-logo" alt="MDH logo">
+                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img mobile-logo" alt="MDH logo">
+                <img src="{{ asset('mdh/images/brand/logo.png') }}" class="header-brand-img darkmobile-logo" alt="MDH logo">
             </a>
-            <div class="dropdown   side-nav" >
+            <div class="dropdown   side-nav">
                 <a aria-label="Hide Sidebar" class="app-sidebar__toggle nav-link icon mt-1" data-toggle="sidebar" href="#">
                     <i class="fe fe-align-left"></i>
                 </a><!-- sidebar-toggle-->
@@ -20,56 +20,57 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
                     <a class="dropdown-item" href="{{route('userslist')}}">
-                        User Management
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        Workplan Management
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        Rates Configurations
-                    </a>
+            User Management
+            </a>
+            <a class="dropdown-item" href="#">
+                Workplan Management
+            </a>
+            <a class="dropdown-item" href="#">
+                Rates Configurations
+            </a>
 
+        </div>
+    </div> --}}
+
+    @if ($check_time->count() == 0)
+
+    @if($visibility)
+    <form action="{{route('store-time')}}" method="POST">
+        @csrf
+        <div class="punch-btn-section">
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <button type="submit" class="btn btn-success punch-btn"> <i class="fe fe-clock"></i>Check In</button>
+        </div>
+    </form>
+    @endif
+    @else
+    <form action="{{route('update-time')}}" method="POST">
+        @csrf
+        <div class="punch-btn-section">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <button type="submit" class="btn btn-danger punch-btn"> <i class="fe fe-clock"></i>Check Out</button>
+        </div>
+    </form>
+    @endif
+
+    <div class="d-flex order-lg-2 ml-auto">
+        <a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="fa fa-search"></i></a>
+        <div class="mt-1">
+            <form class="form-inline">
+                <div class="search-element">
+                    <input type="search" class="form-control header-search" placeholder="Search…" aria-label="Search" tabindex="1">
+                    <button class="btn btn-primary-color" type="submit"><i class="fa fa-search text-dark"></i></button>
                 </div>
-            </div> --}}
-            
-            
-                  @if ($check_time->count() == 0)
-               
-                        <form action="{{route('store-time')}}" method="POST">
-                            @csrf
-                            <div class="punch-btn-section">
+            </form>
+        </div><!-- SEARCH -->
 
-                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                                <button type="submit"  class="btn btn-success punch-btn"> <i class="fe fe-clock"></i>Check In</button>
-                            </div>
-                        </form>
-                        @else
-                        <form action="{{route('update-time')}}" method="POST">
-                            @csrf
-                            <div class="punch-btn-section">
-                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                                <button type="submit"  class="btn btn-danger punch-btn"> <i class="fe fe-clock"></i>Check Out</button>
-                            </div>
-                            </form>
-                           @endif    
-            
-            <div class="d-flex order-lg-2 ml-auto">
-                <a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="fa fa-search"></i></a>
-                <div class="mt-1">
-                    <form class="form-inline">
-                        <div class="search-element">
-                            <input type="search" class="form-control header-search" placeholder="Search…" aria-label="Search" tabindex="1">
-                            <button class="btn btn-primary-color" type="submit"><i class="fa fa-search text-dark"></i></button>
-                        </div>
-                    </form>
-                </div><!-- SEARCH -->
-
-                <div class="dropdown   header-fullscreen" >
-                    <a  class="nav-link icon full-screen-link"  id="fullscreen-button">
-                        <i class="fe fe-minimize"></i>
-                    </a>
-                </div>
-                {{-- <div class="dropdown    header-notify">
+        <div class="dropdown   header-fullscreen">
+            <a class="nav-link icon full-screen-link" id="fullscreen-button">
+                <i class="fe fe-minimize"></i>
+            </a>
+        </div>
+        {{-- <div class="dropdown    header-notify">
                     <a class="nav-link icon" data-toggle="dropdown">
                         <i class="fe fe-bell"></i>
                         <span class="pulse "></span>
@@ -116,55 +117,54 @@
                         </div>
                     </div>
                 </div> --}}
-                <div class="dropdown ">
-                    <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
-										<span>
-											<img src="{{ asset('mdh/images/users/16.jpg') }}" alt="img" class="avatar avatar-md brround">
-										</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
-                        <div class="text-center">
+        <div class="dropdown ">
+            <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+                <span>
+                    <img src="{{ asset('mdh/images/users/16.jpg') }}" alt="img" class="avatar avatar-md brround">
+                </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
+                <div class="text-center">
 
-                            @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
+                    @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
+                    @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
+                    @endif
+                    @else
 
-                        <a href="#" class="dropdown-item text-center user pb-0">{{ access()->user()->full_name_formatted }}</a>
-                        <span class="text-center user-semi-title text-dark">{{{access()->user()->email}}}</span>
-                        <div class="dropdown-divider"></div>
-
-
-                        @endguest
+                    <a href="#" class="dropdown-item text-center user pb-0">{{ access()->user()->full_name_formatted }}</a>
+                    <span class="text-center user-semi-title text-dark">{{{access()->user()->email}}}</span>
+                    <div class="dropdown-divider"></div>
 
 
-                        </div>
-                        <a class="dropdown-item" href="{{route('userbio.create')}}">
-                            <i class="dropdown-icon mdi mdi-account-outline "></i> My Biography
-                        </a>
+                    @endguest
 
-                        {{-- <a class="dropdown-item" href="#">
+
+                </div>
+                <a class="dropdown-item" href="{{route('userbio.create')}}">
+                    <i class="dropdown-icon mdi mdi-account-outline "></i> My Biography
+                </a>
+
+                {{-- <a class="dropdown-item" href="#">
                             <i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
                         </a> --}}
 
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
 
-                            <i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                        </form>
-                    </div>
-                </div>
+                    <i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>

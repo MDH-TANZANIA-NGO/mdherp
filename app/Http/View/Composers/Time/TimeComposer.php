@@ -6,6 +6,7 @@ namespace App\Http\View\Composers\Time;
 use Illuminate\View\View;
 use App\Models\Time\Time;
 use Auth;
+use Illuminate\Support\Carbon;
 
 class TimeComposer
 {
@@ -24,6 +25,17 @@ class TimeComposer
         {
             $time = Time::query()->where('user_id', Auth::user()->id)->whereNull('time_end')->get();
         }
-        $view->with('check_time', $time);
+       
+        $visibility = true;
+        $lastcheckin = Time::where('user_id', access()->id())->whereDate('time_start', Carbon::now()->format('Y-m-d'))->whereNotNull('time_end');
+        if ($lastcheckin->count() > 0 ){
+            $visibility = false;
+        }
+        $view->with('check_time', $time)
+        ->with('visibility', $visibility);
     }
+
+
 }
+
+
