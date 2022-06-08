@@ -244,7 +244,7 @@ trait WorkflowUserSelector
                         $user_id = $next_user->first()->user_id;
                         break;
                     case 2:
-                        $next_user = (new UserRepository())->getDirectorOfHR();;
+                        $next_user = (new UserRepository())->getDirectorOfHR();
                         if (!$next_user) {
                             throw new GeneralException('Director of HR is not yet registered. Please contact system Admin');
                         }
@@ -263,7 +263,7 @@ trait WorkflowUserSelector
 
             case 11:
                     $pr_report = (new PrReportRepository())->find($resource_id);
-                    /*check levels*/
+                    /* levels*/
                     switch ($level) {
                         case 1:
                             $next_user = $pr_report->user->assignedSupervisor();
@@ -271,6 +271,41 @@ trait WorkflowUserSelector
                                 throw new GeneralException('This user has not assigned supervisor');
                             }
                             $user_id = $next_user->supervisor_id;
+                            break;
+                        case 2:
+                            $next_user = $pr_report->user->project->users()
+                            ->where('users.region_id', $pr_report->region_id)
+                            ->where('users.designation_id', 82)
+                            ->where('users.active',true)
+                            ->orderBy('id','DESC')
+                            ->first();
+                            if(!$next_user){
+                                throw new GeneralException('Regional Project Manager not assigned');
+                            }
+                            $user_id = $next_user->id;
+                            break;
+                        case 3:
+                            $user_dept = $pr_report->user->designation->department->id;
+                            $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept)->get();
+                            if (!$next_user) {
+                                throw new GeneralException('Director of Department is not yet registered. Please contact system administrator');
+                            }
+                            $user_id = $next_user->first()->user_id;
+                            break;
+                        case 4:
+                            $next_user = (new UserRepository())->getDirectorOfHR();
+                            if (!$next_user) {
+                                throw new GeneralException('Director of HR is not yet registered. Please contact system Admin');
+                            }
+                            $user_id = $next_user->user_id;
+                            break;
+        
+                        case 5:
+                            $next_user = (new UserRepository())->getCEO2();
+                            if (!$next_user) {
+                                throw new GeneralException('CEO is not yet registered. Please contact system administrator');
+                            }
+                            $user_id = $next_user->user_id;
                             break;
                     }
                 break;
