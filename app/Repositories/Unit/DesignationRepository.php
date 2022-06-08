@@ -35,7 +35,9 @@ class DesignationRepository extends BaseRepository
 
     public function getDesignationById($id)
     {
-        return $this->getQueryDesignationUnit()->where('designations.id', $id)->first();
+        $a = $this->getQueryDesignationUnit()->where('designations.id', $id);
+        return $a->count() > 0 ? $a->first()->name : '';
+//        return $this->getQueryDesignationUnit()->where('designations.id', $id)->first();
     }
 
     public function getActive()
