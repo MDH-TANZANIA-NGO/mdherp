@@ -769,8 +769,8 @@ class WfDefinitionsTableSeeder extends Seeder
                 array (
                     'id' => 33,
                     'level' => '2',
-                    'unit_id' => 70,
-                    'designation_id' => 122,
+                    'unit_id' => 74,
+                    'designation_id' => 127,
                     'description' => 'Review Probationary Appraisal',
                     'msg_next' => 'request for review Probationary Appraisal',
                     'wf_module_id' => 11,

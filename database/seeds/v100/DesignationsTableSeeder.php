@@ -1540,7 +1540,7 @@ class DesignationsTableSeeder extends Seeder
                     'unit_id' => 74,
                     'name' => 'SP',
                     'short_name' => '',
-                    'name' => 'Controller',
+                    'name' => '',
                     'short_name' => 'BC',
                     'created_at' => '2022-01-08 20:16:49',
                     'updated_at' => NULL,
