@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        dd($this->users->getAllUserswithoutanyPermission(36)->get());
+   
         return view('user.index')
             ->with('active_user_count', $this->users->getActive()->get()->count())
             ->with('inactive_user_count', $this->users->getInactive()->get()->count());
