@@ -17,16 +17,13 @@
                         &nbsp;
                         <div class="row">
                             @foreach($module->definitions as $key => $definition)
-                                <div class="col-sm-3">
+                                <div class="col-sm-4 col-lg-4 col-xl-4 col-md-4">
                                     <!-- checkbox -->
                                     <div class="form-group clearfix">
                                         <div class="icheck-secondary d-inline">
-                                            <input type="checkbox" id="definition_{{ $definition->id }}" value="{{
-                                            $definition->id }}" name="definitions[]"
-                                                {{ $user->hasWfDefinition($definition->id) ? 'checked' : '' }}>
-                                            <label for="definition_{{ $definition->id }}" title="{{$definition->description}}">
-                                                {{ $key + 1 }} . {{ $definition->description }}
-                                            </label>
+                                            <input type="checkbox" id="definition_{{ $definition->id }}" value="{{ $definition->id }}" name="definitions[]" {{ $user->hasWfDefinition($definition->id) ? 'checked' : '' }}>
+                                            <label for="definition_{{ $definition->id }}" title="{{$definition->description}}">{{ $key + 1 }} . {{ $definition->description }}</label> <br>
+                                            <span style="display: block; font-size: 12px !important; color: grey; margin-top: -5px">{{ $definition->designation->unit->name." ".$definition->designation->name }}</span>
                                         </div>
                                     </div>
                                     <!-- checkbox -->
