@@ -543,8 +543,8 @@ class WorkflowEventSubscriber
                         'subject' => $pr_report->number. ' '.$pr_report->type->title.": Has been Approved Successfully",
                         'message' => $pr_report->number. ' '.$pr_report->type->title.' Has been Approved successfully'
                     ];
-                    $pr_report->user->notify(new WorkflowNotification($email_resource));
-                    User::query()->find($pr_report->supervisor_id)->notify(new WorkflowNotification($email_resource));
+                    // $pr_report->user->notify(new WorkflowNotification($email_resource));
+                    // User::query()->find($pr_report->supervisor_id)->notify(new WorkflowNotification($email_resource));
                     break;
             }
 

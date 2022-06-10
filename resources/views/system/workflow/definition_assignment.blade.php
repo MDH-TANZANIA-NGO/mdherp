@@ -3,7 +3,7 @@
         {!! Form::open(['route' => ['user.update_definitions', $user], 'method' => 'post']) !!}
         @foreach($wf_module_groups as $group)
             <fieldset class="scheduler-border">
-                <legend class="scheduler-border">Module: {{ $group->name }}</legend>
+                <!-- <legend class="scheduler-border">Module: {{ $group->name }}</legend> -->
 
                 <div class="control-group">
 

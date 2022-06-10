@@ -293,19 +293,19 @@ trait WorkflowUserSelector
                             $user_id = $next_user->first()->user_id;
                             break;
                         case 4:
-                            $next_user = (new UserRepository())->getDirectorOfHR();
-                            if (!$next_user) {
-                                throw new GeneralException('Director of HR is not yet registered. Please contact system Admin');
-                            }
-                            $user_id = $next_user->user_id;
+                            // $next_user = (new UserRepository())->getDirectorOfHR();
+                            // if (!$next_user) {
+                            //     throw new GeneralException('Director of HR is not yet registered. Please contact system Admin');
+                            // }
+                            // $user_id = $next_user->first()->user_id;
                             break;
         
                         case 5:
-                            $next_user = (new UserRepository())->getCEO2();
-                            if (!$next_user) {
+                            $next_user = (new UserRepository())->getCeo();
+                            if ($next_user->count() == 0) {
                                 throw new GeneralException('CEO is not yet registered. Please contact system administrator');
                             }
-                            $user_id = $next_user->user_id;
+                            $user_id = $next_user->first()->user_id;
                             break;
                     }
                 break;
