@@ -37,7 +37,7 @@
                                     <th class="wd-15p">#</th>
                                     <th class="wd-15p">NUMBER</th>
                                     <th class="wd-15p">TYPE</th>
-                                    <th class="wd-15p">FULL NAME</th>
+                                    <th class="wd-25p">FULL NAME</th>
                                     <th class="wd-15p">ACTIVITY</th>
                                     <th class="wd-25p">AMOUNT</th>
                                     <th class="wd-25p">APPLIED DATE</th>
