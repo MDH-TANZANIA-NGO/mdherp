@@ -88,7 +88,9 @@ class RequisitionController extends Controller
     }
     public function allRequisitions()
     {
-        return view('requisition._parent.all-requisitions');
+        $all_requisitions =  $this->requisitions->getAllRequisitions();
+        return view('requisition._parent.all-requisitions')
+            ->with('all_requisitions', $all_requisitions);
     }
 
     /**

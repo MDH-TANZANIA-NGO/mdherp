@@ -7,7 +7,7 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary">{{ $requisition_access->getAccessProcessingDatatable()->count() }}</span></a></li>
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">All requisitions <span class="badge badge-primary">{{$all_requisitions->count()}}</span></a></li>
 {{--                    <li><a href="#rejected" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning">{{ $requisition_access->getAccessRejectedDatatable()->count() }}</span></a></li>--}}
 {{--                    <li><a href="#denied" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $requisition_access->getAccessDeniedDatatable()->count() }}</span></a></li>--}}
 {{--                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $requisition_access->getAccessApprovedDatatable()->count() }}</span></a></li>--}}
@@ -18,7 +18,7 @@
 
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('requisition.create') }}"> <i class="fa fa-plus mr-2"></i>Create Request</a>
+{{--                    <a href="{{ route('requisition.create') }}"> <i class="fa fa-plus mr-2"></i>Create Request</a>--}}
                 </div>
             </div>
 
