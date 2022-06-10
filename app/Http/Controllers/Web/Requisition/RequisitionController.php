@@ -86,6 +86,10 @@ class RequisitionController extends Controller
     {
         return view('requisition._parent.index');
     }
+    public function allRequisitions()
+    {
+        return view('requisition._parent.all-requisitions');
+    }
 
     /**
      * Show the form for creating a new resource.

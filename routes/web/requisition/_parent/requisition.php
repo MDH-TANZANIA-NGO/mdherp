@@ -11,6 +11,7 @@ Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'pr
     Route::put('{activity}/update', 'RequisitionController@update')->name('update');
     Route::get('{requisition}/updateActualAmount', 'RequisitionController@updateActualAmount')->name('updateActualAmount');
     Route::get('get-json', 'RequisitionController@getResultsJson')->name('get_json');
+    Route::get('all_requisitions', 'RequisitionController@getResultsJson')->name('all_requisitions');
 
     /**
      * Datatables
@@ -23,6 +24,10 @@ Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'pr
             Route::get('approved', 'RequisitionController@AccessApprovedDatatable')->name('approved');
             Route::get('saved', 'RequisitionController@AccessSavedDatatable')->name('saved');
             Route::get('paid', 'RequisitionController@AccessPaidDatatable')->name('paid');
+        });
+
+        Route::group(['prefix' => 'access', 'as' => 'all.'], function () {
+            Route::get('all_submitted', 'RequisitionController@AllRequisitionsDatatable')->name('all_submitted');
         });
     });
 });
