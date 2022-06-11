@@ -50,6 +50,7 @@
                                     <th class="wd-15p">Start time</th>
                                     <th class="wd-15p">End Time</th>
                                     <th class="wd-15p">User</th>
+                                    <th class="wd-15p">Location</th>
                                     <th class="wd-15p">Production</th>
 
                                 </tr>
@@ -61,7 +62,7 @@
                                     <td>{{$data->time_start}}</td>
                                     <td>{{$data->time_end}}</td>
                                     <td>{{$data->user->fullname}}</td>
-
+                                    <td>{{$data->location}}</td>
                                     <td>
                                         <?php
                                         $start = $data->time_start;

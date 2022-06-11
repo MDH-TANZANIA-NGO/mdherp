@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', 'Api\Auth\LoginController@login');
+
 
 
 //Route::group(['middleware' => 'auth:api'], function () {
@@ -43,4 +45,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
             Route::post('facility/store', 'MDHData\FacilityController@store')->name('facility-store');
             includeRouteFiles(__DIR__.'/api/');
         });
+
+
+       
     });

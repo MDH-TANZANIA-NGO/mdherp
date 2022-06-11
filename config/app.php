@@ -183,8 +183,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
 //        RSmalc\Noty\NotyServiceProvider::class,
- Spatie\Permission\PermissionServiceProvider::class,
-
+         Spatie\Permission\PermissionServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
+        Dhamkith\Googlemap\GooglemapServiceProvider::class,
     ],
 
     /*
@@ -239,7 +240,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         'Markdown' => Illuminate\Mail\Markdown::class,
-
+        'Location' => 'Stevebauman\Location\Facades\Location',
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],

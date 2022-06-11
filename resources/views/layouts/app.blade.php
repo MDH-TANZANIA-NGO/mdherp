@@ -11,7 +11,7 @@
     <meta name="keywords" content="Admin, Admin Template, Dashboard, Responsive, Admin Dashboard, Bootstrap, Bootstrap 4, Clean, Backend, Jquery, Modern, Web App, Admin Panel, Ui, Premium Admin Templates, Flat, Admin Theme, Ui Kit, Bootstrap Admin, Responsive Admin, Application, Template, Admin Themes, Dashboard Template" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-
+   
 
     <!-- Title -->
     {{-- <title>MDH - ERP</title>--}}
@@ -302,6 +302,7 @@
 
     <!-- Custom js-->
     {!! Html::script(url('mdh/js/custom.js')) !!}
+
 
     <!--Accordion-Wizard-Form js-->
     <script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>

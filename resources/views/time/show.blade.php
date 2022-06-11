@@ -26,6 +26,7 @@
                     </div>
 
                     @if ($check->count() == 0)
+                    @if($visibility)
                     <form action="{{route('store-time')}}" method="POST">
                         @csrf
                         <div class="punch-btn-section">
@@ -33,6 +34,7 @@
                             <button type="submit" onclick="sweetalertclick1()" class="btn btn-success punch-btn">Punch In</button>
                         </div>
                     </form>
+                    @endif
                     @else
                     <form action="{{route('update-time')}}" method="POST">
                         @csrf
@@ -94,6 +96,7 @@
                             <th class="wd-15p">Start time</th>
                             <th class="wd-15p">End Time</th>
                             <th class="wd-15p">User</th>
+                            <th class="wd-15p">Location</th>
                             <th class="wd-15p">Production</th>
 
                         </tr>
@@ -105,6 +108,7 @@
                             <td>{{$data->time_start}}</td>
                             <td>{{$data->time_end}}</td>
                             <td>{{$data->user->fullname}}</td>
+                            <td>{{$data->location}}</td>
                             <td>
                                 <?php
                                 $start = $data->time_start;
