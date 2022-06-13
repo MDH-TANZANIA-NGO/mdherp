@@ -33,7 +33,10 @@ Route::group( ['prefix' => 'g_officer','middleware' => ['auth:g_officer-api'] ],
     Route::post('store-attendance', 'Api\ProgramActivity\ProgramActivityController@storeAttendance');
     Route::post('submit-activity-number', 'Api\ProgramActivity\ProgramActivityController@submitActivityNumberGetDetails');
 
-
+    // Retention
+    Route::post('retention/store', 'Api\MDHData\RetentionController@store');
+    Route::get('{g_officer}/{facility}/retention/reports/', 'Api\MDHData\RetentionController@getGOfficerRetentions');
+    Route::post('facility/retention/filter', 'Api\MDHData\RetentionController@filterReportsByDate');
 
 
 });
