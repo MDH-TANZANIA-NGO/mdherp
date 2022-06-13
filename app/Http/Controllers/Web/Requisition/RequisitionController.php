@@ -86,6 +86,12 @@ class RequisitionController extends Controller
     {
         return view('requisition._parent.index');
     }
+    public function allRequisitions()
+    {
+        $all_requisitions =  $this->requisitions->getAllRequisitions();
+        return view('requisition._parent.all-requisitions')
+            ->with('all_requisitions', $all_requisitions);
+    }
 
     /**
      * Show the form for creating a new resource.

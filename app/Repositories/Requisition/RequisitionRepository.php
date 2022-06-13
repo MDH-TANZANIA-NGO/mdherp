@@ -29,6 +29,7 @@ class RequisitionRepository extends BaseRepository
             DB::raw('requisition_types.title AS type_title'),
             DB::raw('requisitions.amount AS amount'),
             DB::raw('requisitions.uuid AS uuid'),
+            DB::raw('requisitions.user_id AS user_id'),
             DB::raw('requisitions.is_closed AS is_closed'),
             DB::raw('requisitions.created_at AS created_at'),
 //            DB::raw('projects.title AS project_title'),
@@ -168,6 +169,13 @@ class RequisitionRepository extends BaseRepository
             ->where('requisitions.done', false)
             ->where('requisitions.rejected', false)
             ->where('users.id', access()->id());
+    }
+
+    public function getAllRequisitions()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('requisitions.done', true);
     }
 
     /**

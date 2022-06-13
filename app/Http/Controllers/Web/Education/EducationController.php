@@ -49,7 +49,7 @@ class EducationController extends Controller
             'end_year' => $request->get('end_year'),
             'education_level_cv_id' => $request->get('education_level_cv_id'),
         ]);
-        alert()->success('Academic Details Adde Successfully','success');
+        alert()->success('Academic Details Added Successfully','success');
 
         return redirect()->back();
     }

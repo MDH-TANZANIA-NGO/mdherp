@@ -77,7 +77,7 @@ trait UserAttribute
 
     public function getDesignationTitleAttribute()
     {
-        return (new DesignationRepository())->getDesignationById($this->designation_id)->name;
+        return (new DesignationRepository())->getDesignationById($this->designation_id);
     }
 
 
