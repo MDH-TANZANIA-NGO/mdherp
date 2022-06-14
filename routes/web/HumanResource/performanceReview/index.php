@@ -17,6 +17,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
                 Route::get('returned-for-modications', 'PrReportController@accessReturnedForModificationDatatable')->name('return_for_modification');
                 Route::get('approved', 'PrReportController@accessApprovedDatatable')->name('approved');
                 Route::get('saved', 'PrReportController@accessSavedDatatable')->name('saved');
+                Route::get('wait-for-evaluation', 'PrReportController@accessApprovedWaitForEvaluationDatatable')->name('wait_for_evaluation');
             });
         });
         //Attribute Rate

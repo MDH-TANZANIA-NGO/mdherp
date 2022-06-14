@@ -10,6 +10,7 @@
                     <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary">{{ $processing_count }}</span></a></li>
                     <li><a href="#returned_for_modification" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning">{{ $return_for_modification_count }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $approved_count }}</span></a></li>
+                    <li><a href="#wait_for_verification" data-toggle="tab" class="">Waiting For Verification <span class="badge badge-info">{{ $wait_verification_count }}</span></a></li>
                     <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $saved_count }}</span> </a></li>
                 </ul>
             </div>
@@ -80,6 +81,27 @@
                                     <th class="wd-15p">START DATE</th>
                                     <th class="wd-25p">END DATE</th>
                                     <th class="wd-25p">APPLIED DATE</th>
+                                    <th class="wd-25p">ACTION</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="wait_for_verification">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="access_wait_for_verification" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th class="wd-15p">#</th>
+                                    <th class="wd-15p">NUMBER</th>
+                                    <th class="wd-15p">TYPE</th>
+                                    <th class="wd-15p">FISCAL YEAR</th>
+                                    <th class="wd-15p">START DATE</th>
+                                    <th class="wd-25p">END DATE</th>
+                                    <th class="wd-25p">APPROVED DATE</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -161,6 +183,23 @@
                 "responsive": true,
                 "autoWidth": false,
                 ajax: "{{ route('hr.pr.datatable.access.approved') }}",
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                    { data: 'number', name: 'pr_reports.number', searchable: true},
+                    { data: 'pr_type_title', name: 'pr_types.title', searchable: true},
+                    { data: 'fiscal_year_title', name: 'fiscal_years.title', searchable: true},
+                    { data: 'from_at', name: 'pr_reports.from_at', searchable: true},
+                    { data: 'to_at', name: 'pr_reports.to_at', searchable: true },
+                    { data: 'submited_at', name: 'pr_reports.submited_at', searchable: true },
+                    { data: 'action', name: 'action', searchable: false },
+                ]
+            });
+            $("#access_wait_for_verification").DataTable({
+                destroy: true,
+                retrieve: true,
+                "responsive": true,
+                "autoWidth": false,
+                ajax: "{{ route('hr.pr.datatable.access.wait_for_evaluation') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'pr_reports.number', searchable: true},

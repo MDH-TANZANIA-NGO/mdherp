@@ -77,4 +77,22 @@ trait PrReportDatatables
             ->rawColumns(['action'])
             ->make(true);
     }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function accessApprovedWaitForEvaluationDatatable()
+    {
+        return DataTables::of($this->pr_reports->getAccessApprovedWaitForEvaluation())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateTimeString();
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('hr.pr.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 }

@@ -25,7 +25,8 @@ class PrReportRepository extends BaseRepository
             'pr_reports.created_at AS created_at',
             'pr_reports.uuid AS uuid',
             'pr_types.title AS pr_type_title',
-            'fiscal_years.title AS fiscal_year_title'
+            'fiscal_years.title AS fiscal_year_title',
+            'pr_reports.wf_done_date as approved_date'
         ])
             ->join('users', 'users.id', 'pr_reports.user_id')
             ->join('pr_types', 'pr_types.id', 'pr_reports.pr_type_id')
@@ -72,6 +73,12 @@ class PrReportRepository extends BaseRepository
             ->where('pr_reports.done', false)
             ->where('pr_reports.rejected', false)
             ->where('users.id', access()->id());
+    }
+
+    public function getAccessApprovedWaitForEvaluation()
+    {
+        return $this->getAccessApproved()
+            ->whereDoesntHave('child');
     }
 
     /** 

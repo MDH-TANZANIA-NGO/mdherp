@@ -37,6 +37,7 @@ class PrReportController extends Controller
         ->with('processing_count', $this->pr_reports->getAccessProcessing()->count())
         ->with('return_for_modification_count', $this->pr_reports->getAccessReturnedForModification()->count())
         ->with('approved_count', $this->pr_reports->getAccessApproved()->count())
+        ->with('wait_verification_count', $this->pr_reports->getAccessApprovedWaitForEvaluation()->count())
         ->with('saved_count', $this->pr_reports->getAccessSaved()->count());
     }
 
