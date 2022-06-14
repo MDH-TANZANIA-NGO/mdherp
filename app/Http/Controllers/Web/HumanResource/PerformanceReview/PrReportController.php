@@ -72,9 +72,9 @@ class PrReportController extends Controller
      */
     public function evaluationInitiate(PrReport $pr_report)
     {
-        $this->pr_reports->evaluationInitiate($pr_report);
-        alert()->success($pr_report->type->title.' evaluation initiated Successfully');
-        return redirect()->route('hr.pr.saved', $pr_report);
+        $pr_report_evaluation = $this->pr_reports->evaluationInitiate($pr_report);
+        alert()->success($pr_report_evaluation->parent->type->title.' evaluation initiated Successfully');
+        return redirect()->route('hr.pr.saved', $pr_report_evaluation);
     }
 
     /**
