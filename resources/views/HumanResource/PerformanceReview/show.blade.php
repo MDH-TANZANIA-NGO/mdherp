@@ -8,7 +8,17 @@
     </div>
 
 <div class="row">
-
+        @if($can_be_processed_for_evaluation)
+            <div class="col-sm-12 col-lg-12 col-xl-12 col-md-12">
+                <a href="{{ route('hr.pr.evaluation.initiate', $pr_report) }}"
+                onclick="event.preventDefault();
+                document.getElementById('initiate-pr-evaluation').submit();"
+                class="btn btn-warning float-right">Initiate Goals/Objectives for Evaluation
+                </a>
+                {!! Form::open(['route'=>['hr.pr.evaluation.initiate', $pr_report], 'id' => 'initiate-pr-evaluation']) !!}
+                {!! Form::close() !!}
+            </div>
+        @endif
     <div class="col-sm-12 col-lg-12 col-xl-12 col-md-12 mb-3">
         <div class="tags">
             <span class="tag tag-rounded" style="font-size: 16px; color:#000">{{ $pr_report->type->title }}</span>

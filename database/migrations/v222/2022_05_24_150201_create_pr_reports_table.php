@@ -16,14 +16,14 @@ class CreatePrReportsTable extends Migration
         Schema::create('pr_reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pr_type_id')->comment('Type of performance review');
-            $table->unsignedBigInteger('user_id')->comment('User how owns the performance');
-            $table->unsignedInteger('designation_id')->comment('designation of the user who owns performance report');
+            $table->unsignedBigInteger('user_id')->nullable()->comment('User how owns the performance');
+            $table->unsignedInteger('designation_id')->nullable()->comment('designation of the user who owns performance report');
             $table->unsignedBigInteger('supervisor_id')->nullable()->comment('User how supervise the user');
             $table->unsignedBigInteger('parent_id')->nullable()->comment('self join, id of the previous performance review report');
-            $table->unsignedBigInteger('fiscal_year_id')->comment('Current Fiscal Year');
+            $table->unsignedBigInteger('fiscal_year_id')->nullable()->comment('Current Fiscal Year');
             $table->string('number')->nullable()->comment('unique number of performance review report');
-            $table->date('from_at')->comment('start date of review');
-            $table->date('to_at')->comment('end date of review');
+            $table->date('from_at')->nullable()->comment('start date of review');
+            $table->date('to_at')->nullable()->comment('end date of review');
             $table->boolean('done')->default(false);
             $table->boolean('rejected')->default(false);
             $table->smallInteger('wf_done')->default(0)->comment('workflow status');

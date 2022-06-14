@@ -6,6 +6,7 @@ use App\Models\Budget\FiscalYear;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class PrReportRepository extends BaseRepository
@@ -26,13 +27,17 @@ class PrReportRepository extends BaseRepository
             'pr_reports.uuid AS uuid',
             'pr_types.title AS pr_type_title',
             'fiscal_years.title AS fiscal_year_title',
-            'pr_reports.wf_done_date as approved_date'
+            'pr_reports.wf_done_date as approved_at'
         ])
             ->join('users', 'users.id', 'pr_reports.user_id')
             ->join('pr_types', 'pr_types.id', 'pr_reports.pr_type_id')
             ->join('fiscal_years', 'fiscal_years.id', 'pr_reports.fiscal_year_id');
     }
 
+    /** 
+     * get Access Processing
+     * 
+    */
     public function getAccessProcessing()
     {
         return $this->getQuery()
@@ -44,6 +49,10 @@ class PrReportRepository extends BaseRepository
     }
 
 
+    /** 
+     * get Access Returned For Modification
+     * 
+    */
     public function getAccessReturnedForModification()
     {
         return $this->getQuery()
@@ -54,6 +63,10 @@ class PrReportRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
+    /** 
+     * get Access Approved
+     * @return mixed
+    */
     public function getAccessApproved()
     {
         return $this->getQuery()
@@ -64,7 +77,10 @@ class PrReportRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
-
+    /** 
+     * get Access Saved
+     * @return mixed
+    */
     public function getAccessSaved()
     {
         return $this->getQuery()
@@ -75,14 +91,32 @@ class PrReportRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
+    /** 
+     * get Access Approved Wait For Evaluation
+     * @return mixed
+    */
     public function getAccessApprovedWaitForEvaluation()
     {
         return $this->getAccessApproved()
-            ->whereDoesntHave('child');
+            ->whereDoesntHave('child')
+            ->whereDate('pr_reports.to_at', '<=', Carbon::now()->format('Y-m-d'));
     }
 
     /** 
+     * get Access Approved Wait For Evaluation
+     * @return mixed
+    */
+    public function canBeAprocessedForEvaluation(PrReport $pr_report)
+    {
+        return $this->getAccessApprovedWaitForEvaluation()
+            ->where('pr_reports.id', $pr_report->id)
+            ->count();
+    }
+
+
+    /** 
      * store probation form
+     * @return mixed
     **/
     public function probationStore()
     {
@@ -94,6 +128,17 @@ class PrReportRepository extends BaseRepository
                 'designation_id' => access()->user()->designation_id,
                 'pr_type_id' => 1
             ]);
+        });
+    }
+
+    /** 
+     * store probation form
+     * @return mixed
+    **/
+    public function evaluationInitiate(PrReport $pr_report)
+    {
+        return DB::transaction(function () use($pr_report){
+            return $pr_report->child()->create();
         });
     }
 

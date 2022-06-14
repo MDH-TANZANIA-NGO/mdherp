@@ -207,7 +207,7 @@
                     { data: 'fiscal_year_title', name: 'fiscal_years.title', searchable: true},
                     { data: 'from_at', name: 'pr_reports.from_at', searchable: true},
                     { data: 'to_at', name: 'pr_reports.to_at', searchable: true },
-                    { data: 'submited_at', name: 'pr_reports.submited_at', searchable: true },
+                    { data: 'approved_at', name: 'pr_reports.wf_done_date', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

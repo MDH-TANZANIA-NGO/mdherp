@@ -10,6 +10,10 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         Route::get('{pr_report}/show', 'PrReportController@show')->name('show');
         Route::put('{pr_report}/update', 'PrReportController@update')->name('update');
         Route::post('{pr_report}/submit', 'PrReportController@submit')->name('submit');
+        //Evaluation
+        Route::group(['prefix' => 'evaluation', 'as' => 'evaluation.'], function () {
+            Route::post('{pr_report}/initiate', 'PrReportController@evaluationInitiate')->name('initiate');
+        });
         //Datatables
         Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
             Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
