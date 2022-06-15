@@ -12,17 +12,20 @@ use App\Services\Workflow\Traits\WorkflowInitiator;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrReportDatatables;
+use App\Repositories\HumanResource\PerformanceReview\PrRateScaleRepository;
 
 class PrReportController extends Controller
 {
     use PrReportDatatables, WorkflowInitiator;
     protected $pr_reports;
     protected $wf_tracks;
+    protected $pr_rate_scales;
 
     public function __construct()
     {
         $this->pr_reports = (new PrReportRepository());
         $this->wf_tracks = (new WfTrackRepository());
+        $this->pr_rate_scales = (new PrRateScaleRepository());
         $this->middleware('auth');
     }
 
@@ -108,6 +111,7 @@ class PrReportController extends Controller
         return view('HumanResource.PerformanceReview.show')
             ->with('pr_report', $pr_report)
             ->with('pr_objectives', $pr_report->objectives)
+            ->with('pr_rate_scales', $this->pr_rate_scales->forSelect())
             ->with('can_be_processed_for_evaluation', $this->pr_reports->canBeAprocessedForEvaluation($pr_report))
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
