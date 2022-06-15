@@ -10,7 +10,7 @@
                                 <th style ="">OBJECTIVE/GOAL</th>
                                 <th style ="">ACTION PLAN</th>
                                 <th style ="">AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
-                                <th style ="">SCORE</th>
+                                <th style ="width: 15%">RATE</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -20,7 +20,7 @@
                                     <td>{{ $objective->goal }}</td>
                                     <td>{{ $objective->plan }}</td>
                                     <td>{{ $objective->challenge }}</td>
-                                    <td>{!! Form::select('scole[]',$pr_rate_scales,null,['class' => 'form-control']) !!}</td>
+                                    <td>{!! Form::select('scole[]',$pr_rate_scales,null,['class' => 'form-control text-center', 'placeholder' => 'Select','required']) !!}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -30,6 +30,13 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-sm-12 col-lg-12 col-md-12 col-xl-12">
+        {!! Form::submit('submit rates',['class' => 'btn btn-primary col-sm-12 col-lg-12 col-md-12 col-xl-12']) !!}
+    </div>
+</div>
+
 @push('after-scripts')
     <script>
         $(document).ready(function(){

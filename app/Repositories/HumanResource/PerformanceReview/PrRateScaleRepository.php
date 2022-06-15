@@ -4,6 +4,7 @@ namespace App\Repositories\HumanResource\PerformanceReview;
 
 use App\Models\HumanResource\PerformanceReview\PrRateScale;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class PrRateScaleRepository extends BaseRepository
 {
@@ -11,6 +12,6 @@ class PrRateScaleRepository extends BaseRepository
 
     public function forSelect()
     {
-        return $this->query()->pluck('description', 'id');
+        return $this->query()->pluck('rate', 'id');
     }
 }
