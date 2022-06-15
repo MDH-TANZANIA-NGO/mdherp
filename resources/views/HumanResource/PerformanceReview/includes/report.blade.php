@@ -1,5 +1,6 @@
 <div class="row">
 
+    @if($pr_objectives->count())
     <div class="col-sm-12 col-lg-12 col-xl-12 col-md-12 mb-3">
         <a href="{{ route('hr.pr.submit',$pr_report) }}"
         onclick="event.preventDefault();
@@ -8,6 +9,7 @@
         {!! Form::open(['route'=>['hr.pr.submit', $pr_report], 'id' => 'submit-to-supervisor']) !!}
         {!! Form::close() !!}
     </div>
+    @endif
 
     <div class="col-sm-12 col-lg-12 col-xl-12 col-md-12 mb-3">
         <div class="tags">

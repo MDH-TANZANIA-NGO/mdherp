@@ -6,7 +6,7 @@
         onclick="event.preventDefault();
         document.getElementById('submit-to-supervisor').submit();"
          class="btn btn-primary float-right">Submit to a supervisor</a>
-        {!! Form::open(['route'=>['hr.pr.submit', $pr_report], 'id' => 'submit-to-supervisor']) !!}
+        {!! Form::open(['route'=>['hr.pr.submit', $pr_report->child], 'id' => 'submit-to-supervisor']) !!}
         {!! Form::close() !!}
     </div>
     @endif
