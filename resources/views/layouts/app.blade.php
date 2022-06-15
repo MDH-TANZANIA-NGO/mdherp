@@ -59,8 +59,13 @@
 <!-- Accordion Css -->
     {{ Html::style(url('mdh/plugins/accordion/accordion.css')) }}
 
+    {{ Html::style(url('mdh/plugins/notify/css/notifIt.css')) }}
+
     @stack('after-styles')
     {!! Html::script(url('dist/sweetalert.min.js')) !!}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
 
 
 </head>
@@ -187,6 +192,13 @@
 
 {!! Html::script(url('mdh/plugins/wysiwyag/jquery.richtext.js')) !!}
 {!! Html::script(url('mdh/js/form-editor.js')) !!}
+
+{!! Html::script(url('mdh/js/popover.js')) !!}
+<!-- Notifications js -->
+{!! Html::script(url('mdh/plugins/notify/js/rainbow.js')) !!}
+{!! Html::script(url('mdh/plugins/notify/js/sample.js')) !!}
+{!! Html::script(url('mdh/plugins/notify/js/notifIt.js')) !!}
+
 @stack('after-scripts')
 
 

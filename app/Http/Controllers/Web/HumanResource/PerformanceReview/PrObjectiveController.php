@@ -70,12 +70,11 @@ class PrObjectiveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function updateRateScale(PrObjectiveRateScaleRequest $request, PrObjective $pr_objective)
-    // {
-    //     // $this->pr_objectives->updateChallenge($pr_objective, $request->all());
-    //     // alert()->success('Rate Updated Successfully');
-    //     return response()->json($pr_objective);
-    // }
+    public function updateRateScale(PrObjectiveRateScaleRequest $request, PrObjective $pr_objective)
+    {
+        $this->pr_objectives->updateChallenge($pr_objective, $request->all());
+        return response()->json(['data' => $pr_objective, 'message' => 'Rate Update Successfully']);
+    }
 
 
     /**

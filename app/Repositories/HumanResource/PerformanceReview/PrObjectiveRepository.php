@@ -30,13 +30,12 @@ class PrObjectiveRepository extends BaseRepository
     }
 
     /** 
-     * Update goal
+     * Update Challenge
     **/
     public function updateChallenge(PrObjective $pr_objective, $inputs)
     {
         return DB::transaction(function() use($pr_objective, $inputs){
-            // foreach($inputs['rate_scales'] as $rate_scale)
-            //         $this->query()->find($inputs['objective'.])->update($inputs);
+            return $pr_objective->update(['pr_rate_scale_id' => $inputs['rate_scale']]);
         });
     }
 

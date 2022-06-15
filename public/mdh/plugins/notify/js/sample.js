@@ -32,7 +32,7 @@
 
 		 function not1(){
             notif({
-				msg: "<b>Success:</b> Nyie acheni utani programming taaamuuuu!!",
+				msg: "<b>Success:</b> updated Successfull!!",
 				type: "success"
 			});
         }

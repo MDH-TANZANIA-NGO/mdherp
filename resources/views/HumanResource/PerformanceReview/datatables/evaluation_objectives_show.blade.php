@@ -20,7 +20,7 @@
                                     <td>{{ $objective->goal }}</td>
                                     <td>{{ $objective->plan }}</td>
                                     <td>{{ $objective->challenge }}</td>
-                                    <td>{!! Form::select('rate',$pr_rate_scales,null,['class' => 'form-control text-center rate-select', 'placeholder' => 'Select', 'data-objective-uuid' => $objective->uuid]) !!}</td>
+                                    <td>{!! Form::select('rate',$pr_rate_scales,$objective->pr_rate_scale_id,['class' => 'form-control text-center rate-select', 'placeholder' => 'Select', 'data-objective-uuid' => $objective->uuid]) !!}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -56,10 +56,13 @@
                     success: function (data) {
                         if(data){
                             console.log(data)
+                            not1()
+                            // $.notify("hello !",{position:"bottom center",className:"success"});
+                            
                         }
                     },
                     error: function (error) {
-                        console.log('')
+                        not2()
                     }
                 });
             });
