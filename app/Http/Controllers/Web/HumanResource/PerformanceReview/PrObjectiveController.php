@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\HumanResource\PerformanceReview;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrObjectiveDatatables;
 use App\Http\Requests\HumanResource\PerformanceReview\PrObjectiveChallengeRequest;
+use App\Http\Requests\HumanResource\PerformanceReview\PrObjectiveRateScaleRequest;
 use App\Http\Requests\HumanResource\PerformanceReview\PrObjectiveRequest;
 use App\Models\HumanResource\PerformanceReview\PrObjective;
 use App\Models\HumanResource\PerformanceReview\PrReport;
@@ -61,6 +62,21 @@ class PrObjectiveController extends Controller
         alert()->success('Areas of Challenge/ Opportunities for Improvement Updated Successfully');
         return redirect()->back();
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    // public function updateRateScale(PrObjectiveRateScaleRequest $request, PrObjective $pr_objective)
+    // {
+    //     // $this->pr_objectives->updateChallenge($pr_objective, $request->all());
+    //     // alert()->success('Rate Updated Successfully');
+    //     return response()->json($pr_objective);
+    // }
+
 
     /**
      * Remove the specified resource from storage.

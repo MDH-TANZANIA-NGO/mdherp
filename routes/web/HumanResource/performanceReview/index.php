@@ -41,7 +41,8 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
             // Route::get('{pr_report}/create', 'PrObjectiveController@create')->name('create');
             Route::post('{pr_report}/store', 'PrObjectiveController@store')->name('store');
             Route::put('{pr_objective}/update', 'PrObjectiveController@update')->name('update');
-            Route::put('{pr_objective}/challenge', 'PrObjectiveController@updateChallenge')->name('update_challenge');
+            Route::put('update/{pr_objective}/challenge', 'PrObjectiveController@updateChallenge')->name('update_challenge');
+            Route::post('update/{pr_objective}/scale-rate', 'PrObjectiveController@updateRateScale')->name('update_scale_rate');
             Route::get('{pr_objective}/destroy', 'PrObjectiveController@destroy')->name('destroy');
         });
     });
