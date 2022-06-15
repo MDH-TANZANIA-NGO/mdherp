@@ -19,6 +19,9 @@ class PrObjectiveRepository extends BaseRepository
         });
     }
 
+    /** 
+     * Update goal
+    **/
     public function update(PrObjective $pr_objective, $inputs)
     {
         return DB::transaction(function() use($pr_objective, $inputs){
@@ -26,6 +29,19 @@ class PrObjectiveRepository extends BaseRepository
         });
     }
 
+    /** 
+     * Update goal
+    **/
+    public function updateChallenge(PrObjective $pr_objective, $inputs)
+    {
+        return DB::transaction(function() use($pr_objective, $inputs){
+            return $pr_objective->update($inputs);
+        });
+    }
+
+    /** 
+     * Destroy goal
+    **/
     public function destroy(PrObjective $pr_objective)
     {
         return DB::transaction(function() use($pr_objective){

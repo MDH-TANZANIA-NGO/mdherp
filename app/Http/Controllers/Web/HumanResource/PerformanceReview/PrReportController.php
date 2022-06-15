@@ -87,7 +87,8 @@ class PrReportController extends Controller
     {
         return view('HumanResource.PerformanceReview.saved')
         ->with('pr_report', $pr_report)
-        ->with('pr_objectives', $pr_report->objectives);
+        ->with('pr_objectives', $pr_report->objectives)
+        ->with('can_submit_challenges', $pr_report->parent->objectives()->whereNull('challenge')->count());
     }
 
     /**
@@ -122,7 +123,7 @@ class PrReportController extends Controller
      */
     public function submit(PrReport $pr_report)
     {   
-        $this->startWorkflow($pr_report, $pr_report->type->id, access()->user()->assignedSupervisor()->supervisor_id);
+        $this->startWorkflow($pr_report, 1, access()->user()->assignedSupervisor()->supervisor_id);
         $this->pr_reports->updateDoneAssignNextUserIdAndGenerateNumber($pr_report); 
         alert()->success(__('Submitted Successfully'), __('Performance Review'));
         return redirect()->route('hr.pr.show', $pr_report);

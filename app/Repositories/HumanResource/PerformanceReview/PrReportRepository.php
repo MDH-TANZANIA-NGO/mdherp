@@ -150,11 +150,12 @@ class PrReportRepository extends BaseRepository
      */
     public function updateDoneAssignNextUserIdAndGenerateNumber(PrReport $pr_report)
     {
-        return DB::transaction(function () use ($pr_report) {
+        $number = $pr_report->parent ? null : $this->generateNumber($pr_report);
+        return DB::transaction(function () use ($pr_report, $number) {
             return $pr_report->update([
                 'done' => true,
                 'supervisor_id' => access()->user()->assignedSupervisor()->supervisor_id,
-                'number' => $this->generateNumber($pr_report)
+                'number' => $number
             ]);
         });
     }

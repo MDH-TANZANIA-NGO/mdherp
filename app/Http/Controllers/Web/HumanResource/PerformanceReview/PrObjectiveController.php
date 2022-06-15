@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\HumanResource\PerformanceReview;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrObjectiveDatatables;
+use App\Http\Requests\HumanResource\PerformanceReview\PrObjectiveChallengeRequest;
 use App\Http\Requests\HumanResource\PerformanceReview\PrObjectiveRequest;
 use App\Models\HumanResource\PerformanceReview\PrObjective;
 use App\Models\HumanResource\PerformanceReview\PrReport;
@@ -42,8 +43,22 @@ class PrObjectiveController extends Controller
      */
     public function update(PrObjectiveRequest $request, PrObjective $pr_objective)
     {
-        alert()->success('Objective/Goals Updated Successfully');
         $this->pr_objectives->update($pr_objective, $request->all());
+        alert()->success('Objective/Goals Updated Successfully');
+        return redirect()->back();
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateChallenge(PrObjectiveChallengeRequest $request, PrObjective $pr_objective)
+    {
+        $this->pr_objectives->updateChallenge($pr_objective, $request->all());
+        alert()->success('Areas of Challenge/ Opportunities for Improvement Updated Successfully');
         return redirect()->back();
     }
 
