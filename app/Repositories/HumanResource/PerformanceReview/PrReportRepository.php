@@ -138,7 +138,12 @@ class PrReportRepository extends BaseRepository
     public function evaluationInitiate(PrReport $pr_report)
     {
         return DB::transaction(function () use($pr_report){
-            return $pr_report->child()->create();
+            return $pr_report->child()->create([
+                'user_id' => $pr_report->user_id,
+                'pr_type_id' => $pr_report->pr_type_id,
+                'designation_id' => $pr_report->designation_id,
+                'fiscal_year_id' => $pr_report->fiscal_year_id,
+            ]);
         });
     }
 

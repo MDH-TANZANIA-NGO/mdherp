@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables;
 
+use App\Models\HumanResource\PerformanceReview\PrReport;
 use Yajra\DataTables\DataTables;
 
 trait PrReportDatatables

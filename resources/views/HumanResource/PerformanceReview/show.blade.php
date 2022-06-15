@@ -10,7 +10,7 @@
     @if($pr_report->parent)
         @include('HumanResource.PerformanceReview.includes.show.evaluation')
     @else
-        @include('HumanResource.PerformanceReview.includes.show.objectives')
+        @include('HumanResource.PerformanceReview.includes.show.objective')
     @endif
 
 @endsection
