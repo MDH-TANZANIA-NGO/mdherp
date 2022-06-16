@@ -60,8 +60,8 @@
                                             <td>{{ $objective->goal }}</td>
                                             <td>{{ $objective->plan }}</td>
                                             <td>{{ $objective->challenge }}</td>
-                                            <td>{{ $objective->rate->rate }}</td>
-                                            <td>{{ $objective->rate->description }}</td>
+                                            <td>{{ $objective->rate ? $objective->rate->rate : 'not set' }}</td>
+                                            <td>{{ $objective->rate ? $objective->rate->description: 'not set' }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

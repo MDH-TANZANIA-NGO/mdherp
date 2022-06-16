@@ -19,6 +19,9 @@
         @endswitch
  </div>
 
-@include('HumanResource.PerformanceReview.datatables.attribute_show',['pr_objectives' => $pr_report->objectives])
-@include('HumanResource.PerformanceReview.datatables.competence_show')
+@if($pr_report->user->supervisor)
+    @include('HumanResource.PerformanceReview.datatables.competence_show')
+@else
+    @include('HumanResource.PerformanceReview.datatables.attribute_show',['pr_objectives' => $pr_report->objectives])
+@endif
 

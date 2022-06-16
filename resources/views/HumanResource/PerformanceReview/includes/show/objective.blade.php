@@ -27,14 +27,10 @@
 			<h3 class="card-title">Objectives</h3>
 		</div>
         <div class="card-body">
-        @switch($pr_report->pr_type_id)
-            @case(1)
-                @if($can_edit_resource)
+            @if($can_edit_resource)
                 @include('HumanResource.PerformanceReview.form.objective',['pr_report' => $pr_report])
-                @endif
-                @include('HumanResource.PerformanceReview.datatables.objectives_show',['pr_objectives' => $pr_objectives])
-            @break
-        @endswitch
+            @endif
+            @include('HumanResource.PerformanceReview.datatables.objectives_show',['pr_objectives' => $pr_objectives])
         </div>
     </div>
  </div>
