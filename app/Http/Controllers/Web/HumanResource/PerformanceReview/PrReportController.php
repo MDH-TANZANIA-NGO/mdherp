@@ -16,11 +16,13 @@ use App\Http\Requests\HumanResource\PerformanceReview\PrReportRequest;
 use App\Repositories\HumanResource\PerformanceReview\PrAttributeRepository;
 use App\Repositories\HumanResource\PerformanceReview\PrCompetenceKeyRepository;
 use App\Repositories\HumanResource\PerformanceReview\PrRateScaleRepository;
+use App\Repositories\HumanResource\PerformanceReview\PrTypeRepository;
 
 class PrReportController extends Controller
 {
     use PrReportDatatables, WorkflowInitiator;
     protected $pr_reports;
+    protected $pr_types;
     protected $wf_tracks;
     protected $pr_rate_scales;
     protected $pr_attributes;
@@ -29,6 +31,7 @@ class PrReportController extends Controller
     public function __construct()
     {
         $this->pr_reports = (new PrReportRepository());
+        $this->pr_types = (new PrTypeRepository());
         $this->wf_tracks = (new WfTrackRepository());
         $this->pr_rate_scales = (new PrRateScaleRepository());
         $this->pr_attributes = (new PrAttributeRepository());
@@ -58,7 +61,8 @@ class PrReportController extends Controller
      */
     public function create()
     {
-        return view('HumanResource.PerformanceReview.create');
+        return view('HumanResource.PerformanceReview.create')
+        ->with('pr_types', $this->pr_types->forSelect());
     }
 
     /**

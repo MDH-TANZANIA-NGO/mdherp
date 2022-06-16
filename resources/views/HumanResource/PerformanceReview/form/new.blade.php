@@ -8,6 +8,12 @@
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <div class="form-group">
+						<label class="form-label">Type</label>
+						{!! Form::select('type',$pr_types,null,['class' => 'form-control', 'placeholder'=>'Select','required']) !!}
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
+                    <div class="form-group">
 						<label class="form-label">Start Date</label>
 						<input type="date" name="from_at" value="{{ old('from_at') }}" class="form-control" require>
                     </div>
