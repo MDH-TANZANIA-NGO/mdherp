@@ -4,6 +4,7 @@ namespace App\Models\HumanResource\PerformanceReview\Traits\Relationship;
 
 use App\Models\Auth\User;
 use App\Models\HumanResource\PerformanceReview\PrAttributeRate;
+use App\Models\HumanResource\PerformanceReview\PrCompetence;
 use App\Models\HumanResource\PerformanceReview\PrObjective;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Models\HumanResource\PerformanceReview\PrType;
@@ -48,4 +49,10 @@ trait PrReportRelationship
     {
         return $this->belongsTo(PrReport::class, 'parent_id');
     }
+
+    public function competences()
+    {
+        return $this->hasMany(PrCompetence::class)->orderBy('id');
+    }
+
 }

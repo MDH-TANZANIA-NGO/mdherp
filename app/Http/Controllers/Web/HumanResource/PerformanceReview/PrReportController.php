@@ -13,6 +13,7 @@ use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrReportDatatables;
 use App\Repositories\HumanResource\PerformanceReview\PrAttributeRepository;
+use App\Repositories\HumanResource\PerformanceReview\PrCompetenceKeyRepository;
 use App\Repositories\HumanResource\PerformanceReview\PrRateScaleRepository;
 
 class PrReportController extends Controller
@@ -22,6 +23,7 @@ class PrReportController extends Controller
     protected $wf_tracks;
     protected $pr_rate_scales;
     protected $pr_attributes;
+    protected $pr_competence_keys;
 
     public function __construct()
     {
@@ -29,6 +31,7 @@ class PrReportController extends Controller
         $this->wf_tracks = (new WfTrackRepository());
         $this->pr_rate_scales = (new PrRateScaleRepository());
         $this->pr_attributes = (new PrAttributeRepository());
+        $this->pr_competence_keys = (new PrCompetenceKeyRepository);
         $this->middleware('auth');
     }
 
@@ -111,12 +114,13 @@ class PrReportController extends Controller
         $current_wf_track = $workflow->currentWfTrack();
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($pr_report, $current_level, $workflow->wf_definition_id);
-        $can_update_attribute_rate_resource = $this->wf_tracks->canUpdateAttributeRateResource($pr_report, $current_level, $workflow->wf_definition_id);
+        $can_update_attribute_rate_resource = $this->wf_tracks->canUpdateAttributeRateResource($pr_report, $current_level, $workflow->wf_module_id);
         return view('HumanResource.PerformanceReview.show')
             ->with('pr_report', $pr_report)
             ->with('pr_objectives', $pr_report->objectives)
             ->with('pr_rate_scales', $this->pr_rate_scales->forSelect())
             ->with('pr_attributes', $this->pr_attributes->getAll())
+            ->with('pr_competence_keys', $this->pr_competence_keys->getAll())
             ->with('pr_report_attribute_rates', $pr_report->attributeRates)
             ->with('can_be_processed_for_evaluation', $this->pr_reports->canBeAprocessedForEvaluation($pr_report))
             ->with('can_update_attribute_rate_resource', $can_update_attribute_rate_resource)

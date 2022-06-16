@@ -2,10 +2,10 @@
 
 namespace App\Repositories\HumanResource\PerformanceReview;
 
-use App\Models\HumanResource\PrCompetenceKey;
-use App\Repositories\BaseRepositoy;
+use App\Models\HumanResource\PerformanceReview\PrCompetenceKey;
+use App\Repositories\BaseRepository;
 
-class PrCompetenceKeyRepository extends BaseRepositoy
+class PrCompetenceKeyRepository extends BaseRepository
 {
     const MODEL = PrCompetenceKey::class;
 }

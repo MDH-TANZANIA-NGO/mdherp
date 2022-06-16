@@ -19,4 +19,6 @@
         @endswitch
  </div>
 
- @include('HumanResource.PerformanceReview.datatables.attribute.attribute_show',['pr_objectives' => $pr_report->objectives])
+@include('HumanResource.PerformanceReview.datatables.attribute_show',['pr_objectives' => $pr_report->objectives])
+@include('HumanResource.PerformanceReview.datatables.competence_show')
+
