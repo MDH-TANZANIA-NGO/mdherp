@@ -3,6 +3,7 @@
 namespace App\Models\HumanResource\PerformanceReview\Traits\Relationship;
 
 use App\Models\Auth\User;
+use App\Models\HumanResource\PerformanceReview\PrAttributeRate;
 use App\Models\HumanResource\PerformanceReview\PrObjective;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Models\HumanResource\PerformanceReview\PrType;
@@ -26,6 +27,11 @@ trait PrReportRelationship
     public function objectives()
     {
         return $this->hasMany(PrObjective::class)->orderBy('id');
+    }
+
+    public function attributeRates()
+    {
+        return $this->hasMany(PrAttributeRate::class)->orderBy('pr_rate_scale_id');
     }
 
     public function user()

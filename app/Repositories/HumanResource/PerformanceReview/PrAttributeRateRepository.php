@@ -7,6 +7,7 @@ use App\Models\HumanResource\PerformanceReview\PrAttributeRate;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PrAttributeRateRepository extends BaseRepository
 {
@@ -22,7 +23,8 @@ class PrAttributeRateRepository extends BaseRepository
     public function storeOrUpdate(PrReport $pr_report, PrAttribute $pr_attribute, $input)
     {
         return DB::transaction(function() use($pr_report, $pr_attribute, $input){
-            $rate_attribute = $pr_report->attributeRates()->where('id', $pr_attribute->id);
+            $rate_attribute = $pr_report->attributeRates()->where('pr_attribute_id', $pr_attribute->id)->get();
+            Log::info($pr_attribute);
             if($rate_attribute->count()){
                 return $pr_report->attributeRates()->first()->update([
                     'pr_rate_scale_id' => $input['rate_scale'],

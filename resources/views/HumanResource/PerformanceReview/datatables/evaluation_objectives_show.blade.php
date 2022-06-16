@@ -1,39 +1,78 @@
 <div class="card">
     <div class="card-header"><h3 class="card-title">Objectives</h3></div>
         <div class="card-body">
-            
+         
+        @if($can_update_attribute_rate_resource)
         <div class="row">
-    <div class="col-sm-12 col-lg-12 col-md-12 col-xl-12">
-        <div class="tab-pane active" id="processing">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="objectives" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>OBJECTIVE/GOAL</th>
-                                <th>ACTION PLAN</th>
-                                <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
-                                <th style="width: 15%">RATE</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($pr_objectives AS $key => $objective)
-                                <tr>
-                                    <td>{{ $key+1 }}</td>
-                                    <td>{{ $objective->goal }}</td>
-                                    <td>{{ $objective->plan }}</td>
-                                    <td>{{ $objective->challenge }}</td>
-                                    <td>{!! Form::select('rate',$pr_rate_scales,$objective->pr_rate_scale_id,['class' => 'form-control text-center rate-select', 'placeholder' => 'Select', 'data-objective-uuid' => $objective->uuid]) !!}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+            <div class="col-sm-12 col-lg-12 col-md-12 col-xl-12">
+                <div class="tab-pane active" id="processing">
+                    <div class="card-body">
+                       <div class="table-responsive">
+                            <table id="objectives" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>OBJECTIVE/GOAL</th>
+                                        <th>ACTION PLAN</th>
+                                        <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
+                                        <th style="width: 15%">RATE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($pr_objectives AS $key => $objective)
+                                        <tr>
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $objective->goal }}</td>
+                                            <td>{{ $objective->plan }}</td>
+                                            <td>{{ $objective->challenge }}</td>
+                                            <td>{!! Form::select('rate',$pr_rate_scales,$objective->pr_rate_scale_id,['class' => 'form-control text-center rate-select', 'placeholder' => 'Select', 'data-objective-uuid' => $objective->uuid]) !!}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        @else
+
+        <div class="row">
+            <div class="col-sm-12 col-lg-12 col-md-12 col-xl-12">
+                <div class="tab-pane active" id="processing">
+                    <div class="card-body">
+                       <div class="table-responsive">
+                            <table id="objectives" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>OBJECTIVE/GOAL</th>
+                                        <th>ACTION PLAN</th>
+                                        <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
+                                        <th style="width: 2%">RATE</th>
+                                        <th>DESCRIPTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($pr_objectives AS $key => $objective)
+                                        <tr>
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $objective->goal }}</td>
+                                            <td>{{ $objective->plan }}</td>
+                                            <td>{{ $objective->challenge }}</td>
+                                            <td>{{ $objective->rate->rate }}</td>
+                                            <td>{{ $objective->rate->description }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @endif
 
 
         </div>
@@ -60,10 +99,7 @@
                     },
                     success: function (data) {
                         if(data){
-                            console.log(data)
                             not1()
-                            // $.notify("hello !",{position:"bottom center",className:"success"});
-                            
                         }
                     },
                     error: function (error) {

@@ -199,8 +199,6 @@
 {!! Html::script(url('mdh/plugins/notify/js/sample.js')) !!}
 {!! Html::script(url('mdh/plugins/notify/js/notifIt.js')) !!}
 
-@stack('after-scripts')
-
 
 <!-- Custom js-->
 {!! Html::script(url('mdh/js/custom.js')) !!}

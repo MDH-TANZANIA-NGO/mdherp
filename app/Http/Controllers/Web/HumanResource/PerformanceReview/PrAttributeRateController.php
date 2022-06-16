@@ -7,6 +7,7 @@ use App\Models\HumanResource\PerformanceReview\PrAttribute;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\HumanResource\PerformanceReview\PrAttributeRateRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PrAttributeRateController extends Controller
 {
