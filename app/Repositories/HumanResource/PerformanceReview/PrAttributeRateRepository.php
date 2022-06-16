@@ -24,7 +24,6 @@ class PrAttributeRateRepository extends BaseRepository
     {
         return DB::transaction(function() use($pr_report, $pr_attribute, $input){
             $rate_attribute = $pr_report->attributeRates()->where('pr_attribute_id', $pr_attribute->id)->get();
-            Log::info($pr_attribute);
             if($rate_attribute->count()){
                 return $pr_report->attributeRates()->first()->update([
                     'pr_rate_scale_id' => $input['rate_scale'],

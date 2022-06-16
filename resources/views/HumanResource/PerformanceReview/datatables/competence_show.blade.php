@@ -11,13 +11,12 @@
                 <div class="tab-pane active" id="processing">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="attributes" class="table table-striped table-bordered" style="width:100%">
+                            <table id="pr-competences" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th style="width:2%">#</th>
                                         <th>COMPENTENCE</th>
                                         <th style="width: 60%">NARRATION</th>
-                                        <!-- <th style="width: 15%">RATE</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -30,7 +29,11 @@
                                                     @foreach($competence_key->narrations AS $narration)
                                                         <tr>
                                                             <td>{{ $narration->narration}}</td>
-                                                            <td style="width: 15%" ></td>
+                                                            <td style="width: 15%" >
+                                                            {!! Form::select('rate',$pr_rate_scales,
+                                                            $pr_report->competences()->where('pr_competence_key_narration_id', $narration->id)->count() == 1 ? $pr_report->competences()->where('pr_competence_key_narration_id', $narration->id)->first()->pr_rate_scale_id : null
+                                                            ,['class' => 'form-control text-center rate-competence-select', 'placeholder' => 'Select', 'data-pr-report-uuid' => $pr_report->uuid, 'data-pr-competence-key-narration-id' => $narration->id ]) !!}
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </table>
@@ -86,17 +89,17 @@
 @push('after-scripts')
     <script>
         $(document).ready(function(){
-            $("#attributes").DataTable();
-            let $rate_select = $(".rate-attribute-select");
+            $("#pr-competences").DataTable();
+            let $rate_select = $(".rate-competence-select");
             let _token   = $('meta[name="csrf-token"]').attr('content');
             $rate_select.change(function(event){
                 event.preventDefault();
                 let $selected_rate = $(this).val();
                 let $pr_report = $(this).attr('data-pr-report-uuid');
-                let $pr_attribute = $(this).attr('data-pr-attribute-id');
-                let $url = '{{ route("hr.pr.attribute_rate.store_update", [":id",":uuid"]) }}';
+                let $pr_competence_key_narration_id = $(this).attr('data-pr-competence-key-narration-id');
+                let $url = '{{ route("hr.pr.competence.store_update", [":id",":uuid"]) }}';
                 $url = $url.replace(':uuid', $pr_report);
-                $url = $url.replace(':id', $pr_attribute);
+                $url = $url.replace(':id', $pr_competence_key_narration_id);
                 $.ajax({
                     url: $url,
                     type: 'POST',

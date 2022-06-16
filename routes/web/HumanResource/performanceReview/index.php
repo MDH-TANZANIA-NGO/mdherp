@@ -30,9 +30,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         });
         //Compentence
         Route::group(['prefix' => 'competences', 'as' => 'competence.'], function () {
-            Route::get('{pr_report}/create', 'PrCompetenceController@create')->name('create');
-            Route::post('{pr_report}/store', 'PrCompetenceController@store')->name('store');
-            Route::put('{pr_report}/{prCompetence}/update', 'PrCompetenceController@update')->name('update');
+            Route::post('{pr_competence_key_narration}/{pr_report}/store-or-update', 'PrCompetenceController@storeOrUpdate')->name('store_update');
         });
         //Objective
         Route::group(['prefix' => 'objectives', 'as' => 'objective.'], function () {

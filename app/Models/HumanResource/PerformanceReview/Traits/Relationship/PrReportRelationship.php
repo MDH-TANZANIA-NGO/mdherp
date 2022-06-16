@@ -52,7 +52,7 @@ trait PrReportRelationship
 
     public function competences()
     {
-        return $this->hasMany(PrCompetence::class)->orderBy('id');
+        return $this->hasMany(PrCompetence::class,'pr_report_id','id')->orderBy('id');
     }
 
 }
