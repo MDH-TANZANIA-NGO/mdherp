@@ -12,16 +12,11 @@
 </div>
 
 <div class="row">
-    <div class="card">
-        <div class="card-header">
-			<h3 class="card-title">Objectives</h3>
-		</div>
-        <div class="card-body">
         @switch($pr_report->parent->pr_type_id)
             @case(1)
                 @include('HumanResource.PerformanceReview.datatables.evaluation_objectives_show',['pr_objectives' => $pr_report->parent->objectives,'pr_report' => $pr_report])
             @break
         @endswitch
-        </div>
-    </div>
  </div>
+
+ @include('HumanResource.PerformanceReview.datatables.attribute.attribute_show',['pr_objectives' => $pr_report->objectives])

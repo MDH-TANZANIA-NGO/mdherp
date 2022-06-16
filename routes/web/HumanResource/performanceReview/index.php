@@ -25,10 +25,8 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
             });
         });
         //Attribute Rate
-        Route::group(['prefix' => 'attribute-rates', 'as' => 'attribute.'], function () {
-            Route::get('{pr_report}/create', 'PrAttributeRateController@create')->name('create');
-            Route::post('{pr_report}/store', 'PrAttributeRateController@store')->name('store');
-            Route::put('{pr_report}/{prAttributeRate}/update', 'PrAttributeRateController@update')->name('update');
+        Route::group(['prefix' => 'attribute-rate', 'as' => 'attribute_rate.'], function () {
+            Route::post('{pr_attribute}/{pr_report}/store', 'PrAttributeRateController@storeOrUpdate')->name('store_update');
         });
         //Compentence
         Route::group(['prefix' => 'competences', 'as' => 'competence.'], function () {

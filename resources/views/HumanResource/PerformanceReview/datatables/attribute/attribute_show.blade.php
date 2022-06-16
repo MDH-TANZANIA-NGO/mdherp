@@ -1,7 +1,11 @@
-<div class="card">
-    <div class="card-header"><h3 class="card-title">Objectives</h3></div>
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+			<h3 class="card-title">Attributes</h3>
+		</div>
         <div class="card-body">
-            
+
+
         <div class="row">
     <div class="col-sm-12 col-lg-12 col-md-12 col-xl-12">
         <div class="tab-pane active" id="processing">
@@ -11,20 +15,16 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>OBJECTIVE/GOAL</th>
-                                <th>ACTION PLAN</th>
-                                <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
+                                <th>ATTRIBUTE</th>
                                 <th style="width: 15%">RATE</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($pr_objectives AS $key => $objective)
+                            @foreach($pr_attributes AS $key => $attribute)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
-                                    <td>{{ $objective->goal }}</td>
-                                    <td>{{ $objective->plan }}</td>
-                                    <td>{{ $objective->challenge }}</td>
-                                    <td>{!! Form::select('rate',$pr_rate_scales,$objective->pr_rate_scale_id,['class' => 'form-control text-center rate-select', 'placeholder' => 'Select', 'data-objective-uuid' => $objective->uuid]) !!}</td>
+                                    <td>{{ $attribute->title }}</td>
+                                    <td>{!! Form::select('rate',$pr_rate_scales,null,['class' => 'form-control text-center rate-attribute-select', 'placeholder' => 'Select', 'data-pr-report-uuid' => $pr_report->uuid, 'data-pr-attribute-id' => $attribute->id]) !!}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -36,21 +36,26 @@
 </div>
 
 
+
         </div>
+    </div>
 </div>
+
 
 @push('after-scripts')
     <script>
         $(document).ready(function(){
             $("#objectives").DataTable();
-            let $rate_select = $(".rate-select");
+            let $rate_select = $(".rate-attribute-select");
             let _token   = $('meta[name="csrf-token"]').attr('content');
             $rate_select.change(function(event){
                 event.preventDefault();
                 let $selected_rate = $(this).val();
-                let $selected_objective = $(this).attr('data-objective-uuid');
-                let $url = '{{ route("hr.pr.objective.update_scale_rate", ":uuid") }}';
-                $url = $url.replace(':uuid', $selected_objective);
+                let $pr_report = $(this).attr('data-pr-report-uuid');
+                let $pr_attribute = $(this).attr('data-pr-attribute-id');
+                let $url = '{{ route("hr.pr.attribute_rate.store_update", [":uuid",":id"]) }}';
+                $url = $url.replace(':uuid', $pr_report);
+                $url = $url.replace(':id', $pr_attribute);
                 $.ajax({
                     url: $url,
                     type: 'POST',
@@ -60,10 +65,7 @@
                     },
                     success: function (data) {
                         if(data){
-                            console.log(data)
                             not1()
-                            // $.notify("hello !",{position:"bottom center",className:"success"});
-                            
                         }
                     },
                     error: function (error) {
