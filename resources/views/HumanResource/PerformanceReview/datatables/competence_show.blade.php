@@ -89,7 +89,9 @@
 @push('after-scripts')
     <script>
         $(document).ready(function(){
-            $("#pr-competences").DataTable();
+            $("#pr-competences").DataTable({
+                "pageLength": 25
+            });
             let $rate_select = $(".rate-competence-select");
             let _token   = $('meta[name="csrf-token"]').attr('content');
             $rate_select.change(function(event){
