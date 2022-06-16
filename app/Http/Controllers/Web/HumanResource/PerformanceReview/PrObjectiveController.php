@@ -58,7 +58,7 @@ class PrObjectiveController extends Controller
      */
     public function updateChallenge(PrObjectiveChallengeRequest $request, PrObjective $pr_objective)
     {
-        $this->pr_objectives->updateChallenge($pr_objective, $request->all());
+        $this->pr_objectives->update($pr_objective, $request->all());
         alert()->success('Areas of Challenge/ Opportunities for Improvement Updated Successfully');
         return redirect()->back();
     }
@@ -72,7 +72,7 @@ class PrObjectiveController extends Controller
      */
     public function updateRateScale(PrObjectiveRateScaleRequest $request, PrObjective $pr_objective)
     {
-        $this->pr_objectives->updateChallenge($pr_objective, $request->all());
+        $this->pr_objectives->updateScale($pr_objective, $request->all());
         return response()->json(['data' => $pr_objective, 'message' => 'Rate Update Successfully']);
     }
 
