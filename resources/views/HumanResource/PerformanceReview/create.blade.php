@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-    @include('HumanResource.PerformanceReview.form.probation')
+    @include('HumanResource.PerformanceReview.form.new')
 @endsection

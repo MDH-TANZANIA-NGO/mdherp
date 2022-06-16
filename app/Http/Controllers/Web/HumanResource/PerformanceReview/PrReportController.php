@@ -12,6 +12,7 @@ use App\Services\Workflow\Traits\WorkflowInitiator;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use App\Http\Controllers\Web\HumanResource\PerformanceReview\Traits\Datatables\PrReportDatatables;
+use App\Http\Requests\HumanResource\PerformanceReview\PrReportRequest;
 use App\Repositories\HumanResource\PerformanceReview\PrAttributeRepository;
 use App\Repositories\HumanResource\PerformanceReview\PrCompetenceKeyRepository;
 use App\Repositories\HumanResource\PerformanceReview\PrRateScaleRepository;
@@ -66,10 +67,10 @@ class PrReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function probationStore()
+    public function store(PrReportRequest $request)
     {
-        $pr_report = $this->pr_reports->probationStore();
-        alert()->success('Probation Appraisal initiated Successfully');
+        $pr_report = $this->pr_reports->store($request->all());
+        alert()->success($pr_report->type->title.' initiated Successfully');
         return redirect()->route('hr.pr.saved', $pr_report);
     }
 

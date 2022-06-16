@@ -131,6 +131,20 @@ class PrReportRepository extends BaseRepository
         });
     }
 
+    public function store($input)
+    {
+        return DB::transaction(function () use($input){
+            return access()->user()->prReports()->create([
+                'from_at' => $input['from_at'],
+                'to_at' => $input['to_at'],
+                'fiscal_year_id' => FiscalYear::query()->where('active', true)->first()->id,
+                'designation_id' => access()->user()->designation_id,
+                'pr_type_id' => $input['type'],
+                'region_id' => access()->user()->region_id
+            ]);
+        });
+    }
+
     /** 
      * store probation form
      * @return mixed

@@ -5,7 +5,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
     Route::group(['namespace' => 'PerformanceReview', 'prefix' => 'performance-reviews', 'as' => 'pr.'], function () {
         Route::get('', 'PrReportController@index')->name('index');
         Route::get('create', 'PrReportController@create')->name('create');
-        Route::post('probation-appraisal/store', 'PrReportController@probationStore')->name('probation_store');
+        Route::post('store', 'PrReportController@store')->name('store');
         Route::get('{pr_report}/saved', 'PrReportController@saved')->name('saved');
         Route::get('{pr_report}/show', 'PrReportController@show')->name('show');
         Route::put('{pr_report}/update', 'PrReportController@update')->name('update');
