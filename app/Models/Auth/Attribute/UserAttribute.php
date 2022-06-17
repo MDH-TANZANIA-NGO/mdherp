@@ -77,7 +77,7 @@ trait UserAttribute
 
     public function getDesignationTitleAttribute()
     {
-        return (new DesignationRepository())->getDesignationById($this->designation_id)->name;
+        return (new DesignationRepository())->getDesignationById($this->designation_id);
     }
 
 
@@ -268,17 +268,14 @@ trait UserAttribute
         return $return;
     }
 
-
-    public function getVacationDaysBalanceAttribute()
+    public function getThreeMonthProbationAttribute()
     {
-        $user_repo = (new UserRepository());
-        return $user_repo->vocationDaysTotalAccess();
+        return Carbon::create($this->attributes['employed_date'])->addMonths(3)->format('Y-m-d');
     }
 
-    public function getPersonalDaysBalanceAttribute()
+    public function getEndOfProbationAttribute()
     {
-        $user_repo = (new UserRepository());
-        return $user_repo->personalDaysTotalBalanceAccess();
+        return Carbon::create($this->getThreeMonthProbationAttribute())->addMonths(3)->format('Y-m-d');
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\GofficerImportedData;
 use App\Repositories\GOfficer\GOfficerRepository;
+use Dotenv\Validator;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -39,6 +40,9 @@ class GOfficerImportedTemporaryData implements ToModel, WithHeadingRow, ToCollec
             'middle_name'=>$row['middle_name'],
             'last_name'=>$row['last_name'],
             'region_id'=>$row['region_id'],
+            'gender_cv_id'=>$row['gender_cv_id'],
+            'government_scale_id'=>$row['government_scale_id'],
+            'district_id'=>$row['district_id'],
             'phone'=> '255'.substr($row['phone'], -9),
             'password'=> bcrypt(strtolower($row['last_name'])),
             'fingerprint_data'=> $this->g_officer_repo->getDefaultFingerprints(),
@@ -52,6 +56,7 @@ class GOfficerImportedTemporaryData implements ToModel, WithHeadingRow, ToCollec
     public function collection(Collection $collection)
     {
         // TODO: Implement collection() method.
+
 
         $data = $this->data;
 

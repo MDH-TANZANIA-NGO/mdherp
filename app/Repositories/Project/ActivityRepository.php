@@ -147,6 +147,7 @@ class ActivityRepository extends BaseRepository
      */
     public function getSubQueryFilter($activity_id, $project_id, $region_id)
     {
+
         return Project::query()->where('id',$project_id)->first()->is_above_site ? $this->getSubQueryForAboveSite($activity_id, $project_id) : $this->getSubQuery($activity_id, $project_id, $region_id);
     }
 

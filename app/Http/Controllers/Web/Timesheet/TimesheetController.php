@@ -9,6 +9,7 @@ use App\Mail\TimesheetNotification;
 use App\Models\Attendance\Attendance;
 use App\Models\Leave\LeaveBalance;
 use App\Models\Project\Project;
+use App\Models\Project\ProjectUser;
 use App\Models\Timesheet\EffortLevel;
 use App\Models\Timesheet\StartedTimesheet;
 use App\Models\Timesheet\Timesheet;
@@ -56,15 +57,11 @@ class TimesheetController extends Controller
      */
     public function create()
     {
-
         $effortLevels = EffortLevel::where('user_id', access()->id())->get();
         return view('timesheet.forms.initiate')
             ->with('effortLevels', $effortLevels);
     }
 
-    public function save(Request $request){
-
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -76,33 +73,38 @@ class TimesheetController extends Controller
     {
         try {
             $next_user = access()->user()->assignedSupervisor()->supervisor_id;
-            //dd(access()->user()->assignedSupervisor()->supervisor_id);
+               $submissionStatus = Timesheet::where('user_id' )->whereMonth('created_at', Carbon::now()->month)->get();
 
-        $timesheet = Timesheet::create([
-            'user_id' => access()->id()
-        ]);
-        for ($i = 0; $i < count($request['data']); $i++ ){
-            Attendance::create([
-                'user_id' => access()->id(),
-                'timesheet_id' => $timesheet->id,
-                'comments' => $request['data'][$i]['comment'],
-                'hrs' => $request['data'][$i]['hours'],
-                'date' => Carbon::createFromFormat('D d-F-Y', $request['data'][$i]['date'])->format('Y-m-d')
-            ]);
-        }
-        $totalHrs = Attendance::where(['user_id' => access()->id(), 'timesheet_id' => $timesheet->id])->sum('hrs');
-        $timesheet->update([
-            'hrs' => $totalHrs
-        ]);
-        $wf_module_group_id = 7;
+               if (!$submissionStatus){
+                   $timesheet = Timesheet::create([
+                       'user_id' => access()->id()
+                   ]);
 
-            if ($next_user){
-                event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $timesheet->id,'region_id' => $timesheet->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-                alert()->success('Your timesheet have been submitted Successfully','success');
-                return redirect()->route('timesheet.index');
-            }
+                   for ($i = 0; $i < count($request['data']); $i++ ){
+                       Attendance::create([
+                           'user_id' => access()->id(),
+                           'timesheet_id' => $timesheet->id,
+                           'comments' => $request['data'][$i]['comment'],
+                           'hrs' => $request['data'][$i]['hours'],
+                           'date' => Carbon::createFromFormat('D d-F-Y', $request['data'][$i]['date'])->format('Y-m-d')
+                       ]);
+                   }
+                   $totalHrs = Attendance::where(['user_id' => access()->id(), 'timesheet_id' => $timesheet->id])->sum('hrs');
+                   $timesheet->update([
+                       'hrs' => $totalHrs
+                   ]);
+                   $wf_module_group_id = 7;
+
+                   if ($next_user){
+                       event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $timesheet->id,'region_id' => $timesheet->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+                       alert()->success('Your timesheet have been submitted Successfully','success');
+                       return redirect()->route('timesheet.index');
+                   }
+               }
+            alert()->error('You have already submitted timesheet for this month','failed');
+            return redirect()->route('timesheet.index');
         }catch (\Exception $exception) {
-            alert()->error('You have not been assigned a supervisor','Failed');
+            alert()->error('You have already submitted timesheet','Failed');
             $exception->getMessage();
             return redirect()->back();
         }
@@ -127,7 +129,7 @@ class TimesheetController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($timesheet, $current_level, $workflow->wf_definition_id);
 
         $designation = access()->user()->designation_id;
-        $effort_levels = EffortLevel::where('user_id', $timesheet->user_id)->get();
+        $effort_levels = ProjectUser::where('user_id', $timesheet->user_id)->get();
       $time_perc = [];
         foreach ($effort_levels as  $effort_level){
               array_push($time_perc, array(
@@ -234,9 +236,7 @@ class TimesheetController extends Controller
     }
 
     public function effortUpdate(Request $request){
-        //dd($request->all());
-        $effort_levels = EffortLevel::where('user_id', $request['data'][0]['user_id'])->get();
-        //dd($effort_levels);
+        $effort_levels = ProjectUser::where('user_id', $request['data'][0]['user_id'])->get();
             foreach ($effort_levels as $effort_level){
                 for ($i = 0; $i < count($request['data']); $i++ ){
                     if ($request['data'][$i]['project_id'] == $effort_level->project_id){

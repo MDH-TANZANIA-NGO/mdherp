@@ -1,33 +1,14 @@
 {!! Form::open(['route' => 'g_rate.store', 'method' => 'post',]) !!}
 <!-- Large Modal -->
-<div class="col-lg-12 col-md-12">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
+<div class="float-left col-10">
 
-                <div class="col-3 mx-auto">
-                    <label class="form-label">Amount</label>
                     {!! Form::number('amount',null,['class' => 'form-control', 'required']) !!}
+</div>
                     @error('title')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
                     @enderror
-                </div>
 
-            </div>
-
-            <div class="row mt-4">
-
-                <div class="col-12">
-                    <div style="text-align: center;">
-                        <button type="submit" class="btn btn-azure">Register</button>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</div>
+<button type="submit" class="btn btn-azure">Register Amount</button>
 
 {!! Form::close() !!}
 

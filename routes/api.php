@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'Api\Auth\LoginController@login');
 
+Route::post('verify-token', 'Api\UserLoginToken\UserLoginTokenController@verifyToken')->name('verifyToken');
+
 
 //Route::group(['middleware' => 'auth:api'], function () {
 ////    Route::get('/user', function(Request $request) {

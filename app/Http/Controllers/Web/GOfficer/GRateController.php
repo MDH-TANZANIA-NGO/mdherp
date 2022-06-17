@@ -3,19 +3,23 @@
 namespace App\Http\Controllers\Web\GOfficer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\GOfficer\Datatables\NewGovernmentRateDatatables;
 use App\Http\Controllers\Web\GOfficer\Datatables\GRateDatatables;
+use App\Repositories\GOfficer\GovernmentRateRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use Illuminate\Http\Request;
 
 class GRateController extends Controller
 {
-    use GRateDatatables;
+    use GRateDatatables, NewGovernmentRateDatatables;
 
     protected $g_rates;
+    protected $gov_rates;
 
     public function __construct()
     {
         $this->g_rates = (new GRateRepository());
+        $this->gov_rates = (new GovernmentRateRepository());
     }
 
     /**
@@ -49,6 +53,13 @@ class GRateController extends Controller
         $this->g_rates->store($request->all());
         return redirect()->back();
     }
+
+    public function storeGovRate(Request $request)
+    {
+        $this->gov_rates->store($request->all());
+        return redirect()->back();
+    }
+
 
     /**
      * Display the specified resource.
@@ -85,10 +96,16 @@ class GRateController extends Controller
         $this->g_rates->update($uuid, $request->all());
         return redirect()->back();
     }
+    public function updateGovRate(Request $request, $uuid)
+    {
+        $this->gov_rates->update($uuid, $request->all());
+        return redirect()->back();
+    }
 
     public function assignRate(Request $request)
     {
-        $this->g_rates->assignRate($request->all());
+        $this->gov_rates->assignRate($request->all());
         return redirect()->back();
     }
+
 }

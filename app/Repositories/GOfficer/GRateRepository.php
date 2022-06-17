@@ -68,6 +68,7 @@ class GRateRepository extends BaseRepository
         });
     }
 
+
     /**
      * Store new Activity
      * @param $uuid

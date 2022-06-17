@@ -26,6 +26,7 @@ use App\Repositories\Workflow\WfModuleRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
 use App\Exceptions\GeneralException;
+use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
@@ -428,10 +429,21 @@ class Workflow
                 case 6:
                     $leave_repo = (new LeaveRepository());
                     $leave = $leave_repo->find($wf_track->resource_id);
+                    $string = htmlentities(
+                        "There is new"." "."leave application"." "."from "." ".$leave->user->first_name." ".$leave->user->last_name." pending for your approval."."<br>". "<br>".
+                        "<b>Region:</b>".$leave->region->name."<br>".
+                        "<b>Leave Type:</b>".$leave->type->name."<br>".
+                        "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
+                        "<b>Comments:</b>". $leave->comment."<br>".
+                        "<b>Starting Date:</b>". $leave->start_date."<br>".
+                        "<b>End Date:</b>". $leave->end_date."<br>".
+                        "<b>Requested Days:</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
+
+                    );
                     $email_resource = (object)[
                         'link' =>  route('leave.show',$leave),
-                        'subject' => " Need your Approval",
-                        'message' => 'need your approval'
+                        'subject' => " Leave application need your approval",
+                        'message' =>  html_entity_decode($string)
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
@@ -475,6 +487,16 @@ class Workflow
 
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
+
+                case 11:
+                    $pr_report = (new PrReportRepository())->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('hr.pr.show',$pr_report),
+                        'subject' =>  " Need your review",
+                        'message' => ' Performance Appraisal'
+                    ];
+                    // User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
 
             }
@@ -549,6 +571,11 @@ class Workflow
                 $program_activity_report_repo = (new ProgramActivityReportRepository());
                 $program_activity_report = $program_activity_report_repo->find($resourceId);
                 $program_activity_report->wfTracks()->save($wfTrack);
+                break;
+            case 10:
+                /*Performance Report */
+                $pr_report_repo = (new PrReportRepository())->find($resourceId);;
+                $pr_report_repo->wfTracks()->save($wfTrack);
                 break;
         }
     }

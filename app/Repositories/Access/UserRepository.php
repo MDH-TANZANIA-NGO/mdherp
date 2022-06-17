@@ -278,6 +278,7 @@ class UserRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('users.id AS user_id'),
+            DB::raw('users.id AS id'),
             DB::raw("CONCAT_WS(' ', users.first_name,users.last_name) AS name"),
             DB::raw('users.first_name AS first_name'),
             DB::raw('users.last_name AS last_name'),
@@ -302,6 +303,15 @@ class UserRepository extends BaseRepository
     {
         return $this->getQuery()
             ->where('active', true);
+    }
+
+    public function getAllUserswithoutanyPermission($permission_id)
+    {
+        return $this->getQuery()
+            ->whereDoesntHave('permissions', function ($query) use ($permission_id)
+            {
+                $query->where('permissions.id', $permission_id);
+            });
     }
     public function getInactive()
     {

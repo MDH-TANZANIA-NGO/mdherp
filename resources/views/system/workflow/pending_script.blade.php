@@ -119,6 +119,9 @@
                         case 9: /*Program Activity Report*/
                             window.open(base_url + "/programactivityreport/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
+                        case 10: /*Performance Review Report*/
+                            window.open(base_url + "/human-resource/performance-reviews/" + aData['resource_uuid'] + '/show' , "_blank");
+                            break;
                         default:
                             break;
                     }

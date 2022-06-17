@@ -27,7 +27,39 @@ trait WorkflowResourceModificationStageTrait
 //                        break;
                 }
                 break;
+
+                /*Performance Report Module*/
+            case 'pr_reports':
+                switch ($pending_level){
+                    case 1: //Applicant level
+                        if($model->user_id == access()->id()){
+                            $allow = true;
+                        }
+                        break;
+
+                }
+                break;
         }
+        return $allow;
+    }
+
+    public function canUpdateAttributeRateResource(Model $model,$pending_level, $wf_module_id)
+    {
+        $allow = false;
+        switch($wf_module_id)
+        {
+            case 11:
+                switch ($pending_level){
+                    case 2:
+                        if($model->supervisor_id == access()->id()){
+                            $allow = true;
+                        }
+                        break;
+
+                }
+                break;
+        }
+
         return $allow;
     }
 }
