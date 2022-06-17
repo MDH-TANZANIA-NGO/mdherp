@@ -31,7 +31,7 @@
                                                             <td>{{ $narration->narration}}</td>
                                                             <td style="width: 15%" >
                                                             {!! Form::select('rate',$pr_rate_scales,
-                                                            $pr_report->competences()->where('pr_competence_key_narration_id', $narration->id)->count() == 1 ? $pr_report->competences()->where('pr_competence_key_narration_id', $narration->id)->first()->pr_rate_scale_id : null
+                                                            $pr_report->parent->competences()->where('pr_competence_key_narration_id', $narration->id)->count() == 1 ? $pr_report->parent->competences()->where('pr_competence_key_narration_id', $narration->id)->first()->pr_rate_scale_id : null
                                                             ,['class' => 'form-control text-center rate-competence-select', 'placeholder' => 'Select', 'data-pr-report-uuid' => $pr_report->parent->uuid, 'data-pr-competence-key-narration-id' => $narration->id ]) !!}
                                                             </td>
                                                         </tr>
