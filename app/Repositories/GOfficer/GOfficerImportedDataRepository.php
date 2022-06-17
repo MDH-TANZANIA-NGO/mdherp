@@ -22,6 +22,7 @@ class GOfficerImportedDataRepository extends  BaseRepository
             DB::raw('gofficer_imported_data.first_name AS first_name'),
             DB::raw('gofficer_imported_data.last_name AS last_name'),
             DB::raw('gofficer_imported_data.phone AS phone'),
+            DB::raw('gofficer_imported_data.user_id AS user_id'),
             DB::raw("CONCAT_WS(', ',gofficer_imported_data.last_name, gofficer_imported_data.first_name) AS names"),
             DB::raw("CONCAT_WS(', ',gofficer_imported_data.last_name, gofficer_imported_data.first_name, gofficer_imported_data.phone) AS unique"),
             DB::raw('gofficer_imported_data.uuid AS uuid'),
