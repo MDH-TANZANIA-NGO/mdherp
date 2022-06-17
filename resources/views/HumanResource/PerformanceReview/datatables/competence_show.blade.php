@@ -1,7 +1,7 @@
 <div class="row">
     <div class="card">
         <div class="card-header">
-			<h3 class="card-title">Competences</h3>
+			<h3 class="card-title">Competences and Skills</h3>
 		</div>
         <div class="card-body">
 
@@ -53,7 +53,7 @@
                 <div class="tab-pane active" id="processing">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="attributes" class="table table-striped table-bordered" style="width:100%">
+                            <table id="competences" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th style="width:2%">#</th>
@@ -105,6 +105,10 @@
 @push('after-scripts')
     <script>
         $(document).ready(function(){
+            $("#competences").DataTable();
+            // $("#attributes").DataTable({
+            //     "pageLength": 25
+            // });
             $("#pr-competences").DataTable({
                 "pageLength": 25
             });
