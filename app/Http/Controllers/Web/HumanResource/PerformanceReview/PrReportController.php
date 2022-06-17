@@ -113,8 +113,6 @@ class PrReportController extends Controller
      */
     public function show(PrReport $pr_report)
     {
-        // dd(PrReport::with(['competences'])->find($pr_report->id));
-        // dd($pr_report->competences->with(['narrations']));
         $wf_module_group_id = $this->getWfModuleGroupId($pr_report);
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $pr_report->id);
         $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $pr_report->id, 'type' => $wf_module->type]);
@@ -128,7 +126,7 @@ class PrReportController extends Controller
             ->with('pr_rate_scales', $this->pr_rate_scales->forSelect())
             ->with('pr_attributes', $this->pr_attributes->getAll())
             ->with('pr_competence_keys', $this->pr_competence_keys->getAll())
-            ->with('pr_report_attribute_rates', $pr_report->attributeRates)
+            ->with('pr_report_attribute_rates', $pr_report->parent->attributeRates)
             ->with('can_be_processed_for_evaluation', $this->pr_reports->canBeAprocessedForEvaluation($pr_report))
             ->with('can_update_attribute_rate_resource', $can_update_attribute_rate_resource)
             ->with('current_level', $current_level)

@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use App\Models\Auth\User;
+use App\Models\HumanResource\PerformanceReview\PrAttributeRate;
 use App\Models\HumanResource\PerformanceReview\PrCompetence;
 use App\Models\HumanResource\PerformanceReview\PrCompetenceKey;
 use App\Models\HumanResource\PerformanceReview\PrObjective;
@@ -366,6 +367,18 @@ if (!function_exists('avg_per_pr_objective')) {
         $avg =PrObjective::query()
             ->join('pr_reports','pr_reports.id','pr_objectives.pr_report_id')
             ->join('pr_rate_scales','pr_rate_scales.id','pr_objectives.pr_rate_scale_id')
+            ->where('pr_reports.id', $prReport->id)
+            ->avg('pr_rate_scales.rate');
+        return round($avg);
+    }
+}
+
+if (!function_exists('avg_per_pr_attribute_rate')) {
+    function avg_per_pr_attribute_rate(PrReport $prReport)
+    {
+        $avg =PrAttributeRate::query()
+            ->join('pr_reports','pr_reports.id','pr_attribute_rates.pr_report_id')
+            ->join('pr_rate_scales','pr_rate_scales.id','pr_attribute_rates.pr_rate_scale_id')
             ->where('pr_reports.id', $prReport->id)
             ->avg('pr_rate_scales.rate');
         return round($avg);

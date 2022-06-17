@@ -25,8 +25,8 @@
                                             <td>{{ $key+1 }}</td>
                                             <td>{{ $attribute->title }}</td>
                                             <td>{!! Form::select('rate',$pr_rate_scales,
-                                                $pr_report->attributeRates()->where('pr_attribute_id',$attribute->id)->get()->count() == 1 ? $pr_report->attributeRates()->where('pr_attribute_id',$attribute->id)->first()->pr_rate_scale_id : null
-                                                ,['class' => 'form-control text-center rate-attribute-select', 'placeholder' => 'Select', 'data-pr-report-uuid' => $pr_report->uuid, 'data-pr-attribute-id' => $attribute->id]) !!}</td>
+                                                $pr_report->parent->attributeRates()->where('pr_attribute_id',$attribute->id)->get()->count() == 1 ? $pr_report->parent->attributeRates()->where('pr_attribute_id',$attribute->id)->first()->pr_rate_scale_id : null
+                                                ,['class' => 'form-control text-center rate-attribute-select', 'placeholder' => 'Select', 'data-pr-report-uuid' => $pr_report->parent->uuid, 'data-pr-attribute-id' => $attribute->id]) !!}</td>
                                         </tr>
                                      @endforeach
                                 </tbody>
@@ -60,6 +60,14 @@
                                             <td>{{ $attribute_rate->rate->description }}</td>
                                         </tr>
                                      @endforeach
+                                     @if($pr_report->parent->attributeRates()->whereNull('pr_rate_scale_id'))
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Average Rate</td>
+                                        <td>{{ avg_per_pr_attribute_rate($pr_report->parent) }}</td>
+                                        <td></td>
+                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -78,7 +86,9 @@
 @push('after-scripts')
     <script>
         $(document).ready(function(){
-            $("#attributes").DataTable();
+            // $("#attributes").DataTable({
+            //     "pageLength": 25
+            // });
             let $rate_select = $(".rate-attribute-select");
             let _token   = $('meta[name="csrf-token"]').attr('content');
             $rate_select.change(function(event){
