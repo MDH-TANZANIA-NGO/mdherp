@@ -113,6 +113,8 @@ class PrReportController extends Controller
      */
     public function show(PrReport $pr_report)
     {
+        // dd(PrReport::with(['competences'])->find($pr_report->id));
+        // dd($pr_report->competences->with(['narrations']));
         $wf_module_group_id = $this->getWfModuleGroupId($pr_report);
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $pr_report->id);
         $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $pr_report->id, 'type' => $wf_module->type]);

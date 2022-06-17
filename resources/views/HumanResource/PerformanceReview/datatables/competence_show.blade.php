@@ -57,20 +57,32 @@
                                 <thead>
                                     <tr>
                                         <th style="width:2%">#</th>
-                                        <th>ATTRIBUTE</th>
-                                        <th style="width: 2%">RATE</th>
-                                        <th>RATE DESCRIPTION</th>
+                                        <th>COMPETENCE</th>
+                                        <th>NARRATION</th>
+                                        <!-- <th style="width: 2%">RATE</th>
+                                        <th>RATE DESCRIPTION</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($pr_report_attribute_rates AS $key => $attribute_rate)
+                                <!-- $pr_competence_keys -->
+                                @foreach($pr_competence_keys AS $key => $competence_key)
                                         <tr>
                                             <td>{{ $key+1 }}</td>
-                                            <td>{{ $attribute_rate->attribute->title }}</td>
-                                            <td>{{ $attribute_rate->rate->rate }}</td>
-                                            <td>{{ $attribute_rate->rate->description }}</td>
+                                            <td>{{ $competence_key->title }}</td>
+                                            <td>
+                                            <table style="width: 100%">
+                                                    @foreach($pr_report->competences AS $competence)
+                                                        @if($competence->narration->pr_competence_key_id == $competence_key->id)
+                                                        <tr>
+                                                            <td>{{ $competence->narration->narration }}</td>
+                                                            <td style="width: 15%" >{{ $competence->rate->rate }}</td>
+                                                        </tr>
+                                                        @endif
+                                                    @endforeach
+                                                </table>
+                                            </td>
                                         </tr>
-                                     @endforeach
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
