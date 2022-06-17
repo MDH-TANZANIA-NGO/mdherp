@@ -20,11 +20,11 @@
 						</div>
 						<div class="col-4 border-right ">
 							<p class=" mb-0 fs-12 text-muted">Average Rate for competencies & skills – Part B</p>
-							<h3 class="mb-0">{!! avg_per_key_competence_report($pr_report) !!}</h3>
+							<h3 class="mb-0">{!! avg_per_key_competence_report($pr_report->parent) !!}</h3>
 						</div>
 						<div class="col-4">
 							<p class=" mb-0  fs-12 text-muted">AVERAGE</p>
-							<h3 class="mb-0">{{ round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report))/2) }} <span style="font-size: 14px;">{{ \App\Models\HumanResource\PerformanceReview\PrRateScale::whereRate(round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report))/2))->first()->description }}</span></h3>
+							<h3 class="mb-0">{{ round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report->parent))/2) }} <span style="font-size: 14px;">{{ \App\Models\HumanResource\PerformanceReview\PrRateScale::whereRate(round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report))/2))->first()->description }}</span></h3>
 						</div>
 					</div>
 			</div>
@@ -34,11 +34,7 @@
 </div>
 
 <div class="row">
-        @switch($pr_report->parent->pr_type_id)
-            @case(1)
-                @include('HumanResource.PerformanceReview.datatables.evaluation_objectives_show',['pr_objectives' => $pr_report->parent->objectives,'pr_report' => $pr_report])
-            @break
-        @endswitch
+    @include('HumanResource.PerformanceReview.datatables.evaluation_objectives_show',['pr_objectives' => $pr_report->parent->objectives,'pr_report' => $pr_report])
  </div>
 
 @if($pr_report->user->supervisor)

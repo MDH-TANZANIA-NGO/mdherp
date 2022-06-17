@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h3 class="card-title">Objectives</h3></div>
+    <div class="card-header"><h3 class="card-title">performance goals</h3></div>
         <div class="card-body">
          
         @if($can_update_attribute_rate_resource)

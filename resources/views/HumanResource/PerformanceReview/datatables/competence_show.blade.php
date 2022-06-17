@@ -32,7 +32,7 @@
                                                             <td style="width: 15%" >
                                                             {!! Form::select('rate',$pr_rate_scales,
                                                             $pr_report->competences()->where('pr_competence_key_narration_id', $narration->id)->count() == 1 ? $pr_report->competences()->where('pr_competence_key_narration_id', $narration->id)->first()->pr_rate_scale_id : null
-                                                            ,['class' => 'form-control text-center rate-competence-select', 'placeholder' => 'Select', 'data-pr-report-uuid' => $pr_report->uuid, 'data-pr-competence-key-narration-id' => $narration->id ]) !!}
+                                                            ,['class' => 'form-control text-center rate-competence-select', 'placeholder' => 'Select', 'data-pr-report-uuid' => $pr_report->parent->uuid, 'data-pr-competence-key-narration-id' => $narration->id ]) !!}
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -69,7 +69,7 @@
                                             <td>{{ $competence_key->title }}</td>
                                             <td>
                                             <table style="width: 100%">
-                                                    @foreach($pr_report->competences AS $competence)
+                                                    @foreach($pr_report->parent->competences AS $competence)
                                                         @if($competence->narration->pr_competence_key_id == $competence_key->id)
                                                         <tr>
                                                             <td>{{ $competence->narration->narration }}</td>
@@ -79,13 +79,13 @@
                                                     @endforeach
                                                 </table>
                                             </td>
-                                            <td style="text-align: center; vertical-align: middle; font-weight: bolder">{{ avg_per_key_competence($pr_report, $competence_key) }}</td>
+                                            <td style="text-align: center; vertical-align: middle; font-weight: bolder">{{ avg_per_key_competence($pr_report->parent, $competence_key) }}</td>
                                         </tr>
                                 @endforeach
                                 <tr>
                                     <td>#</td>
                                     <td>Average Rate for Competencies & Skills – Part B</td>
-                                    <td colspan="2">{!! avg_per_key_competence_report($pr_report) !!}</td>
+                                    <td colspan="2">{!! avg_per_key_competence_report($pr_report->parent) !!}</td>
                                 </tr>
                                 </tbody>
                             </table>
