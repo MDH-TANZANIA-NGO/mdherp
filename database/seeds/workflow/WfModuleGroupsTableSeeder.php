@@ -110,6 +110,15 @@ class WfModuleGroupsTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
+            10 =>
+                array (
+                    'id' => 11,
+                    'name' => 'Job Advertisement',
+                    'table_name' => 'hr_hire_advertisement_requisitions',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
         ));
 
         $this->enableForeignKeys('wf_module_groups');

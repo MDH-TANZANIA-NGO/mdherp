@@ -170,11 +170,26 @@ class WfModulesTableSeeder extends Seeder
                     'deleted_at' => NULL,
                     'isactive' => '1',
                     'type' => '1',
-                    'description' => 'Performance Review for Probatioinary Appraisal',
+                    'description' => 'Performance Review for Probationary Appraisal',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
-                
+
+            11 =>
+                array (
+                    'id' => 12,
+                    'name' => 'Job Advertisement',
+                    'wf_module_group_id' => '11',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => '1',
+                    'description' => 'Workflow for Job Advertisement',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
+
         ));
 
         $this->enableForeignKeys('wf_modules');

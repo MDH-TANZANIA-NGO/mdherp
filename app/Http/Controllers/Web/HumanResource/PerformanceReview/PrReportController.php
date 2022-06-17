@@ -42,7 +42,7 @@ class PrReportController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
@@ -144,9 +144,9 @@ class PrReportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function submit(PrReport $pr_report)
-    {   
+    {
         $this->pr_reports->updateDoneAssignNextUserIdAndGenerateNumber($pr_report);
-        $this->startWorkflow($pr_report, 1, $pr_report->supervisor_id); 
+        $this->startWorkflow($pr_report, 1, $pr_report->supervisor_id);
         alert()->success(__('Submitted Successfully'), __('Performance Review'));
         return redirect()->route('hr.pr.show', $pr_report);
     }
