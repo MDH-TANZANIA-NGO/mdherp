@@ -25,7 +25,9 @@
 						</div>
 						<div class="col-4">
 							<p class=" mb-0  fs-12 text-muted">AVERAGE</p>
-							<h3 class="mb-0">{{ round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report->parent))/2) }} <span style="font-size: 14px;">{{ \App\Models\HumanResource\PerformanceReview\PrRateScale::whereRate(round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report))/2))->first()->description }}</span></h3>
+							<h3 class="mb-0">{{ round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report->parent))/2) }} 
+								{{-- <span style="font-size: 14px;">{{ \App\Models\HumanResource\PerformanceReview\PrRateScale::whereRate(round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report))/2))->first()->description }}</span> --}}
+							</h3>
 						</div>
 						@else
 
@@ -35,7 +37,9 @@
 						</div>
 						<div class="col-4">
 							<p class=" mb-0  fs-12 text-muted">AVERAGE</p>
-							<h3 class="mb-0">{{ round((avg_per_pr_objective($pr_report->parent)+avg_per_pr_attribute_rate($pr_report->parent))/2) }} <span style="font-size: 14px;">{{ \App\Models\HumanResource\PerformanceReview\PrRateScale::whereRate(round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report))/2))->first()->description }}</span></h3>
+							<h3 class="mb-0">{{ round((avg_per_pr_objective($pr_report->parent)+avg_per_pr_attribute_rate($pr_report->parent))/2) }} 
+								{{-- <span style="font-size: 14px;">{{ \App\Models\HumanResource\PerformanceReview\PrRateScale::whereRate(round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report))/2))->first()->description }}</span> --}}
+							</h3>
 						</div>
 
 						@endif

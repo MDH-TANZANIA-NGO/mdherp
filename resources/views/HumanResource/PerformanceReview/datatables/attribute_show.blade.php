@@ -52,7 +52,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($pr_report_attribute_rates AS $key => $attribute_rate)
+                                    @foreach($pr_report->parent->attributeRates AS $key => $attribute_rate)
                                         <tr>
                                             <td>{{ $key+1 }}</td>
                                             <td>{{ $attribute_rate->attribute->title }}</td>
