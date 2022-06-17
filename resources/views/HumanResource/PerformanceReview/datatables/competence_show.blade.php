@@ -60,11 +60,9 @@
                                         <th>COMPETENCE</th>
                                         <th>NARRATION</th>
                                         <th style="width: 2%">AVG RATE</th>
-                                        <!-- <th>RATE DESCRIPTION</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <!-- $pr_competence_keys -->
                                 @foreach($pr_competence_keys AS $key => $competence_key)
                                         <tr>
                                             <td>{{ $key+1 }}</td>
@@ -81,9 +79,14 @@
                                                     @endforeach
                                                 </table>
                                             </td>
-                                            <td>{{ avg_per_key_competence($pr_report, $competence_key) }}</td>
+                                            <td style="text-align: center; vertical-align: middle; font-weight: bolder">{{ avg_per_key_competence($pr_report, $competence_key) }}</td>
                                         </tr>
                                 @endforeach
+                                <tr>
+                                    <td>#</td>
+                                    <td>Average Rate for Competencies & Skills – Part B</td>
+                                    <td colspan="2">{!! avg_per_key_competence_report($pr_report) !!}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
