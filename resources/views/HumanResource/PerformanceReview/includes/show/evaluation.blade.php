@@ -9,6 +9,28 @@
 		</div>
     </div>
 
+    <div class="col-xl-12 col-lg-12 col-md-12">
+		<div class="card">
+			<div class="p-3">
+				<h3 class="card-title mb-2">OVERALL PERFORMANCE OF THE EMPLOYEE AND REWARD RECOMMENDATION</h3>
+					<div class="row">
+						<div class="col-4 border-right">
+							<p class=" mb-0 fs-12  text-muted">Average Rate for set performance goals - Part A</p>
+							<h3 class="mb-0">{{ avg_per_pr_objective($pr_report->parent) }}</h3>
+						</div>
+						<div class="col-4 border-right ">
+							<p class=" mb-0 fs-12 text-muted">Average Rate for competencies & skills – Part B</p>
+							<h3 class="mb-0">{!! avg_per_key_competence_report($pr_report) !!}</h3>
+						</div>
+						<div class="col-4">
+							<p class=" mb-0  fs-12 text-muted">AVERAGE</p>
+							<h3 class="mb-0">{{ round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report))/2) }}</h3>
+						</div>
+					</div>
+			</div>
+		</div>
+    </div>
+
 </div>
 
 <div class="row">
