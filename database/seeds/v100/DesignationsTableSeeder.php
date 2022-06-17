@@ -1540,7 +1540,7 @@ class DesignationsTableSeeder extends Seeder
                     'unit_id' => 74,
                     'name' => 'SP',
                     'short_name' => '',
-                    'name' => 'Controller',
+                    'name' => '',
                     'short_name' => 'BC',
                     'created_at' => '2022-01-08 20:16:49',
                     'updated_at' => NULL,
@@ -1608,6 +1608,20 @@ class DesignationsTableSeeder extends Seeder
                     'deleted_at' => NULL,
                     'isactive' => 1,
                     'department_id'=>4,
+                ),
+            132 =>
+                array (
+                    'id' => 133,
+                    'unit_id' => 71,
+                    'name' => 'DOP',
+                    'short_name' => 'DOP',
+                    'name' => ' Of Department',
+                    'short_name' => 'DOP',
+                    'created_at' => '2022-01-08 20:16:49',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 0,
+                    'department_id'=>null,
                 ),
 
 
