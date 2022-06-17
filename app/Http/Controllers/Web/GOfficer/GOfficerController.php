@@ -366,7 +366,7 @@ class GOfficerController extends Controller
 
 
         }
-        
+
 
 
 
