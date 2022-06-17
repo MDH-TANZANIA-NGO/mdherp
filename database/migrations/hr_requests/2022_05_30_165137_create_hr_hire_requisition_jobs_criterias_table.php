@@ -16,12 +16,12 @@ class CreateHrHireRequisitionJobsCriteriasTable extends Migration
         Schema::create('hr_hire_requisition_jobs_criterias', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('hr_requisitions_jobs_id');
-            $table->unsignedBigInteger('qualification_id');
-            $table->unsignedBigInteger('qualification_resource_type');
+            $table->unsignedBigInteger('education_level');
             $table->unsignedBigInteger('experience_years');
-            $table->smallInteger('is_mandatory')->nullable();
-            $table->smallInteger('is_advantage')->nullable();
-            $table->text('comment');
+            $table->string('language_proficeince')->nullable();
+            $table->string('language')->nullable();
+            $table->string('age')->nullable();
+            $table->uuid('uuid'); 
             $table->softDeletes();
             $table->timestamps();
         });
@@ -37,3 +37,4 @@ class CreateHrHireRequisitionJobsCriteriasTable extends Migration
         Schema::dropIfExists('hr_hire_requisition_jobs_criterias');
     }
 }
+

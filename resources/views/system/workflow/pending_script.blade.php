@@ -113,7 +113,7 @@
                             window.open(base_url + "/timesheet/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
                         case 8: /*listing*/
-                            window.open(base_url + "/listings/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/hirerequisition/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
                             break;
                         case 9: /*Program Activity Report*/

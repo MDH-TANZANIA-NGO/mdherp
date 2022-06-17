@@ -16,7 +16,9 @@ class CreateHrHireRequisitionReplacedStaffsTable extends Migration
         Schema::create('hr_hire_requisition_replaced_staffs', function (Blueprint $table) {
             $table->id(); 
             $table->unsignedBigInteger('user_id');    
-            $table->unsignedBigInteger('hr_requisition_jobs_id');         
+            $table->unsignedBigInteger('hr_requisition_job_id');         
+            $table->uuid('uuid');       
+            $table->softDeletes();       
             $table->timestamps();
         });
     }

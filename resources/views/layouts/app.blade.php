@@ -200,7 +200,8 @@
 {!! Html::script(url('mdh/js/custom.js')) !!}
 
 <!--Accordion-Wizard-Form js-->
-{{--<script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>--}}
+<!-- <script src="mdh/plugins/accordion/accordion.min.js"></script> -->
+{{!! Html::script(url('mdh/plugins/accordion/accordion.min.js')) !!}}
 {{--<script src="mdh/js/form-wizard.js"></script>--}}
 
 @stack('in-scripts')
@@ -234,7 +235,10 @@
             affixesStay: false,
             thousands: '',
         });
-    })
+    });
+
+    $(".demo-accordion").accordionjs();
+
 </script>
 
 @stack('after-scripts')

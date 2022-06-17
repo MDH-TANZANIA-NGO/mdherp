@@ -471,6 +471,39 @@ class CodeValuesTableSeeder extends Seeder
                     'sort' => 0,
                     'isactive' => 1,
                 ),
+            41 =>
+                array (
+                    'id' => 42,
+                    'code_id' => 13,
+                    'name' => 'good',
+                    'lang' => NULL,
+                    'description' => 'LANGUAGE PROFICIENCY',
+                    'reference' => 'lg',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            42 =>
+                array (
+                    'id' => 43,
+                    'code_id' => 13,
+                    'name' => '	Very Good',
+                    'lang' => NULL,
+                    'description' => 'LANGUAGE PROFICIENCY',
+                    'reference' => 'lg',
+                    'sort' => 2,
+                    'isactive' => 1,
+                ),
+            43 =>
+                array (
+                    'id' => 44,
+                    'code_id' => 13,
+                    'name' => 'Excelent',
+                    'lang' => NULL,
+                    'description' => 'LANGUAGE PROFICIENCY',
+                    'reference' => 'lg',
+                    'sort' => 2,
+                    'isactive' => 1,
+                ),
 
 
         ));

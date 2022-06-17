@@ -17,18 +17,27 @@ class HireRequisitionJobRepository extends BaseRepository
         return $this->query()->select([
             DB::raw('hr_hire_requisitions_jobs.id AS id' ),
             DB::raw('hr_hire_requisitions_jobs.uuid AS uuid' ),
+            DB::raw('hr_hire_requisitions_jobs.designation_id AS designation_id'),
             DB::raw('hr_hire_requisitions_jobs.empoyees_required AS empoyees_required'),
+            DB::raw('hr_hire_requisition_jobs_criterias.experience_years AS experience_years'),
+            DB::raw('hr_hire_requisitions_jobs.establishment AS establishment'),
+            DB::raw('hr_hire_requisition_jobs_criterias.education_level AS education_level'),
+            DB::raw('hr_hire_requisition_jobs_criterias.age AS age'),
             DB::raw('hr_hire_requisitions_jobs.duties_and_responsibilities AS duties_and_responsibilities'),
-            DB::raw('designations.name AS title' ),
+            DB::raw('hr_hire_requisitions_jobs.duties_and_responsibilities AS duties_and_responsibilities'),
+            DB::raw('designations.name AS title'),
             DB::raw('hr_hire_requisitions_jobs.date_required  AS date_required'),
-            DB::raw('code_values.name AS establishment'),
-            DB::raw('hr_hire_requisitions_jobs.education_and_qualification AS education'),
-            DB::raw('hr_hire_requisitions_jobs.practical_experience AS experience'),
-            DB::raw('hr_hire_requisitions_jobs.special_qualities_skills AS qualities'),
-            DB::raw('hr_hire_requisitions_jobs.created_at AS created_at' ),
-            DB::raw('hr_hire_requisitions_jobs.updated_at AS updated_at' ),
+            DB::raw('code_values.name AS contract_type'),
+            DB::raw('hr_hire_requisitions_jobs.education_and_qualification AS education_and_qualification'),
+            DB::raw('hr_hire_requisitions_jobs.hire_requisition_id AS hire_requisition_id'),
+            DB::raw('hr_hire_requisitions_jobs.practical_experience AS practical_experience'),
+            DB::raw('hr_hire_requisitions_jobs.special_qualities_skills AS special_qualities_skills'),
+            DB::raw('hr_hire_requisitions_jobs.special_employment_condition AS special_employment_condition'),
+            DB::raw('hr_hire_requisitions_jobs.created_at AS created_at'),
+            DB::raw('hr_hire_requisitions_jobs.updated_at AS updated_at'),
         ])
-            ->join('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
+            ->leftjoin('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
+            ->leftjoin('hr_hire_requisition_jobs_criterias','hr_hire_requisition_jobs_criterias.hr_requisitions_jobs_id','hr_hire_requisitions_jobs.id')
             ->join('code_values', 'code_values.id', 'hr_hire_requisitions_jobs.hr_contract_type_id');
     }
 
@@ -63,10 +72,8 @@ class HireRequisitionJobRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
-    public function inputsProcessor($inputs): array
-    {
-
-        $md = new \ParsedownExtra();
+    public function inputsProcessor($inputs){
+     
         return [
             'designation_id' => $inputs['job_title'],
             'hr_contract_type_id' =>  $inputs['contract_type'],
@@ -79,10 +86,11 @@ class HireRequisitionJobRepository extends BaseRepository
             'practical_experience' => $inputs['practical_experience'],
             'special_qualities_skills' => $inputs['special_qualities_skills'],
             'education_and_qualification' => $inputs['education_and_qualification'],
-            'comment' => $inputs['contract_type'],
             'appointement_prospects_id' => $inputs['prospect_for_appointment_cv_id'],
             'hire_requisition_id' => $inputs['hire_requisition_id'],
+            'comment' => 'created',
         ];
+      
     }
 
     public function store($data)
@@ -97,14 +105,11 @@ class HireRequisitionJobRepository extends BaseRepository
      * @param HireRequisitionJob $hireRequisitionJob
      * @return mixed
      */
-    public function update($inputs, HireRequisitionJob $hireRequisitionJob)
+    public function update($inputs)
     {
-        return DB::transaction(function () use($inputs, $hireRequisitionJob){
-            $hireRequisitionJob->update($this->inputsProcessor($inputs));
-            if(isset($inputs['tools']))
-                $hireRequisitionJob->workingTools()->sync($inputs['tools']);
-            return $hireRequisitionJob;
-        });
+
+        $hire_requisition_job_id = $inputs['hire_requisition_job_id'];
+        return  $this->query()->where('id',$hire_requisition_job_id)->update($this->inputsProcessor($inputs));
     }
 
     /**

@@ -19,15 +19,15 @@ class HireRequisitionRepository extends BaseRepository
             DB::raw("hr_hire_requisitions.id AS id"),
             DB::raw("string_agg(DISTINCT designations.name, ',') as title"),
             DB::raw("0 as total"),
-            ///DB::raw("hr_hire_requisitions_jobs.empoyees_required as total"),
+            // DB::raw("hr_hire_requisitions.empoyees_required as total"),
             DB::raw("string_agg(DISTINCT regions.name, ',') as region"),
             DB::raw("hr_hire_requisitions.created_at"),
             DB::raw("hr_hire_requisitions.uuid")
         ])
-        ->join('hr_hire_requisitions_jobs','hr_hire_requisitions_jobs.hire_requisition_id', 'hr_hire_requisitions.id')
-        ->join('designations','designations.id', 'hr_hire_requisitions_jobs.designation_id')
-        ->join('hr_hire_requisition_locations','hr_hire_requisition_locations.hr_requisition_job_id', 'hr_hire_requisitions_jobs.id')
-        ->join('regions','regions.id', 'hr_hire_requisition_locations.region_id')
+        ->leftjoin('hr_hire_requisitions_jobs','hr_hire_requisitions_jobs.hire_requisition_id', 'hr_hire_requisitions.id')
+        ->leftjoin('designations','designations.id', 'hr_hire_requisitions_jobs.designation_id')
+        ->leftjoin('hr_hire_requisition_locations','hr_hire_requisition_locations.hr_requisition_job_id', 'hr_hire_requisitions_jobs.id')
+        ->leftjoin('regions','regions.id', 'hr_hire_requisition_locations.region_id')
         ->groupby(['hr_hire_requisitions.id','hr_hire_requisitions.created_at','hr_hire_requisitions.uuid']);
     }
 
@@ -101,6 +101,13 @@ class HireRequisitionRepository extends BaseRepository
                 DB::update('update hr_hire_requisitions set number = ?, done = ? where uuid= ?',[$number,true, $uuid]);
             });       
     }
+
+    public function update($data)
+    {
+        return $this->query()->update($data,$data['hr_hire_requisition_id']);    
+    }
+
+  
 
     /**
      * Store new Project

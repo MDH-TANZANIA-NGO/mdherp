@@ -106,7 +106,7 @@
             <a href="{{ route('hirerequisition.index') }}">
                 <div class="card">
                     <div class="card-body text-center">
-                        <div class="h2 m-0"><i class="fa fa- text-primary"></i></div>
+                        <div class="h2 m-0"><i class="fa fa-child text-primary"></i></div>
                         <div class="text-muted mb-0">Hire Requisition</div>
                     </div>
                 </div>

@@ -9,14 +9,22 @@ use App\Models\Auth\User;
 use App\Models\System\WorkingTool;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DepartmentRepository;
 use App\Repositories\Workflow\WfTrackRepository;
+use App\Repositories\Designation\DesignationRepository;
 use App\Services\Workflow\Workflow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use App\Models\HumanResource\HireRequisition\HireRequisition;
+use App\Models\HumanResource\HireRequisition\SkillCategory;
+use App\Models\HumanResource\HireRequisition\Skill;
+use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
+use App\Models\HumanResource\HireRequisition\HireRequisitionLocation;
+use App\Models\HumanResource\HireRequisition\HireRequisitionWorkingTool;
 
-class HireJobController extends Controller
+class AdvertisementController extends Controller
 {
     use HireRequisitionDatatable;
     protected $listing;
@@ -24,6 +32,8 @@ class HireJobController extends Controller
     protected $departments;
     protected $users;
     protected $wf_tracks;
+    protected $designation;
+    protected $hireRequisitionJobRepository;
 
     public  function __construct()
     {
@@ -32,6 +42,8 @@ class HireJobController extends Controller
         $this->departments = (new DepartmentRepository());
         $this->users = (new UserRepository());
         $this->wf_tracks = (new WfTrackRepository());
+        $this->designation = (new DesignationRepository());
+        $this->hireRequisitionJobRepository = (new HireRequisitionJobRepository);
     }
 
     /**
@@ -41,7 +53,8 @@ class HireJobController extends Controller
      */
     public function index()
     {
-        return view('HumanResource/HireRequisition._parent.index');
+       
+        return view('HumanResource/HireRequisition/advertisement/advertisement');
     }
 
     /**
@@ -51,15 +64,23 @@ class HireJobController extends Controller
      */
     public function create()
     {
+        $hireRequisitionJobs = $this->hireRequisitionJobRepository->getQuery()->get();
+                 
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
-        return view('HumanResource.HireRequisition._parent.form.create')
+        $skillCategories = SkillCategory::get();
+        return view('HumanResource.HireRequisition.advertisement.form.create')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
-            ->with('conditions', code_value()->query()->where('code_id', 8)->get())
+            ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())
+            ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
+            ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
             ->with('departments', $this->departments->getAll())
-            ->with('tools', $tools )
+            ->with('designations', $this->designation->getAll())
+            ->with('tools', $tools)
             ->with('users', $users)
+            ->with('hireRequisitionJobs', $hireRequisitionJobs)
+            ->with('skillCategories', $skillCategories)
             ->with('regions', $this->regions->getAll());
     }
 
@@ -126,6 +147,28 @@ class HireJobController extends Controller
             ->with('working_tools', $listing->workingTools->pluck('id')->toArray())
             ->with('users', $users)
             ->with('regions', $this->regions->getAll()->pluck('name','id'));
+    }
+
+    public function initiate($uuid)
+    {
+        $hireRequisitionJob = $this->hireRequisitionJobRepository->getQuery()->where('hr_hire_requisitions_jobs.uuid',$uuid)->first();
+                 
+        $tools = WorkingTool::all();
+        $users = User::where('designation_id', '!=', null)->get();
+        $skillCategories = SkillCategory::get();
+        return view('HumanResource.HireRequisition.advertisement.form.initiate')
+            ->with('prospects', code_value()->query()->where('code_id', 7)->get())
+            ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
+            ->with('establishments', code_value()->query()->where('code_id', 9)->get())
+            ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
+            ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
+            ->with('departments', $this->departments->getAll())
+            ->with('designations', $this->designation->getAll())
+            ->with('tools', $tools)
+            ->with('users', $users)
+            ->with('hireRequisitionJob', $hireRequisitionJob)
+            ->with('skillCategories', $skillCategories)
+            ->with('regions', $this->regions->getAll());
     }
 
     /**

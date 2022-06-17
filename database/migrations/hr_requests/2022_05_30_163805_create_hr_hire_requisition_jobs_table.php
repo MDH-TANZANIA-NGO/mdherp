@@ -23,6 +23,7 @@ class CreateHrHireRequisitionJobsTable extends Migration
             $table->text('duties_and_responsibilities');
             $table->smallInteger('experience_years');
             $table->smallInteger('empoyees_required');
+            $table->smallInteger('employment_condition');
             $table->smallInteger('ad_scale')->nullable();
             $table->smallInteger('establishment');
             $table->smallInteger('practical_experience');

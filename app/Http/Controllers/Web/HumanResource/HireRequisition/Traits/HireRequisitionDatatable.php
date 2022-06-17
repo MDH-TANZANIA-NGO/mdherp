@@ -8,7 +8,7 @@ use Yajra\DataTables\DataTables;
 trait HireRequisitionDatatable
 {
     public function AccessProcessingDatatable(){
-        return DataTables::of($this->hireRequisition->getAccessProcessingDatatable())
+        return DataTables::of($this->hireRequisitionRepository->getAccessProcessingDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();
@@ -25,7 +25,7 @@ trait HireRequisitionDatatable
     }
 
     public function AccessDeniedDatatable(){
-        return DataTables::of($this->hireRequisition->getAccessDeniedDatatable())
+        return DataTables::of($this->hireRequisitionRepository->getAccessDeniedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();
@@ -42,7 +42,7 @@ trait HireRequisitionDatatable
     }
 
     public function AccessProvedDatatable(){
-        return DataTables::of($this->hireRequisition->getAccessProvedDatatable())
+        return DataTables::of($this->hireRequisitionRepository->getAccessProvedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();
@@ -63,7 +63,7 @@ trait HireRequisitionDatatable
     }
 
     public function AccessRejectedDatatable(){
-        return DataTables::of($this->hireRequisition->getAccessRejectedDatatable())
+        return DataTables::of($this->hireRequisitionRepository->getAccessRejectedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();
@@ -80,7 +80,7 @@ trait HireRequisitionDatatable
     }
 
     public function AccessSavedDatatable(){
-        return DataTables::of($this->hireRequisition->getAccessSavedDatatable())
+        return DataTables::of($this->hireRequisitionRepository->getAccessSavedDatatable())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();
