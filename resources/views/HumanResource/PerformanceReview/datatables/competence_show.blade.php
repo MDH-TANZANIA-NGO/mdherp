@@ -59,8 +59,8 @@
                                         <th style="width:2%">#</th>
                                         <th>COMPETENCE</th>
                                         <th>NARRATION</th>
-                                        <!-- <th style="width: 2%">RATE</th>
-                                        <th>RATE DESCRIPTION</th> -->
+                                        <th style="width: 2%">AVG RATE</th>
+                                        <!-- <th>RATE DESCRIPTION</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -81,6 +81,7 @@
                                                     @endforeach
                                                 </table>
                                             </td>
+                                            <td>{{ avg_per_key_competence($pr_report, $competence_key) }}</td>
                                         </tr>
                                 @endforeach
                                 </tbody>
