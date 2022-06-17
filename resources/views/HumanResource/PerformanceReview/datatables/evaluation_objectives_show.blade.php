@@ -64,6 +64,13 @@
                                             <td>{{ $objective->rate ? $objective->rate->description: 'not set' }}</td>
                                         </tr>
                                     @endforeach
+                                    @if($pr_objectives->whereNull('pr_rate_scale_id'))
+                                    <tr>
+                                        <td>#</td>
+                                        <td colspan="3">Average Rate for Part A</td>
+                                        <td colspan="2">{{ avg_per_pr_objective($pr_report->parent) }}</td>
+                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

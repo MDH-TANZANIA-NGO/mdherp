@@ -12,6 +12,7 @@ use Illuminate\Support\Arr;
 use App\Models\Auth\User;
 use App\Models\HumanResource\PerformanceReview\PrCompetence;
 use App\Models\HumanResource\PerformanceReview\PrCompetenceKey;
+use App\Models\HumanResource\PerformanceReview\PrObjective;
 use App\Models\HumanResource\PerformanceReview\PrRateScale;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 
@@ -355,6 +356,18 @@ if (!function_exists('avg_per_key_competence_report')) {
             ->join('pr_rate_scales','pr_rate_scales.id','pr_competences.pr_rate_scale_id')
             ->where('pr_reports.id', $prReport->id)
             ->avg('pr_rate_scales.rate');
-        return "<b>".round($avg)."</b> (".PrRateScale::where('rate',round($avg))->first()->description.")";
+        return round($avg);
+    }
+}
+
+if (!function_exists('avg_per_pr_objective')) {
+    function avg_per_pr_objective(PrReport $prReport)
+    {
+        $avg =PrObjective::query()
+            ->join('pr_reports','pr_reports.id','pr_objectives.pr_report_id')
+            ->join('pr_rate_scales','pr_rate_scales.id','pr_objectives.pr_rate_scale_id')
+            ->where('pr_reports.id', $prReport->id)
+            ->avg('pr_rate_scales.rate');
+        return round($avg);
     }
 }
