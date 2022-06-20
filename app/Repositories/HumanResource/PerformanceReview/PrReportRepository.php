@@ -2,6 +2,7 @@
 
 namespace App\Repositories\HumanResource\PerformanceReview;
 
+use App\Exceptions\GeneralException;
 use App\Models\Budget\FiscalYear;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Repositories\BaseRepository;
@@ -169,6 +170,7 @@ class PrReportRepository extends BaseRepository
      */
     public function updateDoneAssignNextUserIdAndGenerateNumber(PrReport $pr_report)
     {
+        $this->checkIfHasWorkflow($pr_report);
         $number = $pr_report->parent ? null : $this->generateNumber($pr_report);
         return DB::transaction(function () use ($pr_report, $number) {
             return $pr_report->update([
@@ -177,5 +179,12 @@ class PrReportRepository extends BaseRepository
                 'number' => $number
             ]);
         });
+    }
+
+    public function checkIfHasWorkflow(PrReport $pr_report)
+    {
+        if($pr_report->wfTracks()->count()){
+            throw new GeneralException('You can not submit twice');
+        }
     }
 }

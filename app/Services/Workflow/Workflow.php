@@ -518,18 +518,18 @@ class Workflow
         $this->getModelFromTable($wfTrack->wfDefinition->wfModule->wfModuleGroup->table_name)::findOrFail($wfTrack->resource_id)->wfTracks()->save($wfTrack);
     }
 
+    /**
+     * @param Model $wfTrack
+     * @throws GeneralException
+     * @description Get.
+     */
     public function getModelFromTable($table)
     {
         foreach( get_declared_classes() as $class ) {
             if( is_subclass_of( $class, 'Illuminate\Database\Eloquent\Model' ) ) {
                 $model = new $class;
-                if ($model->getTable() === $table){
+                if ($model->getTable() === $table)
                     return $class;
-                }else{
-                    throw new GeneralException('Specify protected $table='.$table." on a specific Table");
-                }
-            }else{
-                throw new GeneralException('Specify protected $table='.$table." on a specific Table");
             }
         }
             return false;

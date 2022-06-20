@@ -163,27 +163,27 @@ class WfModulesTableSeeder extends Seeder
             10 =>
                 array (
                     'id' => 11,
-                    'name' => 'Performance Appraisal Goals/Objectivesb Evaluation',
+                    'name' => 'Performance Appraisal Goals/Objectives Evaluation',
                     'wf_module_group_id' => '10',
                     'created_at' => NULL,
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                     'isactive' => '1',
-                    'type' => '2',
-                    'description' => 'Performance Review for Probatioinary Appraisal Goals/Objectivesb Evaluation',
+                    'type' => 2,
+                    'description' => 'Performance Review for Probatioinary Appraisal Goals/Objectives Evaluation',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
-            11 =>
+            12 =>
                 array (
-                    'id' => 12,
+                    'id' => 13,
                     'name' => 'Performance Appraisal Goals/Objectives Agreement',
                     'wf_module_group_id' => '10',
                     'created_at' => NULL,
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                     'isactive' => '1',
-                    'type' => '1',
+                    'type' => 1,
                     'description' => 'Performance Review for Probatioinary Appraisal Goals/Objectives Agreement',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,

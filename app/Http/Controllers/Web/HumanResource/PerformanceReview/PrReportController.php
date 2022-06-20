@@ -144,7 +144,7 @@ class PrReportController extends Controller
     public function submit(PrReport $pr_report)
     {   
         $this->pr_reports->updateDoneAssignNextUserIdAndGenerateNumber($pr_report);
-        $this->startWorkflow($pr_report, $pr_report->parent ? config('mdh.performance_review.goals_evaluation') : config('mdh.performance_review.goals_agreement'), $pr_report->supervisor_id); 
+        $this->startWorkflow($pr_report, $pr_report->parent ? 2 : 1, $pr_report->supervisor_id); 
         alert()->success(__('Submitted Successfully'), __('Performance Review'));
         return redirect()->route('hr.pr.show', $pr_report);
     }
