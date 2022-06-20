@@ -71,78 +71,50 @@ class TimesheetController extends Controller
      */
     public function store(Request $request)
     {
-       if (access()->user()->assignedSupervisor() ==  null)
-       {
-           alert()->error('You have not been assigned supervisor');
-           return  redirect()->back();
-       }
-        $next_user = access()->user()->assignedSupervisor()->supervisor_id;
-        $submissionStatus = Timesheet::where('user_id', access()->user()->id )->whereMonth('created_at', Carbon::now()->month)->get();
 
-        if ($submissionStatus->count() == 0){
-            $timesheet = Timesheet::create([
-                'user_id' => access()->id()
-            ]);
-
-            for ($i = 0; $i < count($request['data']); $i++ ){
-                Attendance::create([
-                    'user_id' => access()->id(),
-                    'timesheet_id' => $timesheet->id,
-                    'comments' => $request['data'][$i]['comment'],
-                    'hrs' => $request['data'][$i]['hours'],
-                    'date' => Carbon::createFromFormat('D d-F-Y', $request['data'][$i]['date'])->format('Y-m-d')
-                ]);
+        try {
+            if (access()->user()->assignedSupervisor() ==  null)
+            {
+                alert()->error('You have not been assigned supervisor');
+                return  redirect()->back();
             }
-            $totalHrs = Attendance::where(['user_id' => access()->user()->id, 'timesheet_id' => $timesheet->id])->sum('hrs');
-            $timesheet->update([
-                'hrs' => $totalHrs
-            ]);
-            $wf_module_group_id = 7;
+                $next_user = access()->user()->assignedSupervisor()->supervisor_id;
+               $submissionStatus = Timesheet::where('user_id', access()->user()->id )->whereMonth('created_at', Carbon::now()->month)->get();
 
-            if ($next_user){
-                event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $timesheet->id,'region_id' => $timesheet->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-                alert()->success('Your timesheet have been submitted Successfully','success');
-                return redirect()->route('timesheet.index');
-            }
+               if ($submissionStatus->count() == 0){
+                   $timesheet = Timesheet::create([
+                       'user_id' => access()->id()
+                   ]);
 
-//        try {
-//                $next_user = access()->user()->assignedSupervisor()->supervisor_id;
-//               $submissionStatus = Timesheet::where('user_id', access()->user()->id )->whereMonth('created_at', Carbon::now()->month)->get();
-//
-//               if ($submissionStatus->count() == 0){
-//                   $timesheet = Timesheet::create([
-//                       'user_id' => access()->id()
-//                   ]);
-//
-//                   for ($i = 0; $i < count($request['data']); $i++ ){
-//                       Attendance::create([
-//                           'user_id' => access()->id(),
-//                           'timesheet_id' => $timesheet->id,
-//                           'comments' => $request['data'][$i]['comment'],
-//                           'hrs' => $request['data'][$i]['hours'],
-//                           'date' => Carbon::createFromFormat('D d-F-Y', $request['data'][$i]['date'])->format('Y-m-d')
-//                       ]);
-//                   }
-//                   $totalHrs = Attendance::where(['user_id' => access()->user()->id, 'timesheet_id' => $timesheet->id])->sum('hrs');
-//                   $timesheet->update([
-//                       'hrs' => $totalHrs
-//                   ]);
-//                   $wf_module_group_id = 7;
-//
-//                   if ($next_user){
-//                       event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $timesheet->id,'region_id' => $timesheet->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-//                       alert()->success('Your timesheet have been submitted Successfully','success');
-//                       return redirect()->route('timesheet.index');
-//                   }
-//               }
-//            return redirect()->route('timesheet.index');
-//        }catch (\Exception $exception) {
-//            alert()->error('You have already submitted timesheet','Failed');
-//            $exception->getMessage();
-//            return redirect()->back();
-//        }
+                   for ($i = 0; $i < count($request['data']); $i++ ){
+                       Attendance::create([
+                           'user_id' => access()->id(),
+                           'timesheet_id' => $timesheet->id,
+                           'comments' => $request['data'][$i]['comment'],
+                           'hrs' => $request['data'][$i]['hours'],
+                           'date' => Carbon::createFromFormat('D d-F-Y', $request['data'][$i]['date'])->format('Y-m-d')
+                       ]);
+                   }
+                   $totalHrs = Attendance::where(['user_id' => access()->user()->id, 'timesheet_id' => $timesheet->id])->sum('hrs');
+                   $timesheet->update([
+                       'hrs' => $totalHrs
+                   ]);
+                   $wf_module_group_id = 7;
 
-    }}
+                   if ($next_user){
+                       event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $timesheet->id,'region_id' => $timesheet->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
+                       alert()->success('Your timesheet have been submitted Successfully','success');
+                       return redirect()->route('timesheet.index');
+                   }
+               }
+            return redirect()->route('timesheet.index');
+        }catch (\Exception $exception) {
+            alert()->error('You have already submitted timesheet','Failed');
+            $exception->getMessage();
+            return redirect()->back();
+        }
+
+    }
 
     /**
      * Display the specified resource.
