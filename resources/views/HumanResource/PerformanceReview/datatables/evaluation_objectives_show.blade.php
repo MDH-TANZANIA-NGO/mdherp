@@ -14,6 +14,7 @@
                                         <th>#</th>
                                         <th>OBJECTIVE/GOAL</th>
                                         <th>ACTION PLAN</th>
+                                        <th>MAJOR ACCOMPLISHMENT</th>
                                         <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
                                         <th style="width: 15%">RATE</th>
                                     </tr>
@@ -24,6 +25,7 @@
                                             <td>{{ $key+1 }}</td>
                                             <td>{{ $objective->goal }}</td>
                                             <td>{{ $objective->plan }}</td>
+                                            <td>{{ $objective->accomplishment }}</td>
                                             <td>{{ $objective->challenge }}</td>
                                             <td>{!! Form::select('rate',$pr_rate_scales,$objective->pr_rate_scale_id,['class' => 'form-control text-center rate-select', 'placeholder' => 'Select', 'data-objective-uuid' => $objective->uuid]) !!}</td>
                                         </tr>
@@ -48,6 +50,7 @@
                                         <th>#</th>
                                         <th>OBJECTIVE/GOAL</th>
                                         <th>ACTION PLAN</th>
+                                        <th>MAJOR ACCOMPLISHMENT</th>
                                         <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
                                         <th style="width: 2%">RATE</th>
                                         <th>DESCRIPTION</th>
@@ -59,6 +62,7 @@
                                             <td>{{ $key+1 }}</td>
                                             <td>{{ $objective->goal }}</td>
                                             <td>{{ $objective->plan }}</td>
+                                            <td>{{ $objective->accomplishment }}</td>
                                             <td>{{ $objective->challenge }}</td>
                                             <td>{{ $objective->rate ? $objective->rate->rate : 'not set' }}</td>
                                             <td>{{ $objective->rate ? $objective->rate->description: 'not set' }}</td>
