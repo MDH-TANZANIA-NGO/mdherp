@@ -515,7 +515,19 @@ class Workflow
      */
     private function updateResourceType(Model $wfTrack)
     {
-        $wfTrack->resource->wfTracks()->save($wfTrack);
+        $this->getModelFromTable($wfTrack->wfDefinition->wfModule->wfModuleGroup->table_name)::find($wfTrack->resource_id)->wfTracks()->save($wfTrack);
+    }
+
+    public function getModelFromTable($table)
+    {
+        foreach( get_declared_classes() as $class ) {
+            if( is_subclass_of( $class, 'Illuminate\Database\Eloquent\Model' ) ) {
+                $model = new $class;
+                if ($model->getTable() === $table)
+                    return $class;
+            }
+        }
+            return false;
     }
 
     /**
