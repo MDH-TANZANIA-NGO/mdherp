@@ -441,7 +441,7 @@ class WorkflowEventSubscriber
                     }
                     break;
 
-                case 11:
+                case 11: case 13:
                     //workflowAction class
                     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id,$resource_id, $level)['next_user_id'];
                     break;
@@ -596,7 +596,7 @@ class WorkflowEventSubscriber
                     $program_activity_report->user->notify(new WorkflowNotification($email_resource));
                     break;
 
-                case 11:
+                case 11: case 13:
                     $pr_report = (new PrReportRepository())->find($resource_id);
                     $this->updateWfDone($pr_report);
                     $email_resource = (object)[

@@ -59,6 +59,32 @@ class WorkflowAction {
                         break;
                 }
                 break;
+
+            case 13:
+                    $pr_report  = PrReport::query()->find($resource_id);
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $pr_report->update(['rejected' => false]);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                            $email_resource = (object)[
+                                'link' =>  route('hr.pr.show',$pr_report),
+                                'subject' =>  " Need your review",
+                                'message' => ' Performance Appraisal'
+                            ];
+                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+    
+                        case 2:
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                            $email_resource = (object)[
+                                'link' =>  route('hr.pr.show',$pr_report),
+                                'subject' =>  " Need your review",
+                                'message' => ' Performance Appraisal'
+                            ];
+                            // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+                    break;
         }
         return $data;
     }
