@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h3 class="card-title">performance goals</h3></div>
+    <div class="card-header"><h3 class="card-title">performance goals part 1</h3></div>
         <div class="card-body">
          
         @if($can_update_attribute_rate_resource)
@@ -71,7 +71,12 @@
                                     @if($pr_objectives->whereNull('pr_rate_scale_id'))
                                     <tr>
                                         <td>#</td>
-                                        <td colspan="3">Average Rate for Part A</td>
+                                        <td colspan="4">Total Rate Part A</td>
+                                        <td colspan="2">{{ total_per_pr_objective($pr_report->parent) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#</td>
+                                        <td colspan="4">Average Rate for Part A</td>
                                         <td colspan="2">{{ avg_per_pr_objective($pr_report->parent) }}</td>
                                     </tr>
                                     @endif

@@ -373,6 +373,17 @@ if (!function_exists('avg_per_pr_objective')) {
     }
 }
 
+if (!function_exists('total_per_pr_objective')) {
+    function total_per_pr_objective(PrReport $prReport)
+    {
+        return PrObjective::query()
+                 ->join('pr_reports','pr_reports.id','pr_objectives.pr_report_id')
+                 ->join('pr_rate_scales','pr_rate_scales.id','pr_objectives.pr_rate_scale_id')
+                 ->where('pr_reports.id', $prReport->id)
+                 ->sum('pr_rate_scales.rate');
+    }
+}
+
 if (!function_exists('avg_per_pr_attribute_rate')) {
     function avg_per_pr_attribute_rate(PrReport $prReport)
     {
@@ -382,5 +393,15 @@ if (!function_exists('avg_per_pr_attribute_rate')) {
             ->where('pr_reports.id', $prReport->id)
             ->avg('pr_rate_scales.rate');
         return round($avg);
+    }
+}
+if (!function_exists('sum_per_pr_attribute_rate')) {
+    function sum_per_pr_attribute_rate(PrReport $prReport)
+    {
+        return PrAttributeRate::query()
+                ->join('pr_reports','pr_reports.id','pr_attribute_rates.pr_report_id')
+                ->join('pr_rate_scales','pr_rate_scales.id','pr_attribute_rates.pr_rate_scale_id')
+                ->where('pr_reports.id', $prReport->id)
+                ->sum('pr_rate_scales.rate');
     }
 }
