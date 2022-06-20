@@ -102,7 +102,6 @@ class TimesheetController extends Controller
                        return redirect()->route('timesheet.index');
                    }
                }
-//            alert()->error('You have already submitted timesheet for this month','failed');
             return redirect()->route('timesheet.index');
         }catch (\Exception $exception) {
             alert()->error('You have already submitted timesheet','Failed');
