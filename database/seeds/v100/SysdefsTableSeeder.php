@@ -111,5 +111,17 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'PRNUM'],
+            [
+                'name' => 'performance_review',
+                'display_name' => 'Performance Review',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'PRNUM',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }

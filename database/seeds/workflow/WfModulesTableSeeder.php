@@ -160,6 +160,21 @@ class WfModulesTableSeeder extends Seeder
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
+            10 =>
+                array (
+                    'id' => 11,
+                    'name' => 'Performance Appraisal',
+                    'wf_module_group_id' => '10',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => '1',
+                    'description' => 'Performance Review for Probatioinary Appraisal',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
+                
         ));
 
         $this->enableForeignKeys('wf_modules');
