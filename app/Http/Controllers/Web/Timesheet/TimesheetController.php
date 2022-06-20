@@ -137,7 +137,7 @@ class TimesheetController extends Controller
 //            return redirect()->back();
 //        }
 
-    }
+    }}
 
     /**
      * Display the specified resource.
