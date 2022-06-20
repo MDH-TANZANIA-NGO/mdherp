@@ -71,7 +71,11 @@ class TimesheetController extends Controller
      */
     public function store(Request $request)
     {
-        dd(access()->user()->assignedSupervisor());
+       if (access()->user()->assignedSupervisor() ==  null)
+       {
+           alert()->error('You have not been assigned supervisor');
+           return  redirect()->back();
+       }
         $next_user = access()->user()->assignedSupervisor()->supervisor_id;
         $submissionStatus = Timesheet::where('user_id', access()->user()->id )->whereMonth('created_at', Carbon::now()->month)->get();
 
