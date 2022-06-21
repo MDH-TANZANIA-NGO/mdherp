@@ -173,11 +173,7 @@ class PrReportRepository extends BaseRepository
         $this->checkIfHasWorkflow($pr_report);
         $number = $pr_report->parent ? null : $this->generateNumber($pr_report);
         return DB::transaction(function () use ($pr_report, $number) {
-            return $pr_report->update([
-                'done' => true,
-                // 'supervisor_id' => access()->user()->assignedSupervisor()->supervisor_id,
-                // 'number' => $number
-            ]);
+            return $pr_report->update(['done' => true]);
         });
     }
 
