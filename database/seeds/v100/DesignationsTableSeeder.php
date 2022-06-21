@@ -1625,7 +1625,7 @@ class DesignationsTableSeeder extends Seeder
                 ),
             133 =>
                 array (
-                    'id' => 200,
+                    'id' => 134,
                     'unit_id' => 1,
                     'name' => 'Director of Laboratory',
                     'short_name' => 'DOL',
