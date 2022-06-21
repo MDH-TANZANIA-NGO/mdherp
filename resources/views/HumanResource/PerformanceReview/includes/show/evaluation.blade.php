@@ -22,3 +22,7 @@
 @endif
 
 @include('HumanResource.PerformanceReview.datatables.overall_summary')
+
+@if($pr_report->remarks)
+    {{-- remarks goes here --}}
+@endif

@@ -46,7 +46,7 @@ class PrRemarkController extends Controller
     public function store(PrRemarkRequest $request, PrReport $pr_report)
     {
         $this->pr_remarks->store($pr_report, $request->all());
-        alert()->success('initiated Successfully. Email Has been to sender');
+        alert()->success('initiated Successfully. Email Has been sent successfully');
         return redirect()->back();
     }
 

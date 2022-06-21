@@ -41,6 +41,10 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
             Route::post('update/{pr_objective}/scale-rate', 'PrObjectiveController@updateRateScale')->name('update_scale_rate');
             Route::get('{pr_objective}/destroy', 'PrObjectiveController@destroy')->name('destroy');
         });
+        //Remarks
+        Route::group(['prefix' => 'remarks', 'as' => 'remark.'], function () {
+            Route::post('{pr_report}/store', 'PrRemarkController@store')->name('store');
+        });
     });
 
 });

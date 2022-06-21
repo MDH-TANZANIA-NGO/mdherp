@@ -129,6 +129,7 @@ class PrReportController extends Controller
             ->with('pr_report_attribute_rates', $pr_report->attributeRates)
             ->with('can_be_processed_for_evaluation', $this->pr_reports->canBeAprocessedForEvaluation($pr_report))
             ->with('can_update_attribute_rate_resource', $can_update_attribute_rate_resource)
+            ->with('code_value_initiator_remark', code_value()->query()->where('code_id',13)->first())
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)

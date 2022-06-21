@@ -24,7 +24,7 @@ class PrRemarkRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'pr_remarks_cv_id' => 'required|numeric'
         ];
     }
 }

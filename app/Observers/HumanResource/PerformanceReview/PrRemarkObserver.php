@@ -3,6 +3,7 @@
 namespace App\Observers\HumanResource\PerformanceReview;
 
 use App\Models\HumanResource\PerformanceReview\PrRemark;
+use App\Notifications\Workflow\WorkflowNotification;
 
 class PrRemarkObserver
 {
@@ -18,6 +19,17 @@ class PrRemarkObserver
             $prRemark->user_id = access()->id();
             $prRemark->save();
         }
+        //Send Email to user
+        if($prRemark->pr_remarks_cv_id == 42){
+            $prRemark->update(['acceptable' => true]);
+            $email_resource = (object)[
+                'link' =>  route('hr.pr.show',$prRemark->prReport),
+                'subject' => "Remarks From your supervisor on ".$prRemark->prReport->parent->type->title." ".$prRemark->prReport->parent->number,
+                'message' => 'Remarks <br>'.$prRemark->remarks
+            ];
+            $prRemark->prReport->user->notify(new WorkflowNotification($email_resource));
+        }
+
     }
 
     /**
