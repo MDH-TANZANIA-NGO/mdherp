@@ -1632,7 +1632,7 @@ class DesignationsTableSeeder extends Seeder
                     'created_at' => '2022-01-08 20:16:49',
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
-                    'isactive' => 0,
+                    'isactive' => 1,
                     'department_id'=>7,
                 ),
 
