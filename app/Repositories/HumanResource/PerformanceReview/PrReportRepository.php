@@ -175,8 +175,8 @@ class PrReportRepository extends BaseRepository
         return DB::transaction(function () use ($pr_report, $number) {
             return $pr_report->update([
                 'done' => true,
-                'supervisor_id' => access()->user()->assignedSupervisor()->supervisor_id,
-                'number' => $number
+                // 'supervisor_id' => access()->user()->assignedSupervisor()->supervisor_id,
+                // 'number' => $number
             ]);
         });
     }

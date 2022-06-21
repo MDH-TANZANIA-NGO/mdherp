@@ -6,6 +6,7 @@ use App\Models\Auth\User;
 use App\Models\HumanResource\PerformanceReview\PrAttributeRate;
 use App\Models\HumanResource\PerformanceReview\PrCompetence;
 use App\Models\HumanResource\PerformanceReview\PrObjective;
+use App\Models\HumanResource\PerformanceReview\PrRemark;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Models\HumanResource\PerformanceReview\PrType;
 use App\Models\Workflow\WfTrack;
@@ -53,6 +54,11 @@ trait PrReportRelationship
     public function competences()
     {
         return $this->hasMany(PrCompetence::class,'pr_report_id','id')->orderBy('id');
+    }
+
+    public function remarks()
+    {
+        return $this->hasMany(PrRemark::class, 'pr_report_id','id')->orderBy('id');
     }
 
 }
