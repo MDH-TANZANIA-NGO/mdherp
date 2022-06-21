@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ZonesTableSeeder::class);
         $this->call(DistrictsTableSeeder::class);
 //        $this->call(UsersTableSeeder::class);
-//        $this->call(RequisitionTypesTableSeeder::class); 
+//        $this->call(RequisitionTypesTableSeeder::class);
 //        $this->call(RequisitionTypeCategoriesTableSeeder::class);
 //        $this->call(RetirementTypeSeeder::class);
 
@@ -62,12 +62,12 @@ class DatabaseSeeder extends Seeder
        // $this->call(AttachmentTypeSeeder::class);
         //$this->call(ServicesSeeder::class);
 
-
-        $this->call(PrTypesTableSeeder::class);
-        $this->call(PrRateScaleTableSeeder::class);
-        $this->call(PrCompetenceKeysTableSeeder::class);
-        $this->call(PrCompetenceKeyNarrationsTableSeeder::class);
-        $this->call(PrAttributesTableSeeder::class);
+//
+//        $this->call(PrTypesTableSeeder::class);
+//        $this->call(PrRateScaleTableSeeder::class);
+//        $this->call(PrCompetenceKeysTableSeeder::class);
+//        $this->call(PrCompetenceKeyNarrationsTableSeeder::class);
+//        $this->call(PrAttributesTableSeeder::class);
         DB::commit();
     }
 }
