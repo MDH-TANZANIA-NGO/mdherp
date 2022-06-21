@@ -1627,7 +1627,7 @@ class DesignationsTableSeeder extends Seeder
                 array (
                     'id' => 134,
                     'unit_id' => 1,
-                    'name' => 'Director of Laboratory',
+                    'name' => ' Laboratory',
                     'short_name' => 'DOL',
                     'created_at' => '2022-01-08 20:16:49',
                     'updated_at' => NULL,
