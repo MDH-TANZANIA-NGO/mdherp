@@ -23,6 +23,9 @@ class CreatePrRemarksTable extends Migration
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
+            $table->foreign('pr_report_id')->references('id')->on('pr_reports')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            $table->foreign('pr_remarks_cv_id')->references('id')->on('code_values')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
         });
     }
 
