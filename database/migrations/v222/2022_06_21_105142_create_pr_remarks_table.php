@@ -18,7 +18,7 @@ class CreatePrRemarksTable extends Migration
             $table->unsignedBigInteger('pr_report_id');
             $table->unsignedInteger('pr_remarks_cv_id');
             $table->unsignedBigInteger('user_id');
-            $table->boolean('acceptable')->default(true);
+            $table->boolean('acceptable')->default(false);
             $table->longText('remarks');
             $table->uuid('uuid');
             $table->softDeletes();
