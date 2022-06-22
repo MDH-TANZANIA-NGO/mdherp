@@ -48,10 +48,10 @@ trait WorkflowResourceModificationStageTrait
         $allow = false;
         switch($wf_module_id)
         {
-            case 11:
+            case 11: case 13:
                 switch ($pending_level){
                     case 2:
-                        if($model->supervisor_id == access()->id()){
+                        if($model->parent->supervisor_id == access()->id()){
                             $allow = true;
                         }
                         break;
