@@ -98,8 +98,8 @@ class PrReportRepository extends BaseRepository
     public function getAccessApprovedWaitForEvaluation()
     {
         return $this->getAccessApproved()
-            ->whereDoesntHave('child')
-            ->whereDate('pr_reports.to_at', '<=', Carbon::now()->format('Y-m-d'));
+            ->whereDoesntHave('child');
+            // ->whereDate('pr_reports.to_at', '<=', Carbon::now()->format('Y-m-d'));
     }
 
     /** 

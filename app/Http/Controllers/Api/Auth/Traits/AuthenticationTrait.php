@@ -201,6 +201,14 @@ trait AuthenticationTrait
             ->where('covids.data_clerk_id', $gOfficer->id)->count();
         $success['g_officer_covids_sent'] = $g_officer_covids;
 
+        $g_officer_retentions = DB::table("retentions")
+            ->where('retentions.data_clerk_id', $gOfficer->id)->count();
+        $success['g_officer_retentions_sent'] = $g_officer_retentions;
+
+        $g_officer_mchs = DB::table("mchs")
+            ->where('mchs.data_clerk_id', $gOfficer->id)->count();
+        $success['g_officer_mchs_sent'] = $g_officer_mchs;
+        
 
         $valid_program_activities = $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
 
