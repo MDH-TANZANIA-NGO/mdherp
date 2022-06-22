@@ -54,6 +54,11 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         Route::group(['prefix' => 'educations', 'as' => 'education.'], function () {
             Route::post('{pr_report}/store', 'PrEducationOpportunityController@store')->name('store');
         });
+
+        //next objective
+        Route::group(['prefix' => 'next-year-objectives', 'as' => 'next_objective.'], function () {
+            Route::post('{pr_report}/store', 'PrNextObjectiveController@store')->name('store');
+        });
     });
 
 });
