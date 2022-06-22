@@ -62,12 +62,16 @@ class DatabaseSeeder extends Seeder
        // $this->call(AttachmentTypeSeeder::class);
         //$this->call(ServicesSeeder::class);
 
-//
-//        $this->call(PrTypesTableSeeder::class);
-//        $this->call(PrRateScaleTableSeeder::class);
-//        $this->call(PrCompetenceKeysTableSeeder::class);
-//        $this->call(PrCompetenceKeyNarrationsTableSeeder::class);
-//        $this->call(PrAttributesTableSeeder::class);
+        $this->call(WfModuleGroupsTableSeeder::class);
+        $this->call(WfModulesTableSeeder::class);
+        $this->call(WfDefinitionsTableSeeder::class);
+
+
+       $this->call(PrTypesTableSeeder::class);
+       $this->call(PrRateScaleTableSeeder::class);
+       $this->call(PrCompetenceKeysTableSeeder::class);
+       $this->call(PrCompetenceKeyNarrationsTableSeeder::class);
+       $this->call(PrAttributesTableSeeder::class);
         DB::commit();
     }
 }
