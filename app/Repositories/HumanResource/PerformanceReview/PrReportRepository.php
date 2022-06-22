@@ -3,8 +3,10 @@
 namespace App\Repositories\HumanResource\PerformanceReview;
 
 use App\Exceptions\GeneralException;
+use App\Models\Auth\User;
 use App\Models\Budget\FiscalYear;
 use App\Models\HumanResource\PerformanceReview\PrReport;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
 use Carbon\Carbon;
@@ -182,5 +184,16 @@ class PrReportRepository extends BaseRepository
         if($pr_report->wfTracks()->count()){
             throw new GeneralException('You can not submit twice');
         }
+    }
+
+    public function completed(PrReport $pr_report)
+    {
+            $pr_report->update(['completed' => 1]);
+            $email_resource = (object)[
+                'link' =>  route('hr.pr.show',$pr_report),
+                'subject' => "Kindly Processd with workflow ".$pr_report->parent->type->title." ".$pr_report->parent->number,
+                'message' => 'Employee has Completed to fill all the required inputs'
+            ];
+            // User::query()->find($pr_report->parent->supervisor_id)->notify(new WorkflowNotification($email_resource));
     }
 }

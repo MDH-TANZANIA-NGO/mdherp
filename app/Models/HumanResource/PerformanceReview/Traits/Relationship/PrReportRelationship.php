@@ -5,6 +5,7 @@ namespace App\Models\HumanResource\PerformanceReview\Traits\Relationship;
 use App\Models\Auth\User;
 use App\Models\HumanResource\PerformanceReview\PrAttributeRate;
 use App\Models\HumanResource\PerformanceReview\PrCompetence;
+use App\Models\HumanResource\PerformanceReview\PrEducationOpportunity;
 use App\Models\HumanResource\PerformanceReview\PrObjective;
 use App\Models\HumanResource\PerformanceReview\PrRemark;
 use App\Models\HumanResource\PerformanceReview\PrReport;
@@ -65,6 +66,11 @@ trait PrReportRelationship
     public function skill()
     {
         return $this->hasOne(PrSkill::class,'pr_report_id', 'id');
+    }
+
+    public function education()
+    {
+        return $this->hasOne(PrEducationOpportunity::class,'pr_report_id','id');
     }
 
 }

@@ -150,4 +150,11 @@ class PrReportController extends Controller
         alert()->success(__('Submitted Successfully'), __('Performance Review'));
         return redirect()->route('hr.pr.show', $pr_report);
     }
+
+    public function completed(PrReport $pr_report)
+    {
+        $this->pr_reports->completed($pr_report);
+        alert()->success(__('Email has been sent Successfully to supervisor to continue with approval'), __('Performance Appraisal Report'));
+        return redirect()->back();
+    }
 }

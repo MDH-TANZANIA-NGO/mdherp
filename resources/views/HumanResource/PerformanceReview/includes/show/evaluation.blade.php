@@ -31,6 +31,13 @@
     @include('HumanResource.PerformanceReview.datatables.skills')
 @endif
 
+@if($pr_report->education()->count())
+    @include('HumanResource.PerformanceReview.datatables.education')
+@endif
+
 @include('HumanResource.PerformanceReview.form.remark')
 
 @include('HumanResource.PerformanceReview.form.skill')
+
+@include('HumanResource.PerformanceReview.form.education')
+

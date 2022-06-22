@@ -10,6 +10,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         Route::get('{pr_report}/show', 'PrReportController@show')->name('show');
         Route::put('{pr_report}/update', 'PrReportController@update')->name('update');
         Route::post('{pr_report}/submit', 'PrReportController@submit')->name('submit');
+        Route::get('{pr_report}/completed', 'PrReportController@completed')->name('completed');
         //Evaluation
         Route::group(['prefix' => 'evaluation', 'as' => 'evaluation.'], function () {
             Route::post('{pr_report}/initiate', 'PrReportController@evaluationInitiate')->name('initiate');
@@ -48,6 +49,10 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         //Skills
         Route::group(['prefix' => 'skills', 'as' => 'skill.'], function () {
             Route::post('{pr_report}/store', 'PrSkillController@store')->name('store');
+        });
+        //education
+        Route::group(['prefix' => 'educations', 'as' => 'education.'], function () {
+            Route::post('{pr_report}/store', 'PrEducationOpportunityController@store')->name('store');
         });
     });
 

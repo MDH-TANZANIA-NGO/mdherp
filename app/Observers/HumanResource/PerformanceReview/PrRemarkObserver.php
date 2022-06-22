@@ -4,6 +4,7 @@ namespace App\Observers\HumanResource\PerformanceReview;
 
 use App\Models\Auth\User;
 use App\Models\HumanResource\PerformanceReview\PrRemark;
+use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Notifications\Workflow\WorkflowNotification;
 
 class PrRemarkObserver
@@ -22,6 +23,7 @@ class PrRemarkObserver
         }
         //Send Email to user
         if($prRemark->pr_remarks_cv_id == 42){
+            $prRemark->prReport->update(['completed' => 0]);
             $prRemark->update(['acceptable' => true]);
             $email_resource = (object)[
                 'link' =>  route('hr.pr.show',$prRemark->prReport),
@@ -29,16 +31,6 @@ class PrRemarkObserver
                 'message' => 'Remarks <br>'.$prRemark->remarks
             ];
             $prRemark->prReport->user->notify(new WorkflowNotification($email_resource));
-        }
-
-        if($prRemark->pr_remarks_cv_id == 43){
-            $prRemark->update(['acceptable' => true]);
-            $email_resource = (object)[
-                'link' =>  route('hr.pr.show',$prRemark->prReport),
-                'subject' => "Kindly Processd with workflow ".$prRemark->prReport->parent->type->title." ".$prRemark->prReport->parent->number,
-                'message' => 'Here is the Remark <br>'.$prRemark->remarks
-            ];
-            User::query()->find($prRemark->prReport->parent->supervisor_id)->notify(new WorkflowNotification($email_resource));
         }
 
 
