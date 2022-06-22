@@ -30,11 +30,13 @@
 <div class="row">
     <div class="card">
         <div class="card-header">
-			<h3 class="card-title">D. WORK PERFORMANCE GOALS FOR COMING YEAR 2022</h3>
+			<h3 class="card-title">D. WORK PERFORMANCE GOALS FOR COMING YEAR</h3>
 		</div>
         <div class="card-body">
-            @include('HumanResource.PerformanceReview.form.next_objective',['pr_report' => $pr_report])
-            @include('HumanResource.PerformanceReview.datatables.next_objectives',['pr_next_objectives' => $pr_report->next_objectives])
+            @if($pr_report->user_id == access()->id() && $pr_report->completed==0)
+                @include('HumanResource.PerformanceReview.form.next_objective',['pr_report' => $pr_report])
+            @endif
+            @include('HumanResource.PerformanceReview.datatables.next_objectives',['pr_next_objectives' => $pr_report->nextObjectives])
         </div>
     </div>
  </div>

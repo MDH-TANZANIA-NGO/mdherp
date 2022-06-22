@@ -17,4 +17,11 @@ class PrNextObjectiveRepository extends BaseRepository
             return $pr_report->nextObjectives()->create($input);
         });
     }
+
+    public function update(PrNextObjective $pr_next_objective, $input)
+    {
+        return DB::transaction(function() use($pr_next_objective, $input){
+            return $pr_next_objective->update($input);
+        });
+    }
 }

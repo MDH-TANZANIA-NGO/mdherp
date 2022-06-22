@@ -7,17 +7,19 @@
                         <thead>
                             <tr>
                                 <th style ="">#</th>
-                                <th style ="">OBJECTIVE/GOAL</th>
-                                <th style ="">ACTION PLAN</th>
+                                <th style ="">Performance Goals/Objectives</th>
+                                <th style ="">Expected Targets/Deliverables</th>
+                                @if($pr_report->user_id == access()->id() || $pr_report->parent->supervisor_id == access()->id())
                                 <th style ="width:10%">ACTION</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($pr_objectives AS $key => $objective)
+                            @foreach($pr_next_objectives AS $key => $objective)
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $objective->goal }}</td>
-                                    <td>{{ $objective->plan }}</td>
+                                    <td>{{ $objective->target }}</td>
                                     <td><a href="#" class="mr-2" data-toggle="modal" data-target="#objectiveModel{{ $objective->uuid }}">Edit</a> | <a href="{{ route('hr.pr.objective.destroy',$objective) }}" onclick="if(confirm('Are you sure you want to deleted this objective')){ return true; } else { return false; }" class=" ml-2" data-objective-id>Delete</a></td>
                                 </tr>
 
@@ -32,7 +34,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            {!! Form::open(['route' => ['hr.pr.objective.update',$objective], 'method' => 'put']) !!}
+                                            {!! Form::open(['route' => ['hr.pr.next_objective.update',$objective], 'method' => 'put']) !!}
                                             <div class="modal-body">
                                            
                                                 <div class="row">
@@ -45,7 +47,7 @@
                                                     <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
                                                         <div class="form-group">
 						                                    <label class="form-label">Action Plan</label>
-						                                    <textarea name='plan' class="form-control" placeholder="" required>{{ $objective->plan }}</textarea>
+						                                    <textarea name='target' class="form-control" placeholder="" required>{{ $objective->target }}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
