@@ -119,7 +119,7 @@ class PrReportController extends Controller
         $current_wf_track = $workflow->currentWfTrack();
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($pr_report, $current_level, $workflow->wf_definition_id);
-        $can_update_attribute_rate_resource = $this->wf_tracks->canUpdateAttributeRateResource($pr_report, $current_level, $workflow->wf_module_id);
+        $can_update_attribute_rate_resource =  $this->wf_tracks->canUpdateAttributeRateResource($pr_report, $current_level, $workflow->wf_module_id);
         return view('HumanResource.PerformanceReview.show')
             ->with('pr_report', $pr_report)
             ->with('pr_objectives', $pr_report->objectives)
