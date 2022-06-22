@@ -59,6 +59,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         Route::group(['prefix' => 'next-year-objectives', 'as' => 'next_objective.'], function () {
             Route::post('{pr_report}/store', 'PrNextObjectiveController@store')->name('store');
             Route::put('{pr_next_objective}/update', 'PrNextObjectiveController@update')->name('update');
+            Route::get('{pr_next_objective}/destroy', 'PrNextObjectiveController@destroy')->name('destroy');
         });
     });
 

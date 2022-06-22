@@ -24,4 +24,11 @@ class PrNextObjectiveRepository extends BaseRepository
             return $pr_next_objective->update($input);
         });
     }
+
+    public function destroy(PrNextObjective $pr_next_objective)
+    {
+        return DB::transaction(function() use($pr_next_objective){
+            return $pr_next_objective->delete();
+        });
+    }
 }

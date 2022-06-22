@@ -9,7 +9,7 @@
                                 <th style ="">#</th>
                                 <th style ="">Performance Goals/Objectives</th>
                                 <th style ="">Expected Targets/Deliverables</th>
-                                @if($pr_report->user_id == access()->id() || $pr_report->parent->supervisor_id == access()->id())
+                                @if($pr_report->user_id == access()->id() || $pr_report->parent->supervisor_id == access()->id() && $current_level==2)
                                 <th style ="width:10%">ACTION</th>
                                 @endif
                             </tr>
@@ -20,7 +20,9 @@
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $objective->goal }}</td>
                                     <td>{{ $objective->target }}</td>
-                                    <td><a href="#" class="mr-2" data-toggle="modal" data-target="#objectiveModel{{ $objective->uuid }}">Edit</a> | <a href="{{ route('hr.pr.objective.destroy',$objective) }}" onclick="if(confirm('Are you sure you want to deleted this objective')){ return true; } else { return false; }" class=" ml-2" data-objective-id>Delete</a></td>
+                                    @if($pr_report->user_id == access()->id() || $pr_report->parent->supervisor_id == access()->id() && $current_level==2)
+                                    <td><a href="#" class="mr-2" data-toggle="modal" data-target="#objectiveModel{{ $objective->uuid }}">Edit</a> | <a href="{{ route('hr.pr.next_objective.destroy',$objective) }}" onclick="if(confirm('Are you sure you want to deleted this objective')){ return true; } else { return false; }" class=" ml-2" data-objective-id>Delete</a></td>
+                                    @endif
                                 </tr>
 
                                 <!-- Modal -->

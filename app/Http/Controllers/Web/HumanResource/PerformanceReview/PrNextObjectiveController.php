@@ -31,4 +31,11 @@ class PrNextObjectiveController extends Controller
         alert()->success('Objective Updated successfully');
         return redirect()->back();
     }
+
+    public function destroy(PrNextObjective $pr_next_objective)
+    {
+        $this->pr_next_objectives->destroy($pr_next_objective);
+        alert()->success('Objective Deleted successfully');
+        return redirect()->back();
+    }
 }
