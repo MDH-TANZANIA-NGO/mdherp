@@ -417,7 +417,7 @@ if (!function_exists('pr_remark_driver')) {
         switch($workflows->wf_module_id)
         {
             case 11:
-                $remarks = $pr_report->remarks();
+                $remarks = $pr_report->remarks;
                 switch($workflows->currentLevel())
                 {
                     case 2:
@@ -428,7 +428,7 @@ if (!function_exists('pr_remark_driver')) {
                             $pr_remark_description = $code_value->description;
                             $can_submit_remark = true;
                         }
-                        if($remarks->where('pr_remarks_cv_id',13)->count() == 0 && $remarks->where('user_id',access()->id())->count() == 0){
+                        if($remarks->where('pr_remarks_cv_id',43)->where('user_id',access()->id())->count() == 0){
                             $code_value = code_value()->query()->where('id', 43)->first();
                             $pr_remarks_cv_id = $code_value->id;
                             $pr_remarks_by = $code_value->name;
@@ -436,7 +436,6 @@ if (!function_exists('pr_remark_driver')) {
                             $can_submit_remark = true;
                         }
                     break;
-                    
                 }
             break;
         }

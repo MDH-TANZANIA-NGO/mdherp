@@ -9,7 +9,7 @@
                                 <th style ="">#</th>
                                 <th style ="">OBJECTIVE/GOAL</th>
                                 <th>ACTION PLAN</th>
-                                @if($can_edit_resource == false)<th style ="width:10%">ACTION</th>@endif
+                                @if($can_edit_resource)<th style ="width:10%">ACTION</th>@endif
                             </tr>
                         </thead>
                         <tbody>

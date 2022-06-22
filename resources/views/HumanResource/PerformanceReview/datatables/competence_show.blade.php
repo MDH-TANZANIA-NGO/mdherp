@@ -5,7 +5,7 @@
 		</div>
         <div class="card-body">
 
-        @if($can_update_attribute_rate_resource == false)
+        @if($can_update_attribute_rate_resource)
         <div class="row">
             <div class="col-sm-12 col-lg-12 col-md-12 col-xl-12">
                 <div class="tab-pane active" id="processing">
