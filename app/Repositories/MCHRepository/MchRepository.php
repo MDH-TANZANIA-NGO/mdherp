@@ -73,7 +73,7 @@ class MchRepository extends BaseRepository
     {
 
         return DB::transaction(function () use ($inputs) {
-            $mch =  $this->query()->create($this->inputProcess($inputs));
+            $mch =  $this->query()->create($inputs);
              
             return $mch;
 

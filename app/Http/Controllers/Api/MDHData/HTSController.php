@@ -82,7 +82,9 @@ class HTSController extends BaseController
             'tx_curr_index_positive_linked' => 'required',
         ]);
 
-        if(Hts::where('form_date',$request['form_date'])->exists()){
+        if(Hts::where('form_date',$request['form_date'])
+                ->where('data_clerk_id', $request['data_clerk_id'])
+                ->where('facility_id', $request['facility_id'])->exists()){
             $message = "HTS Ripoti ya tarehe ".$request['form_date'].' umeshaituma tayari';
             return $this->sendError($message, NULL);
         }else{
