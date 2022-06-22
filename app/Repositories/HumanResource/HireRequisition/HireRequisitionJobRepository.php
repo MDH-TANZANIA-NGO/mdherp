@@ -93,6 +93,18 @@ class HireRequisitionJobRepository extends BaseRepository
       
     }
 
+    
+
+
+    public function getAprovedJobs()
+    {
+
+        return $this->getQuery()
+                ->join('hr_hire_requisitions','hr_hire_requisitions.id','hr_hire_requisitions_jobs.hire_requisition_id')
+                ->where('hr_hire_requisitions.wf_done', 1)
+                ->where('hr_hire_requisitions.done', true);
+    }
+
     public function store($data)
     {    
         $hireRequisitionJob = $this->query()->create($this->inputsProcessor($data));

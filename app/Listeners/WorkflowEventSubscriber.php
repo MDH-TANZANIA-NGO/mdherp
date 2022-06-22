@@ -22,6 +22,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use App\Models\Auth\User;
+use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use App\Services\Workflow\WorkflowAction;
 use League\CommonMark\Util\Html5EntityDecoder;
@@ -438,6 +439,30 @@ class WorkflowEventSubscriber
                             ];
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
+                            case 2: //Applicant level
+    //                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                                $listing->update(['rejected' => false]);
+                                $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+    
+                                $email_resource = (object)[
+                                    'link' => route('listing.show', $listing),
+                                    'subject' => $listing->id . " Needs your Approval",
+                                    'message' =>  $listing->id . ' needs your approval'
+                                ];
+    //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                            case 3: //Applicant level
+    //                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                                $listing->update(['rejected' => false]);
+                                $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+    
+                                $email_resource = (object)[
+                                    'link' => route('listing.show', $listing),
+                                    'subject' => $listing->id . " Needs your Approval",
+                                    'message' =>  $listing->id . ' needs your approval'
+                                ];
+    //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
                     }
                     break;
 
@@ -447,7 +472,7 @@ class WorkflowEventSubscriber
                     break;
 
             }
-
+            
             $workflow->forward($data);
         } else {
             /* Workflow completed */
@@ -578,7 +603,7 @@ class WorkflowEventSubscriber
                     $listing = $listingrepo->find($resource_id);
                     $this->updateWfDone($listing);
                     $email_resource = (object)[
-                        'link' =>  route('listing.show',$listing),
+                        'link' =>  route('hirerequisition.show',$listing),
                         'subject' => "Approved Successfully",
                         'message' => 'This Hire Requisition has been Approved successfully'
                     ];
@@ -607,6 +632,18 @@ class WorkflowEventSubscriber
                     $pr_report->user->notify(new WorkflowNotification($email_resource));
                     User::query()->find($pr_report->supervisor_id)->notify(new WorkflowNotification($email_resource));
                     break;
+                case 12:
+                    $advertisement = (new HireAdvertisementRequisition())->find($resource_id);
+                    $this->updateWfDone($advertisement);
+                    $email_resource = (object)[
+                        'link' =>  route('advertisement.show',$advertisement),
+                        'subject' => $advertisement->number. ' '.$advertisement->title."Job Advertisement : Has been Approved Successfully",
+                        'message' => $advertisement->number. ' '.$advertisement->title.' Job Advertisement : Has been Approved successfully'
+                    ];
+                    $advertisement->user->notify(new WorkflowNotification($email_resource));
+                    // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
+                    break;
+                 
             }
 
 

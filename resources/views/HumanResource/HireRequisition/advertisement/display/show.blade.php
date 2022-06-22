@@ -18,15 +18,15 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h3 class="card-title"> Number: <span> {{ $hireRequisition->number }} </span> </h3>
+                        <h3 class="card-title"> {{ $_advertisement->title }} </h3>
                         <div class="card-title">
-                            Department: <span> {{ $hireRequisition->department }} </span> 
-                             
+                           
+                        Number: <span> {{ $_advertisement->number }} </span> 
                         </div>
                     </div>
                     <div class="card-body">
                         <ul class="demo-accordion accordionjs m-0" data-active-index="false">
-                         @each('HumanResource.HireRequisition._parent.display.hr_job', $hireRequisitionJobs, 'job')
+                        Department: <span> {!! $_advertisement->description !!} </span> 
                         </ul>
                     </div>
                 </div>

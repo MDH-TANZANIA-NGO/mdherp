@@ -27,6 +27,7 @@ class CreateHrHireRequisitionJobsTable extends Migration
             $table->smallInteger('ad_scale')->nullable();
             $table->smallInteger('establishment');
             $table->smallInteger('practical_experience');
+            $table->smallInteger('is_advertised')->default(0);
             $table->text('special_qualities_skills')->nullable();
             $table->date('date_required');
             $table->text('comment')->nullable();

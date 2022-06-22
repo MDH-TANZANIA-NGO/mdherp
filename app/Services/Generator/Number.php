@@ -101,6 +101,14 @@ trait Number
                 $number = "MDH-PR-".$year.'-'.$value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
+
+            case 'hr_hire_advertisement_requisitions':
+                $reference = "HRADV";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-HRADV-".$year.'-'.$value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
             default:
                 throw new GeneralException(__('Number Not Set. Kindly contact system developer'));
                 break;
