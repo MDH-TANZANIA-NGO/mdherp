@@ -28,3 +28,5 @@
 @endif
 
 @include('HumanResource.PerformanceReview.form.remark')
+
+@include('HumanResource.PerformanceReview.form.skill')

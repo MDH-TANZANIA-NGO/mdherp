@@ -45,6 +45,10 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         Route::group(['prefix' => 'remarks', 'as' => 'remark.'], function () {
             Route::post('{pr_report}/store', 'PrRemarkController@store')->name('store');
         });
+        //Skills
+        Route::group(['prefix' => 'skills', 'as' => 'skill.'], function () {
+            Route::post('{pr_report}/store', 'PrSkillController@store')->name('store');
+        });
     });
 
 });
