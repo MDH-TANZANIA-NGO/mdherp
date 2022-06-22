@@ -23,12 +23,8 @@
 
 @include('HumanResource.PerformanceReview.datatables.overall_summary')
 
-@if($pr_report->remarks)
+@if($pr_report->remarks()->count())
     @include('HumanResource.PerformanceReview.datatables.remarks')
 @endif
 
-@if($pr_report->remarks()->count() == 0 && $pr_report->supervisor_id == access()->id())
-	@if($can_update_attribute_rate_resource)
-        @include('HumanResource.PerformanceReview.form.remark')
-    @endif
-@endif
+@include('HumanResource.PerformanceReview.form.remark')
