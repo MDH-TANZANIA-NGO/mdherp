@@ -27,13 +27,15 @@
     @include('HumanResource.PerformanceReview.datatables.remarks')
 @endif
 
+@include('HumanResource.PerformanceReview.form.remark')
+
 <div class="row">
     <div class="card">
         <div class="card-header">
 			<h3 class="card-title">D. WORK PERFORMANCE GOALS FOR COMING YEAR</h3>
 		</div>
         <div class="card-body">
-            @if($pr_report->user_id == access()->id() && $pr_report->completed==0)
+        @if(\App\Models\HumanResource\PerformanceReview\PrRemark::query()->where('pr_report_id',$pr_report->id)->count() && $pr_report->user_id == access()->id() &&  $pr_report->completed == 0)
                 @include('HumanResource.PerformanceReview.form.next_objective',['pr_report' => $pr_report])
             @endif
             @include('HumanResource.PerformanceReview.datatables.next_objectives',['pr_next_objectives' => $pr_report->nextObjectives])
@@ -49,9 +51,9 @@
     @include('HumanResource.PerformanceReview.datatables.education')
 @endif
 
-@include('HumanResource.PerformanceReview.form.remark')
 
+@if(\App\Models\HumanResource\PerformanceReview\PrRemark::query()->where('pr_report_id',$pr_report->id)->count() && $pr_report->user_id == access()->id() &&  $pr_report->completed == 0)
 @include('HumanResource.PerformanceReview.form.skill')
-
 @include('HumanResource.PerformanceReview.form.education')
+@endif
 
