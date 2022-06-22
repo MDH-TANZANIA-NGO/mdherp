@@ -18,6 +18,6 @@ class AdvertisementRepository extends  BaseRepository
         ]);
     }
 
-    
+
 
 }
