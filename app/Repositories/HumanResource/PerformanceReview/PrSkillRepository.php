@@ -14,7 +14,7 @@ class PrSkillRepository extends BaseRepository
     public function store(PrReport $pr_report, $input)
     {
         return DB::transaction(function() use($pr_report, $input){
-            return $pr_report->skill->create($input);
+            return $pr_report->skill()->create($input);
         });
     }
 }

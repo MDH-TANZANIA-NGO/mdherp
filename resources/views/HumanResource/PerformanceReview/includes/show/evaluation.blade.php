@@ -27,6 +27,10 @@
     @include('HumanResource.PerformanceReview.datatables.remarks')
 @endif
 
+@if($pr_report->skill()->count())
+    @include('HumanResource.PerformanceReview.datatables.skills')
+@endif
+
 @include('HumanResource.PerformanceReview.form.remark')
 
 @include('HumanResource.PerformanceReview.form.skill')

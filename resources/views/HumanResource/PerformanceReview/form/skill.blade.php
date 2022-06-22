@@ -1,5 +1,5 @@
 @if($pr_report->user_id == access()->id() && $pr_report->skill()->count() == 0)
-{!! Form::open(['route' => ['hr.pr.remark.store', $pr_report],'method' => 'post']) !!}
+{!! Form::open(['route' => ['hr.pr.skill.store', $pr_report],'method' => 'post']) !!}
 <div class="row">
     <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
         <div class="form-group">
