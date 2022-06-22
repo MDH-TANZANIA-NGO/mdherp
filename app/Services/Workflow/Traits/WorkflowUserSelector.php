@@ -46,7 +46,7 @@ trait WorkflowUserSelector
     public function nextUserSelector($wf_module_id,$resource_id,$level,$department_id=null)
     {
         $user_id = null;
-
+        
         switch ($wf_module_id)
         {
             case 1:
@@ -233,6 +233,7 @@ trait WorkflowUserSelector
             case 9:
                 $listing_repo = (new HireRequisitionRepository());
                 $listing = $listing_repo->find($resource_id);
+                
                 /*check levels*/
                 switch ($level) {
                     case 1:
@@ -248,15 +249,16 @@ trait WorkflowUserSelector
                         if (!$next_user) {
                             throw new GeneralException('Director of HR is not yet registered. Please contact system Admin');
                         }
-                        $user_id = $next_user->user_id;
+                        $user_id = $next_user->first()->user_id;
                         break;
 
                     case 3:
-                        $next_user = (new UserRepository())->getCEO2();
+                        $next_user = (new UserRepository())->getCeo();
+                       
                         if (!$next_user) {
                             throw new GeneralException('CEO is not yet registered. Please contact system administrator');
                         }
-                        $user_id = $next_user->user_id;
+                        $user_id = $next_user->first()->user_id;
                         break;
                 }
                 break;

@@ -4,11 +4,11 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li><a href="#processing" class="active" data-toggle="tab">Requested <span class="badge badge-primary">{{ $hire_requisition->getAccessProcessingDatatable()->distinct('hr_hire_requisitions.id')->count() }}</span></a></li>
-                    <li><a href="#returned" data-toggle="tab">Returned for Modification <span class="badge badge-warning">{{ $hire_requisition->getAccessDeniedDatatable()->distinct('hr_hire_requisitions.id')->count() }}</span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $hire_requisition->getAccessRejectedDatatable()->distinct('hr_hire_requisitions.id')->count() }}</span></a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $hire_requisition->getAccessProvedDatatable()->distinct('hr_hire_requisitions.id')->count() }}</span></a></li>
-                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-dark">{{ $hire_requisition->getAccessSavedDatatable()->distinct('hr_hire_requisitions.id')->count() }}</span></a></li>
+                    <li><a href="#processing" class="active" data-toggle="tab">Requested <span class="badge badge-primary">{{ $hire_requisition->getAccessProcessingDatatable()->distinct('hr_hire_requisitions.id')->get()->count() }}</span></a></li>
+                    <li><a href="#returned" data-toggle="tab">Returned for Modification <span class="badge badge-warning">{{ $hire_requisition->getAccessDeniedDatatable()->distinct('hr_hire_requisitions.id')->get()->count() }}</span></a></li>
+                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger">{{ $hire_requisition->getAccessRejectedDatatable()->distinct('hr_hire_requisitions.id')->get()->count() }}</span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $hire_requisition->getAccessProvedDatatable()->distinct('hr_hire_requisitions.id')->get()->count() }}</span></a></li>
+                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-dark">{{ $hire_requisition->getAccessSavedDatatable()->distinct('hr_hire_requisitions.id')->get()->count() }}</span></a></li>
                 </ul>
             </div>
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
@@ -194,7 +194,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('hirerequisition.datatable.access.rejected') }}',
+                ajax: '{{ route('hirerequisition.datatable.access.approved') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},

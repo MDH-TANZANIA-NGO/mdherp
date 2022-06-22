@@ -21,14 +21,14 @@ class HireRequisitionRepository extends BaseRepository
             DB::raw("0 as total"),
             // DB::raw("hr_hire_requisitions.empoyees_required as total"),
             DB::raw("string_agg(DISTINCT regions.name, ',') as region"),
-            DB::raw("hr_hire_requisitions.created_at"),
-            DB::raw("hr_hire_requisitions.uuid")
+            DB::raw("MAX(hr_hire_requisitions.created_at) AS created_at"),
+            DB::raw("hr_hire_requisitions.uuid AS uuid")
         ])
         ->leftjoin('hr_hire_requisitions_jobs','hr_hire_requisitions_jobs.hire_requisition_id', 'hr_hire_requisitions.id')
         ->leftjoin('designations','designations.id', 'hr_hire_requisitions_jobs.designation_id')
         ->leftjoin('hr_hire_requisition_locations','hr_hire_requisition_locations.hr_requisition_job_id', 'hr_hire_requisitions_jobs.id')
         ->leftjoin('regions','regions.id', 'hr_hire_requisition_locations.region_id')
-        ->groupby(['hr_hire_requisitions.id','hr_hire_requisitions.created_at','hr_hire_requisitions.uuid']);
+        ->groupby(['hr_hire_requisitions.id','hr_hire_requisitions.uuid']);
     }
 
     public function getAccessProcessingDatatable()
@@ -36,14 +36,15 @@ class HireRequisitionRepository extends BaseRepository
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('hr_hire_requisitions.wf_done', 0)
-            ->where('hr_hire_requisitions.rejected', false)
+            ->where('hr_hire_requisitions.done', 1)
+            ->where('hr_hire_requisitions.rejected', 0)
             ->where('hr_hire_requisitions.user_id', access()->id());
     }
 
     public function getAccessDeniedDatatable(){
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('hr_hire_requisitions.rejected', true)
+            ->where('hr_hire_requisitions.rejected', 1)
             ->where('hr_hire_requisitions.user_id', access()->id());
     }
     
@@ -61,8 +62,7 @@ class HireRequisitionRepository extends BaseRepository
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('hr_hire_requisitions.wf_done', 1)
-            ->where('hr_hire_requisitions.done', true)
-            ->where('hr_hire_requisitions.done', false)
+            ->where('hr_hire_requisitions.done', 1)
             ->where('hr_hire_requisitions.user_id', access()->id());
     }
 
@@ -72,7 +72,7 @@ class HireRequisitionRepository extends BaseRepository
             ->whereDoesntHave('wfTracks')
             ->where('hr_hire_requisitions.wf_done', 0)
             ->where('hr_hire_requisitions.done', 0)
-            ->where('hr_hire_requisitions.rejected', false)
+            ->where('hr_hire_requisitions.rejected', 0)
             ->where('hr_hire_requisitions.user_id', access()->id());
     }
 

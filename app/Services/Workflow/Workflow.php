@@ -26,6 +26,7 @@ use App\Repositories\Workflow\WfModuleRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
 use App\Exceptions\GeneralException;
+use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -373,13 +374,14 @@ class Workflow
 
             //update Resource Type for the current wftrack
             $this->updateResourceType($wf_track);
+            
             $nextInsert = $this->upNew($input);
             if(!isset($this->nextWfTrack($wf_track->id)->id)){
                 $wf_track = $track->query()->create($nextInsert); // changed
                 //update Resource Type for the next wftrack
                 $this->updateResourceType($wf_track);
             }
-
+        
             //Send mail notification
             switch($this->wf_module_id)
             {
@@ -575,6 +577,11 @@ class Workflow
             case 10:
                 /*Performance Report */
                 $pr_report_repo = (new PrReportRepository())->find($resourceId);;
+                $pr_report_repo->wfTracks()->save($wfTrack);
+                break;
+            case 11:
+                /*Performance Report */
+                $pr_report_repo = (new HireAdvertisementRequisition())->find($resourceId);;
                 $pr_report_repo->wfTracks()->save($wfTrack);
                 break;
         }

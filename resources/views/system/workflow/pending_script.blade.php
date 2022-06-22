@@ -122,6 +122,9 @@
                         case 10: /*Performance Review Report*/
                             window.open(base_url + "/human-resource/performance-reviews/" + aData['resource_uuid'] + '/show' , "_blank");
                             break;
+                        case 11: /*Performance Review Report*/
+                            window.open(base_url + "/advertisement/show/" + aData['resource_uuid'] , "_blank");
+                            break;
                         default:
                             break;
                     }

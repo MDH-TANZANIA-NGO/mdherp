@@ -14,7 +14,7 @@
 				@if(isset($initiate))
 					<form action="{{route('hirerequisition.addRequisition',$uuid)}}" method="post">
 				@else
-					<form action="{{route('hirerequisition.store')}}" method="post">
+					<form action="{{route('advertisement.store')}}" method="post">
 				@endif
 				@csrf
 				<!-- Large Modal -->
@@ -23,6 +23,7 @@
 							<div class="col-2 col-lg-2">
 							<label class="form-label">Job Title</label>
 							</div>
+							<input type="hidden" name = 'hr_requisition_job_id' value="{{ $hireRequisitionJob->id }}">
 							<div class="col-2 col-lg-2">
 								 {{ $hireRequisitionJob->title }}    
 							</div>
@@ -38,16 +39,16 @@
 							<label class="form-label">Post Title </label>
 							</div>
 							<div class="col-8 col-lg-8">
-								<input type="text" class="form-control" value="" name="">	         
+								<input type="text" class="form-control" value="" name="title">	         
 							</div>
 						</div>
 						 
 						<div class="row">
 							<div class="col-12 col-lg-12" >
 								<label class="form-label">Description</label>
-								<textarea type="text" rows="10" class="form-control summernotecontent" name="duties_and_responsibilities" placeholder="Duties and responsibilities here" required></textarea>
+								<textarea type="text" rows="10" class="form-control summernotecontent" name="description" placeholder="description" required></textarea>
 								@error('duties_and_responsibilities')
-								<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 								@enderror
 							</div>						 
 						</div>
@@ -55,7 +56,7 @@
 							<div class="col-6">
 							</div>
 							<div class="col-6">
-								<button type="button"  class="btn btn-inline-block btn-azure next-step"> <i class="fa fa-paper-plane"></i> Submit For Approval </button>	
+								<button type="submit"  class="btn btn-inline-block btn-azure next-step"> <i class="fa fa-paper-plane"></i> Submit For Approval </button>	
 							</div>
 						</div>
 					

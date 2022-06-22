@@ -9,7 +9,7 @@ class HireRequisitionLocationRepository extends BaseRepository
     public function inputProcessor($input){
         return [
             'user_id' => access()->id(),
-            'hr_requisition_job_id' => $input['hr_requisition_job_id']
+            'hr_requisition_job_id' => $input['hire_requisition_job_id']
         ];
     }
 

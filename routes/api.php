@@ -29,9 +29,17 @@ Route::post('verify-token', 'Api\UserLoginToken\UserLoginTokenController@verifyT
 //    Route::post('/logout', 'Api\Auth\LoginController@logout');
 //});
 
+// Route::group(['prefix' => 'auth', 'namespace' => 'Api'],fu
+// includeRouteFiles(__DIR__.'/api/');
+// Route::group(['namespace' => 'Recruitment\Advertisement', 'middleware' => ['web', 'auth'], 'prefix' => 'advertisement', 'as' => 'advertisement'], function () {
+//     Route::get('advertisement', 'AdvertisementController@index')->name('index');
+// });
+
+Route::get('advertisement', 'Api\Recruitment\Advertisement\AdvertisementController@index');
 Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
     function(){
-        Route::post('login', 'Auth\LoginController@login');
+        // Route::post('login', 'Auth\LoginController@login');
+       
         Route::post('refresh', 'Auth\LoginController@refresh');
         Route::post('g_officer/store', 'MDHData\GOfficerController@store')->name('g_officer-store');
         Route::get('{g_officer}/facilities', 'MDHData\GOfficerController@show')->name('g_officer-facilities');

@@ -1,11 +1,10 @@
 <?php
-
-namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
-
+namespace App\Http\Controllers\Web\HumanResource\Advertisement;
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HireRequisitionDatatable;
+use App\Http\Controllers\Web\HumanResource\Advertisement\Traits\AdvertisementDatatable;
 use App\Models\Auth\User;
+use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Models\System\WorkingTool;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
@@ -23,11 +22,14 @@ use App\Models\HumanResource\HireRequisition\Skill;
 use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
 use App\Models\HumanResource\HireRequisition\HireRequisitionLocation;
 use App\Models\HumanResource\HireRequisition\HireRequisitionWorkingTool;
+use App\Repositories\HumanResource\Advertisement\AdvertisementRepository;
+use App\Services\Workflow\Traits\WorkflowInitiator;
+use Illuminate\Support\Facades\DB;
 
 class AdvertisementController extends Controller
 {
-    use HireRequisitionDatatable;
-    protected $listing;
+    use AdvertisementDatatable,WorkflowInitiator;
+    protected $advertisementRepository;
     protected $regions;
     protected $departments;
     protected $users;
@@ -37,7 +39,7 @@ class AdvertisementController extends Controller
 
     public  function __construct()
     {
-        $this->listing = (new HireRequisitionRepository());
+        $this->advertisementRepository = (new AdvertisementRepository());
         $this->regions = (new RegionRepository());
         $this->departments = (new DepartmentRepository());
         $this->users = (new UserRepository());
@@ -64,7 +66,10 @@ class AdvertisementController extends Controller
      */
     public function create()
     {
-        $hireRequisitionJobs = $this->hireRequisitionJobRepository->getQuery()->get();
+        $hireRequisitionJobs = $this->hireRequisitionJobRepository
+                                ->getAprovedJobs()
+                                ->where("is_advertised",0)
+                                ->get();
                  
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
@@ -92,12 +97,23 @@ class AdvertisementController extends Controller
      */
     public function store(Request $request)
     {
-        $listing = $this->listing->store($request->all());
-        $wf_module_group_id = 8;
-        $next_user = $listing->user->assignedSupervisor()->supervisor_id;
-        event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $listing->id,'region_id' => $listing->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
-        alert()->success('Hire Requisition Created Successfully','success');
-        return redirect()->route('hirerequisition.index');
+        try{
+            DB::beginTransaction();
+                $advertisement = $this->advertisementRepository->store($request->all());
+                $advertisement->update(['done'=>1]);
+                $hireRequisitionJob =  $this->hireRequisitionJobRepository->find($advertisement->hire_requisition_job_id);
+                $hireRequisitionJob->update(['is_advertised'=>1]);
+                $next_user = $this->users->getCeo()->first()->user_id;
+                $this->startWorkflow($advertisement , 1,  $next_user);
+                $this->advertisementRepository->submit($advertisement);
+                alert()->success('Hire Requisition Created Successfully','success');
+            DB::commit();
+            return redirect()->route('advertisement.index');
+        }catch (\Exception $e){
+            DB::rollback();
+            throw new \Exception($e->getMessage());
+        }    
+
     }
 
     /**
@@ -106,24 +122,26 @@ class AdvertisementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function show(HireRequisition $listing)
+    public function show(HireAdvertisementRequisition $advertisement)
     {
-        /* Check workflow */
-        $wf_module_group_id = 8;
-        $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $listing->id);
-        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $listing->id, 'type' => $wf_module->type]);
-        $check_workflow = $workflow->checkIfHasWorkflow();
-        $current_wf_track = $workflow->currentWfTrack();
-        $wf_module_id = $workflow->wf_module_id;
-        $current_level = $workflow->currentLevel();
-        $can_edit_resource = $this->wf_tracks->canEditResource($listing, $current_level, $workflow->wf_definition_id);
 
-        return view('hirerequisition._parent.display.show')
-            ->with('listing', $listing)
+        // $advertisement = $this->advertisementRepository->query()->where('uuid',$uuid)->first();
+       
+        /* Check workflow */
+        $wf_module_group_id = 11;
+        $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $advertisement->id);
+        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $advertisement->id, 'type' => $wf_module->type]);
+        $current_wf_track = $workflow->currentWfTrack();
+        $current_level = $workflow->currentLevel();
+        $can_edit_resource = $this->wf_tracks->canEditResource($advertisement, $current_level, $workflow->wf_definition_id);
+
+        
+        return view('HumanResource.HireRequisition.advertisement.display.show')
+            ->with('_advertisement',$advertisement)
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
-            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($listing));
+            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($advertisement));
     }
 
     /**

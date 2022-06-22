@@ -123,5 +123,17 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'HRADV'],
+            [
+                'name' => 'hire_advertisement_requisition',
+                'display_name' => 'Advertisement Requisition',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'HRADV',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }
