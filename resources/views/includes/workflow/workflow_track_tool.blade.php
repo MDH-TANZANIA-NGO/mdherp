@@ -19,7 +19,7 @@
                             <div class="col-sm-9">{{ $track->wfDefinition->level }}</div>
                             <div class="col-sm-2">Designation</div>
                             <div class="col-sm-9">
-                                {{ $track->users->designation->unit->name }} {{ $track->users->designation->name }}
+                                {{ $track->users->designation ? $track->users->designation->unit->name : '' }} {{ $track->users->designation ? $track->users->designation->name : '' }}
                             </div>
                             <div class="col-sm-2">Name</div>
                             <div class="col-sm-9">{{ $track->users->full_name }}</div>
