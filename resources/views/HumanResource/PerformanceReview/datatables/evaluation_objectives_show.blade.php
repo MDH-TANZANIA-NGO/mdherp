@@ -2,7 +2,7 @@
     <div class="card-header"><h3 class="card-title">performance goals part 1</h3></div>
         <div class="card-body">
          
-        @if($can_update_attribute_rate_resource)
+        @if($can_update_attribute_rate_resource == false)
         <div class="row">
             <div class="col-sm-12 col-lg-12 col-md-12 col-xl-12">
                 <div class="tab-pane active" id="processing">

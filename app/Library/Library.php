@@ -411,6 +411,7 @@ if (!function_exists('pr_remark_driver')) {
     function pr_remark_driver(PrReport $pr_report,$workflows)
     {
         $pr_remarks_cv_id = null;
+        $pr_remarks_by = null;
         $pr_remark_description = "Remarks";
         $can_submit_remark = false;
         switch($workflows->wf_module_id)
@@ -420,28 +421,30 @@ if (!function_exists('pr_remark_driver')) {
                 switch($workflows->currentLevel())
                 {
                     case 2:
-                        if($remarks->where('user_id',access()->check() ?? access()->id)->where('pr_remarks_cv_id',42)->count() > 0 && $pr_report->supervisor_id == access()->check() ?? access()->id){
+                        if($remarks->where('user_id',access()->id())->where('pr_remarks_cv_id',42)->count() == 0 && $pr_report->parent->supervisor_id == access()->id()){
                             $code_value = code_value()->query()->where('id', 42)->first();
                             $pr_remarks_cv_id = $code_value->id;
+                            $pr_remarks_by = $code_value->name;
                             $pr_remark_description = $code_value->description;
                             $can_submit_remark = true;
                         }
-                    break;
-                    default:
-                        if($remarks->where('pr_remarks_cv_id',13)->count() > 0 && $remarks->where('user_id',access()->check() ?? access()->id())->count() == 0){
+                        if($remarks->where('pr_remarks_cv_id',13)->count() == 0 && $remarks->where('user_id',access()->id())->count() == 0){
                             $code_value = code_value()->query()->where('id', 43)->first();
                             $pr_remarks_cv_id = $code_value->id;
+                            $pr_remarks_by = $code_value->name;
                             $pr_remark_description = $code_value->description;
                             $can_submit_remark = true;
                         }
                     break;
+                    
                 }
             break;
         }
-        return [
+        return (object)[
             'pr_remarks_cv_id' => $pr_remarks_cv_id,
-            'pr_remark_description' => $pr_remark_description,
-            'can_submit_remark' => $can_submit_remark
+            'pr_remarks_description' => $pr_remark_description,
+            'can_submit_remark' => $can_submit_remark,
+            'pr_remarks_by' => $pr_remarks_by
         ];
     }
 }
