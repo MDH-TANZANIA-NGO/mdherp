@@ -6,10 +6,11 @@
                     <table id="objectives" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
-                                <th style ="">#</th>
-                                <th style ="">OBJECTIVE/GOAL</th>
-                                <th style ="">ACTION PLAN</th>
-                                <th style ="">AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
+                                <th>#</th>
+                                <th>OBJECTIVE/GOAL</th>
+                                <th>ACTION PLAN</th>
+                                <th>MAJOR ACCOMPLISHMENT</th>
+                                <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
                                 <th style ="width:10%">ACTION</th>
                             </tr>
                         </thead>
@@ -19,6 +20,7 @@
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $objective->goal }}</td>
                                     <td>{{ $objective->plan }}</td>
+                                    <td>{{ $objective->accomplishment }}</td>
                                     <td>{{ $objective->challenge }}</td>
                                     <td><a href="#" class="mr-2" data-toggle="modal" data-target="#objectiveModel{{ $objective->uuid }}">Add/Update Challenge</a></td>
                                 </tr>
@@ -38,6 +40,12 @@
                                             <div class="modal-body">
                                            
                                                 <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+                                                        <div class="form-group">
+						                                    <label class="form-label">Major Accomplishment</label>
+						                                    <textarea name='accomplishment' class="form-control" rows="5" placeholder="Add challenge" required>{{ $objective->accomplishment }}</textarea>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
                                                         <div class="form-group">
 						                                    <label class="form-label">Areas of Challenge/ Opportunities for Improvement</label>

@@ -22,4 +22,10 @@ return [
         'with_region' => 13,
     ],
 
+    // Performace Review
+    'performance_review' => [
+        'goals_agreement' => 1,
+        'goals_evaluation' => 2,
+    ]
+
 ];

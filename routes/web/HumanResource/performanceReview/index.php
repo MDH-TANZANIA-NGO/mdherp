@@ -10,6 +10,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         Route::get('{pr_report}/show', 'PrReportController@show')->name('show');
         Route::put('{pr_report}/update', 'PrReportController@update')->name('update');
         Route::post('{pr_report}/submit', 'PrReportController@submit')->name('submit');
+        Route::get('{pr_report}/completed', 'PrReportController@completed')->name('completed');
         //Evaluation
         Route::group(['prefix' => 'evaluation', 'as' => 'evaluation.'], function () {
             Route::post('{pr_report}/initiate', 'PrReportController@evaluationInitiate')->name('initiate');
@@ -40,6 +41,25 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
             Route::put('update/{pr_objective}/challenge', 'PrObjectiveController@updateChallenge')->name('update_challenge');
             Route::post('update/{pr_objective}/scale-rate', 'PrObjectiveController@updateRateScale')->name('update_scale_rate');
             Route::get('{pr_objective}/destroy', 'PrObjectiveController@destroy')->name('destroy');
+        });
+        //Remarks
+        Route::group(['prefix' => 'remarks', 'as' => 'remark.'], function () {
+            Route::post('{pr_report}/store', 'PrRemarkController@store')->name('store');
+        });
+        //Skills
+        Route::group(['prefix' => 'skills', 'as' => 'skill.'], function () {
+            Route::post('{pr_report}/store', 'PrSkillController@store')->name('store');
+        });
+        //education
+        Route::group(['prefix' => 'educations', 'as' => 'education.'], function () {
+            Route::post('{pr_report}/store', 'PrEducationOpportunityController@store')->name('store');
+        });
+
+        //next objective
+        Route::group(['prefix' => 'next-year-objectives', 'as' => 'next_objective.'], function () {
+            Route::post('{pr_report}/store', 'PrNextObjectiveController@store')->name('store');
+            Route::put('{pr_next_objective}/update', 'PrNextObjectiveController@update')->name('update');
+            Route::get('{pr_next_objective}/destroy', 'PrNextObjectiveController@destroy')->name('destroy');
         });
     });
 

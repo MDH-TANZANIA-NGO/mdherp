@@ -471,6 +471,72 @@ class CodeValuesTableSeeder extends Seeder
                     'sort' => 0,
                     'isactive' => 1,
                 ),
+            41 =>
+                array (
+                    'id' => 42,
+                    'code_id' => 13,
+                    'name' => 'Supervisor',
+                    'lang' => NULL,
+                    'description' => 'I have conducted a staff performance evaluation interview.  The interview has focused on the performance of the employee both quantitative and qualitative. Below are comments on the overall performance of the employee and suggestion on how MDH could help the employee.',
+                    'reference' => 'smr',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            42 =>
+                array (
+                    'id' => 43,
+                    'code_id' => 13,
+                    'name' => 'Employee',
+                    'lang' => NULL,
+                    'description' => 'I have gone through the assessment made by my Supervisor and I agree/disagree with the assessment for the following reasons:-',
+                    'reference' => 'emr',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            43 =>
+                array (
+                    'id' => 44,
+                    'code_id' => 13,
+                    'name' => 'RPM',
+                    'lang' => NULL,
+                    'description' => 'Remarks by RPM',
+                    'reference' => 'rmr',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            44 =>
+                array (
+                    'id' => 45,
+                    'code_id' => 13,
+                    'name' => 'Director',
+                    'lang' => NULL,
+                    'description' => 'Remarks by Director',
+                    'reference' => 'dmr',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            45 =>
+                array (
+                    'id' => 46,
+                    'code_id' => 13,
+                    'name' => 'HR Director',
+                    'lang' => NULL,
+                    'description' => 'Human Resource Director Remarkd',
+                    'reference' => 'hrdmr',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+            46 =>
+                array (
+                    'id' => 47,
+                    'code_id' => 13,
+                    'name' => 'CEO',
+                    'lang' => NULL,
+                    'description' => 'CEO REmrks',
+                    'reference' => 'cmr',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
 
 
         ));
