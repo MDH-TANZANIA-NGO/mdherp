@@ -417,18 +417,18 @@ if (!function_exists('pr_remark_driver')) {
         switch($workflows->wf_module_id)
         {
             case 11:
-                $remarks = $pr_report->remarks;
+                $remarks = $pr_report->remarks();
                 switch($workflows->currentLevel())
                 {
                     case 2:
-                        if($remarks->where('user_id',access()->id())->where('pr_remarks_cv_id',42)->count() == 0 && $pr_report->parent->supervisor_id == access()->id()){
+                        if(PrRemark::query()->where('user_id',access()->id())->where('pr_remarks_cv_id',42)->count() == 0 && $pr_report->parent->supervisor_id == access()->id()){
                             $code_value = code_value()->query()->where('id', 42)->first();
                             $pr_remarks_cv_id = $code_value->id;
                             $pr_remarks_by = $code_value->name;
                             $pr_remark_description = $code_value->description;
                             $can_submit_remark = true;
                         }
-                        if($remarks->where('pr_remarks_cv_id',43)->where('user_id',access()->id())->count() == 0){
+                        if(PrRemark::query()->where('pr_report_id', $pr_report->id)->where('user_id', access()->id())->count() == 0){
                             $code_value = code_value()->query()->where('id', 43)->first();
                             $pr_remarks_cv_id = $code_value->id;
                             $pr_remarks_by = $code_value->name;
