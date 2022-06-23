@@ -3,6 +3,7 @@
 namespace App\Models\HumanResource\PerformanceReview\Traits\Relationship;
 
 use App\Models\Auth\User;
+use App\Models\HumanResource\PerformanceReview\PrAchievementComment;
 use App\Models\HumanResource\PerformanceReview\PrAttributeRate;
 use App\Models\HumanResource\PerformanceReview\PrCompetence;
 use App\Models\HumanResource\PerformanceReview\PrEducationOpportunity;
@@ -77,6 +78,11 @@ trait PrReportRelationship
     public function nextObjectives()
     {
         return $this->hasMany(PrNextObjective::class, 'pr_report_id','id');
+    }
+
+    public function achievementComment()
+    {
+        return $this->hasOne(PrAchievementComment::class, 'pr_report_id','id');
     }
 
 }

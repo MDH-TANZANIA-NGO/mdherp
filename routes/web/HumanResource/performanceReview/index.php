@@ -50,7 +50,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         Route::group(['prefix' => 'skills', 'as' => 'skill.'], function () {
             Route::post('{pr_report}/store', 'PrSkillController@store')->name('store');
         });
-        //education
+        //education 
         Route::group(['prefix' => 'educations', 'as' => 'education.'], function () {
             Route::post('{pr_report}/store', 'PrEducationOpportunityController@store')->name('store');
         });
@@ -60,6 +60,12 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
             Route::post('{pr_report}/store', 'PrNextObjectiveController@store')->name('store');
             Route::put('{pr_next_objective}/update', 'PrNextObjectiveController@update')->name('update');
             Route::get('{pr_next_objective}/destroy', 'PrNextObjectiveController@destroy')->name('destroy');
+        });
+
+        //PrAchievementCommentController
+        Route::group(['prefix' => 'achievement-comments', 'as' => 'achievement_comment.'], function () {
+            Route::post('{pr_report}/store', 'PrAchievementCommentController@store')->name('store');
+            Route::put('{pr_achievement_comment}/store', 'PrAchievementCommentController@update')->name('update');
         });
     });
 
