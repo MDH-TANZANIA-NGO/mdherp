@@ -23,11 +23,12 @@
 
 @include('HumanResource.PerformanceReview.datatables.overall_summary')
 
-@if($pr_report->remarks()->count())
-    @include('HumanResource.PerformanceReview.datatables.remarks')
+@if($pr_report->type_id == 2)
+    @if($pr_report->remarks()->count())
+        @include('HumanResource.PerformanceReview.datatables.remarks')
+    @endif
+    @include('HumanResource.PerformanceReview.form.remark')
 @endif
-
-@include('HumanResource.PerformanceReview.form.remark')
 
 <div class="row">
     <div class="card">
@@ -43,17 +44,19 @@
     </div>
  </div>
 
-@if($pr_report->skill()->count())
-    @include('HumanResource.PerformanceReview.datatables.skills')
-@endif
+@if($pr_report->type_id == 2)
+    @if($pr_report->skill()->count())
+        @include('HumanResource.PerformanceReview.datatables.skills')
+    @endif
 
-@if($pr_report->education()->count())
-    @include('HumanResource.PerformanceReview.datatables.education')
-@endif
+    @if($pr_report->education()->count())
+        @include('HumanResource.PerformanceReview.datatables.education')
+    @endif
 
 
-@if(\App\Models\HumanResource\PerformanceReview\PrRemark::query()->where('pr_report_id',$pr_report->id)->count() && $pr_report->user_id == access()->id() &&  $pr_report->completed == 0)
-@include('HumanResource.PerformanceReview.form.skill')
-@include('HumanResource.PerformanceReview.form.education')
+    @if(\App\Models\HumanResource\PerformanceReview\PrRemark::query()->where('pr_report_id',$pr_report->id)->count() && $pr_report->user_id == access()->id() &&  $pr_report->completed == 0)
+        @include('HumanResource.PerformanceReview.form.skill')
+        @include('HumanResource.PerformanceReview.form.education')
+    @endif
 @endif
 
