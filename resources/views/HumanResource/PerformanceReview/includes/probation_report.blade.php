@@ -28,7 +28,7 @@
 		</div>
         <div class="card-body">
             @include('HumanResource.PerformanceReview.form.probation_objective',['pr_report' => $pr_report])
-            @include('HumanResource.PerformanceReview.datatables.objectives',['pr_objectives' => $pr_objectives])
+            @include('HumanResource.PerformanceReview.datatables.probation_objectives',['pr_objectives' => $pr_objectives])
         </div>
     </div>
  </div>
