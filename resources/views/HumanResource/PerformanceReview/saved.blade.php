@@ -17,17 +17,17 @@
         @break
     @endswitch
 
+    @if($pr_report->parent)
         @if($pr_report->user->supervisor)
             @include('HumanResource.PerformanceReview.datatables.competence_saved')
         @else
             @include('HumanResource.PerformanceReview.datatables.attribute_saved')
         @endif
-
         @switch($pr_report->type->id)
             @case(1)
                 @include('HumanResource.PerformanceReview.form.next_objective_saved')
                 @include('HumanResource.PerformanceReview.datatables.next_objectives',['pr_next_objectives' => $pr_report->nextObjectives])
             @break
         @endswitch
-
+    @endif
 @endsection
