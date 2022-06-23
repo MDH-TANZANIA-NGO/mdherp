@@ -67,6 +67,13 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
             Route::post('{pr_report}/store', 'PrAchievementCommentController@store')->name('store');
             Route::put('{pr_achievement_comment}/update', 'PrAchievementCommentController@update')->name('update');
         });
+
+        //PrRecommendationController
+        Route::group(['prefix' => 'recommandations-to-human-resource', 'as' => 'recommandation.'], function () {
+            Route::post('{pr_report}/store', 'PrRecommendationController@store')->name('store');
+            Route::put('{pr_recommendation}/update', 'PrRecommendationController@update')->name('update');
+        });
+
     });
 
 });

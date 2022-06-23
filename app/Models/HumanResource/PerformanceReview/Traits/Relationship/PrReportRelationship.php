@@ -9,6 +9,7 @@ use App\Models\HumanResource\PerformanceReview\PrCompetence;
 use App\Models\HumanResource\PerformanceReview\PrEducationOpportunity;
 use App\Models\HumanResource\PerformanceReview\PrNextObjective;
 use App\Models\HumanResource\PerformanceReview\PrObjective;
+use App\Models\HumanResource\PerformanceReview\PrRecommendation;
 use App\Models\HumanResource\PerformanceReview\PrRemark;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Models\HumanResource\PerformanceReview\PrSkill;
@@ -83,6 +84,11 @@ trait PrReportRelationship
     public function achievementComment()
     {
         return $this->hasOne(PrAchievementComment::class, 'pr_report_id','id');
+    }
+
+    public function recommendation()
+    {
+        return $this->hasOne(PrRecommendation::class,'pr_report_id','id');
     }
 
 }
