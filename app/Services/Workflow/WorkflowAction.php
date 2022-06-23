@@ -27,7 +27,7 @@ class WorkflowAction {
                             'subject' =>  " Kindly review",
                             'message' => ' Performance Appraisal is on your level'
                         ];
-                        User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                        // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                         break;
 
                     case 3:
@@ -37,7 +37,7 @@ class WorkflowAction {
                             'subject' =>  " Kindly review",
                             'message' => ' Performance Appraisal is on your level'
                         ];
-                        User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                        // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                         break;
                     case 4:
                         $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
@@ -46,7 +46,7 @@ class WorkflowAction {
                             'subject' =>  " Kindly review",
                             'message' => ' Performance Appraisal is on your level'
                         ];
-                        User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                        // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     case 5:
                         $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
@@ -71,7 +71,7 @@ class WorkflowAction {
                                 'subject' =>  " Kindly review",
                                 'message' => ' Performance Appraisal is on your level'
                             ];
-                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
     
                         case 2:
@@ -81,7 +81,7 @@ class WorkflowAction {
                                 'subject' =>  " Kindly review",
                                 'message' => ' Performance Appraisal is on your level'
                             ];
-                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            // User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     }
                     break;
