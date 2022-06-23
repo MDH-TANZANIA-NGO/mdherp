@@ -23,6 +23,12 @@
         @else
             @include('HumanResource.PerformanceReview.datatables.attribute_saved')
         @endif
+
+        @switch($pr_report->type->id)
+            @case(1)
+                @include('HumanResource.PerformanceReview.form.next_objective_saved')
+            @break
+        @endswitch
     @endif
 
 @endsection
