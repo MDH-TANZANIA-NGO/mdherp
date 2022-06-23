@@ -569,7 +569,7 @@ class WorkflowEventSubscriber
                     $email_resource = (object)[
                         'link' =>  route('timesheet.show',$timesheet),
                         'subject' => "Approved Successfully",
-                        'message' => 'These Timesheet has been Approved successfully'
+                        'message' => 'Your Timesheet has been Approved successfully'
                     ];
                     $timesheet->user->notify(new WorkflowNotification($email_resource));
                     break;
