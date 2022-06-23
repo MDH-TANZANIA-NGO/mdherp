@@ -1,11 +1,12 @@
 @extends('layouts.app')
 @section('content')
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDH</title>
 
     <!-- leaflet css  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -32,27 +33,6 @@
 </head>
 
 <body>
-
-    <button onclick="getLocation()">Get your location</button>
-
-    <p id="demo"></p>
-
-    <script>
-        var x = document.getElementById("demo");
-
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(showPosition);
-            } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        function showPosition(position) {
-            x.innerHTML = "Latitude: " + position.coords.latitude +
-                "<br>Longitude: " + position.coords.longitude;
-        }
-    </script>
     <div id="map"></div>
 </body>
 
@@ -65,7 +45,7 @@
 
 <script>
     // Map initialization 
-    var map = L.map('map').setView([-6.369028, 34.888822], 5);
+    var map = L.map('map').setView([-6.78637, 39.2789], 8);
 
     //osm layer
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -74,7 +54,20 @@
     osm.addTo(map);
 
 
+
+    // map.addListener("click", () => {
+    //     // 3 seconds after the center of the map has changed, pan back to the
+    //     // marker.
+    //     console.log("clicked");
+    //     window.setTimeout(() => {
+    //         map.panTo(marker.getPosition());
+    //     }, 3000);
+    // });
+
+
+
+
+
     L.control.locate().addTo(map);
 </script>
-
 @endsection

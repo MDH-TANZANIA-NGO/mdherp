@@ -34,7 +34,7 @@
 
     @if ($check_time->count() == 0)
 
-    @if($visibility)
+    @if($visibility2)
     <form action="{{route('store-time')}}" method="POST">
         @csrf
         <div class="punch-btn-section">
