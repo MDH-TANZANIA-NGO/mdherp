@@ -44,6 +44,7 @@ class PrAchievementCommentController extends Controller
      */
     public function store(Request $request, PrReport $pr_report)
     {
+        $request['user_id'] = access()->id();
         $this->pr_achievement_comments->store($pr_report, $request->all());
         alert()->success('Achievement comment saved successfully');
         return redirect()->back();

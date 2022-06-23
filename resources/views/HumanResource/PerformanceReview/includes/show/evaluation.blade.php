@@ -33,7 +33,12 @@
 <div class="row">
     <div class="card">
         <div class="card-header">
-			<h3 class="card-title">D. WORK PERFORMANCE GOALS FOR COMING YEAR</h3>
+			<h3 class="card-title">
+                @switch($pr_report->pr_type_id)
+                    @case(2) D. WORK PERFORMANCE GOALS FOR COMING YEAR @break
+                    @case(1) D. EXPECTED ACHIEVEMENTS DURING PROBATION @break
+                @endswitch
+            </h3>
 		</div>
         <div class="card-body">
         @if(\App\Models\HumanResource\PerformanceReview\PrRemark::query()->where('pr_report_id',$pr_report->id)->count() && $pr_report->user_id == access()->id() &&  $pr_report->completed == 0)
@@ -44,19 +49,27 @@
     </div>
  </div>
 
-@if($pr_report->type_id == 2)
-    @if($pr_report->skill()->count())
-        @include('HumanResource.PerformanceReview.datatables.skills')
-    @endif
+@switch($pr_report->pr_type_id)
+    @case(2)
+        @if($pr_report->skill()->count())
+            @include('HumanResource.PerformanceReview.datatables.skills')
+        @endif
 
-    @if($pr_report->education()->count())
-        @include('HumanResource.PerformanceReview.datatables.education')
-    @endif
+        @if($pr_report->education()->count())
+            @include('HumanResource.PerformanceReview.datatables.education')
+        @endif
 
 
-    @if(\App\Models\HumanResource\PerformanceReview\PrRemark::query()->where('pr_report_id',$pr_report->id)->count() && $pr_report->user_id == access()->id() &&  $pr_report->completed == 0)
-        @include('HumanResource.PerformanceReview.form.skill')
-        @include('HumanResource.PerformanceReview.form.education')
-    @endif
-@endif
+        @if(\App\Models\HumanResource\PerformanceReview\PrRemark::query()->where('pr_report_id',$pr_report->id)->count() && $pr_report->user_id == access()->id() &&  $pr_report->completed == 0)
+            @include('HumanResource.PerformanceReview.form.skill')
+            @include('HumanResource.PerformanceReview.form.education')
+        @endif
+    @break
+    @case(1)
+        @if($can_update_attribute_rate_resource)
+            @include('HumanResource.PerformanceReview.form.achievement_comment')
+        @endif
+    @break
+    
+@endswitch
 

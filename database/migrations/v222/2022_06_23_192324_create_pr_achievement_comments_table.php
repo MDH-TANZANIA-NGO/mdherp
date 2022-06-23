@@ -15,6 +15,11 @@ class CreatePrAchievementCommentsTable extends Migration
     {
         Schema::create('pr_achievement_comments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pr_report_id');
+            $table->unsignedBigInteger('user_id');
+            $table->longText('comment');
+            $table->uuid('uuid');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

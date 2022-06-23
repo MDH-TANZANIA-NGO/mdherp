@@ -65,7 +65,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         //PrAchievementCommentController
         Route::group(['prefix' => 'achievement-comments', 'as' => 'achievement_comment.'], function () {
             Route::post('{pr_report}/store', 'PrAchievementCommentController@store')->name('store');
-            Route::put('{pr_achievement_comment}/store', 'PrAchievementCommentController@update')->name('update');
+            Route::put('{pr_achievement_comment}/update', 'PrAchievementCommentController@update')->name('update');
         });
     });
 
