@@ -30,7 +30,7 @@ class PrRemarkObserver
                 'subject' => "Remarks From your supervisor on ".$prRemark->prReport->parent->type->title." ".$prRemark->prReport->parent->number,
                 'message' => 'Remarks <br>'.$prRemark->remarks
             ];
-            $prRemark->prReport->user->notify(new WorkflowNotification($email_resource));
+            // $prRemark->prReport->user->notify(new WorkflowNotification($email_resource));
         }
 
 
