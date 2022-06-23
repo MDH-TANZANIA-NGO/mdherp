@@ -68,8 +68,9 @@
     @case(1)
         @if($can_update_attribute_rate_resource)
             @include('HumanResource.PerformanceReview.form.achievement_comment')
+        @else
+            @include('HumanResource.PerformanceReview.datatables.achievement_comment')
         @endif
     @break
-    
 @endswitch
 
