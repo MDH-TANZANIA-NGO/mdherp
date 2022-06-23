@@ -16,4 +16,13 @@
             @endif
         @break
     @endswitch
+
+    @if($pr_report->user_id == access()->id())
+        @if($pr_report->user->supervisor)
+            @include('HumanResource.PerformanceReview.datatables.competence_saved')
+        @else
+            @include('HumanResource.PerformanceReview.datatables.attribute_saved')
+        @endif
+    @endif
+
 @endsection

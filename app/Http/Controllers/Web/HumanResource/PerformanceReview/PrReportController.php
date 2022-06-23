@@ -103,6 +103,8 @@ class PrReportController extends Controller
         ->with('pr_report', $pr_report)
         ->with('pr_objectives', $pr_report->objectives)
         ->with('pr_rate_scales', $this->pr_rate_scales->pluckWithDescription())
+        ->with('pr_competence_keys', $this->pr_competence_keys->getAll())
+        ->with('pr_attributes', $this->pr_attributes->getAll())
         ->with('can_submit_challenges', $pr_report->parent ? $pr_report->parent->objectives()->whereNull('challenge')->count() : 0);
     }
 
