@@ -17,9 +17,9 @@ class CreatePrRecommendationsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pr_report_id');
             $table->unsignedBigInteger('user_id');
-            $table->boolean('conform_wef')->nullable();
+            $table->boolean('confirm_wef')->default(false);
             $table->string('extend_probation')->nullable();
-            $table->boolean('terminate')->nullable();
+            $table->boolean('terminate')->default(false);
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();

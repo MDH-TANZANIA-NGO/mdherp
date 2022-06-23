@@ -69,7 +69,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         });
 
         //PrRecommendationController
-        Route::group(['prefix' => 'recommandations-to-human-resource', 'as' => 'recommandation.'], function () {
+        Route::group(['prefix' => 'recommandations-to-human-resource', 'as' => 'recommendation.'], function () {
             Route::post('{pr_report}/store', 'PrRecommendationController@store')->name('store');
             Route::put('{pr_recommendation}/update', 'PrRecommendationController@update')->name('update');
         });

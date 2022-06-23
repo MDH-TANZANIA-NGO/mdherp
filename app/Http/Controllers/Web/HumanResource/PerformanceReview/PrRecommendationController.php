@@ -25,7 +25,7 @@ class PrRecommendationController extends Controller
     public function store(Request $request, PrReport $pr_report)
     {
         $request['user_id'] = access()->id();
-        $this->pr_achievement_comments->store($pr_report, $request->all());
+        $this->pr_recommendations->store($pr_report, $request->all());
         alert()->success('Recommendation stored successfully');
         return redirect()->back();
     }
@@ -39,7 +39,7 @@ class PrRecommendationController extends Controller
      */
     public function update(Request $request, PrRecommendation $pr_recommendation)
     {
-        $this->pr_achievement_comments->update($pr_recommendation, $request->all());
+        $this->pr_recommendations->update($pr_recommendation, $request->all());
         alert()->success('Recommendation updated successfully');
         return redirect()->back();
     }
