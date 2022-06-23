@@ -70,8 +70,12 @@
             @include('HumanResource.PerformanceReview.form.achievement_comment')
             @include('HumanResource.PerformanceReview.form.recommendation')
         @else
-            @include('HumanResource.PerformanceReview.datatables.achievement_comment')
-            @include('HumanResource.PerformanceReview.datatables.recommendation')
+            @if($pr_report->achievementComment)
+                @include('HumanResource.PerformanceReview.datatables.achievement_comment')
+            @endif
+            @if($pr_report->recommendation)
+                @include('HumanResource.PerformanceReview.datatables.recommendation')
+            @endif
         @endif
     @break
 @endswitch
