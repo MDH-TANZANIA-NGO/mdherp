@@ -102,6 +102,7 @@ class PrReportController extends Controller
         return view('HumanResource.PerformanceReview.saved')
         ->with('pr_report', $pr_report)
         ->with('pr_objectives', $pr_report->objectives)
+        ->with('pr_rate_scales', $this->pr_rate_scales->pluckWithDescription())
         ->with('can_submit_challenges', $pr_report->parent ? $pr_report->parent->objectives()->whereNull('challenge')->count() : 0);
     }
 

@@ -9,10 +9,10 @@
             @endif
         @break
         @case(1)
-            @if($pr_report->parent)
-                @include('HumanResource.PerformanceReview.includes.evaluation',['pr_report' => $pr_report->parent])
+        @if($pr_report->parent)
+                @include('HumanResource.PerformanceReview.includes.probation_evaluation',['pr_report' => $pr_report->parent])
             @else
-                @include('HumanResource.PerformanceReview.includes.probation_report',['pr_report' => $pr_report])
+                @include('HumanResource.PerformanceReview.includes.report',['pr_report' => $pr_report])
             @endif
         @break
     @endswitch
