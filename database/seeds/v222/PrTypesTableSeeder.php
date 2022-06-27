@@ -25,11 +25,6 @@ class PrTypesTableSeeder extends Seeder
             1 =>
                 array (
                     'id' => 2,
-                    'title' => 'Performance Evaluation – Mid Year Review',
-                ),
-            2 =>
-                array (
-                    'id' => 3,
                     'title' => 'Performance Evaluation: Final Review at the End of the Year:',
                 ),
         ));

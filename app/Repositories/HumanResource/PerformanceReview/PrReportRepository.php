@@ -2,8 +2,11 @@
 
 namespace App\Repositories\HumanResource\PerformanceReview;
 
+use App\Exceptions\GeneralException;
+use App\Models\Auth\User;
 use App\Models\Budget\FiscalYear;
 use App\Models\HumanResource\PerformanceReview\PrReport;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
 use Carbon\Carbon;
@@ -98,8 +101,8 @@ class PrReportRepository extends BaseRepository
     public function getAccessApprovedWaitForEvaluation()
     {
         return $this->getAccessApproved()
-            ->whereDoesntHave('child')
-            ->whereDate('pr_reports.to_at', '<=', Carbon::now()->format('Y-m-d'));
+            ->whereDoesntHave('child');
+            // ->whereDate('pr_reports.to_at', '<=', Carbon::now()->format('Y-m-d'));
     }
 
     /** 
@@ -169,13 +172,28 @@ class PrReportRepository extends BaseRepository
      */
     public function updateDoneAssignNextUserIdAndGenerateNumber(PrReport $pr_report)
     {
+        $this->checkIfHasWorkflow($pr_report);
         $number = $pr_report->parent ? null : $this->generateNumber($pr_report);
         return DB::transaction(function () use ($pr_report, $number) {
-            return $pr_report->update([
-                'done' => true,
-                'supervisor_id' => access()->user()->assignedSupervisor()->supervisor_id,
-                'number' => $number
-            ]);
+            return $pr_report->update(['done' => true]);
         });
+    }
+
+    public function checkIfHasWorkflow(PrReport $pr_report)
+    {
+        if($pr_report->wfTracks()->count()){
+            throw new GeneralException('You can not submit twice');
+        }
+    }
+
+    public function completed(PrReport $pr_report)
+    {
+            $pr_report->update(['completed' => 1]);
+            $email_resource = (object)[
+                'link' =>  route('hr.pr.show',$pr_report),
+                'subject' => "Kindly Processd with workflow ".$pr_report->parent->type->title." ".$pr_report->parent->number,
+                'message' => 'Employee has Completed to fill all the required inputs'
+            ];
+            // User::query()->find($pr_report->parent->supervisor_id)->notify(new WorkflowNotification($email_resource));
     }
 }

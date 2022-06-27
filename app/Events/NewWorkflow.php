@@ -31,7 +31,6 @@ class NewWorkflow
         $this->input = $input;
         $this->par = $par;
         $this->extra = $extra;
-
     }
 
     /**

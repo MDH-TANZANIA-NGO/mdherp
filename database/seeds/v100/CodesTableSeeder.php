@@ -105,6 +105,13 @@ class CodesTableSeeder extends Seeder
                     'lang' => 'relationship',
                     'is_system_defined' => 1,
                 ),
+            12 =>
+                array (
+                    'id' => 13,
+                    'name' => 'Pr Remarks',
+                    'lang' => 'Remarks',
+                    'is_system_defined' => 1,
+                ),
 
 
         ));

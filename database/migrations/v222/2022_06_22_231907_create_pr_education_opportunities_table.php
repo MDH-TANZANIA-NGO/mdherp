@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHrHireJobsTable extends Migration
+class CreatePrEducationOpportunitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateHrHireJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hr_hire_jobs', function (Blueprint $table) {
+        Schema::create('pr_education_opportunities', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255);
+            $table->unsignedBigInteger('pr_report_id');
+            $table->longText('comment');
             $table->uuid('uuid');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateHrHireJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hr_hire_jobs');
+        Schema::dropIfExists('pr_education_opportunities');
     }
 }

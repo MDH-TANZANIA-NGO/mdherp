@@ -24,7 +24,8 @@ class PrObjectiveChallengeRequest extends FormRequest
     public function rules()
     {
         return [
-            'challenge' => 'required|min:10'
+            'challenge' => 'required|min:10',
+            'accomplishment' => 'required|min:10',
         ];
     }
 }

@@ -9,28 +9,6 @@
 		</div>
     </div>
 
-    <div class="col-xl-12 col-lg-12 col-md-12">
-		<div class="card">
-			<div class="p-3">
-				<h3 class="card-title mb-2">OVERALL PERFORMANCE OF THE EMPLOYEE AND REWARD RECOMMENDATION</h3>
-					<div class="row">
-						<div class="col-4 border-right">
-							<p class=" mb-0 fs-12  text-muted">Average Rate for set performance goals - Part A</p>
-							<h3 class="mb-0">{{ avg_per_pr_objective($pr_report->parent) }}</h3>
-						</div>
-						<div class="col-4 border-right ">
-							<p class=" mb-0 fs-12 text-muted">Average Rate for competencies & skills – Part B</p>
-							<h3 class="mb-0">{!! avg_per_key_competence_report($pr_report->parent) !!}</h3>
-						</div>
-						<div class="col-4">
-							<p class=" mb-0  fs-12 text-muted">AVERAGE</p>
-							<h3 class="mb-0">{{ round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report->parent))/2) }} <span style="font-size: 14px;">{{ \App\Models\HumanResource\PerformanceReview\PrRateScale::whereRate(round((avg_per_pr_objective($pr_report->parent)+avg_per_key_competence_report($pr_report))/2))->first()->description }}</span></h3>
-						</div>
-					</div>
-			</div>
-		</div>
-    </div>
-
 </div>
 
 <div class="row">
@@ -42,4 +20,63 @@
 @else
     @include('HumanResource.PerformanceReview.datatables.attribute_show',['pr_objectives' => $pr_report->objectives])
 @endif
+
+@include('HumanResource.PerformanceReview.datatables.overall_summary')
+
+@if($pr_report->type_id == 2)
+    @if($pr_report->remarks()->count())
+        @include('HumanResource.PerformanceReview.datatables.remarks')
+    @endif
+    @include('HumanResource.PerformanceReview.form.remark')
+@endif
+
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+			<h3 class="card-title">
+                @switch($pr_report->pr_type_id)
+                    @case(2) D. WORK PERFORMANCE GOALS FOR COMING YEAR @break
+                    @case(1) D. EXPECTED ACHIEVEMENTS DURING PROBATION @break
+                @endswitch
+            </h3>
+		</div>
+        <div class="card-body">
+        @if(\App\Models\HumanResource\PerformanceReview\PrRemark::query()->where('pr_report_id',$pr_report->id)->count() && $pr_report->user_id == access()->id() &&  $pr_report->completed == 0)
+                @include('HumanResource.PerformanceReview.form.next_objective',['pr_report' => $pr_report])
+            @endif
+            @include('HumanResource.PerformanceReview.datatables.next_objectives',['pr_next_objectives' => $pr_report->nextObjectives])
+        </div>
+    </div>
+ </div>
+
+@switch($pr_report->pr_type_id)
+    @case(2)
+        @if($pr_report->skill()->count())
+            @include('HumanResource.PerformanceReview.datatables.skills')
+        @endif
+
+        @if($pr_report->education()->count())
+            @include('HumanResource.PerformanceReview.datatables.education')
+        @endif
+
+
+        @if(\App\Models\HumanResource\PerformanceReview\PrRemark::query()->where('pr_report_id',$pr_report->id)->count() && $pr_report->user_id == access()->id() &&  $pr_report->completed == 0)
+            @include('HumanResource.PerformanceReview.form.skill')
+            @include('HumanResource.PerformanceReview.form.education')
+        @endif
+    @break
+    @case(1)
+        @if($can_update_attribute_rate_resource)
+            @include('HumanResource.PerformanceReview.form.achievement_comment')
+            @include('HumanResource.PerformanceReview.form.recommendation')
+        @else
+            @if($pr_report->achievementComment)
+                @include('HumanResource.PerformanceReview.datatables.achievement_comment')
+            @endif
+            @if($pr_report->recommendation)
+                @include('HumanResource.PerformanceReview.datatables.recommendation')
+            @endif
+        @endif
+    @break
+@endswitch
 

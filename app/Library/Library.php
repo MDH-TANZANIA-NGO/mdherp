@@ -10,10 +10,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use App\Models\Auth\User;
+use App\Models\HumanResource\PerformanceReview\PrAttributeRate;
 use App\Models\HumanResource\PerformanceReview\PrCompetence;
 use App\Models\HumanResource\PerformanceReview\PrCompetenceKey;
 use App\Models\HumanResource\PerformanceReview\PrObjective;
 use App\Models\HumanResource\PerformanceReview\PrRateScale;
+use App\Models\HumanResource\PerformanceReview\PrRemark;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 
 if (!function_exists('get_uri')) {
@@ -369,5 +371,82 @@ if (!function_exists('avg_per_pr_objective')) {
             ->where('pr_reports.id', $prReport->id)
             ->avg('pr_rate_scales.rate');
         return round($avg);
+    }
+}
+
+if (!function_exists('total_per_pr_objective')) {
+    function total_per_pr_objective(PrReport $prReport)
+    {
+        return PrObjective::query()
+                 ->join('pr_reports','pr_reports.id','pr_objectives.pr_report_id')
+                 ->join('pr_rate_scales','pr_rate_scales.id','pr_objectives.pr_rate_scale_id')
+                 ->where('pr_reports.id', $prReport->id)
+                 ->sum('pr_rate_scales.rate');
+    }
+}
+
+if (!function_exists('avg_per_pr_attribute_rate')) {
+    function avg_per_pr_attribute_rate(PrReport $prReport)
+    {
+        $avg =PrAttributeRate::query()
+            ->join('pr_reports','pr_reports.id','pr_attribute_rates.pr_report_id')
+            ->join('pr_rate_scales','pr_rate_scales.id','pr_attribute_rates.pr_rate_scale_id')
+            ->where('pr_reports.id', $prReport->id)
+            ->avg('pr_rate_scales.rate');
+        return round($avg);
+    }
+}
+if (!function_exists('sum_per_pr_attribute_rate')) {
+    function sum_per_pr_attribute_rate(PrReport $prReport)
+    {
+        return PrAttributeRate::query()
+                ->join('pr_reports','pr_reports.id','pr_attribute_rates.pr_report_id')
+                ->join('pr_rate_scales','pr_rate_scales.id','pr_attribute_rates.pr_rate_scale_id')
+                ->where('pr_reports.id', $prReport->id)
+                ->sum('pr_rate_scales.rate');
+    }
+}
+
+if (!function_exists('pr_remark_driver')) {
+    function pr_remark_driver(PrReport $pr_report,$workflows)
+    {
+        $pr_remarks_cv_id = null;
+        $pr_remarks_by = null;
+        $pr_remark_description = "Remarks";
+        $can_submit_remark = false;
+        switch($workflows->wf_module_id)
+        {
+            case 11:
+                $remarks = $pr_report->remarks();
+                switch($workflows->currentLevel())
+                {
+                    case 2:
+                        if($remarks->where('user_id',access()->id())->where('pr_remarks_cv_id',42)->count() == 0 && $pr_report->parent->supervisor_id == access()->id()){
+                            $code_value = code_value()->query()->where('id', 42)->first();
+                            $pr_remarks_cv_id = $code_value->id;
+                            $pr_remarks_by = $code_value->name;
+                            $pr_remark_description = $code_value->description;
+                            $can_submit_remark = true;
+                        }
+                        if(
+                            PrRemark::query()->where('pr_remarks_cv_id',43)->where('pr_report_id', $pr_report->id)->where('user_id', access()->id())->count() == 0 &&
+                             $pr_report->parent->supervisor_id != access()->id()
+                             ){
+                            $code_value = code_value()->query()->where('id', 43)->first();
+                            $pr_remarks_cv_id = $code_value->id;
+                            $pr_remarks_by = $code_value->name;
+                            $pr_remark_description = $code_value->description;
+                            $can_submit_remark = true;
+                        }
+                    break;
+                }
+            break;
+        }
+        return (object)[
+            'pr_remarks_cv_id' => $pr_remarks_cv_id,
+            'pr_remarks_description' => $pr_remark_description,
+            'can_submit_remark' => $can_submit_remark,
+            'pr_remarks_by' => $pr_remarks_by
+        ];
     }
 }

@@ -31,10 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ZonesTableSeeder::class);
         $this->call(DistrictsTableSeeder::class);
 //        $this->call(UsersTableSeeder::class);
-        $this->call(RequisitionTypesTableSeeder::class);
-        $this->call(WfModuleGroupsTableSeeder::class);
-        $this->call(WfModulesTableSeeder::class);
-        $this->call(WfDefinitionsTableSeeder::class);
+//        $this->call(RequisitionTypesTableSeeder::class);
 //        $this->call(RequisitionTypeCategoriesTableSeeder::class);
 //        $this->call(RetirementTypeSeeder::class);
 
@@ -53,24 +50,28 @@ class DatabaseSeeder extends Seeder
 
 
        // $this->call(CountryTableSeeder::class);
-        $this->call(OrganisationTableSeeder::class);
+//        $this->call(OrganisationTableSeeder::class);
 //        $this->call(CountryOrganisationTableSeeder::class);
-        $this->call(FacilityCategoryTableSeeder::class);
-        $this->call(FacilityTypeTableSeeder::class);
-        $this->call(OwnershipCategoryTableSeeder::class);
-        $this->call(OwnershipTableSeeder::class);
+//        $this->call(FacilityCategoryTableSeeder::class);
+//        $this->call(FacilityTypeTableSeeder::class);
+//        $this->call(OwnershipCategoryTableSeeder::class);
+//        $this->call(OwnershipTableSeeder::class);
         //$this->call(LeaveTypesTableSeeder::class);
         //$this->call(WorkingToolsTableSeeder::class);
 //        $this->call(TransportMeansSeeder::class);
        // $this->call(AttachmentTypeSeeder::class);
         //$this->call(ServicesSeeder::class);
 
+        $this->call(WfModuleGroupsTableSeeder::class);
+        $this->call(WfModulesTableSeeder::class);
+        $this->call(WfDefinitionsTableSeeder::class);
 
-        // $this->call(PrTypesTableSeeder::class);
-        // $this->call(PrRateScaleTableSeeder::class);
-        // $this->call(PrCompetenceKeysTableSeeder::class);
-        // $this->call(PrCompetenceKeyNarrationsTableSeeder::class);
-        // $this->call(PrAttributesTableSeeder::class);
+
+       $this->call(PrTypesTableSeeder::class);
+       $this->call(PrRateScaleTableSeeder::class);
+       $this->call(PrCompetenceKeysTableSeeder::class);
+       $this->call(PrCompetenceKeyNarrationsTableSeeder::class);
+       $this->call(PrAttributesTableSeeder::class);
         DB::commit();
     }
 }

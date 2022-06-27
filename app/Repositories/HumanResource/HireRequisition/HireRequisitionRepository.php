@@ -17,6 +17,7 @@ class HireRequisitionRepository extends BaseRepository
     public function getQuery(){
         return $this->query()->select([
             DB::raw("hr_hire_requisitions.id AS id"),
+            DB::raw("MAX(hr_hire_requisitions.number) AS number"),
             DB::raw("string_agg(DISTINCT designations.name, ',') as title"),
             DB::raw("0 as total"),
             // DB::raw("hr_hire_requisitions.empoyees_required as total"),
@@ -162,6 +163,7 @@ class HireRequisitionRepository extends BaseRepository
     public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])
     {
         $listing = $this->find($resource_id);
+        
         $applicant_level = $this->getApplicantLevel($wf_module_id);
         $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
         switch ($inputs['rejected_level'] ?? $current_level) {

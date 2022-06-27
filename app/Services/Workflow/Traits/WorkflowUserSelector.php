@@ -311,6 +311,27 @@ trait WorkflowUserSelector
                             break;
                     }
                 break;
+
+            case 13:
+                $pr_report = (new PrReportRepository())->find($resource_id);
+                switch($level)
+                {
+                    case 1:
+                        $next_user = $pr_report->user->assignedSupervisor();
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user->supervisor_id;
+                    break;
+                    case 2:
+                        $next_user = (new UserRepository())->getDirectorOfHR();
+                        if (!$next_user) {
+                            throw new GeneralException('Director of HR is not yet registered. Please contact system Admin');
+                        }
+                        $user_id = $next_user->first()->user_id;
+                    break;
+                }
+            break;
         }
 
         return $user_id;
