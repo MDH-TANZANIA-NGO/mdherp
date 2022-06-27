@@ -245,7 +245,7 @@ class WfTrackRepository extends BaseRepository
                         case '3':
                         case '4':
                         case '5':
-                            $this->processWorkflowLevelsAction($wf_track->resource->id,$wf_track->wfDefinition->wf_module_id, $wf_track->wf_definition_id,$wf_track->wfDefinition->level, 0, $input,$wf_track->id);
+                            $this->processWorkflowLevelsAction($wf_track->resource->id,$wf_track->wfDefinition->wf_module_id, $wf_track->wf_definition_id,$wf_track->wfDefinition->level, 0, $input,$wf_track->id,$wf_track->resource);
                             break;
                     }
                 }

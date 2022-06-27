@@ -85,9 +85,10 @@ class WorkflowEventSubscriber
 
         $workflow_action = (new WorkflowAction());
 
+
         /* check if there is next level */
         if (!is_null($workflow->nextLevel())) {
-
+            
             /* Create a entry log for the next workflow */
             $data = [
                 'resource_id' => $resource_id,

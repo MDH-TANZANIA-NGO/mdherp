@@ -161,7 +161,7 @@ trait WorkflowProcessLevelActionTrait
      * @param null $wf_track_id
      * @return void
      */
-    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level,$level, $sign=0, array $inputs =[], $wf_track_id = null)
+    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level,$level, $sign=0, array $inputs =[], $wf_track_id = null, Model $model)
     {
         $applicant_level = $this->getApplicantLevel($wf_module_id);
         $supervisor_level = $this->getSupervisorLevel($wf_module_id);
@@ -178,7 +178,6 @@ trait WorkflowProcessLevelActionTrait
                 break;
         }
 
-
         switch($inputs['status']){
 //            case 3: //holded
 //                $this->updateWfDoneAndWfDoneDate($this->getResource($wf_module_id, $resource_id), $inputs['status']);
@@ -190,7 +189,7 @@ trait WorkflowProcessLevelActionTrait
 //                break;
 
             case 5: //reject
-                $this->updateWfDoneAndWfDoneDate($this->getResource($wf_module_id, $resource_id), $inputs['status']);
+                $this->updateWfDoneAndWfDoneDate($model, $inputs['status']);
                 $this->completeWorkflow($wf_track_id, $inputs['status']);
                 break;
             default:

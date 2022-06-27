@@ -33,7 +33,6 @@ class HireRequisitionJobCreteriaRepository extends BaseRepository
             'hr_requisitions_jobs_id' =>  $inputs['hr_requisition_job_id'],
             'education_level' => $inputs['education_level'],
             'experience_years' =>$inputs['experience_years'],
-            'age' =>$inputs['age']
         ];
     }
 

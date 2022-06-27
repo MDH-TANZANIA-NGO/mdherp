@@ -18,11 +18,14 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw('hr_hire_requisitions_jobs.id AS id' ),
             DB::raw('hr_hire_requisitions_jobs.uuid AS uuid' ),
             DB::raw('hr_hire_requisitions_jobs.designation_id AS designation_id'),
+            DB::raw('hr_hire_requisitions_jobs.department_id AS department_id'),
+            DB::raw('departments.title AS department'),
             DB::raw('hr_hire_requisitions_jobs.empoyees_required AS empoyees_required'),
-            DB::raw('hr_hire_requisition_jobs_criterias.experience_years AS experience_years'),
+            DB::raw('hr_hire_requisitions_jobs.experience_years AS experience_years'),
             DB::raw('hr_hire_requisitions_jobs.establishment AS establishment'),
-            DB::raw('hr_hire_requisition_jobs_criterias.education_level AS education_level'),
-            DB::raw('hr_hire_requisition_jobs_criterias.age AS age'),
+            DB::raw('hr_hire_requisitions_jobs.education_level AS education_level'),
+            DB::raw('hr_hire_requisitions_jobs.start_age AS start_age'),
+            DB::raw('hr_hire_requisitions_jobs.end_age AS end_age'),
             DB::raw('hr_hire_requisitions_jobs.duties_and_responsibilities AS duties_and_responsibilities'),
             DB::raw('hr_hire_requisitions_jobs.duties_and_responsibilities AS duties_and_responsibilities'),
             DB::raw('designations.name AS title'),
@@ -34,10 +37,11 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw('hr_hire_requisitions_jobs.special_qualities_skills AS special_qualities_skills'),
             DB::raw('hr_hire_requisitions_jobs.special_employment_condition AS special_employment_condition'),
             DB::raw('hr_hire_requisitions_jobs.created_at AS created_at'),
+            DB::raw('hr_hire_requisitions_jobs.budget AS budget'),
             DB::raw('hr_hire_requisitions_jobs.updated_at AS updated_at'),
         ])
+            ->leftjoin('departments','departments.id','hr_hire_requisitions_jobs.department_id')
             ->leftjoin('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
-            ->leftjoin('hr_hire_requisition_jobs_criterias','hr_hire_requisition_jobs_criterias.hr_requisitions_jobs_id','hr_hire_requisitions_jobs.id')
             ->join('code_values', 'code_values.id', 'hr_hire_requisitions_jobs.hr_contract_type_id');
     }
 
@@ -76,7 +80,10 @@ class HireRequisitionJobRepository extends BaseRepository
      
         return [
             'designation_id' => $inputs['job_title'],
+            'department_id' => $inputs['department_id'],
             'hr_contract_type_id' =>  $inputs['contract_type'],
+            'start_age' =>  $inputs['start_age'],
+            'end_age' =>  $inputs['end_age'],
             'special_employment_condition' => $inputs['special_employment_condition'],
             'duties_and_responsibilities' => $inputs['duties_and_responsibilities'],
             'experience_years' =>$inputs['contract_type'],
@@ -87,8 +94,9 @@ class HireRequisitionJobRepository extends BaseRepository
             'special_qualities_skills' => $inputs['special_qualities_skills'],
             'education_and_qualification' => $inputs['education_and_qualification'],
             'appointement_prospects_id' => $inputs['prospect_for_appointment_cv_id'],
+            'education_level' => $inputs['education_level'],
             'hire_requisition_id' => $inputs['hire_requisition_id'],
-            'comment' => 'created',
+            'budget' => $inputs['budget']
         ];
       
     }
@@ -98,7 +106,6 @@ class HireRequisitionJobRepository extends BaseRepository
 
     public function getAprovedJobs()
     {
-
         return $this->getQuery()
                 ->join('hr_hire_requisitions','hr_hire_requisitions.id','hr_hire_requisitions_jobs.hire_requisition_id')
                 ->where('hr_hire_requisitions.wf_done', 1)
@@ -171,8 +178,6 @@ class HireRequisitionJobRepository extends BaseRepository
         $hireRequisitionJob = $this->find($resource_id);
         $applicant_level = $this->getApplicantLevel($wf_module_id);
         $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
-//        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
-//        if($requisition->rejected){}
         switch ($inputs['rejected_level'] ?? $current_level) {
             case $applicant_level:
                 $this->updateRejected($resource_id, $sign);
@@ -193,8 +198,6 @@ class HireRequisitionJobRepository extends BaseRepository
                     'subject' => " Has been revised to your level",
                     'message' =>  ' need modification. Please do the need and send it back for approval'
                 ];
-//                  User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
-
                 break;
         }
     }

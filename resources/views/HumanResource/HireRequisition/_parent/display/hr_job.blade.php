@@ -59,7 +59,7 @@
                     <td colspan="2"  class="text-uppercase"><h5>  Employement Condition </h5> </td>
                 </tr>
                 <tr>
-                    <td><strong>Contract Type : </strong></td>
+                    <td><strong>Prospect for appointment : </strong></td>
                     <td>   {!! $job->contract_type !!} </td>
                 </tr>
                 <tr>
@@ -85,22 +85,21 @@
                      
                 </tr>
                
-                @foreach( $job->hireRequisitionJobCriteria  as $criteria)
+         
                 <tr>
                     <td> Education Level </td>
-                    <td> {{ $criteria->education_level }}</td>
+                    <td> {{ $job->education_level }}</td>
                 </tr>
                 <tr>
                     <td> Years Of Experience </td>
-                    <td> {{ $criteria->experience_years }}</td>
+                    <td> {{ $job->experience_years }}</td>
                 </tr>
                 <tr>
-                    <td> Age</td>
-                    <td> {{ $criteria->age }}</td>
+                    <td> Age Between</td>
+                    <td> {{ $job->start_age}} And {{ $job->start_age }}</td>
                 </tr>
               
-                @endforeach
-
+                
                
                 <tr>
                     <td> skills</td>
