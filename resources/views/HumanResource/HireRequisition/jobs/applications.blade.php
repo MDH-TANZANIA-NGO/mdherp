@@ -11,6 +11,7 @@
                 <tr>
                     <th class="wd-15p">#</th>
                     <th class="wd-15p">TITLE</th>
+                    <th class="wd-15p">CONTRACT TYPE</th>
                     <th class="wd-15p">POSTS</th>
                     <th class="wd-15p">EDUCATION LEVEL</th>
                     <th class="wd-25p">CREATED AT</th>
@@ -32,8 +33,9 @@
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', 'bSortable': false, 'aTargets': [0], 'bSearchable': false },
                 { data: 'job_title', name: 'designations.name', searchable: true },
+                { data: 'contract_type', name: 'code_values.name', searchable: true },
                 { data: 'empoyees_required', name: 'hr_hire_requisitions_jobs.empoyees_required', searchable: true },
-                { data: 'education_level', name: 'hr_hire_requisitions_jobs.education_level', searchable: true },
+                { data: 'education_level', name: 'code_values.name', searchable: true },
                 { data: 'created_at', name: 'hr_hire_requisitions_jobs.created_at', searchable: true },
                 { data: 'action', name: 'action', searchable: false },
             ]
