@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HireRequisitionJobDatatable;
+use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,12 @@ class HireRequisitionJobController extends Controller
      */
     public function applications()
     {
-        return view('HumanResource.HireRequisition.jobs.applications');
+        return view('HumanResource.HireRequisition.job.applications');
+    }
+
+    public function show(HireRequisitionJob $hire_requisition_job)
+    {
+        return view('HumanResource.HireRequisition.job.show');
     }
 
     
