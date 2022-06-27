@@ -39,15 +39,6 @@ use Illuminate\Support\Facades\Log;
  * the process of forwarding the application process and handle the proper completion of
  * each workflow.
  *
- * @author     Erick Chrysostom <e.chrysostom@nextbyte.co.tz>
- * @category   MAC
- * @package    App\Services\Workflow
- * @subpackage None
- * @copyright  Copyright (c) Workers Compensation Fund (WCF) Tanzania
- * @license    Not Applicable
- * @version    Release: 1.02
- * @link       None
- * @since      Class available since Release 1.0.0
  */
 
 class Workflow
@@ -447,7 +438,7 @@ class Workflow
                         'subject' => " Leave application need your approval",
                         'message' =>  html_entity_decode($string)
                     ];
-                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    // User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
                 case 7:
                     $financerepo = (new FinanceActivityRepository());
