@@ -28,7 +28,7 @@ class HrHireRequisitionJobShortlistRepository extends BaseRepository
             //generate number
             $shortlist->update(['number' => $this->generateNumber($shortlist)]);
             //shortlist participants
-            // $shortlist->job_pert->sync('hire_requisition_job_id' = $hire_requisition_job,$input);
+            $shortlist->job_pert->sync(['hire_requisition_job_id' => $hire_requisition_job],$input);
             return $shortlist;
         });
     }
