@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Recruitment\Advertisement;
 
 use App\Http\Controllers\Api\BaseController;
+use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Repositories\HumanResource\Advertisement\AdvertisementRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -63,9 +64,11 @@ class AdvertisementController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(HireAdvertisementRequisition $advertisement)
     {
-
+        $response['advertisement'] =  $advertisement;
+        return $this->sendResponse($response,"Advertisement",200);
+        
     }
 
     /**
