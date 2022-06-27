@@ -36,6 +36,7 @@ class AdvertisementController extends Controller
     protected $wf_tracks;
     protected $designation;
     protected $hireRequisitionJobRepository;
+    protected $hireRequisitionRepository;
 
     public  function __construct()
     {
@@ -46,6 +47,7 @@ class AdvertisementController extends Controller
         $this->wf_tracks = (new WfTrackRepository());
         $this->designation = (new DesignationRepository());
         $this->hireRequisitionJobRepository = (new HireRequisitionJobRepository);
+        $this->hireRequisitionRepository = (new HireRequisitionRepository);
     }
 
     /**
@@ -170,7 +172,11 @@ class AdvertisementController extends Controller
     public function initiate($uuid)
     {
         $hireRequisitionJob = $this->hireRequisitionJobRepository->getQuery()->where('hr_hire_requisitions_jobs.uuid',$uuid)->first();
-                 
+        $hireRequisition = $this->hireRequisitionRepository
+                            ->getQuery()
+                            ->where('hire_requisition_id',$hireRequisitionJob->hire_requisition_id)
+                            ->first();   
+
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
@@ -185,6 +191,7 @@ class AdvertisementController extends Controller
             ->with('tools', $tools)
             ->with('users', $users)
             ->with('hireRequisitionJob', $hireRequisitionJob)
+            ->with('hireRequisition', $hireRequisition)
             ->with('skillCategories', $skillCategories)
             ->with('regions', $this->regions->getAll());
     }

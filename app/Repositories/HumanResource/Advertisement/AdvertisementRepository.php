@@ -73,6 +73,7 @@ class AdvertisementRepository extends  BaseRepository
                 'title' => $input['title'],
                 'hire_requisition_job_id' => $input['hr_requisition_job_id'],
                 'description' =>$input['description'],
+                'dead_line' =>$input['dead_line'],
                 'user_id' =>access()->id()
         ];
     }

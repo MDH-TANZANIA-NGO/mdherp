@@ -21,7 +21,11 @@
 					<div class="col-lg-12 col-md-12">
 					<div class="row">
 							<div class="col-2 col-lg-2">
-							<label class="form-label">Job Title</label>
+								<label class="form-label">Requisition Number</label>
+								{{ $hireRequisition->number }}
+							</div>
+							<div class="col-2 col-lg-2">
+								<label class="form-label">Job Title</label>
 							</div>
 							<input type="hidden" name = 'hr_requisition_job_id' value="{{ $hireRequisitionJob->id }}">
 							<div class="col-2 col-lg-2">
@@ -40,6 +44,15 @@
 							</div>
 							<div class="col-8 col-lg-8">
 								<input type="text" class="form-control" value="" name="title">	         
+							</div>
+						</div>
+						 
+						<div class="row">
+							<div class="col-2 col-lg-2">
+							<label class="form-label"> Dead Line </label>
+							</div>
+							<div class="col-8 col-lg-8">
+								<input type="date" class="form-control" name="dead_line">	         
 							</div>
 						</div>
 						 
