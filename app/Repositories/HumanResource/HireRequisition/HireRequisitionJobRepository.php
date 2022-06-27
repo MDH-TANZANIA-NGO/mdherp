@@ -16,6 +16,7 @@ class HireRequisitionJobRepository extends BaseRepository
     public function getQuery(){
         return $this->query()->select([
             DB::raw('hr_hire_requisitions_jobs.id AS id' ),
+            DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
             DB::raw('hr_hire_requisitions_jobs.uuid AS uuid' ),
             DB::raw('hr_hire_requisitions_jobs.designation_id AS designation_id'),
             DB::raw('hr_hire_requisitions_jobs.department_id AS department_id'),
@@ -42,6 +43,7 @@ class HireRequisitionJobRepository extends BaseRepository
         ])
             ->leftjoin('departments','departments.id','hr_hire_requisitions_jobs.department_id')
             ->leftjoin('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
+            ->leftjoin('units','units.id','designations.unit_id')
             ->join('code_values', 'code_values.id', 'hr_hire_requisitions_jobs.hr_contract_type_id');
     }
 
@@ -218,6 +220,11 @@ class HireRequisitionJobRepository extends BaseRepository
             }
             return $hireRequisitionJob->update(['rejected' => $rejected]);
         });
+    }
+
+    public function getJobs()
+    {
+        return $this->getQuery(); //TODO add filters to get recently jobs with applications
     }
 
 
