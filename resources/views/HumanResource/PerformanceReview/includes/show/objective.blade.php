@@ -24,13 +24,32 @@
 <div class="row">
     <div class="card">
         <div class="card-header">
-			<h3 class="card-title">Objectives</h3>
+			<h3 class="card-title">
+                @switch($pr_report->type->id)
+                    @case(1)
+                        INITIAL MEETING
+                    @break
+                    @case(2)
+                        Objectives
+                    @break
+                @endswitch
+            </h3>
 		</div>
         <div class="card-body">
-            @if($can_edit_resource)
-                @include('HumanResource.PerformanceReview.form.objective',['pr_report' => $pr_report])
-            @endif
-            @include('HumanResource.PerformanceReview.datatables.objectives_show',['pr_objectives' => $pr_objectives])
+            @switch($pr_report->type->id)
+                @case(2)
+                    @if($can_edit_resource)
+                        @include('HumanResource.PerformanceReview.form.objective',['pr_report' => $pr_report])
+                    @endif
+                    @include('HumanResource.PerformanceReview.datatables.objectives_show',['pr_objectives' => $pr_objectives])
+                @break
+                @case(1)
+                    @if($can_edit_resource)
+                        @include('HumanResource.PerformanceReview.form.probation_objective',['pr_report' => $pr_report])
+                    @endif
+                    @include('HumanResource.PerformanceReview.datatables.objectives_show',['pr_objectives' => $pr_objectives])
+                @break
+            @endswitch
         </div>
     </div>
  </div>

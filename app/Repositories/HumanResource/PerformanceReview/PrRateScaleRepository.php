@@ -14,4 +14,12 @@ class PrRateScaleRepository extends BaseRepository
     {
         return $this->query()->pluck('rate', 'id');
     }
+
+    public function pluckWithDescription()
+    {
+        return $this->query()->select([
+            'id AS id',
+            DB::raw("CONCAT_WS('. ',rate,description) AS rate_description")
+        ])->pluck('rate_description', 'id');
+    }
 }

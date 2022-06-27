@@ -77,7 +77,9 @@ class CovidController extends BaseController
             'SN_available' => 'required',
         ]);
 
-        if(Covid::where('form_date',$request['form_date'])->exists()){
+        if(Covid::where('form_date',$request['form_date'])
+            ->where('data_clerk_id', $request['data_clerk_id'])
+            ->where('facility_id', $request['facility_id'])->exists()){
             $message = "Covid-19 PLHIV Ripoti ya tarehe ".$request['form_date'].' umeshaituma tayari';
             return $this->sendError($message, NULL);
         }else {

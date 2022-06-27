@@ -130,7 +130,7 @@ trait Number
         $this->updateSysDefValue($reference,$value);
 
         // call the same function if the number exists already
-        if ($this->checkIfNumberExists($number)) {
+        if ($this->checkIfNumberExists($model, $number)) {
             return $this->generateNumber($model);
         }
         // otherwise, it's valid and can be used
@@ -142,9 +142,9 @@ trait Number
      * @param $value
      * @return mixed
      */
-    private function checkIfNumberExists($value)
+    private function checkIfNumberExists(Model $model, $value)
     {
-        return $this->query()->where('number', $value)->exists();
+        return $model::query()->where('number', $value)->exists();
     }
 
     /**

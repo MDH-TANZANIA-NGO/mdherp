@@ -44,8 +44,31 @@ class RetentionController extends BaseController
      */
     public function store(Request $request)
     {
-        
-        if(Retention::where('form_date',$request['form_date'])->exists()){
+        $fields = $request->validate([
+            'form_date' => 'required',
+            'data_clerk_id' => 'required',
+            'facility_id' => 'required',
+            'tracked' => 'required',
+            'returned' => 'required',
+            'regularly_attending' => 'required',
+            'confirmed_transfer_out' => 'required',
+            'not_confirmed_transfer_out' => 'required',
+            'opted_out' => 'required',
+            'death' => 'required',
+            'ltfu' => 'required',
+            'promise_to_come' => 'required',
+            'wrong_incomp_no_mapcue' => 'required',
+            'phone_not_reachable' => 'required',
+            'unanswered_call' => 'required',
+            'wrong_phone_number' => 'required',
+            'not_hiv_positive_client' => 'required',
+            'invalid_id' => 'required',
+            'attended_other_clinic' => 'required',
+        ]);
+
+        if(Retention::where('form_date',$request['form_date'])
+            ->where('data_clerk_id', $request['data_clerk_id'])
+            ->where('facility_id', $request['facility_id'])->exists()){
             $message = "Retention Ripoti ya tarehe ".$request['form_date'].' umeshaituma tayari';
             return $this->sendError($message, NULL);
         }else{

@@ -77,7 +77,7 @@ class RetentionRepository extends BaseRepository
     {
 
         return DB::transaction(function () use ($inputs) {
-            $retention =  $this->query()->create($this->inputProcess($inputs));
+            $retention =  $this->query()->create($inputs);
              
             return $retention;
 

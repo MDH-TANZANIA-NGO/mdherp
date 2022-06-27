@@ -354,24 +354,24 @@ class HireRequisitionController extends Controller
         $skills  = Skill::all();
         $users = User::where('designation_id', '!=', null)->get();
         return view('HumanResource.hireRequisition._parent.form.edit')
-            ->with('prospects', code_value()->query()->where('code_id', 7)->get())
-            ->with('_prospects', code_value()->query()->where('code_id', 7)->get()->pluck('name', 'id'))
-            ->with('conditions', code_value()->query()->where('code_id', 8)->get()->pluck('name', 'id'))
-            ->with('establishments', code_value()->query()->where('code_id', 9)->get())
-            ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
-            ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
-            ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
-            ->with('departments', $this->departments->getAll())
-            ->with('designations', $this->designation->getAll())
-            ->with('tools', $tools)
-            ->with('current_working_tools', $current_working_tools)
-            ->with('hireRequisitionJobs', $hireRequisitionJobs)
-            ->with('regions', $this->regions->getAll())
-            ->with('current_regions', $current_regions)
-            ->with('skillCategories', $skillCategories)
-            ->with('skill_users', $skill_users)
-            ->with('skills', $skills)
-            ->with('users', $users);
+                ->with('prospects', code_value()->query()->where('code_id', 7)->get())
+                ->with('_prospects', code_value()->query()->where('code_id', 7)->get()->pluck('name', 'id'))
+                ->with('conditions', code_value()->query()->where('code_id', 8)->get()->pluck('name', 'id'))
+                ->with('establishments', code_value()->query()->where('code_id', 9)->get())
+                ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
+                ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
+                ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
+                ->with('departments', $this->departments->getAll())
+                ->with('designations', $this->designation->getAll())
+                ->with('tools', $tools)
+                ->with('current_working_tools', $current_working_tools)
+                ->with('hireRequisitionJobs', $hireRequisitionJobs)
+                ->with('regions', $this->regions->getAll())
+                ->with('current_regions', $current_regions)
+                ->with('skillCategories', $skillCategories)
+                ->with('skill_users', $skill_users)
+                ->with('skills', $skills)
+                ->with('users', $users);
     }
 
     /**
