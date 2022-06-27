@@ -37,6 +37,7 @@ Route::post('verify-token', 'Api\UserLoginToken\UserLoginTokenController@verifyT
 
 Route::get('advertisement', 'Api\Recruitment\Advertisement\AdvertisementController@index');
 Route::get('advertisements', 'Api\Recruitment\Advertisement\AdvertisementController@getJobs');
+Route::get('advertisement/{advertisement}/show', 'Api\Recruitment\Advertisement\AdvertisementController@show');
 Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
     function(){
         // Route::post('login', 'Auth\LoginController@login');
