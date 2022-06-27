@@ -13,6 +13,9 @@ trait HireRequisitionJobDatatable
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();
             })
+            ->addColumn('education_level', function ($query) {
+                return code_value()->query()->where('id',$query->education_level)->first()->name;
+            })
             ->addColumn('action', function($query) {
                 return '<a href="'.route('hr.job.application', $query->uuid).'">View Applicants</a>';
             })
