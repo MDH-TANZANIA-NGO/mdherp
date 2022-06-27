@@ -233,13 +233,12 @@
 
 			<div class="tab-pane " id="returned">
 				<div class="card-body">
-					{{ $hireRequisitionJobs->education_level  }}
+			
 					<div class="row mt-2">
 						<div class="col-10">
 							<label class="form-label"> Education Level </label>
 							<select name="education_level" id="select-region" style="width: 100%" class="form-control custom-select select2-show-search" data-placeholder="Education Level" required>
 								<option></option>
-
 								@foreach($education_levels as $education_level)
 								<option {{ $hireRequisitionJobs->education_level == $education_level->id  ? 'selected' : '' }} value="{{$education_level->id}}">{{$education_level->name}}</option>
 								@endforeach
@@ -263,10 +262,15 @@
 						<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 						@enderror
 					</div>
-					<div class="row mt-2">
-						<div class="col-10">
+					<div class="form-group row mt-2">
+						<div class="col-2">
 							<label class="form-label"> Age </label>
-							<input type="text" class="form-control" value="{{ $hireRequisitionJobs->age ? : '' }}" name="age" placeholder="Age reguired" required>
+						</div>
+						<div class="col-8 d-flex flex-row">
+							<span class="mr-2"> Between </span>
+							<input type="number" class="form-control" value="{{ $hireRequisitionJobs->start_age }}" name="start_age">
+							<span class="mx-2"> And </span>
+							<input type="number" class="form-control" value="{{ $hireRequisitionJobs->end_age }}" name="end_age">
 						</div>
 						@error('practical_experience')
 						<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>

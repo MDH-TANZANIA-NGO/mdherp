@@ -15,8 +15,10 @@ class AdvertisementRepository extends  BaseRepository
     public function getQuery(){
         return $this->query()->select([
             DB::raw('hr_hire_advertisement_requisitions.title AS title'),
+            DB::raw('hr_hire_advertisement_requisitions.hire_requisition_job_id AS hire_requisition_job_id'),
             DB::raw('hr_hire_advertisement_requisitions.description AS description'),
             DB::raw('hr_hire_advertisement_requisitions.number AS number'),
+            DB::raw('hr_hire_advertisement_requisitions.dead_line AS dead_line'),
             DB::raw('hr_hire_advertisement_requisitions.created_at AS created_at'),
             DB::raw('hr_hire_advertisement_requisitions.uuid AS uuid'),
         ]);

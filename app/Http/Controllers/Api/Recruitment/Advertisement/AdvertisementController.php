@@ -21,13 +21,18 @@ class AdvertisementController extends BaseController
      */
     public function index()
     {
-        $data['advertisement']= $this->advertisementRepository
+        $data = $this->advertisementRepository
                         ->getQuery()
                         ->where('wf_done',1)
                         ->where('done',1)
                         ->where('rejected',0)
-                        ->get();
-        return $this->sendResponse($data,"Advertisement",200);
+                        ->get(); 
+        $data->map(function($item){
+            $item['skills'] = DB::table('skill_user')->where('hr_requisition_job_id',$item['hire_requisition_id'])->get();
+            $item['jobs'] = DB::table('hr_hire_requisitions_jobs')->where('id',$item['hire_requisition_job_id'])->get();
+        });
+        $response['advertisements'] = $data;
+        return $this->sendResponse($response,"Advertisement",200);
 
     }
 
