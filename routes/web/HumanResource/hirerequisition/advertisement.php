@@ -31,3 +31,10 @@ Route::group(['namespace' =>'HumanResource\Advertisement', 'middleware' => ['web
     });
 });
 });
+
+Route::group(['namespace' =>'HumanResource\Advertisement', 'middleware' => 'web', 'prefix' => 'jobs', 'as' => 'job.'], function () {
+    Route::get('', 'AdvertisementController@AccessProcessingDatatable')->name('index');
+});
+
+
+
