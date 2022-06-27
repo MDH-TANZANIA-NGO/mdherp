@@ -31,12 +31,13 @@ use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobCreteriaRep
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionReplacedStaffRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionLocationRepository;
 use App\Repositories\HumanResource\HireRequisition\HireUserSkillsRepository;
+use App\Services\Workflow\Traits\WorkflowInitiator;
 
 use Illuminate\Support\Facades\DB;
 
 class HireRequisitionController extends Controller
 {
-    use HireRequisitionDatatable;
+    use HireRequisitionDatatable,WorkflowInitiator;
     protected $hireRequisitionRepository;
     protected $hireRequisitionJobRepository;
     protected $regions;
@@ -127,12 +128,13 @@ class HireRequisitionController extends Controller
                 $item['regions'] = HireRequisitionLocation::select("regions.name as name")
                     ->join('regions', 'regions.id', 'hr_hire_requisition_locations.region_id')
                     ->where('hr_hire_requisition_locations.hr_requisition_job_id', $item->id)->get()->implode('name', ',');
-                // $item['hireRequisitionJobCriteria'] =  $this->hireRequisitionJobCreteriaRepository->getQuery()->where('hr_requisitions_jobs_id', $item->id)->get();
                 $item['skills'] =   $this->hireUserSkillsRepository->getQuery()->select('skills.name as name')
                     ->join('skills', 'skills.id', 'skill_user.skill_id', 'skills.id')
                     ->where('hr_requisition_job_id', $item->id)->get();
+                $item['_education_level'] =  code_value()->query()->where('id',$item['education_level'] )->first();
                 return $item;
             });
+
 
             return view('HumanResource.HireRequisition._parent.form.create')
                 ->with('prospects', code_value()->query()->where('code_id', 7)->get())
@@ -183,13 +185,8 @@ class HireRequisitionController extends Controller
                 $region_data['hr_requisition_job_id'] = $hr_requisition_job->id;
                 HireRequisitionLocation::create($region_data);
             }
-
-
             $this->hireUserSkillsRepository->store($data);
-
             $this->hireRequisitionWorkingToolRepository->store($workingtools);
-            // $this->hireRequisitionJobCreteriaRepository->store($data);
-
             alert()->success('Hire Requisition Created Successfully', 'success');
             DB::commit();
             return redirect()->route('hirerequisition.initiate', $hireRequisition->uuid);
@@ -223,7 +220,6 @@ class HireRequisitionController extends Controller
                     $this->hireRequisitionReplacedStaffRepository->store($data);
                 }
                 $this->hireRequisitionWorkingToolRepository->store($workingtools);
-               // $this->hireRequisitionJobCreteriaRepository->store($data);
                 alert()->success('Hire Requisition Created Successfully', 'success');
                 DB::commit();
                 return redirect()->route('hirerequisition.initiate', $uuid);
@@ -270,7 +266,8 @@ class HireRequisitionController extends Controller
             $this->hireRequisitionRepository->submit($uuid);
             $wf_module_group_id = 8;
             $next_user = $hireRequisition->user->assignedSupervisor()->supervisor_id;
-            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $hireRequisition->id, 'region_id' => $hireRequisition->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
+            $this->startWorkflow($hireRequisition , 1,  $next_user);
+            // event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $hireRequisition->id, 'region_id' => $hireRequisition->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
             alert()->success('Hire Requisition Created Successfully', 'success');
             DB::commit();
             return redirect()->route('hirerequisition.show', $uuid);
@@ -318,8 +315,12 @@ class HireRequisitionController extends Controller
             $item['skills'] =   $this->hireUserSkillsRepository->getQuery()->select('skills.name as name')
                 ->join('skills', 'skills.id', 'skill_user.skill_id', 'skills.id')
                 ->where('hr_requisition_job_id', $item->id)->get();
+
+            $item['_education_level'] =  code_value()->query()->where('id',$item['education_level'] )->first();
             return $item;
         });
+
+  
 
         return view('HumanResource.HireRequisition._parent.display.show')
             ->with('hireRequisition', $hireRequisition)
@@ -384,7 +385,6 @@ class HireRequisitionController extends Controller
     public function update(Request $request, $hireRequisition)
     {
         $data = $request->all();
-        return $data;
         $hire_requisition_job = $this->hireRequisitionJobRepository->getQuery()->where('hr_hire_requisitions_jobs.id', $hireRequisition)->first();
         $hire_requisition_uuid = $this->hireRequisitionRepository->getQuery()->find($hire_requisition_job->hire_requisition_id);
         $data['hire_requisition_id'] = $hire_requisition_job->hire_requisition_id;
@@ -395,7 +395,6 @@ class HireRequisitionController extends Controller
             $this->hireRequisitionJobRepository->update($data);
             $this->hireRequisitionLocationRepository->update($data);
             $this->hireRequisitionWorkingToolRepository->update($data);
-            $this->hireRequisitionJobCreteriaRepository->update($data);
             alert()->success('Hire Requisition Updated Successfully');
             DB::commit();
             return redirect()->route('hirerequisition.initiate', $hire_requisition_uuid);

@@ -86,8 +86,8 @@ class WfModuleGroupsTableSeeder extends Seeder
             7 =>
                 array (
                     'id' => 8,
-                    'name' => 'Listing',
-                    'table_name' => 'listings',
+                    'name' => 'Hire Requisitions',
+                    'table_name' => 'hr_hire_requisitions',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now(),
                     'deleted_at' => NULL,

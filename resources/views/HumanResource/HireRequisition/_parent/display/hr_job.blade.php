@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                     <td> <strong>Department: </strong></td>
-                    <td> {{ $job->designation }} </td>
+                    <td> {{ $job->department }} </td>
                 </tr>
                 <tr>
                     <td><strong>Number of Employees Required: </strong></td>
@@ -81,14 +81,8 @@
                     <td colspan="2"  class="text-uppercase"><h5> Criteria </h5> </td>
                 </tr>
                 <tr>
-                    
-                     
-                </tr>
-               
-         
-                <tr>
                     <td> Education Level </td>
-                    <td> {{ $job->education_level }}</td>
+                    <td> {{ $job->_education_level->name }}</td>
                 </tr>
                 <tr>
                     <td> Years Of Experience </td>

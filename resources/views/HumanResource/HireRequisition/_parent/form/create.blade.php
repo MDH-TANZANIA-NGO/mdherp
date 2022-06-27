@@ -310,7 +310,6 @@
 							@if(!isset($create))
 							<button id="" type="button" name="submit_job_requisition" value="Cancel" class="btn btn-inline-block btn-danger cancel"> <i class="fa fa-times"></i> Cancel </button>
 							@endif
-							
 							<button type="button" class="btn btn-inline-block btn-azure prev-step"> <i class="fa fa-angle-left"></i> Back </button>
 							<button type="submit" name="submit_job_requisition" value="add" class="btn btn-inline-block btn-azure"> <i class="fa fa-save"></i> Add Requisition</button>
 
