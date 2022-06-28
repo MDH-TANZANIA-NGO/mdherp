@@ -17,7 +17,7 @@ use App\Models\HumanResource\HireRequisition\SkillUser;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
-use App\Repositories\Designation\DesignationRepository;
+use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DepartmentRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -37,7 +37,8 @@ use Illuminate\Support\Facades\DB;
 
 class HireRequisitionController extends Controller
 {
-    use HireRequisitionDatatable,WorkflowInitiator;
+
+    use HireRequisitionDatatable, WorkflowInitiator;
     protected $hireRequisitionRepository;
     protected $hireRequisitionJobRepository;
     protected $regions;
@@ -98,7 +99,7 @@ class HireRequisitionController extends Controller
             ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
             ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
             ->with('departments', $this->departments->getAll())
-            ->with('designations', $this->designation->getAll())
+            ->with('designations', $this->designation->getActiveForSelect())
             ->with('tools', $tools)
             ->with('users', $users)
             ->with('skillCategories', $skillCategories)
@@ -268,6 +269,7 @@ class HireRequisitionController extends Controller
             $next_user = $hireRequisition->user->assignedSupervisor()->supervisor_id;
             $this->startWorkflow($hireRequisition , 1,  $next_user);
             // event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $hireRequisition->id, 'region_id' => $hireRequisition->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
+            // event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $hireRequisition->id, 'region_id' => $hireRequisition->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
             alert()->success('Hire Requisition Created Successfully', 'success');
             DB::commit();
             return redirect()->route('hirerequisition.show', $uuid);
@@ -320,7 +322,7 @@ class HireRequisitionController extends Controller
             return $item;
         });
 
-  
+
 
         return view('HumanResource.HireRequisition._parent.display.show')
             ->with('hireRequisition', $hireRequisition)
