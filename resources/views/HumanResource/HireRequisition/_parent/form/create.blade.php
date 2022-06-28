@@ -51,12 +51,7 @@
 
 								<div class="col-6 col-lg-6">
 									<label class="form-label">Job Title</label>
-									<select name="job_title" id="select-department" data-placeholder="select job title" class="form-control select2-show-search">
-										<option></option>
-										@foreach($designations as $designation)
-										<option value="{{$designation->id}}">{{$designation->name}}</option>
-										@endforeach
-									</select>
+									{!! Form::select('job_title',$designations,null,['class' => 'form-control select2-show-search', 'id' => 'select-department', 'placeholder' => 'select job title']) !!}
 								</div>
 							</div>
 							<div class="row">

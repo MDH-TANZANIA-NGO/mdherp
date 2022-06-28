@@ -17,7 +17,7 @@ use App\Models\HumanResource\HireRequisition\SkillUser;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
-use App\Repositories\Designation\DesignationRepository;
+use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\Unit\DepartmentRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -97,7 +97,7 @@ class HireRequisitionController extends Controller
             ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
             ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
             ->with('departments', $this->departments->getAll())
-            ->with('designations', $this->designation->getAll())
+            ->with('designations', $this->designation->getActiveForSelect())
             ->with('tools', $tools)
             ->with('users', $users)
             ->with('skillCategories', $skillCategories)
