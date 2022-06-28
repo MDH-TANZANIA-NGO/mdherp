@@ -47,4 +47,14 @@ class HireRequisitionJob extends BaseModel
         return $this->belongsTo(Department::class);
     }
 
+    // public function locations()
+    // {
+    //     return $this->hasMany(HireRequisitionLocation::class,'hr_requisition_job_id')
+    // }
+
+    public function locations()
+    {
+        return $this->hasManyThrough(Region::class,HireRequisitionLocation::class,'hr_requisition_job_id','id', 'region_id','id');
+    }
+
 }

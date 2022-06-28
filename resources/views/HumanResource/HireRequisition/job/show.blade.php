@@ -45,7 +45,7 @@
                             </tr>
                             <tr>
                                 <td><strong>Location: </strong></td>
-                                <td> {{ $hire_requisition_job->regions }}
+                                <td> {{ $hire_requisition_job->locations }}
 
                                 </td>
                             </tr>
