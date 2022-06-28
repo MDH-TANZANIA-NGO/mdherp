@@ -31,12 +31,12 @@ use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobCreteriaRep
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionReplacedStaffRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionLocationRepository;
 use App\Repositories\HumanResource\HireRequisition\HireUserSkillsRepository;
-
+use App\Services\Workflow\Traits\WorkflowInitiator;
 use Illuminate\Support\Facades\DB;
 
 class HireRequisitionController extends Controller
 {
-    use HireRequisitionDatatable;
+    use HireRequisitionDatatable, WorkflowInitiator;
     protected $hireRequisitionRepository;
     protected $hireRequisitionJobRepository;
     protected $regions;
@@ -270,7 +270,8 @@ class HireRequisitionController extends Controller
             $this->hireRequisitionRepository->submit($uuid);
             $wf_module_group_id = 8;
             $next_user = $hireRequisition->user->assignedSupervisor()->supervisor_id;
-            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $hireRequisition->id, 'region_id' => $hireRequisition->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
+            // event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $hireRequisition->id, 'region_id' => $hireRequisition->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
+            $this->startWorkflow($hireRequisition, 1, $next_user);
             alert()->success('Hire Requisition Created Successfully', 'success');
             DB::commit();
             return redirect()->route('hirerequisition.show', $uuid);
