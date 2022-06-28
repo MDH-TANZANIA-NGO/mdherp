@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
-
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HireRequisitionDatatable;
@@ -32,12 +31,12 @@ use App\Repositories\HumanResource\HireRequisition\HireRequisitionReplacedStaffR
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionLocationRepository;
 use App\Repositories\HumanResource\HireRequisition\HireUserSkillsRepository;
 use App\Services\Workflow\Traits\WorkflowInitiator;
-
 use Illuminate\Support\Facades\DB;
 
 class HireRequisitionController extends Controller
 {
-    use HireRequisitionDatatable,WorkflowInitiator;
+
+    use HireRequisitionDatatable, WorkflowInitiator;
     protected $hireRequisitionRepository;
     protected $hireRequisitionJobRepository;
     protected $regions;
