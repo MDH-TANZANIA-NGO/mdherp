@@ -27,7 +27,9 @@ class HireRequisitionJobController extends Controller
         return view('HumanResource.HireRequisition.job.applications');
     }
 
-    public function show(HireRequisitionJob $hire_requisition_job)
+    //HireRequisitionJob $hire_requisition_job
+
+    public function show()
     {
         return view('HumanResource.HireRequisition.job.show');
     }
