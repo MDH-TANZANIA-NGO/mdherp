@@ -45,8 +45,10 @@
                             </tr>
                             <tr>
                                 <td><strong>Location: </strong></td>
-                                <td> {{ $hire_requisition_job->locations }}
-
+                                <td> 
+                                    @foreach($hire_requisition_job->locations as $location)
+                                        {{ $location->region->name }}, 
+                                    @endforeach
                                 </td>
                             </tr>
                             <tr>

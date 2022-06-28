@@ -54,7 +54,7 @@ class HireRequisitionJob extends BaseModel
 
     public function locations()
     {
-        return $this->hasManyThrough(Region::class,HireRequisitionLocation::class,'hr_requisition_job_id','id', 'region_id','id');
+        return $this->hasMany(HireRequisitionLocation::class,'hr_requisition_job_id','id');
     }
 
 }
