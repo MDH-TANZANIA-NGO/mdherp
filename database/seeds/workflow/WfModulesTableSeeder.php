@@ -230,6 +230,20 @@ class WfModulesTableSeeder extends Seeder
                         'allow_repeat' => 0,
                         'allow_decline' => 0,
                     ),
+                    15 =>
+                    array (
+                        'id' => 16,
+                        'name' => 'Job Interview',
+                        'wf_module_group_id' => '12',
+                        'created_at' => NULL,
+                        'updated_at' => NULL,
+                        'deleted_at' => NULL,
+                        'isactive' => '1',
+                        'type' => '1',
+                        'description' => 'Workflow for Job Advertisement',
+                        'allow_repeat' => 0,
+                        'allow_decline' => 0,
+                    ),
 
            
 

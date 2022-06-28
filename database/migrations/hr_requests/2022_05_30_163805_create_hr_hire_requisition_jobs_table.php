@@ -19,7 +19,6 @@ class CreateHrHireRequisitionJobsTable extends Migration
             $table->unsignedBigInteger('hire_requisition_id');
             $table->unsignedBigInteger('hr_contract_type_id');
             $table->unsignedBigInteger('designation_id');
-            // $table->string('number');
             $table->text('special_employment_condition')->nullable();
             $table->text('duties_and_responsibilities');
             $table->smallInteger('experience_years')->nullable();
@@ -30,7 +29,7 @@ class CreateHrHireRequisitionJobsTable extends Migration
             $table->smallInteger('end_age')->nullable();
             $table->smallInteger('ad_scale')->nullable();
             $table->smallInteger('establishment');
-            $table->smallInteger('practical_experience')->nullable();
+            $table->text('practical_experience')->nullable();
             $table->smallInteger('is_advertised')->default(0);
             $table->text('special_qualities_skills')->nullable();
             $table->date('date_required');
