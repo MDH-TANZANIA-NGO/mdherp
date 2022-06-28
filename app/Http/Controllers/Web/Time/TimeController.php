@@ -32,12 +32,11 @@ class TimeController extends Controller
 
     public function store(Request $request)
     {
-
         $time = date('Y-m-d H:i:s');
-        $data = ['time_start' => $time, 'user_id' => Auth::user()->id, 'name' => Auth::user()->first_name];
+        $data = ['time_start' => $time, 'lat_in' => $request->input('lat_in'), 'long_in' => $request->input('long_in'), 'user_id' => Auth::user()->id, 'name' => Auth::user()->first_name];
         Time::create($data);
 
-      
+       
         return redirect()->back();
     }
 
@@ -45,9 +44,12 @@ class TimeController extends Controller
     {
         $time = date('Y-m-d H:i:s');
         $end= Time::where('user_id', Auth::user()->id)->whereNull('time_end')->first();
-    //    {{ access()->user()->full_name_formatted }}
-        $end->time_end= $time;
+        //    {{ access()->user()->full_name_formatted }}
+        $end->time_end = $time;
+        $end->lat_out = $request->input('lat_out');
+        $end->long_out = $request->input('long_out');
         $end->save();
+        
         return redirect()->back();
 
     }
@@ -60,7 +62,21 @@ class TimeController extends Controller
         return view('time.show', ['current' => $current, 'times' => $times, 'check' => $check]);
     }
 
-   
+    public function view()
+    {
+
+       $time = Time::where('user_id',Auth::user()->id)->first();
+       
+
+        return view('time.view', ['time'=>$time]);
+}
+
+    public function view2()
+    {
+        $time = Time::where('user_id', Auth::user()->id)->first();
+
+        return view('time.view2', ['time' => $time]);
+    }
 }
 
 

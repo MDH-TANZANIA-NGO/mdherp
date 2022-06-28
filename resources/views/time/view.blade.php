@@ -52,23 +52,16 @@
 
     var marker, circle;
 
+
     function getPosition(position) {
         // console.log(position)
-        var lat = position.coords.latitude
-        var long = position.coords.longitude
+        // var lat = position.coords.latitude
+        // var long = position.coords.longitude
+        // var accuracy = position.coords.accuracy
+        var lat = "{{$time->lat_in}}";
+        var long = "{{$time->long_in}}";
         var accuracy = position.coords.accuracy
-        $.ajax({
-            type: 'post',
-            url: "{{ route('map.store') }} ",
-            data: {
-                latitute: lat,
-                longitude: long,
-                '_token': "{{ csrf_token() }}",
-            },
-            success: function(data) {
-                console.log(data);
-            }
-        });
+       
         if (marker) {
             map.removeLayer(marker)
         }
@@ -85,20 +78,9 @@
         var featureGroup = L.featureGroup([marker, circle]).addTo(map)
 
         map.fitBounds(featureGroup.getBounds())
-        $('#address-latitude').val(lat);
-        $('#address-longitude').val(long);
+
         console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
     }
 </script>
-<div class="form-group">
-    <label for="address_address">Address:</label><br>
-    <input type="hidden" id="address-input" name="address_address" class="form-control map-input">
-    Latitude
-    <input type="number" name="lat" id="address-latitude" />
-    Longitude
-    <input type="number" name="long" id="address-longitude" />
-</div>
-<div id="address-map-container" style="width:100%;height:400px; ">
-    <div style="width: 100%; height: 100%" id="map"></div>
-</div>
+
 @endsection

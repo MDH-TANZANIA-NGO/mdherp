@@ -30,6 +30,10 @@ class Time extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'lat_in',
+        'long_in',
+        'lat_out',
+        'long_out'
     ];
 
     public function user()

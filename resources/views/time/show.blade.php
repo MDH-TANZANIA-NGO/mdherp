@@ -25,28 +25,86 @@
                         </div>
                     </div>
 
+
+
+
+
                     @if ($check->count() == 0)
-                    @if($visibility2)
+
                     <form action="{{route('store-time')}}" method="POST">
                         @csrf
+                        <input type="hidden" name='lat_in' id='in'>
+                        <input type="hidden" name='long_in' id='long'>
                         <div class="punch-btn-section">
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
                             <button type="submit" onclick="sweetalertclick1()" class="btn btn-success punch-btn">Punch In</button>
+                            <!-- leaflet js  -->
+                            <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+                            <script>
+                                if (!navigator.geolocation) {
+                                    console.log("Your browser doesn't support geolocation feature!")
+                                } else {
+
+                                    navigator.geolocation.getCurrentPosition(getPosition)
+
+                                }
+
+                                function getPosition(position) {
+                                    // console.log(position)
+                                    var lat = position.coords.latitude
+                                    var long = position.coords.longitude
+                                    var accuracy = position.coords.accuracy
+                                    $("#in").val(lat)
+                                    $("#long").val(long)
+                                    console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
+                                }
+                            </script>
                         </div>
                     </form>
-                    @endif
+
                     @else
                     <form action="{{route('update-time')}}" method="POST">
                         @csrf
+
+                        <input type="hidden" name='lat_out' id='out'>
+                        <input type="hidden" name='long_out' id='longo'>
                         <div class="punch-btn-section">
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
                             <button type="submit" onclick="sweetalertclick2()" class="btn btn-danger punch-btn">Punch Out</button>
+                            <!-- leaflet js  -->
+                            <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+                            <script>
+                                if (!navigator.geolocation) {
+                                    console.log("Your browser doesn't support geolocation feature!")
+                                } else {
+
+                                    navigator.geolocation.getCurrentPosition(getPosition)
+
+                                }
+
+                                function getPosition(position) {
+                                    // console.log(position)
+                                    var lat = position.coords.latitude
+                                    var long = position.coords.longitude
+                                    var accuracy = position.coords.accuracy
+                                    $("#out").val(lat)
+                                    $("#longo").val(long)
+                                    console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
+                                }
+                            </script>
+
                         </div>
                     </form>
 
+
                     @endif
-
-
 
                 </div>
 
@@ -96,8 +154,8 @@
                             <th class="wd-15p">Start time</th>
                             <th class="wd-15p">End Time</th>
                             <th class="wd-15p">User</th>
-                            <th class="wd-15p">Location</th>
                             <th class="wd-15p">Production</th>
+                            <th class="wd-15p">Location</th>
 
                         </tr>
                     </thead>
@@ -108,7 +166,6 @@
                             <td>{{$data->time_start}}</td>
                             <td>{{$data->time_end}}</td>
                             <td>{{$data->user->fullname}}</td>
-                            <td>{{$data->location}}</td>
                             <td>
                                 <?php
                                 $start = $data->time_start;
@@ -120,6 +177,14 @@
                                 echo $calc;
                                 ?>
                             </td>
+                            <td>
+                                <a href="{{ route('view-time') }}">In</a>
+                                <br>
+
+                                <a href="{{ route('view2-time') }}">Out</a>
+                            </td>
+
+
                         </tr>
                         @endforeach
                     </tbody>

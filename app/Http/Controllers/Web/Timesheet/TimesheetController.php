@@ -83,7 +83,7 @@ class TimesheetController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+       
             $next_user = access()->user()->assignedSupervisor()->supervisor_id;
             //dd(access()->user()->assignedSupervisor()->supervisor_id);
 
@@ -110,12 +110,8 @@ class TimesheetController extends Controller
                 alert()->success('Your timesheet have been submitted Successfully', 'success');
                 return redirect()->route('timesheet.index');
             }
-        } catch (\Exception $exception) {
-            alert()->error('You have not been assigned a supervisor', 'Failed');
-            $exception->getMessage();
-            return redirect()->back();
-        }
-    }
+        } 
+    
 
     /**
      * Display the specified resource.
@@ -128,6 +124,7 @@ class TimesheetController extends Controller
     {
         $wf_module_group_id = 7;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $timesheet->id);
+      
         $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $timesheet->id, 'type' => $wf_module->type]);
         $check_workflow = $workflow->checkIfHasWorkflow();
         $current_wf_track = $workflow->currentWfTrack();
