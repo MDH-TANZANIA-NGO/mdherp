@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Web\HumanResource\HireRequisition\Traits;
 
-use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\DataTables;
 
 trait HireRequisitionJobDatatable
@@ -17,7 +16,7 @@ trait HireRequisitionJobDatatable
                 return code_value()->query()->where('id',$query->education_level)->first()->name;
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('hr.job.application', $query->uuid).'">View Applicants</a>';
+                return '<a href="'.route('hr.job.show', $query->uuid).'">View Applicants</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
