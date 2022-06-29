@@ -57,4 +57,9 @@ class HireRequisitionJob extends BaseModel
         return $this->hasMany(HireRequisitionLocation::class,'hr_requisition_job_id','id');
     }
 
+    public function shortlists()
+    {
+        return $this->hasMany(HrHireRequisitionJobApplicant::class,'hr_hire_requisitions_job_id','id');
+    }
+
 }

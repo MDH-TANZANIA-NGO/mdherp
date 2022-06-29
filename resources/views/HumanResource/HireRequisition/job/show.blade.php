@@ -12,11 +12,11 @@
                         <span class=" mb-0 fs-12 text-muted">All Applicants</span>
                     </div>
                     <div class="col-4 ">
-                        <h3 class="mb-0">5</h3>
+                        <h3 class="mb-0">{{ $hire_requisition_job->shortlists()->count() }}</h3>
                         <span class=" mb-0 fs-12 text-muted">Shortlisted Applicants</span>
                     </div>
                     <div class="col-4 ">
-                        <h3 class="mb-0">15</h3>
+                        <h3 class="mb-0">{{ collect($applicants)->count() - $hire_requisition_job->shortlists()->count() }}</h3>
                         <span class=" mb-0 fs-12 text-muted">Unselect Applicants</span>
                     </div>
                 </div>
