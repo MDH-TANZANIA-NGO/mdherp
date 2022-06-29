@@ -319,7 +319,7 @@ class HireRequisitionController extends Controller
             return $item;
         });
 
-  
+
 
         return view('HumanResource.HireRequisition._parent.display.show')
             ->with('hireRequisition', $hireRequisition)

@@ -28,6 +28,6 @@ trait ExperienceDatatable
                 return '<a href="'.route('experience.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action','type'])
-            ->make(true);;
+            ->make(true);
     }
 }

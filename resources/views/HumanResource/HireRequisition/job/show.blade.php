@@ -28,10 +28,117 @@
         <ul class="demo-accordion accordionjs m-0" data-active-index="false">
             <li class="acc_section">
                 <div class="acc_head">
-                    <h3>Tob Title</h3>
+                    <h3>{{ $hire_requisition_job->designation->full_title }} ( Number of Employees Required: {{ $hire_requisition_job->empoyees_required }} )</h3>
                 </div>
-                <div class="acc_content" style="display: none;">
-                    <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Fusce aliquet neque et accumsan fermentum. Aliquam lobortis neque in nulla tempus, molestie fermentum purus euismod.</p>
+                <div class="acc_content" style="display: none; background-color:#fff">
+
+
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td> <strong>Department: </strong></td>
+                                <td> {{ $hire_requisition_job->department->title }} </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Number of Employees Required: </strong></td>
+                                <td>{{ $hire_requisition_job->empoyees_required }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Location: </strong></td>
+                                <td> 
+                                    @foreach($hire_requisition_job->locations as $location)
+                                        {{ $location->region->name }}, 
+                                    @endforeach
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Date Required : </strong></td>
+                                <td>{{ $hire_requisition_job->date_required }}</td>
+                            </tr>
+                            <tr class="gray">
+                                <td colspan="2">
+                                    <h5 class="text-uppercase">Person Required </h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Education and Qualification: </strong></td>
+                                <td> {!! $hire_requisition_job->education_and_qualification !!}</td>
+                            </tr>
+                            <tr>
+
+                                <td><strong>Practical Experience: </strong></td>
+                                <td> {!! $hire_requisition_job->practical_experience !!}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Other Special Qualities / Skills: </strong></td>
+                                <td> {!! $hire_requisition_job->special_qualities_skills !!} </td>
+                            </tr>
+                            <tr class="gray">
+                                <td colspan="2" class="text-uppercase">
+                                    <h5> Employement Condition </h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prospect for appointment : </strong></td>
+                                <td> {!! $hire_requisition_job->contract_type !!} </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Special Employment Condition : </strong></td>
+                                <td> {!! $hire_requisition_job->special_employment_condition !!} </td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><strong> Establishment : </strong></td>
+                                <td> {{ $hire_requisition_job->establishment }} </td>
+                            </tr>
+                            <tr>
+                                <td><strong> Working Tools : </strong></td>
+                                <td>
+                                    {{ $hire_requisition_job->working_tools }}
+                                </td>
+                            </tr>
+                            <tr class="gray">
+                                <td colspan="2" class="text-uppercase">
+                                    <h5> Criteria </h5>
+                                </td>
+                            </tr>
+                            <tr>
+
+
+                            </tr>
+
+
+                            <tr>
+                                <td> Education Level </td>
+                                <td> {{ $hire_requisition_job->education_level }}</td>
+                            </tr>
+                            <tr>
+                                <td> Years Of Experience </td>
+                                <td> {{ $hire_requisition_job->experience_years }}</td>
+                            </tr>
+                            <tr>
+                                <td> Age Between</td>
+                                <td> {{ $hire_requisition_job->start_age}} And {{ $hire_requisition_job->start_age }}</td>
+                            </tr>
+
+
+
+                            {{--<tr>
+                                <td> skills</td>
+                                <td>
+                                    <ul class="ml-3" style="list-style-type: circle;">
+                                        @foreach( $hire_requisition_job->skills as $skill)
+                                        <li> {{ $skill->name }} </li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                            </tr>--}}
+
+
+                        </tbody>
+                    </table>
+
+
                 </div>
             </li>
         </ul>

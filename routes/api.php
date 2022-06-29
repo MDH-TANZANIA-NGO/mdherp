@@ -36,11 +36,12 @@ Route::post('verify-token', 'Api\UserLoginToken\UserLoginTokenController@verifyT
 // });
 
 Route::get('advertisement', 'Api\Recruitment\Advertisement\AdvertisementController@index');
+Route::get('advertisements', 'Api\Recruitment\Advertisement\AdvertisementController@getJobs');
 Route::get('advertisement/{advertisement}/show', 'Api\Recruitment\Advertisement\AdvertisementController@show');
 Route::group(['prefix' => 'auth', 'namespace' => 'Api'],
     function(){
         // Route::post('login', 'Auth\LoginController@login');
-       
+
         Route::post('refresh', 'Auth\LoginController@refresh');
         Route::post('g_officer/store', 'MDHData\GOfficerController@store')->name('g_officer-store');
         Route::get('{g_officer}/facilities', 'MDHData\GOfficerController@show')->name('g_officer-facilities');

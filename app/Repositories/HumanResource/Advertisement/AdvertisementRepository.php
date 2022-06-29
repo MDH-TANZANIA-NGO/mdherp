@@ -39,8 +39,8 @@ class AdvertisementRepository extends  BaseRepository
             ->where('hr_hire_advertisement_requisitions.rejected', true)
             ->where('hr_hire_advertisement_requisitions.user_id', access()->id());
     }
-    
-    
+
+
     public function getAccessRejectedDatatable()
     {
         return $this->getQuery()
@@ -77,7 +77,7 @@ class AdvertisementRepository extends  BaseRepository
                 'user_id' =>access()->id()
         ];
     }
-    
+
     public function store($input){
         return $this->query()->create($this->inputProcessor($input));
     }

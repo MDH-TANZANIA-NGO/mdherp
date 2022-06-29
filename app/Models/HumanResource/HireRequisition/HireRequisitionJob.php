@@ -8,6 +8,8 @@ use App\Models\System\Region;
 use App\Models\HumanResource\HireRequisition\HireRequisitionLocation;
 use App\Models\HumanResource\HireRequisition\HireRequisitionReplacedStaff;
 use App\Models\HumanResource\HireRequisition\HrHireRequisitionJobsCriteria;
+use App\Models\Unit\Department;
+use App\Models\Unit\Designation;
 
 class HireRequisitionJob extends BaseModel
 {
@@ -33,6 +35,26 @@ class HireRequisitionJob extends BaseModel
     public function jobCriterias()
     {
         return $this->hasMany(HrHireRequisitionJobsCriteria::class,'hr_requisitions_jobs_id');
+    }
+
+    public function designation()
+    {
+        return $this->belongsTo(Designation::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    // public function locations()
+    // {
+    //     return $this->hasMany(HireRequisitionLocation::class,'hr_requisition_job_id')
+    // }
+
+    public function locations()
+    {
+        return $this->hasMany(HireRequisitionLocation::class,'hr_requisition_job_id','id');
     }
 
 }

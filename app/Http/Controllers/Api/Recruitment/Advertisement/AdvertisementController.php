@@ -27,7 +27,7 @@ class AdvertisementController extends BaseController
                         ->where('wf_done',1)
                         ->where('done',1)
                         ->where('rejected',0)
-                        ->get(); 
+                        ->get();
         $data->map(function($item){
             $item['skills'] = DB::table('skill_user')->where('hr_requisition_job_id',$item['hire_requisition_id'])->get();
             $item['jobs'] = DB::table('hr_hire_requisitions_jobs')->where('id',$item['hire_requisition_job_id'])->get();
@@ -37,6 +37,15 @@ class AdvertisementController extends BaseController
 
     }
 
+    public function getJobs()
+    {
+        return $this->advertisementRepository
+            ->getQuery()
+            ->where('wf_done', 1)
+            ->where('done', 1)
+            ->where('rejected', 0)
+            ->get();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -44,7 +53,7 @@ class AdvertisementController extends BaseController
      */
     public function create()
     {
-  
+
     }
 
     /**
@@ -68,7 +77,7 @@ class AdvertisementController extends BaseController
     {
         $response['advertisement'] =  $advertisement;
         return $this->sendResponse($response,"Advertisement",200);
-        
+
     }
 
     /**
