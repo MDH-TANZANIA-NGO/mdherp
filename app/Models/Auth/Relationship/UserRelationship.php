@@ -17,7 +17,7 @@ use App\Models\Workflow\WfDefinition;
 use App\Models\Workflow\WfTrack;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Models\Auth\UserContract;
-
+use League\CommonMark\Reference\Reference;
 
 trait UserRelationship
 {
@@ -114,6 +114,11 @@ trait UserRelationship
     public function contracts()
     {
         return $this->hasMany(UserContract::class);
+    }
+
+    public function referees()
+    {
+        return $this->hasMany(Reference::class);
     }
 
 }
