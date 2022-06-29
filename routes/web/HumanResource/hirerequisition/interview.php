@@ -4,7 +4,8 @@ Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', '
 
   Route::get('', 'InterviewController@index')->name('index');
   Route::get('create','InterviewController@create')->name('create');
-  Route::get('initiate/{initiate}','InterviewController@initiate')->name('initiate');
+  Route::POST('add','InterviewController@addapplicant')->name('addapplicant');
+  Route::get('initiate/{interview}','InterviewController@initiate')->name('initiate');
 
    Route::get('pending', 'InterviewController@pending')->name('pending');
    Route::post('approve', 'InterviewController@approve')->name('approve');

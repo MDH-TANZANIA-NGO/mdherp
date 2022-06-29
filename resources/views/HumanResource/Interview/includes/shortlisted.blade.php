@@ -12,7 +12,7 @@
 </div>
 <div class="row mb-3">
 
- 
+
     <label class="label col-sm-2 ">Interview Date </label>
     <div class="col-sm-8 ">
         <input type="date" class="form-control" name="interview_date"> 
@@ -30,10 +30,12 @@
 			<h3 class="card-title">ShortList Number </h3>
 		</div>
         <div class="card-body">
-            <form action="" method="post">
-                <input type="hidden" value=">{{ $interview->id }}" name="interview_id">
+            
+                @csrf
+                <input type="hidden" value="{{ $interview->id }}" name="interview_id">
                 @include('HumanResource.interview.datatables.shortlisted')
-            </form>
+            
         </div>
     </div>
  </div>
+ 

@@ -16,6 +16,7 @@
      </div>
  </div>
 
+
  @push('after-scripts')
  <script>
      $(document).ready(function() {

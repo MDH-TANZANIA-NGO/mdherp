@@ -22,7 +22,7 @@ class InterviewApplicantRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
-            'pr_reports.id AS id',
+             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name AS full_name)"),
             'pr_reports.number AS number',
             'pr_reports.from_at AS from_at',
             'pr_reports.to_at AS to_at',
@@ -138,9 +138,12 @@ class InterviewApplicantRepository extends BaseRepository
     public function store($input)
     {
         return DB::transaction(function () use($input){
-            $input['hr_requisition_job_id'] = '12';
-            $input['shortlist_id'] = '12';
-            return $this->query()->create($input);
+            $data['interview_id'] = $input['interview_id'];
+            $applicants = $input['applicant'];
+            foreach($applicants as $applicant){
+                $data['applicant_id'] = $applicant;
+                $this->query()->create($data);
+            }
         });
     }
 
