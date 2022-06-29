@@ -8,15 +8,15 @@
                 <h3 class="card-title mb-3">Shortlist Summary</h3>
                 <div class="row widget-text">
                     <div class="col-4">
-                        <h3 class="mb-0">20</h3>
+                        <h3 class="mb-0">{{ collect($applicants)->count() }}</h3>
                         <span class=" mb-0 fs-12 text-muted">All Applicants</span>
                     </div>
                     <div class="col-4 ">
-                        <h3 class="mb-0">5</h3>
+                        <h3 class="mb-0">{{ $hire_requisition_job->shortlists()->count() }}</h3>
                         <span class=" mb-0 fs-12 text-muted">Shortlisted Applicants</span>
                     </div>
                     <div class="col-4 ">
-                        <h3 class="mb-0">15</h3>
+                        <h3 class="mb-0">{{ collect($applicants)->count() - $hire_requisition_job->shortlists()->count() }}</h3>
                         <span class=" mb-0 fs-12 text-muted">Unselect Applicants</span>
                     </div>
                 </div>
@@ -150,26 +150,30 @@
                 <h3 class="card-title">List of Applicants</h3>
             </div>
             <div class="card-body">
-                <table id="applications" class="table table-striped table-bordered" style="width:100%">
+                <table id="applicants" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th class="wd-15p">#</th>
                             <th class="wd-15p">FIRST NAME</th>
                             <th class="wd-15p">MIDDLE NAME</th>
                             <th class="wd-15p">LAST NAME</th>
-                            <th class="wd-15p">EDUCATION LEVEL</th>
+                            <th class="wd-15p">EMAIL</th>
+                            <th class="wd-15p">MOBILE NUMBER</th>
                             <th class="wd-25p">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($applicants AS $key => $applicant)
                         <tr>
-                            <td>1</td>
-                            <td>Hamis</td>
-                            <td>Juma</td>
-                            <td>Hamis</td>
-                            <td>Bachelor Degree</td>
-                            <td>show</td>
+                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $applicant->first_name }}</td>
+                            <td>{{ $applicant->middle_name }}</td>
+                            <td>{{ $applicant->last_name }}</td>
+                            <td>{{ $applicant->email }}</td>
+                            <td>{{ $applicant->phone }}</td>
+                            <td><a href="">View More info</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -178,3 +182,11 @@
 
 </div>
 @endsection
+
+@push('after-scripts')
+<script>
+    $(document).ready(function(){
+        $("#applicants").DataTable();
+    })
+</script>
+@endpush

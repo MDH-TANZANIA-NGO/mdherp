@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../mimosa-recruitment"
+		}
+	],
+	"settings": {
+		"workbench.colorTheme": "Night Owl"
+	}
+}

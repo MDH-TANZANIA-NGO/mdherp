@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HireRequisitionJobDatatable;
 use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
+use App\Services\RecruitmentApi\HumanResource\HireRequisition\HireRequisitionJobService;
 use Illuminate\Http\Request;
 
 class HireRequisitionJobController extends Controller
 {
-    use HireRequisitionJobDatatable;
+    use HireRequisitionJobDatatable, HireRequisitionJobService;
     protected $hire_requisition_jobs;
 
     public function __construct()
@@ -32,7 +33,8 @@ class HireRequisitionJobController extends Controller
     public function show(HireRequisitionJob $hire_requisition_job)
     {
         return view('HumanResource.HireRequisition.job.show')
-        ->with('hire_requisition_job', $hire_requisition_job);
+        ->with('hire_requisition_job', $hire_requisition_job)
+        ->with('applicants', $this->getApplicants($hire_requisition_job->id));
     }
 
     
