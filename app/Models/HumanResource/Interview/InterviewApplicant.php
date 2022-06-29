@@ -9,4 +9,5 @@ class InterviewApplicant extends BaseModel
     public function interview(){
         return $this->belongsTo(Interview::class,'interview_id');
     }
+     
 }

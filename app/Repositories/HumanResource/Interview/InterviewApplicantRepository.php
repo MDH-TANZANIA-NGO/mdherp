@@ -22,20 +22,9 @@ class InterviewApplicantRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
-             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name AS full_name)"),
-            'pr_reports.number AS number',
-            'pr_reports.from_at AS from_at',
-            'pr_reports.to_at AS to_at',
-            'pr_reports.submited_at AS submited_at',
-            'pr_reports.created_at AS created_at',
-            'pr_reports.uuid AS uuid',
-            'pr_types.title AS pr_type_title',
-            'fiscal_years.title AS fiscal_year_title',
-            'pr_reports.wf_done_date as approved_at'
+             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name ) AS full_name")
         ])
-            ->join('users', 'users.id', 'pr_reports.user_id')
-            ->join('pr_types', 'pr_types.id', 'pr_reports.pr_type_id')
-            ->join('fiscal_years', 'fiscal_years.id', 'pr_reports.fiscal_year_id');
+        ->join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_applicants.applicant_id');
     }
 
     /** 
@@ -139,6 +128,7 @@ class InterviewApplicantRepository extends BaseRepository
     {
         return DB::transaction(function () use($input){
             $data['interview_id'] = $input['interview_id'];
+            $data['interview_schedule_id'] = $input['interview_schedule_id'];
             $applicants = $input['applicant'];
             foreach($applicants as $applicant){
                 $data['applicant_id'] = $applicant;
