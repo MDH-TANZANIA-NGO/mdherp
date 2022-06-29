@@ -177,11 +177,12 @@
                                 echo $calc;
                                 ?>
                             </td>
+
                             <td>
-                                <a href="{{ route('view-time') }}">In</a>
+                                <a href="{{ route('view-time',$data->id) }}"><i class="fa fa-arrow-right"></i>In</a>
                                 <br>
 
-                                <a href="{{ route('view2-time') }}">Out</a>
+                                <a href="{{ route('view2-time',$data->id) }}"><i class="fa fa-arrow-left"></i>Out</a>
                             </td>
 
 

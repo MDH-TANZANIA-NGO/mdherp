@@ -62,18 +62,18 @@ class TimeController extends Controller
         return view('time.show', ['current' => $current, 'times' => $times, 'check' => $check]);
     }
 
-    public function view()
+    public function view($id)
     {
-
-       $time = Time::where('user_id',Auth::user()->id)->first();
+        $time = Time::find($id);
+      
        
 
         return view('time.view', ['time'=>$time]);
 }
 
-    public function view2()
+    public function view2($id)
     {
-        $time = Time::where('user_id', Auth::user()->id)->first();
+        $time = Time::find($id);
 
         return view('time.view2', ['time' => $time]);
     }

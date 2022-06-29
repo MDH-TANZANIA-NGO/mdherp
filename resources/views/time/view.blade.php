@@ -58,10 +58,14 @@
         // var lat = position.coords.latitude
         // var long = position.coords.longitude
         // var accuracy = position.coords.accuracy
+       
         var lat = "{{$time->lat_in}}";
         var long = "{{$time->long_in}}";
+
         var accuracy = position.coords.accuracy
        
+        
+
         if (marker) {
             map.removeLayer(marker)
         }
