@@ -45,9 +45,9 @@
                             </tr>
                             <tr>
                                 <td><strong>Location: </strong></td>
-                                <td> 
+                                <td>
                                     @foreach($hire_requisition_job->locations as $location)
-                                        {{ $location->region->name }}, 
+                                    {{ $location->region->name }},
                                     @endforeach
                                 </td>
                             </tr>
@@ -128,65 +128,104 @@
                                 <td>
                                     <ul class="ml-3" style="list-style-type: circle;">
                                         @foreach( $hire_requisition_job->skills as $skill)
-                                        <li> {{ $skill->name }} </li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                            </tr>--}}
-
-
-                        </tbody>
-                    </table>
-
-
-                </div>
+                                        <li> {{ $skill->name }}
             </li>
+            @endforeach
         </ul>
-    </div>
+        </td>
+        </tr>--}}
 
-    <div class="col-xl-12 col-md-12 col-md-12 col-lg-12 mt-5">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">List of Applicants</h3>
-            </div>
-            <div class="card-body">
-                <table id="applicants" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th class="wd-15p">#</th>
-                            <th class="wd-15p">FIRST NAME</th>
-                            <th class="wd-15p">MIDDLE NAME</th>
-                            <th class="wd-15p">LAST NAME</th>
-                            <th class="wd-15p">EMAIL</th>
-                            <th class="wd-15p">MOBILE NUMBER</th>
-                            <th class="wd-25p">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($applicants AS $key => $applicant)
-                        <tr>
-                            <td>{{ $key + 1 }}</td>
-                            <td>{{ $applicant->first_name }}</td>
-                            <td>{{ $applicant->middle_name }}</td>
-                            <td>{{ $applicant->last_name }}</td>
-                            <td>{{ $applicant->email }}</td>
-                            <td>{{ $applicant->phone }}</td>
-                            <td><a href="">View More info</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+
+        </tbody>
+        </table>
+
+
+    </div>
+    </li>
+    </ul>
+</div>
+
+<div class="col-xl-12 col-md-12 col-md-12 col-lg-12 mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">List of Applicants</h3>
+        </div>
+        <div class="card-body">
+            <table id="applicants" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="wd-15p">#</th>
+                        <th class="wd-15p">FIRST NAME</th>
+                        <th class="wd-15p">MIDDLE NAME</th>
+                        <th class="wd-15p">LAST NAME</th>
+                        <th class="wd-15p">EMAIL</th>
+                        <th class="wd-15p">MOBILE NUMBER</th>
+                        <th class="wd-25p">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($applicants AS $key => $applicant)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $applicant->first_name }}</td>
+                        <td>{{ $applicant->middle_name }}</td>
+                        <td>{{ $applicant->last_name }}</td>
+                        <td>{{ $applicant->email }}</td>
+                        <td>{{ $applicant->phone }}</td>
+                        <td><a href="#" data-toggle="modal" class="applicant_button">View More info</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+
+    <!-- Large Modal -->
+    <div id="applicantModal" class="modal fade">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content ">
+                <div class="modal-header pd-x-20">
+                    <h6 class="modal-title">Message Preview</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pd-20">
+                    <h5 class=" lh-3 mg-b-20"><a href="" class="font-weight-bold">Why We Use Electoral College, Not Popular Vote</a></h5>
+                    <p class="">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
+                </div><!-- modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+
+</div>
 
 </div>
 @endsection
 
 @push('after-scripts')
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         $("#applicants").DataTable();
+        $(".applicant_button").click(function(event){
+            event.preventDefault()
+            $.ajax({
+                    url: $url,
+                    type: 'GET',
+                    success: function (data) {
+                        if(data){
+                            $('#applicantModal').modal('show');
+                        }
+                    },
+                    error: function (error) {
+                        not2()
+                    }
+                });
+        });
     })
 </script>
 @endpush
