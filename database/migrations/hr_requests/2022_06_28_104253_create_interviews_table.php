@@ -17,7 +17,7 @@ class CreateInterviewsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('hr_requisition_job_id');
             $table->smallInteger('interview_type_id');
-            $table->smallInteger('is_invited',1)->default(0);
+            $table->smallInteger('is_invited')->default(0);
             $table->unsignedBigInteger('shortlist_id');
             $table->string('number')->nullable();
             $table->uuid('uuid');

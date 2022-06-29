@@ -27,10 +27,10 @@ class CreateHrHireRequisitionJobShortlistsTable extends Migration
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
-            $table->foreign('supervisor_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
-            $table->foreign('fiscal_year_id')->references('id')->on('fiscal_years')->onUpdate('CASCADE')->onDelete('RESTRICT');
-            $table->foreign('region_id')->references('id')->on('regions')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            // $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            // $table->foreign('supervisor_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            // $table->foreign('fiscal_year_id')->references('id')->on('fiscal_years')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            // $table->foreign('region_id')->references('id')->on('regions')->onUpdate('CASCADE')->onDelete('RESTRICT');
         });
     }
 

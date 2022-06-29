@@ -15,11 +15,7 @@ Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', '
  
    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
     Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
-        Route::get('processing', 'InterviewController@AccessProcessingDatatable')->name('processing');
-        Route::get('returned', 'InterviewController@AccessDeniedDatatable')->name('returned');
-        Route::get('rejected', 'InterviewController@AccessRejectedDatatable')->name('rejected');
-        Route::get('approved', 'InterviewController@AccessProvedDatatable')->name('approved');
-        Route::get('saved', 'InterviewController@AccessSavedDatatable')->name('saved');
+        Route::get('processing', 'InterviewController@AccessShortlistedDatatable')->name('shortlisted');
     });
-});
+    });
 });

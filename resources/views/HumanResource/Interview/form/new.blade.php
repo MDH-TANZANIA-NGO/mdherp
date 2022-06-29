@@ -9,13 +9,14 @@
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <div class="form-group">
 						<label class="form-label">Job </label>
-					
+						{!! Form::select('jobs',$designations,null,['class' => 'form-control', 'placeholder'=>'Select','required']) !!}
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <div class="form-group">
 						<label class="form-label">Interview Type</label>
-						<input type="date" name="from_at" value="{{ old('from_at') }}" class="form-control" require>
+                        {!! Form::select('interview_type_id',$interview_types,null,['class' => 'form-control', 'placeholder'=>'Select','required']) !!}
+						 
                     </div>
                 </div>
                

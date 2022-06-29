@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Models\HumanResource\Interview;
-
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Model;
 
-class Interview extends Model
+class Interview extends BaseModel
 {
     protected $table = 'hr_interviews';
 

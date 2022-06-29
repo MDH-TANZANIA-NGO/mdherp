@@ -6,15 +6,16 @@ use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
 use App\Models\Budget\FiscalYear;
 use App\Models\HumanResource\Interview\Interview;
+use App\Models\HumanResource\Interview\InterviewApplicant;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class InterviewRepository extends BaseRepository
+class InterviewApplicantRepository extends BaseRepository
 {
-    const MODEL = Interview::class;
+    const MODEL = InterviewApplicant::class;
 
     use Number;
 

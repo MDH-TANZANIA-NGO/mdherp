@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RegionsTableSeeder::class);
         $this->call(ZonesTableSeeder::class);
         $this->call(DistrictsTableSeeder::class);
+        $this->call(InterviewTypesSeeder::class);
 //        $this->call(UsersTableSeeder::class);
 //        $this->call(RequisitionTypesTableSeeder::class);
 //        $this->call(RequisitionTypeCategoriesTableSeeder::class);

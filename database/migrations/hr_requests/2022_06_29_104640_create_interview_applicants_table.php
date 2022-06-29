@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInterviewQuestionMarksTable extends Migration
+class CreateInterviewApplicantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateInterviewQuestionMarksTable extends Migration
      */
     public function up()
     {
-        Schema::create('hr_interview_question_marks', function (Blueprint $table) {
+        Schema::create('hr_interview_applicants', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedBigInteger('interview_id');
+            $table->unsignedBigInteger('interview_id');
             $table->unsignedBigInteger('applicant_id');
-            $table->unsignedBigInteger('panelist_id');
-            $table->unsignedBigInteger('interview_question_id');
-            $table->double('marks');
+            $table->smallInteger('is_emailed')->default(0);
+            $table->softDeletes();
+            $table->uuid('uuid');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateInterviewQuestionMarksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hr_interview_marks');
+        Schema::dropIfExists('hr_interview_applicants');
     }
 }
