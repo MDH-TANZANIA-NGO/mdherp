@@ -7,8 +7,10 @@ use App\Repositories\Access\UserRepository;
 use App\Repositories\Unit\DesignationRepository;
 use App\Models\HumanResource\Interview\Interview;
 use App\Models\HumanResource\Interview\InterviewTypes;
+use App\Models\HumanResource\Interview\InterviewSchedule;
 use App\Repositories\HumanResource\Interview\InterviewRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
+use App\Repositories\HumanResource\HireRequisition\HrHireApplicantRepository;
 use  App\Http\Controllers\Web\HumanResource\Interview\Traits\InterviewDatatable;
 
 class InterviewController extends Controller
@@ -17,6 +19,7 @@ class InterviewController extends Controller
     public $designationRepository;
     public $interviewRepository;
     public $interviewApplicantRepository;
+    public $hrHireApplicantRepository;
     public $userRepository;
 
     use InterviewDatatable;
@@ -25,6 +28,7 @@ class InterviewController extends Controller
         $this->designationRepository = (New DesignationRepository());
         $this->interviewRepository = (New InterviewRepository());
         $this->interviewApplicantRepository = (New InterviewApplicantRepository());
+        $this->hrHireApplicantRepository = (New HrHireApplicantRepository());
         $this->userRepository = (New UserRepository());
 
     } 
@@ -52,8 +56,11 @@ class InterviewController extends Controller
 
     public function initiate(Interview $interview){
         $users = $this->userRepository->forSelect();
-        $interviewApplicants = $this->interviewApplicantRepository->query()->where('interview_id',$interview->id)->count();
-        return view('HumanResource.Interview.saved')
+        $schedules = InterviewSchedule::where('interview_id',$interview->id)->get()->pluck('id');
+        $interviewApplicants = 0;
+        if(count($schedules ))
+            $interviewApplicants = $this->hrHireApplicantRepository->getSelected($interview->id)->get();
+            return view('HumanResource.Interview.saved')
                 ->with('interview',$interview)
                 ->with('interviewApplicants',$interviewApplicants)
                 ->with('users',$users);
@@ -64,8 +71,17 @@ class InterviewController extends Controller
     public function addapplicant(Request $request){
 
         if($request->has('applicant'))
-            $this->interviewApplicantRepository->store($request->all());
             $interview = $this->interviewRepository->find($request->interview_id);
+            $interviewScheduleData = [
+                'interview_id' => $interview->id,
+                'interview_date' => $request->interview_date
+            ];
+
+            $interviewSchedule = InterviewSchedule::create($interviewScheduleData);
+            $data = $request->all();
+            $data['interview_schedule_id'] = $interviewSchedule->id;
+            $this->interviewApplicantRepository->store($data);
+            
             alert()->success('added Successfully');
             return redirect()->route('interview.initiate',$interview->uuid);
         return redirect()->back();

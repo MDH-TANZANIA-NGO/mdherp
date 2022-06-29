@@ -9,4 +9,6 @@ use App\Models\HumanResource\HireRequisition\Traits\Relationship\HrHireApplicant
 class HrHireApplicant extends BaseModel
 {
     use HrHireApplicantAttribute, HrHireApplicantRelationship;
+
+  
 }
