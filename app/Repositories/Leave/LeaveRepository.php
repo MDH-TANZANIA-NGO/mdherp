@@ -52,9 +52,7 @@ class LeaveRepository extends BaseRepository
     }
 
     public function inputProcess($inputs){
-
         $leave_balance = LeaveBalance::where('user_id', access()->user()->id)->where('leave_type_id', $inputs['leave_type_id'])->first();
-
         return [
             'user_id' => access()->id(),
             'region_id' => access()->user()->region_id,
@@ -72,9 +70,7 @@ class LeaveRepository extends BaseRepository
 
     public function store($inputs)
     {
-
         return DB::transaction(function () use ($inputs){
-
             return $this->query()->create($this->inputProcess($inputs));
         });
     }
@@ -90,7 +86,6 @@ class LeaveRepository extends BaseRepository
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('leaves.wf_done', 0)
-//            ->where('leaves.done', true)
             ->where('leaves.rejected', false)
             ->where('users.id', access()->id());
     }
@@ -100,7 +95,6 @@ class LeaveRepository extends BaseRepository
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('leaves.wf_done', 0)
-           // ->where('leaves.done', true)
             ->where('leaves.rejected', true)
             ->where('users.id', access()->id());
     }

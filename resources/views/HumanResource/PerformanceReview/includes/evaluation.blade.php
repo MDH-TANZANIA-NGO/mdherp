@@ -27,11 +27,7 @@
 			<h3 class="card-title">Objectives</h3>
 		</div>
         <div class="card-body">
-        @switch($pr_report->pr_type_id)
-            @case(1)
                 @include('HumanResource.PerformanceReview.datatables.evaluation_objectives',['pr_objectives' => $pr_report->objectives])
-            @break
-        @endswitch
         </div>
     </div>
  </div>

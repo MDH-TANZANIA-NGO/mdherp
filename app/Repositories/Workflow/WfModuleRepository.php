@@ -39,72 +39,10 @@ class WfModuleRepository extends BaseRepository
         $module_group = $input['wf_module_group_id'];
         $selectArray = ['id', 'name'];
         $type = 0;
-        switch ($module_group) {
-            //All specified in case blocks has varieties, module group with more than one modules
-            case 1:
-                // Application Approval
-                $type = 1;
-                if (isset($input['type']) And !is_null($input['type']) And $input['type'] > 0) {
-                    $type = $input['type'];
-                } else {
-                    if (isset($input['resource_id'])) {
-                        $resource_id = $input['resource_id'];
-
-                    }
-                }
-                $wf_module = $this->query()->where(['wf_module_group_id' => $module_group, 'type' => $type, 'isactive' => 1])->select($selectArray)->orderBy("id", "asc")->first();
-                break;
-
-            case 2:
-                // Physical Inspection Agreements
-                $type = 1;
-                if (isset($input['type']) And !is_null($input['type']) And $input['type'] > 0) {
-                    $type = $input['type'];
-                } else {
-                    if (isset($input['resource_id'])) {
-                        $resource_id = $input['resource_id'];
-
-                    }
-                }
-                $wf_module = $this->query()->where(['wf_module_group_id' => $module_group, 'type' => $type, 'isactive' => 1])->select($selectArray)->orderBy("id", "asc")->first();
-                break;
-
-            case 3:
-                // Conditional Release
-                $type = 1;
-                if (isset($input['type']) And !is_null($input['type']) And $input['type'] > 0) {
-                    $type = $input['type'];
-                } else {
-                    if (isset($input['resource_id'])) {
-                        $resource_id = $input['resource_id'];
-
-                    }
-                }
-                $wf_module = $this->query()->where(['wf_module_group_id' => $module_group, 'type' => $type, 'isactive' => 1])->select($selectArray)->orderBy("id", "asc")->first();
-                break;
-
-            case 5:
-                // Premise Registration
-                $type = 1;
-                if (isset($input['type']) And !is_null($input['type']) And $input['type'] > 0) {
-                    $type = $input['type'];
-                } else {
-                    if (isset($input['resource_id'])) {
-                        $resource_id = $input['resource_id'];
-
-                    }
-                }
-                $wf_module = $this->query()->where(['wf_module_group_id' => $module_group, 'type' => $type, 'isactive' => 1])->select($selectArray)->orderBy("id", "asc")->first();
-                break;
-
-            default:
-                $wf_module = $this->query()->where(['wf_module_group_id' => $module_group, 'isactive' => 1])->select($selectArray)->orderBy("id", "asc")->first();
-                break;
-        }
+        $wf_module = $this->query()->where(['wf_module_group_id' => $module_group, 'type' => $input['type'] ?? $type, 'isactive' => 1])->select($selectArray)->orderBy("id", "asc")->first();
         if (is_null($wf_module)) {
             throw new GeneralException(trans('exceptions.backend.workflow.module_not_found'));
         }
-
          return $wf_module;
     }
 

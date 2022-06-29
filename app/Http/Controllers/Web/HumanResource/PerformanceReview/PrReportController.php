@@ -102,6 +102,9 @@ class PrReportController extends Controller
         return view('HumanResource.PerformanceReview.saved')
         ->with('pr_report', $pr_report)
         ->with('pr_objectives', $pr_report->objectives)
+        ->with('pr_rate_scales', $this->pr_rate_scales->pluckWithDescription())
+        ->with('pr_competence_keys', $this->pr_competence_keys->getAll())
+        ->with('pr_attributes', $this->pr_attributes->getAll())
         ->with('can_submit_challenges', $pr_report->parent ? $pr_report->parent->objectives()->whereNull('challenge')->count() : 0);
     }
 
@@ -119,19 +122,21 @@ class PrReportController extends Controller
         $current_wf_track = $workflow->currentWfTrack();
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($pr_report, $current_level, $workflow->wf_definition_id);
-        $can_update_attribute_rate_resource = $this->wf_tracks->canUpdateAttributeRateResource($pr_report, $current_level, $workflow->wf_module_id);
+        $can_update_attribute_rate_resource =  $this->wf_tracks->canUpdateAttributeRateResource($pr_report, $current_level, $workflow->wf_module_id);
         return view('HumanResource.PerformanceReview.show')
             ->with('pr_report', $pr_report)
             ->with('pr_objectives', $pr_report->objectives)
             ->with('pr_rate_scales', $this->pr_rate_scales->forSelect())
             ->with('pr_attributes', $this->pr_attributes->getAll())
             ->with('pr_competence_keys', $this->pr_competence_keys->getAll())
-            ->with('pr_report_attribute_rates', $pr_report->parent->attributeRates)
+            ->with('pr_report_attribute_rates', $pr_report->attributeRates)
             ->with('can_be_processed_for_evaluation', $this->pr_reports->canBeAprocessedForEvaluation($pr_report))
             ->with('can_update_attribute_rate_resource', $can_update_attribute_rate_resource)
+            ->with('code_value_initiator_remark', code_value()->query()->where('code_id',13)->get())
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
+            ->with('workflows', $workflow)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($pr_report));
     }
 
@@ -144,8 +149,15 @@ class PrReportController extends Controller
     public function submit(PrReport $pr_report)
     {   
         $this->pr_reports->updateDoneAssignNextUserIdAndGenerateNumber($pr_report);
-        $this->startWorkflow($pr_report, 1, $pr_report->supervisor_id); 
+        $this->startWorkflow($pr_report, $pr_report->parent ? 2 : 1, $pr_report->supervisor_id); 
         alert()->success(__('Submitted Successfully'), __('Performance Review'));
         return redirect()->route('hr.pr.show', $pr_report);
+    }
+
+    public function completed(PrReport $pr_report)
+    {
+        $this->pr_reports->completed($pr_report);
+        alert()->success(__('Email has been sent Successfully to supervisor to continue with approval'), __('Performance Appraisal Report'));
+        return redirect()->back();
     }
 }

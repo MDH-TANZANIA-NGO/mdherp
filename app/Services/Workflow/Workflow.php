@@ -489,7 +489,7 @@ class Workflow
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
 
-                case 11:
+                case 11: case 13:
                     $pr_report = (new PrReportRepository())->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('hr.pr.show',$pr_report),
@@ -515,69 +515,24 @@ class Workflow
      */
     private function updateResourceType(Model $wfTrack)
     {
-        $resourceId = $wfTrack->resource_id;
-        //$moduleGroupId = $wfTrack->wfDefinition->wfModule->wfModuleGroup->id;
-        switch ($this->wf_module_group_id) {
-            case 1:
-                /*Requisition*/
-                $requisition_repo = (new RequisitionRepository());
-                $requisition = $requisition_repo->find($resourceId);
-                $requisition->wfTracks()->save($wfTrack);
-                break;
-            case 2:
-                /*Safari*/
-                $safari_repo = (new SafariAdvanceRepository());
-                $safari = $safari_repo->find($resourceId);
-                $safari->wfTracks()->save($wfTrack);
-                break;
-            case 3:
-                /*Program Activity*/
-                $program_activity_repo = (new ProgramActivityRepository());
-                $program_activity = $program_activity_repo->find($resourceId);
-                $program_activity->wfTracks()->save($wfTrack);
-                break;
-            case 4:
-                /*Retirement */
-                $retirement_repo = (new RetirementRepository());
-                $retirement = $retirement_repo->find($resourceId);
-                $retirement->wfTracks()->save($wfTrack);
-                break;
-            case 5:
-                /*Leave */
-                $leave_repo = (new LeaveRepository());
-                $leave = $leave_repo->find($resourceId);
-                $leave->wfTracks()->save($wfTrack);
-                break;
-            case 6:
-                /*Finance */
-                $financerepo = (new FinanceActivityRepository());
-                $finance = $financerepo->find($resourceId);
-                $finance->wfTracks()->save($wfTrack);
-                break;
-            case 7:
-                /*Timesheet */
-                $timesheetrepo = (new TimesheetRepository());
-                $timesheet = $timesheetrepo->find($resourceId);
-                $timesheet->wfTracks()->save($wfTrack);
-                break;
-            case 8:
-                /*Listing */
-                $listingrepo = (new ListingRepository());
-                $listing = $listingrepo->find($resourceId);
-                $listing->wfTracks()->save($wfTrack);
-                break;
-            case 9:
-                /*Activity Report */
-                $program_activity_report_repo = (new ProgramActivityReportRepository());
-                $program_activity_report = $program_activity_report_repo->find($resourceId);
-                $program_activity_report->wfTracks()->save($wfTrack);
-                break;
-            case 10:
-                /*Performance Report */
-                $pr_report_repo = (new PrReportRepository())->find($resourceId);;
-                $pr_report_repo->wfTracks()->save($wfTrack);
-                break;
+        $this->getModelFromTable($wfTrack->wfDefinition->wfModule->wfModuleGroup->table_name)::findOrFail($wfTrack->resource_id)->wfTracks()->save($wfTrack);
+    }
+
+    /**
+     * @param Model $wfTrack
+     * @throws GeneralException
+     * @description Get.
+     */
+    public function getModelFromTable($table)
+    {
+        foreach( get_declared_classes() as $class ) {
+            if( is_subclass_of( $class, 'Illuminate\Database\Eloquent\Model' ) ) {
+                $model = new $class;
+                if ($model->getTable() === $table)
+                    return $class;
+            }
         }
+            return false;
     }
 
     /**

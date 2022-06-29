@@ -7,7 +7,16 @@
                         <thead>
                             <tr>
                                 <th style ="">#</th>
-                                <th style ="">OBJECTIVE/GOAL</th>
+                                <th style ="">
+                                @switch($pr_report->type->id)
+                                    @case(2)
+                                        OBJECTIVE/GOAL
+                                    @break
+                                    @case(1)
+                                        Expected achievements EXPECTED ARCHIEVEMENT
+                                    @break
+                                @endswitch
+                                </th>
                                 <th>ACTION PLAN</th>
                                 @if($can_edit_resource)<th style ="width:10%">ACTION</th>@endif
                             </tr>

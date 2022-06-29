@@ -441,7 +441,7 @@ class WorkflowEventSubscriber
                     }
                     break;
 
-                case 11:
+                case 11: case 13:
                     //workflowAction class
                     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id,$resource_id, $level)['next_user_id'];
                     break;
@@ -569,7 +569,7 @@ class WorkflowEventSubscriber
                     $email_resource = (object)[
                         'link' =>  route('timesheet.show',$timesheet),
                         'subject' => "Approved Successfully",
-                        'message' => 'These Timesheet has been Approved successfully'
+                        'message' => 'Your Timesheet has been Approved successfully'
                     ];
                     $timesheet->user->notify(new WorkflowNotification($email_resource));
                     break;
@@ -596,7 +596,7 @@ class WorkflowEventSubscriber
                     $program_activity_report->user->notify(new WorkflowNotification($email_resource));
                     break;
 
-                case 11:
+                case 11: case 13:
                     $pr_report = (new PrReportRepository())->find($resource_id);
                     $this->updateWfDone($pr_report);
                     $email_resource = (object)[
@@ -604,8 +604,8 @@ class WorkflowEventSubscriber
                         'subject' => $pr_report->number. ' '.$pr_report->type->title.": Has been Approved Successfully",
                         'message' => $pr_report->number. ' '.$pr_report->type->title.' Has been Approved successfully'
                     ];
-                    $pr_report->user->notify(new WorkflowNotification($email_resource));
-                    User::query()->find($pr_report->supervisor_id)->notify(new WorkflowNotification($email_resource));
+                    // $pr_report->user->notify(new WorkflowNotification($email_resource));
+                    // User::query()->find($pr_report->supervisor_id)->notify(new WorkflowNotification($email_resource));
                     break;
             }
 

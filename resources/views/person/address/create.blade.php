@@ -2,9 +2,6 @@
 
 @section('content')
 
-
-
-
     <div class="col-lg-12 col-md-12">
         {!! Form::open(['route' => 'person.address.store', 'method' => 'post',]) !!}
 

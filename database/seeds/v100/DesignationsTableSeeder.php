@@ -1623,6 +1623,18 @@ class DesignationsTableSeeder extends Seeder
                     'isactive' => 0,
                     'department_id'=>null,
                 ),
+            133 =>
+                array (
+                    'id' => 134,
+                    'unit_id' => 1,
+                    'name' => ' Laboratory',
+                    'short_name' => 'DOL',
+                    'created_at' => '2022-01-08 20:16:49',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'department_id'=>7,
+                ),
 
 
         ));
