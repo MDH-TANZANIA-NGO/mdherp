@@ -15,9 +15,9 @@ class CreateHrHireRequisitionJobApplicantsTable extends Migration
     {
         Schema::create('hr_hire_requisition_job_applicants', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('hr_hire_requisition_job_shortlists');
-            $table->unsignedBigInteger('hr_hire_requisitions_jobs');
-            $table->unsignedBigInteger('hr_hire_applicants');
+            $table->unsignedBigInteger('hr_hire_requisition_job_shortlist_');
+            $table->unsignedBigInteger('hr_hire_requisitions_job_');
+            $table->unsignedBigInteger('hr_hire_applicant_');
             $table->timestamps();
             $table->foreign('hr_hire_requisition_job_shortlist_id')->references('id')->on('hr_hire_requisition_job_shortlists')->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign('hr_hire_requisitions_job_id')->references('id')->on('hr_hire_requisitions_jobs')->onUpdate('CASCADE')->onDelete('RESTRICT');
