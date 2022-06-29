@@ -26,6 +26,8 @@ return [
     'performance_review' => [
         'goals_agreement' => 1,
         'goals_evaluation' => 2,
-    ]
+    ],
+
+    'recruitment_portal_url' => env('RECRUITMENT_PORT_URL','')
 
 ];
