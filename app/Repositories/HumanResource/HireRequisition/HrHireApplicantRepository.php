@@ -17,6 +17,7 @@ class HrHireApplicantRepository extends BaseRepository
 
     public function getSelected($interview){
         return $this->query()->select([
+            'hr_hire_applicants.id',
             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
             DB::raw("hr_hire_applicants.email") 
         ])

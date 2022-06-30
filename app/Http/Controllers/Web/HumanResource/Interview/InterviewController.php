@@ -8,12 +8,13 @@ use App\Repositories\Access\UserRepository;
 use App\Repositories\Unit\DesignationRepository;
 use App\Models\HumanResource\Interview\Interview;
 use App\Models\HumanResource\Interview\InterviewTypes;
+use App\Models\HumanResource\Interview\InterviewPanelist;
 use App\Models\HumanResource\Interview\InterviewSchedule;
 use App\Repositories\HumanResource\Interview\InterviewRepository;
+use App\Repositories\HumanResource\Interview\InterviewQuestionRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\HumanResource\HireRequisition\HrHireApplicantRepository;
 use  App\Http\Controllers\Web\HumanResource\Interview\Traits\InterviewDatatable;
-use App\Models\HumanResource\Interview\InterviewPanelist;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 
 class InterviewController extends Controller
@@ -24,6 +25,7 @@ class InterviewController extends Controller
     public $hrHireApplicantRepository;
     public $userRepository;
     public $hireRequisitionJobRepository;
+    public $interviewQuestionRepository;
 
     use InterviewDatatable;
     public function __construct()
@@ -34,6 +36,7 @@ class InterviewController extends Controller
         $this->hrHireApplicantRepository = (new HrHireApplicantRepository());
         $this->userRepository = (new UserRepository());
         $this->hireRequisitionJobRepository = (new HireRequisitionJobRepository());
+        $this->interviewQuestionRepository = (New InterviewQuestionRepository());
     }
 
     public function index()
@@ -156,8 +159,11 @@ class InterviewController extends Controller
         $applicants = $this->hrHireApplicantRepository->getSelected($interview)
                             // ->whereNoNull('confirmed')
                             ->get();
+        $questions =  $this->interviewQuestionRepository->query()
+                    ->where('interview_id',$interview->id)->get();                   
         return view('HumanResource.Interview.interview_question_marks.index')
                 ->with('applicants',$applicants)
+                ->with('questions',$questions)
                 ->with('interview',$interview);
     }
 }

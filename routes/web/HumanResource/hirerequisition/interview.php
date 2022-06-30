@@ -17,7 +17,7 @@ Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', '
         Route::POST('store','InterviewQuestionController@store')->name('store');
         Route::GET('delete/{uuid}','InterviewQuestionController@destroy')->name('destroy');
         Route::PUT('update','InterviewQuestionController@update')->name('update');
-        Route::GET('marks/{interview}','InterviewQuestionController@addQuestionMarks')->name('addQuestionMarks');
+        Route::GET('marks/{interview}/{applicant}','InterviewQuestionController@addQuestionMarks')->name('addQuestionMarks');
         Route::POST('marks/store','InterviewQuestionController@storeMarks')->name('storeMarks');
        
   });

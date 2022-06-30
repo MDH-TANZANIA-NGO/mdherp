@@ -74,12 +74,12 @@ class InterviewQuestionController extends Controller
 
     public function addQuestionMarks(Interview $interview){
         $questions = $this->interviewQuestionRepository
-        ->query()
-        ->where('interview_id',$interview->id)
-        ->get();
+                    ->query()
+                    ->where('interview_id',$interview->id)
+                    ->get();
         return view('HumanResource.Interview.question_marks')
-        ->with('questions',$questions)
-        ->with('interview',$interview);   
+                ->with('questions',$questions)
+                ->with('interview',$interview);   
     }
     public function storeMarks(Request $request){
         $questions = $this->interviewQuestionRepository
