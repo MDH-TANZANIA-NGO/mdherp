@@ -2,5 +2,3 @@
 @section('content')
     @include('retirement.datatable.all')
 @endsection
-
-
