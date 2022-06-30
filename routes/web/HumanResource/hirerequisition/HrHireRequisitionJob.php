@@ -4,6 +4,7 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
     Route::group(['prefix' => 'hire-requisition/jobs', 'as' => 'job.'], function () {
         Route::get('applications', 'HireRequisitionJobController@applications')->name('application');
         Route::get('{hire_requisition_job}/show', 'HireRequisitionJobController@show')->name('show');
+        Route::get('{hire_requisition_job}/mimosa-recruiment-portal-applicant/{online_applicant_id}/show/', 'HireRequisitionJobController@showMore')->name('show_more');
         Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
             Route::get('applications', 'HireRequisitionJobController@applicationDatatable')->name('application');
         });
