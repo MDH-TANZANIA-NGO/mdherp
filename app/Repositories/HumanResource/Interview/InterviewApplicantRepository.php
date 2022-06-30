@@ -132,7 +132,11 @@ class InterviewApplicantRepository extends BaseRepository
             $applicants = $input['applicant'];
             foreach($applicants as $applicant){
                 $data['applicant_id'] = $applicant;
-                $this->query()->create($data);
+                $applicant = $this->query()->create($data);
+                $number = $this->generateNumber($applicant);
+                $applicant->number = $number;
+                $applicant->save();
+                
             }
         });
     }

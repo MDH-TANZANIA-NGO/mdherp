@@ -17,7 +17,7 @@
 
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('hr.pr.create') }}"> <i class="fa fa-plus mr-2"></i>Create</a>
+                    <a href="{{ route('interview.create') }}"> <i class="fa fa-plus mr-2"></i>Create</a>
                 </div>
             </div>
 

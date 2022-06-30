@@ -11,7 +11,7 @@ class Interview extends BaseModel
     public function questions(){
         return $this->hasManyThrough(Questions::class,InterviewQuestion::class);
     }
-    public function InterviewType(){
+    public function interviewType(){
         return $this->belongsTo(InterviewType::class,'interview_type_id');
     }
     public function InterviewSchedules(){

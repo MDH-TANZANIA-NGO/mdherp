@@ -135,5 +135,17 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH-INT'],
+            [
+                'name' => 'hr_interview_applicants',
+                'display_name' => 'Applicant Interview Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH-INT',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }
