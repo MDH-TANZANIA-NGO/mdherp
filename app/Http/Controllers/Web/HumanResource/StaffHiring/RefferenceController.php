@@ -3,15 +3,26 @@
 namespace App\Http\Controllers\Web\HumanResource\StaffHiring;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\HumanResource\StaffHiring\StaffHiringRepository;
 use Illuminate\Http\Request;
 
 class RefferenceController extends Controller
 {
     /**
+     * @var StaffHiringRepository
+     */
+    protected $refereeform;
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
+    public function __construct()
+    {
+        $this->refereeform = (new StaffHiringRepository());
+    }
+
     public function index()
     {
         return view('HumanResource.StaffHiring.refferenceform');
@@ -35,8 +46,8 @@ class RefferenceController extends Controller
      */
     public function store(Request $request)
     {
-        $this->store($request->all());
-        return redirect()->route('retirement.create');
+        $this->refereeform->store($request->all());
+//        return redirect()->route('retirement.create');
     }
 
     /**

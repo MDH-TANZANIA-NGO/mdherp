@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\HumanResource\Interview;
+namespace App\Repositories\HumanResource\StaffHiring;
 
 use App\Exceptions\GeneralException;
 use App\Models\Auth\User;

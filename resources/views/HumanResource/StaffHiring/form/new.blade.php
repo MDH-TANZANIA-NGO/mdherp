@@ -12,7 +12,7 @@
                     <div  class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Referring To:</label>
-                            <input type="text" name="candidate_name" class="form-control" placeholder="Jane Doe" disabled>
+                            <input type="text" name="candidate_name" class="form-control" placeholder="Jane Doe" >
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                     <div  class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Email:</label>
-                            <input type="text" name="ref_email" class="form-control" placeholder="janedoe@example.com" disabled >
+                            <input type="text" name="ref_email" class="form-control" placeholder="janedoe@example.com"  >
                         </div>
                     </div>
                 </div>
