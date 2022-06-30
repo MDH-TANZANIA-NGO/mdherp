@@ -10,6 +10,7 @@ use App\Models\HumanResource\HireRequisition\HireRequisitionReplacedStaff;
 use App\Models\HumanResource\HireRequisition\HrHireRequisitionJobsCriteria;
 use App\Models\Unit\Department;
 use App\Models\Unit\Designation;
+use App\Models\Unit\Unit;
 
 class HireRequisitionJob extends BaseModel
 {
@@ -40,6 +41,10 @@ class HireRequisitionJob extends BaseModel
     public function designation()
     {
         return $this->belongsTo(Designation::class);
+    }
+    public function unit()
+    {
+        return $this->hasOneThrough(Unit::class,Designation::class,'designation_id','id');
     }
 
     public function department()

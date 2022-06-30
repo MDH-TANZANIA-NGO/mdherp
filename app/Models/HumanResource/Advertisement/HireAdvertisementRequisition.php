@@ -4,6 +4,8 @@ namespace App\Models\HumanResource\Advertisement;
 
 use App\Models\Auth\User;
 use App\Models\BaseModel;
+use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
+use App\Models\Unit\Designation;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Workflow\WfTrack;
 
@@ -26,5 +28,8 @@ class HireAdvertisementRequisition extends BaseModel
     {
         return $this->morphMany(WfTrack::class, 'resource');
     }
+
+
+    
 
 }

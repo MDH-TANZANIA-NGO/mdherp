@@ -8,7 +8,7 @@
 
 namespace App\Repositories\Unit;
 
-
+use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Models\Unit\Designation;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
@@ -52,4 +52,23 @@ class DesignationRepository extends BaseRepository
             ->orderBy('units.name', 'ASC')
             ->pluck('name', 'id');
     }
+    public function getActiveAdvertisedForSelect()
+    {
+        $today = date('Y-m-d');
+        return $this->query()->select(
+                    [
+                        DB::raw("concat_ws(' ', units.name, designations.name) as name"),
+                        DB::raw('hr_hire_requisitions_jobs.id as hr_hire_requisition_job_id'),
+                        DB::raw('hr_hire_advertisement_requisitions.dead_line as dead_line'),       
+                    ]
+            )
+            ->join('hr_hire_requisitions_jobs','designations.id','hr_hire_requisitions_jobs.designation_id')
+            ->join('hr_hire_advertisement_requisitions','hr_hire_requisitions_jobs.id','hr_hire_advertisement_requisitions.hire_requisition_job_id')
+            ->join('units', 'units.id', 'designations.unit_id')
+            ->where('hr_hire_requisitions_jobs.is_advertised', 1)
+            ->where('hr_hire_advertisement_requisitions.dead_line',">",$today )
+            ->orderBy('name', 'ASC')
+            ->pluck('name', 'hr_hire_requisition_job_id');
+    }
+
 }

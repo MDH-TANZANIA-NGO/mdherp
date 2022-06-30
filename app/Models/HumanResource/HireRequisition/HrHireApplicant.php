@@ -10,5 +10,4 @@ class HrHireApplicant extends BaseModel
 {
     use HrHireApplicantAttribute, HrHireApplicantRelationship;
 
-  
 }

@@ -4,13 +4,20 @@ namespace App\Repositories\HumanResource\Advertisement;
 
 use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Repositories\BaseRepository;
+use App\Repositories\Unit\DesignationRepository;
 use Illuminate\Support\Facades\DB;
 use App\Services\Generator\Number;
 class AdvertisementRepository extends  BaseRepository
 {
 
     const MODEL = HireAdvertisementRequisition::class;
+    public $designationRepository;
     use Number;
+
+    public function __construct()
+    {
+        $this->designationRepository = (New DesignationRepository());
+    }
 
     public function getQuery(){
         return $this->query()->select([
@@ -81,6 +88,14 @@ class AdvertisementRepository extends  BaseRepository
     public function store($input){
         return $this->query()->create($this->inputProcessor($input));
     }
+
+
+    public function getActiveAdvertisementForSelect()
+    {
+        $this->designationRepository->getQueryDesignationUnit();
+    }
+
+    
 
     public function submit($hireRequisition)
     {

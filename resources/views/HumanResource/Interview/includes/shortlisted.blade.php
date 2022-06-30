@@ -1,15 +1,4 @@
-<div class="row">
 
-   
-
-    <div class="col-sm-12 col-lg-12 col-xl-12 col-md-12 mb-3">
-        <div class="tags">
-            <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">JOB TITLE:   </span>
-		    <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px"> REQUISITION NO :  </span>
-		</div>
-    </div>
-
-</div>
 <div class="row mb-3">
 
 
@@ -23,7 +12,7 @@
 
 </div>
 
-<div class="row">
+<div class="row mt-3">
     <div class="card">
         <div class="card-header d-flex justify-content-between">
 			<h3 class="card-title">ShortList</h3>

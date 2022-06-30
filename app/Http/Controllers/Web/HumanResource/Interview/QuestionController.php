@@ -9,7 +9,7 @@ use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\HumanResource\HireRequisition\HrHireApplicantRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 
-class InterviewQuestionController extends Controller
+class QuestionController extends Controller
 {
     public $designationRepository;
     public $interviewRepository;
@@ -17,7 +17,6 @@ class InterviewQuestionController extends Controller
     public $hrHireApplicantRepository;
     public $userRepository;
     public $hireRequisitionJobRepository;
-    public $interviewQuestionRepository;
     public function __construct()
     {
         $this->designationRepository = (New DesignationRepository());
@@ -26,7 +25,6 @@ class InterviewQuestionController extends Controller
         $this->hrHireApplicantRepository = (New HrHireApplicantRepository());
         $this->userRepository = (New UserRepository());
         $this->hireRequisitionJobRepository = (New HireRequisitionJobRepository());
-        $this->interviewQuestionRepository = (New InterviewQuestionRepository());
     }
 
 
@@ -34,18 +32,15 @@ class InterviewQuestionController extends Controller
 
     }
 
-    public function store(Request $request,$uuid){
-
-        $this->interviewQuestionRepository->store($request->all());
+    public function store(Request $request){
+        $panelists = $request->panelist_id;
+        $interview_id = $request->interview_id;
+        
         $interview = $this->interviewRepository->find($request->interview_id);
-        alert()->success('initiated Successfully');
-        return redirect()->route('interview.question.create',$uuid); 
+        return redirect()->route('interview.initiate',$interview->uuid); 
     }
 
     public function create(){
-        return view('HumanResource.Interview.question');
-        // ->with('interview',$interview)
-        // ->with('hrHireRequisitionJob',$hrHireRequisitionJob )
-        // ->with('users',$users);
+
     }
 }

@@ -8,7 +8,7 @@ use Yajra\DataTables\DataTables;
 trait InterviewDatatable
 {
     public function AccessShortlistedDatatable(){
-        return DataTables::of($this->interviewRepository->getShortlisted())
+        return DataTables::of($this->hrHireApplicantRepository->getPendingSelected())
             ->addIndexColumn()
             // ->editColumn('created_at', function ($query) {
             //     // return $query->created_at->toDateString();
