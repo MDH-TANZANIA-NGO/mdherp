@@ -66,7 +66,7 @@ class DesignationRepository extends BaseRepository
             ->join('hr_hire_advertisement_requisitions','hr_hire_requisitions_jobs.id','hr_hire_advertisement_requisitions.hire_requisition_job_id')
             ->join('units', 'units.id', 'designations.unit_id')
             ->where('hr_hire_requisitions_jobs.is_advertised', 1)
-            ->where('hr_hire_advertisement_requisitions.dead_line',">",$today )
+            // ->where('hr_hire_advertisement_requisitions.dead_line',">",$today )
             ->orderBy('name', 'ASC')
             ->pluck('name', 'hr_hire_requisition_job_id');
     }
