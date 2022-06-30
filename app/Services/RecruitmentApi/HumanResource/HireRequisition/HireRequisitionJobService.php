@@ -7,9 +7,15 @@ use Illuminate\Support\Facades\Http;
 trait HireRequisitionJobService
 {
 
-    public function getApplicants($hire_requisition_job_id)
+    public function getApplicantsByJob($hire_requisition_job_id)
     {
         $response = Http::get(config('mdh.recruitment_portal_url').'applications/'.$hire_requisition_job_id.'/applicants');
+        return json_decode($response);
+    }
+
+    public function getApplicantByJob($online_applicant_id, $hire_requisition_job_id)
+    {
+        $response = Http::get(config('mdh.recruitment_portal_url').'applicant/'.$online_applicant_id.'/resource/'.$hire_requisition_job_id);
         return json_decode($response);
     }
 }
