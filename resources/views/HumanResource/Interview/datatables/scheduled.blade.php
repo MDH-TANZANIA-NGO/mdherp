@@ -10,10 +10,15 @@
                      </tr>
                  </thead>
                  <tbody>
-                    @foreach($interviewApplicants as $key=>$applicants)
+                    <?php
+                        $scheduled_applicants = \DB::table('hr_interview_applicants')
+                                                ->join('hr_hire_applicants','hr_hire_applicants.id','hr_interview_applicants.applicant_id')
+                                                ->where('interview_schedule_id',$schedule)->get()
+                    ?>
+                    @foreach($scheduled_applicants as $key=>$scheduled_applicant)
                         <tr>
                             <td>{{($key+1)}}</td>
-                            <td>{{ $applicants->full_name}}</td>
+                            <td>{{ $scheduled_applicant->first_name." ".$scheduled_applicant->last_name}}</td>
                         </tr>
                     @endforeach
                  </tbody>

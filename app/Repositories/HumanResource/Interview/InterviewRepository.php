@@ -137,7 +137,7 @@ class InterviewRepository extends BaseRepository
     public function store($input)
     {
         return DB::transaction(function () use($input){
-            $input['hr_requisition_job_id'] = '12';
+            $input['hr_requisition_job_id'] = $input['hr_requisition_job_id'];
             $input['shortlist_id'] = '12';
             return $this->query()->create($input);
         });
@@ -154,7 +154,7 @@ class InterviewRepository extends BaseRepository
             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name") 
             ,'hr_hire_requisition_job_applicants.created_at')
             ->join('hr_hire_applicants','hr_hire_applicants.id','hr_hire_requisition_job_applicants.hr_hire_applicant_id');
-            ->join('hr_hire_requisition_job_applicants','hr_hire_applicants.id','hr_hire_requisition_job_applicants.hr_hire_applicant_id');
+            // ->join('hr_hire_requisition_job_applicants','hr_hire_applicants.id','hr_hire_requisition_job_applicants.hr_hire_applicant_id');
            
 
     }

@@ -9,7 +9,7 @@
                     <label class="form-label">Panelist </label>
                 </div>
                 <div class="col-lg-8">
-                    {!! Form::select('panelist_id',$users,null,['class' => 'form-control select2','multiple'=>'true','data-placeholder'=>'Select panelists','required']) !!}
+                    {!! Form::select('panelist_id[]',$users,null,['class' => 'form-control select2','multiple'=>'true','data-placeholder'=>'Select panelists','required']) !!}
                 </div>
             </div>
         </div>

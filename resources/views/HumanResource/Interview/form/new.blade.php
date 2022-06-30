@@ -9,7 +9,7 @@
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <div class="form-group">
 						<label class="form-label">Job </label>
-						{!! Form::select('jobs',$designations,null,['class' => 'form-control', 'placeholder'=>'Select','required']) !!}
+						{!! Form::select('hr_requisition_job_id',$designations,null,['class' => 'form-control select2', 'placeholder'=>'Select','required']) !!}
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">

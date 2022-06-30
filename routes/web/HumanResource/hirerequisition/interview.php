@@ -5,8 +5,17 @@ Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', '
   Route::get('', 'InterviewController@index')->name('index');
   Route::get('create','InterviewController@create')->name('create');
   Route::POST('add','InterviewController@addapplicant')->name('addapplicant');
-  Route::get('initiate/{interview}','InterviewController@initiate')->name('initiate');
+  Route::POST('addPanelist','InterviewController@addPanelist')->name('addpanelist');
+  Route::get('initiate/{interview}/panelists','InterviewController@initiatePanelist')->name('initiate-panelist');
+  Route::get('initiate/{interview}/applicants','InterviewController@initiate')->name('initiate');
+  Route::post('notifyapplicant','InterviewController@notifyApplicant')->name('notifyapplicant');
 
+  //Questions Route
+  Route::group(['prefix' => 'question', 'as' => 'question.'], function () {
+        Route::get('create','InterviewQuestionController@create')->name('create');
+        Route::POST('store','InterviewQuestionController@store')->name('store');
+  });
+ 
    Route::get('pending', 'InterviewController@pending')->name('pending');
    Route::post('approve', 'InterviewController@approve')->name('approve');
    Route::post('store', 'InterviewController@store')->name('store');
