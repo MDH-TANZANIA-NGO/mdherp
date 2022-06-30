@@ -143,6 +143,7 @@
 
 <script>
     var base_url = "{!! url("/") !!}";
+    var recruitment_portal_url = "{{ config('mdh.recruitment_portal_url') }}";
 </script>
 <!-- Jquery js-->
 {!! Html::script(url('mdh/js/vendors/jquery-3.4.0.min.js')) !!}
