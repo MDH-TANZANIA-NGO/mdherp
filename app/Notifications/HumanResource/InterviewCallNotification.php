@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications\ProgramActivityReport;
+namespace App\Notifications\HumanResource;
 
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use Illuminate\Bus\Queueable;
@@ -8,11 +8,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ProgramActivityReportNotification extends Notification
+class InterviewCallNotification extends Notification
 {
     use Queueable;
 
-    protected $program_activity;
+    protected $interview_call;
 
     /**
      * Create a new notification instance.
@@ -44,8 +44,8 @@ class ProgramActivityReportNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Activity Report Needs Your Approval')
-            ->markdown('mail.ProgramActivityReport.programactivityreport',['link' => $this->program_activity, 'name' => $notifiable->first_name. ' '.$notifiable->last_name, 'email' => $notifiable->email]);
+            ->subject('Invited for Interview')
+            ->markdown('mail.HumanResource.interviewcall',['link' => $this->program_activity, 'name' => $notifiable->first_name. ' '.$notifiable->last_name, 'email' => $notifiable->email]);
     }
 
     /**
