@@ -47,7 +47,13 @@ class RefferenceController extends Controller
     public function store(Request $request)
     {
         $this->refereeform->store($request->all());
-//        return redirect()->route('retirement.create');
+        alert()->success('Refference form Submitted Successfully','Success');
+        return redirect()->route('refferenceform.end');
+    }
+
+    public function end()
+    {
+        return view('HumanResource.StaffHiring.refferenceend');
     }
 
     /**
