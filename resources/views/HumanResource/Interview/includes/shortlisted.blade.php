@@ -4,7 +4,7 @@
 
     <label class="label col-sm-2 ">Interview Date </label>
     <div class="col-sm-8 ">
-        <input type="date" class="form-control" name="interview_date"> 
+        <input type="date" class="form-control" name="interview_date" required> 
     </div>
     <div class="col-sm-2 ">
         <input type="submit" class="btn btn-primary btn-inline-block" name="submit" value="Add"> 

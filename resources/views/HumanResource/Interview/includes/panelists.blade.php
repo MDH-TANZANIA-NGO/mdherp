@@ -12,6 +12,9 @@
                     {!! Form::select('panelist_id[]',$users,null,['class' => 'form-control select2','multiple'=>'true','data-placeholder'=>'Select panelists','required']) !!}
                 </div>
             </div>
+            <input type="submit" value="next" class="btn btn-primary">
+            <input type="hidden" name = "hr_requisition_job_id" value="{{ $interview->hr_requisition_job_id }}">
+            <input type="hidden" name="interview_id" value="{{ $interview->id }}">
         </div>
     </div>
 </div>

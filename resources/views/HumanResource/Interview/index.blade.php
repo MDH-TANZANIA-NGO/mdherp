@@ -1,4 +1,4 @@
 @extends('layouts.app')
 @section('content')
-    @include('HumanResource.PerformanceReview.datatables.access')
+    @include('HumanResource.Interview.datatables.access')
 @endsection
