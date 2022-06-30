@@ -36,7 +36,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>ACCADEMIC HISTORY: </strong></td>
+                            <td><strong>ACADEMIC HISTORY: </strong></td>
                             <td>
                                 <table class="table table-striped table-bordered">
                                     <thead>
