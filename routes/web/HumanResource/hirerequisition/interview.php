@@ -12,8 +12,10 @@ Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', '
 
   //Questions Route
   Route::group(['prefix' => 'question', 'as' => 'question.'], function () {
-        Route::get('create','InterviewQuestionController@create')->name('create');
+        Route::get('create/{interview}','InterviewQuestionController@create')->name('create');
         Route::POST('store','InterviewQuestionController@store')->name('store');
+        Route::GET('delete/{uuid}','InterviewQuestionController@destroy')->name('destroy');
+        Route::PUT('update','InterviewQuestionController@update')->name('update');
   });
  
    Route::get('pending', 'InterviewController@pending')->name('pending');
