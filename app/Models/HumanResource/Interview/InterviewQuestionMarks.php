@@ -4,8 +4,9 @@ namespace App\Models\HumanResource\Interview;
 
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Console\Question\Question;
+use App\Models\BaseModel;
 
-class InterviewQuestionMarks extends Model
+class InterviewQuestionMarks extends BaseModel
 {
     //
     protected $table = 'hr_interview_question_marks';

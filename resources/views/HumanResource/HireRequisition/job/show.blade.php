@@ -214,7 +214,7 @@
         $(".applicant_button").click(function(event){
             event.preventDefault()
             $.ajax({
-                    url: $url,
+                    url: recruitment_portal_url+'applicants/'+3+'/show',
                     type: 'GET',
                     success: function (data) {
                         if(data){

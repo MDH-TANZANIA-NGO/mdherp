@@ -118,9 +118,16 @@ class InterviewController extends Controller
 
 
     public function notifyApplicant(Request $request){
-
-        return redirect()->route('interview.question.create');
-        // return $request->interview_id;
+        $interview = $this->interviewRepository->find($request->interview_id);
+        $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
+        $panelist          = InterviewPanelist::select([
+                                \DB::raw("CONCAT_WS(' ',users.first_name,users.last_name) as full_name"),
+                                \DB::raw("users.email"),
+                            ])
+                            ->join('users','users.id','hr_interview_panelists.user_id')
+                            ->where('interview_id',$interview->id)->get();
+        return $selectedApplicant;
+        return redirect()->route('interview.question.create',$interview->uuid);
     }
    
  
