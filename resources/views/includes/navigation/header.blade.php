@@ -50,6 +50,11 @@
                         <i class="fe fe-users"></i> <span class="nav-span">Beneficiaries</span>
                     </a>
                 </div>
+                <div class="dropdown  header-option" >
+                    <a class="nav-link icon" href="{{route('interview.showPanelistJobs')}}">
+                        <i class="fe fe-users"></i> <span class="nav-span">Panelists</span>
+                    </a>
+                </div>
 
 
             <div class="d-flex order-lg-2 ml-auto">

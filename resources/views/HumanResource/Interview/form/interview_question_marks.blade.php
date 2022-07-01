@@ -12,7 +12,7 @@
                     <table class="table table-bordered table-stripped">
                         <thead>
                             <tr>
-                                <th> Qno</th>
+                                <th>Qno</th>
                                 <th>Question</th>
                                 <th>Marks</th>
                             </tr>

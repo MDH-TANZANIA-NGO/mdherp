@@ -29,4 +29,18 @@ class HrHireRequisitionJobApplicantController extends Controller
         return redirect()->route('hr.job.show',$HireRequisitionJob);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function unShortlist($hr_hire_requisitions_job_id, $online_applicant_id)
+    {
+        $HireRequisitionJob = HireRequisitionJob::find($hr_hire_requisitions_job_id);
+        $this->hr_hire_requisition_job_applicants->unShortlist($hr_hire_requisitions_job_id, $online_applicant_id);
+        alert()->success('Applicant removed from shortlist successfully');
+        return redirect()->route('hr.job.show',$HireRequisitionJob);
+    }
+
 }
