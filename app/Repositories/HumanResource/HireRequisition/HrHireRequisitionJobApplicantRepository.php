@@ -51,7 +51,7 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
                 'hr_hire_applicant_id' => $hr_hire_applicant_id
             ]);
             //send applicant details to recruitment
-             $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $hr_hire_applicant->id);
+             $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $hr_hire_applicant_id);
             return $job_applicant;
         });
     }
