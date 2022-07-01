@@ -14,7 +14,7 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
     const MODEL = HrHireRequisitionJobApplicant::class;
     use  HireRequisitionJobService;
 
-    /** 
+    /**
      * Shortlist applicant and attach to related job
      * @param $hr_hire_requisitions_job_id, $online_applicant_id
      * @param $online_applicant_id
@@ -51,12 +51,12 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
                 'hr_hire_applicant_id' => $hr_hire_applicant_id
             ]);
             //send applicant details to recruitment
-            // $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $hr_hire_applicant->id);
+             $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $hr_hire_applicant->id);
             return $job_applicant;
         });
     }
 
-    /** 
+    /**
      * Shortlist applicant and attach to related job
      * @param $hr_hire_requisitions_job_id, $online_applicant_id
      * @param $online_applicant_id
