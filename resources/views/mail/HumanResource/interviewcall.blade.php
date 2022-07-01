@@ -398,7 +398,7 @@
                                     <div class="f-fallback">
                                         <h1 style="color: #022169">Hi There, {{ $fullname }}!</h1>
                                         <p>
-                                            {!!$resource->message !!}
+                                            {!!$message !!}
                                         </p>
                                         <!-- Action -->
                                         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
