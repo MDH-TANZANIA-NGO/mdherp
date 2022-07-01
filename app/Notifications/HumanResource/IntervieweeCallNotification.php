@@ -49,15 +49,12 @@ class IntervieweeCallNotification extends Notification
         $interview_type  = '';
         $interview_position  = '';
         foreach ($schedules as $schedule){
-            $interview_position.= "<b>Interview Position:</b>  ".$schedule->interview->jobRequisition->designation->full_title."<br/>"." Interview Date: ".$schedule->interview_date."<br/>"."Interview Type: ".$schedule->interview->interviewType->name.", <br/><br/>";
+            $interview_position.= "<b>Interview Position:</b> ".$schedule->interview->jobRequisition->designation->full_title."<br/>"." Interview Date: ".$schedule->interview_date."<br/>"."Interview Type: ".$schedule->interview->interviewType->name.", <br/><br/>";
 //            $interview_date .= "<br/> Interview Date: ".$schedule->interview_date."<br/>";
 //            $interview_type .= "<br/> Interview Type: ".$schedule->interview->interviewType->name."<br/>";
-
         }
 
-        $string = htmlentities(
-            "Congratulations! You have been shortlisted to sit for"." ".$schedules->count()." "."interview(s) "."of ". "<br>".
-            $interview_position);
+        $string = htmlentities("Congratulations! You have been shortlisted to sit for interview of ". "<br>". $interview_position);
 //        dd($this->interview_call->InterviewType);
         return (new MailMessage)
             ->subject('Invited for Interview')
