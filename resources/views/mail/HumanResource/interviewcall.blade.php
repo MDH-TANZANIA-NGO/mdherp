@@ -396,7 +396,7 @@
                             <tr>
                                 <td class="content-cell">
                                     <div class="f-fallback">
-                                        <h1 style="color: #022169">Hi There, {{ $fullname }}!</h1>
+                                        <h1 style="color: #022169">Hi {{ $fullname }}!</h1>
                                         <p>
                                             {!!$message !!}
                                         </p>

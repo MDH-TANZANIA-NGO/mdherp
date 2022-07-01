@@ -18,7 +18,8 @@ class HrHireApplicantRepository extends BaseRepository
     public function getSelected($interview){
         return $this->query()->select([
             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
-            DB::raw("hr_hire_applicants.email") 
+            DB::raw("hr_hire_applicants.email") ,
+            DB::raw("hr_interview_schedules.interview_date")
         ])
         ->Join('hr_interview_applicants','hr_interview_applicants.applicant_id','hr_hire_applicants.id')
         ->join('hr_interview_schedules','hr_interview_schedules.id','hr_interview_applicants.interview_schedule_id')
@@ -34,9 +35,9 @@ class HrHireApplicantRepository extends BaseRepository
         ->whereNotIn('hr_hire_applicants.id',function($query) use($interview_id){
             $query->select('hr_interview_applicants.applicant_id')->from('hr_interview_applicants')
                     ->where('interview_id',$interview_id);
-        }) 
+        })
         ->groupby('hr_hire_applicants.id','hr_hire_applicants.first_name','hr_hire_applicants.middle_name','hr_hire_applicants.last_name');
-        
+
     }
 
 }

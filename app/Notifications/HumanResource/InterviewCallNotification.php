@@ -44,12 +44,27 @@ class InterviewCallNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $schedules = $this->interview_call->InterviewSchedules;
+        $interview_date  = '';
+        $interview_type  = '';
+        $interview_position  = '';
+        foreach ($schedules as $schedule){
+            $interview_position.= "<b>Interview Position:</b>  ".$schedule->interview->jobRequisition->designation->full_title."<br/>"." Interview Date: ".$schedule->interview_date."<br/>"."Interview Type: ".$schedule->interview->interviewType->name.", <br/><br/>";
+//            $interview_date .= "<br/> Interview Date: ".$schedule->interview_date."<br/>";
+//            $interview_type .= "<br/> Interview Type: ".$schedule->interview->interviewType->name."<br/>";
+
+        }
+
+        $string = htmlentities(
+            "You have been selected as a panelist for"." ".$schedules->count()." "."interview(s) "."of ". "<br>".
+            $interview_position);
+//        dd($this->interview_call->InterviewType);
         return (new MailMessage)
             ->subject('Invited for Interview')
             ->markdown('mail.HumanResource.interviewcall',[
                 'link' => $this->interview_call,
-                'fullname' => $this->interview_call->user,
-                'message' => 'You have been selected as a panelist for an interview scheduled on'
+                'fullname' => $notifiable->fullname,
+                'message' => html_entity_decode($string)
                 ]);
     }
 
