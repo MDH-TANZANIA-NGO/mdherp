@@ -131,7 +131,7 @@ class HireRequisitionController extends Controller
                     ->join('skills', 'skills.id', 'skill_user.skill_id', 'skills.id')
                     ->where('hr_requisition_job_id', $item->id)->get();
                 $item['_education_level'] =  code_value()->query()->where('id',$item['education_level'] )->first();
-                return $item;
+                $item['establishment'] = code_value()->query()->where('id', $item['establishment'])->first()->name;
             });
 
 
@@ -169,16 +169,12 @@ class HireRequisitionController extends Controller
             $data['hire_requisition_id'] = $hireRequisition->id;
             $hr_requisition_job = $this->hireRequisitionJobRepository->store($data);
             $workingtools = ['tools' => $data['tools'], 'hire_requisition_job_id' => $hr_requisition_job->id];
-
             $regions = $data['region'];
             $data['hire_requisition_job_id'] = $hr_requisition_job->id;
             $data['hr_requisition_job_id'] = $hr_requisition_job->id;
-
-
             if ($request->establishment ==   22) {
                 $hr_requisition_job = $this->hireRequisitionReplacedStaffRepository->store($data);
             }
-
             foreach ($regions as $region) {
                 $region_data['region_id'] = $region;
                 $region_data['hr_requisition_job_id'] = $hr_requisition_job->id;
@@ -289,7 +285,6 @@ class HireRequisitionController extends Controller
             ->join('departments', 'departments.id', 'hr_hire_requisitions.department_id')
             ->where('uuid', $uuid)->first();
 
-
         /* Check workflow */
         $wf_module_group_id = 8;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $hireRequisition->id);
@@ -310,15 +305,13 @@ class HireRequisitionController extends Controller
             $item['regions'] = HireRequisitionLocation::select("regions.name as name")
                 ->join('regions', 'regions.id', 'hr_hire_requisition_locations.region_id')
                 ->where('hr_hire_requisition_locations.hr_requisition_job_id', $item->id)->get()->implode('name', ',');
-            // $item['hireRequisitionJobCriteria'] =  $this->hireRequisitionJobCreteriaRepository->getQuery()->where('hr_requisitions_jobs_id', $item->id)->get();
             $item['skills'] =   $this->hireUserSkillsRepository->getQuery()->select('skills.name as name')
                 ->join('skills', 'skills.id', 'skill_user.skill_id', 'skills.id')
                 ->where('hr_requisition_job_id', $item->id)->get();
-
+            $item['establishment'] = code_value()->query()->where('id', $item['establishment'])->first()->name;
             $item['_education_level'] =  code_value()->query()->where('id',$item['education_level'] )->first();
             return $item;
         });
-
 
 
         return view('HumanResource.HireRequisition._parent.display.show')

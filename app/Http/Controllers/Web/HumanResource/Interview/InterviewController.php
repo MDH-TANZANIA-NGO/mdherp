@@ -191,6 +191,7 @@ class InterviewController extends Controller
     }
 
     public function applicantlist(Interview $interview){
+       
         $applicants = $this->hrHireApplicantRepository->getSelected($interview)
                             ->where('hr_interview_applicants.is_scored',0)
                             ->get();

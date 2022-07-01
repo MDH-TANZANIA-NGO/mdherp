@@ -20,7 +20,6 @@ class HireRequisitionRepository extends BaseRepository
             DB::raw("MAX(hr_hire_requisitions.number) AS number"),
             DB::raw("string_agg(DISTINCT designations.name, ',') as title"),
             DB::raw("0 as total"),
-            // DB::raw("hr_hire_requisitions.empoyees_required as total"),
             DB::raw("string_agg(DISTINCT regions.name, ',') as region"),
             DB::raw("MAX(hr_hire_requisitions.created_at) AS created_at"),
             DB::raw("hr_hire_requisitions.uuid AS uuid")
