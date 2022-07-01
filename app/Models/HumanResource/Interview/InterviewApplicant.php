@@ -12,5 +12,5 @@ class InterviewApplicant extends BaseModel
     public function schedules(){
         return $this->belongsTo(InterviewSchedule::class,'');
     }
-     
+
 }

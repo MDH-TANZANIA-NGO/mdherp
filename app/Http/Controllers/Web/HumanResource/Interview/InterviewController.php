@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\HumanResource\Interview;
 
 use App\Models\Auth\User;
 use App\Notifications\HumanResource\InterviewCallNotification;
+use App\Notifications\HumanResource\IntervieweeCallNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Access\UserRepository;
@@ -160,6 +161,12 @@ class InterviewController extends Controller
     {
         $interview = $this->interviewRepository->find($request->interview_id);
         $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
+    //  dd($selectedApplicant);
+        foreach ($selectedApplicant as $applicant){
+        $applicant->notify(new IntervieweeCallNotification($interview));
+    }
+
+
         $panelist = InterviewPanelist::where('interview_id', $interview->id)->chunk(2, function($rows) use($interview){
             foreach ($rows as $row){
                 User::find($row->user_id)->notify(new InterviewCallNotification($interview));
@@ -178,4 +185,4 @@ class InterviewController extends Controller
                 ->with('applicants',$applicants)
                 ->with('interview',$interview);
     }
-}
+    }
