@@ -23,7 +23,7 @@ class HrHireApplicantRepository extends BaseRepository
             DB::raw("hr_interview_schedules.interview_date")
         ])
         ->Join('hr_interview_applicants','hr_interview_applicants.applicant_id','hr_hire_applicants.id')
-        // ->join('hr_interview_schedules','hr_interview_schedules.id','hr_interview_applicants.interview_schedule_id')
+        ->join('hr_interview_schedules','hr_interview_schedules.id','hr_interview_applicants.interview_schedule_id')
         ->where('hr_interview_applicants.interview_id',$interview->id);
     }
     public function getPendingSelected($interview){

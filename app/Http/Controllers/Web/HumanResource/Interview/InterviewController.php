@@ -40,7 +40,7 @@ class InterviewController extends Controller
         $this->hrHireApplicantRepository = (new HrHireApplicantRepository());
         $this->userRepository = (new UserRepository());
         $this->hireRequisitionJobRepository = (new HireRequisitionJobRepository());
-        $this->interviewQuestionRepository = (New InterviewQuestionRepository());
+        $this->interviewQuestionRepository = (new InterviewQuestionRepository());
     }
 
     public function index()
@@ -90,14 +90,14 @@ class InterviewController extends Controller
             ->where('designations.id', $hrHireRequisitionJob->designation_id)
             ->first();
         return view('HumanResource.Interview.interview_date')
-                ->with('interview', $interview)
-                ->with('interview_type', $interview_type)
-                ->with('schedules', $schedules)
-                ->with('job_title', $job_title)
-                ->with('interviewApplicants', $interviewApplicants)
-                ->with('hrHireRequisitionJob', $hrHireRequisitionJob)
-                ->with('panelists', $panelists)
-                ->with('users', $users);
+            ->with('interview', $interview)
+            ->with('interview_type', $interview_type)
+            ->with('schedules', $schedules)
+            ->with('job_title', $job_title)
+            ->with('interviewApplicants', $interviewApplicants)
+            ->with('hrHireRequisitionJob', $hrHireRequisitionJob)
+            ->with('panelists', $panelists)
+            ->with('users', $users);
     }
 
     public function initiatePanelist(Interview $interview)
@@ -170,39 +170,42 @@ class InterviewController extends Controller
                 }
         });*/
 
-        public function notifyApplicant(Request $request)
+    public function notifyApplicant(Request $request)
     {
         $interview = $this->interviewRepository->find($request->interview_id);
         $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
+        InterviewPanelist::where('user_id',$request->technical_staff)->update(['technical_staff'=> 1]);
         //dd($selectedApplicant);
-        foreach ($selectedApplicant as $applicant){
-        $applicant->notify(new IntervieweeCallNotification($interview));
-    }
+        foreach ($selectedApplicant as $applicant) {
+            $applicant->notify(new IntervieweeCallNotification($interview));
+        }
 
 
-        $panelist = InterviewPanelist::where('interview_id', $interview->id)->chunk(2, function($rows) use($interview){
-            foreach ($rows as $row){
+        $panelist = InterviewPanelist::where('interview_id', $interview->id)->chunk(2, function ($rows) use ($interview) {
+            foreach ($rows as $row) {
                 User::find($row->user_id)->notify(new InterviewCallNotification($interview));
             }
         });
-
-
-        return redirect()->route('interview.question.create', $interview->uuid);
+        alert()->success('added Successfully');
+        return redirect()->back()->with('message','submited');
     }
 
-    public function applicantlist(Interview $interview){
+    public function applicantlist(Interview $interview)
+    {
+
         $applicants = $this->hrHireApplicantRepository->getSelected($interview)
-                            ->where('hr_interview_applicants.is_scored',0)
-                            ->get();
+            ->where('hr_interview_applicants.is_scored', 0)
+            ->get();
         $questions =  $this->interviewQuestionRepository->query()
-                    ->where('interview_id',$interview->id)->get();                   
+            ->where('interview_id', $interview->id)->get();
         return view('HumanResource.Interview.interview_question_marks.index')
-                ->with('applicants',$applicants)
-                ->with('questions',$questions)
-                ->with('interview',$interview);
+            ->with('applicants', $applicants)
+            ->with('questions', $questions)
+            ->with('interview', $interview);
     }
 
-    public function showPanelistJobs(){
+    public function showPanelistJobs()
+    {
         return view('HumanResource.Interview.job.applications');
     }
 }

@@ -82,7 +82,7 @@
                                 <td> {{ $question->question }} </td>
                                 <td>
                                      <input type="number" name="marks{{($key+1)}}"  required>
-                                     <input type="hiiden" value="{{$question->id}}" name="question{{($key+1)}}"  required>
+                                     <input type="hidden" value="{{$question->id}}" name="question{{($key+1)}}"  required>
                                 </td>
                             </tr>
                             <?php $total_questions = ($key+1); ?>
