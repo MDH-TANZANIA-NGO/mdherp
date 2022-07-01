@@ -2,6 +2,7 @@
 
 namespace App\Repositories\HumanResource\HireRequisition;
 
+use App\Exceptions\GeneralException;
 use App\Models\HumanResource\HireRequisition\HrHireApplicant;
 use App\Models\HumanResource\HireRequisition\HrHireRequisitionJobApplicant;
 use App\Repositories\BaseRepository;
@@ -40,6 +41,10 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
             }else{
                 $hr_hire_applicant_id = HrHireApplicant::where('user_recruitment_id',$online_applicant_id)->first()->id;
             }
+            //check if shortlisted
+            if(HrHireRequisitionJobApplicant::where('hr_hire_applicant_id', $hr_hire_applicant_id)->where('hr_hire_requisitions_job_id', $hr_hire_requisitions_job_id)->count() > 0){
+                throw new GeneralException('Applicant Already Shortlisted');
+            }
             //attach applicant and job to mimosa
             $job_applicant = $this->query()->create([
                 'hr_hire_requisitions_job_id' => $hr_hire_requisitions_job_id,
@@ -50,4 +55,20 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
             return $job_applicant;
         });
     }
+
+    /** 
+     * Shortlist applicant and attach to related job
+     * @param $hr_hire_requisitions_job_id, $online_applicant_id
+     * @param $online_applicant_id
+     * @return mixed
+     */
+    public function unShortlist($hr_hire_requisitions_job_id, $online_applicant_id)
+    {
+        return DB::transaction(function () use ($hr_hire_requisitions_job_id, $online_applicant_id) {
+            $hr_hire_applicant = HrHireApplicant::where('user_recruitment_id',$online_applicant_id)->first();
+            HrHireRequisitionJobApplicant::where('hr_hire_applicant_id', $hr_hire_applicant->id)->where('hr_hire_requisitions_job_id', $hr_hire_requisitions_job_id)->delete();
+            return $hr_hire_applicant;
+        });
+    }
+
 }
