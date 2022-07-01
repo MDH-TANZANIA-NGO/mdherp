@@ -401,7 +401,7 @@
                                             {!!$message !!}
                                         </p>
                                         <!-- Action -->
-                                        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                        {{--<table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                             <tr>
                                                 <td align="center">
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
@@ -423,7 +423,7 @@
                                                     <p class="f-fallback sub">{{ $link }}</p>
                                                 </td>
                                             </tr>
-                                        </table>
+                                        </table>--}}
                                     </div>
                                 </td>
                             </tr>
