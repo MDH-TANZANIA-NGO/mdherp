@@ -18,4 +18,10 @@ trait HireRequisitionJobService
         $response = Http::get(config('mdh.recruitment_portal_url').'applicant/'.$online_applicant_id.'/resource/'.$hire_requisition_job_id);
         return json_decode($response);
     }
+
+    public function sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $mimosa_applicant_id)
+    {
+        $shortlisted = "Shortlisted";
+        return Http::post(config('mdh.recruitment_portal_url').'applicant/'.$online_applicant_id.'/resource/'.$hr_hire_requisitions_job_id.'/mimosa_applicant_id/'.$mimosa_applicant_id.'status'.$shortlisted.'/update');
+    }
 }
