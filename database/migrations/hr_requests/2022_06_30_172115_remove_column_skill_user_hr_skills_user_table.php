@@ -14,7 +14,7 @@ class RemoveColumnSkillUserHrSkillsUserTable extends Migration
     public function up()
     {
         Schema::table('skill_user', function (Blueprint $table) {
-            $table->dropColumn('user_id');
+           // $table->dropColumn('user_id');
         });
     }
 

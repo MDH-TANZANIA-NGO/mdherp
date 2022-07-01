@@ -26,7 +26,7 @@ trait HireRequisitionJobService
         try {
 
             $shortlisted = "Shortlisted";
-            $response = Http::retry(3, 100)->asForm()->put(config('mdh.recruitment_portal_url') . 'applicant/shortlisted', [
+            $response = Http::retry(3, 100)->asForm()->post(config('mdh.recruitment_portal_url') . 'applicant/shortlisted', [
                 'id' => $online_applicant_id,
                 'hr_hire_requisitions_job_id' => $hr_hire_requisitions_job_id,
                 'mimosa_id' => $mimosa_applicant_id,
