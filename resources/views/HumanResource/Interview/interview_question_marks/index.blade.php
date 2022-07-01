@@ -32,12 +32,11 @@
                             
                             <tr>
                                 <td> {{($key+1) }}</td>
-                                <td> {{$applicant->id}}</td>
                                 <td> {{ $applicant->full_name }} </td>
                                 <td> {{ $applicant->number }} </td>
                                 <td>   
                                 </td>
-                                <td><a data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
+                                <td><a data-interview_id = "{{ $interview->id }}" data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
                             </tr>
                             <?php $total_questions = ($key+1); ?>
                             @endforeach
@@ -45,7 +44,6 @@
                         </tbody>
                     </table>
                     <input type="hidden" name="total_questions" value="{{ $total_questions }}">
-
                 </div>
             </div>
             {!! Form::close() !!}
@@ -63,8 +61,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            {!! Form::open(['route' => 'interview.question.update']) !!}
-            @method('PUT')
+            {!! Form::open(['route' => 'interview.question.storeMarks','method'=> 'post']) !!}
             <div class="modal-body">
             <div class="row mt-3">
                 <div class="col-sm-12 col-md-12 col-lg-12">
@@ -82,10 +79,10 @@
                             
                             <tr>
                                 <td> {{($key+1) }}</td>
-                                <td> {{($key+1) }}</td>
                                 <td> {{ $question->question }} </td>
                                 <td>
                                      <input type="number" name="marks{{($key+1)}}"  required>
+                                     <input type="hiiden" value="{{$question->id}}" name="question{{($key+1)}}"  required>
                                 </td>
                             </tr>
                             <?php $total_questions = ($key+1); ?>
@@ -94,7 +91,8 @@
                         </tbody>
                     </table>
                     <input type="hidden" name="total_questions" value="{{ $total_questions }}">
-                    <input type="text" name="applicant_id" id="applicant_id" value=""  required/>
+                    <input type="hidden" name="applicant_id" id="applicant_id" value=""  required/>
+                    <input type="hidden" name="interview_id" id="interview_id" value=""  required/>
                     
                 </div>
             </div>
@@ -102,7 +100,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">update</button>
+                <button type="submit" class="btn btn-primary">submit</button>
             </div>
             {!! Form::close() !!}
         </div>
@@ -112,12 +110,15 @@
 @push('after-scripts')
 <script>
     $('#edit').on('show.bs.modal', function(event) {
-        var content = $(event.relatedTarget).data('content'); // Button that triggered the modal
-        var id = $(event.relatedTarget).data('id'); // Button that triggered the modal
-        var applicant_id = $(event.relatedTarget).data('applicant_id'); // Button that triggered the modal
+        var button = $(event.relatedTarget);
+        var content = button.data('content'); // Button that triggered the modal
+        var id = button.data('id'); // Button that triggered the modal
+        var applicant_id = button.data('applicant_id'); // Button that triggered the modal
+        var interview_id = button.data('interview_id'); // Button that triggered the modal
         $("#question").val(content);
         $("#question_id").val(id);
         $("#applicant_id").val(applicant_id);
+        $("#interview_id").val(interview_id);
     });
 </script>
 @endpush

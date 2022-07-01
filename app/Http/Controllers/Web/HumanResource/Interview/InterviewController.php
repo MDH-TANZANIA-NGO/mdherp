@@ -16,6 +16,7 @@ use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\HumanResource\HireRequisition\HrHireApplicantRepository;
 use  App\Http\Controllers\Web\HumanResource\Interview\Traits\InterviewDatatable;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
+use Illuminate\Support\Facades\DB;
 
 class InterviewController extends Controller
 {
@@ -70,6 +71,13 @@ class InterviewController extends Controller
         $schedules = InterviewSchedule::where('interview_id', $interview->id)->get()->pluck('id');
         $interviewApplicants = $this->hrHireApplicantRepository->getPendingSelected($interview)->get();
         $interview_type = InterviewTypes::find($interview->interview_type_id);
+        $panelists = InterviewPanelist::select([
+            DB::raw("CONCAT_WS(' ',users.first_name,users.last_name) as full_name"),
+            DB::raw("users.email"),
+            DB::raw("users.id")
+        ])
+            ->join('users', 'users.id', 'hr_interview_panelists.user_id')
+            ->where('interview_id', $interview->id)->get();
         $hrHireRequisitionJob = $this->hireRequisitionJobRepository
             ->query()
             ->with('designation')
@@ -78,14 +86,15 @@ class InterviewController extends Controller
         $job_title = $this->designationRepository->getQueryDesignationUnit()
             ->where('designations.id', $hrHireRequisitionJob->designation_id)
             ->first();
-        return view('HumanResource.Interview.saved')
-            ->with('interview', $interview)
-            ->with('interview_type', $interview_type)
-            ->with('schedules', $schedules)
-            ->with('job_title', $job_title)
-            ->with('interviewApplicants', $interviewApplicants)
-            ->with('hrHireRequisitionJob', $hrHireRequisitionJob)
-            ->with('users', $users);
+        return view('HumanResource.Interview.interview_date')
+                ->with('interview', $interview)
+                ->with('interview_type', $interview_type)
+                ->with('schedules', $schedules)
+                ->with('job_title', $job_title)
+                ->with('interviewApplicants', $interviewApplicants)
+                ->with('hrHireRequisitionJob', $hrHireRequisitionJob)
+                ->with('panelists', $panelists)
+                ->with('users', $users);
     }
 
     public function initiatePanelist(Interview $interview)
@@ -145,11 +154,12 @@ class InterviewController extends Controller
     public function notifyApplicant(Request $request)
     {
         $interview = $this->interviewRepository->find($request->interview_id);
+        $interview->update(['technical_staff'=> $request->technical_staff]);
         $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
         $panelist = InterviewPanelist::select([
-            \DB::raw("CONCAT_WS(' ',users.first_name,users.last_name) as full_name"),
-            \DB::raw("users.email"),
-        ])
+                DB::raw("CONCAT_WS(' ',users.first_name,users.last_name) as full_name"),
+                DB::raw("users.email"),
+            ])
             ->join('users', 'users.id', 'hr_interview_panelists.user_id')
             ->where('interview_id', $interview->id)->get();
         return redirect()->route('interview.question.create', $interview->uuid);
@@ -157,7 +167,7 @@ class InterviewController extends Controller
 
     public function applicantlist(Interview $interview){
         $applicants = $this->hrHireApplicantRepository->getSelected($interview)
-                            // ->whereNoNull('confirmed')
+                            ->where('hr_interview_applicants.is_scored',0)
                             ->get();
         $questions =  $this->interviewQuestionRepository->query()
                     ->where('interview_id',$interview->id)->get();                   
@@ -165,5 +175,9 @@ class InterviewController extends Controller
                 ->with('applicants',$applicants)
                 ->with('questions',$questions)
                 ->with('interview',$interview);
+    }
+
+    public function showPanelistJobs(){
+        return view('HumanResource.Interview.job.applications');
     }
 }

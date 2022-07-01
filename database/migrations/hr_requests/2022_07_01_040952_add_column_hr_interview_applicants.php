@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyColumnHrHireRequisitionJobTable extends Migration
+class AddColumnHrInterviewApplicants extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class ModifyColumnHrHireRequisitionJobTable extends Migration
      */
     public function up()
     {
-        // Schema::table('hr_hire_requisitions_jobs', function (Blueprint $table) {
-        //     $table->dropColumn('employment_condition');
-        //     $table->text('employment_condition')->nullable();
-        // });
+        Schema::table('hr_interview_applicants', function (Blueprint $table) {
+            $table->smallInteger('is_scored')->default(0);
+        });
     }
 
     /**

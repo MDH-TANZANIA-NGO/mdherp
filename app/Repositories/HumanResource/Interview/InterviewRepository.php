@@ -21,20 +21,15 @@ class InterviewRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
-            'pr_reports.id AS id',
-            'pr_reports.number AS number',
-            'pr_reports.from_at AS from_at',
-            'pr_reports.to_at AS to_at',
-            'pr_reports.submited_at AS submited_at',
-            'pr_reports.created_at AS created_at',
-            'pr_reports.uuid AS uuid',
-            'pr_types.title AS pr_type_title',
-            'fiscal_years.title AS fiscal_year_title',
-            'pr_reports.wf_done_date as approved_at'
+            'interview.id AS id',
+            'interview.number AS number',
+            'interview.created_at AS created_at',
+            'interview.uuid AS uuid',
+            'interview.wf_done_date as approved_at'
         ])
-            ->join('users', 'users.id', 'pr_reports.user_id')
-            ->join('pr_types', 'pr_types.id', 'pr_reports.pr_type_id')
-            ->join('fiscal_years', 'fiscal_years.id', 'pr_reports.fiscal_year_id');
+            ->join('users', 'users.id', 'interview.user_id')
+            ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'interview.hr_requisition_job_id');
+            // ->join('fiscal_years', 'fiscal_years.id', 'interview.fiscal_year_id');
     }
 
     /** 
@@ -45,9 +40,9 @@ class InterviewRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('pr_reports.wf_done', 0)
-            ->where('pr_reports.done', true)
-            ->where('pr_reports.rejected', false)
+            ->where('interview.wf_done', 0)
+            ->where('interview.done', true)
+            ->where('interview.rejected', false)
             ->where('users.id', access()->id());
     }
 
@@ -60,9 +55,9 @@ class InterviewRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('pr_reports.wf_done', 0)
-            ->where('pr_reports.done', true)
-            ->where('pr_reports.rejected', true)
+            ->where('interview.wf_done', 0)
+            ->where('interview.done', true)
+            ->where('interview.rejected', true)
             ->where('users.id', access()->id());
     }
 
@@ -74,9 +69,9 @@ class InterviewRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('pr_reports.wf_done', 1)
-            ->where('pr_reports.done', true)
-            ->where('pr_reports.rejected', false)
+            ->where('interview.wf_done', 1)
+            ->where('interview.done', true)
+            ->where('interview.rejected', false)
             ->where('users.id', access()->id());
     }
 
@@ -84,13 +79,13 @@ class InterviewRepository extends BaseRepository
      * get Access Saved
      * @return mixed
     */
-    public function getAccessSaved()
+    public function getAccessSavedDatatable()
     {
         return $this->getQuery()
             ->whereDoesntHave('wfTracks')
-            ->where('pr_reports.wf_done', 0)
-            ->where('pr_reports.done', false)
-            ->where('pr_reports.rejected', false)
+            ->where('interview.wf_done', 0)
+            ->where('interview.done', false)
+            ->where('interview.rejected', false)
             ->where('users.id', access()->id());
     }
 
@@ -102,7 +97,7 @@ class InterviewRepository extends BaseRepository
     {
         return $this->getAccessApproved()
             ->whereDoesntHave('child');
-            // ->whereDate('pr_reports.to_at', '<=', Carbon::now()->format('Y-m-d'));
+            // ->whereDate('interview.to_at', '<=', Carbon::now()->format('Y-m-d'));
     }
 
     /** 
@@ -112,7 +107,7 @@ class InterviewRepository extends BaseRepository
     public function canBeAprocessedForEvaluation(Interview $pr_report)
     {
         return $this->getAccessApprovedWaitForEvaluation()
-            ->where('pr_reports.id', $pr_report->id)
+            ->where('interview.id', $pr_report->id)
             ->count();
     }
 
