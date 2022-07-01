@@ -117,7 +117,9 @@ trait InterviewDatatable
             return isset($education_level) ? $education_level->name :"";
         })
         ->addColumn('action', function($query) {
-            return '<a href="'.route('interview.applicantlist', $query->interview_uuid).'">View Applicants</a>';
+            $action = '<a href="'.route('interview.applicantlist', $query->interview_uuid).'"> View Applicants </a>';
+            $action .= '| <a href="'.route('interview.question.create', $query->interview_uuid).'"> Add Questions  </a>';
+            return $action;
         })
         ->rawColumns(['action'])
         ->make(true);
