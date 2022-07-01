@@ -13,6 +13,7 @@
                         <th class="wd-15p">LAST NAME</th>
                         <th class="wd-15p">EMAIL</th>
                         <th class="wd-15p">MOBILE NUMBER</th>
+                        <th class="wd-15p">STATUS</th>
                         <th class="wd-25p">ACTION</th>
                     </tr>
                 </thead>
@@ -25,6 +26,9 @@
                         <td>{{ $applicant->last_name }}</td>
                         <td>{{ $applicant->email }}</td>
                         <td>{{ $applicant->phone }}</td>
+                        <td>
+                            {{ is_shortlisted($applicant->id, $hire_requisition_job->id) ? 'Not Shortlisted' : 'Shortlisted' }}
+                        </td>
                         <td><a href="{{ route('hr.job.show_more',[$hire_requisition_job,$applicant->id]) }}">View More info</td>
                     </tr>
                     @endforeach
@@ -33,3 +37,11 @@
         </div>
     </div>
 </div>
+
+@push('after-scripts')
+<script>
+    $(document).ready(function() {
+        $("#applicants").DataTable();
+    })
+</script>
+@endpush
