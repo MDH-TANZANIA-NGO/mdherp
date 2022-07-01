@@ -12,7 +12,7 @@
                     @if(is_shortlisted($applicant->id, $hire_requisition_job->id))
                     <a href="{{ route('hr.job.application.shortlist',[$hire_requisition_job->id, $applicant->id]) }}" class="btn btn-primary" onclick='if(confirm("Are you sure you want to shortlist {{ $personal_info->first_name}} {{ $personal_info->middle_name}} {{ $personal_info->last_name }}")){ return true; } else { return false; }'>Click here to Shortlist this Applicant</a>
                     @else
-                    <a href="#" class="btn btn-danger" onclick='if(confirm("Are you sure you want to remove applicant shortlist {{ $personal_info->first_name}} {{ $personal_info->middle_name}} {{ $personal_info->last_name }}")){ return true; } else { return false; }'>Click here to Remove this Applicant From Shortlist</a>
+                    <a href="{{ route('hr.job.application.un_shortlist',[$hire_requisition_job->id, $applicant->id]) }}" class="btn btn-danger" onclick='if(confirm("Are you sure you want to remove applicant shortlist {{ $personal_info->first_name}} {{ $personal_info->middle_name}} {{ $personal_info->last_name }}")){ return true; } else { return false; }'>Click here to Remove this Applicant From Shortlist</a>
                     @endif
                 </div>
             </div>
