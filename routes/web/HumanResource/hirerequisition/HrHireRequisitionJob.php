@@ -8,5 +8,10 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
         Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
             Route::get('applications', 'HireRequisitionJobController@applicationDatatable')->name('application');
         });
+        // JobApplicant
+        Route::group(['prefix' => 'applications', 'as' => 'application.'], function () {
+            Route::get('{id}/{application_id}/shortlist', 'HrHireRequisitionJobApplicantController@shortlist')->name('shortlist');
+            Route::get('{id}/{application_id}/un-shortlist', 'HrHireRequisitionJobApplicantController@unShortlist')->name('un_shortlist');
+        });
     });
 });

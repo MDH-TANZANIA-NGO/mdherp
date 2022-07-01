@@ -396,9 +396,9 @@
                             <tr>
                                 <td class="content-cell">
                                     <div class="f-fallback">
-                                        <h1 style="color: #022169">Hi There, {{ $name }}!</h1>
+                                        <h1 style="color: #022169">Hi {{ $fullname }}!</h1>
                                         <p>
-                                            {!!$resource->message !!}
+                                            {!!$message !!}
                                         </p>
                                         <!-- Action -->
                                         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
@@ -407,7 +407,7 @@
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                                         <tr>
                                                             <td align="center">
-                                                                <a href="{{ $resource->link }}" class="f-fallback
+                                                                <a href="" class="f-fallback
                                                                 button" target="_blank">Click here to view</a>
                                                             </td>
                                                         </tr>
@@ -420,7 +420,7 @@
                                             <tr>
                                                 <td>
                                                     <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                                                    <p class="f-fallback sub">{{ $resource->link }}</p>
+                                                    <p class="f-fallback sub">{{ $link }}</p>
                                                 </td>
                                             </tr>
                                         </table>
