@@ -16,7 +16,7 @@ class JobOfferRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('job_offers.id AS id'),
-            DB::raw('job_offers.hr_hire_requisitions_job_id AS hr_hire_requisitions_job_id'),
+            DB::raw('job_offers.hr_hire_requisitions_job_applicants_id AS hr_hire_requisitions_job_applicants_id'),
             DB::raw('job_offers.parent_id AS parent_id'),
             DB::raw('job_offers.salary AS salary'),
             DB::raw('job_offers.user_id AS user_id'),
@@ -25,7 +25,7 @@ class JobOfferRepository extends BaseRepository
             DB::raw('job_offers.created_at AS created_at'),
             DB::raw('job_offers.uuid AS uuid'),
           ])
-            ->join('hr_hire_requisitions_jobs','hr_hire_requisitions_jobs.id','job_offers.hr_hire_requisitions_job_id')
+            ->join('hr_hire_requisitions_job_applicants','hr_hire_requisitions_job_applicants.id','job_offers.hr_hire_requisitions_job_applicants_id')
             ;
     }
     public function getAccessProcessing()
