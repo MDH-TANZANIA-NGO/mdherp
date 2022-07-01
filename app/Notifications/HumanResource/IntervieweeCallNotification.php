@@ -44,15 +44,14 @@ class IntervieweeCallNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        //dd($notifiable->interview_date);
         $schedules = $this->interview_call->InterviewSchedules;
         $interview_date  = '';
         $interview_type  = '';
         $interview_position  = '';
-        foreach ($schedules as $schedule){
-            $interview_position.= "<b>Interview Position:</b> ".$schedule->interview->jobRequisition->designation->full_title."<br/>"." Interview Date: ".$schedule->interview_date."<br/>"."Interview Type: ".$schedule->interview->interviewType->name.", <br/><br/>";
-//            $interview_date .= "<br/> Interview Date: ".$schedule->interview_date."<br/>";
-//            $interview_type .= "<br/> Interview Type: ".$schedule->interview->interviewType->name."<br/>";
-        }
+//        foreach ($schedules as $schedule){}
+            $interview_position.= "<b>Interview Position:</b> ".$schedules[0]->interview->jobRequisition->designation->full_title."<br/>"." Interview Date: ".$notifiable->interview_date."<br/>"."Interview Type: ".$schedules[0]->interview->interviewType->name.", <br/><br/>";
+
 
         $string = htmlentities("Congratulations! You have been shortlisted to sit for interview of ". "<br>". $interview_position);
 //        dd($this->interview_call->InterviewType);
