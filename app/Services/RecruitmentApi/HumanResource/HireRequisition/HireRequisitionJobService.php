@@ -21,7 +21,7 @@ trait HireRequisitionJobService
         return json_decode($response);
     }
 
-    public function sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $mimosa_applicant_id)
+    public function sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id)
     {
         try {
 
@@ -29,8 +29,23 @@ trait HireRequisitionJobService
             $response = Http::retry(3, 100)->asForm()->post(config('mdh.recruitment_portal_url') . 'applicant/shortlisted', [
                 'id' => $online_applicant_id,
                 'hr_hire_requisitions_job_id' => $hr_hire_requisitions_job_id,
-                'mimosa_id' => $mimosa_applicant_id,
-                'shortlisted' => $shortlisted
+                'status' => $shortlisted
+            ]);
+        } catch (Exception $e) {
+            throw new GeneralException($e->getMessage());
+        }
+        return $response->successful();
+    }
+
+    public function sendUnshortlistUpdate($hr_hire_requisitions_job_id, $online_applicant_id)
+    {
+        try {
+
+            $shortlisted = "Submitted";
+            $response = Http::retry(3, 100)->asForm()->post(config('mdh.recruitment_portal_url') . 'applicant/unshortlist', [
+                'id' => $online_applicant_id,
+                'hr_hire_requisitions_job_id' => $hr_hire_requisitions_job_id,
+                'status' => $shortlisted
             ]);
         } catch (Exception $e) {
             throw new GeneralException($e->getMessage());

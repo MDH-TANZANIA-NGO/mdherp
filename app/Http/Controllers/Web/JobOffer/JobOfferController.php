@@ -3,19 +3,23 @@
 namespace App\Http\Controllers\JobOffer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
+use App\Repositories\JobOfferRepository;
 use Illuminate\Http\Request;
 
 class JobOfferController extends Controller
 {
-    use  \JobOfferDatatable;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   use JobOfferDatatable;
+
+   protected $job_offers;
+   public function __construct()
+   {
+       $this->job_offers =  (new JobOfferRepository());
+   }
     public function index()
     {
         //
+        return view('HumanResource.JobOffer.index');
     }
 
     /**
