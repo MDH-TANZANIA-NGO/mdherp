@@ -9,12 +9,12 @@
             <div class="card-header">
                 <h3 class="card-title">APPLICANT DETAILS</h3>
                 <div class="card-options ">
-                    <a href="#" class="btn btn-primary" onclick='if(confirm("Are you sure you want to shortlist {{ $personal_info->first_name}} {{ $personal_info->middle_name}} {{ $personal_info->last_name }}")){ return true; } else { return false; }'>Click here to Shortlist this Applicant</a>
+                    <a href="{{ route('hr.job.application.shortlist',[$hire_requisition_job->id, $applicant->id]) }}" class="btn btn-primary" onclick='if(confirm("Are you sure you want to shortlist {{ $personal_info->first_name}} {{ $personal_info->middle_name}} {{ $personal_info->last_name }}")){ return true; } else { return false; }'>Click here to Shortlist this Applicant</a>
                     <a href="#" class="btn btn-danger" onclick='if(confirm("Are you sure you want to remove applicant shortlist {{ $personal_info->first_name}} {{ $personal_info->middle_name}} {{ $personal_info->last_name }}")){ return true; } else { return false; }'>Click here to Remove this Applicant From Shortlist</a>
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered">s
                     <tbody>
                         <tr>
                             <td><strong>CV and COVER LETTER</strong></td>

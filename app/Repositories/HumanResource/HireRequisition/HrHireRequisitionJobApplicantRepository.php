@@ -13,7 +13,13 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
     const MODEL = HrHireRequisitionJobApplicant::class;
     use  HireRequisitionJobService;
 
-    public function attach($hr_hire_requisitions_job_id, $online_applicant_id)
+    /** 
+     * Shortlist applicant and attach to related job
+     * @param $hr_hire_requisitions_job_id, $online_applicant_id
+     * @param $online_applicant_id
+     * @return mixed
+    */
+    public function shortlist($hr_hire_requisitions_job_id, $online_applicant_id)
     {
         return DB::transaction(function() use($hr_hire_requisitions_job_id, $online_applicant_id){
             //call api for online recruitment applicants details
@@ -26,14 +32,14 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
                 'phone' => $applicant->applicant->phone,
             ];
             //register applicant on mimosa
-            $hr_hire_applicant = HrHireApplicant::created($applicant_input);
+            $hr_hire_applicant = HrHireApplicant::create($applicant_input);
             //attach applicant and job to mimosa
             $job_applicant = $this->query()->create([
                 'hr_hire_requisitions_job_id' => $hr_hire_requisitions_job_id,
-                'hr_hire_applicant' => $hr_hire_applicant
+                'hr_hire_applicant_id' => $hr_hire_applicant->id
             ]);
             //send applicant details to recruitment
-            $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $job_applicant->id);
+            $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $hr_hire_applicant->id);
             return $job_applicant;
         });
     }
