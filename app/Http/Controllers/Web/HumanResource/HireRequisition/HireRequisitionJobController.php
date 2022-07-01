@@ -30,7 +30,6 @@ class HireRequisitionJobController extends Controller
 
     public function show(HireRequisitionJob $hire_requisition_job)
     {   
-        // dd($this->getApplicants($hire_requisition_job->id));
         return view('HumanResource.HireRequisition.job.show')
         ->with('hire_requisition_job', $hire_requisition_job)
         ->with('applicants', $this->getApplicantsByJob($hire_requisition_job->id));

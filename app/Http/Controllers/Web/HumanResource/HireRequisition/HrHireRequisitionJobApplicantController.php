@@ -20,9 +20,9 @@ class HrHireRequisitionJobApplicantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function attach($hr_hire_requisitions_job_id, $hr_hire_applicant_id, $online_applicant_id)
+    public function shortlist($hr_hire_requisitions_job_id, $online_applicant_id)
     {
-
+        $this->hr_hire_requisition_job_applicants->shortlist($hr_hire_requisitions_job_id, $online_applicant_id);
         return redirect()->route('hr.job.show',$hr_hire_requisitions_job_id);
     }
 
