@@ -25,6 +25,7 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
             //call api for online recruitment applicants details
             $applicant = $this->getApplicantByJob($online_applicant_id,$hr_hire_requisitions_job_id);
             $applicant_input = [
+                'user_recruitment_id' => $applicant->id,
                 'first_name' => $applicant->applicant->first_name,
                 'middle_name' => $applicant->applicant->middle_name,
                 'last_name' => $applicant->applicant->last_name,
@@ -39,7 +40,7 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
                 'hr_hire_applicant_id' => $hr_hire_applicant->id
             ]);
             //send applicant details to recruitment
-            $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $hr_hire_applicant->id);
+            // $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $hr_hire_applicant->id);
             return $job_applicant;
         });
     }

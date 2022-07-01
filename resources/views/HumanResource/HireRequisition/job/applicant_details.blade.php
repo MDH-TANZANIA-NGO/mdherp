@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">s
+                <table class="table table-bordered">
                     <tbody>
                         <tr>
                             <td><strong>CV and COVER LETTER</strong></td>
