@@ -161,7 +161,7 @@ class InterviewController extends Controller
     {
         $interview = $this->interviewRepository->find($request->interview_id);
         $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
-    //  dd($selectedApplicant);
+        //dd($selectedApplicant);
         foreach ($selectedApplicant as $applicant){
         $applicant->notify(new IntervieweeCallNotification($interview));
     }
