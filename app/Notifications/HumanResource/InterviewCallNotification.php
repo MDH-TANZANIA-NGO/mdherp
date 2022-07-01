@@ -49,7 +49,7 @@ class InterviewCallNotification extends Notification
             ->markdown('mail.HumanResource.interviewcall',[
                 'link' => $this->interview_call,
                 'fullname' => $this->interview_call->user,
-                'message' => 'You have been called as a panelist for an interview scheduled on'
+                'message' => 'You have been selected as a panelist for an interview scheduled on'
                 ]);
     }
 
