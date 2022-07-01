@@ -13,15 +13,16 @@ class InterviewCallNotification extends Notification
     use Queueable;
 
     protected $interview_call;
+    protected $interviewCall;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($programActivity)
+    public function __construct($interviewCall)
     {
-        $this->program_activity =  $programActivity;
+        $this->interview_call =  $interviewCall;
     }
 
     /**
@@ -45,7 +46,11 @@ class InterviewCallNotification extends Notification
     {
         return (new MailMessage)
             ->subject('Invited for Interview')
-            ->markdown('mail.HumanResource.interviewcall',['link' => $this->program_activity, 'name' => $notifiable->first_name. ' '.$notifiable->last_name, 'email' => $notifiable->email]);
+            ->markdown('mail.HumanResource.interviewcall',[
+                'link' => $this->interview_call,
+                'fullname' => $this->interview_call->user,
+                'message' => 'You have been called as a panelist for an interview scheduled on'
+                ]);
     }
 
     /**

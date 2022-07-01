@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Web\HumanResource\Interview;
 
+use App\Models\Auth\User;
+use App\Notifications\HumanResource\InterviewCallNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Access\UserRepository;
@@ -139,16 +141,31 @@ class InterviewController extends Controller
     }
 
 
-    public function notifyApplicant(Request $request)
+    /*public function notifyApplicant(Request $request)
     {
         $interview = $this->interviewRepository->find($request->interview_id);
         $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
         $panelist = InterviewPanelist::select([
             \DB::raw("CONCAT_WS(' ',users.first_name,users.last_name) as full_name"),
             \DB::raw("users.email"),
-        ])
+       ])
             ->join('users', 'users.id', 'hr_interview_panelists.user_id')
-            ->where('interview_id', $interview->id)->get();
+                foreach ($rows as $row){
+                    dd(User::find($row->user_id)->notify(new InterviewCallNotification()));
+                }
+        });*/
+
+        public function notifyApplicant(Request $request)
+    {
+        $interview = $this->interviewRepository->find($request->interview_id);
+        $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
+        $panelist = InterviewPanelist::where('interview_id', $interview->id)->chunk(2, function($rows) use($interview){
+            foreach ($rows as $row){
+                User::find($row->user_id)->notify(new InterviewCallNotification($interview));
+            }
+        });
+
+
         return redirect()->route('interview.question.create', $interview->uuid);
     }
 
