@@ -150,6 +150,7 @@ class InterviewController extends Controller
             \DB::raw("users.email"),
        ])
             ->join('users', 'users.id', 'hr_interview_panelists.user_id')
+            where('interview_id', $interview->id)->chunk(2, function($rows){
                 foreach ($rows as $row){
                     dd(User::find($row->user_id)->notify(new InterviewCallNotification()));
                 }
