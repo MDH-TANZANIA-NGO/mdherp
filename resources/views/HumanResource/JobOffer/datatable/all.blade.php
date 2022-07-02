@@ -13,7 +13,7 @@
             </div>
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('job_offer.create') }}"> <i class="fa fa-plus mr-2"></i>Create Offer</a>
+                    <a href="{{ route('job_offer.initiate') }}"> <i class="fa fa-plus mr-2"></i>Create Offer</a>
                 </div>
             </div>
         </div>

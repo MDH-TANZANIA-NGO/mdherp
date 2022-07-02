@@ -27,11 +27,20 @@ class JobOfferController extends Controller
     }
 
 
-    public function create()
+    public function initiate()
     {
         //
-        return view('HumanResource.JobOffer.forms.create')
+        return view('HumanResource.JobOffer.forms.initiate')
             ->with('applicant', $this->interview_applicants->getApplicantForJobOffer()->pluck('full_name', 'id'));
+    }
+
+    public function create(Request  $request)
+    {
+        $job_details =  $this->interview_applicants->getAdvertDetails($request->get('applicant_id'))->first();
+
+        return view('HumanResource.JobOffer.forms.create')
+            ->with('job_details', $job_details);
+
     }
 
 
