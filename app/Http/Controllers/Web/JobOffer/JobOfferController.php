@@ -47,7 +47,9 @@ class JobOfferController extends Controller
     public function store(Request $request)
     {
         //
+        dd($request->all());
         $this->job_offers->store($request->all());
+        return redirect()->back();
     }
 
 

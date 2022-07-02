@@ -23,6 +23,7 @@
 
                     </ul>
 <br>
+                    {!! Form::open(['route' => 'job_offer.store']) !!}
                 <div class="row">
                     <div class="col-md-6">
                     <div class="form-group">
@@ -31,7 +32,7 @@
 												<span class="input-icon-addon">
 													<i class="fe fe-dollar-sign"></i>
 												</span>
-                            <input type="text" class="form-control" placeholder="Salary Amount">
+                            <input type="text" class="form-control" name="salary" placeholder="Salary Amount">
                         </div>
                     </div>
                     </div>
@@ -42,7 +43,7 @@
 												<span class="input-icon-addon">
 													<i class="fe fe-calendar"></i>
 												</span>
-                                <input type="date" class="form-control" placeholder="Salary Amount">
+                                <input type="date" name="date_of_arrival" class="form-control" placeholder="Salary Amount">
                             </div>
                         </div>
                     </div>
@@ -51,13 +52,16 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Other benefits</label>
-                    <input type="text" class="content">
+                    <input type="text" name="details" class="content">
                             </div>
                         </div>
                     </div>
+                    <a href="#" class="btn btn-instagram"><i class="fa fa-arrow-circle-left mr-2"></i>Back</a>
+                    <button type="submit" class="btn btn-vk"><i class="fa fa-paper-plane-o mr-2"></i>Send for approval</button>
 
 
             </div>
+                {!! Form::close() !!}
         </div>
     </div>
     @endif

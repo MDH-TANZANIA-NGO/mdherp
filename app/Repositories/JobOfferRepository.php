@@ -62,6 +62,7 @@ class JobOfferRepository extends BaseRepository
             'details'=> $inputs['details'],
             'hr_hire_requisitions_job_applicants_id'=>$inputs['hr_hire_requisitions_job_applicants_id'],
             'user_id'=>$inputs['user_id'],
+            'date_of_arrival'=>$inputs['date_of_arrival'],
             'wf_done'=> access()->user()->id
 
         ];
