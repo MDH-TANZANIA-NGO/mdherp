@@ -33,7 +33,7 @@
         </a>
     </div>
     <div class="col-4 col-sm-4 col-lg-3">
-        <a href="{{route('interview.index')}}">
+        <a href="{{route('job_offer.index')}}">
             <div class="card">
                 <div class="card-body text-center">
                     <div class="h2 m-0"><i class="fa fas fa-ad"></i></div>

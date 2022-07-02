@@ -2,5 +2,5 @@
 
 @section('content')
 
-    @include('JobOffer.datatable.all')
+    @include('HumanResource.JobOffer.datatable.all')
 @endsection

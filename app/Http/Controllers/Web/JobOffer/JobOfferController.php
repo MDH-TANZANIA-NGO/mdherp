@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\JobOffer;
+namespace App\Http\Controllers\Web\JobOffer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
+use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\JobOfferRepository;
 use Illuminate\Http\Request;
 
@@ -12,77 +13,54 @@ class JobOfferController extends Controller
    use JobOfferDatatable;
 
    protected $job_offers;
+   protected $interview_applicants;
    public function __construct()
    {
        $this->job_offers =  (new JobOfferRepository());
+       $this->interview_applicants = (new InterviewApplicantRepository());
    }
     public function index()
     {
         //
-        return view('HumanResource.JobOffer.index');
+        return view('HumanResource.JobOffer.index')
+            ->with('job_offers', $this->job_offers);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
+        return view('HumanResource.JobOffer.forms.create')
+            ->with('applicant', $this->interview_applicants->getApplicantForJobOffer()->pluck('full_name', 'id'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
+        $this->job_offers->store($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function show($uuid)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function edit($uuid)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(Request $request, $uuid)
     {
         //
+        $this->job_offers->update($request->all(), $uuid);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //

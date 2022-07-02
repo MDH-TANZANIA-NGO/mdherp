@@ -4,16 +4,16 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary"></span></a></li>
-                    <li><a href="#returned" data-toggle="tab">Returned for Modification <span class="badge badge-warning">/span></a></li>
-                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger"></span></a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success"></span></a></li>
+                    <li><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary">{{$job_offers->getAccessProcessing()->count()}}</span></a></li>
+                    <li><a href="#returned" data-toggle="tab">Returned for Modification <span class="badge badge-warning">{{$job_offers->getAccessRejected()->count()}}</span></a></li>
+{{--                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger"></span></a></li>--}}
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{$job_offers->getAccessApproved()->count()}}</span></a></li>
 {{--                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-dark"></span></a></li>--}}
                 </ul>
             </div>
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('hirerequisition.create') }}"> <i class="fa fa-plus mr-2"></i>Create Offer</a>
+                    <a href="{{ route('job_offer.create') }}"> <i class="fa fa-plus mr-2"></i>Create Offer</a>
                 </div>
             </div>
         </div>
@@ -79,43 +79,6 @@
                     </div>
                 </div>
 
-                <div class="tab-pane" id="rejected">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="access_rejected" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th class="wd-15p">#</th>
-                                    <th class="wd-15p">APPLICANT NAME</th>
-                                    <th class="wd-15p">JOB TITLE</th>
-                                    <th class="wd-25p">OFFER</th>
-                                    <th class="wd-25p">CREATED AT</th>
-                                    <th class="wd-25p">ACTION</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="saved">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="access_saved" class="table table-striped table-bordered" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th class="wd-15p">#</th>
-                                    <th class="wd-15p">APPLICANT NAME</th>
-                                    <th class="wd-15p">JOB TITLE</th>
-                                    <th class="wd-25p">OFFER</th>
-                                    <th class="wd-25p">CREATED AT</th>
-                                    <th class="wd-25p">ACTION</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -136,12 +99,12 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('hirerequisition.datatable.access.processing') }}',
+                ajax: '{{ route('job_offer.datatable.access.processing') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'job_offers.name', searchable: true},
-                    { data: 'region', name: 'regions.name', searchable: true},
-                    { data: 'total', name: 'listings.total', searchable: true },
+                    { data: 'designation_id', name: 'job_offers.designation_id', searchable: true},
+                    { data: 'salary', name: 'job_offers.salary', searchable: true },
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -154,38 +117,18 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('hirerequisition.datatable.access.returned') }}',
+                ajax: '{{ route('job_offer.datatable.access.rejected') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'title', name: 'listings.title', searchable: true},
-                    { data: 'region', name: 'regions.name', searchable: true},
-
-                    { data: 'total', name: 'listings.total', searchable: true },
-
+                    { data: 'number', name: 'job_offers.name', searchable: true},
+                    { data: 'full_title', name: 'job_offers.full_title', searchable: true},
+                    { data: 'salary', name: 'job_offers.salary', searchable: true },
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
 
-            $("#access_rejected").DataTable({
-                // processing: true,
-                // serverSide: true,
-                destroy: true,
-                retrieve: true,
-                "responsive": true,
-                "autoWidth": false,
-                ajax: '{{ route('hirerequisition.datatable.access.rejected') }}',
-                columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'title', name: 'listings.title', searchable: true},
-                    { data: 'region', name: 'regions.name', searchable: true},
 
-                    { data: 'total', name: 'listings.total', searchable: true },
-
-                    { data: 'created_at', name: 'created_at', searchable: true },
-                    { data: 'action', name: 'action', searchable: false },
-                ]
-            });
 
             $("#access_approved").DataTable({
                 // processing: true,
@@ -194,34 +137,17 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('hirerequisition.datatable.access.approved') }}',
+                ajax: '{{ route('job_offer.datatable.access.approved') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'title', name: 'listings.title', searchable: true},
-                    { data: 'region', name: 'regions.name', searchable: true},
-                    { data: 'total', name: 'listings.total', searchable: true },
+                    { data: 'number', name: 'job_offers.name', searchable: true},
+                    { data: 'full_title', name: 'job_offers.full_title', searchable: true},
+                    { data: 'salary', name: 'job_offers.salary', searchable: true },
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
 
-            $("#access_saved").DataTable({
-                // processing: true,
-                // serverSide: true,
-                destroy: true,
-                retrieve: true,
-                "responsive": true,
-                "autoWidth": false,
-                ajax: '{{ route('hirerequisition.datatable.access.saved') }}',
-                columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'title', name: 'listings.title', searchable: true},
-                    { data: 'region', name: 'regions.name', searchable: true},
-                    { data: 'total', name: 'listings.total', searchable: true },
-                    { data: 'created_at', name: 'created_at', searchable: true },
-                    { data: 'action', name: 'action', searchable: false },
-                ]
-            });
 
 
         })
