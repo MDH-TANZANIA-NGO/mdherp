@@ -7,6 +7,7 @@ use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
 use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
+use App\Models\HumanResource\HireRequisition\HrHireRequisitionJobApplicant;
 use App\Models\HumanResource\HireRequisition\HrHireRequisitionJobShortlist;
 
 class HrHireRequisitionJobShortlistRepository extends BaseRepository
@@ -31,6 +32,23 @@ class HrHireRequisitionJobShortlistRepository extends BaseRepository
             $shortlist->job_pert->sync(['hire_requisition_job_id' => $hire_requisition_job],$input);
             return $shortlist;
         });
+    }
+
+    public function store($hire_requisition_job_id)
+    {
+        return DB::transaction(function() use($hire_requisition_job_id){
+        $shortlist = $this->query()->create([
+            'user_id' => access()->id(),
+            'supervisor_id' => access()->user()->assignedSupervisor()->supervisor_id,
+            'fiscal_year_id' => FiscalYear::query()->where('active', true)->first()->id,
+            'region_id' => access()->user()->region_id,
+            'done' => true
+        ]);
+        //generate number
+        // $shortlist->update(['number' => $this->generateNumber($shortlist)]);
+        HrHireRequisitionJobApplicant::where('hire_requisition_job_id',$hire_requisition_job_id)->update(['hr_hire_requisition_job_shortlist_id' => $shortlist->id]);
+        return $shortlist;
+    });
     }
 
 }

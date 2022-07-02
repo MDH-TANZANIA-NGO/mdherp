@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
 
 use App\Http\Controllers\Controller;
 use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
+use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\HireRequisition\HrHireRequisitionJobShortlistRepository;
+use App\Services\Workflow\Traits\WorkflowInitiator;
 use Illuminate\Http\Request;
 
 class HrHireRequisitionJobShortlistController extends Controller
 {
+    use WorkflowInitiator;
+
     protected $hr_hire_requisition_job_shortlists;
 
     public function __construct()
@@ -32,9 +36,13 @@ class HrHireRequisitionJobShortlistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function submit($hire_requisition_job_id)
     {
-        //
+        $hr_hire_requisition_job_shortlist = $this->hr_hire_requisition_job_shortlists->store($hire_requisition_job_id);
+        $next_user_id = (new UserRepository())->getDirectorOfHR()->first()->user_id;
+        $this->startWorkflow($hr_hire_requisition_job_shortlist, 1, $next_user_id); 
+        alert()->success('Shortlist submited to workflow Successfully');
+        return view('HumanResource.HireRequisition.shortlist.show');
     }
 
     /**
