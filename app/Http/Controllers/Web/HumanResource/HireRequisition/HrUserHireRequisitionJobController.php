@@ -3,32 +3,25 @@
 namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
 
 use App\Http\Controllers\Controller;
-use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
-use App\Repositories\Access\UserRepository;
-use App\Repositories\HumanResource\HireRequisition\HrHireRequisitionJobShortlistRepository;
-use App\Services\Workflow\Traits\WorkflowInitiator;
+use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobRepository;
 use Illuminate\Http\Request;
 
-class HrHireRequisitionJobShortlistController extends Controller
+class HrUserHireRequisitionJobController extends Controller
 {
-    use WorkflowInitiator;
-
-    protected $hr_hire_requisition_job_shortlists;
+    protected $hr_user_hire_requisition_job;
 
     public function __construct()
     {
-        $this->hr_hire_requisition_job_shortlists = (new HrHireRequisitionJobShortlistRepository());
+        $this->hr_user_hire_requisition_job = (new HrUserHireRequisitionJobRepository());
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function shortlist(HireRequisitionJob $hire_requisition_job, $input)
+    public function index()
     {
-        $this->hr_hire_requisition_job_shortlists->shortlist($hire_requisition_job, $input);
-        alert()->success('Shortlist Has been done Successfully');
-        return view('HumanResource.HireRequisition.shortlist.show');
+        //
     }
 
     /**
@@ -36,13 +29,9 @@ class HrHireRequisitionJobShortlistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function submit($hire_requisition_job_id)
+    public function create()
     {
-        $hr_hire_requisition_job_shortlist = $this->hr_hire_requisition_job_shortlists->store($hire_requisition_job_id);
-        $next_user_id = (new UserRepository())->getDirectorOfHR()->first()->user_id;
-        $this->startWorkflow($hr_hire_requisition_job_shortlist, 1, $next_user_id); 
-        alert()->success('Shortlist submited to workflow Successfully');
-        return view('HumanResource.HireRequisition.shortlist.show');
+        //
     }
 
     /**

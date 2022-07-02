@@ -8,6 +8,7 @@ use App\Models\HumanResource\HireRequisition\HrHireRequisitionJobApplicant;
 use App\Repositories\BaseRepository;
 use App\Services\RecruitmentApi\HumanResource\HireRequisition\HireRequisitionJobService;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Expr\FuncCall;
 
 class HrHireRequisitionJobApplicantRepository extends BaseRepository
 {
@@ -71,6 +72,13 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
             $this->sendUnshortlistUpdate($hr_hire_requisitions_job_id, $online_applicant_id);
             return $hr_hire_applicant;
         });
+    }
+
+    public function addShortlister($input)
+    {
+        if(!isset($input['hr_hire_requisitions_job_ids'])){
+            throw new GeneralException('Kindly Select atleast one JOB');
+        }
     }
 
 }
