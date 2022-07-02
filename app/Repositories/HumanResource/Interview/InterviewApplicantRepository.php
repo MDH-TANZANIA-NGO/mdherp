@@ -26,6 +26,13 @@ class InterviewApplicantRepository extends BaseRepository
         ])
         ->join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_applicants.applicant_id');
     }
+    public function getAdvertDetails($id)
+    {
+        return $this->getApplicantForJobOffer()
+            ->where('hr_interview_applicants.id', $id);
+    }
+
+
 
     /** 
      * get Access Processing
