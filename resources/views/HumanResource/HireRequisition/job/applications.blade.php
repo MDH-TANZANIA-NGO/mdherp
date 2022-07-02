@@ -21,7 +21,7 @@
                     <th class="wd-15p">EDUCATION LEVEL</th>
                     <th class="wd-25p">CREATED AT</th>
                     <th class="wd-25p">ACTION</th>
-                    <th>Select All <input name="select_all" value="1" id="select-all" type="checkbox" /></th>
+                    <th><input name="select_all" value="1" id="select-all" type="checkbox" /></th>
                 </tr>
             </thead>
         </table>
