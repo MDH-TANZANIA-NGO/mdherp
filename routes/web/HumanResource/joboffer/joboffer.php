@@ -5,6 +5,7 @@ Route::group(['namespace' => 'JobOffer', 'middleware' => ['web', 'auth'], 'prefi
     Route::get('create', 'JobOfferController@create')->name('create');
     Route::get('{uuid}/edit', 'JobOfferController@edit')->name('edit');
     Route::post('store', 'JobOfferController@store')->name('store');
+    Route::put('{uuid}/update', 'JobOfferController@update')->name('update');
 
     /**
      * Datatables

@@ -27,9 +27,9 @@
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">#</th>
-                                    <th class="wd-15p">TITLE</th>
-                                    <th class="wd-15p">REGION</th>
-                                    <th class="wd-25p"># OF EMPLOYEES</th>
+                                    <th class="wd-15p">APPLICANT NAME</th>
+                                    <th class="wd-15p">JOB TITLE</th>
+                                    <th class="wd-25p">OFFER</th>
                                     <th class="wd-25p">CREATED AT</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>

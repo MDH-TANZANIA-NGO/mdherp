@@ -36,6 +36,7 @@
                         </div>
                     </div>
                     </div>
+                    <input type="number" name="hr_hire_requisitions_job_applicants_id" value="2" hidden>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Date of arrival</label>
@@ -43,7 +44,7 @@
 												<span class="input-icon-addon">
 													<i class="fe fe-calendar"></i>
 												</span>
-                                <input type="date" name="date_of_arrival" class="form-control" placeholder="Salary Amount">
+                                <input type="datetime-local" name="date_of_arrival" min="{{now()->format('Y-m-d')}}" class="form-control" placeholder="Salary Amount">
                             </div>
                         </div>
                     </div>
