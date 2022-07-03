@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Web\HumanResource\Interview;
 
+use App\Jobs\IntervieweeEmailJob;
+use App\Jobs\InterviewEmailJob;
 use App\Models\Auth\User;
 use App\Notifications\HumanResource\InterviewCallNotification;
 use App\Notifications\HumanResource\IntervieweeCallNotification;
@@ -164,11 +166,14 @@ class InterviewController extends Controller
         $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
         InterviewPanelist::where('user_id',$request->technical_staff)->update(['technical_staff'=> 1]);
         foreach ($selectedApplicant as $applicant) {
-            $applicant->notify(new IntervieweeCallNotification($interview));
+            IntervieweeEmailJob::dispatch($applicant,$interview);
         }
-        $panelist = InterviewPanelist::where('interview_id', $interview->id)->chunk(2, function ($rows) use ($interview) {
+
+
+        $panelist = InterviewPanelist::where('interview_id', $interview->id)->chunk(1, function ($rows) use ($interview) {
             foreach ($rows as $row) {
-                User::find($row->user_id)->notify(new InterviewCallNotification($interview));
+
+                InterviewEmailJob::dispatch(User::find($row->user_id),$interview);
             }
         });
         alert()->success('added Successfully');

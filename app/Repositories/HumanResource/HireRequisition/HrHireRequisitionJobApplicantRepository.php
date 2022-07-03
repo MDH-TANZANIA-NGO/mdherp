@@ -51,7 +51,7 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
                 'hr_hire_applicant_id' => $hr_hire_applicant_id
             ]);
             //send applicant details to recruitment
-             $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id, $hr_hire_applicant_id);
+             $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id);
             return $job_applicant;
         });
     }
@@ -67,6 +67,8 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
         return DB::transaction(function () use ($hr_hire_requisitions_job_id, $online_applicant_id) {
             $hr_hire_applicant = HrHireApplicant::where('user_recruitment_id',$online_applicant_id)->first();
             HrHireRequisitionJobApplicant::where('hr_hire_applicant_id', $hr_hire_applicant->id)->where('hr_hire_requisitions_job_id', $hr_hire_requisitions_job_id)->delete();
+            //send applicant details to recruitment as opposed to first request this is to unshortlist the applicant
+            $this->sendUnshortlistUpdate($hr_hire_requisitions_job_id, $online_applicant_id);
             return $hr_hire_applicant;
         });
     }
