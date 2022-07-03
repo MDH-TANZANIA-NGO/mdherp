@@ -21,7 +21,7 @@
                             <tr>
                                 <th>  Qno     </th>
                                 <th>  Applicant </th>
-                                <th>  Number  </th>
+                                <th>  Marks  </th>
                                 <th>  Status   </th>
                                 <th>  Action   </th>
                             </tr>
@@ -33,9 +33,9 @@
                             <tr>
                                 <td> {{($key+1) }}</td>
                                 <td> {{ $applicant->full_name }} </td>
-                                <td> {{ $applicant->number }} </td>
-                                <td>   
-                                </td>
+                                <td> {{ $applicant->marks }} </td>
+                                <td>      </td>
+                             
                                 <td><a data-interview_id = "{{ $interview->id }}" data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
                             </tr>
                             <?php $total_questions = ($key+1); ?>

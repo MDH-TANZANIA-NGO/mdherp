@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnsOnHrHireApplicantsTable extends Migration
+class AddHaQuestionColumnHrInterveiwTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddColumnsOnHrHireApplicantsTable extends Migration
      */
     public function up()
     {
-        Schema::table('hr_hire_applicants', function (Blueprint $table) {
-            $table->string('email');
-            $table->string('phone')->nullable();
+        Schema::table('hr_interviews', function (Blueprint $table) {
+            $table->smallInteger('has_questions')->nullable();
+            $table->smallInteger('has_interview_invitation')->nullable();
         });
     }
 
@@ -26,8 +26,6 @@ class AddColumnsOnHrHireApplicantsTable extends Migration
      */
     public function down()
     {
-        Schema::table('hr_hire_applicants', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

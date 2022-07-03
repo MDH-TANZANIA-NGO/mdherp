@@ -90,9 +90,15 @@ class InterviewQuestionController extends Controller
         $total_questions = $request->total_questions;
         $interview_id = $request->interview_id;
         $interview = $this->interviewRepository->find($interview_id);
+        $applicant_id = $request->applicant_id;
         $input['applicant_id'] = $request->applicant_id;
         try{
             DB::beginTransaction();
+                $this->interviewQuestionMarksRepository
+                        ->query()
+                        ->where('interview_id',$interview_id)
+                        ->where('applicant_id',$applicant_id)
+                        ->delete();
                 for($i=1; $i<=$total_questions; $i++){
                     $question = $request->input('question'.$i);
                     $marks = $request->input('marks'.$i);
@@ -103,7 +109,7 @@ class InterviewQuestionController extends Controller
                     $this->interviewQuestionMarksRepository->store($input);
                 }
                 $this->interviewApplicantRepository->query()
-                ->where('applicant_id',$request->applicant_id)
+                ->where('applicant_id', $applicant_id)
                 ->where('interview_id',$interview_id)
                 ->first()
                 ->update(['is_scored'=>1]);

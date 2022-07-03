@@ -18,6 +18,7 @@ use App\Repositories\HumanResource\Interview\InterviewQuestionRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\HumanResource\HireRequisition\HrHireApplicantRepository;
 use  App\Http\Controllers\Web\HumanResource\Interview\Traits\InterviewDatatable;
+use App\Models\Unit\Department;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -49,7 +50,7 @@ class InterviewController extends Controller
             ->with('processing_count', 0)
             ->with('return_for_modification_count', 0)
             ->with('approved_count', 0)
-            ->with('wait_verification_count', 0)
+            ->with('wait_interview_question_count', $this->interviewRepository->getAccessWaitForQuestionsDatatable()->count())
             ->with('saved_count', 0);
     }
 
@@ -112,8 +113,8 @@ class InterviewController extends Controller
             ->where('hr_hire_requisitions_jobs.id', $interview->hr_requisition_job_id)
             ->first();
         $job_title = $this->designationRepository->getQueryDesignationUnit()
-            ->where('designations.id', $hrHireRequisitionJob->designation_id)
-            ->first();
+                    ->where('designations.id', $hrHireRequisitionJob->designation_id)
+                    ->first();
         return view('HumanResource.Interview.panelist')
             ->with('interview', $interview)
             ->with('job_title', $job_title)
@@ -125,17 +126,19 @@ class InterviewController extends Controller
 
     public function addapplicant(Request $request)
     {
+        DB::beginTransaction();
         if ($request->has('applicant'))
             $interview = $this->interviewRepository->find($request->interview_id);
-        $interviewScheduleData = [
-            'interview_id' => $interview->id,
-            'interview_date' => $request->interview_date
-        ];
-        $interviewSchedule = InterviewSchedule::create($interviewScheduleData);
-        $data = $request->all();
-        $data['interview_schedule_id'] = $interviewSchedule->id;
-        $this->interviewApplicantRepository->store($data);
+            $interviewScheduleData = [
+                'interview_id' => $interview->id,
+                'interview_date' => $request->interview_date
+            ];
+            $interviewSchedule = InterviewSchedule::create($interviewScheduleData);
+            $data = $request->all();
+            $data['interview_schedule_id'] = $interviewSchedule->id;
+            $this->interviewApplicantRepository->store($data);
         alert()->success('added Successfully');
+        DB::commit();
         return redirect()->route('interview.initiate', $interview->uuid);
     }
 
@@ -153,51 +156,34 @@ class InterviewController extends Controller
         return redirect()->route('interview.initiate', $interview->uuid);
     }
 
-
-    /*public function notifyApplicant(Request $request)
-    {
-        $interview = $this->interviewRepository->find($request->interview_id);
-        $interview->update(['technical_staff'=> $request->technical_staff]);
-        $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
-        $panelist = InterviewPanelist::select([
-                DB::raw("CONCAT_WS(' ',users.first_name,users.last_name) as full_name"),
-                DB::raw("users.email"),
-            ])
-            ->join('users', 'users.id', 'hr_interview_panelists.user_id')
-            where('interview_id', $interview->id)->chunk(2, function($rows){
-                foreach ($rows as $row){
-                    dd(User::find($row->user_id)->notify(new InterviewCallNotification()));
-                }
-        });*/
-
     public function notifyApplicant(Request $request)
     {
+        DB::beginTransaction();
         $interview = $this->interviewRepository->find($request->interview_id);
+        $interview->update(['has_interview_invitation'=>1]);
         $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
         InterviewPanelist::where('user_id',$request->technical_staff)->update(['technical_staff'=> 1]);
-        //dd($selectedApplicant);
         foreach ($selectedApplicant as $applicant) {
             $applicant->notify(new IntervieweeCallNotification($interview));
         }
-
-
         $panelist = InterviewPanelist::where('interview_id', $interview->id)->chunk(2, function ($rows) use ($interview) {
             foreach ($rows as $row) {
                 User::find($row->user_id)->notify(new InterviewCallNotification($interview));
             }
         });
         alert()->success('added Successfully');
-        return redirect()->back()->with('message','submited');
+        DB::commit();
+        return redirect()->back()->with('msg','submited');
     }
 
     public function applicantlist(Interview $interview)
     {
 
-        $applicants = $this->hrHireApplicantRepository->getSelected($interview)
-            ->where('hr_interview_applicants.is_scored', 0)
-            ->get();
+        $applicants =   $this->hrHireApplicantRepository->getSelectedWithMarks($interview)
+                        ->where('panelist_id',access()->id())
+                        ->get();
         $questions =  $this->interviewQuestionRepository->query()
-            ->where('interview_id', $interview->id)->get();
+                        ->where('interview_id', $interview->id)->get();
         return view('HumanResource.Interview.interview_question_marks.index')
             ->with('applicants', $applicants)
             ->with('questions', $questions)
@@ -208,4 +194,5 @@ class InterviewController extends Controller
     {
         return view('HumanResource.Interview.job.applications');
     }
+
 }

@@ -105,6 +105,22 @@ trait InterviewDatatable
             ->rawColumns(['action'])
             ->make(true);
     }
+    public function AccessWaitForQuestionsDatatable(){
+        return DataTables::of($this->interviewRepository->getAccessWaitForQuestionsDatatable())
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($query) {
+                return $query->created_at->toDateString();
+            })
+            ->editColumn('total', function ($query) {
+                return $this->hireRequisitionJobRepository->query()->where('hr_hire_requisitions_jobs.hire_requisition_id',$query->id)->sum('empoyees_required');
+                
+            })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('interview.initiate', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 
     public function AccessPanelistJobsDatatable(){
         return DataTables::of($this->hireRequisitionJobRepository->getQueryWithInterview())
@@ -117,8 +133,10 @@ trait InterviewDatatable
             return isset($education_level) ? $education_level->name :"";
         })
         ->addColumn('action', function($query) {
-            $action = '<a href="'.route('interview.applicantlist', $query->interview_uuid).'"> View Applicants </a>';
-            $action .= '| <a href="'.route('interview.question.create', $query->interview_uuid).'"> Add Questions  </a>';
+            $action = '<a href="'.route('interview.applicantlist', $query->interview_uuid).'"> View Applicants </a>'; 
+            if(isset($query->technical_staff) && $query->technical_staff == access()->id()){
+                $action .= '| <a href="'.route('interview.question.create', $query->interview_uuid).'"> Add Questions  </a>';
+            }
             return $action;
         })
         ->rawColumns(['action'])
