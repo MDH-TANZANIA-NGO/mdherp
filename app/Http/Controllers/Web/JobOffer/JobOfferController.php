@@ -62,6 +62,7 @@ class JobOfferController extends Controller
     public function edit($uuid)
     {
         //
+        return view('HumanResource.JobOffer.form.edit');
     }
 
 
