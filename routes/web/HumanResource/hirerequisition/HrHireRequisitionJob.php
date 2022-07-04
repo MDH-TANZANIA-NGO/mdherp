@@ -1,4 +1,3 @@
-
 <?php
 Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['web', 'auth'], 'prefix' => 'human-resource', 'as' => 'hr.'], function () {
     Route::group(['prefix' => 'hire-requisition/jobs', 'as' => 'job.'], function () {
