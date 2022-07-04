@@ -92,7 +92,7 @@ class InterviewController extends Controller
         $job_title = $this->designationRepository->getQueryDesignationUnit()
             ->where('designations.id', $hrHireRequisitionJob->designation_id)
             ->first();
-        return view('HumanResource.Interview.interview_date')
+        return view('HumanResource.Interview.initiate')
             ->with('interview', $interview)
             ->with('interview_type', $interview_type)
             ->with('schedules', $schedules)
@@ -117,7 +117,7 @@ class InterviewController extends Controller
         $job_title = $this->designationRepository->getQueryDesignationUnit()
                     ->where('designations.id', $hrHireRequisitionJob->designation_id)
                     ->first();
-        return view('HumanResource.Interview.panelist')
+        return view('HumanResource.Interview.panelist.create')
             ->with('interview', $interview)
             ->with('job_title', $job_title)
             ->with('interview_type', $interview_type)

@@ -7,17 +7,17 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary">{{ $processing_count }}</span></a></li>
-                    <li><a href="#returned_for_modification" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning">{{ $return_for_modification_count }}</span></a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $approved_count }}</span></a></li>
-                    <li><a href="#wait_for_interview_questions" data-toggle="tab" class="">Waiting For Interview Questions <span class="badge badge-info">{{ $wait_interview_question_count }}</span></a></li>
-                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $saved_count }}</span> </a></li>
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary"><?php echo e($processing_count); ?></span></a></li>
+                    <li><a href="#returned_for_modification" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning"><?php echo e($return_for_modification_count); ?></span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success"><?php echo e($approved_count); ?></span></a></li>
+                    <li><a href="#wait_for_interview_questions" data-toggle="tab" class="">Waiting For Interview Questions <span class="badge badge-info"><?php echo e($wait_interview_question_count); ?></span></a></li>
+                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default"><?php echo e($saved_count); ?></span> </a></li>
                 </ul>
             </div>
 
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('interview.create') }}"> <i class="fa fa-plus mr-2"></i>Create</a>
+                    <a href="<?php echo e(route('interview.create')); ?>"> <i class="fa fa-plus mr-2"></i>Create</a>
                 </div>
             </div>
 
@@ -138,7 +138,7 @@
     </div>
 </div>
 
-@push('after-scripts')
+<?php $__env->startPush('after-scripts'); ?>
     <script>
         $(document).ready(function () {
 
@@ -147,7 +147,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: "{{ route('hr.pr.datatable.access.processing') }}",
+                ajax: "<?php echo e(route('hr.pr.datatable.access.processing')); ?>",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'pr_reports.number', searchable: true},
@@ -164,7 +164,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: "{{ route('hr.pr.datatable.access.return_for_modification') }}",
+                ajax: "<?php echo e(route('hr.pr.datatable.access.return_for_modification')); ?>",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'pr_reports.number', searchable: true},
@@ -181,7 +181,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: "{{ route('hr.pr.datatable.access.approved') }}",
+                ajax: "<?php echo e(route('hr.pr.datatable.access.approved')); ?>",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'pr_reports.number', searchable: true},
@@ -198,7 +198,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: "{{ route('interview.datatable.access.wait_for_interview_question') }}",
+                ajax: "<?php echo e(route('interview.datatable.access.wait_for_interview_question')); ?>",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'pr_reports.number', searchable: true},
@@ -214,7 +214,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: "{{ route('hr.pr.datatable.access.saved') }}",
+                ajax: "<?php echo e(route('hr.pr.datatable.access.saved')); ?>",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'pr_reports.number', searchable: true},
@@ -228,4 +228,5 @@
             });
         })
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php /**PATH C:\xampp\htdocs\mdherp\resources\views/HumanResource/Interview/datatables/access.blade.php ENDPATH**/ ?>

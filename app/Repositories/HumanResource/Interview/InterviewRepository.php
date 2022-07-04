@@ -25,12 +25,18 @@ class InterviewRepository extends BaseRepository
             'hr_interviews.number AS number',
             'hr_interviews.created_at AS created_at',
             'hr_interviews.uuid AS uuid',
-             DB::raw("CONCAT_WS('','hr_interview_schedules.interview_date')")
+            'hr_interview_types.name as interview_type',
+             DB::raw("CONCAT_WS(',',hr_interview_schedules.interview_date) as interview_date"),
+             DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
         ])
             ->join('users', 'users.id', 'hr_interviews.user_id')
-            ->join('hr_interview_schedules','hr_interview_schedules.id','hr_interview.id')
+            ->join('hr_interview_schedules','hr_interview_schedules.interview_id','hr_interviews.id')
+            ->join('hr_interview_types','hr_interview_types.id','hr_interviews.interview_type_id')
             ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
-            ->groupby('hr_interviews.id','hr_interview_schedules.interview_date');
+            ->leftjoin('departments','departments.id','hr_hire_requisitions_jobs.department_id')
+            ->leftjoin('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
+            ->leftjoin('units','units.id','designations.unit_id')
+            ->groupby('hr_interviews.id','hr_interview_schedules.interview_date','units.title','designations.name','hr_interview_types.name');
     }
 
     /** 
