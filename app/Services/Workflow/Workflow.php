@@ -499,7 +499,7 @@ class Workflow
                     $email_resource = (object)[
                         'link' =>  route('job_offer.show',$job_offer),
                         'subject' => "Job Offer ".$job_offer->number. "needs your approval.",
-                        'message' =>  $job_offer->user->first_name." ".$job_offer->user->last_name."Submitted job offer".$job_offer->number. " which needs your approval"
+                        'message' =>  "<b>".$job_offer->user->first_name."  " .$job_offer->user->last_name.", "."Submitted job offer:"." ".$job_offer->number. ",  which needs your approval"
 
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));

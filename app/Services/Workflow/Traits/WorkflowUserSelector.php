@@ -335,6 +335,9 @@ trait WorkflowUserSelector
             break;
             case 18:
                 $job_offer = (new JobOfferRepository())->find($resource_id);
+                $hire_requisition =
+                $user_dept = $pr_report->user->designation->department->id;
+                $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept)->get();
                 switch($level)
                 {
                     case 1:
