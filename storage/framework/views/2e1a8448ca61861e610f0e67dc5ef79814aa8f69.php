@@ -3,7 +3,7 @@
       
     <div class="card">
         <div class="card-header">
-           APPLICANT LIST INVITED FOR INTERVIEW
+           APPLICANTS TO BE INVITED FOR INTERVIEW
         </div>
         <div class="card-body">
             

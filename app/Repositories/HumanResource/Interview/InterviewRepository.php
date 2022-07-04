@@ -26,17 +26,25 @@ class InterviewRepository extends BaseRepository
             'hr_interviews.created_at AS created_at',
             'hr_interviews.uuid AS uuid',
             'hr_interview_types.name as interview_type',
-             DB::raw("CONCAT_WS(',',hr_interview_schedules.interview_date) as interview_date"),
+            'hr_interview_panelists.user_id as user_id',
+             DB::raw("STRING_AGG(to_char(hr_interview_schedules.interview_date,'dd-mm-yyyy'),',') as interview_date"),
              DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
         ])
-            ->join('users', 'users.id', 'hr_interviews.user_id')
             ->join('hr_interview_schedules','hr_interview_schedules.interview_id','hr_interviews.id')
             ->join('hr_interview_types','hr_interview_types.id','hr_interviews.interview_type_id')
             ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
-            ->leftjoin('departments','departments.id','hr_hire_requisitions_jobs.department_id')
-            ->leftjoin('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
-            ->leftjoin('units','units.id','designations.unit_id')
-            ->groupby('hr_interviews.id','hr_interview_schedules.interview_date','units.title','designations.name','hr_interview_types.name');
+            ->join('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
+            ->join('units','units.id','designations.unit_id')
+            ->leftjoin('hr_interview_panelists',function($query){
+                $query->on('hr_interview_panelists.interview_id','hr_interviews.id')->where('hr_interview_panelists.technical_staff',1);
+            })
+            ->groupby('hr_interviews.id','units.title','designations.name','hr_interview_types.name','hr_interview_panelists.user_id');
+    }
+
+
+    public function getQueryWithInterview()
+    { 
+        return $this->getQuery();
     }
 
     /** 
@@ -153,7 +161,6 @@ class InterviewRepository extends BaseRepository
             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name") 
             ,'hr_hire_requisition_job_applicants.created_at')
             ->join('hr_hire_applicants','hr_hire_applicants.id','hr_hire_requisition_job_applicants.hr_hire_applicant_id');
-            // ->join('hr_hire_requisition_job_applicants','hr_hire_applicants.id','hr_hire_requisition_job_applicants.hr_hire_applicant_id');
            
 
     }

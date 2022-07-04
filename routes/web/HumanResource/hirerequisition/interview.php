@@ -4,6 +4,7 @@ Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', '
 
   Route::get('', 'InterviewController@index')->name('index');
   Route::get('create','InterviewController@create')->name('create');
+  Route::get('show/{interview}','InterviewController@show')->name('show');
  
   Route::POST('addPanelist','InterviewController@addPanelist')->name('addpanelist');
   Route::GET('initiate/{interview}/panelists','InterviewController@initiatePanelist')->name('initiate-panelist');
@@ -26,9 +27,7 @@ Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', '
    Route::get('pending', 'InterviewController@pending')->name('pending');
    Route::post('approve', 'InterviewController@approve')->name('approve');
    Route::post('store', 'InterviewController@store')->name('store');
-   Route::get('show/{Interview}', 'InterviewController@show')->name('show');
    Route::get('listings', 'InterviewController@listing')->name('listing');
-
 
   // Datatables routes
    Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {

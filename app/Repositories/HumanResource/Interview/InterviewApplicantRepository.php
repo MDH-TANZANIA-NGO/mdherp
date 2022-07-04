@@ -135,17 +135,13 @@ class InterviewApplicantRepository extends BaseRepository
      * store probation form
      * @return mixed
     **/
-    public function probationStore()
+    public function competedScored($interview_id)
     {
-        return DB::transaction(function () {
-            return access()->user()->prReports()->create([
-                'from_at' => access()->user()->employed_date,
-                'to_at' => access()->user()->three_month_probation,
-                'fiscal_year_id' => FiscalYear::query()->where('active', true)->first()->id,
-                'designation_id' => access()->user()->designation_id,
-                'pr_type_id' => 1
-            ]);
-        });
+        return $this->query()->where('is_scored',1)->where('interview_id',$interview_id);
+    }
+    public function pendingScored($interview_id)
+    {
+        return $this->query()->where('is_scored',0)->where('interview_id',$interview_id);
     }
 
     public function store($input)
