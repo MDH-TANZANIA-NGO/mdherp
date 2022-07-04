@@ -2,9 +2,9 @@
 
 namespace App\Models\HumanResource\HireRequisition;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class HrUserHireRequisitionJobShortlisterRequest extends Model
+class HrUserHireRequisitionJobShortlisterRequest extends BaseModel
 {
-    //
+
 }

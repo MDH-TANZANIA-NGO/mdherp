@@ -9,11 +9,11 @@ use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShort
 
 class HrUserHireRequisitionJobShortlisterRequestController extends Controller
 {
-    protected $hr_user_hire_requisition_job_shortlister_requests;
+    protected $job_shortlister_requests;
 
     public function __construct()
     {
-        $this->hr_user_hire_requisition_job_shortlister_requests = (new HrUserHireRequisitionJobShortlisterRequestRepository());
+        $this->job_shortlister_requests = (new HrUserHireRequisitionJobShortlisterRequestRepository());
     }
     /**
      * Display a listing of the resource.
@@ -30,10 +30,10 @@ class HrUserHireRequisitionJobShortlisterRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function initiate(HrUserHireRequisitionJobRequest $hr_user_hire_requisition_job_shortlister_request)
+    public function initiate(HrUserHireRequisitionJobRequest $job_shortlister_request)
     {
-        return view('shortlister.initiate')
-        ->with('shortlister_request',$hr_user_hire_requisition_job_shortlister_request);
+        return view('HumanResource.HireRequisition.shortlister.initiate')
+        ->with('job_shortlister_request',$job_shortlister_request);
     }
 
     /**
@@ -44,9 +44,9 @@ class HrUserHireRequisitionJobShortlisterRequestController extends Controller
      */
     public function store(Request $request)
     {
-        $hr_user_hire_requisition_job_shortlisters =$this->hr_user_hire_requisition_job_shortlisters->store($request->all());
+        $job_shortlister_request =$this->job_shortlister_requests->store($request->all());
         alert()->success('Shortlister Added Successfully');
-        return redirect()->route('job_shortlister.initiate',$hr_user_hire_requisition_job_shortlisters);
+        return redirect()->route('job_shortlister.initiate',$job_shortlister_request);
     }
 
     /**

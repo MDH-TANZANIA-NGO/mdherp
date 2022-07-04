@@ -15,7 +15,7 @@ class CreateHrUserHireRequisitionJobShortlistersTable extends Migration
     {
         Schema::create('hr_user_hire_requisition_job_shortlisters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('hr_user_hire_requisition_job_shortlister_requests');
+            $table->unsignedBigInteger('hr_user_hire_requisition_job_shortlister_request_id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('hr_hire_requisitions_job_id');
             $table->timestamps();

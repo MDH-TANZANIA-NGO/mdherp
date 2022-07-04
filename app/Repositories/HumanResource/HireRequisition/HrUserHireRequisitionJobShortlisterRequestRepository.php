@@ -15,7 +15,7 @@ class HrUserHireRequisitionJobShortlisterRequestRepository extends BaseRepositor
     {
         $this->checkIfHrHireRequisitionsJobSelected($input);
         return DB::transaction(function() use($input){
-            $shortlister_request = $this->store(['user_id' => access()->id()]);
+            $shortlister_request = $this->query()->create(['user_id' => access()->id()]);
             (new HrUserHireRequisitionJobShortlisterRepository())->attachRequestAndJob($shortlister_request, $input);
             return $shortlister_request;
         });
@@ -24,7 +24,7 @@ class HrUserHireRequisitionJobShortlisterRequestRepository extends BaseRepositor
     public function checkIfHrHireRequisitionsJobSelected($input)
     {
         if(!isset($input['hr_hire_requisitions_job_ids'])){
-            throw new GeneralException('Please select atleat one job to proceed');
+            throw new GeneralException('Please select atleast one job to proceed');
         }
     }
 }

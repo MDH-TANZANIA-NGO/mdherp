@@ -16,8 +16,8 @@ class HrUserHireRequisitionJobShortlisterRepository extends BaseRepository
         return DB::transaction(function() use($hr_user_hire_requisition_job_shortlister_request, $inputs){
             foreach($inputs['hr_hire_requisitions_job_ids'] as $hr_hire_requisitions_job_id )
             {
-                $this->query()->store([
-                    'hr_user_hire_requisition_job_shortlister_request_id' => $hr_user_hire_requisition_job_shortlister_request,
+                $this->query()->create([
+                    'hr_user_hire_requisition_job_shortlister_request_id' => $hr_user_hire_requisition_job_shortlister_request->id,
                     'hr_hire_requisitions_job_id' => $hr_hire_requisitions_job_id
                 ]);
             }
