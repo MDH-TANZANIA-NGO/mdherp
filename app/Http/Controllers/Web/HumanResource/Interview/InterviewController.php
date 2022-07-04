@@ -48,7 +48,7 @@ class InterviewController extends Controller
 
     public function index()
     {
-        return view('HumanResource.Interview.index')
+        return view('humanResource.Interview.index')
             ->with('processing_count', 0)
             ->with('return_for_modification_count', 0)
             ->with('approved_count', 0)
@@ -60,7 +60,7 @@ class InterviewController extends Controller
     {
         $designations = $this->designationRepository->getActiveAdvertisedForSelect();
         $interview_types = InterviewTypes::get()->pluck('name', 'id');
-        return view('HumanResource.Interview.create')
+        return view('humanResource.Interview.create')
             ->with('designations', $designations)
             ->with('interview_types', $interview_types);
     }
@@ -92,7 +92,7 @@ class InterviewController extends Controller
         $job_title = $this->designationRepository->getQueryDesignationUnit()
             ->where('designations.id', $hrHireRequisitionJob->designation_id)
             ->first();
-        return view('HumanResource.Interview.initiate')
+        return view('humanResource.Interview.initiate')
             ->with('interview', $interview)
             ->with('interview_type', $interview_type)
             ->with('schedules', $schedules)
@@ -117,7 +117,7 @@ class InterviewController extends Controller
         $job_title = $this->designationRepository->getQueryDesignationUnit()
                     ->where('designations.id', $hrHireRequisitionJob->designation_id)
                     ->first();
-        return view('HumanResource.Interview.panelist.create')
+        return view('humanResource.Interview.panelist.create')
             ->with('interview', $interview)
             ->with('job_title', $job_title)
             ->with('interview_type', $interview_type)
@@ -189,7 +189,7 @@ class InterviewController extends Controller
                         ->get();
         $questions =  $this->interviewQuestionRepository->query()
                         ->where('interview_id', $interview->id)->get();
-        return view('HumanResource.Interview.interview_question_marks.index')
+        return view('humanResource.Interview.interview_question_marks.index')
             ->with('applicants', $applicants)
             ->with('questions', $questions)
             ->with('interview', $interview);
@@ -197,7 +197,7 @@ class InterviewController extends Controller
 
     public function showPanelistJobs()
     {
-        return view('HumanResource.Interview.job.applications');
+        return view('humanResource.Interview.job.applications');
     }
 
 }

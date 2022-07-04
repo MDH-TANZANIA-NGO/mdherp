@@ -229,4 +229,4 @@
         })
     </script>
 <?php $__env->stopPush(); ?>
-<?php /**PATH C:\xampp\htdocs\mdherp\resources\views/HumanResource/Interview/datatables/access.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\htdocs\mdherp\resources\views/humanResource/Interview/datatables/access.blade.php ENDPATH**/ ?>

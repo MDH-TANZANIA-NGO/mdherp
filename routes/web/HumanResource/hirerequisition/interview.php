@@ -1,10 +1,10 @@
 <?php
 
-Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', 'auth'], 'prefix' => 'interview', 'as' => 'interview.'], function () {
+Route::group(['namespace' =>'humanResource\Interview', 'middleware' => ['web', 'auth'], 'prefix' => 'interview', 'as' => 'interview.'], function () {
 
   Route::get('', 'InterviewController@index')->name('index');
   Route::get('create','InterviewController@create')->name('create');
- 
+
   Route::POST('addPanelist','InterviewController@addPanelist')->name('addpanelist');
   Route::GET('initiate/{interview}/panelists','InterviewController@initiatePanelist')->name('initiate-panelist');
   Route::GET('initiate/{interview}/applicants','InterviewController@initiate')->name('initiate');
@@ -20,9 +20,9 @@ Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', '
         Route::POST('store','InterviewQuestionController@store')->name('store');
         Route::GET('delete/{uuid}','InterviewQuestionController@destroy')->name('destroy');
         Route::PUT('update','InterviewQuestionController@update')->name('update');
-        Route::POST('marks/store','InterviewQuestionController@storeMarks')->name('storeMarks');    
+        Route::POST('marks/store','InterviewQuestionController@storeMarks')->name('storeMarks');
   });
- 
+
    Route::get('pending', 'InterviewController@pending')->name('pending');
    Route::post('approve', 'InterviewController@approve')->name('approve');
    Route::post('store', 'InterviewController@store')->name('store');

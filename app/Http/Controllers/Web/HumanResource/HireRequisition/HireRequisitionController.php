@@ -71,12 +71,12 @@ class HireRequisitionController extends Controller
      */
     public function index()
     {
-        return view('HumanResource/HireRequisition._parent.index');
+        return view('humanResource/hireRequisition._parent.index');
     }
     public function list()
     {
         // return $this->hireRequisitionRepository->getAccessProcessingDatatable()->get()->count();
-        return view('HumanResource/HireRequisition._parent.hirerequisition');
+        return view('humanResource/hireRequisition._parent.hirerequisition');
     }
 
     /**
@@ -90,7 +90,7 @@ class HireRequisitionController extends Controller
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
-        return view('HumanResource.HireRequisition._parent.form.create')
+        return view('humanResource.hireRequisition._parent.form.create')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())
@@ -135,7 +135,7 @@ class HireRequisitionController extends Controller
             });
 
 
-            return view('HumanResource.HireRequisition._parent.form.create')
+            return view('humanResource.hireRequisition._parent.form.create')
                 ->with('prospects', code_value()->query()->where('code_id', 7)->get())
                 ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
                 ->with('establishments', code_value()->query()->where('code_id', 9)->get())
@@ -314,7 +314,7 @@ class HireRequisitionController extends Controller
         });
 
 
-        return view('HumanResource.HireRequisition._parent.display.show')
+        return view('humanResource.hireRequisition._parent.display.show')
             ->with('hireRequisition', $hireRequisition)
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
@@ -346,7 +346,7 @@ class HireRequisitionController extends Controller
         $skill_users  = SkillUser::where('hr_requisition_job_id',$hireRequisitionJobs->id)->pluck('skill_id')->toArray();;
         $skills  = Skill::all();
         $users = User::where('designation_id', '!=', null)->get();
-        return view('HumanResource.hireRequisition._parent.form.edit')
+        return view('humanResource.hireRequisition._parent.form.edit')
                 ->with('prospects', code_value()->query()->where('code_id', 7)->get())
                 ->with('_prospects', code_value()->query()->where('code_id', 7)->get()->pluck('name', 'id'))
                 ->with('conditions', code_value()->query()->where('code_id', 8)->get()->pluck('name', 'id'))

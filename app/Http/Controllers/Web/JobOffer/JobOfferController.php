@@ -28,7 +28,7 @@ class JobOfferController extends Controller
     public function index()
     {
         //
-        return view('HumanResource.JobOffer.index')
+        return view('humanResource.jobOffer.index')
             ->with('job_offers', $this->job_offers);
     }
 
@@ -36,7 +36,7 @@ class JobOfferController extends Controller
     public function initiate()
     {
         //
-        return view('HumanResource.JobOffer.forms.initiate')
+        return view('humanResource.jobOffer.forms.initiate')
             ->with('applicant', $this->interview_applicants->getApplicantForJobOffer()->pluck('full_name', 'id'));
     }
 
@@ -44,7 +44,7 @@ class JobOfferController extends Controller
     {
         $job_details =  $this->interview_applicants->getAdvertDetails($request->get('applicant_id'))->first();
 
-        return view('HumanResource.JobOffer.forms.create')
+        return view('humanResource.jobOffer.forms.create')
             ->with('job_details', $job_details);
 
     }
@@ -79,7 +79,7 @@ class JobOfferController extends Controller
 
         $designation = access()->user()->designation_id;
 
-        return view('HumanResource.JobOffer.display.show')
+        return view('humanResource.jobOffer.display.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
@@ -93,7 +93,7 @@ class JobOfferController extends Controller
     {
         //
         $job_offer =  $this->job_offers->findByUuid($uuid);
-        return view('HumanResource.JobOffer.forms.edit')
+        return view('humanResource.jobOffer.forms.edit')
             ->with('job_offer', $job_offer);
     }
 
@@ -110,5 +110,13 @@ class JobOfferController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function print($uuid)
+    {
+        $job_offer =  $this->job_offers->findByUuid($uuid);
+        $view = view('printables.humanResource.hireRequisition.jobOffer.job_offer')->with('job_offer', $job_offer)/*->with('trips', $taf->trips)->with('components', $this->components->getAll()->get()*/->render();
+        $pdf = \PDF::loadHTML($view)->setPaper('a4', 'potrait');
+        return $pdf->download($job_offer->number.'   ' .$job_offer->created_at.'.pdf');
     }
 }

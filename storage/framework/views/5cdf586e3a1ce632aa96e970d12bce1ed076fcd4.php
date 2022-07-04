@@ -58,7 +58,7 @@
                             <tr>
                                 <td colspan="1" class="text-right">
                                     <a href="<?php echo e(route('job_offer.edit', $job_offer->uuid)); ?>" type="button" class="btn btn-secondary" ><i class="si si-paper-plane"></i> Edit</a>
-                                    <button type="button" class="btn btn-info" onclick="javascript:window.print();"><i class="si si-printer"></i> Print Offer</button>
+                                    <a href="<?php echo e(route('job_offer.print', $job_offer->uuid)); ?>" class="btn btn-info" ><i class="si si-printer"></i> Print Offer</a>
                                 </td>
                             </tr>
                             </tbody></table>

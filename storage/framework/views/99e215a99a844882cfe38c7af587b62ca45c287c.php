@@ -19,7 +19,7 @@
                         <tr>
                             <td> <?php echo e(($key+1)); ?></td>
                             <td> <?php echo e($panelist->full_name); ?> </td>
-                            
+
                             <td>
                                 <?php if(!Session::has('msg')): ?> <input type="radio" name="technical_staff" value="<?php echo e($panelist->id); ?>"> <?php endif; ?>
                             </td>
@@ -34,4 +34,4 @@
             </div>
         </div>
     </div>
-</div><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/HumanResource/interview/panelist/show.blade.php ENDPATH**/ ?>
+</div><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/humanResource/interview/panelist/show.blade.php ENDPATH**/ ?>
