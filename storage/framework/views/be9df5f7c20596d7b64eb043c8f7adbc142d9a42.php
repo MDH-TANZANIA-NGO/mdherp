@@ -9,7 +9,7 @@
     <title></title>
     <style type="text/css" rel="stylesheet" media="all">
         /* Base ------------------------------ */
-        @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&display=swap");
+        @import  url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&display=swap");
         body {
             width: 100% !important;
             height: 100%;
@@ -117,7 +117,7 @@
             border-bottom: 10px solid #FF6136;
             border-left: 18px solid #FF6136;
         }
-        @media only screen and (max-width: 500px) {
+        @media  only screen and (max-width: 500px) {
             .button {
                 width: 100% !important;
                 text-align: center !important;
@@ -329,7 +329,7 @@
             padding: 35px;
         }
         /*Media Queries ------------------------------ */
-        @media only screen and (max-width: 600px) {
+        @media  only screen and (max-width: 600px) {
             .email-body_inner,
             .email-footer {
                 width: 100% !important;
@@ -396,9 +396,10 @@
                             <tr>
                                 <td class="content-cell">
                                     <div class="f-fallback">
-                                        <h1 style="color: #022169">Hi {{ $fullname }}!</h1>
+                                        <h1 style="color: #022169">Hi <?php echo e($fullname); ?>!</h1>
                                         <p>
-                                            {!!$message !!}
+                                            <?php echo $message; ?>
+
                                         </p>
                                         <!-- Action -->
                                         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
@@ -416,14 +417,7 @@
                                             </tr>
                                         </table>
 
-                                        {{--<table class="body-sub" role="presentation">
-                                            <tr>
-                                                <td>
-                                                    <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                                                    <p class="f-fallback sub">{{ $link }}</p>
-                                                </td>
-                                            </tr>
-                                        </table>--}}
+                                        
                                     </div>
                                 </td>
                             </tr>
@@ -447,3 +441,4 @@
 </table>
 </body>
 </html>
+<?php /**PATH /Users/frank/Documents/Projects/mdherp2/resources/views/mail/humanResource/interviewcall.blade.php ENDPATH**/ ?>
