@@ -10,7 +10,7 @@ trait JobOfferDatatable
         return DataTables::of($this->job_offers->getAccessProcessing())
             ->addIndexColumn()
             ->addColumn('action', function($query) {
-                return '<a href="'.route('job_offer.edit', $query->uuid).'">view</a>';
+                return '<a href="'.route('job_offer.show', $query->uuid).'">view</a>';
             })
             ->addColumn('full_name', function($query) {
                 return 'Asha selemeani';

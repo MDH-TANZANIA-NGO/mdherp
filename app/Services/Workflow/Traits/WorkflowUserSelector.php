@@ -10,6 +10,7 @@ use App\Models\Unit\Designation;
 use App\Models\Workflow\UserWfDefinition;
 use App\Models\Workflow\WfDefinition;
 use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\JobOfferRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
@@ -46,7 +47,7 @@ trait WorkflowUserSelector
     public function nextUserSelector($wf_module_id,$resource_id,$level,$department_id=null)
     {
         $user_id = null;
-        
+
         switch ($wf_module_id)
         {
             case 1:
@@ -233,7 +234,7 @@ trait WorkflowUserSelector
             case 9:
                 $listing_repo = (new HireRequisitionRepository());
                 $listing = $listing_repo->find($resource_id);
-                
+
                 /*check levels*/
                 switch ($level) {
                     case 1:
@@ -254,7 +255,7 @@ trait WorkflowUserSelector
 
                     case 3:
                         $next_user = (new UserRepository())->getCeo();
-                       
+
                         if (!$next_user) {
                             throw new GeneralException('CEO is not yet registered. Please contact system administrator');
                         }
@@ -301,7 +302,7 @@ trait WorkflowUserSelector
                             // }
                             // $user_id = $next_user->first()->user_id;
                             break;
-        
+
                         case 5:
                             $next_user = (new UserRepository())->getCeo();
                             if ($next_user->count() == 0) {
@@ -332,6 +333,19 @@ trait WorkflowUserSelector
                     break;
                 }
             break;
+            case 18:
+                $job_offer = (new JobOfferRepository())->find($resource_id);
+                switch($level)
+                {
+                    case 1:
+                        $next_user = User::query()->where('designation_id', '=', '121')->first();
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user->id;
+
+                }
+                break;
         }
 
         return $user_id;

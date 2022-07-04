@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Models\Auth\User;
 use App\Models\JobOffer\JobOffer;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 
@@ -77,7 +79,8 @@ class JobOfferRepository extends BaseRepository
             $job_offer_id = $this->query()->create($this->inputProcess($inputs))->id;
             $job_offer =  $this->find($job_offer_id);
             $number =  $number = $this->generateNumber($job_offer);
-            return $job_offer->update(['number'=>$number]);
+            $job_offer->update(['number'=>$number]);
+            return $job_offer;
         });
     }
     public function update($inputs, $uuid)
@@ -88,4 +91,99 @@ class JobOfferRepository extends BaseRepository
 
         });
     }
+
+
+    /**
+     * Get applicant level
+     * @param $wf_module_id
+     * @return int|null
+     * Get fron desk level per module id
+     */
+    public function getApplicantLevel($wf_module_id)
+    {
+        $level = null;
+        switch ($wf_module_id) {
+            case 3:
+                $level = 1;
+                break;
+        }
+        return $level;
+    }
+
+    /**
+     * Get applicant level
+     * @param $wf_module_id
+     * @return int|null
+     * Get fron desk level per module id
+     */
+    public function getHeadOfDeptLevel($wf_module_id)
+    {
+        $level = null;
+        switch ($wf_module_id) {
+            case 3:
+                $level = 2;
+                break;
+        }
+        return $level;
+    }
+
+    /**
+     * @param $resource_id
+     * @param $wf_module_id
+     * @param $current_level
+     * @param int $sign
+     * @param array $inputs
+     * @throws \App\Exceptions\GeneralException
+     */
+    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])
+    {
+        $job_offer = $this->find($resource_id);
+        $applicant_level = $this->getApplicantLevel($wf_module_id);
+        $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
+//        $account_receivable_level = $this->getAccountReceivableLevel($wf_module_id);
+//        if($requisition->rejected){}
+        switch ($inputs['rejected_level'] ?? $current_level) {
+            case $applicant_level:
+                $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' => route('job_offer.show', $job_offer),
+                    'subject' =>$job_offer->number. " Has been revised to your level",
+                    'message' => $job_offer->number. ' need modification.. Please do the need and send it back for approval'
+                ];
+                User::query()->find($job_offer->user_id)->notify(new WorkflowNotification($email_resource));
+
+                break;
+            case $head_of_dept_level:
+                $this->updateRejected($resource_id, $sign);
+
+                $email_resource = (object)[
+                    'link' => route('safari.show', $job_offer),
+                    'subject' =>$job_offer->number . " Has been revised to your level",
+                    'message' => $job_offer->number .  ' need modification. Please do the need and send it back for approval'
+                ];
+//                  User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
+
+                break;
+        }
+    }
+
+    /**
+     * Update rejected column
+     * @param $id
+     * @param $sign
+     * @return mixed
+     */
+    public function updateRejected($id, $sign)
+    {
+        $job_offer = $this->query()->find($id);
+        return DB::transaction(function () use ($job_offer, $sign) {
+            $rejected = 0;
+            if ($sign == -1) {
+                $rejected = 1;
+            }
+            return $job_offer->update(['rejected' => $rejected]);
+        });
+    }
+
 }
