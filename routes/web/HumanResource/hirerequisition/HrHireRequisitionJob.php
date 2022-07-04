@@ -1,4 +1,3 @@
-
 <?php
 Route::group(['namespace' => 'humanResource\HireRequisition', 'middleware' => ['web', 'auth'], 'prefix' => 'human-resource', 'as' => 'hr.'], function () {
     Route::group(['prefix' => 'hire-requisition/jobs', 'as' => 'job.'], function () {
@@ -12,7 +11,6 @@ Route::group(['namespace' => 'humanResource\HireRequisition', 'middleware' => ['
         Route::group(['prefix' => 'applications', 'as' => 'application.'], function () {
             Route::get('{id}/{application_id}/shortlist', 'HrHireRequisitionJobApplicantController@shortlist')->name('shortlist');
             Route::get('{id}/{application_id}/un-shortlist', 'HrHireRequisitionJobApplicantController@unShortlist')->name('un_shortlist');
-            Route::post('add/shortlister', 'HrHireRequisitionJobApplicantController@addShortlister')->name('add_shortlister');
         });
     });
 });

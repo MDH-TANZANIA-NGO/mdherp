@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card">
-<form id="application-form" action="{{ route('hr.job.application.add_shortlister') }}" method="POST">
+<form id="application-form" action="{{ route('job_shortlister.store') }}" method="POST">
 @csrf
     <div class="card-header">
         <h3 class="card-title">List of Current Jobs</h3>

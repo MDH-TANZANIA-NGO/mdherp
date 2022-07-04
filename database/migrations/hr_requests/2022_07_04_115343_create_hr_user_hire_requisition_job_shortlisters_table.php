@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class HrUserHireRequisitionJobsTable extends Migration
+class CreateHrUserHireRequisitionJobShortlistersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class HrUserHireRequisitionJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hr_user_hire_requisition_job_requests', function (Blueprint $table) {
+        Schema::create('hr_user_hire_requisition_job_shortlisters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('hr_user_hire_requisition_job_request_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('hr_user_hire_requisition_job_shortlister_request_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('hr_hire_requisitions_job_id');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class HrUserHireRequisitionJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hr_user_hire_requisition_job_requests');
+        Schema::dropIfExists('hr_user_hire_requisition_job_shortlisters');
     }
 }
