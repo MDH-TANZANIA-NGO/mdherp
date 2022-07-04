@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHrUserHireRequisitionJobRequestsTable extends Migration
+class CreateHrUserHireRequisitionJobShortlisterRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateHrUserHireRequisitionJobRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hr_user_hire_requisition_job_requests', function (Blueprint $table) {
+        Schema::create('hr_user_hire_requisition_job_shortlister_requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('number')->nullable()->comment('unique number of performance review report');
@@ -33,6 +33,6 @@ class CreateHrUserHireRequisitionJobRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hr_user_hire_requisition_job_requests');
+        Schema::dropIfExists('hr_user_hire_requisition_job_shortlister_requests');
     }
 }
