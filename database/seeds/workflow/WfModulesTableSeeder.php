@@ -245,7 +245,20 @@ class WfModulesTableSeeder extends Seeder
                         'allow_decline' => 0,
                     ),
 
-           
+            16 => 
+                array(
+                'id' => 17,
+                'name' => 'Shortlisted Module',
+                'wf_module_group_id' => 13,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+                'deleted_at' => NULL,
+                'isactive' => '1',
+                'type' => '1',
+                'description' => 'Workflow for Applicant shortlist',
+                'allow_repeat' => 0,
+                'allow_decline' => 0,
+            ),
 
         ));
 

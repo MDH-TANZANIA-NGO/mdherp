@@ -147,5 +147,31 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+
+        // MDH_JST
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH_JST'],
+            [
+                'name' => 'hr_hire_requisition_job_shortlists',
+                'display_name' => 'Shortlist Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH_JST',
+                'sysdef_group_id' => 1,
+            ]
+        );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH-JOB-OFFER'],
+            [
+                'name' => 'job_offers',
+                'display_name' => 'Job  Offer Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH-JOB-OFFER',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }

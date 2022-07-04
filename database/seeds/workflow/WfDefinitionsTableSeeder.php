@@ -1046,6 +1046,56 @@ class WfDefinitionsTableSeeder extends Seeder
 //                'assign_next_user' => 0,
                 ),
 
+
+            45 =>
+                array (
+                    'id' => 46,
+                    'level' => '1',
+                    'unit_id' => 69,
+                    'designation_id' => 124,
+                    'description' => 'Submit Shortlisted list',
+                    'msg_next' => 'Wait for Approve',
+                    'wf_module_id' => 17,
+                    'active' => '1',
+                    'allow_rejection' => 1,
+                    'allow_repeat_participate' => 0,
+                    'created_at' => '2022-06-06 14:37:42',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'is_approval' => 0,
+                    'has_next_start_optional' => 0,
+                    'is_optional' => 0,
+                    'can_close' => 0,
+                    'action_description' => 'Submit',
+                    'status_description' => 'Submited',
+//                'assign_next_user' => 0,
+                ),
+
+            46 =>
+                array (
+                    'id' => 47,
+                    'level' => '2',
+                    'unit_id' => '5',
+                    'designation_id' => '128',
+                    'description' => 'Approve Shortlisted list',
+                    'msg_next' => 'Review and Approve',
+                    'wf_module_id' => 17,
+                    'active' => '1',
+                    'allow_rejection' => 1,
+                    'allow_repeat_participate' => 0,
+                    'created_at' => '2022-06-06 14:37:42',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'is_approval' => 0,
+                    'has_next_start_optional' => 0,
+                    'is_optional' => 0,
+                    'can_close' => 1,
+                    'action_description' => 'Approve',
+                    'status_description' => 'Approved',
+//                'assign_next_user' => 0,
+                ),
+
+
         ));
 
         $this->enableForeignKeys('wf_definitions');

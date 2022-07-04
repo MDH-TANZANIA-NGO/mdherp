@@ -128,6 +128,15 @@ class WfModuleGroupsTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
+            12 =>
+                array (
+                    'id' => 13,
+                    'name' => 'Shortlisted Module',
+                    'table_name' => 'hr_hire_requisition_job_shortlists',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
         ));
 
         $this->enableForeignKeys('wf_module_groups');

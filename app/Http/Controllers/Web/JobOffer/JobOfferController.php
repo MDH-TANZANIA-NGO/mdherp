@@ -47,8 +47,9 @@ class JobOfferController extends Controller
     public function store(Request $request)
     {
         //
-        dd($request->all());
+
         $this->job_offers->store($request->all());
+        alert()->success('Job Offer Sent for Approval', 'Success');
         return redirect()->back();
     }
 
@@ -62,6 +63,9 @@ class JobOfferController extends Controller
     public function edit($uuid)
     {
         //
+        $job_offer =  $this->job_offers->findByUuid($uuid);
+        return view('HumanResource.JobOffer.forms.edit')
+            ->with('job_offer', $job_offer);
     }
 
 

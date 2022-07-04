@@ -3,10 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\JobOffer\JobOffer;
+use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 
 class JobOfferRepository extends BaseRepository
 {
+    use Number;
     const MODEL = JobOffer::class;
     public function __construct()
     {
@@ -26,9 +28,9 @@ class JobOfferRepository extends BaseRepository
             DB::raw('job_offers.created_at AS created_at'),
             DB::raw('job_offers.uuid AS uuid'),
           ])
-            ->join('hr_hire_requisition_job_applicants','hr_hire_requisition_job_applicants.id','job_offers.hr_hire_requisitions_job_applicants_id')
-           ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id')
-            ->join('designations', 'designations.id','hr_hire_requisitions_jobs.designation_id');
+            ->leftjoin('hr_hire_requisition_job_applicants','hr_hire_requisition_job_applicants.id','job_offers.hr_hire_requisitions_job_applicants_id')
+           ->leftjoin('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id')
+            ->leftjoin('designations', 'designations.id','hr_hire_requisitions_jobs.designation_id');
     }
     public function getAccessProcessing()
     {
@@ -56,27 +58,32 @@ class JobOfferRepository extends BaseRepository
     }
     public function inputProcess($inputs)
     {
-
+        $salary = currency_converter($inputs['salary'], 'USD');
         return[
-            'salary'=> $inputs['salary'],
+            'salary'=> $salary,
             'details'=> $inputs['details'],
             'hr_hire_requisitions_job_applicants_id'=>$inputs['hr_hire_requisitions_job_applicants_id'],
-            'user_id'=>$inputs['user_id'],
+            'user_id'=>access()->user()->id,
             'date_of_arrival'=>$inputs['date_of_arrival'],
-            'wf_done'=> access()->user()->id
+            'wf_done'=> 0,
+            'done'=> true
 
         ];
     }
     public function store($inputs)
     {
         return DB::transaction(function () use ($inputs){
-            return $this->query()->create($this->inputProcess($inputs));
+            $job_offer_id = $this->query()->create($this->inputProcess($inputs))->id;
+            $job_offer =  $this->find($job_offer_id);
+            $number =  $number = $this->generateNumber($job_offer);
+            return $job_offer->update(['number'=>$number]);
         });
     }
     public function update($inputs, $uuid)
     {
         return DB::transaction(function () use ($inputs, $uuid){
-            $this->findByUuid($uuid)->update($this->inputProcess($inputs));
+            $job_offer =  $this->findByUuid($uuid);
+            $job_offer->update($this->inputProcess($inputs));
 
         });
     }
