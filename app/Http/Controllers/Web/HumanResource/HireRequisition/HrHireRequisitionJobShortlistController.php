@@ -28,7 +28,7 @@ class HrHireRequisitionJobShortlistController extends Controller
     {
         $this->hr_hire_requisition_job_shortlists->shortlist($hire_requisition_job, $input);
         alert()->success('Shortlist Has been done Successfully');
-        return view('HumanResource.HireRequisition.shortlist.show');
+        return view('humanResource.hireRequisition.shortlist.show');
     }
 
     /**
@@ -40,64 +40,9 @@ class HrHireRequisitionJobShortlistController extends Controller
     {
         $hr_hire_requisition_job_shortlist = $this->hr_hire_requisition_job_shortlists->store($hire_requisition_job_id);
         $next_user_id = (new UserRepository())->getDirectorOfHR()->first()->user_id;
-        $this->startWorkflow($hr_hire_requisition_job_shortlist, 1, $next_user_id); 
+        $this->startWorkflow($hr_hire_requisition_job_shortlist, 1, $next_user_id);
         alert()->success('Shortlist submited to workflow Successfully');
-        return view('HumanResource.HireRequisition.shortlist.show');
+        return view('humanResource.hireRequisition.shortlist.show');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

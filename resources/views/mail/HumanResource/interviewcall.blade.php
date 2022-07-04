@@ -416,14 +416,14 @@
                                             </tr>
                                         </table>
 
-                                        <table class="body-sub" role="presentation">
+                                        {{--<table class="body-sub" role="presentation">
                                             <tr>
                                                 <td>
                                                     <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
                                                     <p class="f-fallback sub">{{ $link }}</p>
                                                 </td>
                                             </tr>
-                                        </table>
+                                        </table>--}}
                                     </div>
                                 </td>
                             </tr>

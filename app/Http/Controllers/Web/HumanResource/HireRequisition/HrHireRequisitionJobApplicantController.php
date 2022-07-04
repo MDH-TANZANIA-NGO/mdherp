@@ -43,10 +43,4 @@ class HrHireRequisitionJobApplicantController extends Controller
         return redirect()->route('hr.job.show',$HireRequisitionJob);
     }
 
-    public function addShortlister(Request $request)
-    {
-        $this->hr_hire_requisition_job_applicants->addShortlister($request->all());
-        return redirect()->back();
-    }
-
 }

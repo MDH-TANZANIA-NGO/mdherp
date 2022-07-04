@@ -27,10 +27,17 @@
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">#</th>
+<<<<<<< HEAD
                                     <th class="wd-15p">TITLE</th>
                                     <th class="wd-15p">REGION</th>
                                     <th class="wd-25p"># OF EMPLOYEES</th>
                                     <th class="wd-25p">CREATED AT</th>
+=======
+                                    <th class="wd-15p">APPLICANT NAME</th>
+                                    <th class="wd-15p">JOB TITLE</th>
+                                    <th class="wd-25p">OFFER</th>
+                                    <th class="wd-25p">OFFER NUMBER</th>
+>>>>>>> 254d9775035842df159ba3bee91a91016519a14f
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -49,7 +56,11 @@
                                     <th class="wd-15p">APPLICANT NAME</th>
                                     <th class="wd-15p">JOB TITLE</th>
                                     <th class="wd-25p">OFFER</th>
+<<<<<<< HEAD
                                     <th class="wd-25p">CREATED AT</th>
+=======
+                                    <th class="wd-25p">OFFER NUMBER</th>
+>>>>>>> 254d9775035842df159ba3bee91a91016519a14f
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -70,7 +81,11 @@
                                     <th class="wd-15p">APPLICANT NAME</th>
                                     <th class="wd-15p">JOB TITLE</th>
                                     <th class="wd-25p">OFFER</th>
+<<<<<<< HEAD
                                     <th class="wd-25p">CREATED AT</th>
+=======
+                                    <th class="wd-25p">OFFER NUMBER</th>
+>>>>>>> 254d9775035842df159ba3bee91a91016519a14f
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -102,10 +117,17 @@
                 ajax: '{{ route('job_offer.datatable.access.processing') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+<<<<<<< HEAD
                     { data: 'number', name: 'job_offers.name', searchable: true},
                     { data: 'designation_id', name: 'job_offers.designation_id', searchable: true},
                     { data: 'salary', name: 'job_offers.salary', searchable: true },
                     { data: 'created_at', name: 'created_at', searchable: true },
+=======
+                    { data: 'full_name', name: 'job_offers.name', searchable: true},
+                    { data: 'full_title', name: 'job_offers.designation_id', searchable: true},
+                    { data: 'salary', name: 'job_offers.salary', searchable: true },
+                    { data: 'number', name: 'number', searchable: true },
+>>>>>>> 254d9775035842df159ba3bee91a91016519a14f
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

@@ -7,34 +7,34 @@
     </div>
 
     <!-- start: page -->
-   
+
     <div class="row mb-2">
         <div class="col-lg-12">
             @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
         </div>
     </div>
- 
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h3 class="card-title"> Number: <span> {{ $hireRequisition->number }} </span> </h3>
                         <div class="card-title">
-                            Department: <span> {{ $hireRequisition->department }} </span> 
-                             
+                            Department: <span> {{ $hireRequisition->department }} </span>
+
                         </div>
                     </div>
                     <div class="card-body">
                         <ul class="demo-accordion accordionjs m-0" data-active-index="false">
-                         @each('HumanResource.HireRequisition._parent.display.hr_job', $hireRequisitionJobs, 'job')
+                         @each('humanResource.hireRequisition._parent.display.hr_job', $hireRequisitionJobs, 'job')
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-   
 
 
-    
+
+
 
 @endsection

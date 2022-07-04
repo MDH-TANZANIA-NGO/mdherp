@@ -86,7 +86,7 @@
 <div class="page comb-page" style="background-color: #f5f5f5">
     <div class="page-main" style="background-color: #f5f5f5">
 
-    @if(!access()->guest())
+{{--    @if(!access()->guest())--}}
         {{--Header--}}
             @include('includes.navigation.header2')
         {{--Header closed--}}
@@ -94,7 +94,7 @@
         <!--aside open-->
         @include('includes.navigation.aside2')
         <!--aside closed-->
-        @endif
+{{--        @endif--}}
 
         <div class="app-content page-body">
 

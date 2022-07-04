@@ -21,15 +21,22 @@ class InterviewRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
-            'interview.id AS id',
-            'interview.number AS number',
-            'interview.created_at AS created_at',
-            'interview.uuid AS uuid',
-            'interview.wf_done_date as approved_at'
+            'hr_interviews.id AS id',
+            'hr_interviews.number AS number',
+            'hr_interviews.created_at AS created_at',
+            'hr_interviews.uuid AS uuid',
+            'hr_interview_types.name as interview_type',
+             DB::raw("CONCAT_WS(',',hr_interview_schedules.interview_date) as interview_date"),
+             DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
         ])
-            ->join('users', 'users.id', 'interview.user_id')
-            ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'interview.hr_requisition_job_id');
-            // ->join('fiscal_years', 'fiscal_years.id', 'interview.fiscal_year_id');
+            ->join('users', 'users.id', 'hr_interviews.user_id')
+            ->join('hr_interview_schedules','hr_interview_schedules.interview_id','hr_interviews.id')
+            ->join('hr_interview_types','hr_interview_types.id','hr_interviews.interview_type_id')
+            ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
+            ->leftjoin('departments','departments.id','hr_hire_requisitions_jobs.department_id')
+            ->leftjoin('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
+            ->leftjoin('units','units.id','designations.unit_id')
+            ->groupby('hr_interviews.id','hr_interview_schedules.interview_date','units.title','designations.name','hr_interview_types.name');
     }
 
     /** 
@@ -40,9 +47,9 @@ class InterviewRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('interview.wf_done', 0)
-            ->where('interview.done', true)
-            ->where('interview.rejected', false)
+            ->where('hr_interviews.wf_done', 0)
+            ->where('hr_interviews.done', true)
+            ->where('hr_interviews.rejected', false)
             ->where('users.id', access()->id());
     }
 
@@ -54,11 +61,8 @@ class InterviewRepository extends BaseRepository
     public function getAccessReturnedForModification()
     {
         return $this->getQuery()
-            ->whereHas('wfTracks')
-            ->where('interview.wf_done', 0)
-            ->where('interview.done', true)
-            ->where('interview.rejected', true)
-            ->where('users.id', access()->id());
+                    ->whereNotNull('hr_interviews.has_interview_invitation')           
+                    ->whereNull('hr_interviews.has_questions'); 
     }
 
     /** 
@@ -69,9 +73,9 @@ class InterviewRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('interview.wf_done', 1)
-            ->where('interview.done', true)
-            ->where('interview.rejected', false)
+            ->where('hr_interviews.wf_done', 1)
+            ->where('hr_interviews.done', true)
+            ->where('hr_interviews.rejected', false)
             ->where('users.id', access()->id());
     }
 
@@ -83,9 +87,9 @@ class InterviewRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereDoesntHave('wfTracks')
-            ->where('interview.wf_done', 0)
-            ->where('interview.done', false)
-            ->where('interview.rejected', false)
+            ->where('hr_interviews.wf_done', 0)
+            ->where('hr_interviews.done', false)
+            ->where('hr_interviews.rejected', false)
             ->where('users.id', access()->id());
     }
 
@@ -93,12 +97,12 @@ class InterviewRepository extends BaseRepository
      * get Access Approved Wait For Evaluation
      * @return mixed
     */
-    public function getAccessApprovedWaitForEvaluation()
+    public function getAccessWaitForQuestionsDatatable()
     {
-        return $this->getAccessApproved()
-            ->whereDoesntHave('child');
-            // ->whereDate('interview.to_at', '<=', Carbon::now()->format('Y-m-d'));
-    }
+        return $this->getQuery()
+                    ->whereNotNull('hr_interviews.has_interview_invitation')           
+                    ->whereNull('hr_interviews.has_questions');           
+            }
 
     /** 
      * get Access Approved Wait For Evaluation
@@ -107,7 +111,7 @@ class InterviewRepository extends BaseRepository
     public function canBeAprocessedForEvaluation(Interview $pr_report)
     {
         return $this->getAccessApprovedWaitForEvaluation()
-            ->where('interview.id', $pr_report->id)
+            ->where('hr_interviews.id', $pr_report->id)
             ->count();
     }
 

@@ -71,12 +71,12 @@ class HireRequisitionController extends Controller
      */
     public function index()
     {
-        return view('HumanResource/HireRequisition._parent.index');
+        return view('humanResource/hireRequisition._parent.index');
     }
     public function list()
     {
         // return $this->hireRequisitionRepository->getAccessProcessingDatatable()->get()->count();
-        return view('HumanResource/HireRequisition._parent.hirerequisition');
+        return view('humanResource/hireRequisition._parent.hirerequisition');
     }
 
     /**
@@ -90,7 +90,7 @@ class HireRequisitionController extends Controller
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
-        return view('HumanResource.HireRequisition._parent.form.create')
+        return view('humanResource.hireRequisition._parent.form.create')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())
@@ -131,11 +131,11 @@ class HireRequisitionController extends Controller
                     ->join('skills', 'skills.id', 'skill_user.skill_id', 'skills.id')
                     ->where('hr_requisition_job_id', $item->id)->get();
                 $item['_education_level'] =  code_value()->query()->where('id',$item['education_level'] )->first();
-                return $item;
+                $item['establishment'] = code_value()->query()->where('id', $item['establishment'])->first()->name;
             });
 
 
-            return view('HumanResource.HireRequisition._parent.form.create')
+            return view('humanResource.hireRequisition._parent.form.create')
                 ->with('prospects', code_value()->query()->where('code_id', 7)->get())
                 ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
                 ->with('establishments', code_value()->query()->where('code_id', 9)->get())
@@ -169,16 +169,12 @@ class HireRequisitionController extends Controller
             $data['hire_requisition_id'] = $hireRequisition->id;
             $hr_requisition_job = $this->hireRequisitionJobRepository->store($data);
             $workingtools = ['tools' => $data['tools'], 'hire_requisition_job_id' => $hr_requisition_job->id];
-
             $regions = $data['region'];
             $data['hire_requisition_job_id'] = $hr_requisition_job->id;
             $data['hr_requisition_job_id'] = $hr_requisition_job->id;
-
-
             if ($request->establishment ==   22) {
                 $hr_requisition_job = $this->hireRequisitionReplacedStaffRepository->store($data);
             }
-
             foreach ($regions as $region) {
                 $region_data['region_id'] = $region;
                 $region_data['hr_requisition_job_id'] = $hr_requisition_job->id;
@@ -289,7 +285,6 @@ class HireRequisitionController extends Controller
             ->join('departments', 'departments.id', 'hr_hire_requisitions.department_id')
             ->where('uuid', $uuid)->first();
 
-
         /* Check workflow */
         $wf_module_group_id = 8;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $hireRequisition->id);
@@ -310,18 +305,16 @@ class HireRequisitionController extends Controller
             $item['regions'] = HireRequisitionLocation::select("regions.name as name")
                 ->join('regions', 'regions.id', 'hr_hire_requisition_locations.region_id')
                 ->where('hr_hire_requisition_locations.hr_requisition_job_id', $item->id)->get()->implode('name', ',');
-            // $item['hireRequisitionJobCriteria'] =  $this->hireRequisitionJobCreteriaRepository->getQuery()->where('hr_requisitions_jobs_id', $item->id)->get();
             $item['skills'] =   $this->hireUserSkillsRepository->getQuery()->select('skills.name as name')
                 ->join('skills', 'skills.id', 'skill_user.skill_id', 'skills.id')
                 ->where('hr_requisition_job_id', $item->id)->get();
-
+            $item['establishment'] = code_value()->query()->where('id', $item['establishment'])->first()->name;
             $item['_education_level'] =  code_value()->query()->where('id',$item['education_level'] )->first();
             return $item;
         });
 
 
-
-        return view('HumanResource.HireRequisition._parent.display.show')
+        return view('humanResource.hireRequisition._parent.display.show')
             ->with('hireRequisition', $hireRequisition)
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
@@ -353,7 +346,7 @@ class HireRequisitionController extends Controller
         $skill_users  = SkillUser::where('hr_requisition_job_id',$hireRequisitionJobs->id)->pluck('skill_id')->toArray();;
         $skills  = Skill::all();
         $users = User::where('designation_id', '!=', null)->get();
-        return view('HumanResource.hireRequisition._parent.form.edit')
+        return view('humanResource.hireRequisition._parent.form.edit')
                 ->with('prospects', code_value()->query()->where('code_id', 7)->get())
                 ->with('_prospects', code_value()->query()->where('code_id', 7)->get()->pluck('name', 'id'))
                 ->with('conditions', code_value()->query()->where('code_id', 8)->get()->pluck('name', 'id'))
