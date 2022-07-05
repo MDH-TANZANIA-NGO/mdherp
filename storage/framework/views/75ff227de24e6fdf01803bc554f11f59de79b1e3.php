@@ -8,8 +8,17 @@
             <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">INTERVIEW TYPE:  <?php echo e($interview_type->name); ?> </span>
             <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">PENDING :  <?php echo e($pending); ?> </span>
             <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">COMPLETED :  <?php echo e($completed); ?> </span>
-            <span class="tag tag-rounded pull-right"> <input type="submit" value="SUBMIT FOR REPORT" class="btn btn-primary"></span>
-           
+            <?php echo Form::open(['route' => 'interview.submitForReport']); ?>
+
+                <?php if(isset($has_report) && $has_report != 1 ): ?>
+                <span class="tag tag-rounded pull-right"> <input type="submit" value="SUBMIT FOR REPORT" class="btn btn-primary"></span>
+                <input type="hidden" value="<?php echo e($interview->id); ?>" name="interview_id">
+                <?php endif; ?>
+                <?php if(isset($has_report) && $has_report == 1 ): ?>
+                <span class="tag tag-rounded pull-right"> <input type="submit" value="EDIT" class="btn btn-primary"></span>
+                <?php endif; ?>
+            <?php echo Form::close(); ?>
+
 		</div>
     </div>
 </div>
@@ -33,7 +42,9 @@
                                 <th>  Number </th>
                                 <th>  Marks  </th>
                                 <th>  Status   </th>
+                                <?php if(isset($has_report) && $has_report != 1 ): ?>
                                 <th>  Action   </th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,8 +57,9 @@
                                 <td> <?php echo e($applicant->number); ?> </td>
                                 <td> <?php echo e($applicant->marks); ?> </td>
                                 <td>      </td>
-                             
+                                <?php if(isset($has_report) && $has_report != 1 ): ?>
                                 <td><a data-interview_id = "<?php echo e($interview->id); ?>" data-applicant_id="<?php echo e($applicant->id); ?>" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
+                                <?php endif; ?>
                             </tr>
                             <?php $total_questions = ($key+1); ?>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

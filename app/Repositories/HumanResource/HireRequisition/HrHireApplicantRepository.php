@@ -38,7 +38,7 @@ class HrHireApplicantRepository extends BaseRepository
             DB::raw("SUM(hr_interview_question_marks.marks) as Marks")
         ])
         ->leftjoin('hr_interview_question_marks',function($query) use($interview){
-            $query->on('hr_interview_question_marks.applicant_id','hr_hire_applicants.id')->where('hr_interview_question_marks.interview_id',$interview->id);
+            $query->on('hr_interview_question_marks.applicant_id','hr_hire_applicants.id')->where('hr_interview_question_marks.interview_id',$interview->id)->where('panelist_id',access()->id());
         })
         // ->join('hr_interview_applicants','hr_interview_applicants.applicant_id','hr_hire_applicants.id')
         ->whereNull('hr_interview_question_marks.deleted_at')

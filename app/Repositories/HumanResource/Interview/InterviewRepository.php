@@ -40,7 +40,25 @@ class InterviewRepository extends BaseRepository
             })
             ->groupby('hr_interviews.id','units.title','designations.name','hr_interview_types.name','hr_interview_panelists.user_id');
     }
+    public function getQuery2()
+    {
+        return $this->query()->select([
+             DB::raw("hr_interview_panelist_counters.counter"),
+             DB::raw("hr_interview_panelist_counters.total_panelist"),
+             DB::raw("hr_hire_requisitions_jobs.id"),
+             DB::raw("hr_hire_requisitions_jobs.uuid"),
+             DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title")
+        ])
+            ->join('hr_hire_requisitions_jobs','hr_hire_requisitions_jobs.id','hr_interviews.hr_requisition_job_id')
+            ->join('hr_interview_panelist_counters','hr_interview_panelist_counters.interview_id','hr_interviews.id')
+            ->join('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
+            ->join('units','units.id','designations.unit_id')
+            ->whereColumn('hr_interview_panelist_counters.total_panelist','=','hr_interview_panelist_counters.counter')
+            ->groupby('hr_hire_requisitions_jobs.id','units.title', 'designations.name','hr_interview_panelist_counters.counter','hr_interview_panelist_counters.total_panelist','hr_interview_panelist_counters.interview_id');
+    }
 
+
+     
 
     public function getQueryWithInterview()
     { 
@@ -107,40 +125,21 @@ class InterviewRepository extends BaseRepository
     */
     public function getAccessWaitForQuestionsDatatable()
     {
-        return $this->getQuery()
-                    ->whereNotNull('hr_interviews.has_interview_invitation')           
-                    ->whereNull('hr_interviews.has_questions');           
-            }
+         return $this->getQuery()
+                ->whereNotNull('hr_interviews.has_interview_invitation')           
+                ->whereNull('hr_interviews.has_questions');           
+    }
+    public function getAccessWaitForReportDatatable()
+    {
+         return $this->getQuery2();
+      
+    }
 
     /** 
      * get Access Approved Wait For Evaluation
      * @return mixed
     */
-    public function canBeAprocessedForEvaluation(Interview $pr_report)
-    {
-        return $this->getAccessApprovedWaitForEvaluation()
-            ->where('hr_interviews.id', $pr_report->id)
-            ->count();
-    }
-
-
-    /** 
-     * store probation form
-     * @return mixed
-    **/
-    public function probationStore()
-    {
-        return DB::transaction(function () {
-            return access()->user()->prReports()->create([
-                'from_at' => access()->user()->employed_date,
-                'to_at' => access()->user()->three_month_probation,
-                'fiscal_year_id' => FiscalYear::query()->where('active', true)->first()->id,
-                'designation_id' => access()->user()->designation_id,
-                'pr_type_id' => 1
-            ]);
-        });
-    }
-
+ 
     public function store($input)
     {
         return DB::transaction(function () use($input){

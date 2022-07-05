@@ -46,6 +46,7 @@ class InterviewQuestionController extends Controller
 
         $this->interviewQuestionRepository->store($request->all());
         $interview = $this->interviewRepository->find($request->interview_id);
+        $interview->update(['has_questions'=>1]);
         alert()->success('initiated Successfully');
         return redirect()->route('interview.question.create',$interview->uuid); 
     }

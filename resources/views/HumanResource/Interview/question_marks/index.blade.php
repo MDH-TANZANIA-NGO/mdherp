@@ -8,8 +8,15 @@
             <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">INTERVIEW TYPE:  {{ $interview_type->name }} </span>
             <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">PENDING :  {{ $pending }} </span>
             <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">COMPLETED :  {{ $completed }} </span>
-            <span class="tag tag-rounded pull-right"> <input type="submit" value="SUBMIT FOR REPORT" class="btn btn-primary"></span>
-           
+            {!! Form::open(['route' => 'interview.submitForReport']) !!}
+                @if(isset($has_report) && $has_report != 1 )
+                <span class="tag tag-rounded pull-right"> <input type="submit" value="SUBMIT FOR REPORT" class="btn btn-primary"></span>
+                <input type="hidden" value="{{ $interview->id }}" name="interview_id">
+                @endif
+                @if(isset($has_report) && $has_report == 1 )
+                <span class="tag tag-rounded pull-right"> <input type="submit" value="EDIT" class="btn btn-primary"></span>
+                @endif
+            {!! Form::close() !!}
 		</div>
     </div>
 </div>
@@ -32,7 +39,9 @@
                                 <th>  Number </th>
                                 <th>  Marks  </th>
                                 <th>  Status   </th>
+                                @if(isset($has_report) && $has_report != 1 )
                                 <th>  Action   </th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -45,8 +54,9 @@
                                 <td> {{ $applicant->number }} </td>
                                 <td> {{ $applicant->marks }} </td>
                                 <td>      </td>
-                             
+                                @if(isset($has_report) && $has_report != 1 )
                                 <td><a data-interview_id = "{{ $interview->id }}" data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
+                                @endif
                             </tr>
                             <?php $total_questions = ($key+1); ?>
                             @endforeach

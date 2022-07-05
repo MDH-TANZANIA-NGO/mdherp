@@ -121,6 +121,18 @@ trait InterviewDatatable
             ->rawColumns(['action'])
             ->make(true);
     }
+    public function AccessWaitForReportDatatable(){
+        return DataTables::of($this->interviewRepository->getAccessWaitForReportDatatable())
+            ->addIndexColumn()
+            // ->editColumn('created_at', function ($query) {
+            //     return $query->created_at->toDateString();
+            // })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('interview.report.create', $query->uuid).'">Create Report</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 
     public function AccessPanelistJobsDatatable(){
         return DataTables::of($this->interviewRepository->getQueryWithInterview())

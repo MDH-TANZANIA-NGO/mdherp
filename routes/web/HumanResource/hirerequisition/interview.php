@@ -13,7 +13,16 @@ Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', '
   Route::POST('notifyapplicant','InterviewController@notifyApplicant')->name('notifyapplicant');
   Route::POST('add','InterviewController@addapplicant')->name('addapplicant');
   Route::GET('applicants/{interview}','InterviewController@applicantlist')->name('applicantlist');
+  Route::POST('interveiw/submitForReport','InterviewController@submitForReport')->name('submitForReport');
   Route::GET('panelists/jobs','InterviewController@showPanelistJobs')->name('showPanelistJobs');
+
+  //Interview Report Route
+   Route::group(['prefix' => 'report', 'as' => 'report.'], function () {
+        Route::get('create/{hireRequisitionJob}','InterviewReportController@create')->name('create');
+        Route::POST('store','InterviewReportController@store')->name('store');
+        Route::GET('delete/{uuid}','InterviewReportController@destroy')->name('destroy');
+        Route::PUT('update','InterviewReportController@update')->name('update'); 
+  });
 
   //Questions Route
   Route::group(['prefix' => 'question', 'as' => 'question.'], function () {
@@ -34,6 +43,9 @@ Route::group(['namespace' =>'HumanResource\Interview', 'middleware' => ['web', '
     Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
         Route::get('processing', 'InterviewController@accessShortlistedDatatable')->name('shortlisted');
         Route::get('wait_for_interview_questions', 'InterviewController@AccessWaitForQuestionsDatatable')->name('wait_for_interview_question');
+    Route::get('wait_for_interview_report', 'InterviewController@AccessWaitForReportDatatable')->name('wait_for_interview_report');
+
+        
     });
     Route::group(['prefix' => 'panelist', 'as' => 'panelist.'], function () {
         Route::get('panelistJobs', 'InterviewController@AccessPanelistJobsDatatable')->name('panelistApplication');
