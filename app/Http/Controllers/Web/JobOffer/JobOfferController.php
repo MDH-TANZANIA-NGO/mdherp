@@ -6,6 +6,7 @@ use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
 use App\Models\Auth\User;
+use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\JobOfferRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -25,6 +26,7 @@ class JobOfferController extends Controller
         $this->interview_applicants = (new InterviewApplicantRepository());
         $this->wf_tracks = (new WfTrackRepository());
     }
+   
     public function index()
     {
         //
@@ -54,12 +56,14 @@ class JobOfferController extends Controller
     {
 
         $job_offer =   $this->job_offers->store($request->all());
-//        dd($job_offer);
+
+        $department = $job_offer->interviewApplicant->interviews->jobRequisition->department_id;
+        $next_user = $this->users->getDirectorOfDepartment($department)->get();
+        $next_user =  $next_user->first()->user_id;
         $wf_module_group_id = 14;
-        $next_user = User::query()->where('designation_id', '=', '121')->first()->id;
         event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $job_offer->id,'region_id' => $job_offer->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
         alert()->success('Job Offer Sent for Approval', 'Success');
-        return redirect()->back();
+        return redirect()->route('job_offer.show', $job_offer->uuid);
     }
 
 

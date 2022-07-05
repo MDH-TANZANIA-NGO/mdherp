@@ -335,17 +335,16 @@ trait WorkflowUserSelector
             break;
             case 18:
                 $job_offer = (new JobOfferRepository())->find($resource_id);
-                $hire_requisition =
-                $user_dept = $pr_report->user->designation->department->id;
-                $next_user = (new UserRepository())->getDirectorOfDepartment($user_dept)->get();
+                $department = $job_offer->interviewApplicant->interviews->jobRequisition->department_id;
+                $next_user = (new UserRepository())->getDirectorOfDepartment($department)->get();
                 switch($level)
                 {
                     case 1:
-                        $next_user = User::query()->where('designation_id', '=', '121')->first();
+                        $next_user = $next_user->first();
                         if (!$next_user) {
                             throw new GeneralException('This user has not assigned supervisor');
                         }
-                        $user_id = $next_user->id;
+                        $user_id = $next_user->user_id;
 
                 }
                 break;
