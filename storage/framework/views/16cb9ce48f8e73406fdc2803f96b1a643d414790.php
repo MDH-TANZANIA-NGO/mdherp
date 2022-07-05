@@ -1,5 +1,6 @@
 <?php $__env->startSection('content'); ?>
     <div class="col-lg-12 col-md-12">
+
         <div class="card">
     <div class="card-body">
         <div class=" " id="profile-log-switch">
@@ -42,9 +43,9 @@
                 <br>
                 <div class="">
                     <div class="btn-list text-center">
-                        <a href="#" class="btn btn-primary">Comfirm</a>
+                        <a href="<?php echo e(route('interviewconfirm.update', [$interview_details->id,$interview_details->interview_id])); ?>" class="btn btn-primary">Comfirm</a>
 
-                        <a href="#" class="btn btn-danger">Cancel</a>
+
                     </div>
                 </div>
 
@@ -52,6 +53,7 @@
         </div>
     </div>
         </div>
+
     </div>
 
 <?php $__env->stopSection(); ?>

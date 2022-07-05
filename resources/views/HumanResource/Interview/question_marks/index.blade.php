@@ -1,14 +1,30 @@
 @extends('layouts.app')
 @section('content')
+
 <div class="row">
-    <div class="">
-        Total : {{ $applicants->count() }}
+    <div class="col-sm-12 col-lg-12 col-xl-12 col-md-12 mb-3">
+        <div class="tags">
+            <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">TOTAL APPLICANTS:  {{ $applicants->count() }} </span>
+            <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">INTERVIEW TYPE:  {{ $interview_type->name }} </span>
+            <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">PENDING :  {{ $pending }} </span>
+            <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">COMPLETED :  {{ $completed }} </span>
+            {!! Form::open(['route' => 'interview.submitForReport']) !!}
+                @if(isset($has_report) && $has_report != 1 )
+                <span class="tag tag-rounded pull-right"> <input type="submit" value="SUBMIT FOR REPORT" class="btn btn-primary"></span>
+                <input type="hidden" value="{{ $interview->id }}" name="interview_id">
+                @endif
+                @if(isset($has_report) && $has_report == 1 )
+                <span class="tag tag-rounded pull-right"> <input type="submit" value="EDIT" class="btn btn-primary"></span>
+                @endif
+            {!! Form::close() !!}
+		</div>
     </div>
 </div>
 <div class="row">
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">APPLICANT LIST</h3>
+           
         </div>
         <div class="card-body">
             {!! Form::open(['route' => 'interview.question.storeMarks']) !!}
@@ -21,9 +37,12 @@
                             <tr>
                                 <th>  Qno     </th>
                                 <th>  Applicant </th>
+                                <th>  Number </th>
                                 <th>  Marks  </th>
                                 <th>  Status   </th>
+                                @if(isset($has_report) && $has_report != 1 )
                                 <th>  Action   </th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -32,11 +51,13 @@
                             
                             <tr>
                                 <td> {{($key+1) }}</td>
-                                <td> {{ $applicant->full_name }} </td>
+                                <td> {{ $applicant->first_name }} {{ $applicant->middle_name }}  {{ $applicant->last_name }} </td>
+                                <td> {{ $applicant->number }} </td>
                                 <td> {{ $applicant->marks }} </td>
                                 <td>      </td>
-                             
+                                @if(isset($has_report) && $has_report != 1 )
                                 <td><a data-interview_id = "{{ $interview->id }}" data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
+                                @endif
                             </tr>
                             <?php $total_questions = ($key+1); ?>
                             @endforeach

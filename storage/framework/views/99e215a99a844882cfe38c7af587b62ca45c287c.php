@@ -19,9 +19,14 @@
                         <tr>
                             <td> <?php echo e(($key+1)); ?></td>
                             <td> <?php echo e($panelist->full_name); ?> </td>
-
                             <td>
-                                <?php if(!Session::has('msg')): ?> <input type="radio" name="technical_staff" value="<?php echo e($panelist->id); ?>"> <?php endif; ?>
+                                <?php if(!isset($show)): ?> 
+                                 <input type="radio" name="technical_staff" value="<?php echo e($panelist->id); ?>"> 
+                                <?php endif; ?>
+                                <?php if(isset($show) && $panelist->technical_staff == 1): ?> 
+                                 <i class="fa fa-check"></i>
+                                <?php endif; ?>
+
                             </td>
                         </tr>
                         <?php $total_questions = ($key + 1); ?>

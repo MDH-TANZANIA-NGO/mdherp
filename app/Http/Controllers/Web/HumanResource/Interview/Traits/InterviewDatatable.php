@@ -116,26 +116,34 @@ trait InterviewDatatable
                 
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('interview.initiate', $query->uuid).'">View</a>';
+                return '<a href="'.route('interview.show', $query->uuid).'">View</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+    public function AccessWaitForReportDatatable(){
+        return DataTables::of($this->interviewRepository->getAccessWaitForReportDatatable())
+            ->addIndexColumn()
+            // ->editColumn('created_at', function ($query) {
+            //     return $query->created_at->toDateString();
+            // })
+            ->addColumn('action', function($query) {
+                return '<a href="'.route('interview.report.create', $query->uuid).'">Create Report</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
     }
 
     public function AccessPanelistJobsDatatable(){
-        return DataTables::of($this->hireRequisitionJobRepository->getQueryWithInterview())
+        return DataTables::of($this->interviewRepository->getQueryWithInterview())
         ->addIndexColumn()
         ->editColumn('created_at', function ($query) {
             return $query->created_at->toDateString();
         })
-        ->addColumn('education_level', function ($query) {
-            $education_level = code_value()->query()->where('id',$query->education_level)->first();
-            return isset($education_level) ? $education_level->name :"";
-        })
         ->addColumn('action', function($query) {
-            $action = '<a href="'.route('interview.applicantlist', $query->interview_uuid).'"> View Applicants </a>'; 
-            if(isset($query->technical_staff) && $query->technical_staff == access()->id()){
-                $action .= '| <a href="'.route('interview.question.create', $query->interview_uuid).'"> Add Questions  </a>';
+            $action = '<a href="'.route('interview.applicantlist', $query->uuid).'"> View Applicants </a>'; 
+            if(isset($query->user_id) && $query->user_id == access()->id()){
+                $action .= '| <a href="'.route('interview.question.create', $query->uuid).'"> Add Questions  </a>';
             }
             return $action;
         })

@@ -31,17 +31,28 @@ class HrHireApplicantRepository extends BaseRepository
 
 
     public function getSelectedWithMarks($interview){
-
+    
         return $this->query()->select([
             'hr_hire_applicants.id',
-            DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
+            'hr_hire_applicants.first_name',
+            'hr_hire_applicants.middle_name',
+            'hr_hire_applicants.last_name',
             DB::raw("hr_hire_applicants.email") ,
-            DB::raw("SUM(hr_interview_question_marks.marks) as Marks")
+            DB::raw("hr_interview_applicants.number"),
+            DB::raw("SUM(hr_interview_panelist_marks.marks) as Marks")
         ])
-        ->leftjoin('hr_interview_question_marks','hr_interview_question_marks.applicant_id','hr_hire_applicants.id')
-        ->where('hr_interview_question_marks.interview_id',$interview->id)
-        ->whereNull('hr_interview_question_marks.deleted_at')
-        ->groupby('hr_hire_applicants.id');
+        ->join('hr_interview_applicants','hr_interview_applicants.applicant_id','hr_hire_applicants.id')
+        // ->leftjoin('hr_interview_question_marks',function($query) use($interview){
+        //     $query->on('hr_interview_question_marks.applicant_id','hr_hire_applicants.id')->where('hr_interview_question_marks.interview_id',$interview->id);
+        // })
+        ->whereNull('hr_interview_panelist_marks.deleted_at')
+        ->leftjoin('hr_interview_panelist_marks',function($query) use($interview){
+                $query->on('hr_interview_panelist_marks.applicant_id','hr_hire_applicants.id')->where('hr_interview_panelist_marks.interview_id',$interview->id)
+                     ->where('hr_interview_panelist_marks.panelist_id',access()->id());
+        })
+        ->where('hr_interview_applicants.interview_id',$interview->id)
+        ->groupby('hr_hire_applicants.id','hr_interview_applicants.number','hr_hire_applicants.email');
+            
     }
     public function getPendingSelected($interview){
         $hr_requisition_job_id = $interview->hr_requisition_job_id;
