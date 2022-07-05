@@ -46,7 +46,7 @@
                     <div class="btn-list text-center">
                         <a href="{{route('interviewconfirm.update', [$interview_details->id,$interview_details->interview_id])}}" class="btn btn-primary">Comfirm</a>
 {{--                        <a href="#" class="btn btn-secondary">Save and continue</a>--}}
-                        <a href="#" class="btn btn-danger">Cancel</a>
+{{--                        <a href="#" class="btn btn-danger">Cancel</a>--}}
                     </div>
                 </div>
 
