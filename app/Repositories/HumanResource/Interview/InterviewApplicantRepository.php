@@ -35,19 +35,36 @@ class InterviewApplicantRepository extends BaseRepository
             DB::raw('hr_interview_applicants.interview_id AS interview_id'),
             DB::raw('hr_hire_advertisement_requisitions.description AS description'),
             DB::raw('hr_hire_requisitions_jobs.designation_id AS designation_id'),
+            DB::raw('designations.name AS designation_name'),
+            DB::raw('units.name AS unit_name'),
+            DB::raw('job_offers.status AS job_offer_status'),
+
         ])
             ->join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_applicants.applicant_id')
             ->join('hr_interviews', 'hr_interviews.id', 'hr_interview_applicants.interview_id')
             ->join('hr_hire_requisitions_jobs','hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
             ->join('hr_hire_advertisement_requisitions','hr_hire_advertisement_requisitions.hire_requisition_job_id','hr_hire_requisitions_jobs.id')
-            ->where('hr_interview_applicants.status',1);
+            ->leftjoin('designations','hr_hire_requisitions_jobs.designation_id', 'designations.id')
+            ->leftjoin('units', 'designations.unit_id', 'units.id')
+            ->leftjoin('job_offers', 'job_offers.hr_interview_applicant_id', 'hr_interview_applicants.id')
+            ->where('hr_interview_applicants.status',1)
+            ->whereDoesntHave('jobOffer')
+            ->orWhere('job_offers.status', '1');
 
     }
+
+
+
+
     public function getAdvertDetails($id)
     {
+
         return $this->getApplicantForJobOffer()
+
             ->where('hr_interview_applicants.id', $id);
     }
+
+
 
 
 

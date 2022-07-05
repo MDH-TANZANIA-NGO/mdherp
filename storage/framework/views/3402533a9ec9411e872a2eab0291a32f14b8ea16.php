@@ -55,9 +55,9 @@
              destroy: true,
              "responsive": true,
              "autoWidth": false,
-             
+
          });
-          
+
      });
  </script>
- <?php $__env->stopPush(); ?><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/HumanResource/interview/includes/shortlisted.blade.php ENDPATH**/ ?>
+ <?php $__env->stopPush(); ?><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/humanResource/interview/includes/shortlisted.blade.php ENDPATH**/ ?>

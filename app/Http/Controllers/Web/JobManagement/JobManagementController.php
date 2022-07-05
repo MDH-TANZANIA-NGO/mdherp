@@ -11,6 +11,6 @@ class JobManagementController extends Controller
 
     public function index()
     {
-        return view('HumanResource.JobManagement.index');
+        return view('humanResource.JobManagement.index');
     }
 }

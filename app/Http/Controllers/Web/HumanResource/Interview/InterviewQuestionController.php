@@ -48,14 +48,14 @@ class InterviewQuestionController extends Controller
         $interview = $this->interviewRepository->find($request->interview_id);
         $interview->update(['has_questions'=>1]);
         alert()->success('initiated Successfully');
-        return redirect()->route('interview.question.create',$interview->uuid); 
+        return redirect()->route('interview.question.create',$interview->uuid);
     }
     public function update(Request $request){
         $question = $this->interviewQuestionRepository->find($request->question_id);
         $question->update($request->all());
         $interview = $this->interviewRepository->find($request->interview_id);
         alert()->success('initiated Successfully');
-        return redirect()->route('interview.question.create',$interview->uuid); 
+        return redirect()->route('interview.question.create',$interview->uuid);
     }
 
     public function create(Interview $interview){
@@ -63,9 +63,9 @@ class InterviewQuestionController extends Controller
                     ->query()
                     ->where('interview_id',$interview->id)
                     ->get();
-        return view('HumanResource.Interview.question')
+        return view('humanResource.Interview.question')
                 ->with('questions',$questions)
-                ->with('interview',$interview);               
+                ->with('interview',$interview);
     }
 
     public function destroy(InterviewQuestion $uuid){
@@ -73,7 +73,7 @@ class InterviewQuestionController extends Controller
         $question->update($request->all());
         $interview = $this->interviewRepository->find($request->interview_id);
         alert()->success('initiated Successfully');
-        return redirect()->route('interview.question.create',$interview->uuid); 
+        return redirect()->route('interview.question.create',$interview->uuid);
     }
 
 
@@ -82,12 +82,12 @@ class InterviewQuestionController extends Controller
                     ->query()
                     ->where('interview_id',$interview->id)
                     ->get();
-        return view('HumanResource.Interview.question_marks')
+        return view('humanResource.Interview.question_marks')
                 ->with('questions',$questions)
-                ->with('interview',$interview);   
+                ->with('interview',$interview);
     }
     public function storeMarks(Request $request){
-       
+
         $total_questions = $request->total_questions;
         $interview_id = $request->interview_id;
         $interview = $this->interviewRepository->find($interview_id);
@@ -129,5 +129,5 @@ class InterviewQuestionController extends Controller
     }
 
 
-    
+
 }

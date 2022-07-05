@@ -102,8 +102,8 @@
                 ajax: '{{ route('job_offer.datatable.access.processing') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'job_offers.name', searchable: true},
-                    { data: 'designation_id', name: 'job_offers.designation_id', searchable: true},
+                    { data: 'full_name', name: 'job_offers.name', searchable: true},
+                    { data: 'full_title', name: 'job_offers.designation_id', searchable: true},
                     { data: 'salary', name: 'job_offers.salary', searchable: true },
                     { data: 'number', name: 'number', searchable: true },
                     { data: 'action', name: 'action', searchable: false },

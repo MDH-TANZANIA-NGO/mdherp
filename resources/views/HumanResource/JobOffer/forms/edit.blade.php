@@ -22,7 +22,8 @@
 
                     </ul>
                     <br>
-                    {!! Form::open(['route' => ['job_offer.update',$job_offer->uuid]]) !!}
+                    {!! Form::open(['route' => ['job_offer.update',$job_offer->uuid], 'method'=>'PUT']) !!}
+                    <input type="number" name="hr_hire_requisitions_job_applicants_id" value="3" hidden>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -31,7 +32,7 @@
 												<span class="input-icon-addon">
 													<i class="fe fe-dollar-sign"></i>
 												</span>
-                                    <input type="text" class="form-control" name="salary" value="{{$job_offer->salary}}" placeholder="Salary Amount">
+                                    <input type="text" class="form-control" name="salary" value="{{currency_converter($job_offer->salary, 'TSH')}}" placeholder="Salary Amount">
                                 </div>
                             </div>
                         </div>
@@ -42,7 +43,7 @@
 												<span class="input-icon-addon">
 													<i class="fe fe-calendar"></i>
 												</span>
-                                    <input type="datetime-local" name="date_of_arrival" value="{{date("Y-m-d\TH:i:s",$job_offer->date_of_arrival)}}" class="form-control" >
+                                    <input type="datetime-local" name="date_of_arrival" value="{{date('d/m/Y h:m:s',strtotime($job_offer->date_of_arrival))}}" class="form-control" >
                                 </div>
                             </div>
                         </div>
@@ -51,7 +52,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Other benefits</label>
-                                <input type="text" name="details" class="content" value="{{html_entity_decode($job_offer->details)}}">
+                                <textarea class="content2 richText-initial" name="details" style="display: none;" value="{!! html_entity_decode($job_offer->details) !!}"></textarea>
                             </div>
                         </div>
                     </div>

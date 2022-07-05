@@ -57,8 +57,8 @@ class AdvertisementController extends Controller
      */
     public function index()
     {
-       
-        return view('HumanResource/HireRequisition/advertisement/advertisement');
+
+        return view('humanResource/hireRequisition/advertisement/advertisement');
     }
 
     /**
@@ -72,11 +72,11 @@ class AdvertisementController extends Controller
                                 ->getAprovedJobs()
                                 ->where("is_advertised",0)
                                 ->get();
-                 
+
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
-        return view('HumanResource.HireRequisition.advertisement.form.create')
+        return view('humanResource.hireRequisition.advertisement.form.create')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())
@@ -114,7 +114,7 @@ class AdvertisementController extends Controller
         }catch (\Exception $e){
             DB::rollback();
             throw new \Exception($e->getMessage());
-        }    
+        }
 
     }
 
@@ -128,7 +128,7 @@ class AdvertisementController extends Controller
     {
 
         // $advertisement = $this->advertisementRepository->query()->where('uuid',$uuid)->first();
-       
+
         /* Check workflow */
         $wf_module_group_id = 11;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $advertisement->id);
@@ -137,8 +137,8 @@ class AdvertisementController extends Controller
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($advertisement, $current_level, $workflow->wf_definition_id);
 
-        
-        return view('HumanResource.HireRequisition.advertisement.display.show')
+
+        return view('humanResource.hireRequisition.advertisement.display.show')
             ->with('_advertisement',$advertisement)
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
@@ -175,12 +175,12 @@ class AdvertisementController extends Controller
         $hireRequisition = $this->hireRequisitionRepository
                             ->getQuery()
                             ->where('hire_requisition_id',$hireRequisitionJob->hire_requisition_id)
-                            ->first();   
+                            ->first();
 
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
-        return view('HumanResource.HireRequisition.advertisement.form.initiate')
+        return view('humanResource.hireRequisition.advertisement.form.initiate')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())

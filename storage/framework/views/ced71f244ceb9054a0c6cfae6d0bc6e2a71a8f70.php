@@ -1,6 +1,6 @@
 
 <?php $__env->startSection('content'); ?>
-<?php echo $__env->make('HumanResource.interview.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('humanResource.interview.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <form action="<?php echo e(route('interview.addpanelist')); ?> " method="post">
     <?php echo csrf_field(); ?>
     <div class="row">
@@ -26,4 +26,4 @@
     </div>
 </form>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/HumanResource/Interview/panelist/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/humanResource/Interview/panelist/create.blade.php ENDPATH**/ ?>

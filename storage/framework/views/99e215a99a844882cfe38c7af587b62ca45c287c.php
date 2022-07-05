@@ -39,4 +39,4 @@
             </div>
         </div>
     </div>
-</div><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/HumanResource/interview/panelist/show.blade.php ENDPATH**/ ?>
+</div><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/humanResource/interview/panelist/show.blade.php ENDPATH**/ ?>

@@ -9,4 +9,4 @@
             <?php endif; ?>
 		</div>
     </div>
-</div><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/HumanResource/interview/header.blade.php ENDPATH**/ ?>
+</div><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/humanResource/interview/header.blade.php ENDPATH**/ ?>

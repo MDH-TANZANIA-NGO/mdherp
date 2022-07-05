@@ -12,6 +12,7 @@ use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
+use App\Repositories\JobOfferRepository;
 use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Report\ReportRepository;
@@ -365,14 +366,14 @@ class Workflow
 
             //update Resource Type for the current wftrack
             $this->updateResourceType($wf_track);
-            
+
             $nextInsert = $this->upNew($input);
             if(!isset($this->nextWfTrack($wf_track->id)->id)){
                 $wf_track = $track->query()->create($nextInsert); // changed
                 //update Resource Type for the next wftrack
                 $this->updateResourceType($wf_track);
             }
-        
+
             //Send mail notification
             switch($this->wf_module_id)
             {
@@ -399,7 +400,7 @@ class Workflow
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
-                case 4:
+                    case 4:
                     $program_activity_repo = (new ProgramActivityRepository());
                     $program_activity = $program_activity_repo->find($wf_track->resource_id);
                     $email_resource = (object)[
@@ -490,6 +491,19 @@ class Workflow
                         'message' => ' Performance Appraisal'
                     ];
                     // User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
+
+                case 18:
+                    $job_offer_repo = (new JobOfferRepository());
+                    $job_offer = $job_offer_repo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('job_offer.show',$job_offer),
+                        'subject' => "Job Offer ".$job_offer->number. "needs your approval.",
+                        'message' =>  "<b>".$job_offer->user->first_name."  " .$job_offer->user->last_name.", "."Submitted job offer:"." ".$job_offer->number. ",  which needs your approval"
+
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    $job_offer->interviewApplicant->applicant->notify();
                     break;
 
             }

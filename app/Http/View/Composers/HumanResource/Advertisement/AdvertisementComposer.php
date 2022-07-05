@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\View\Composers\HumanResource\Advertisement;
-//app\Repositories\HumanResource\HireRequisition\HireRequistionRepository.php
+//app\Repositories\humanResource\hireRequisition\HireRequistionRepository.php
 use App\Repositories\HumanResource\Advertisement\AdvertisementRepository;
 //use App\Repositories\Leave\LeaveRepository;
 use Illuminate\View\View;

@@ -19,10 +19,10 @@
 						<label class="form-label">Interview Type</label>
                         <?php echo Form::select('interview_type_id',$interview_types,null,['class' => 'form-control', 'placeholder'=>'Select','required']); ?>
 
-						 
+
                     </div>
                 </div>
-               
+
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
                     <div class="form-group">
 						<label class="form-label">&nbsp;</label>
@@ -35,4 +35,4 @@
         </div>
     </div>
 </div>
-<?php /**PATH C:\xampp\htdocs\mdherp\resources\views/HumanResource/Interview/form/new.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\htdocs\mdherp\resources\views/humanResource/Interview/form/new.blade.php ENDPATH**/ ?>
