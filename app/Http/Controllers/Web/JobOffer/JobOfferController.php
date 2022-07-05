@@ -6,6 +6,7 @@ use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
 use App\Models\Auth\User;
+use App\Models\HumanResource\Interview\InterviewApplicant;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\JobOfferRepository;
@@ -37,14 +38,15 @@ class JobOfferController extends Controller
 
     public function initiate()
     {
-        //
+
         return view('humanResource.jobOffer.forms.initiate')
-            ->with('applicant', $this->interview_applicants->getApplicantForJobOffer()->pluck('full_name', 'id'));
+            ->with('applicant', $this->interview_applicants->getApplicantForJobOffer()->get()->pluck('full_name', 'id'));
     }
 
     public function create(Request  $request)
     {
-        $job_details =  $this->interview_applicants->getAdvertDetails($request->get('applicant_id'))->first();
+
+        $job_details =  $this->interview_applicants->getAdvertDetails($request->get('id'))->first();
 
         return view('humanResource.jobOffer.forms.create')
             ->with('job_details', $job_details);

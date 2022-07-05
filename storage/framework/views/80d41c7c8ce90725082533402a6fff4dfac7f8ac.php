@@ -8,18 +8,23 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="form-group">
-                <label class="form-label">Select selected candidate</label>
 
-                <?php echo Form::open(['route' => 'job_offer.create','class'=>'card','method'=>'GET']); ?>
+                <?php echo Form::open(['route' => 'job_offer.create','method'=>'GET']); ?>
 
-                <div class="input-group">
-                    <?php echo Form::select('id', $applicant, null, ['class' =>'form-control select2 show-search custom-select', 'placeholder' => __('label.select') , 'aria-describedby' => '']); ?>
 
-                    <span class="input-group-append">
-													<button class="btn btn-primary" type="submit">Next <i class="fa fa-arrow-circle-o-right"></i></button>
 
-												</span>
+                <div class="form-group">
+                    <label class="form-label">Select selected candidate</label>
+                    <div class="row gutters-xs">
+                        <div class="col">
+                            <?php echo Form::select('id', $applicant, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '']); ?>
+
+
+                        </div>
+                        <span class="col-auto">
+																<button class="btn btn-primary" type="submit">Next <i class="fa fa-arrow-circle-o-right"></i></button>
+	</span>
+                    </div>
                 </div>
                 <?php echo Form::close(); ?>
 
