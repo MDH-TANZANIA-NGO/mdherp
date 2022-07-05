@@ -407,7 +407,7 @@
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                                         <tr>
                                                             <td align="center">
-                                                                <a href="" class="f-fallback
+                                                                <a href="{{$link}}" class="f-fallback
                                                                 button" target="_blank">Click here to view</a>
                                                             </td>
                                                         </tr>

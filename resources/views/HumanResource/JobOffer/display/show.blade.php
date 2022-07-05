@@ -14,7 +14,7 @@
                     <h3 class="card-title">Job Offer Details</h3>
                     <div class="card-options">
                         <a href="{{route('job_offer.print', $job_offer->uuid)}}" class="btn btn-primary btn-sm float-right"><i class="fa fa-print"></i> Print</a>
-                        @if($job_offer->wf_done == 0)
+                        @if($job_offer->wf_done == 0 and $job_offer->user_id == access()->user()->id)
                             <a href="{{route('job_offer.edit', $job_offer->uuid)}}" class="btn btn-instagram btn-sm" style="margin-left: 2%">Edit</a>
                             @endif
                     </div>
@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-sm-6 text-right">
                                 <span>Expected arrival date</span><br>
-                                <strong>{{$job_offer->date_of_arrival}}</strong>
+                                <strong>{{date('d/m/y', today())}}</strong>
                             </div>
                         </div>
                     </div>
