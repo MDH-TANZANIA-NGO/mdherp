@@ -15,15 +15,18 @@ class IntervieweeCallNotification extends Notification
 
     protected $interview_call;
     protected $interviewCall;
+    protected $user;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($interviewCall)
+    public function __construct($interviewCall, $user)
     {
         $this->interview_call =  $interviewCall;
+        $this->user =  $user;
+
     }
 
     /**
@@ -56,11 +59,12 @@ class IntervieweeCallNotification extends Notification
 
 
         $string = htmlentities("Congratulations! You have been shortlisted to sit for interview ". "<br>". $interview_position);
-//        dd($this->interview_call->InterviewType);
+//        dd($this->interview_call);
         return (new MailMessage)
             ->subject('Invited for Interview')
             ->markdown('mail.humanResource.interviewcall',[
-                'link' => $this->interview_call,
+//                'link' => route('interviewconfirm.index', $this->interview_call->hr_requisition_job_id),
+                'link' => route('interviewconfirm.index', [$notifiable->id,$schedules[0]->interview_id]),
                 'fullname' => $notifiable->full_name,
                 'message' => html_entity_decode($string)
                 ]);

@@ -384,7 +384,7 @@
                 <tr>
                     <td class="email-masthead">
                         <a href="#" class="f-fallback email-masthead_name"  style="color: #022169; font-weight: bold">
-                            MDH ERP - HR Hiring System
+                            MDH ERP
                         </a>
                     </td>
                 </tr>
@@ -396,9 +396,9 @@
                             <tr>
                                 <td class="content-cell">
                                     <div class="f-fallback">
-                                        <h1 style="color: #022169">Hi <?php echo e($fullname); ?>!</h1>
+                                        <h1 style="color: #022169">Hi, <?php echo e($name); ?>!</h1>
                                         <p>
-                                            <?php echo $message; ?>
+                                            <?php echo $resource->message; ?>
 
                                         </p>
                                         <!-- Action -->
@@ -408,7 +408,7 @@
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                                         <tr>
                                                             <td align="center">
-                                                                <a href="<?php echo e($link); ?>" class="f-fallback
+                                                                <a href="<?php echo e($resource->link); ?>" class="f-fallback
                                                                 button" target="_blank">Click here to view</a>
                                                             </td>
                                                         </tr>
@@ -417,7 +417,14 @@
                                             </tr>
                                         </table>
 
-                                        
+                                        <table class="body-sub" role="presentation">
+                                            <tr>
+                                                <td>
+                                                    <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
+                                                    <p class="f-fallback sub"><?php echo e($resource->link); ?></p>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </td>
                             </tr>
@@ -429,7 +436,7 @@
                         <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
                             <tr>
                                 <td class="content-cell" align="center">
-                                    <p class="f-fallback sub align-center">&copy; 2022 MDH ERP. All rights reserved.</p>
+                                    <p class="f-fallback sub align-center">&copy; 2021 MDH ERP. All rights reserved.</p>
                                 </td>
                             </tr>
                         </table>
@@ -441,4 +448,4 @@
 </table>
 </body>
 </html>
-<?php /**PATH /Users/frank/Documents/Projects/mdherp2/resources/views/mail/humanResource/interviewcall.blade.php ENDPATH**/ ?>
+<?php /**PATH /Users/william/Code/mdherp/resources/views/mail/workflow/workflow.blade.php ENDPATH**/ ?>

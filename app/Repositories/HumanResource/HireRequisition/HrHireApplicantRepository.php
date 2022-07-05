@@ -20,7 +20,9 @@ class HrHireApplicantRepository extends BaseRepository
             'hr_hire_applicants.id',
             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
             DB::raw("hr_hire_applicants.email") ,
-            DB::raw("hr_interview_schedules.interview_date")
+            DB::raw("hr_interview_schedules.interview_date"),
+            DB::raw("hr_interview_applicants.uuid as applicant_uuid"),
+
         ])
         ->Join('hr_interview_applicants','hr_interview_applicants.applicant_id','hr_hire_applicants.id')
         ->join('hr_interview_schedules','hr_interview_schedules.id','hr_interview_applicants.interview_schedule_id')
