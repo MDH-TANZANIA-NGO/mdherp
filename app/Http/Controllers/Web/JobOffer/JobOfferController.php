@@ -105,14 +105,20 @@ class JobOfferController extends Controller
     {
         //
         $job_offer =  $this->job_offers->findByUuid($uuid);
+
+        $job_offer_projects =  $this->projects->getJobOfferProjects($job_offer->id)->get();
+
         return view('humanResource.jobOffer.forms.edit')
-            ->with('job_offer', $job_offer);
+            ->with('job_offer', $job_offer)
+            ->with('projects',$this->projects->getActiveForPluck())
+            ->with('job_offer_projects', $job_offer_projects);
     }
 
 
     public function update(Request $request, $uuid)
     {
         //
+       dd( $request->all());
         $this->job_offers->update($request->all(), $uuid);
         alert()->success('Job Offer updated successfully');
         return redirect()->route('job_offer.index');

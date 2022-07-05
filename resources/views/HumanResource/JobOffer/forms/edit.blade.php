@@ -23,9 +23,9 @@
                     </ul>
                     <br>
                     {!! Form::open(['route' => ['job_offer.update',$job_offer->uuid], 'method'=>'PUT']) !!}
-                    <input type="number" name="hr_hire_requisitions_job_applicants_id" value="3" hidden>
+                    <input type="number" name="hr_hire_requisitions_job_applicants_id" value="{{$job_offer->hr_interview_applicant_id}}" hidden>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Salary amount</label>
                                 <div class="input-icon">
@@ -36,14 +36,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Date of arrival</label>
                                 <div class="input-icon">
 												<span class="input-icon-addon">
 													<i class="fe fe-calendar"></i>
 												</span>
-                                    <input type="datetime-local" name="date_of_arrival" value="{{date('d/m/Y h:m:s',strtotime($job_offer->date_of_arrival))}}" class="form-control" >
+                                    <input type="datetime-local" name="date_of_arrival" value="{{ $job_offer->date_of_arrival}}" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Date of End of Tenure</label>
+                                <div class="input-icon">
+												<span class="input-icon-addon">
+													<i class="fe fe-calendar"></i>
+												</span>
+                                    <input type="date"  value="{{$job_offer->end_tenure}}" class="form-control" name="end_tenure">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Project</label>
+                                <div class="input-icon">
+												<span class="input-icon-addon">
+													<i class="fe fe-dollar-sign"></i>
+												</span>
+                                    {!! Form::select('projects[]', $projects, $job_offer_projects, ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']) !!}
+
                                 </div>
                             </div>
                         </div>
@@ -52,7 +75,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Other benefits</label>
-                                <textarea class="content2 richText-initial" name="details" style="display: none;" value="{!! html_entity_decode($job_offer->details) !!}"></textarea>
+                                {!! Form::textarea('details', $job_offer->details, ['class'=>'content']) !!}
                             </div>
                         </div>
                     </div>

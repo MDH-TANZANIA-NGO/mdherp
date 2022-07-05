@@ -69,7 +69,6 @@ class JobOfferRepository extends BaseRepository
             'user_id'=>access()->user()->id,
             'date_of_arrival'=>$inputs['date_of_arrival'],
             'end_tenure'=>$inputs['end_tenure'],
-            'wf_done'=> 0,
             'done'=> true
 
         ];
@@ -89,6 +88,7 @@ class JobOfferRepository extends BaseRepository
     {
         return DB::transaction(function () use ($inputs, $uuid){
             $job_offer =  $this->findByUuid($uuid);
+            $job_offer->projects()->sync($inputs['projects']);
             $job_offer->update($this->inputProcess($inputs));
 
         });
