@@ -2,7 +2,7 @@
 <div class="row mt-3">
     <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <h3 class="card-title">SHORTLISTED PENDING FOR INTERVIEW INVITATION</h3>
+            <h3 class="card-title">SHORTLISTED PENDING FOR INTEVIEW INVITATION</h3>
             <h3 class="card-title">ShortList Number </h3>
         </div>
         <div class="card-body">

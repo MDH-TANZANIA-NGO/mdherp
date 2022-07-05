@@ -26,6 +26,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">APPLICANT LIST</h3>
+           
         </div>
         <div class="card-body">
             <?php echo Form::open(['route' => 'interview.question.storeMarks']); ?>
@@ -53,7 +54,7 @@
                             
                             <tr>
                                 <td> <?php echo e(($key+1)); ?></td>
-                                <td> <?php echo e($applicant->full_name); ?> </td>
+                                <td> <?php echo e($applicant->first_name); ?> <?php echo e($applicant->middle_name); ?>  <?php echo e($applicant->last_name); ?> </td>
                                 <td> <?php echo e($applicant->number); ?> </td>
                                 <td> <?php echo e($applicant->marks); ?> </td>
                                 <td>      </td>

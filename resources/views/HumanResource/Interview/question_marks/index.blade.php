@@ -24,6 +24,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">APPLICANT LIST</h3>
+           
         </div>
         <div class="card-body">
             {!! Form::open(['route' => 'interview.question.storeMarks']) !!}
@@ -50,7 +51,7 @@
                             
                             <tr>
                                 <td> {{($key+1) }}</td>
-                                <td> {{ $applicant->full_name }} </td>
+                                <td> {{ $applicant->first_name }} {{ $applicant->middle_name }}  {{ $applicant->last_name }} </td>
                                 <td> {{ $applicant->number }} </td>
                                 <td> {{ $applicant->marks }} </td>
                                 <td>      </td>

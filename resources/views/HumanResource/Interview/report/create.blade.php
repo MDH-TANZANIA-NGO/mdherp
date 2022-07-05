@@ -18,14 +18,10 @@
                 <h3 class="card-title">INTERVIEW REPORT</h3>
             </div>
             <div class="card-body">
-                <div class="form-group row">
-                    <div class="col-lg-2">
-                        <label class="form-label">Panelist </label>
-                    </div>
-                    
-                </div>
+                @each('HumanResource.Interview.report.interveiw_list', $interviews, 'interview')
+                @include('HumanResource.Interview.report.panelist_list')
+                @include('HumanResource.Interview.report.recommendation_list')
                 <input type="submit" value="next" class="btn btn-primary">
-              
             </div>
         </div>
     </div>

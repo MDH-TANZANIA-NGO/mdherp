@@ -268,11 +268,10 @@ class InterviewController extends Controller
     public function submitForReport(Request $request){
         $input['has_report'] = 1;
         $panelist = $this->panelistRepository->query()->where('user_id',access()->id())->first();
-        $interview = $this->interviewRepository->find($request->interview_id);
-        $this->panelistRepository->update($panelist,$input);
+        $interview = $this->interviewRepository->find($request->interview_id);     
+        InterviewPanelistCounter::where('interview_id',$interview->id)->update([]);
         alert()->success('added Successfully');
         return redirect()->route('interview.showPanelistJobs',$interview->uuid)->with('msg','added');
-
     }
 
 }

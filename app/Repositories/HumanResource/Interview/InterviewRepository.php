@@ -144,7 +144,8 @@ class InterviewRepository extends BaseRepository
     {
         return DB::transaction(function () use($input){
             $input['hr_requisition_job_id'] = $input['hr_requisition_job_id'];
-            $input['shortlist_id'] = '12';
+            $input['shortlist_id'] = '0';
+            $input['user_id'] = access()->id();
             return $this->query()->create($input);
         });
     }

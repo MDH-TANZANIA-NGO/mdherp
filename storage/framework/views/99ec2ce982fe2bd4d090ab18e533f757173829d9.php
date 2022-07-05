@@ -18,14 +18,10 @@
                 <h3 class="card-title">INTERVIEW REPORT</h3>
             </div>
             <div class="card-body">
-                <div class="form-group row">
-                    <div class="col-lg-2">
-                        <label class="form-label">Panelist </label>
-                    </div>
-                    
-                </div>
+                <?php echo $__env->renderEach('HumanResource.Interview.report.interveiw_list', $interviews, 'interview'); ?>
+                <?php echo $__env->make('HumanResource.Interview.report.panelist_list', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                <?php echo $__env->make('HumanResource.Interview.report.recommendation_list', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 <input type="submit" value="next" class="btn btn-primary">
-              
             </div>
         </div>
     </div>
