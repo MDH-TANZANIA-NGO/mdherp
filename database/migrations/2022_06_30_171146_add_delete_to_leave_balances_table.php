@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddHrsToAttendacesTable extends Migration
+class AddDeleteToLeaveBalancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddHrsToAttendacesTable extends Migration
      */
     public function up()
     {
-        Schema::table('attendances', function (Blueprint $table) {
-            $table->dateTime('hrs')->nullable();
+        Schema::table('leave_balances', function (Blueprint $table) {
+            $table->date('deleted_at')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddHrsToAttendacesTable extends Migration
      */
     public function down()
     {
-        Schema::table('attendances', function (Blueprint $table) {
+        Schema::table('leave_balances', function (Blueprint $table) {
             //
         });
     }

@@ -11,7 +11,7 @@
     <meta name="keywords" content="Admin, Admin Template, Dashboard, Responsive, Admin Dashboard, Bootstrap, Bootstrap 4, Clean, Backend, Jquery, Modern, Web App, Admin Panel, Ui, Premium Admin Templates, Flat, Admin Theme, Ui Kit, Bootstrap Admin, Responsive Admin, Application, Template, Admin Themes, Dashboard Template" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-   
+
 
     <!-- Title -->
     {{-- <title>MDH - ERP</title>--}}
@@ -61,8 +61,15 @@
     <!-- Accordion Css -->
     {{ Html::style(url('mdh/plugins/accordion/accordion.css')) }}
 
+    <!-- Google Map Css -->
+    {{ Html::style(url('mdh/plugins/map/App.css')) }}
+    {{ Html::style(url('mdh/plugins/map/Content/bootstrap.min.css')) }}
 
-
+ 
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <script src="https://kit.fontawesome.com/ab2155e76b.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    
     {{-- <link href="mdh/css/style.css" rel="stylesheet" />--}}
 
     {{-- <!--Horizontal css -->--}}
@@ -280,6 +287,9 @@
     <!--Select2 js -->
     {!! Html::script(url('mdh/plugins/select2/select2.full.min.js')) !!}
     {!! Html::script(url('mdh/js/select2.js')) !!}
+
+    <!-- Google Map js -->
+    {!! Html::script(url('mdh/plugins/map/Main.js')) !!}
 
     <!-- Timepicker js -->
     {{--<script src="mdh/plugins/time-picker/jquery.timepicker.js"></script>--}}

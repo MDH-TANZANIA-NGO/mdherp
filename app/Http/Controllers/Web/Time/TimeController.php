@@ -64,8 +64,8 @@ class TimeController extends Controller
 
     public function view($id)
     {
-        $time = Time::find($id);
-      
+        $time = Time::find($id); 
+                         
        
 
         return view('time.view', ['time'=>$time]);
@@ -77,6 +77,21 @@ class TimeController extends Controller
 
         return view('time.view2', ['time' => $time]);
     }
+
+
+    public function viewall()
+    {
+
+        $time = Time::all();
+        return view('time.viewall', ['time' => $time]);
+    }
+
+    public function route()
+    {
+        
+        return view('time.route');
+    }
+
 }
 
 

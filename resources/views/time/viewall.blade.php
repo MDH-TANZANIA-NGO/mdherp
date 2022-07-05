@@ -54,10 +54,8 @@
 
     function getPosition(position) {
 
-        var lat = "{{$time->lat_out}}";
-        var long = "{{$time->long_out}}";
-        var title = "{{$time->user->fullname}}"
-
+        var lat = '[[$time->lat_out]]';
+        var long = '[[$time->long_out]]' ;
         var accuracy = position.coords.accuracy
         if (marker) {
             map.removeLayer(marker)
@@ -67,26 +65,23 @@
             map.removeLayer(circle)
         }
 
+
         let markerOptions = {
-            title: '{{$time->user->fullname}}',
-            clickable:'true'
+            title: '[[$time->user->fullname]]',
+            clickable: 'true'
         }
 
         marker = L.marker([lat, long], markerOptions)
+
         circle = L.circle([lat, long], {
-            radius: accuracy,
-          
-
-
+            radius: accuracy
         })
-
-
 
         var featureGroup = L.featureGroup([marker, circle]).addTo(map)
 
         map.fitBounds(featureGroup.getBounds())
 
-        console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy + " Title: " + title)
+        console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
     }
 </script>
 

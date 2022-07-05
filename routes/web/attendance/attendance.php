@@ -47,5 +47,10 @@ Route::post('/time/update', [App\Http\Controllers\Web\Time\TimeController::class
 Route::get('/time/calc', [App\Http\Controllers\Web\Time\TimeController::class, 'calc'])->name('calc-time');
 Route::get('/time/view/{id}', [App\Http\Controllers\Web\Time\TimeController::class, 'view'])->name('view-time');
 Route::get('/time/view2/{id}', [App\Http\Controllers\Web\Time\TimeController::class, 'view2'])->name('view2-time');
+Route::get('/time/viewall', [App\Http\Controllers\Web\Time\TimeController::class, 'viewall'])->name('viewall-time');
+Route::get('/time/route', [App\Http\Controllers\Web\Time\TimeController::class, 'route'])->name('route-time');
 
 Route::get('/time/show', [App\Http\Controllers\Web\Time\TimeController::class, 'show'])->name('time-show');
+
+//Chart
+Route::get('/chart', [App\Http\Controllers\ChartController::class, 'index'])->name('chart');
