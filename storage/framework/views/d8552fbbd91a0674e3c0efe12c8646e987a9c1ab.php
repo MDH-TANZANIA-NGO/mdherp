@@ -1,6 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
+<?php if($job_details == null): ?>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -21,48 +20,52 @@
                         </li>
 
                     </ul>
-                    <br>
-                    {!! Form::open(['route' => ['job_offer.update',$job_offer->uuid], 'method'=>'PUT']) !!}
-                    <input type="number" name="hr_hire_requisitions_job_applicants_id" value="3" hidden>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Salary amount</label>
-                                <div class="input-icon">
+<br>
+                    <?php echo Form::open(['route' => 'job_offer.store']); ?>
+
+                <div class="row">
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Salary amount</label>
+                        <div class="input-icon">
 												<span class="input-icon-addon">
 													<i class="fe fe-dollar-sign"></i>
 												</span>
-                                    <input type="text" class="form-control" name="salary" value="{{currency_converter($job_offer->salary, 'TSH')}}" placeholder="Salary Amount">
-                                </div>
-                            </div>
+                            <input type="text" class="form-control" name="salary" placeholder="Salary Amount">
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Date of arrival</label>
-                                <div class="input-icon">
+                    </div>
+                    </div>
+                    <input type="number" name="hr_hire_requisitions_job_applicants_id" value="2" hidden>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Date of arrival</label>
+                            <div class="input-icon">
 												<span class="input-icon-addon">
 													<i class="fe fe-calendar"></i>
 												</span>
-                                    <input type="datetime-local" name="date_of_arrival" value="{{date('d/m/Y h:m:s',strtotime($job_offer->date_of_arrival))}}" class="form-control" >
-                                </div>
+                                <input type="datetime-local" name="date_of_arrival" min="<?php echo e(now()->format('Y-m-d')); ?>" class="form-control" placeholder="Salary Amount">
                             </div>
                         </div>
                     </div>
+                </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Other benefits</label>
-                                <textarea class="content2 richText-initial" name="details" style="display: none;" value="{!! html_entity_decode($job_offer->details) !!}"></textarea>
+                    <input type="text" name="details" class="content">
                             </div>
                         </div>
                     </div>
                     <a href="#" class="btn btn-instagram"><i class="fa fa-arrow-circle-left mr-2"></i>Back</a>
-                    <button type="submit" class="btn btn-vk"><i class="fa fa-paper-plane-o mr-2"></i>Update</button>
+                    <button type="submit" class="btn btn-vk"><i class="fa fa-paper-plane-o mr-2"></i>Send for approval</button>
 
 
-                </div>
-                {!! Form::close() !!}
             </div>
-        </div>
+                <?php echo Form::close(); ?>
 
-@endsection
+        </div>
+    </div>
+    <?php endif; ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/elinipendomziray/Sites/mdherp/resources/views/humanResource/jobOffer/forms/create.blade.php ENDPATH**/ ?>
