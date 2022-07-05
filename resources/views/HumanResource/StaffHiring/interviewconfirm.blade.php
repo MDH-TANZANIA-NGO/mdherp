@@ -8,7 +8,7 @@
                 <div class="row mt-5 profie-img">
                     <div class="col-md-12">
                         <div class="media-heading">
-                            <h5><strong>Hi! {Full Name}</strong></h5>
+                            <h5><strong>Hi! {{$interview_details->full_name}}</strong></h5>
                         </div>
                         <p>You have been shortlisted for an interview</p>
                         <p>Kindly confirm your availability by pressing a button bellow</p>
@@ -18,18 +18,18 @@
                     <table class="table row table-borderless w-100 m-0 ">
                         <tbody class="col-lg-6 p-0">
                         <tr>
-                            <td><strong>Full Name:</strong> xxxx </td>
+                            <td><strong>Full Name:</strong> {{$interview_details->full_name}} </td>
                         </tr>
                         <tr>
-                            <td><strong>Interview Position:</strong> xxxx</td>
+                            <td><strong>Interview Position:</strong> {{$interview_details->interviews->jobRequisition->designation->full_title}}</td>
                         </tr>
                         <tr>
-                            <td><strong>Interview Date and Time:</strong> DD-MM-YYYY HH:MM:s </td>
+                            <td><strong>Interview Date and Time:</strong> {{$interview_details->interview_date}} </td>
                         </tr>
                         </tbody>
                         <tbody class="col-lg-6 p-0">
                         <tr>
-                            <td><strong>Interview Type:</strong> xxxx</td>
+                            <td><strong>Interview Type:</strong> {{$interview_details->interviews->interviewType->name}}</td>
                         </tr>
                         <tr>
                             <td><strong>Take place at:</strong> xxxx</td>

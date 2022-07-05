@@ -33,11 +33,16 @@ class InterviewApplicantRepository extends BaseRepository
             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name ) AS full_name"),
             DB::raw('hr_interview_applicants.id AS id'),
             DB::raw('hr_interview_applicants.interview_id AS interview_id'),
+            DB::raw('hr_interview_applicants.interview_schedule_id AS interview_schedule_id'),
             DB::raw('hr_hire_advertisement_requisitions.description AS description'),
             DB::raw('hr_hire_requisitions_jobs.designation_id AS designation_id'),
+            DB::raw('hr_interview_types.name AS interview_type_name'),
+            DB::raw('hr_interview_schedules.interview_date AS interview_date'),
         ])
             ->join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_applicants.applicant_id')
             ->join('hr_interviews', 'hr_interviews.id', 'hr_interview_applicants.interview_id')
+            ->leftjoin('hr_interview_types', 'hr_interviews.interview_type_id', 'hr_interview_types.id')
+            ->leftjoin('hr_interview_schedules', 'hr_interview_schedules.interview_id', 'hr_interviews.id')
             ->join('hr_hire_requisitions_jobs','hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
             ->join('hr_hire_advertisement_requisitions','hr_hire_advertisement_requisitions.hire_requisition_job_id','hr_hire_requisitions_jobs.id')
             ->where('hr_interview_applicants.status',1);
@@ -47,6 +52,14 @@ class InterviewApplicantRepository extends BaseRepository
     {
         return $this->getApplicantForJobOffer()
             ->where('hr_interview_applicants.id', $id);
+    }
+
+    public function getInterviewScheduleApplicantDetails($applicant_id, $interview_id)
+    {
+        return $this->getApplicantForJobOffer()
+            ->where('hr_interview_applicants.applicant_id', $applicant_id)
+            ->where('hr_interview_applicants.interview_id', $interview_id);
+
     }
 
 
