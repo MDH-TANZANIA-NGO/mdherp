@@ -30,8 +30,10 @@ class HrUserHireRequisitionJobShortlisterRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function initiate(HrUserHireRequisitionJobRequest $job_shortlister_request)
+    public function initiate($uuid)
     {
+        $job_shortlister_request = $this->job_shortlister_requests->findByUuid($uuid);
+        dd($job_shortlister_request);
         return view('HumanResource.HireRequisition.shortlister.initiate')
         ->with('job_shortlister_request',$job_shortlister_request);
     }
