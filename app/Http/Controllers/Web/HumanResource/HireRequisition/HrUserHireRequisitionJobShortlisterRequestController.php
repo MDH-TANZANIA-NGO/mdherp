@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\HumanResource\HireRequisition\HrUserHireRequisitionJobRequest;
+use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
 
 class HrUserHireRequisitionJobShortlisterRequestController extends Controller
 {
     protected $job_shortlister_requests;
+    protected $users;
 
     public function __construct()
     {
         $this->job_shortlister_requests = (new HrUserHireRequisitionJobShortlisterRequestRepository());
+        $this->users = (new UserRepository());
     }
     /**
      * Display a listing of the resource.
@@ -33,9 +36,10 @@ class HrUserHireRequisitionJobShortlisterRequestController extends Controller
     public function initiate($uuid)
     {
         $job_shortlister_request = $this->job_shortlister_requests->findByUuid($uuid);
-        dd($job_shortlister_request);
         return view('HumanResource.HireRequisition.shortlister.initiate')
-        ->with('job_shortlister_request',$job_shortlister_request);
+        ->with('job_shortlister_request',$job_shortlister_request)
+        ->with('jobs',$job_shortlister_request->jobs)
+        ->with('users',$this->users->pluckWithDesignation());
     }
 
     /**
