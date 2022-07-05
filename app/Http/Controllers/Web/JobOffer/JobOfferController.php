@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
 use App\Models\Auth\User;
 use App\Models\HumanResource\Interview\InterviewApplicant;
+use App\Models\JobOffer\JobOfferRemark;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\JobOfferRepository;
@@ -149,6 +150,23 @@ class JobOfferController extends Controller
         $job_offer = $this->job_offers->findByUuid($uuid);
         $job_offer->update(['status'=>'1']);
         alert()->success('Job offer accepted successfully', 'Congratulation');
+        return redirect()->back();
+    }
+
+    public function rejectOffer(Request $request, $uuid)
+    {
+        $job_offer = $this->job_offers->findByUuid($uuid);
+        $job_offer->update(['status'=>'2']);
+        JobOfferRemark::query()->create([
+            'job_offer_id'=>$job_offer->id,
+            'user_id'=>$job_offer->user_id,
+            'applicant_id'=>$job_offer->interviewApplicant->applicant->id,
+            'comments'=>$request['comments']
+
+        ]);
+
+        alert()->success('Job Offer rejected successfully');
+
         return redirect()->back();
     }
 }

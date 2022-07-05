@@ -25,14 +25,16 @@
                                 </button>
                             </div>
                             <div class="modal-body">
+                                {!! Form::open(['route' => ['job_offer.rejectOffer',$job_offer->uuid], 'method'=>'PUT']) !!}
                                 <div class="form-group">
                                     <label class="form-label">Why do you reject offer?</label>
-                                    <textarea class="form-control" name="example-textarea-input" rows="7" placeholder="text here.."></textarea>
+                                    <textarea class="form-control" name="comments" rows="7" placeholder="text here.."></textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>
