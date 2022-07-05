@@ -117,8 +117,7 @@ class JobOfferController extends Controller
 
     public function update(Request $request, $uuid)
     {
-        //
-       dd( $request->all());
+
         $this->job_offers->update($request->all(), $uuid);
         alert()->success('Job Offer updated successfully');
         return redirect()->route('job_offer.index');

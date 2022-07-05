@@ -40,7 +40,7 @@ class JobOfferRepository extends BaseRepository
         return $this->getQuery()
             ->where('job_offers.done', true)
             ->where('job_offers.rejected', false)
-            ->where('job_offers.wf_done', 0)
+            ->where('job_offers.wf_done', null)
             ->where('job_offers.user_id', access()->user()->id);
     }
     public function getAccessApproved()
@@ -56,7 +56,7 @@ class JobOfferRepository extends BaseRepository
         return $this->getQuery()
             ->where('job_offers.done', true)
             ->where('job_offers.rejected', true)
-            ->where('job_offers.wf_done', 0)
+            ->where('job_offers.wf_done', null)
             ->where('job_offers.user_id', access()->user()->id);
     }
     public function inputProcess($inputs)
