@@ -26,7 +26,7 @@ class JobOfferController extends Controller
         $this->interview_applicants = (new InterviewApplicantRepository());
         $this->wf_tracks = (new WfTrackRepository());
     }
-   
+
     public function index()
     {
         //
