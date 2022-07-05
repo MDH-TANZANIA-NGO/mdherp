@@ -169,5 +169,15 @@ class ProjectRepository extends BaseRepository
             ])
             ->get()->pluck('title','id');
     }
+    public function getJobOfferProjects($job_offer_id)
+    {
+        return $this->query()->select([
+            'projects.id AS id',
+            'projects.title AS title'
+        ])
+            ->leftjoin('job_offer_project', 'job_offer_project.project_id', 'projects.id')
+            ->leftjoin('job_offers','job_offers.id','job_offer_project.job_offer_id')
+            ->where('job_offers.id',$job_offer_id);
+    }
 
 }

@@ -10,24 +10,28 @@ use App\Models\HumanResource\Interview\InterviewApplicant;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\JobOfferRepository;
+use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
 use Illuminate\Http\Request;
 
 class JobOfferController extends Controller
 {
-    use JobOfferDatatable;
+   use JobOfferDatatable;
 
-    protected $job_offers;
-    protected $interview_applicants;
-    protected  $wf_tracks;
-    public function __construct()
-    {
-        $this->job_offers =  (new JobOfferRepository());
-        $this->interview_applicants = (new InterviewApplicantRepository());
-        $this->wf_tracks = (new WfTrackRepository());
-    }
-
+   protected $job_offers;
+   protected $interview_applicants;
+   protected  $wf_tracks;
+   protected  $users;
+   protected $projects;
+   public function __construct()
+   {
+       $this->job_offers =  (new JobOfferRepository());
+       $this->interview_applicants = (new InterviewApplicantRepository());
+       $this->wf_tracks = (new WfTrackRepository());
+       $this->users = (new UserRepository());
+       $this->projects = (new ProjectRepository());
+   }
     public function index()
     {
         //
@@ -48,8 +52,10 @@ class JobOfferController extends Controller
 
         $job_details =  $this->interview_applicants->getAdvertDetails($request->get('id'))->first();
 
+
         return view('humanResource.jobOffer.forms.create')
-            ->with('job_details', $job_details);
+            ->with('job_details', $job_details)
+            ->with('projects', $this->projects->getActiveForPluck());
 
     }
 
@@ -99,8 +105,13 @@ class JobOfferController extends Controller
     {
         //
         $job_offer =  $this->job_offers->findByUuid($uuid);
+
+        $job_offer_projects =  $this->projects->getJobOfferProjects($job_offer->id)->get();
+
         return view('humanResource.jobOffer.forms.edit')
-            ->with('job_offer', $job_offer);
+            ->with('job_offer', $job_offer)
+            ->with('projects',$this->projects->getActiveForPluck())
+            ->with('job_offer_projects', $job_offer_projects);
     }
 
 

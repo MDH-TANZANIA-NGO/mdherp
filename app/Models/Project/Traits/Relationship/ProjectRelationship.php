@@ -3,6 +3,7 @@
 namespace App\Models\Project\Traits\Relationship;
 
 use App\Models\Auth\User;
+use App\Models\JobOffer\JobOffer;
 use App\Models\Project\Budget;
 use App\Models\Project\ProgramArea;
 use App\Models\Project\ProgramAreaProject;
@@ -35,6 +36,10 @@ trait ProjectRelationship
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+    public function job_offer()
+    {
+        return $this->belongsToMany(JobOffer::class)->withPivot('id');
     }
 
 }

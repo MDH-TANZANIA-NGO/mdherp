@@ -502,8 +502,9 @@ class Workflow
                         'message' =>  "<b>".$job_offer->user->first_name."  " .$job_offer->user->last_name.", "."Submitted job offer:"." ".$job_offer->number. ",  which needs your approval"
 
                     ];
+
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
-                    $job_offer->interviewApplicant->applicant->notify();
+//                    $job_offer->interviewApplicant->applicant->notify(new  WorkflowNotification($email_resource_to_applicant));
                     break;
 
             }
