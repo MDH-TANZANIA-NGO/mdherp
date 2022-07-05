@@ -54,7 +54,7 @@
 												<span class="input-icon-addon">
 													<i class="fe fe-calendar"></i>
 												</span>
-                                <input type="date" class="form-control" name="end_tenure" placeholder="Salary Amount">
+                                <input type="date" class="form-control" name="end_tenure">
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,9 @@
 												<span class="input-icon-addon">
 													<i class="fe fe-dollar-sign"></i>
 												</span>
-                                <input type="text" class="form-control" name="salary" placeholder="Salary Amount">
+                                <?php echo Form::select('projects[]', $projects, null, ['class' =>'form-control select2-show-search', 'aria-describedby' => '','multiple']); ?>
+
+
                             </div>
                         </div>
                     </div>

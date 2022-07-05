@@ -68,6 +68,7 @@ class JobOfferRepository extends BaseRepository
             'hr_interview_applicant_id'=>$inputs['hr_hire_requisitions_job_applicants_id'],
             'user_id'=>access()->user()->id,
             'date_of_arrival'=>$inputs['date_of_arrival'],
+            'end_tenure'=>$inputs['end_tenure'],
             'wf_done'=> 0,
             'done'=> true
 
@@ -80,6 +81,7 @@ class JobOfferRepository extends BaseRepository
             $job_offer =  $this->find($job_offer_id);
             $number =  $number = $this->generateNumber($job_offer);
             $job_offer->update(['number'=>$number]);
+            $job_offer->projects()->sync($inputs['projects']);
             return $job_offer;
         });
     }

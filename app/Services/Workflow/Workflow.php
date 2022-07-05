@@ -503,7 +503,7 @@ class Workflow
 
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
-                    $job_offer->interviewApplicant->applicant->notify();
+//                    $job_offer->interviewApplicant->applicant->notify();
                     break;
 
             }

@@ -10,6 +10,7 @@ use App\Models\HumanResource\Interview\InterviewApplicant;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\JobOfferRepository;
+use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
 use Illuminate\Http\Request;
@@ -22,12 +23,14 @@ class JobOfferController extends Controller
    protected $interview_applicants;
    protected  $wf_tracks;
    protected  $users;
+   protected $projects;
    public function __construct()
    {
        $this->job_offers =  (new JobOfferRepository());
        $this->interview_applicants = (new InterviewApplicantRepository());
        $this->wf_tracks = (new WfTrackRepository());
        $this->users = (new UserRepository());
+       $this->projects = (new ProjectRepository());
    }
     public function index()
     {
@@ -49,8 +52,10 @@ class JobOfferController extends Controller
 
         $job_details =  $this->interview_applicants->getAdvertDetails($request->get('id'))->first();
 
+
         return view('humanResource.jobOffer.forms.create')
-            ->with('job_details', $job_details);
+            ->with('job_details', $job_details)
+            ->with('projects', $this->projects->getActiveForPluck());
 
     }
 
