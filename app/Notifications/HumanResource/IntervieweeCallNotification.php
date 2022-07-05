@@ -3,6 +3,7 @@
 namespace App\Notifications\HumanResource;
 
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -44,13 +45,14 @@ class IntervieweeCallNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        //dd($notifiable);
         //dd($notifiable->interview_date);
         $schedules = $this->interview_call->InterviewSchedules;
         $interview_date  = '';
         $interview_type  = '';
         $interview_position  = '';
 
-        $interview_position .= "<b>Interview Position:</b> ".$schedules[0]->interview->jobRequisition->designation->full_title."<br/>"." Interview Date: ".$notifiable->interview_date."<br/>"."Interview Type: ".$schedules[0]->interview->interviewType->name.", <br/><br/>";
+        $interview_position .= "<b>Interview Position:</b> ".$schedules[0]->interview->jobRequisition->designation->full_title."<br/>"." Interview Date: ".$schedules[0]->interview_date."<br/>"."Interview Type: ".$schedules[0]->interview->interviewType->name.", <br/><br/>";
 
 
         $string = htmlentities("Congratulations! You have been shortlisted to sit for interview ". "<br>". $interview_position);

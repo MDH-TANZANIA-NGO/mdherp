@@ -401,7 +401,7 @@
                                             {!!$message !!}
                                         </p>
                                         <!-- Action -->
-                                        {{--<table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                                        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                             <tr>
                                                 <td align="center">
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
@@ -416,7 +416,7 @@
                                             </tr>
                                         </table>
 
-                                        <table class="body-sub" role="presentation">
+                                        {{--<table class="body-sub" role="presentation">
                                             <tr>
                                                 <td>
                                                     <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>

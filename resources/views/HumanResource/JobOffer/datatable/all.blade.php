@@ -27,6 +27,10 @@
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">#</th>
+                                    <th class="wd-15p">TITLE</th>
+                                    <th class="wd-15p">REGION</th>
+                                    <th class="wd-25p"># OF EMPLOYEES</th>
+                                    <th class="wd-25p">CREATED AT</th>
                                     <th class="wd-15p">APPLICANT NAME</th>
                                     <th class="wd-15p">JOB TITLE</th>
                                     <th class="wd-25p">OFFER</th>
@@ -49,6 +53,7 @@
                                     <th class="wd-15p">APPLICANT NAME</th>
                                     <th class="wd-15p">JOB TITLE</th>
                                     <th class="wd-25p">OFFER</th>
+                                    <th class="wd-25p">CREATED AT</th>
                                     <th class="wd-25p">OFFER NUMBER</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -70,6 +75,7 @@
                                     <th class="wd-15p">APPLICANT NAME</th>
                                     <th class="wd-15p">JOB TITLE</th>
                                     <th class="wd-25p">OFFER</th>
+                                    <th class="wd-25p">CREATED AT</th>
                                     <th class="wd-25p">OFFER NUMBER</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -102,6 +108,10 @@
                 ajax: '{{ route('job_offer.datatable.access.processing') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
+                    { data: 'number', name: 'job_offers.name', searchable: true},
+                    { data: 'designation_id', name: 'job_offers.designation_id', searchable: true},
+                    { data: 'salary', name: 'job_offers.salary', searchable: true },
+                    { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'full_name', name: 'job_offers.name', searchable: true},
                     { data: 'full_title', name: 'job_offers.designation_id', searchable: true},
                     { data: 'salary', name: 'job_offers.salary', searchable: true },

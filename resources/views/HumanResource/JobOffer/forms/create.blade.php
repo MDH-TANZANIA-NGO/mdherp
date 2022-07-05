@@ -6,13 +6,32 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
+<<<<<<< HEAD
+                    <h3 class="card-title">Form elements</h3>
+=======
                     <h3 class="card-title">Create job offer</h3>
+>>>>>>> 254d9775035842df159ba3bee91a91016519a14f
                     <div class="card-options ">
                         <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                         <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
                     </div>
                 </div>
                 <div class="card-body">
+<<<<<<< HEAD
+
+                    <div class="form-group">
+
+                        <div class="input-icon">
+												<span class="input-icon-addon">
+													<i class="fe fe-user"></i>
+												</span>
+                            <input type="text" class="form-control" placeholder="Username">
+                        </div>
+                    </div>
+
+
+            </div>
+=======
                     <ul class="demo-accordion accordionjs m-0" data-active-index="false">
 
                         <!-- Section 1 -->
@@ -85,6 +104,7 @@
 
             </div>
                 {!! Form::close() !!}
+>>>>>>> 254d9775035842df159ba3bee91a91016519a14f
         </div>
     </div>
     @endif

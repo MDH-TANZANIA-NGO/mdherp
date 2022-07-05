@@ -16,19 +16,18 @@ use Illuminate\Http\Request;
 
 class JobOfferController extends Controller
 {
-   use JobOfferDatatable;
+    use JobOfferDatatable;
 
-   protected $job_offers;
-   protected $interview_applicants;
-   protected  $wf_tracks;
-   protected  $users;
-   public function __construct()
-   {
-       $this->job_offers =  (new JobOfferRepository());
-       $this->interview_applicants = (new InterviewApplicantRepository());
-       $this->wf_tracks = (new WfTrackRepository());
-       $this->users = (new UserRepository());
-   }
+    protected $job_offers;
+    protected $interview_applicants;
+    protected  $wf_tracks;
+    public function __construct()
+    {
+        $this->job_offers =  (new JobOfferRepository());
+        $this->interview_applicants = (new InterviewApplicantRepository());
+        $this->wf_tracks = (new WfTrackRepository());
+    }
+
     public function index()
     {
         //
