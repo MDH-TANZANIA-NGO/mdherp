@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterUserRepository;
 
 class HrUserHireRequisitionJobShortlisterUserController extends Controller
 {
+    protected $user_shortlister_users;
+
+    public function __construct()
+    {
+        $this->user_shortlister_users = (new HrUserHireRequisitionJobShortlisterUserRepository());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -33,9 +40,11 @@ class HrUserHireRequisitionJobShortlisterUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $hr_user_shortlister_id)
     {
-        //
+        $this->user_shortlister_users->store($request->all(),$hr_user_shortlister_id);
+        alert()->success('Shortlister(s) Added successfully');
+        return redirect()->back();
     }
 
     /**
