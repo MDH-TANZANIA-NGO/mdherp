@@ -136,4 +136,11 @@ class JobOfferController extends Controller
         $pdf = \PDF::loadHTML($view)->setPaper('a4', 'potrait');
         return $pdf->download($job_offer->number.'   ' .$job_offer->created_at.'.pdf');
     }
+
+    public function offerAcceptance($uuid)
+    {
+
+        return view('HumanResource.JobOffer.acceptingoffer')
+            ->with('job_offer', $this->job_offers->findByUuid($uuid));
+    }
 }

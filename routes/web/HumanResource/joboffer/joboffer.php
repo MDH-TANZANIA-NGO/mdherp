@@ -3,6 +3,7 @@ Route::group(['namespace' => 'jobOffer', 'middleware' => ['web', 'auth'], 'prefi
     Route::get('', 'JobOfferController@index')->name('index');
     Route::get('initiate', 'JobOfferController@initiate')->name('initiate');
     Route::get('create', 'JobOfferController@create')->name('create');
+    Route::get('{uuid}/accepting_offer', 'JobOfferController@offerAcceptance')->name('accepting_offer');
     Route::get('{uuid}/edit', 'JobOfferController@edit')->name('edit');
     Route::get('{uuid}/show', 'JobOfferController@show')->name('show');
     Route::get('{uuid}/print', 'JobOfferController@print')->name('print');
