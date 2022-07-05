@@ -10,11 +10,17 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Job Offer Details</h3>
+                    <div class="card-options">
+                        <a href="<?php echo e(route('job_offer.print', $job_offer->uuid)); ?>" class="btn btn-primary btn-sm float-right"><i class="fa fa-print"></i> Print</a>
+                        <?php if($job_offer->wf_done == 0): ?>
+                            <a href="<?php echo e(route('job_offer.edit', $job_offer->uuid)); ?>" class="btn btn-instagram btn-sm" style="margin-left: 2%">Edit</a>
+                            <?php endif; ?>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="">
-                        <h4 class="mb-1"><strong>Jessica Allen</strong>,</h4>
-                        has been given offer of <strong>$<?php echo e(currency_converter($job_offer->salary, 'TSH')); ?></strong> (USD) for job position as <b>ICT CUM Software Developer</b>
+                        <h4 class="mb-1"><strong><?php echo e($job_offer->interviewApplicant->applicant->full_name); ?></strong>,</h4>
+                        has been given offer of <strong>$<?php echo e(currency_converter($job_offer->salary, 'TSH')); ?></strong> (USD) for job position as <b><?php echo e(strtoupper($job_offer->interviewApplicant->interviews->jobRequisition->designation->full_title)); ?></b>
                     </div>
 
                     <div class="card-body pl-0 pr-0">
@@ -30,39 +36,45 @@
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <div class="row pt-4">
-                        <div class="col-lg-6 ">
-                            <p class="h3">Other Benefits</p>
-                            <address>
+                    <div class="row">
+                        <div class="card">
+
+
+
+
+
+
+
+
+                            <div class="card-body">
                                 <?php echo htmlspecialchars_decode($job_offer->details); ?>
 
-                            </address>
+                             </div>
                         </div>
-
                     </div>
-                    <div class="table-responsive push">
-                        <table class="table table-bordered table-hover">
-                            <tbody><tr class=" ">
-                                <th>Job Details</th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p class="font-w600 mb-1">Job Details to be set here</p>
-                                </td>
 
-                            </tr>
 
-                            <tr>
-                                <td colspan="1" class="font-weight-bold text-uppercase text-right">Working station : Tabora</td>
-                            </tr>
-                            <tr>
-                                <td colspan="1" class="text-right">
-                                    <a href="<?php echo e(route('job_offer.edit', $job_offer->uuid)); ?>" type="button" class="btn btn-secondary" ><i class="si si-paper-plane"></i> Edit</a>
-                                    <a href="<?php echo e(route('job_offer.print', $job_offer->uuid)); ?>" class="btn btn-info" ><i class="si si-printer"></i> Print Offer</a>
-                                </td>
-                            </tr>
-                            </tbody></table>
-                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>
