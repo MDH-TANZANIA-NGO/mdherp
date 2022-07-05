@@ -31,7 +31,7 @@ trait JobOfferDatatable
         return DataTables::of($this->job_offers->getAccessRejected())
             ->addIndexColumn()
             ->addColumn('action', function($query) {
-                return '<a href="'.route('g_officer.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('job_offer.show', $query->uuid).'">view</a>';
             })
             ->addColumn('full_name', function($query) {
                 return $query->interviewApplicant->applicant->full_name;
@@ -52,7 +52,7 @@ trait JobOfferDatatable
         return DataTables::of($this->job_offers->getAccessApproved())
             ->addIndexColumn()
             ->addColumn('action', function($query) {
-                return '<a href="'.route('g_officer.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('job_offer.show', $query->uuid).'">view</a>';
             })
             ->addColumn('full_name', function($query) {
                 return $query->interviewApplicant->applicant->full_name;
