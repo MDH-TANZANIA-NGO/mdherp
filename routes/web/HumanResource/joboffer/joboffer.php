@@ -1,11 +1,9 @@
 <?php
-<<<<<<< HEAD
 Route::group(['namespace' => 'JobOffer', 'middleware' => ['web', 'auth'], 'prefix' => 'job_offer', 'as' => 'job_offer.'], function () {
     Route::get('', 'JobOfferController@index')->name('index');
     Route::get('initiate', 'JobOfferController@initiate')->name('initiate');
     Route::get('create', 'JobOfferController@create')->name('create');
-=======
-Route::group(['namespace' => 'jobOffer', 'middleware' => ['web', 'auth'], 'prefix' => 'job_offer', 'as' => 'job_offer.'], function () {
+
     Route::get('', 'JobOfferController@index')->name('index');
     Route::get('initiate', 'JobOfferController@initiate')->name('initiate');
     Route::get('create', 'JobOfferController@create')->name('create');
@@ -14,7 +12,6 @@ Route::group(['namespace' => 'jobOffer', 'middleware' => ['web', 'auth'], 'prefi
     Route::get('{uuid}/print', 'JobOfferController@print')->name('print');
     Route::post('store', 'JobOfferController@store')->name('store');
     Route::put('{uuid}/update', 'JobOfferController@update')->name('update');
->>>>>>> 254d9775035842df159ba3bee91a91016519a14f
 
     /**
      * Datatables
@@ -25,6 +22,5 @@ Route::group(['namespace' => 'jobOffer', 'middleware' => ['web', 'auth'], 'prefi
             Route::get('rejected', 'JobOfferController@AccessRejectedDatatable')->name('rejected');
             Route::get('approved', 'JobOfferController@AccessApprovedDatatable')->name('approved');
         });
-
     });
 });

@@ -4,16 +4,16 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary">{{$job_offers->getAccessProcessing()->count()}}</span></a></li>
-                    <li><a href="#returned" data-toggle="tab">Returned for Modification <span class="badge badge-warning">{{$job_offers->getAccessRejected()->count()}}</span></a></li>
-{{--                    <li><a href="#rejected" data-toggle="tab" class="">Rejected <span class="badge badge-danger"></span></a></li>--}}
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{$job_offers->getAccessApproved()->count()}}</span></a></li>
-{{--                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-dark"></span></a></li>--}}
+                    <li><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary"><?php echo e($job_offers->getAccessProcessing()->count()); ?></span></a></li>
+                    <li><a href="#returned" data-toggle="tab">Returned for Modification <span class="badge badge-warning"><?php echo e($job_offers->getAccessRejected()->count()); ?></span></a></li>
+
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success"><?php echo e($job_offers->getAccessApproved()->count()); ?></span></a></li>
+
                 </ul>
             </div>
             <div class="page-rightheader ml-auto d-lg-flex d-non pull-right">
                 <div class="btn-group mb-0">
-                    <a href="{{ route('job_offer.initiate') }}"> <i class="fa fa-plus mr-2"></i>Create Offer</a>
+                    <a href="<?php echo e(route('job_offer.initiate')); ?>"> <i class="fa fa-plus mr-2"></i>Create Offer</a>
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
     </div>
 </div>
 
-@push('after-scripts')
+<?php $__env->startPush('after-scripts'); ?>
     <script>
         $(document).ready(function () {
 
@@ -105,7 +105,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('job_offer.datatable.access.processing') }}',
+                ajax: '<?php echo e(route('job_offer.datatable.access.processing')); ?>',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'job_offers.name', searchable: true},
@@ -127,7 +127,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('job_offer.datatable.access.rejected') }}',
+                ajax: '<?php echo e(route('job_offer.datatable.access.rejected')); ?>',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'job_offers.name', searchable: true},
@@ -147,7 +147,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('job_offer.datatable.access.approved') }}',
+                ajax: '<?php echo e(route('job_offer.datatable.access.approved')); ?>',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'job_offers.name', searchable: true},
@@ -162,4 +162,5 @@
 
         })
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php /**PATH /Users/william/Code/mdherp/resources/views/HumanResource/JobOffer/datatable/all.blade.php ENDPATH**/ ?>
