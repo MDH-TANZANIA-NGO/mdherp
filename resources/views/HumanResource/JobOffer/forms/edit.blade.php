@@ -16,8 +16,8 @@
 
                         <!-- Section 1 -->
                         <li class="acc_section">
-                            <div class="acc_head"><h3>Elinipendo Mziray: <b>ICT CUM Software Developer</b></h3></div>
-                            <div class="acc_content" style="display: none;"><p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Fusce aliquet neque et accumsan fermentum. Aliquam lobortis neque in nulla  tempus, molestie fermentum purus euismod.</p></div>
+                            <div class="acc_head"><h3>{{$job_offer->interviewApplicant->applicant->full_name}}: <b>{{$job_offer->interviewApplicant->interviews->jobRequisition->designation->full_title}}</b></h3></div>
+                            <div class="acc_content" style="display: none;"><p>{{$job_offer->interviewApplicant->interviews->jobRequisition->advertisment->description}}</p></div>
                         </li>
 
                     </ul>

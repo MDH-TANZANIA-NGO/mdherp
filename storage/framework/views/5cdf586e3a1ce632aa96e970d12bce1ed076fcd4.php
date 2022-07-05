@@ -12,7 +12,7 @@
                     <h3 class="card-title">Job Offer Details</h3>
                     <div class="card-options">
                         <a href="<?php echo e(route('job_offer.print', $job_offer->uuid)); ?>" class="btn btn-primary btn-sm float-right"><i class="fa fa-print"></i> Print</a>
-                        <?php if($job_offer->wf_done == 0): ?>
+                        <?php if($job_offer->wf_done == 0 and $job_offer->user_id == access()->user()->id): ?>
                             <a href="<?php echo e(route('job_offer.edit', $job_offer->uuid)); ?>" class="btn btn-instagram btn-sm" style="margin-left: 2%">Edit</a>
                             <?php endif; ?>
                     </div>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-sm-6 text-right">
                                 <span>Expected arrival date</span><br>
-                                <strong><?php echo e($job_offer->date_of_arrival); ?></strong>
+                                <strong><?php echo e(today()); ?></strong>
                             </div>
                         </div>
                     </div>

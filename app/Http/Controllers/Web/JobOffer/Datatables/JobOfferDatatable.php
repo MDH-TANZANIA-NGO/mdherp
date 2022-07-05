@@ -13,10 +13,10 @@ trait JobOfferDatatable
                 return '<a href="'.route('job_offer.show', $query->uuid).'">view</a>';
             })
             ->addColumn('full_name', function($query) {
-                return 'Asha selemeani';
+                return $query->interviewApplicant->applicant->full_name;
             })
             ->addColumn('full_title', function($query) {
-                return 'New ICT';
+                return $query->interviewApplicant->interviews->jobRequisition->designation->full_title;
             })
             ->editColumn('salary', function($query) {
 
