@@ -74,11 +74,6 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
         });
     }
 
-    public function addShortlister($input)
-    {
-        if(!isset($input['hr_hire_requisitions_job_ids'])){
-            throw new GeneralException('Kindly Select atleast one JOB');
-        }
-    }
+    
 
 }
