@@ -44,13 +44,13 @@ class IntervieweeCallNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        //dd($notifiable->interview_date);
+        //dd($this->interview_call->InterviewSchedules);
         $schedules = $this->interview_call->InterviewSchedules;
         $interview_date  = '';
         $interview_type  = '';
         $interview_position  = '';
 
-        $interview_position .= "<b>Interview Position:</b> ".$schedules[0]->interview->jobRequisition->designation->full_title."<br/>"." Interview Date: ".$notifiable->interview_date."<br/>"."Interview Type: ".$schedules[0]->interview->interviewType->name.", <br/><br/>";
+        $interview_position .= "<b>Interview Position:</b> ".$schedules[0]->interview->jobRequisition->designation->full_title."<br/>"." Interview Date: ".$schedules[0]->interview_date."<br/>"."Interview Type: ".$schedules[0]->interview->interviewType->name.", <br/><br/>";
 
 
         $string = htmlentities("Congratulations! You have been shortlisted to sit for interview ". "<br>". $interview_position);
@@ -58,7 +58,7 @@ class IntervieweeCallNotification extends Notification
         return (new MailMessage)
             ->subject('Invited for Interview')
             ->markdown('mail.humanResource.interviewcall',[
-                'link' => $this->interview_call,
+                'link' => route('interviewconfirm.index', $this->interview_call->hr_requisition_job_id),
                 'fullname' => $notifiable->full_name,
                 'message' => html_entity_decode($string)
                 ]);
