@@ -143,4 +143,12 @@ class JobOfferController extends Controller
         return view('HumanResource.JobOffer.acceptingoffer')
             ->with('job_offer', $this->job_offers->findByUuid($uuid));
     }
+
+    public function  acceptingOffer($uuid)
+    {
+        $job_offer = $this->job_offers->findByUuid($uuid);
+        $job_offer->update(['status'=>'1']);
+        alert()->success('Job offer accepted successfully', 'Congratulation');
+        return redirect()->back();
+    }
 }

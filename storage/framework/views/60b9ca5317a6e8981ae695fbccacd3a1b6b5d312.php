@@ -7,9 +7,33 @@
                     <div class="card-options">
                         <a href="<?php echo e(route('job_offer.print', $job_offer->uuid)); ?>" class="btn btn-primary btn-sm float-right"><i class="fa fa-print"></i> Print</a>
                         <?php if($job_offer->status == null): ?>
-                            <a href="<?php echo e(route('job_offer.edit', $job_offer->uuid)); ?>" class="btn btn-success btn-sm" style="margin-left: 2%"><i class="fa fa-check-circle"></i> Accept</a>
-                            <a href="<?php echo e(route('job_offer.edit', $job_offer->uuid)); ?>" class="btn btn-instagram btn-sm" style="margin-left: 2%"><i class="fa fa-ban"></i> Reject</a>
+                            <a href="<?php echo e(route('job_offer.acceptingOffer', $job_offer->uuid)); ?>" class="btn btn-success btn-sm" style="margin-left: 2%"><i class="fa fa-check-circle"></i> Accept</a>
+                            <button type="button"class="btn btn-instagram btn-sm" data-toggle="modal" data-target="#exampleModal" style="margin-left: 2%"><i class="fa fa-ban"></i> Reject</button>
                         <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Job offer remarks</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="form-label">Why do you reject offer?</label>
+                                    <textarea class="form-control" name="example-textarea-input" rows="7" placeholder="text here.."></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -46,6 +70,7 @@
 
                             </div>
                         </div>
+                        <p class="text-muted text-center " style="margin-left: 30%" >Thank you choosing working with us! For any inquiry please call us 0758698022</p>
                     </div>
                     
                     
