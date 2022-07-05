@@ -33,21 +33,21 @@
                             </div>
                             <div class="col-sm-6 text-right">
                                 <span>Expected arrival date</span><br>
-                                <strong>{{date('d/m/y', today())}}</strong>
+                                <strong>{{$job_offer->date_of_arrival}}</strong>
                             </div>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="row">
                         <div class="card">
-{{--                            <div class="card-header">--}}
-{{--                                <h3 class="card-title">more details</h3>--}}
-{{--                                <div class="card-options">--}}
-{{--                                    <a href="#" class="btn btn-primary btn-sm">Print</a>--}}
-{{--                                    <a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>--}}
-{{--                                    <a href="#" class="btn btn-primary btn-sm">Print</a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+                            <div class="card-header">
+                                <h3 class="card-title">Project: {{}}</h3>
+                                <div class="card-options">
+                                    <a href="#" class="btn btn-primary btn-sm">Print</a>
+                                    <a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+                                    <a href="#" class="btn btn-primary btn-sm">Print</a>
+                                </div>
+                            </div>
                             <div class="card-body">
                                 {!! htmlspecialchars_decode($job_offer->details) !!}
                              </div>
