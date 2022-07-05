@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@if($job_details == null)
+@if($job_details != null)
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -17,15 +17,15 @@
 
                         <!-- Section 1 -->
                         <li class="acc_section">
-                            <div class="acc_head"><h3>Elinipendo Mziray: <b>ICT CUM Software Developer</b></h3></div>
-                            <div class="acc_content" style="display: none;"><p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Fusce aliquet neque et accumsan fermentum. Aliquam lobortis neque in nulla  tempus, molestie fermentum purus euismod.</p></div>
+                            <div class="acc_head"><h3>{{$job_details->full_name}}: <b>{{$job_details->unit_name}} {{$job_details->designation_name}}</b></h3></div>
+                            <div class="acc_content" style="display: none;"><p>{{$job_details->description}}</p></div>
                         </li>
 
                     </ul>
 <br>
                     {!! Form::open(['route' => 'job_offer.store']) !!}
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                     <div class="form-group">
                         <label class="form-label">Salary amount</label>
                         <div class="input-icon">
@@ -36,8 +36,8 @@
                         </div>
                     </div>
                     </div>
-                    <input type="number" name="hr_hire_requisitions_job_applicants_id" value="2" hidden>
-                    <div class="col-md-6">
+                    <input type="number" name="hr_hire_requisitions_job_applicants_id" value="{{$job_details->id}}" hidden>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-label">Date of arrival</label>
                             <div class="input-icon">
@@ -45,6 +45,28 @@
 													<i class="fe fe-calendar"></i>
 												</span>
                                 <input type="datetime-local" name="date_of_arrival" min="{{now()->format('Y-m-d')}}" class="form-control" placeholder="Salary Amount">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Date of End of Tenure</label>
+                            <div class="input-icon">
+												<span class="input-icon-addon">
+													<i class="fe fe-calendar"></i>
+												</span>
+                                <input type="date" class="form-control" name="end_tenure" placeholder="Salary Amount">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Project</label>
+                            <div class="input-icon">
+												<span class="input-icon-addon">
+													<i class="fe fe-dollar-sign"></i>
+												</span>
+                                <input type="text" class="form-control" name="salary" placeholder="Salary Amount">
                             </div>
                         </div>
                     </div>
