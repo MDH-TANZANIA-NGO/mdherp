@@ -5,8 +5,10 @@ use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
 use App\Models\Auth\User;
+use App\Models\HumanResource\HireRequisition\HrHireApplicant;
 use App\Models\HumanResource\Interview\InterviewApplicant;
 use App\Models\JobOffer\JobOfferRemark;
+use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\JobOfferRepository;
@@ -17,7 +19,7 @@ use Illuminate\Http\Request;
 
 class JobOfferController extends Controller
 {
-    use JobOfferDatatable;
+   use JobOfferDatatable;
 
    protected $job_offers;
    protected $interview_applicants;
@@ -42,6 +44,7 @@ class JobOfferController extends Controller
 
     public function initiate()
     {
+
 
         return view('humanResource.jobOffer.forms.initiate')
             ->with('applicant', $this->interview_applicants->getApplicantForJobOffer()->get()->pluck('full_name', 'id'));
@@ -78,6 +81,9 @@ class JobOfferController extends Controller
     public function show($uuid)
     {
         $job_offer =  $this->job_offers->findByUuid($uuid);
+
+        $job_offer_remarks =  JobOfferRemark::query()->where('job_offer_id', $job_offer->id)->get();
+
         //
         /* Check workflow */
         $wf_module_group_id = 14;
@@ -96,7 +102,8 @@ class JobOfferController extends Controller
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($job_offer))
-            ->with('job_offer', $job_offer);
+            ->with('job_offer', $job_offer)
+            ->with('job_offer_remarks', $job_offer_remarks);
 
     }
 
@@ -148,6 +155,20 @@ class JobOfferController extends Controller
     {
         $job_offer = $this->job_offers->findByUuid($uuid);
         $job_offer->update(['status'=>'1']);
+        $applicant_details =  $job_offer->interviewApplicant->applicant;
+       $user_id =  User::query()->create([
+            'first_name' => $applicant_details->first_name,
+            'middle_name' => $applicant_details->middle_name,
+            'last_name' => $applicant_details->last_name,
+            'phone' => $applicant_details->phone,
+            'email' => $applicant_details->email,
+            'designation_id' => $job_offer->interviewApplicant->interviews->jobRequisition->designation_id,
+            'password' => config('app.key'),
+           'user_account_cv_id'=> 4,
+        ])->id;
+
+       HrHireApplicant::query()->where('id', $applicant_details->id)->update(['user_id'=>$user_id]);
+
         alert()->success('Job offer accepted successfully', 'Congratulation');
         return redirect()->back();
     }
@@ -156,16 +177,52 @@ class JobOfferController extends Controller
     {
         $job_offer = $this->job_offers->findByUuid($uuid);
         $job_offer->update(['status'=>'2']);
-        JobOfferRemark::query()->create([
-            'job_offer_id'=>$job_offer->id,
-            'user_id'=>$job_offer->user_id,
-            'applicant_id'=>$job_offer->interviewApplicant->applicant->id,
-            'comments'=>$request['comments']
 
-        ]);
+        if (access()->user())
+        {
+            JobOfferRemark::query()->create([
+                'job_offer_id'=>$job_offer->id,
+                'user_id'=>$job_offer->user_id,
+                'comments'=>$request['comments']
+
+            ]);
+        }
+        elseif(access()->guest()){
+            JobOfferRemark::query()->create([
+                'job_offer_id'=>$job_offer->id,
+                'applicant_id'=>$job_offer->interviewApplicant->applicant->id,
+                'comments'=>$request['comments']
+
+            ]);
+
+        }
+
 
         alert()->success('Job Offer rejected successfully');
 
         return redirect()->back();
+    }
+
+    public function replyRemarks(Request $request, $uuid)
+    {
+        $job_offer = $this->job_offers->findByUuid($uuid);
+        $job_offer->update(['status'=>null]);
+        JobOfferRemark::query()->create([
+            'job_offer_id'=>$job_offer->id,
+            'user_id'=>$job_offer->user_id,
+            'comments'=>$request['comments']
+
+        ]);
+        $email_resource_to_applicant = (object)[
+            'link' =>  route('job_offer.accepting_offer',$job_offer),
+            'subject' => "Job Offer: Management and Development for Health",
+            'message' =>  " <p>I am pleased to extend the following offer of employment to you on behalf of <b>Management and Development for Health </b>. You have been selected as the best candidate for the ".$job_offer->interviewApplicant->interviews->jobRequisition->designation->full_title." position.</p> ". ",  Kindly login to portal for your action"
+
+        ];
+        $job_offer->interviewApplicant->applicant->notify(new  WorkflowNotification($email_resource_to_applicant));
+        alert()->success('Reply sent successfully');
+
+        return redirect()->back();
+
     }
 }

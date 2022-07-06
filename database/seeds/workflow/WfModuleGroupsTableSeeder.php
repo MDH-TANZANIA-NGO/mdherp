@@ -131,8 +131,8 @@ class WfModuleGroupsTableSeeder extends Seeder
             12 =>
                 array (
                     'id' => 13,
-                    'name' => 'Shortlisted Module',
-                    'table_name' => 'hr_hire_requisition_job_shortlists',
+                    'name' => 'Hire Requisition Shortlister(s)',
+                    'table_name' => 'hr_user_hire_requisition_job_shortlister_requests',
                     'created_at' => NULL,
                     'updated_at' => NULL,
                     'deleted_at' => NULL,

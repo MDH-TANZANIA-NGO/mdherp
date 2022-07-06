@@ -4,6 +4,7 @@
 /public/storage/framework/*
 /storage/*.key
 /vendor
+/storage/*
 .env
 .phpunit.result.cache
 .idea/*
