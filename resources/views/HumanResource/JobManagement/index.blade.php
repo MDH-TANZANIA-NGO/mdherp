@@ -42,7 +42,7 @@
             </div>
         </a>
     </div>
-    <div class="col-4 col-sm-4 col-lg-3">
+   {{-- <div class="col-4 col-sm-4 col-lg-3">
         <a href="{{route('job_offer.index')}}">
             <div class="card">
                 <div class="card-body text-center">
@@ -51,6 +51,6 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div>--}}
 </div>
 @endsection
