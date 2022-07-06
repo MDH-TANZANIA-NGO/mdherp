@@ -41,7 +41,7 @@ class HireRequisitionReplacedStaffController extends Controller
      */
     public function index()
     {
-        return view('HumanResource/HireRequisition._parent.index');
+        return view('humanResource/hireRequisition._parent.index');
     }
 
     /**
@@ -53,7 +53,7 @@ class HireRequisitionReplacedStaffController extends Controller
     {
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
-        return view('HumanResource.HireRequisition._parent.form.create')
+        return view('humanResource.hireRequisition._parent.form.create')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('conditions', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())

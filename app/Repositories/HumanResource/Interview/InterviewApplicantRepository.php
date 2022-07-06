@@ -22,14 +22,66 @@ class InterviewApplicantRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
-             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name ) AS full_name")
+             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name ) AS full_name"),
+
         ])
         ->join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_applicants.applicant_id');
+     }
+    public function getApplicantForJobOffer()
+    {
+        return $this->query()->select([
+            DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name ) AS full_name"),
+            DB::raw('hr_interview_applicants.id AS id'),
+            DB::raw('hr_interview_applicants.interview_id AS interview_id'),
+            DB::raw('hr_interview_applicants.interview_schedule_id AS interview_schedule_id'),
+            DB::raw('hr_hire_advertisement_requisitions.description AS description'),
+            DB::raw('hr_hire_requisitions_jobs.designation_id AS designation_id'),
+            DB::raw('designations.name AS designation_name'),
+            DB::raw('units.name AS unit_name'),
+            DB::raw('job_offers.status AS job_offer_status'), DB::raw('hr_interview_types.name AS interview_type_name'),
+            DB::raw('hr_interview_schedules.interview_date AS interview_date'),
+        ])
+            ->join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_applicants.applicant_id')
+            ->join('hr_interviews', 'hr_interviews.id', 'hr_interview_applicants.interview_id')
+            ->leftjoin('hr_interview_types', 'hr_interviews.interview_type_id', 'hr_interview_types.id')
+            ->leftjoin('hr_interview_schedules', 'hr_interview_schedules.interview_id', 'hr_interviews.id')
+            ->join('hr_hire_requisitions_jobs','hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
+            ->join('hr_hire_advertisement_requisitions','hr_hire_advertisement_requisitions.hire_requisition_job_id','hr_hire_requisitions_jobs.id')
+            ->leftjoin('designations','hr_hire_requisitions_jobs.designation_id', 'designations.id')
+            ->leftjoin('units', 'designations.unit_id', 'units.id')
+            ->leftjoin('job_offers', 'job_offers.hr_interview_applicant_id', 'hr_interview_applicants.id')
+            ->where('hr_interview_applicants.status',1)
+            ->whereDoesntHave('jobOffer')
+            ->orWhere('job_offers.status', '1');
+
     }
 
-    /** 
+
+
+
+    public function getAdvertDetails($id)
+    {
+
+        return $this->getApplicantForJobOffer()
+
+            ->where('hr_interview_applicants.id', $id);
+    }
+
+    public function getInterviewScheduleApplicantDetails($applicant_id, $interview_id)
+    {
+        return $this->getApplicantForJobOffer()
+            ->where('hr_interview_applicants.applicant_id', $applicant_id)
+            ->where('hr_interview_applicants.interview_id', $interview_id);
+
+    }
+
+
+
+
+
+    /**
      * get Access Processing
-     * 
+     *
     */
     public function getAccessProcessing()
     {
@@ -42,9 +94,9 @@ class InterviewApplicantRepository extends BaseRepository
     }
 
 
-    /** 
+    /**
      * get Access Returned For Modification
-     * 
+     *
     */
     public function getAccessReturnedForModification()
     {
@@ -56,7 +108,7 @@ class InterviewApplicantRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
-    /** 
+    /**
      * get Access Approved
      * @return mixed
     */
@@ -70,7 +122,7 @@ class InterviewApplicantRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
-    /** 
+    /**
      * get Access Saved
      * @return mixed
     */
@@ -84,7 +136,7 @@ class InterviewApplicantRepository extends BaseRepository
             ->where('users.id', access()->id());
     }
 
-    /** 
+    /**
      * get Access Approved Wait For Evaluation
      * @return mixed
     */
@@ -95,7 +147,7 @@ class InterviewApplicantRepository extends BaseRepository
             // ->whereDate('pr_reports.to_at', '<=', Carbon::now()->format('Y-m-d'));
     }
 
-    /** 
+    /**
      * get Access Approved Wait For Evaluation
      * @return mixed
     */
@@ -107,21 +159,17 @@ class InterviewApplicantRepository extends BaseRepository
     }
 
 
-    /** 
+    /**
      * store probation form
      * @return mixed
     **/
-    public function probationStore()
+    public function competedScored($interview_id)
     {
-        return DB::transaction(function () {
-            return access()->user()->prReports()->create([
-                'from_at' => access()->user()->employed_date,
-                'to_at' => access()->user()->three_month_probation,
-                'fiscal_year_id' => FiscalYear::query()->where('active', true)->first()->id,
-                'designation_id' => access()->user()->designation_id,
-                'pr_type_id' => 1
-            ]);
-        });
+        return $this->query()->where('is_scored',1)->where('interview_id',$interview_id);
+    }
+    public function pendingScored($interview_id)
+    {
+        return $this->query()->where('is_scored',0)->where('interview_id',$interview_id);
     }
 
     public function store($input)
@@ -136,12 +184,12 @@ class InterviewApplicantRepository extends BaseRepository
                 $number = $this->generateNumber($applicant);
                 $applicant->number = $number;
                 $applicant->save();
-                
+
             }
         });
     }
 
-    /** 
+    /**
      * store probation form
      * @return mixed
     **/
@@ -149,7 +197,7 @@ class InterviewApplicantRepository extends BaseRepository
     {
          return DB::table('hr_hire_requisition_job_applicants')
             ->select('hr_hire_requisition_job_applicants.id',
-            DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name") 
+            DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name")
             ,'hr_hire_requisition_job_applicants.created_at')
             ->join('hr_hire_applicants','hr_hire_applicants.id','hr_hire_requisition_job_applicants.hr_hire_applicant_id');
 

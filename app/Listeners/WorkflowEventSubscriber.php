@@ -7,6 +7,7 @@ use App\Exceptions\WorkflowException;
 use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\JobOfferRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
@@ -88,7 +89,7 @@ class WorkflowEventSubscriber
 
         /* check if there is next level */
         if (!is_null($workflow->nextLevel())) {
-            
+
             /* Create a entry log for the next workflow */
             $data = [
                 'resource_id' => $resource_id,
@@ -444,7 +445,7 @@ class WorkflowEventSubscriber
     //                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                                 $listing->update(['rejected' => false]);
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
-    
+
                                 $email_resource = (object)[
                                     'link' => route('listing.show', $listing),
                                     'subject' => $listing->id . " Needs your Approval",
@@ -456,7 +457,7 @@ class WorkflowEventSubscriber
     //                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                                 $listing->update(['rejected' => false]);
                                 $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
-    
+
                                 $email_resource = (object)[
                                     'link' => route('listing.show', $listing),
                                     'subject' => $listing->id . " Needs your Approval",
@@ -466,14 +467,32 @@ class WorkflowEventSubscriber
                             break;
                     }
                     break;
+                case 18:
+                    $job_offer_repo = (new JobOfferRepository());
+                    $job_offer  = $job_offer_repo->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $job_offer_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
 
+                            $email_resource = (object)[
+                                'link' => route('job_offer.show', $job_offer),
+                                'subject' => $job_offer->number . " job offer your approval",
+                                'message' =>  $job_offer->number . ' Job offer need your approval.'
+                            ];
+//                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+                    break;
                 case 11: case 13:
                     //workflowAction class
                     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id,$resource_id, $level)['next_user_id'];
                     break;
 
+
             }
-            
+
             $workflow->forward($data);
         } else {
             /* Workflow completed */
@@ -644,7 +663,24 @@ class WorkflowEventSubscriber
                     $advertisement->user->notify(new WorkflowNotification($email_resource));
                     // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
                     break;
-                 
+                case 18:
+                    $job_offer = (new JobOfferRepository())->find($resource_id);
+                    $this->updateWfDone($job_offer);
+                    $email_resource = (object)[
+                        'link' =>  route('job_offer.show',$job_offer),
+                        'subject' => $job_offer->number. ' '.$job_offer->title."Job Offer : Has been Approved Successfully",
+                        'message' => $job_offer->number. ' '.$job_offer->title.' Job Offer : Has been Approved successfully'
+                    ];
+                    $email_resource_to_applicant = (object)[
+                        'link' =>  route('job_offer.accepting_offer',$job_offer),
+                        'subject' => "Job Offer: Management and Development for Health",
+                        'message' =>  " <p>I am pleased to extend the following offer of employment to you on behalf of <b>Management and Development for Health </b>. You have been selected as the best candidate for the ".$job_offer->interviewApplicant->interviews->jobRequisition->designation->full_title." position.</p> ". ",  Kindly login to portal for your action"
+
+                    ];
+                    $job_offer->user->notify(new WorkflowNotification($email_resource));
+                    $job_offer->interviewApplicant->applicant->notify(new  WorkflowNotification($email_resource_to_applicant));
+                    // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
+                    break;
             }
 
 
@@ -706,6 +742,9 @@ class WorkflowEventSubscriber
                 break;
             case 10:
                 (new ProgramActivityReportRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
+                break;
+            case 18:
+                (new JobOfferRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,['rejected_level' => $level]);
                 break;
 
         }

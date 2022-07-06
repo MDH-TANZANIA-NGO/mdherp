@@ -3,6 +3,7 @@
 namespace App\Models\HumanResource\HireRequisition;
 
 use App\Models\BaseModel;
+use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Models\HumanResource\HireRequisition\Traits\Relationship\HireRequisitionJobRelationship;
 use App\Models\System\Region;
 use App\Models\HumanResource\HireRequisition\HireRequisitionLocation;
@@ -52,15 +53,17 @@ class HireRequisitionJob extends BaseModel
         return $this->belongsTo(Department::class);
     }
 
-    // public function locations()
-    // {
-    //     return $this->hasMany(HireRequisitionLocation::class,'hr_requisition_job_id')
-    // }
+     public function locations()
+     {
+         return $this->hasMany(HireRequisitionLocation::class,'hr_requisition_job_id');
+     }
 
-    public function locations()
-    {
-        return $this->hasMany(HireRequisitionLocation::class,'hr_requisition_job_id','id');
-    }
+     public function advertisment()
+     {
+         return $this->hasOne(HireAdvertisementRequisition::class);
+     }
+
+
 
     public function shortlists()
     {

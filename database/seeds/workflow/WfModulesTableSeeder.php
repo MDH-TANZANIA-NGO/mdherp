@@ -245,7 +245,7 @@ class WfModulesTableSeeder extends Seeder
                         'allow_decline' => 0,
                     ),
 
-            16 => 
+            16 =>
                 array(
                 'id' => 17,
                 'name' => 'Shortlisted Module',
@@ -259,6 +259,20 @@ class WfModulesTableSeeder extends Seeder
                 'allow_repeat' => 0,
                 'allow_decline' => 0,
             ),
+            17 =>
+                array(
+                    'id' => 18,
+                    'name' => 'Job Offer Module',
+                    'wf_module_group_id' => 14,
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => '1',
+                    'description' => 'Workflow for Job Offers',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
 
         ));
 

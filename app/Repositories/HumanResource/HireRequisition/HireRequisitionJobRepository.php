@@ -52,35 +52,15 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw('hr_hire_requisitions_jobs.id AS id' ),
             DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
             DB::raw('hr_hire_requisitions_jobs.uuid AS uuid' ),
-            DB::raw('hr_hire_requisitions_jobs.designation_id AS designation_id'),
-            DB::raw('hr_hire_requisitions_jobs.department_id AS department_id'),
-            DB::raw('departments.title AS department'),
-            DB::raw('hr_hire_requisitions_jobs.empoyees_required AS empoyees_required'),
-            DB::raw('hr_hire_requisitions_jobs.experience_years AS experience_years'),
-            DB::raw('hr_hire_requisitions_jobs.establishment AS establishment'),
-            DB::raw('hr_hire_requisitions_jobs.education_level AS education_level'),
-            DB::raw('hr_hire_requisitions_jobs.start_age AS start_age'),
-            DB::raw('hr_hire_requisitions_jobs.end_age AS end_age'),
-            DB::raw('hr_hire_requisitions_jobs.duties_and_responsibilities AS duties_and_responsibilities'),
-            DB::raw('hr_hire_requisitions_jobs.duties_and_responsibilities AS duties_and_responsibilities'),
-            DB::raw('designations.name AS title'),
             DB::raw('hr_hire_requisitions_jobs.date_required  AS date_required'),
-            DB::raw('code_values.name AS contract_type'),
-            DB::raw('hr_hire_requisitions_jobs.education_and_qualification AS education_and_qualification'),
             DB::raw('hr_hire_requisitions_jobs.hire_requisition_id AS hire_requisition_id'),
-            DB::raw('hr_hire_requisitions_jobs.practical_experience AS practical_experience'),
-            DB::raw('hr_hire_requisitions_jobs.special_qualities_skills AS special_qualities_skills'),
-            DB::raw('hr_hire_requisitions_jobs.special_employment_condition AS special_employment_condition'),
             DB::raw('hr_hire_requisitions_jobs.created_at AS created_at'),
-            DB::raw('hr_hire_requisitions_jobs.budget AS budget'),
             DB::raw('hr_interviews.uuid AS interview_uuid'),
-            DB::raw('hr_hire_requisitions_jobs.updated_at AS updated_at'),
+            DB::raw('hr_interview_panelists.technical_staff AS technical_staff'),
+
         ])
-            ->leftjoin('departments','departments.id','hr_hire_requisitions_jobs.department_id')
-            ->leftjoin('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
-            ->leftjoin('units','units.id','designations.unit_id')
-            ->join('code_values', 'code_values.id', 'hr_hire_requisitions_jobs.hr_contract_type_id')
-            ->join('hr_interviews','hr_interviews.hr_requisition_job_id','hr_hire_requisitions_jobs.id'); 
+            ->join('units','units.id','designations.unit_id')
+            ->join('hr_interviews','hr_interviews.hr_requisition_job_id','hr_hire_requisitions_jobs.id');
     }
 
     public function getAccessProcessingDatatable()

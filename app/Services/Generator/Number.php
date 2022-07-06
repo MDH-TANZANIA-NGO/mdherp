@@ -123,11 +123,18 @@ trait Number
                 $number = "MDH-INT-" . $year . '-' . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
+
             case 'hr_hire_requisition_job_shortlists':
                 $reference = "MDH_JST";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
                 $number = "MDH-JST-" . $year . '-' . $value;
+
+            case 'job_offers':
+                $reference = "MDH-JOB-OFFER";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-JOB-OFFER-" . $year . '-' . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             default:

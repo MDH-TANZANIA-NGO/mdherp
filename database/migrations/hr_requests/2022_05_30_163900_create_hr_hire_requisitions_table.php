@@ -20,7 +20,7 @@ class CreateHrHireRequisitionsTable extends Migration
             $table->smallInteger('done')->default(0);
             $table->smallInteger('rejected')->nullable();
             $table->smallInteger('wf_done')->default(0);
-            // $table->string('number')->nullable(0);
+            $table->string('number')->nullable();
             $table->date('wf_done_date')->nullable();
             $table->uuid('uuid');
             $table->softDeletes();

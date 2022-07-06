@@ -407,7 +407,7 @@
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                                         <tr>
                                                             <td align="center">
-                                                                <a href="" class="f-fallback
+                                                                <a href="{{$link}}" class="f-fallback
                                                                 button" target="_blank">Click here to view</a>
                                                             </td>
                                                         </tr>
@@ -416,14 +416,14 @@
                                             </tr>
                                         </table>
 
-                                        <table class="body-sub" role="presentation">
+                                        {{--<table class="body-sub" role="presentation">
                                             <tr>
                                                 <td>
                                                     <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
                                                     <p class="f-fallback sub">{{ $link }}</p>
                                                 </td>
                                             </tr>
-                                        </table>
+                                        </table>--}}
                                     </div>
                                 </td>
                             </tr>

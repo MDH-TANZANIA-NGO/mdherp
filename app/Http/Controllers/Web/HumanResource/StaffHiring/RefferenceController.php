@@ -25,7 +25,7 @@ class RefferenceController extends Controller
 
     public function index()
     {
-        return view('HumanResource.StaffHiring.refferenceform');
+        return view('humanResource.StaffHiring.refferenceform');
     }
 
     /**
@@ -53,7 +53,7 @@ class RefferenceController extends Controller
 
     public function end()
     {
-        return view('HumanResource.StaffHiring.refferenceend');
+        return view('humanResource.StaffHiring.refferenceend');
     }
 
     /**

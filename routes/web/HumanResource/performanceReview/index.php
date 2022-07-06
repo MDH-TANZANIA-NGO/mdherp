@@ -1,5 +1,5 @@
 <?php
-Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], 'prefix' => 'human-resource', 'as' => 'hr.'], function () {
+Route::group(['namespace' => 'humanResource', 'middleware' => ['web', 'auth'], 'prefix' => 'human-resource', 'as' => 'hr.'], function () {
 
     //Performance Review
     Route::group(['namespace' => 'PerformanceReview', 'prefix' => 'performance-reviews', 'as' => 'pr.'], function () {
@@ -50,7 +50,7 @@ Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], '
         Route::group(['prefix' => 'skills', 'as' => 'skill.'], function () {
             Route::post('{pr_report}/store', 'PrSkillController@store')->name('store');
         });
-        //education 
+        //education
         Route::group(['prefix' => 'educations', 'as' => 'education.'], function () {
             Route::post('{pr_report}/store', 'PrEducationOpportunityController@store')->name('store');
         });

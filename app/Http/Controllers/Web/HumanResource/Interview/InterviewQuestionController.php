@@ -6,6 +6,8 @@ use App\Repositories\Access\UserRepository;
 use App\Models\HumanResource\Interview\Question;
 use App\Repositories\Unit\DesignationRepository;
 use App\Models\HumanResource\Interview\Interview;
+use App\Models\HumanResource\Interview\InterviewApplicantMarks;
+use App\Models\HumanResource\Interview\InterviewPanelist;
 use App\Models\HumanResource\Interview\InterviewQuestion;
 use App\Repositories\HumanResource\Interview\InterviewRepository;
 use App\Repositories\HumanResource\Interview\InterviewQuestionRepository;
@@ -14,6 +16,8 @@ use App\Repositories\HumanResource\HireRequisition\HrHireApplicantRepository;
 use App\Repositories\HumanResource\Interview\InterviewQuestionMarksRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 use Illuminate\Support\Facades\DB;
+use App\Models\HumanResource\Interview\InterviewPanelistMarks;
+use App\Models\HumanResource\Interview\InterviewPanelistCounter;
 
 class InterviewQuestionController extends Controller
 {
@@ -46,15 +50,16 @@ class InterviewQuestionController extends Controller
 
         $this->interviewQuestionRepository->store($request->all());
         $interview = $this->interviewRepository->find($request->interview_id);
+        $interview->update(['has_questions'=>1]);
         alert()->success('initiated Successfully');
-        return redirect()->route('interview.question.create',$interview->uuid); 
+        return redirect()->route('interview.question.create',$interview->uuid);
     }
     public function update(Request $request){
         $question = $this->interviewQuestionRepository->find($request->question_id);
         $question->update($request->all());
         $interview = $this->interviewRepository->find($request->interview_id);
         alert()->success('initiated Successfully');
-        return redirect()->route('interview.question.create',$interview->uuid); 
+        return redirect()->route('interview.question.create',$interview->uuid);
     }
 
     public function create(Interview $interview){
@@ -62,9 +67,9 @@ class InterviewQuestionController extends Controller
                     ->query()
                     ->where('interview_id',$interview->id)
                     ->get();
-        return view('HumanResource.Interview.question')
+        return view('humanResource.Interview.question')
                 ->with('questions',$questions)
-                ->with('interview',$interview);               
+                ->with('interview',$interview);
     }
 
     public function destroy(InterviewQuestion $uuid){
@@ -72,7 +77,7 @@ class InterviewQuestionController extends Controller
         $question->update($request->all());
         $interview = $this->interviewRepository->find($request->interview_id);
         alert()->success('initiated Successfully');
-        return redirect()->route('interview.question.create',$interview->uuid); 
+        return redirect()->route('interview.question.create',$interview->uuid);
     }
 
 
@@ -81,18 +86,25 @@ class InterviewQuestionController extends Controller
                     ->query()
                     ->where('interview_id',$interview->id)
                     ->get();
-        return view('HumanResource.Interview.question_marks')
+        return view('humanResource.Interview.question_marks')
                 ->with('questions',$questions)
-                ->with('interview',$interview);   
+                ->with('interview',$interview);
     }
     public function storeMarks(Request $request){
-       
         $total_questions = $request->total_questions;
         $interview_id = $request->interview_id;
         $interview = $this->interviewRepository->find($interview_id);
+        $applicant_id = $request->applicant_id;
+        $total_panelist = InterviewPanelistCounter::where('interview_id',$interview_id)->first();
         $input['applicant_id'] = $request->applicant_id;
         try{
             DB::beginTransaction();
+                $this->interviewQuestionMarksRepository
+                        ->query()
+                        ->where('interview_id',$interview_id)
+                        ->where('applicant_id',$applicant_id)
+                        ->delete();
+                $total_marks = 0;
                 for($i=1; $i<=$total_questions; $i++){
                     $question = $request->input('question'.$i);
                     $marks = $request->input('marks'.$i);
@@ -101,9 +113,33 @@ class InterviewQuestionController extends Controller
                     $input['panelist_id'] = access()->id();
                     $input['marks']  = $marks;
                     $this->interviewQuestionMarksRepository->store($input);
+                    $total_marks +=  $marks;
                 }
+                InterviewPanelistMarks::where('interview_id', $interview_id)
+                                                ->where('panelist_id', access()->id())
+                                                ->where('applicant_id', $applicant_id)->delete();
+                InterviewPanelistMarks::create([
+                    'interview_id'=> $interview_id,
+                    'panelist_id'=> access()->id(),
+                    'marks'=> $total_marks,
+                    'applicant_id' => $applicant_id,
+                ]);
+                $total_panelist_marks = InterviewPanelistMarks::where('interview_id', $interview_id)
+                                                                ->where('applicant_id', $applicant_id)->sum('marks');
+               
+                $interviewApplicantMarks = InterviewApplicantMarks::where('interview_id', $interview_id)
+                                          ->where('applicant_id',$applicant_id)
+                                          ->first();
+                if(!is_null($interviewApplicantMarks)){
+                    $total = ($total_panelist_marks / $total_panelist->total_panelist);
+                    $interviewApplicantMarks->update(['marks'=>$total]);                    
+                }else{
+                    InterviewApplicantMarks::create(['interview_id'=> $interview_id,
+                    'marks'=> $total_panelist_marks,
+                    'applicant_id' => $applicant_id]);
+                }              
                 $this->interviewApplicantRepository->query()
-                ->where('applicant_id',$request->applicant_id)
+                ->where('applicant_id', $applicant_id)
                 ->where('interview_id',$interview_id)
                 ->first()
                 ->update(['is_scored'=>1]);
@@ -122,5 +158,5 @@ class InterviewQuestionController extends Controller
     }
 
 
-    
+
 }

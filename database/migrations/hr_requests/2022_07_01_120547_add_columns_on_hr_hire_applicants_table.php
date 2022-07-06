@@ -15,7 +15,7 @@ class AddColumnsOnHrHireApplicantsTable extends Migration
     {
         Schema::table('hr_hire_applicants', function (Blueprint $table) {
             $table->string('email');
-            $table->string('phone');
+            $table->string('phone')->nullable();
         });
     }
 
