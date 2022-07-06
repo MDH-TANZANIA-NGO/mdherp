@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\HumanResource\Interview;
 
+use App\Exceptions\GeneralException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\Workflow\Workflow;
@@ -11,12 +12,13 @@ use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Models\HumanResource\Interview\Interview;
 use App\Services\Workflow\Traits\WorkflowInitiator;
+use App\Models\HumanResource\Interview\InterviewReport;
+use App\Models\HumanResource\Interview\InterviewReportComment;
 use App\Models\HumanResource\Interview\InterviewWorkflowReport;
 use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
-use App\Models\HumanResource\Interview\InterviewReportComment;
-use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
-use App\Repositories\HumanResource\Interview\InterviewReportRepository;
 use App\Models\HumanResource\Interview\InterviewReportRecommendation;
+use App\Repositories\HumanResource\Interview\InterviewReportRepository;
+use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 
 class InterviewReportController extends Controller
@@ -42,6 +44,44 @@ class InterviewReportController extends Controller
     }
     public function index()
     {
+        return view('humanResource.Interview.report.index')
+        ->with('processing_count', 0)
+         ->with('return_for_modification_count', 0)
+         ->with('approved_count', 0)
+         ->with('wait_interview_question_count',0)
+         ->with('wait_interview_report_count', 0)
+         ->with('saved_count', 0);
+        
+    }
+    public function initiate(Request $request)
+    {        
+        
+        // if($this->interviewReportRepository->query()->where('hr_requisition_job_id',$request->hr_requisition_job_id)->first()){
+        //     throw new GeneralException('already created');
+        // }else{
+
+        $hr_requisition_job_id =  $request->hr_requisition_job_id;
+        
+        $hireRequisitionJob = $this->hireRequisitionJobRepository->find($hr_requisition_job_id);
+        $interviewReport = $this->interviewReportRepository->store($request->all());
+        $interviews = $this->interviewRepository->query()->where('hr_requisition_job_id', $hireRequisitionJob->id)->orderBy('id', 'DESC')->get();
+        $this->interviewReportRepository->storeInterviewReport($interviews,$interviewReport->id);  
+        $job_title = $this->designationRepository->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first(); 
+        $recommended_applicants = InterviewReportRecommendation::join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_report_recommendations.applicant_id')
+            ->select([
+                    DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
+                    'hr_hire_applicants.email'])
+            ->where('hr_interview_report_recommendations.hr_requisition_job_id', $hireRequisitionJob->id)
+            ->get();
+
+        $applicants = $this->interviewApplicantRepository->getForSelect($interviews->pluck('id')->toArray());
+        return view('HumanResource.Interview.report.initiate')
+            ->with('job_title', $job_title)
+            ->with('applicants', $applicants)
+            ->with('interviews', $interviews)
+            ->with('recommended_applicants', $recommended_applicants)
+            ->with('hireRequisitionJob', $hireRequisitionJob->id)
+            ->with('interview_workflow_report_id', $interviewReport->id);
     }
 
     public function recommend(Request $request)
@@ -62,30 +102,12 @@ class InterviewReportController extends Controller
         return redirect()->back();
     }
 
-    public function create(HireRequisitionJob $hireRequisitionJob)
+    public function create(Request $request)
     {
-
-        $job_title = $this->designationRepository->getQueryDesignationUnit()
-            ->where('designations.id', $hireRequisitionJob->designation_id)
-            ->first();
-        $interviews = $this->interviewRepository->query()
-            ->where('hr_requisition_job_id', $hireRequisitionJob->id)
-            ->orderBy('id', 'DESC')
-            ->get();
-        $recommended_applicants = InterviewReportRecommendation::join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_report_recommendations.applicant_id')
-            ->select([
-                    DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
-                    'hr_hire_applicants.email'])
-            ->where('hr_interview_report_recommendations.hr_requisition_job_id', $hireRequisitionJob->id)
-            ->get();
-
-        $applicants = $this->interviewApplicantRepository->getForSelect($interviews->pluck('id')->toArray());
-        return view('HumanResource.Interview.report.create')
-            ->with('job_title', $job_title)
-            ->with('applicants', $applicants)
-            ->with('interviews', $interviews)
-            ->with('recommended_applicants', $recommended_applicants)
-            ->with('hireRequisitionJob', $hireRequisitionJob->id);
+        $designations = $this->designationRepository->getActiveAdvertisedForSelect();
+        return view('humanResource.Interview.report.create')
+                ->with('designations',$designations);
+                
     }
     public function store(Request $request)
     {
@@ -93,7 +115,7 @@ class InterviewReportController extends Controller
         $comment = $request->comment;
         try {
             DB::beginTransaction();
-            $interviewReport = $this->interviewReportRepository->store($request->all());
+            $interviewReport = $this->interviewReportRepository->find($request->interview_workflow_report_id);
             $this->interviewReportRepository->submit($interviewReport);
             // InterviewReportComment::create(['']);
             $next_user = $this->users->getCeo()->first()->user_id;
