@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Web\HumanResource\Interview;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repositories\Unit\DesignationRepository;
-use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
 use App\Models\HumanResource\Interview\Interview;
+use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
 
 class InterviewReportController extends Controller
 {
@@ -23,8 +24,16 @@ class InterviewReportController extends Controller
 
     }
     public function store(Request $request){
-        return $request;
+        $intervies = $request->interviews;
+        $comment = $request->comment;
+        try{
+            DB::beginTransaction();
 
+            DB::commit();
+        }catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e->getMessage());
+        }
     }
     public function create(HireRequisitionJob $hireRequisitionJob){
 
