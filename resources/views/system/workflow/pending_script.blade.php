@@ -92,41 +92,44 @@
                 $(nRow).click(function() {
                     switch(aData['module_group_id']) {
                         case 1: /*Requisition*/
-                            window.open(base_url + "/requisitions/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/requisitions/" + aData['resource_uuid'] + '/show');
                             break;
                         case 2: /*Safari*/
-                            window.open(base_url + "/safari/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/safari/" + aData['resource_uuid'] + '/show');
                             break;
                         case 3: /*programactivity*/
-                            window.open(base_url + "/programactivity/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/programactivity/" + aData['resource_uuid'] + '/show');
                             break;
                         case 4: /*retirement*/
-                            window.open(base_url + "/retirement/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/retirement/" + aData['resource_uuid'] + '/show');
                             break;
                         case 5: /*leave*/
-                            window.open(base_url + "/leave/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/leave/" + aData['resource_uuid'] + '/show');
                             break;
                         case 6: /*finance*/
-                            window.open(base_url + "/finance/" + aData['resource_uuid'] + '/view' , "_blank");
+                            window.open(base_url + "/finance/" + aData['resource_uuid'] + '/view');
                             break;
                         case 7: /*timesheet*/
-                            window.open(base_url + "/timesheet/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/timesheet/" + aData['resource_uuid'] + '/show');
                             break;
                         case 8: /*listing*/
-                            window.open(base_url + "/hirerequisition/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/hirerequisition/" + aData['resource_uuid'] + '/show');
                             break;
                             break;
                         case 9: /*Program Activity Report*/
-                            window.open(base_url + "/programactivityreport/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/programactivityreport/" + aData['resource_uuid'] + '/show');
                             break;
                         case 10: /*Performance Review Report*/
-                            window.open(base_url + "/human-resource/performance-reviews/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/human-resource/performance-reviews/" + aData['resource_uuid'] + '/show');
                             break;
                         case 11: /*Performance Review Report*/
-                            window.open(base_url + "/advertisement/show/" + aData['resource_uuid'] , "_blank");
+                            window.open(base_url + "/advertisement/show/" + aData['resource_uuid']);
                             break;
                         case 14: /*Performance Review Report*/
-                            window.open(base_url + "/job_offer/" + aData['resource_uuid']+ '/show' , "_blank");
+                            window.open(base_url + "/job_offer/" + aData['resource_uuid']+ '/show' );
+                            break;
+                        case 13: /*Shortlisters*/
+                            window.open(base_url + "/human-resource/job-shortlisters/" + aData['resource_uuid']+ '/show');
                             break;
                         default:
                             break;

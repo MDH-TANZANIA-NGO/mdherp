@@ -91,6 +91,8 @@ class HrUserHireRequisitionJobShortlisterRequestController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($job_shortlister_request, $current_level, $workflow->wf_definition_id);
         return view('HumanResource.HireRequisition.shortlister.show')
             ->with('job_shortlister_request', $job_shortlister_request)
+            ->with('jobs', $job_shortlister_request->jobs)
+            ->with('users', $this->users->pluckWithDesignation())
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)

@@ -124,11 +124,11 @@ trait Number
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
 
-            case 'hr_hire_requisition_job_shortlists':
-                $reference = "MDH_JST";
+            case 'hr_user_hire_requisition_job_shortlister_requests':
+                $reference = "MDH_JSR";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-JST-" . $year . '-' . $value;
+                $number = "MDH_JSR-" . $year . '-' . $value;
 
             case 'job_offers':
                 $reference = "MDH-JOB-OFFER";
