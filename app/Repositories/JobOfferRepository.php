@@ -23,6 +23,7 @@ class JobOfferRepository extends BaseRepository
             DB::raw('job_offers.hr_interview_applicant_id AS hr_interview_applicant_id'),
             DB::raw('job_offers.parent_id AS parent_id'),
             DB::raw('job_offers.salary AS salary'),
+            DB::raw('job_offers.status AS status'),
             DB::raw('job_offers.user_id AS user_id'),
             DB::raw('designations.id AS designation_id'),
             DB::raw('job_offers.number AS number'),
@@ -68,7 +69,7 @@ class JobOfferRepository extends BaseRepository
             'hr_interview_applicant_id'=>$inputs['hr_hire_requisitions_job_applicants_id'],
             'user_id'=>access()->user()->id,
             'date_of_arrival'=>$inputs['date_of_arrival'],
-            'wf_done'=> 0,
+            'end_tenure'=>$inputs['end_tenure'],
             'done'=> true
 
         ];
@@ -80,6 +81,7 @@ class JobOfferRepository extends BaseRepository
             $job_offer =  $this->find($job_offer_id);
             $number =  $number = $this->generateNumber($job_offer);
             $job_offer->update(['number'=>$number]);
+            $job_offer->projects()->sync($inputs['projects']);
             return $job_offer;
         });
     }
@@ -87,6 +89,7 @@ class JobOfferRepository extends BaseRepository
     {
         return DB::transaction(function () use ($inputs, $uuid){
             $job_offer =  $this->findByUuid($uuid);
+            $job_offer->projects()->sync($inputs['projects']);
             $job_offer->update($this->inputProcess($inputs));
 
         });

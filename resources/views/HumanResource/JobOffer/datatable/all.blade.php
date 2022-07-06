@@ -77,6 +77,7 @@
                                     <th class="wd-25p">OFFER</th>
                                     <th class="wd-25p">CREATED AT</th>
                                     <th class="wd-25p">OFFER NUMBER</th>
+                                    <th class="wd-25p">STATUS</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -153,7 +154,8 @@
                     { data: 'number', name: 'job_offers.name', searchable: true},
                     { data: 'full_title', name: 'job_offers.full_title', searchable: true},
                     { data: 'salary', name: 'job_offers.salary', searchable: true },
-                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'number', name: 'job_offers.number', searchable: true },
+                    { data: 'status', name: 'job_offers.status', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
