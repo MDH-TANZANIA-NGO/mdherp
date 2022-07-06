@@ -2,13 +2,18 @@
 @section('content')
 
 {{-- $job_shortlister_request --}}
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-md-12 col-lg-12">
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <strong>Info Message</strong>
+            <hr class="message-inner-separator">
+            <p>Kindly Add Shortlister list on each job.</p>
+        </div>
+    </div>
 
-<div class="col-xl-12 col-md-12 col-md-12 col-lg-12">
-    <div class="alert alert-info">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <strong>Info Message</strong>
-        <hr class="message-inner-separator">
-        <p>Kindly Add Shortlister list on each job.</p>
+    <div class="col-xl-12 col-md-12 col-md-12 col-lg-12">
+        <a href="{{ route('job_shortlister.submit',$job_shortlister_request) }}" class="btn btn-primary pull-right">Submit for approval</a>
     </div>
 </div>
 
@@ -24,8 +29,8 @@
                     <div class="form-group ">
                         {!! Form::label('users[]', __("SELECT ONE OR MULTIPLE SHORTLISTER"),['class'=>'form-label','required_asterik']) !!}
                         {!! Form::select('users[]', $users,
-    App\Models\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterUser::where('hr_user_hire_requisition_job_shortlister_id',$job->id)->pluck('user_id')
-                            , ['class' =>'form-control select2-show-search' , 'aria-describedby' => '','multiple', 'required']) !!}
+                        App\Models\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterUser::where('hr_user_hire_requisition_job_shortlister_id',$job->id)->pluck('user_id')
+                        , ['class' =>'form-control select2-show-search' , 'aria-describedby' => '','multiple', 'required']) !!}
                         {!! $errors->first('users[]', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>

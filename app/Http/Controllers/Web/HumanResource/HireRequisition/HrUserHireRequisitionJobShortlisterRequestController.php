@@ -7,18 +7,21 @@ use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Workflow\WfTrackRepository;
-use App\Models\HumanResource\HireRequisition\HrUserHireRequisitionJobRequest;
 use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
+use App\Services\Workflow\Traits\WorkflowInitiator;
 
 class HrUserHireRequisitionJobShortlisterRequestController extends Controller
 {
+    use WorkflowInitiator;
     protected $job_shortlister_requests;
     protected $users;
+    protected $wf_tracks;
 
     public function __construct()
     {
         $this->job_shortlister_requests = (new HrUserHireRequisitionJobShortlisterRequestRepository());
         $this->users = (new UserRepository());
+        $this->wf_tracks = (new WfTrackRepository());
     }
     /**
      * Display a listing of the resource.
@@ -68,7 +71,7 @@ class HrUserHireRequisitionJobShortlisterRequestController extends Controller
         $next_user_id = (new UserRepository())->getCeo()->first()->user_id;
         $this->startWorkflow($job_shortlister_request, 1, $next_user_id);
         alert()->success('Shortlisters submited to workflow Successfully');
-        return redirect()->route('job_shortlist_user', $job_shortlister_request);
+        return redirect()->route('job_shortlister.show', $job_shortlister_request);
     }
 
     /**
