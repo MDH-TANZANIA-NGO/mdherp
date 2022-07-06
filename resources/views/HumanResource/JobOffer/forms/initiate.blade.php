@@ -18,7 +18,7 @@
                     <label class="form-label">Select selected candidate</label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            {!! Form::select('id', $applicant, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '']) !!}
+                            {!! Form::select('id', $applicant, null, ['class' =>'form-control select2-show-search','required', 'placeholder' => __('label.select') , 'aria-describedby' => '']) !!}
 
                         </div>
                         <span class="col-auto">

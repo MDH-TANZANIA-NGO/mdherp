@@ -24,6 +24,7 @@ class JobOfferRepository extends BaseRepository
             DB::raw('job_offers.parent_id AS parent_id'),
             DB::raw('job_offers.salary AS salary'),
             DB::raw('job_offers.status AS status'),
+            DB::raw('job_offers.date_of_arrival AS date_of_arrival'),
             DB::raw('job_offers.user_id AS user_id'),
             DB::raw('designations.id AS designation_id'),
             DB::raw('job_offers.number AS number'),
