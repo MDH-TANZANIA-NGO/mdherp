@@ -23,6 +23,11 @@
     <?php echo e(Html::style(url('mdh/css/style.css'))); ?>
 
 
+    <?php echo Html::script(url('mdh/plugins/horizontal-menu/dropdown-effects/fade-up.css')); ?>
+
+    <?php echo Html::script(url('mdh/plugins/horizontal-menu/horizontal.css')); ?>
+
+
 
 
 <?php echo e(Html::style(url('mdh/plugins/wysiwyag/richtext.css'))); ?>
@@ -109,6 +114,7 @@
     <?php if(!access()->guest()): ?>
         
             <?php echo $__env->make('includes.navigation.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
         
 
         <!--aside open-->
@@ -119,7 +125,7 @@
         <div class="app-content page-body">
 
             <!-- Horizontal-menu -->
-        
+
         <!-- Horizontal-menu end -->
 
             
@@ -257,7 +263,12 @@
 
 <!--Accordion-Wizard-Form js-->
 <!-- <script src="mdh/plugins/accordion/accordion.min.js"></script> -->
-{<?php echo Html::script(url('mdh/plugins/accordion/accordion.min.js')); ?>}
+<?php echo Html::script(url('mdh/plugins/accordion/accordion.min.js')); ?>
+
+
+<?php echo Html::script(url('mdh/plugins/horizontal-menu/horizontal.js')); ?>
+
+
 
 
 <?php echo $__env->yieldPushContent('in-scripts'); ?>
