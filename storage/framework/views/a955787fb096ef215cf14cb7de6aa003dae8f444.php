@@ -14,16 +14,16 @@
                     </thead>
                     <tbody>
                         <?php $total_questions = 0; ?>
-                        @foreach($questions as $key=>$question)
+                        <?php $__currentLoopData = $questions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$question): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td> {{($key+1) }}</td>
-                            <td> {{ $question->question }} </td>
+                            <td> <?php echo e(($key+1)); ?></td>
+                            <td> <?php echo e($question->question); ?> </td>
                         </tr>
                         <?php $total_questions = ($key + 1); ?>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-</div>
+</div><?php /**PATH C:\xampp\htdocs\mdherp\resources\views/HumanResource/interview/question/show.blade.php ENDPATH**/ ?>

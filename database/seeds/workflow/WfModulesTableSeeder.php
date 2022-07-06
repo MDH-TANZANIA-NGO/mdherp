@@ -233,7 +233,7 @@ class WfModulesTableSeeder extends Seeder
                     15 =>
                     array (
                         'id' => 16,
-                        'name' => 'Job Interview',
+                        'name' => 'Job Interview Report',
                         'wf_module_group_id' => '12',
                         'created_at' => NULL,
                         'updated_at' => NULL,

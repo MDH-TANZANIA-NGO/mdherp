@@ -28,15 +28,15 @@
                      <!-- <th> Number </th> -->
                      <th> Applicant </th>
                      <th> Marks </th>
-                     <th> Action </th>
+                     <th> Rank </th>
                  </thead>
                  <tbody>
                     <?php $__currentLoopData = $interview_reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$interview_report): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                      <tr>
                          <td><?php echo e($key + 1); ?></td>
                          <td><?php echo e($interview_report->full_name); ?></td>
-                         <td><?php echo e($interview_report->marks); ?></td>
-                         <td></td>
+                         <td><?php echo e(number_format($interview_report->marks,2)); ?></td>
+                         <td><?php echo e($key + 1); ?></td>
                          <!-- <td></td> -->
                      </tr>
                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

@@ -1,6 +1,7 @@
  <?php
     $sql = "select
                 users.id,
+                concat_ws(' ', units.name, designations.name) as title,
                 concat_ws(
                     ' ',
                     users.first_name,
@@ -11,7 +12,10 @@
             from
                 hr_interview_panelists
                 inner join users on users.id = hr_interview_panelists.id
+                inner join designations on designations.id = users.designation_id
+                inner join units on units.id = designations.unit_id
         where hr_interview_panelists.interview_id IN ('".implode("','",$interviews->pluck('id')->toArray()). "')";
+
    $panelists =  \DB::select($sql);   
     ?>
     <?php echo e(is_array($interviews->pluck('id'))); ?>
@@ -26,6 +30,7 @@
                  <thead>
                      <th> # </th>
                      <th> Name </th>
+                     <th> Title </th>
                      <th> Email </th>
                  </thead>
                  <tbody>
@@ -33,6 +38,7 @@
                      <tr>
                          <td><?php echo e($key + 1); ?></td>
                          <td><?php echo e($panelist->full_name); ?></td>
+                         <td><?php echo e($panelist->title); ?></td>
                          <td><?php echo e($panelist->email); ?></td>
                      </tr>
                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

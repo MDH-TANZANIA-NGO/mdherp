@@ -3,6 +3,7 @@
         @csrf
         @include('HumanResource.interview.header')
         @include('HumanResource.interview.panelist.show')
+        @include('HumanResource.interview.question.show')
         @include('HumanResource.interview.applicant.selected_for_invitation')  
         @if(count($interviewApplicants))
             @include('HumanResource.interview.applicant.shortlisted')   

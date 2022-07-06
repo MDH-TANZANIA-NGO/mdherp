@@ -49,5 +49,7 @@
             ['view', ['fullscreen']]
         ]
     });
+
+    
 </script>
 @endpush

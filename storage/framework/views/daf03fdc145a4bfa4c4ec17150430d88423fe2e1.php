@@ -1,11 +1,11 @@
-{{--{{ Html::script(asset_url(). "/nextbyte/plugins/select2/js/select2.min.js") }}--}}
+
 <script>
     $(document).ready(function (){
         $(".wf-module-select").select2();
         $(".search-select").select2();
         var $wf_module_group_id = 1;
 
-        @if ($state == "all" Or $state == "attended")
+        <?php if($state == "all" Or $state == "attended"): ?>
         $("#status").on("change", function () {
             var $status = $(this).val();
             switch($status) {
@@ -19,25 +19,25 @@
             }
         });
         $('#status').trigger('change');
-        @endif
+        <?php endif; ?>
 
-        {{--$(".wf-module-select").on("change", function () {--}}
-        {{--get_module_group($(this).val()).done(function (data) {--}}
-        {{--var $category = data.wf_module_group_id;--}}
-        {{--$wf_module_group_id = $category;--}}
-        {{--$('input[name=search]').val("");--}}
-        {{--var $unregistered_modules = {{ json_encode($unregistered_modules) }};--}}
-        {{--switch($category) {--}}
-        {{--case 1:--}}
-        {{--case 2:--}}
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
-        {{--break;--}}
-        {{--default:--}}
-        {{--reset_filter();--}}
-        {{--break;--}}
-        {{--}--}}
-        {{--});--}}
-        {{--});--}}
+        
+        
+        
+        
+        
+        
+        
 
         $('.wf-module-select').trigger('change');
 
@@ -65,11 +65,11 @@
             serverSide: false,
             info : true,
             ajax: {
-                url: "{!! route("workflow.pending.get") !!}",
+                url: "<?php echo route("workflow.pending.get"); ?>",
                 data: function (d) {
                     d.wf_module_id = $('select[name=wf_module_id]').val();
                     d.wf_module_group_id = $wf_module_group_id;
-                    d.state = '{!! $state !!}';
+                    d.state = '<?php echo $state; ?>';
                     d.application_category_id = $('[name=application_category_id]').val();
                 }
             },
@@ -148,7 +148,7 @@
         });
 
         function get_module_group($module) {
-            return $.post("{{ url('/') }}/getModuleGroup", {'module': $module}, function ($data) {}, "json");
+            return $.post("<?php echo e(url('/')); ?>/getModuleGroup", {'module': $module}, function ($data) {}, "json");
         }
         function reset_filter() {
             $(".notification_select").hide();
@@ -186,3 +186,4 @@
         // }
     });
 </script>
+<?php /**PATH C:\xampp\htdocs\mdherp\resources\views/system/workflow/pending_script.blade.php ENDPATH**/ ?>

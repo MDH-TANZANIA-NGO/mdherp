@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Models\HumanResource\Interview;
+use App\Models\Auth\User;
 use App\Models\BaseModel;
-use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
-
+use App\Models\Workflow\WfTrack;
 
 class InterviewWorkflowReport extends BaseModel
 {
@@ -11,7 +11,6 @@ class InterviewWorkflowReport extends BaseModel
     public function getResourceNameAttribute()
     {
         return "<b>".$this->number."</b> <br>".
-            $this->type->title."<br>".
             $this->user->full_name_formatted."<br>".
             $this->user->designation_title;
     }
@@ -21,17 +20,6 @@ class InterviewWorkflowReport extends BaseModel
         return $this->morphMany(WfTrack::class, 'resource');
     }
     
-
-    public function objectives()
-    {
-        return $this->hasMany(PrObjective::class)->orderBy('id');
-    }
-
-    public function attributeRates()
-    {
-        return $this->hasMany(PrAttributeRate::class)->orderBy('pr_rate_scale_id');
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -122,8 +122,8 @@ class WfModuleGroupsTableSeeder extends Seeder
             11 =>
                 array (
                     'id' => 12,
-                    'name' => 'Job Interview',
-                    'table_name' => 'hr_interview',
+                    'name' => 'Job Interview Report',
+                    'table_name' => 'hr_interview_workflow_reports',
                     'created_at' => NULL,
                     'updated_at' => NULL,
                     'deleted_at' => NULL,

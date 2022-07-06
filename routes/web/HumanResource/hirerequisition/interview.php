@@ -4,6 +4,7 @@ Route::group(['namespace' =>'humanResource\Interview', 'middleware' => ['web', '
 
   Route::get('', 'InterviewController@index')->name('index');
   Route::get('create','InterviewController@create')->name('create');
+  Route::get('list','InterviewController@list')->name('list');
   Route::get('show/{interview}','InterviewController@show')->name('show');
  
   Route::POST('addPanelist','InterviewController@addPanelist')->name('addpanelist');
@@ -18,8 +19,11 @@ Route::group(['namespace' =>'humanResource\Interview', 'middleware' => ['web', '
 
   //Interview Report Route
    Route::group(['prefix' => 'report', 'as' => 'report.'], function () {
+        Route::get('index','InterviewReportController@index')->name('index');
         Route::get('create/{hireRequisitionJob}','InterviewReportController@create')->name('create');
         Route::POST('store','InterviewReportController@store')->name('store');
+        Route::GET('show/{interviewReport}','InterviewReportController@show')->name('show');
+        Route::POST('recommend}','InterviewReportController@recommend')->name('recommend');
         Route::GET('delete/{uuid}','InterviewReportController@destroy')->name('destroy');
         Route::PUT('update','InterviewReportController@update')->name('update'); 
   });

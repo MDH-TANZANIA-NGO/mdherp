@@ -137,6 +137,13 @@ trait Number
                 $number = "MDH-JOB-OFFER-" . $year . '-' . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
+            case 'hr_interview_workflow_reports':
+                $reference = "MDH-INT-RP";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-INT-RP-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
             default:
                 throw new GeneralException(__('Number Not Set. Kindly contact system developer'));
                 break;

@@ -28,15 +28,15 @@
                      <!-- <th> Number </th> -->
                      <th> Applicant </th>
                      <th> Marks </th>
-                     <th> Action </th>
+                     <th> Rank </th>
                  </thead>
                  <tbody>
                     @foreach($interview_reports  as $key=>$interview_report)
                      <tr>
                          <td>{{ $key + 1 }}</td>
                          <td>{{ $interview_report->full_name}}</td>
-                         <td>{{ $interview_report->marks }}</td>
-                         <td></td>
+                         <td>{{ number_format($interview_report->marks,2) }}</td>
+                         <td>{{ $key + 1 }}</td>
                          <!-- <td></td> -->
                      </tr>
                      @endforeach

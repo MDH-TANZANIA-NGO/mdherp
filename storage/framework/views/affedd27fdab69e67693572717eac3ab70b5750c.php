@@ -3,6 +3,7 @@
         <?php echo csrf_field(); ?>
         <?php echo $__env->make('HumanResource.interview.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <?php echo $__env->make('HumanResource.interview.panelist.show', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php echo $__env->make('HumanResource.interview.question.show', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <?php echo $__env->make('HumanResource.interview.applicant.selected_for_invitation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>  
         <?php if(count($interviewApplicants)): ?>
             <?php echo $__env->make('HumanResource.interview.applicant.shortlisted', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>   

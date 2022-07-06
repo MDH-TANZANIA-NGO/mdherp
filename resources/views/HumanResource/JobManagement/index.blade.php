@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <div class="h2 m-0"><i class="fa fas fa-ad"></i></div>
-                    <div class="text-muted mb-0">Interview</div>
+                    <div class="text-muted mb-0">Interviews</div>
                 </div>
             </div>
         </a>
