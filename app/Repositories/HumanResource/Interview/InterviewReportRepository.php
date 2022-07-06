@@ -6,6 +6,7 @@ use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
 use App\Models\Budget\FiscalYear;
 use App\Models\HumanResource\Interview\Interview;
+use App\Models\HumanResource\Interview\InterviewReport;
 use App\Models\HumanResource\Interview\InterviewWorkflowReport;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
@@ -144,12 +145,23 @@ class InterviewReportRepository extends BaseRepository
     public function store($input)
     {
         return DB::transaction(function () use($input){
-            // $input['hr_requisition_job_id'] = $input['hr_requisition_job_id'];
+            $input['hr_requisition_job_id'] = $input['hr_requisition_job_id'];
             // $input['shortlist_id'] = '0';
             $input['user_id'] = access()->id();
             $input['done'] = 1;
             return $this->query()->create($input);
         });
+    }
+
+
+    public function storeInterviewReport($interviews,$interview_workflow_report_id){
+        foreach($interviews as $interview){
+            $data = [
+                        'interview_id'=>$interview->id,
+                        'interview_report_id' => $interview_workflow_report_id
+            ];
+            InterviewReport::create($data);
+        }
     }
 
 
