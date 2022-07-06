@@ -6,40 +6,37 @@
             @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
         </div>
     </div>
+    @if($job_offer->status == 2)
     <ul class="demo-accordion accordionjs m-0" data-active-index="false">
 
         <!-- Section 1 -->
         <li class="acc_section">
             <div class="acc_head"><h3>Rejected Feedback</h3></div>
             <div class="acc_content" style="display: none;"><div class="list-group">
+                    @foreach($job_offer_remarks as $remarks)
                     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">List group item heading</h5>
-                            <small>3 days ago</small>
+
+                            @if($remarks->applicant_id != null)
+                            <h5 class="mb-1">{{$remarks->jobOfferApplicant->full_name}}</h5>
+                            @elseif($remarks->user_id != null)
+                                <h5 class="mb-1">{{$remarks->user->full_name}}</h5>
+                            @endif
+                            <small>{{getNoDays($remarks->created_at, today())-1}} days ago</small>
                         </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small>Donec id elit non mi porta.</small>
+                        <p class="mb-1">{{$remarks->comments}}</p>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">List group item heading</h5>
-                            <small class="text-muted">3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small class="text-muted">Donec id elit non mi porta.</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">List group item heading</h5>
-                            <small class="text-muted">3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small class="text-muted">Donec id elit non mi porta.</small>
-                    </a>
-                </div></div>
+                    @endforeach
+                </div>
+                <br>
+                <a href="{{route('job_offer.print', $job_offer->uuid)}}" class="btn btn-warning btn-sm"><i class="fa fa-reply"></i> Reply</a>
+            </div>
+
         </li>
 
     </ul>
+
+    @endif
     <br>
     <div class="row">
         <div class="col-md-12">

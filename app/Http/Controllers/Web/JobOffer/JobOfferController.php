@@ -78,6 +78,9 @@ class JobOfferController extends Controller
     public function show($uuid)
     {
         $job_offer =  $this->job_offers->findByUuid($uuid);
+
+        $job_offer_remarks =  JobOfferRemark::query()->where('job_offer_id', $job_offer->id)->get();
+
         //
         /* Check workflow */
         $wf_module_group_id = 14;
@@ -96,7 +99,8 @@ class JobOfferController extends Controller
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($job_offer))
-            ->with('job_offer', $job_offer);
+            ->with('job_offer', $job_offer)
+            ->with('job_offer_remarks', $job_offer_remarks);
 
     }
 
@@ -156,13 +160,23 @@ class JobOfferController extends Controller
     {
         $job_offer = $this->job_offers->findByUuid($uuid);
         $job_offer->update(['status'=>'2']);
+
+        if (access()->user())
         JobOfferRemark::query()->create([
             'job_offer_id'=>$job_offer->id,
             'user_id'=>$job_offer->user_id,
-            'applicant_id'=>$job_offer->interviewApplicant->applicant->id,
             'comments'=>$request['comments']
 
         ]);
+        elseif(access()->guest()){
+            JobOfferRemark::query()->create([
+                'job_offer_id'=>$job_offer->id,
+                'applicant_id'=>$job_offer->interviewApplicant->applicant->id,
+                'comments'=>$request['comments']
+
+            ]);
+        }
+
 
         alert()->success('Job Offer rejected successfully');
 
