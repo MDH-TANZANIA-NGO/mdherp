@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use App\Models\Auth\User;
 use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
+use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use App\Services\Workflow\WorkflowAction;
 use League\CommonMark\Util\Html5EntityDecoder;
@@ -681,6 +682,17 @@ class WorkflowEventSubscriber
                     $job_offer->interviewApplicant->applicant->notify(new  WorkflowNotification($email_resource_to_applicant));
                     // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
                     break;
+                case 17:
+                        $shortlister_request = (new HrUserHireRequisitionJobShortlisterRequestRepository())->find($resource_id);
+                        $this->updateWfDone($shortlister_request);
+                        $email_resource = (object)[
+                            'link' =>  route('job_offer.show',$shortlister_request),
+                            'subject' => $shortlister_request->number." Shortlisters approved Successfully",
+                            'message' => ' Click a link to view approved shortlisters'
+                        ];
+                        User::query()->find($shortlister_request->user_id)->notify(new WorkflowNotification($email_resource));
+                        //TODO send email to all shortlisters
+                        break;
             }
 
 

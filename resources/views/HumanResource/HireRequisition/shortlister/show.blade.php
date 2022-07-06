@@ -7,8 +7,14 @@
     </div>
 </div>
 
+<div class="align-content-center" style="background-color: rgb(238, 241, 248); height: 40px;">
+        <div class="row text-center" style="font-size: large">
+            <span class="col-12 text-center font-weight-bold" style="margin-top: 10px"><b>NUMBER.  {{ $job_shortlister_request->number }}</b></span>
+        </div>
+    </div>
+
 @foreach($jobs as $job)
-<div class="row">
+<div class="row mb-3">
     @include('HumanResource.HireRequisition.job._partials._job_description',['hire_requisition_job' => $job->job])
 
     <div class="col-xl-12 col-md-12 col-md-12 col-lg-12">
@@ -35,11 +41,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-                <div class="col-xl-12 col-md-12 col-md-12 col-lg-12">
-                    <div class="form-group ">
-                        {!! Form::submit('Add',['class'=>'btn btn-primary']) !!}
-                    </div>
                 </div>
             </div>
         </div>
