@@ -30,6 +30,7 @@
                                     <th class="wd-15p">APPLICANT NAME</th>
                                     <th class="wd-15p">JOB TITLE</th>
                                     <th class="wd-25p">OFFER</th>
+                                    <th class="wd-25p">ARRIVAL DATE</th>
                                     <th class="wd-25p">OFFER NUMBER</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -49,6 +50,7 @@
                                     <th class="wd-15p">APPLICANT NAME</th>
                                     <th class="wd-15p">JOB TITLE</th>
                                     <th class="wd-25p">OFFER</th>
+                                    <th class="wd-25p">ARRIVAL DATE</th>
                                     <th class="wd-25p">OFFER NUMBER</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -106,6 +108,7 @@
                     { data: 'full_name', name: 'job_offers.name', searchable: true},
                     { data: 'full_title', name: 'job_offers.designation_id', searchable: true},
                     { data: 'salary', name: 'job_offers.salary', searchable: true },
+                    { data: 'date_of_arrival', name: 'job_offers.date_of_arrival', searchable: true },
                     { data: 'number', name: 'number', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -121,10 +124,11 @@
                 ajax: '<?php echo e(route('job_offer.datatable.access.rejected')); ?>',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'job_offers.name', searchable: true},
-                    { data: 'full_title', name: 'job_offers.full_title', searchable: true},
+                    { data: 'full_name', name: 'job_offers.name', searchable: true},
+                    { data: 'full_title', name: 'job_offers.designation_id', searchable: true},
                     { data: 'salary', name: 'job_offers.salary', searchable: true },
-                    { data: 'created_at', name: 'created_at', searchable: true },
+                    { data: 'date_of_arrival', name: 'job_offers.date_of_arrival', searchable: true },
+                    { data: 'number', name: 'number', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });
@@ -141,7 +145,7 @@
                 ajax: '<?php echo e(route('job_offer.datatable.access.approved')); ?>',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'number', name: 'job_offers.name', searchable: true},
+                    { data: 'full_name', name: 'job_offers.name', searchable: true},
                     { data: 'full_title', name: 'job_offers.full_title', searchable: true},
                     { data: 'salary', name: 'job_offers.salary', searchable: true },
                     { data: 'number', name: 'job_offers.number', searchable: true },
