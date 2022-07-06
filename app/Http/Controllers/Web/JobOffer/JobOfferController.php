@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Web\JobOffer;
-
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
@@ -18,7 +17,7 @@ use Illuminate\Http\Request;
 
 class JobOfferController extends Controller
 {
-   use JobOfferDatatable;
+    use JobOfferDatatable;
 
    protected $job_offers;
    protected $interview_applicants;

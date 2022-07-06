@@ -19,9 +19,14 @@
                         <tr>
                             <td> {{($key+1) }}</td>
                             <td> {{ $panelist->full_name }} </td>
-                            
                             <td>
-                                @if(!Session::has('msg')) <input type="radio" name="technical_staff" value="{{$panelist->id}}"> @endif
+                                @if(!isset($show)) 
+                                 <input type="radio" name="technical_staff" value="{{$panelist->id}}"> 
+                                @endif
+                                @if(isset($show) && $panelist->technical_staff == 1) 
+                                 <i class="fa fa-check"></i>
+                                @endif
+
                             </td>
                         </tr>
                         <?php $total_questions = ($key + 1); ?>

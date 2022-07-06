@@ -3,11 +3,9 @@
         <div class="tags">
             <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">JOB TITLE:  {{ $job_title->name }} </span>
             <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">INTERVIEW TYPE:  {{ $interview_type->name }} </span>
-		    <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px"> REQUISITION NO :  </span>
-            @if(isset($schedules) && count($schedules))
-                @if(!Session::has('msg')) 
-                    <span class="tag tag-rounded pull-right">   <input type="submit" value="Send Notification" class="btn btn-primary"></span>
-                @endif
+		    <!-- <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px"> REQUISITION NO :  </span> -->
+            @if(!isset($show))
+                @include('HumanResource.Interview.form.send_notification_button')
             @endif
 		</div>
     </div>

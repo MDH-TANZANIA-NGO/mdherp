@@ -1,4 +1,5 @@
 <?php
+namespace Database\seeds\v100;
 
 use Illuminate\Database\Seeder;
 use Database\TruncateTable;
@@ -34,7 +35,7 @@ class InterviewTypesSeeder extends Seeder
                     'name' => 'Oral Interview',
                     'created_at' => '2020-07-08 20:16:49',
                 )
-             
+
         ));
     }
 }

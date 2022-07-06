@@ -14,7 +14,7 @@ class UserIdHrInterviewsTable extends Migration
     public function up()
     {
         Schema::table('hr_interviews', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
         });
     }
 

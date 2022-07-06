@@ -1,5 +1,9 @@
 <?php
-Route::group(['namespace' => 'jobOffer', 'middleware' => ['web', 'auth'], 'prefix' => 'job_offer', 'as' => 'job_offer.'], function () {
+Route::group(['namespace' => 'JobOffer', 'middleware' => ['web', 'auth'], 'prefix' => 'job_offer', 'as' => 'job_offer.'], function () {
+    Route::get('', 'JobOfferController@index')->name('index');
+    Route::get('initiate', 'JobOfferController@initiate')->name('initiate');
+    Route::get('create', 'JobOfferController@create')->name('create');
+
     Route::get('', 'JobOfferController@index')->name('index');
     Route::get('initiate', 'JobOfferController@initiate')->name('initiate');
     Route::get('create', 'JobOfferController@create')->name('create');
@@ -21,6 +25,5 @@ Route::group(['namespace' => 'jobOffer', 'middleware' => ['web', 'auth'], 'prefi
             Route::get('rejected', 'JobOfferController@AccessRejectedDatatable')->name('rejected');
             Route::get('approved', 'JobOfferController@AccessApprovedDatatable')->name('approved');
         });
-
     });
 });

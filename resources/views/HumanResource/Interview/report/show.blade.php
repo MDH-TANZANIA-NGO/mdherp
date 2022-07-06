@@ -18,8 +18,7 @@
                         @foreach($panelists as $key=>$panelist)
                         <tr>
                             <td> {{($key+1) }}</td>
-                            <td> {{ $panelist->full_name }} </td>
-                            
+                            <td> {{ $panelist->full_name }} </td>                           
                             <td>
                                 @if(!Session::has('msg')) <input type="radio" name="technical_staff" value="{{$panelist->id}}"> @endif
                             </td>

@@ -35,7 +35,7 @@ class IntervieweeEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->user->notify(new IntervieweeCallNotification($this->interview));
+        $this->user->notify(new IntervieweeCallNotification($this->interview, $this->user));
 //        $email = new TestMail();
 //        Mail::to($this->details['email'])->send($email);
     }
