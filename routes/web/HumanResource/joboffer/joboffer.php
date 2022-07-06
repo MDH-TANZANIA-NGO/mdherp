@@ -15,6 +15,7 @@ Route::group(['namespace' => 'JobOffer', 'middleware' => ['web', 'auth'], 'prefi
     Route::post('store', 'JobOfferController@store')->name('store');
     Route::put('{uuid}/update', 'JobOfferController@update')->name('update');
     Route::put('{uuid}/rejectOffer', 'JobOfferController@rejectOffer')->name('rejectOffer');
+    Route::put('{uuid}/replyRemarks', 'JobOfferController@replyRemarks')->name('replyRemarks');
 
     /**
      * Datatables

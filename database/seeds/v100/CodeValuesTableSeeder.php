@@ -537,6 +537,18 @@ class CodeValuesTableSeeder extends Seeder
                     'sort' => 0,
                     'isactive' => 1,
                 ),
+            47 =>
+                array (
+                    'id' => 48,
+                    'code_id' => 4,
+                    'name' => 'New Staff',
+                    'lang' => NULL,
+                    'description' => 'New Staff',
+                    'reference' => 'ns',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
+
 
 
         ));
