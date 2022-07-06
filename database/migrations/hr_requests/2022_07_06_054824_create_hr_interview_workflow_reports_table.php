@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHrHireRequisitionsTable extends Migration
+class CreateHrInterviewWorkflowReportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateHrHireRequisitionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hr_hire_requisitions', function (Blueprint $table) {
+        Schema::create('hr_interview_workflow_reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('department_id');
             $table->smallInteger('done')->default(0);
             $table->smallInteger('rejected')->nullable();
             $table->smallInteger('wf_done')->default(0);
@@ -26,7 +25,6 @@ class CreateHrHireRequisitionsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
     }
 
     /**
@@ -36,6 +34,6 @@ class CreateHrHireRequisitionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hr_hire_requisitions');
+        Schema::dropIfExists('hr_interview_workflow_reports');
     }
 }
