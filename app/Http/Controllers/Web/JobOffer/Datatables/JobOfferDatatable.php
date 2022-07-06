@@ -60,6 +60,20 @@ trait JobOfferDatatable
             ->addColumn('full_title', function($query) {
                 return $query->interviewApplicant->interviews->jobRequisition->designation->full_title;
             })
+            ->addColumn('status', function($query) {
+                if ($query->status == 1)
+                {
+                    return 'Accepted';
+                }
+                if ($query->status == 2){
+                     return 'Rejected';
+                }
+                if ($query->status ==  null)
+                {
+                    return  'Pending..';
+                }
+
+            })
             ->editColumn('salary', function($query) {
 
                 $salary = currency_converter($query->salary, 'TSH');

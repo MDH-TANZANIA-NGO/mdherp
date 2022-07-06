@@ -23,11 +23,6 @@
     <?php echo e(Html::style(url('mdh/css/style.css'))); ?>
 
 
-    <?php echo Html::script(url('mdh/plugins/horizontal-menu/dropdown-effects/fade-up.css')); ?>
-
-    <?php echo Html::script(url('mdh/plugins/horizontal-menu/horizontal.css')); ?>
-
-
 
 
 <?php echo e(Html::style(url('mdh/plugins/wysiwyag/richtext.css'))); ?>
@@ -111,21 +106,20 @@
 <div class="page comb-page" style="background-color: #f5f5f5">
     <div class="page-main" style="background-color: #f5f5f5">
 
-    <?php if(!access()->guest()): ?>
-        
-            <?php echo $__env->make('includes.navigation.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
+        
+            <?php echo $__env->make('includes.navigation.header2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         
 
         <!--aside open-->
-        <?php echo $__env->make('includes.navigation.aside', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php echo $__env->make('includes.navigation.aside2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <!--aside closed-->
-        <?php endif; ?>
+
 
         <div class="app-content page-body">
 
             <!-- Horizontal-menu -->
-
+        
         <!-- Horizontal-menu end -->
 
             
@@ -169,7 +163,6 @@
 
 <script>
     var base_url = "<?php echo url("/"); ?>";
-    var recruitment_portal_url = "<?php echo e(config('mdh.recruitment_portal_url')); ?>";
 </script>
 <!-- Jquery js-->
 <?php echo Html::script(url('mdh/js/vendors/jquery-3.4.0.min.js')); ?>
@@ -263,12 +256,7 @@
 
 <!--Accordion-Wizard-Form js-->
 <!-- <script src="mdh/plugins/accordion/accordion.min.js"></script> -->
-<?php echo Html::script(url('mdh/plugins/accordion/accordion.min.js')); ?>
-
-
-<?php echo Html::script(url('mdh/plugins/horizontal-menu/horizontal.js')); ?>
-
-
+{<?php echo Html::script(url('mdh/plugins/accordion/accordion.min.js')); ?>}
 
 
 <?php echo $__env->yieldPushContent('in-scripts'); ?>
@@ -319,4 +307,4 @@
 </body>
 
 </html>
-<?php /**PATH /Users/elinipendomziray/Sites/mdherp/resources/views/layouts/app.blade.php ENDPATH**/ ?>
+<?php /**PATH /Users/elinipendomziray/Sites/mdherp/resources/views/layouts/app2.blade.php ENDPATH**/ ?>

@@ -2,7 +2,7 @@
      <div class="card">
          <div class="card-header">
              <h3 class="card-title">RECOMMENDATION</h3>
-             <div class="card-utility">
+             <div class="card-options">
                 <input type="button" class="btn btn-primary" value="Add To Recommendation">
              </div>
          </div>

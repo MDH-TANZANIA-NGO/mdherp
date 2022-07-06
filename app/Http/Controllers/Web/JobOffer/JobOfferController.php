@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Web\JobOffer;
-
 use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
 use App\Models\Auth\User;
 use App\Models\HumanResource\Interview\InterviewApplicant;
+use App\Models\JobOffer\JobOfferRemark;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\JobOfferRepository;
@@ -78,6 +78,9 @@ class JobOfferController extends Controller
     public function show($uuid)
     {
         $job_offer =  $this->job_offers->findByUuid($uuid);
+
+        $job_offer_remarks =  JobOfferRemark::query()->where('job_offer_id', $job_offer->id)->get();
+
         //
         /* Check workflow */
         $wf_module_group_id = 14;
@@ -96,7 +99,8 @@ class JobOfferController extends Controller
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($job_offer))
-            ->with('job_offer', $job_offer);
+            ->with('job_offer', $job_offer)
+            ->with('job_offer_remarks', $job_offer_remarks);
 
     }
 
@@ -135,5 +139,47 @@ class JobOfferController extends Controller
         $view = view('printables.humanResource.hireRequisition.jobOffer.job_offer')->with('job_offer', $job_offer)/*->with('trips', $taf->trips)->with('components', $this->components->getAll()->get()*/->render();
         $pdf = \PDF::loadHTML($view)->setPaper('a4', 'potrait');
         return $pdf->download($job_offer->number.'   ' .$job_offer->created_at.'.pdf');
+    }
+
+    public function offerAcceptance($uuid)
+    {
+
+        return view('HumanResource.JobOffer.acceptingoffer')
+            ->with('job_offer', $this->job_offers->findByUuid($uuid));
+    }
+
+    public function  acceptingOffer($uuid)
+    {
+        $job_offer = $this->job_offers->findByUuid($uuid);
+        $job_offer->update(['status'=>'1']);
+        alert()->success('Job offer accepted successfully', 'Congratulation');
+        return redirect()->back();
+    }
+
+    public function rejectOffer(Request $request, $uuid)
+    {
+        $job_offer = $this->job_offers->findByUuid($uuid);
+        $job_offer->update(['status'=>'2']);
+
+        if (access()->user())
+        JobOfferRemark::query()->create([
+            'job_offer_id'=>$job_offer->id,
+            'user_id'=>$job_offer->user_id,
+            'comments'=>$request['comments']
+
+        ]);
+        elseif(access()->guest()){
+            JobOfferRemark::query()->create([
+                'job_offer_id'=>$job_offer->id,
+                'applicant_id'=>$job_offer->interviewApplicant->applicant->id,
+                'comments'=>$request['comments']
+
+            ]);
+        }
+
+
+        alert()->success('Job Offer rejected successfully');
+
+        return redirect()->back();
     }
 }

@@ -158,8 +158,11 @@
                 </tbody>
             </table>
 
+            <div class="card-body">
+                <div class="text text-muted"><?php echo htmlspecialchars_decode($job_offer->details); ?></div>
+            </div>
 
-            <div><?php echo htmlspecialchars_decode($job_offer->details); ?></div>
+
 
 
         </div>

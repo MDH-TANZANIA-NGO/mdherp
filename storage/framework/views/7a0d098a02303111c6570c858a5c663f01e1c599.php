@@ -6,7 +6,8 @@
                     users.first_name,
                     users.middle_name,
                     users.last_name
-                ) as full_name
+                ) as full_name,
+                users.email
             from
                 hr_interview_panelists
                 inner join users on users.id = hr_interview_panelists.id
@@ -21,16 +22,18 @@
              <h3 class="card-title">PANELISTS</h3>
          </div>
          <div class="card-body">
-             <table class="table table-bordered table-striped">
+             <table class="table table-bordered table-stripped">
                  <thead>
                      <th> # </th>
                      <th> Name </th>
+                     <th> Email </th>
                  </thead>
                  <tbody>
                     <?php $__currentLoopData = $panelists; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$panelist): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                      <tr>
                          <td><?php echo e($key + 1); ?></td>
                          <td><?php echo e($panelist->full_name); ?></td>
+                         <td><?php echo e($panelist->email); ?></td>
                      </tr>
                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                  </tbody>

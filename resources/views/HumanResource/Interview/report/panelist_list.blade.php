@@ -6,7 +6,8 @@
                     users.first_name,
                     users.middle_name,
                     users.last_name
-                ) as full_name
+                ) as full_name,
+                users.email
             from
                 hr_interview_panelists
                 inner join users on users.id = hr_interview_panelists.id
@@ -20,16 +21,18 @@
              <h3 class="card-title">PANELISTS</h3>
          </div>
          <div class="card-body">
-             <table class="table table-bordered table-striped">
+             <table class="table table-bordered table-stripped">
                  <thead>
                      <th> # </th>
                      <th> Name </th>
+                     <th> Email </th>
                  </thead>
                  <tbody>
                     @foreach($panelists  as $key=>$panelist)
                      <tr>
                          <td>{{ $key + 1 }}</td>
                          <td>{{ $panelist->full_name}}</td>
+                         <td>{{ $panelist->email}}</td>
                      </tr>
                      @endforeach
                  </tbody>

@@ -22,6 +22,9 @@
 <!-- Style css -->
     {{ Html::style(url('mdh/css/style.css')) }}
 
+    {!! Html::script(url('mdh/plugins/horizontal-menu/dropdown-effects/fade-up.css')) !!}
+    {!! Html::script(url('mdh/plugins/horizontal-menu/horizontal.css')) !!}
+
 
 {{--    text editor--}}
 {{ Html::style(url('mdh/plugins/wysiwyag/richtext.css')) }}
@@ -89,6 +92,7 @@
     @if(!access()->guest())
         {{--Header--}}
             @include('includes.navigation.header')
+{{--        @include('includes.navigation.subheader')--}}
         {{--Header closed--}}
 
         <!--aside open-->
@@ -99,7 +103,7 @@
         <div class="app-content page-body">
 
             <!-- Horizontal-menu -->
-        {{--            @include('includes.navigation.horizontal')--}}
+{{--                    @include('includes.navigation.horizontal')--}}
         <!-- Horizontal-menu end -->
 
             {{--main body--}}
@@ -212,7 +216,10 @@
 
 <!--Accordion-Wizard-Form js-->
 <!-- <script src="mdh/plugins/accordion/accordion.min.js"></script> -->
-{{!! Html::script(url('mdh/plugins/accordion/accordion.min.js')) !!}}
+{!! Html::script(url('mdh/plugins/accordion/accordion.min.js')) !!}
+
+{!! Html::script(url('mdh/plugins/horizontal-menu/horizontal.js')) !!}
+
 {{--<script src="mdh/js/form-wizard.js"></script>--}}
 
 @stack('in-scripts')
