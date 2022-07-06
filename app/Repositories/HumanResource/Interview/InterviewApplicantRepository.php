@@ -46,7 +46,7 @@ class InterviewApplicantRepository extends BaseRepository
             ->leftjoin('hr_interview_types', 'hr_interviews.interview_type_id', 'hr_interview_types.id')
             ->leftjoin('hr_interview_schedules', 'hr_interview_schedules.interview_id', 'hr_interviews.id')
             ->join('hr_hire_requisitions_jobs','hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
-            ->join('hr_hire_advertisement_requisitions','hr_hire_advertisement_requisitions.hire_requisition_job_id','hr_hire_requisitions_jobs.id')
+            ->leftjoin('hr_hire_advertisement_requisitions','hr_hire_advertisement_requisitions.hire_requisition_job_id','hr_hire_requisitions_jobs.id')
             ->leftjoin('designations','hr_hire_requisitions_jobs.designation_id', 'designations.id')
             ->leftjoin('units', 'designations.unit_id', 'units.id')
             ->leftjoin('job_offers', 'job_offers.hr_interview_applicant_id', 'hr_interview_applicants.id')

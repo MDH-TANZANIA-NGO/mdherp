@@ -18,8 +18,9 @@ class InterviewConfirmController extends Controller
     }
     public function index($applicant_id, $interview_id){
 
-    $interview_details = $this->interview_applicant->getInterviewScheduleApplicantDetails($applicant_id, $interview_id)->first();
-//dd($interview_details);
+        $interview_details = InterviewApplicant::query()->where('applicant_id', $applicant_id)->where('interview_id', $interview_id)->first();
+//    $interview_details = $this->interview_applicant->getInterviewScheduleApplicantDetails($applicant_id, $interview_id)->first();
+//dd($our_query);
         return view('HumanResource.StaffHiring.interviewconfirm')
             ->with('interview_details', $interview_details);
         }

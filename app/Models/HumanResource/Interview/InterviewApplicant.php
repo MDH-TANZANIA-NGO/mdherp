@@ -13,7 +13,7 @@ class InterviewApplicant extends BaseModel
         return $this->belongsTo(Interview::class,'interview_id');
     }
     public function schedules(){
-        return $this->belongsTo(InterviewSchedule::class,'');
+        return $this->belongsTo(InterviewSchedule::class,'interview_schedule_id', 'id');
     }
 
     public function applicant()
