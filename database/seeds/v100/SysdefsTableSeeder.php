@@ -185,5 +185,19 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        // MDH_JST
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH_JSR'],
+            [
+                'name' => 'hr_user_hire_requisition_job_shortlister_requests',
+                'display_name' => 'Shortlister(s) Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH_JSR',
+                'sysdef_group_id' => 1,
+            ]
+        );
+        
     }
 }
