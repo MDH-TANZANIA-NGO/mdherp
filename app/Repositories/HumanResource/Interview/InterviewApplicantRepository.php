@@ -23,7 +23,7 @@ class InterviewApplicantRepository extends BaseRepository
     {
         return $this->query()->select([
              DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name ) AS full_name"),
-
+             DB::raw("hr_hire_applicants.id"),
         ])
         ->join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_applicants.applicant_id');
      }
@@ -46,7 +46,7 @@ class InterviewApplicantRepository extends BaseRepository
             ->leftjoin('hr_interview_types', 'hr_interviews.interview_type_id', 'hr_interview_types.id')
             ->leftjoin('hr_interview_schedules', 'hr_interview_schedules.interview_id', 'hr_interviews.id')
             ->join('hr_hire_requisitions_jobs','hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
-            ->join('hr_hire_advertisement_requisitions','hr_hire_advertisement_requisitions.hire_requisition_job_id','hr_hire_requisitions_jobs.id')
+            ->leftjoin('hr_hire_advertisement_requisitions','hr_hire_advertisement_requisitions.hire_requisition_job_id','hr_hire_requisitions_jobs.id')
             ->leftjoin('designations','hr_hire_requisitions_jobs.designation_id', 'designations.id')
             ->leftjoin('units', 'designations.unit_id', 'units.id')
             ->leftjoin('job_offers', 'job_offers.hr_interview_applicant_id', 'hr_interview_applicants.id')
@@ -75,94 +75,9 @@ class InterviewApplicantRepository extends BaseRepository
 
     }
 
-
-
-
-
-    /**
-     * get Access Processing
-     *
-    */
-    public function getAccessProcessing()
-    {
-        return $this->getQuery()
-            ->whereHas('wfTracks')
-            ->where('pr_reports.wf_done', 0)
-            ->where('pr_reports.done', true)
-            ->where('pr_reports.rejected', false)
-            ->where('users.id', access()->id());
+    public function getForSelect($interviews){
+        return $this->getQuery()->whereIn('hr_interview_applicants.interview_id',$interviews)->get()->pluck('full_name','id');
     }
-
-
-    /**
-     * get Access Returned For Modification
-     *
-    */
-    public function getAccessReturnedForModification()
-    {
-        return $this->getQuery()
-            ->whereHas('wfTracks')
-            ->where('pr_reports.wf_done', 0)
-            ->where('pr_reports.done', true)
-            ->where('pr_reports.rejected', true)
-            ->where('users.id', access()->id());
-    }
-
-    /**
-     * get Access Approved
-     * @return mixed
-    */
-    public function getAccessApproved()
-    {
-        return $this->getQuery()
-            ->whereHas('wfTracks')
-            ->where('pr_reports.wf_done', 1)
-            ->where('pr_reports.done', true)
-            ->where('pr_reports.rejected', false)
-            ->where('users.id', access()->id());
-    }
-
-    /**
-     * get Access Saved
-     * @return mixed
-    */
-    public function getAccessSaved()
-    {
-        return $this->getQuery()
-            ->whereDoesntHave('wfTracks')
-            ->where('pr_reports.wf_done', 0)
-            ->where('pr_reports.done', false)
-            ->where('pr_reports.rejected', false)
-            ->where('users.id', access()->id());
-    }
-
-    /**
-     * get Access Approved Wait For Evaluation
-     * @return mixed
-    */
-    public function getAccessApprovedWaitForEvaluation()
-    {
-        return $this->getAccessApproved()
-            ->whereDoesntHave('child');
-            // ->whereDate('pr_reports.to_at', '<=', Carbon::now()->format('Y-m-d'));
-    }
-
-    /**
-     * get Access Approved Wait For Evaluation
-     * @return mixed
-    */
-    public function canBeAprocessedForEvaluation(Interview $pr_report)
-    {
-        return $this->getAccessApprovedWaitForEvaluation()
-            ->where('pr_reports.id', $pr_report->id)
-            ->count();
-    }
-
-
-    /**
-     * store probation form
-     * @return mixed
-    **/
     public function competedScored($interview_id)
     {
         return $this->query()->where('is_scored',1)->where('interview_id',$interview_id);

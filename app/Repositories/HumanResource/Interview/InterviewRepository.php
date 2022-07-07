@@ -131,7 +131,9 @@ class InterviewRepository extends BaseRepository
     }
     public function getAccessWaitForReportDatatable()
     {
-         return $this->getQuery2();
+         return $this->getQuery()
+                ->whereNotNull('hr_interviews.has_interview_invitation')           
+                ->whereNotNull('hr_interviews.has_questions'); 
       
     }
 

@@ -36,4 +36,8 @@ class JobOffer extends BaseModel
     {
         return $this->belongsToMany(Project::class);
     }
+    public function remarks()
+    {
+        return $this->hasMany(JobOfferRemark::class);
+    }
 }

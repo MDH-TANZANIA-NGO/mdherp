@@ -123,16 +123,33 @@ trait InterviewDatatable
     }
     public function AccessWaitForReportDatatable(){
         return DataTables::of($this->interviewRepository->getAccessWaitForReportDatatable())
-            ->addIndexColumn()
-            // ->editColumn('created_at', function ($query) {
-            //     return $query->created_at->toDateString();
-            // })
-            ->addColumn('action', function($query) {
-                return '<a href="'.route('interview.report.create', $query->uuid).'">Create Report</a>';
-            })
-            ->rawColumns(['action'])
-            ->make(true);
+        ->addIndexColumn()
+        ->editColumn('created_at', function ($query) {
+             return $query->created_at->toDateString();
+        })
+        ->editColumn('total', function ($query) {
+            return $this->hireRequisitionJobRepository->query()->where('hr_hire_requisitions_jobs.hire_requisition_id',$query->id)->sum('empoyees_required');
+            
+        })
+        ->addColumn('action', function($query) {
+            return '<a href="'.route('interview.show', $query->uuid).'">View</a>';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
     }
+
+    // public function AccessWaitForReportDatatable(){
+    //     return DataTables::of($this->interviewRepository->getAccessWaitForReportDatatable())
+    //         ->addIndexColumn()
+    //         // ->editColumn('created_at', function ($query) {
+    //         //     return $query->created_at->toDateString();
+    //         // })
+    //         ->addColumn('action', function($query) {
+    //             return '<a href="'.route('interview.report.create', $query->uuid).'">Create Report</a>';
+    //         })
+    //         ->rawColumns(['action'])
+    //         ->make(true);
+    // }
 
     public function AccessPanelistJobsDatatable(){
         return DataTables::of($this->interviewRepository->getQueryWithInterview())

@@ -174,6 +174,31 @@ class SysdefsTableSeeder extends Seeder
             ]
         );
         $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH-INT-RP'],
+            [
+                'name' => 'hr_interview_workflow_reports',
+                'display_name' => 'Interview Report',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH-INT-RP',
+                'sysdef_group_id' => 1,
+            ]
+        );
+        // MDH_JST
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH_JSR'],
+            [
+                'name' => 'hr_user_hire_requisition_job_shortlister_requests',
+                'display_name' => 'Shortlister(s) Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH_JSR',
+                'sysdef_group_id' => 1,
+            ]
+        );
+        $sysdef = Sysdef::firstOrCreate(
             ['reference' => 'MDH-INDUCTION-SCHEDULE'],
             [
                 'name' => 'induction_schedules',

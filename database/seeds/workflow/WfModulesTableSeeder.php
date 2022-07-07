@@ -233,7 +233,7 @@ class WfModulesTableSeeder extends Seeder
                     15 =>
                     array (
                         'id' => 16,
-                        'name' => 'Job Interview',
+                        'name' => 'Job Interview Report',
                         'wf_module_group_id' => '12',
                         'created_at' => NULL,
                         'updated_at' => NULL,
@@ -248,14 +248,14 @@ class WfModulesTableSeeder extends Seeder
             16 =>
                 array(
                 'id' => 17,
-                'name' => 'Shortlisted Module',
+                'name' => 'Hire Requisition Shortlister(s) Module',
                 'wf_module_group_id' => 13,
                 'created_at' => NULL,
                 'updated_at' => NULL,
                 'deleted_at' => NULL,
                 'isactive' => '1',
                 'type' => '1',
-                'description' => 'Workflow for Applicant shortlist',
+                'description' => 'Workflow for Hire Requisition Shortlister(s)',
                 'allow_repeat' => 0,
                 'allow_decline' => 0,
             ),

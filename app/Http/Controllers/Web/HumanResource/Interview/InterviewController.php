@@ -55,12 +55,18 @@ class InterviewController extends Controller
 
     public function index()
     {
-        return view('humanResource.Interview.index')
+        return view('humanResource.Interview.index');
+
+    }
+    public function list()
+    {
+        // dd($this->interviewRepository->getAccessWaitForReportDatatable()->get());
+        return view('humanResource.Interview.list')
             ->with('processing_count', 0)
             ->with('return_for_modification_count', 0)
             ->with('approved_count', 0)
             ->with('wait_interview_question_count', $this->interviewRepository->getAccessWaitForQuestionsDatatable()->get()->count())
-            ->with('wait_interview_report_count', $this->interviewRepository->getAccessWaitForReportDatatable()->count())
+            ->with('wait_interview_report_count', $this->interviewRepository->getAccessWaitForReportDatatable()->get()->count())
             ->with('saved_count', 0);
     }
 
@@ -79,8 +85,7 @@ class InterviewController extends Controller
         return redirect()->route('interview.initiate-panelist', $interview->uuid);
     }
     public function show(Interview $interview)
-    {
-        $users = $this->userRepository->forSelect();
+    {;
         $schedules = InterviewSchedule::where('interview_id', $interview->id)->get()->pluck('id');
         $interviewApplicants = $this->hrHireApplicantRepository->getPendingSelected($interview)->get();
         $interview_type = InterviewTypes::find($interview->interview_type_id);
@@ -101,12 +106,16 @@ class InterviewController extends Controller
         $job_title = $this->designationRepository->getQueryDesignationUnit()
             ->where('designations.id', $hrHireRequisitionJob->designation_id)
             ->first();
+        $questions = $this->interviewQuestionRepository
+                            ->query()
+                            ->where('interview_id',$interview->id)->get();
         return view('HumanResource.Interview.show')
                 ->with('interview', $interview)
                 ->with('show', true)
                 ->with('interview_type', $interview_type)
                 ->with('schedules', $schedules)
                 ->with('job_title', $job_title)
+                ->with('questions', $questions)
                 ->with('interviewApplicants', $interviewApplicants)
                 ->with('hrHireRequisitionJob', $hrHireRequisitionJob)
                 ->with('panelists', $panelists);

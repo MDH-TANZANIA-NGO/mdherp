@@ -24,11 +24,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use App\Models\Auth\User;
 use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
+use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use App\Services\Workflow\WorkflowAction;
 use League\CommonMark\Util\Html5EntityDecoder;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
-
+use App\Models\HumanResource\Interview\InterviewReport;
+use App\Models\HumanResource\Interview\InterviewWorkflowReport;
 
 class WorkflowEventSubscriber
 {
@@ -624,8 +626,8 @@ class WorkflowEventSubscriber
                     $this->updateWfDone($listing);
                     $email_resource = (object)[
                         'link' =>  route('hirerequisition.show',$listing),
-                        'subject' => "Approved Successfully",
-                        'message' => 'This Hire Requisition has been Approved successfully'
+                        'subject' => $listing->number." Approved Successfully",
+                        'message' => $listing->number." Hire Requisition has been Approved successfully"
                     ];
                     $listing->user->notify(new WorkflowNotification($email_resource));
                     break;
@@ -663,6 +665,17 @@ class WorkflowEventSubscriber
                     $advertisement->user->notify(new WorkflowNotification($email_resource));
                     // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
                     break;
+                case 16:
+                    $interviewReport = (new InterviewWorkflowReport())->find($resource_id);
+                    $this->updateWfDone($interviewReport);
+                    $email_resource = (object)[
+                        'link' =>  route('interview.report.show',$interviewReport),
+                        'subject' => $interviewReport->number. "Interview Report: Has been Approved Successfully",
+                        'message' => $interviewReport->number. "Interview Report : Has been Approved successfully"
+                    ];
+                    $interviewReport->user->notify(new WorkflowNotification($email_resource));
+                    // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
+                    break;
                 case 18:
                     $job_offer = (new JobOfferRepository())->find($resource_id);
                     $this->updateWfDone($job_offer);
@@ -672,15 +685,26 @@ class WorkflowEventSubscriber
                         'message' => $job_offer->number. ' '.$job_offer->title.' Job Offer : Has been Approved successfully'
                     ];
                     $email_resource_to_applicant = (object)[
-                        'link' =>  route('job_offer.show',$job_offer),
+                        'link' =>  route('job_offer.accepting_offer',$job_offer),
                         'subject' => "Job Offer: Management and Development for Health",
-                        'message' =>  " <br>  <p>I am pleased to extend the following offer of employment to you on behalf of <b>Management and Development for Health </b>. You have been selected as the best candidate for the ".$job_offer->interviewApplicant->interviews->jobRequisition->designation->full_title." position.</p> ". ",  Kindly login to portal for your action"
+                        'message' =>  " <p>I am pleased to extend the following offer of employment to you on behalf of <b>Management and Development for Health </b>. You have been selected as the best candidate for the ".$job_offer->interviewApplicant->interviews->jobRequisition->designation->full_title." position.</p> ". ",  Kindly login to portal for your action"
 
                     ];
                     $job_offer->user->notify(new WorkflowNotification($email_resource));
                     $job_offer->interviewApplicant->applicant->notify(new  WorkflowNotification($email_resource_to_applicant));
                     // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
                     break;
+                case 17:
+                        $shortlister_request = (new HrUserHireRequisitionJobShortlisterRequestRepository())->find($resource_id);
+                        $this->updateWfDone($shortlister_request);
+                        $email_resource = (object)[
+                            'link' =>  route('job_offer.show',$shortlister_request),
+                            'subject' => $shortlister_request->number." Shortlisters approved Successfully",
+                            'message' => ' Click a link to view approved shortlisters'
+                        ];
+                        User::query()->find($shortlister_request->user_id)->notify(new WorkflowNotification($email_resource));
+                        //TODO send email to all shortlisters
+                        break;
             }
 
 
