@@ -15,17 +15,17 @@ class HrUserHireRequisitionJobShortlisterJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $user;
-    protected $job;
+    protected $job_model;
     /**
      * Create a new job instance.
      * @param User $user
      * @param mixed $job
      * @return void
      */
-    public function __construct(User $user, $job)
+    public function __construct(User $user, $job_model)
     {
         $this->user = $user;
-        $this->job = $job;
+        $this->job = $job_model;
     }
 
     /**
@@ -35,6 +35,6 @@ class HrUserHireRequisitionJobShortlisterJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->user->notify(new HrUserHireRequisitionJobShortlisterNotification($this->job));
+        $this->user->notify(new HrUserHireRequisitionJobShortlisterNotification($this->job_model));
     }
 }

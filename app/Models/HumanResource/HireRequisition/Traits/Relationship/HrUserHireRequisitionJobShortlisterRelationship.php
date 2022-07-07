@@ -17,4 +17,5 @@ trait HrUserHireRequisitionJobShortlisterRelationship
         return $this->hasMany(HrUserHireRequisitionJobShortlisterUser::class,'hr_user_hire_requisition_job_shortlister_id','id');
     }
 
+
 }
