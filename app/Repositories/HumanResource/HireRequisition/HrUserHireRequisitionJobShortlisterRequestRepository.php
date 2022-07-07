@@ -27,4 +27,13 @@ class HrUserHireRequisitionJobShortlisterRequestRepository extends BaseRepositor
             throw new GeneralException('Please select atleast one job to proceed');
         }
     }
+
+    public function completedAndSendEmails($shortlister_request)
+    {
+        $shortlister_request->id;
+        foreach($shortlister_request->jobs as $job){
+            dd($job->listUsers);
+        }
+    }
+
 }
