@@ -42,8 +42,8 @@ class HrUserHireRequisitionJobShortlisterNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject($this->resource->subject)
-            ->markdown('mail.workflow.workflow', ['jobs' => $this->jobs, 'name' => $notifiable->fullname]);
+            ->subject('Choosen Shortlisters')
+            ->markdown('mail.HumanResource.HireRrequisition.shortlister', ['jobs' => $this->jobs, 'name' => $notifiable->fullname]);
     }
 
     /**

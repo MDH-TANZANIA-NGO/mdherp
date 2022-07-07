@@ -2,33 +2,34 @@
 
 namespace App\Listeners;
 
+use Carbon\Carbon;
+use App\Models\Auth\User;
+use App\Services\Workflow\Workflow;
+use Illuminate\Support\Facades\Log;
 use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
-use App\Models\SafariAdvance\SafariAdvanceDetails;
-use App\Notifications\Workflow\WorkflowNotification;
-use App\Repositories\Finance\FinanceActivityRepository;
-use App\Repositories\JobOfferRepository;
-use App\Repositories\Leave\LeaveRepository;
-use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
-use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
-use App\Repositories\ProgramActivity\ProgramActivityRepository;
-use App\Repositories\Requisition\RequisitionRepository;
-use App\Repositories\Retirement\RetirementRepository;
-use App\Repositories\SafariAdvance\SafariAdvanceRepository;
-use App\Repositories\Timesheet\TimesheetRepository;
-use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
-use App\Services\Workflow\Traits\WorkflowUserSelector;
-use App\Services\Workflow\Workflow;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
-use App\Models\Auth\User;
-use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
-use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
-use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
+use App\Repositories\JobOfferRepository;
 use App\Services\Workflow\WorkflowAction;
-use League\CommonMark\Util\Html5EntityDecoder;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
+use App\Repositories\Leave\LeaveRepository;
+use League\CommonMark\Util\Html5EntityDecoder;
+use App\Models\SafariAdvance\SafariAdvanceDetails;
+use App\Repositories\Timesheet\TimesheetRepository;
+use App\Notifications\Workflow\WorkflowNotification;
+use App\Repositories\Retirement\RetirementRepository;
+use App\Services\Workflow\Traits\WorkflowUserSelector;
+use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\SafariAdvance\SafariAdvanceRepository;
+use App\Repositories\ProgramActivity\ProgramActivityRepository;
+use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
+use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
+use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
+use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
+use App\Jobs\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterJob;
+use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
 
 
 class WorkflowEventSubscriber
@@ -683,15 +684,18 @@ class WorkflowEventSubscriber
                     // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
                     break;
                 case 17:
-                        $shortlister_request = (new HrUserHireRequisitionJobShortlisterRequestRepository())->find($resource_id);
+                        $shortlister_request_repo = (new HrUserHireRequisitionJobShortlisterRequestRepository());
+                        $shortlister_request = $shortlister_request_repo->find($resource_id);
                         $this->updateWfDone($shortlister_request);
                         $email_resource = (object)[
                             'link' =>  route('job_offer.show',$shortlister_request),
                             'subject' => $shortlister_request->number." Shortlisters approved Successfully",
                             'message' => ' Click a link to view approved shortlisters'
                         ];
-                        User::query()->find($shortlister_request->user_id)->notify(new WorkflowNotification($email_resource));
+                        // User::query()->find($shortlister_request->user_id)->notify(new WorkflowNotification($email_resource));
                         //TODO send email to all shortlisters
+                        $shortlister_request_repo->completedAndSendEmails($shortlister_request);
+                        HrUserHireRequisitionJobShortlisterJob::dispatch();
                         break;
             }
 
