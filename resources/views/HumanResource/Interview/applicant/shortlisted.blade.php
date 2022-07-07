@@ -24,7 +24,7 @@
                                 @foreach($interviewApplicants as $key=>$interviewApplicant)
                                 <tr>
                                     <td> {{ ($key + 1)  }} </td>
-                                    <td> {{ $interviewApplicant->full_name  }} </td>
+                                    <td> {{ $interviewApplicant->first_name." ".$interviewApplicant->middle_name." ".$interviewApplicant->last_name  }} </td>
                                     <td> <input type='checkbox' name='applicant[]' value='{{ $interviewApplicant->id }} '> </td>
                                 </tr>
                                 @endforeach

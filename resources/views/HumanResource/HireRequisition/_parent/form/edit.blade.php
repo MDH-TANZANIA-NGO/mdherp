@@ -48,22 +48,13 @@
 
 								<div class="col-6 col-lg-6">
 									<label class="form-label">Job Title</label>
-									<select name="job_title" id="select-department" data-placeholder="select job title" class="form-control select2-show-search">
-										<option></option>
-										<?php
-										$selected = "";
-										?>
-
-										@foreach($designations as $designation)
-										<option {{ $hireRequisitionJobs->designation_id == $designation->id ? 'selected':''  }} value="{{$designation->id}}">{{$designation->name}}</option>
-										@endforeach
-									</select>
+									{!! Form::select('job_title',$designations,$hireRequisitionJobs->designation_id ,['class' => 'form-control select2', 'placeholder'=>'Select Job','required']) !!}
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-6">
 									<label class="form-label">Number of Employees Required</label>
-									<input type="number" value="{{$hireRequisitionJobs->experience_years}}" class="form-control" name="empoyees_required" placeholder="ie. 1, 4" required>
+									<input type="number" value="{{$hireRequisitionJobs->empoyees_required }}" class="form-control" name="empoyees_required" placeholder="ie. 1, 4" required>
 									@error('number')
 									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 									@enderror

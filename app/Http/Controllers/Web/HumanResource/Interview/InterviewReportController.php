@@ -18,6 +18,7 @@ use App\Repositories\HumanResource\Interview\InterviewReportRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 use App\Http\Controllers\Web\HumanResource\Interview\Traits\InterviewReportDatatable;
+use App\Models\HumanResource\Interview\InterviewReportComment;
 
 class InterviewReportController extends Controller
 {
@@ -113,6 +114,11 @@ class InterviewReportController extends Controller
             DB::beginTransaction();
             $interviewReport = $this->interviewReportRepository->find($request->interview_workflow_report_id);
             $this->interviewReportRepository->submit($interviewReport);
+            InterviewReportComment::create([
+                'user_id'=>access()->id(),
+                'interview_report_id'=> $interviewReport->id,
+                'comment' => $comment
+            ]);
             $next_user = $this->users->getCeo()->first()->user_id;
             $this->startWorkflow($interviewReport, 1,  $next_user);
             alert()->success('Interview Report Created Successfully', 'success');
@@ -140,7 +146,8 @@ class InterviewReportController extends Controller
                     'hr_hire_applicants.email'])
             ->where('hr_interview_report_recommendations.hr_requisition_job_id', $hireRequisitionJob->id)
             ->get();
-
+             
+        $comments = InterviewReportComment::where(['interview_report_id'=>$interviewReport->id])->get();
         $applicants = $this->interviewApplicantRepository->getForSelect($interviews->pluck('id')->toArray());
         $wf_module_group_id = 12;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $interviewReport->id);
@@ -159,6 +166,7 @@ class InterviewReportController extends Controller
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($interviewReport))
             ->with('interview_report', $interviewReport)
+            ->with('comments', $comments)
             ->with("show", true);
     }
 }

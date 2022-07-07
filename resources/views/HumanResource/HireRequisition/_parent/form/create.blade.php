@@ -1,9 +1,14 @@
 @extends('layouts.app')
 @section('content')
+
 @if(isset($initiate))
+<?php
+	$total_jobs = count($hireRequisitionJobs);
+?>
 @include('HumanResource.HireRequisition._parent.datatables.index')
 @endif
-<div class="panel panel-primary add_requisition_body" style="display: {{ isset($create) && $create == true ? '':'none'}} ">
+
+<div class="panel panel-primary add_requisition_body" style="display: {{ isset($create) && $create == true ? ' ':'none' }} ">
 	<div class=" tab-menu-heading card-header sw-theme-dots">
 		<div class="tabs-menu1">
 			<!-- Tabs -->
@@ -38,7 +43,7 @@
 							<div class="row">
 								<div class="col-6 col-lg-6">
 									<label class="form-label">Department</label>
-									<select name="department_id" id="select-department" data-placeholder="Select Department" class="form-control select2-show-search">
+									<select name="department_id" id="select-department" data-placeholder="Select Department" class="form-control select2-show-search" required>
 										<option></option>
 										@foreach($departments as $department)
 										<option value="{{$department->id}}">{{$department->title}}</option>
@@ -64,7 +69,7 @@
 								</div>
 								<div class="col-6">
 									<label class="form-label">Location</label>
-									<select name="region[]" id="select-region" class="form-control select2-show-search" data-placeholder="select location" multiple>
+									<select name="region[]" id="select-region" class="form-control select2-show-search" data-placeholder="select location" multiple required>
 										<option value="">Select Location</option>
 										@foreach($regions as $region)
 										<option value="{{$region->id}}">{{$region->name}}</option>
@@ -92,7 +97,7 @@
 											<div class="input-group-text">
 												<i class="fa fa-calendar tx-16 lh-0 op-6"></i>
 											</div>
-										</div><input class="form-control" name="date_required" placeholder="MM/DD/YYYY" type="date">
+										</div><input class="form-control" name="date_required" placeholder="MM/DD/YYYY" type="date" required>
 									</div>
 									@error('date_required')
 									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -226,7 +231,6 @@
 									<button type="button" class="btn  btn-primary next-step"> <i class="fa fa-angle-right"></i> Proceed </button>
 								</div>
 							</div>
-
 						</div>
 			</div>
 			<div class="tab-pane " id="returned">
@@ -234,7 +238,7 @@
 					<div class="row mt-2">
 						<div class="col-8">
 							<label class="form-label"> Education Level </label>
-							<select name="education_level" id="select-region" style="width: 100%" class="form-control custom-select select2-show-search" data-placeholder="Education Level">
+							<select name="education_level" id="select-region" style="width: 100%" class="form-control custom-select select2-show-search" data-placeholder="Education Level" required>
 								<option></option>
 								@foreach($education_levels as $education_level)
 								<option value="{{$education_level->id}}">{{$education_level->name}}</option>
@@ -276,7 +280,7 @@
 					<div class="row mt-2">
 						<div class="col-8">
 							<label class="form-label"> Skill Category </label>
-							<select class="form-control select2-show-search" id="skill_category_id" name="skill_category_id" data-placeholder="Select filter">
+							<select class="form-control select2-show-search" id="skill_category_id" name="skill_category_id" data-placeholder="Select filter" >
 								<option> choose Category</option>
 								@foreach($skillCategories as $skillCategory)
 								<option value="{{ $skillCategory->id }}">{{$skillCategory->name}}</option>

@@ -104,7 +104,7 @@ class HireRequisitionJobRepository extends BaseRepository
             'end_age' =>  $inputs['end_age'],
             'special_employment_condition' => $inputs['special_employment_condition'],
             'duties_and_responsibilities' => $inputs['duties_and_responsibilities'],
-            'experience_years' =>$inputs['contract_type'],
+            'experience_years' =>$inputs['experience_years'],
             'date_required' =>$inputs['date_required'],
             'empoyees_required' => $inputs['empoyees_required'],
             'establishment' => $inputs['establishment'],

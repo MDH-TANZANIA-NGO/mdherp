@@ -59,6 +59,9 @@ class HrHireApplicantRepository extends BaseRepository
         $interview_id =  $interview->id;
         return $this->query()->select([
             DB::raw("DISTINCT(hr_hire_applicants.id)"),
+            'hr_hire_applicants.first_name',
+            'hr_hire_applicants.middle_name',
+            'hr_hire_applicants.last_name',
             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
         ])
         ->whereNotIn('hr_hire_applicants.id',function($query) use($interview_id){

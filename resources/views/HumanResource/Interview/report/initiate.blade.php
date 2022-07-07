@@ -20,7 +20,7 @@
             @include('HumanResource.Interview.report.panelist_list')
             @include('HumanResource.Interview.report.recommendation_list')
             {!! Form::open(['route' => 'interview.report.store']) !!}
-            <input type="text" name="interview_workflow_report_id" value="{{ $interview_workflow_report_id }}">
+            <input type="hidden" name="interview_workflow_report_id" value="{{ $interview_workflow_report_id }}">
             <div class="form-group">
                 <label class="form-lable">Recommendation Comment</label>
                 <textarea class="summernotecontent" name="comment"></textarea>

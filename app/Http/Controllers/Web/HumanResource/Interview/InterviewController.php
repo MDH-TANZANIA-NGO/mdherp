@@ -271,6 +271,7 @@ class InterviewController extends Controller
 
     public function showPanelistJobs()
     {
+       
         return view('humanResource.Interview.job.applications');
     }
 

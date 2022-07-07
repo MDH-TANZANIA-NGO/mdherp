@@ -6,6 +6,7 @@
     @include('HumanResource.interview.panelist.show')
     @include('HumanResource.interview.applicant.selected_for_invitation')
 </form>
+@if(count($interviewApplicants))
 <form action="{{ route('interview.addapplicant') }} " method="post">
     <div class="row mb-3">
         <label class="form-label col-sm-2 ">Interview Date </label>
@@ -16,13 +17,13 @@
             <label class="form-label">Location </label>
         </div>
         <div class="col-lg-3">
-            {!! Form::select('district_id',$districts,null,['class' => 'form-control select2','data-placeholder'=>'Select district','required']) !!}
+            {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','placeholder'=>'Select district','required']) !!}
         </div>
-       
+
 
     </div>
-    <div class="row">
-        <label class="form-label  col-sm-2">Location Description </label>
+    <div class="row mb-3">
+        <label class="form-label  col-sm-2">Extra Details </label>
         <div class="col-lg-12">
             <textarea class="form-control" name="description" required></textarea>
         </div>
@@ -35,7 +36,7 @@
             <input type="submit" class="btn btn-primary btn-inline-block" name="submit" value="Add Applicant To Interview">
         </div>
     </div>
-    @if(count($interviewApplicants))
+
     @include('HumanResource.interview.applicant.shortlisted')
     @endif
 </form>
