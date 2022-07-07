@@ -28,6 +28,7 @@
 
 
 
+
                     @if ($check->count() == 0)
 
                     <form action="{{route('store-time')}}" method="POST">
@@ -67,14 +68,15 @@
 
                     @else
                     <form action="{{route('update-time')}}" method="POST">
-
                         @csrf
 
                         <input type="hidden" name='lat_out' id='out'>
                         <input type="hidden" name='long_out' id='longo'>
                         <div class="punch-btn-section">
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                            <button type="submit" class="btn btn-danger punch-btn"> <i class="fe fe-clock"></i>Check Out</button>
+
+
+                            <button type="submit" onclick="sweetalertclick2()" class="btn btn-danger punch-btn">Punch Out</button>
                             <!-- leaflet js  -->
                             <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
@@ -100,6 +102,7 @@
 
                         </div>
                     </form>
+
 
                     @endif
 

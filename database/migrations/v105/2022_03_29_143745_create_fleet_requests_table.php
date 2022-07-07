@@ -19,13 +19,6 @@ class CreateFleetRequestsTable extends Migration
                 $table->string('program');
                 $table->string('activity_description');
                 $table->string('location');
-                $table->text('uuid')->nullable();
-                $table->integer('wf_done')->default(0)->nullable();
-                $table->dateTime('wf_done_date')->nullable();
-                $table->boolean('rejected')->default(false)->nullable();
-                $table->bigInteger('user_id')->nullable();
-                $table->bigInteger('done')->default(0)->nullable();
-                $table->date('deleted_at')->nullable();
                 $table->time('starting_time');
                 $table->time('ending_time');
                 $table->timestamps();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyColumnsOnAttendacesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class ModifyColumnsOnAttendacesTable extends Migration
      */
     public function up()
     {
-        Schema::table('attendances', function (Blueprint $table) {
-            $table->dateTime('hrs')->nullable()->change();
+        Schema::create('districts', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->unsignedBigInteger('region_id')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -25,6 +29,6 @@ class ModifyColumnsOnAttendacesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('districts');
     }
-}
+};

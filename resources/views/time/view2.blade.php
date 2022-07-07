@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MDH</title>
+    <title>Realtime location tracker</title>
 
     <!-- leaflet css  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -34,7 +34,7 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
     // Map initialization 
-    var map = L.map('map').setView([-6.78637, 39.2789], 6);
+    var map = L.map('map').setView([14.0860746, 100.608406], 6);
 
     //osm layer
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -53,11 +53,9 @@
     var marker, circle;
 
     function getPosition(position) {
-
-        var lat = "{{$time->lat_out}}";
+      
+         var lat = "{{$time->lat_out}}";
         var long = "{{$time->long_out}}";
-        var title = "{{$time->user->fullname}}"
-
         var accuracy = position.coords.accuracy
         if (marker) {
             map.removeLayer(marker)
@@ -67,26 +65,16 @@
             map.removeLayer(circle)
         }
 
-        let markerOptions = {
-            title: '{{$time->user->fullname}}',
-            clickable:'true'
-        }
-
-        marker = L.marker([lat, long], markerOptions)
+        marker = L.marker([lat, long])
         circle = L.circle([lat, long], {
-            radius: accuracy,
-          
-
-
+            radius: accuracy
         })
-
-
 
         var featureGroup = L.featureGroup([marker, circle]).addTo(map)
 
         map.fitBounds(featureGroup.getBounds())
-
-        console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy + " Title: " + title)
+       
+        console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
     }
 </script>
 

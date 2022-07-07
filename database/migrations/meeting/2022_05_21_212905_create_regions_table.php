@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDistancesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateDistancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('distances', function (Blueprint $table) {
-            $table->id();
-            $table->string('from')->nullable();
-            $table->string('to')->nullable();
-            $table->string('driving_distance')->nullable();
-            $table->string('duration')->nullable();
-            $table->rememberToken();
+        Schema::create('regions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +28,6 @@ class CreateDistancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('distances');
+        Schema::dropIfExists('regions');
     }
-}
+};

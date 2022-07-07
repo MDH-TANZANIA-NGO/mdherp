@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUuidToLeaveBalancesTable extends Migration
+class AddDoneToFleetRequests extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddUuidToLeaveBalancesTable extends Migration
      */
     public function up()
     {
-        Schema::table('leave_balances', function (Blueprint $table) {
-            $table->text('uuid')->nullable();
+        Schema::table('fleet_requests', function (Blueprint $table) {
+            $table->bigInteger('done')->default(0)->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddUuidToLeaveBalancesTable extends Migration
      */
     public function down()
     {
-        Schema::table('leave_balances', function (Blueprint $table) {
-            //
+        Schema::table('fleet_requests', function (Blueprint $table) {
+            $table->dropColumn('done');
         });
     }
 }
