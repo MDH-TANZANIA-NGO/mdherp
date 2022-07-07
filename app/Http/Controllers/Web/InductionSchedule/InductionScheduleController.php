@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\InductionSchedule;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\InductionSchedule\Traits\InductionScheduleDatatable;
 use App\Models\InductionSchedule\InductionSchedule;
 use App\Models\InductionSchedule\InductionScheduleItem;
 use App\Models\InductionSchedule\InductionScheduleParticipant;
@@ -14,7 +15,7 @@ use Illuminate\Http\Request;
 
 class InductionScheduleController extends Controller
 {
-    use Number;
+    use Number, InductionScheduleDatatable;
 
     protected $designations;
     protected $departments;
@@ -81,7 +82,10 @@ class InductionScheduleController extends Controller
     public function store(Request $request)
     {
         $md = new \ParsedownExtra();
-        //dd($request->all());
+//        $inductionSchedule = InductionSchedule::find($request->get('induction_schedule_id'));
+//        $inductionSchedule->update([
+//            'number' => $this->generateNumber($inductionSchedule)
+//        ]);
         $inductionScheduleItem = InductionScheduleItem::create([
             'induction_schedule_id' => $request->get('induction_schedule_id'),
             'department_id' => $request->get('department_id'),
@@ -106,6 +110,14 @@ class InductionScheduleController extends Controller
             ->with('inductionScheduleItem', $inductionScheduleItem);
     }
 
+    public function showSchedule(InductionSchedule $inductionSchedule){
+
+        return view('induction._parent.display.show_schedule')
+            ->with('designations', $this->designations)
+            ->with('inductionScheduleItems', $inductionSchedule->induction_schedule_items)
+            ->with('inductionSchedule', $inductionSchedule);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -127,7 +139,6 @@ class InductionScheduleController extends Controller
     public function update(Request $request, InductionScheduleItem $inductionScheduleItem)
     {
         $inductionScheduleItem->update($request->all());
-
         alert()->success('Induction Schedule Item have been updated');
         return redirect()->route('induction_schedule.create', $inductionScheduleItem->inductionSchedule);
 
@@ -139,6 +150,24 @@ class InductionScheduleController extends Controller
         return view('induction._parent.forms.add')
             ->with('inductionSchedule', $inductionSchedule)
             ->with('participants', $participants);
+    }
+
+    public function completeInductionScheduleItem(InductionScheduleItem $inductionScheduleItem){
+
+    }
+
+    public function markAsComplete(InductionSchedule $inductionSchedule){
+        $inductionSchedule->update([
+            'status' => 2
+        ]);
+        alert()->success('Induction Schedule has been completed');
+        return redirect()->route('induction_schedule.index');
+    }
+
+    public function updateSchedule(Request $request, InductionSchedule $inductionSchedule){
+        $inductionSchedule->update($request->all());
+        alert()->success('Induction Schedule has been updated');
+        return redirect()->route('induction_schedule.index');
     }
 
     public function participants(Request $request){

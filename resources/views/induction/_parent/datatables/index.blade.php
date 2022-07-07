@@ -4,7 +4,7 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-warning">{{ $leave_access->getAccessProcessingDatatable()->count() }}</span></a></li>
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-warning">{{ $induction_access->getProcessing()->count() }}</span></a></li>
                     <li><a href="#rejected" data-toggle="tab" class="">On Going <span class="badge badge-danger">{{ $leave_access->getAccessRejectedDatatable()->count() }}</span></a></li>
                     <li><a href="#approved" data-toggle="tab" class="">Completed <span class="badge badge-success">{{ $leave_access->getAccessProvedDatatable()->count() }}</span></a></li>
                     <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $leave_access->getAccessSavedDatatable()->count() }}</span> </a></li>
@@ -30,10 +30,9 @@
                                 <thead>
                                 <tr>
                                     <th class="wd-15p">#</th>
-                                    <th class="wd-15p">TYPE</th>
+                                    <th class="wd-15p">DESIGNATION</th>
                                     <th class="wd-15p">START DATE</th>
                                     <th class="wd-25p">END DATE</th>
-                                    <th class="wd-25p">COMMENT</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
                                 </thead>
@@ -126,13 +125,13 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: '{{ route('leave.datatable.access.processing') }}',
+                ajax: '{{ route('induction_schedule.datatable.processing') }}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
-                    { data: 'type_name', name: 'leave_types.name', searchable: true},
-                    { data: 'start_date', name: 'leaves.start_date', searchable: true},
-                    { data: 'end_date', name: 'leaves.end_date', searchable: true },
-                    { data: 'comment', name: 'leaves.comment', searchable: true },
+                    { data: 'designation_id', name: 'induction_schedules.designation_id', searchable: true},
+                    { data: 'participants', name : 'induction_schedule_participants', searchable: true },
+                    { data: 'start_date', name: 'induction_schedules.start_date', searchable: true},
+                    { data: 'end_date', name: 'induction_schedules.end_date', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
             });

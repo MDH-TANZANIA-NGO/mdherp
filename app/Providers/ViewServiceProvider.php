@@ -29,6 +29,7 @@ class ViewServiceProvider extends ServiceProvider
         View::composer(['*'], 'App\Http\View\Composers\Leave\LeaveComposer');
         View::composer(['*'], 'App\Http\View\Composers\HumanResource\HireRequisition\HireRequisitionComposer');
         View::composer(['*'], 'App\Http\View\Composers\HumanResource\Advertisement\AdvertisementComposer');
+        View::composer(['*'], 'App\Http\View\Composers\InductionSchedule\InductionComposer');
 
     }
 }

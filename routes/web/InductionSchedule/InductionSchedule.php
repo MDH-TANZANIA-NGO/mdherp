@@ -12,13 +12,16 @@ Route::group(['namespace' => 'InductionSchedule', 'middleware' => ['web', 'auth'
     Route::post('store', 'InductionScheduleController@store')->name('store');
     Route::put('{inductionScheduleItem}/update', 'InductionScheduleController@update')->name('update');
     Route::get('{inductionScheduleItem}/show', 'InductionScheduleController@show')->name('show');
+    Route::get('{inductionSchedule}/showSchedule', 'InductionScheduleController@showSchedule')->name('showSchedule');
+    Route::put('{inductionSchedule}/updateSchedule', 'InductionScheduleController@updateSchedule')->name('updateSchedule');
+    Route::put('{inductionSchedule}/markAsComplete', 'InductionScheduleController@markAsComplete')->name('markAsComplete');
 
 
     /**
      * Datatables
      */
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
-            Route::get('processing', 'InductionScheduleController@processing')->name('processing');
+            Route::get('processing', 'InductionScheduleController@processingDatatable')->name('processing');
             Route::get('onGoing', 'InductionScheduleController@onGoing')->name('on-going');
             Route::get('completed', 'InductionScheduleController@completed')->name('completed');
             Route::get('saved', 'InductionScheduleController@saved')->name('saved');
