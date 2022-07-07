@@ -692,10 +692,9 @@ class WorkflowEventSubscriber
                             'subject' => $shortlister_request->number." Shortlisters approved Successfully",
                             'message' => ' Click a link to view approved shortlisters'
                         ];
-                        // User::query()->find($shortlister_request->user_id)->notify(new WorkflowNotification($email_resource));
+                        User::query()->find($shortlister_request->user_id)->notify(new WorkflowNotification($email_resource));
                         //TODO send email to all shortlisters
                         $shortlister_request_repo->completedAndSendEmails($shortlister_request);
-                        HrUserHireRequisitionJobShortlisterJob::dispatch();
                         break;
             }
 

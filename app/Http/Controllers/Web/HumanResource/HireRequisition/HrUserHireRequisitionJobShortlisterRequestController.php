@@ -68,6 +68,7 @@ class HrUserHireRequisitionJobShortlisterRequestController extends Controller
     public function submit($job_shortlister_request_uuid)
     {
         $job_shortlister_request = $this->job_shortlister_requests->findByUuid($job_shortlister_request_uuid);
+        $this->job_shortlister_requests->updateDoneGenerateNumber($job_shortlister_request);
         $next_user_id = (new UserRepository())->getCeo()->first()->user_id;
         $this->startWorkflow($job_shortlister_request, 1, $next_user_id);
         alert()->success('Shortlisters submited to workflow Successfully');

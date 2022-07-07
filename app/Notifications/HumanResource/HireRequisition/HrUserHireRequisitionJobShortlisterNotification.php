@@ -41,9 +41,15 @@ class HrUserHireRequisitionJobShortlisterNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $resource = (object)[
+            'link' =>  route('hr.job.show',$this->jobs->uuid),
+            'subject' => 'You have been Chose as a shortlister',
+            'message' => 'You have been selected as one of the shortlister in the following position advertised'
+            'job' => $this->job->
+        ];
         return (new MailMessage)
-            ->subject('Choosen Shortlisters')
-            ->markdown('mail.HumanResource.HireRrequisition.shortlister', ['jobs' => $this->jobs, 'name' => $notifiable->fullname]);
+            ->subject($resource->subject)
+            ->markdown('mail.HumanResource.HireRrequisition.shortlister', ['resource' => $resource, 'name' => $notifiable->last_name. ' '.$notifiable->first_name]);
     }
 
     /**
