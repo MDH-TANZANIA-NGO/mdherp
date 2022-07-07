@@ -2,28 +2,26 @@
 
 namespace App\Http\Controllers\Web\HumanResource\Interview;
 
-use App\Exceptions\GeneralException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\Workflow\Workflow;
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Models\HumanResource\Interview\Interview;
 use App\Services\Workflow\Traits\WorkflowInitiator;
-use App\Models\HumanResource\Interview\InterviewReport;
-use App\Models\HumanResource\Interview\InterviewReportComment;
 use App\Models\HumanResource\Interview\InterviewWorkflowReport;
-use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
 use App\Models\HumanResource\Interview\InterviewReportRecommendation;
 use App\Repositories\HumanResource\Interview\InterviewReportRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
+use App\Http\Controllers\Web\HumanResource\Interview\Traits\InterviewReportDatatable;
 
 class InterviewReportController extends Controller
 {
-    use WorkflowInitiator;
+    use WorkflowInitiator,InterviewReportDatatable;
     public $designationRepository;
     public $interviewRepository;
     public $interviewReportRepository;
@@ -36,7 +34,6 @@ class InterviewReportController extends Controller
         $this->designationRepository = (new DesignationRepository());
         $this->interviewRepository = (new Interview());
         $this->interviewReportRepository = (new InterviewReportRepository());
-        $this->interviewReportRepository = (new InterviewReportRepository());
         $this->interviewApplicantRepository = (new InterviewApplicantRepository());
         $this->hireRequisitionJobRepository = (new HireRequisitionJobRepository());
         $this->users = (new UserRepository());
@@ -45,12 +42,11 @@ class InterviewReportController extends Controller
     public function index()
     {
         return view('humanResource.Interview.report.index')
-        ->with('processing_count', 0)
-         ->with('return_for_modification_count', 0)
-         ->with('approved_count', 0)
-         ->with('wait_interview_question_count',0)
-         ->with('wait_interview_report_count', 0)
-         ->with('saved_count', 0);
+        ->with('processing_count', $this->interviewReportRepository->getAccessProcessingDatatable()->get()->count())
+         ->with('denied_count', $this->interviewReportRepository->getAccessDeniedDatatable()->get()->count())
+         ->with('rejected_count', $this->interviewReportRepository->getAccessRejectedDatatable()->get()->count())
+         ->with('proved_count',$this->interviewReportRepository->getAccessProvedDatatable()->get()->count())
+         ->with('saved_count', $this->interviewReportRepository->getAccessSavedDatatable()->get()->count());
         
     }
     public function initiate(Request $request)
@@ -117,7 +113,6 @@ class InterviewReportController extends Controller
             DB::beginTransaction();
             $interviewReport = $this->interviewReportRepository->find($request->interview_workflow_report_id);
             $this->interviewReportRepository->submit($interviewReport);
-            // InterviewReportComment::create(['']);
             $next_user = $this->users->getCeo()->first()->user_id;
             $this->startWorkflow($interviewReport, 1,  $next_user);
             alert()->success('Interview Report Created Successfully', 'success');

@@ -28,7 +28,8 @@ use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use App\Services\Workflow\WorkflowAction;
 use League\CommonMark\Util\Html5EntityDecoder;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
-
+use App\Models\HumanResource\Interview\InterviewReport;
+use App\Models\HumanResource\Interview\InterviewWorkflowReport;
 
 class WorkflowEventSubscriber
 {
@@ -624,8 +625,8 @@ class WorkflowEventSubscriber
                     $this->updateWfDone($listing);
                     $email_resource = (object)[
                         'link' =>  route('hirerequisition.show',$listing),
-                        'subject' => "Approved Successfully",
-                        'message' => 'This Hire Requisition has been Approved successfully'
+                        'subject' => $listing->number." Approved Successfully",
+                        'message' => $listing->number." Hire Requisition has been Approved successfully"
                     ];
                     $listing->user->notify(new WorkflowNotification($email_resource));
                     break;
@@ -661,6 +662,17 @@ class WorkflowEventSubscriber
                         'message' => $advertisement->number. ' '.$advertisement->title.' Job Advertisement : Has been Approved successfully'
                     ];
                     $advertisement->user->notify(new WorkflowNotification($email_resource));
+                    // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 16:
+                    $interviewReport = (new InterviewWorkflowReport())->find($resource_id);
+                    $this->updateWfDone($interviewReport);
+                    $email_resource = (object)[
+                        'link' =>  route('interview.report.show',$interviewReport),
+                        'subject' => $interviewReport->number. "Interview Report: Has been Approved Successfully",
+                        'message' => $interviewReport->number. "Interview Report : Has been Approved successfully"
+                    ];
+                    $interviewReport->user->notify(new WorkflowNotification($email_resource));
                     // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
                     break;
                 case 18:

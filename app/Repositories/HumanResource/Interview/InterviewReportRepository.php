@@ -23,24 +23,24 @@ class InterviewReportRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
-            'hr_interviews.id AS id',
-            'hr_interviews.number AS number',
-            'hr_interviews.created_at AS created_at',
-            'hr_interviews.uuid AS uuid',
-            'hr_interview_types.name as interview_type',
-            'hr_interview_panelists.user_id as user_id',
-             DB::raw("STRING_AGG(to_char(hr_interview_schedules.interview_date,'dd-mm-yyyy'),',') as interview_date"),
+            'hr_interview_workflow_reports.id as id',
              DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
+             'hr_interview_workflow_reports.created_at as created_at',
+             'hr_interview_workflow_reports.uuid as uuid',
+             'hr_hire_requisitions_jobs.empoyees_required as total'
+            //  DB::raw("string_agg(DISTINCT regions.name, ',') as region"),
+
         ])
-            ->join('hr_interview_schedules','hr_interview_schedules.interview_id','hr_interviews.id')
-            ->join('hr_interview_types','hr_interview_types.id','hr_interviews.interview_type_id')
-            ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
+             
+            ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_interview_workflow_reports.hr_requisition_job_id')
             ->join('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
             ->join('units','units.id','designations.unit_id')
-            ->leftjoin('hr_interview_panelists',function($query){
-                $query->on('hr_interview_panelists.interview_id','hr_interviews.id')->where('hr_interview_panelists.technical_staff',1);
-            })
-            ->groupby('hr_interviews.id','units.title','designations.name','hr_interview_types.name','hr_interview_panelists.user_id');
+            
+            ->join('users','users.id','hr_interview_workflow_reports.user_id');
+            // ->join('hr_hire_requisition_locations','hr_hire_requisition_locations.hr_requisition_job_id','hr_interview_workflow_reports.hr_requisition_job_id')
+            // ->join('regions','regions.id','hr_hire_requisition_locations.region_id')
+            // ->groupby('regions.name','units.title', 'designations.name','hr_interview_workflow_reports.id','hr_hire_requisition_locations.region_id');
+            
     }
     public function getQuery2()
     {
@@ -71,13 +71,13 @@ class InterviewReportRepository extends BaseRepository
      * get Access Processing
      * 
     */
-    public function getAccessProcessing()
+    public function getAccessProcessingDatatable()
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('hr_interviews.wf_done', 0)
-            ->where('hr_interviews.done', true)
-            ->where('hr_interviews.rejected', false)
+            ->where('hr_interview_workflow_reports.wf_done', 0)
+            ->where('hr_interview_workflow_reports.done', true)
+            ->whereNull('hr_interview_workflow_reports.rejected')
             ->where('users.id', access()->id());
     }
 
@@ -86,27 +86,35 @@ class InterviewReportRepository extends BaseRepository
      * get Access Returned For Modification
      * 
     */
-    public function getAccessReturnedForModification()
-    {
+    public function getAccessDeniedDatatable(){
         return $this->getQuery()
-                    ->whereNotNull('hr_interviews.has_interview_invitation')           
-                    ->whereNull('hr_interviews.has_questions'); 
+            ->whereHas('wfTracks')
+            ->where('hr_interview_workflow_reports.rejected', true)
+            ->where('hr_interview_workflow_reports.user_id', access()->id());
     }
 
+
+    public function getAccessRejectedDatatable()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('hr_interview_workflow_reports.wf_done', 5)
+            ->where('hr_interview_workflow_reports.user_id', access()->id());
+    }
     /** 
      * get Access Approved
      * @return mixed
     */
-    public function getAccessApproved()
+    public function getAccessProvedDatatable()
     {
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('hr_interviews.wf_done', 1)
-            ->where('hr_interviews.done', true)
-            ->where('hr_interviews.rejected', false)
+            ->where('hr_interview_workflow_reports.wf_done', 1)
+            ->where('hr_interview_workflow_reports.done', 1)
+            ->whereNULL('hr_interview_workflow_reports.rejected')
             ->where('users.id', access()->id());
     }
-
+    
     /** 
      * get Access Saved
      * @return mixed
@@ -115,32 +123,13 @@ class InterviewReportRepository extends BaseRepository
     {
         return $this->getQuery()
             ->whereDoesntHave('wfTracks')
-            ->where('hr_interviews.wf_done', 0)
-            ->where('hr_interviews.done', false)
-            ->where('hr_interviews.rejected', false)
+            ->where('hr_interview_workflow_reports.wf_done', 0)
+            ->where('hr_interview_workflow_reports.done', false)
+            ->where('hr_interview_workflow_reports.rejected', false)
             ->where('users.id', access()->id());
     }
 
-    /** 
-     * get Access Approved Wait For Evaluation
-     * @return mixed
-    */
-    public function getAccessWaitForQuestionsDatatable()
-    {
-         return $this->getQuery()
-                ->whereNotNull('hr_interviews.has_interview_invitation')           
-                ->whereNull('hr_interviews.has_questions');           
-    }
-    public function getAccessWaitForReportDatatable()
-    {
-         return $this->getQuery();
-      
-    }
-
-    /** 
-     * get Access Approved Wait For Evaluation
-     * @return mixed
-    */
+ 
  
     public function store($input)
     {
@@ -173,54 +162,4 @@ class InterviewReportRepository extends BaseRepository
         ]);
     }
 
-    /** 
-     * store probation form
-     * @return mixed
-    **/
-    public function getShortlisted()
-    {
-         return DB::table('hr_hire_requisition_job_applicants')
-            ->select('hr_hire_requisition_job_applicants.id',
-            DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name") 
-            ,'hr_hire_requisition_job_applicants.created_at')
-            ->join('hr_hire_applicants','hr_hire_applicants.id','hr_hire_requisition_job_applicants.hr_hire_applicant_id');
-           
-
-    }
-
-
-
-
-
-    /**
-     * Update is done column and generate number
-     * @param Requisition $requisition
-     * @return mixed
-     */
-    public function updateDoneAssignNextUserIdAndGenerateNumber(Interview $pr_report)
-    {
-        $this->checkIfHasWorkflow($pr_report);
-        $number = $pr_report->parent ? null : $this->generateNumber($pr_report);
-        return DB::transaction(function () use ($pr_report, $number) {
-            return $pr_report->update(['done' => true]);
-        });
-    }
-
-    public function checkIfHasWorkflow(Interview $pr_report)
-    {
-        if($pr_report->wfTracks()->count()){
-            throw new GeneralException('You can not submit twice');
-        }
-    }
-
-    public function completed(Interview $pr_report)
-    {
-            $pr_report->update(['completed' => 1]);
-            $email_resource = (object)[
-                'link' =>  route('hr.pr.show',$pr_report),
-                'subject' => "Kindly Processd with workflow ".$pr_report->parent->type->title." ".$pr_report->parent->number,
-                'message' => 'Employee has Completed to fill all the required inputs'
-            ];
-            // User::query()->find($pr_report->parent->supervisor_id)->notify(new WorkflowNotification($email_resource));
-    }
 }

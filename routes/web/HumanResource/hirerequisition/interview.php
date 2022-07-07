@@ -1,5 +1,4 @@
 <?php
-
 Route::group(['namespace' =>'humanResource\Interview', 'middleware' => ['web', 'auth'], 'prefix' => 'interview', 'as' => 'interview.'], function () {
 
   Route::get('', 'InterviewController@index')->name('index');
@@ -27,6 +26,18 @@ Route::group(['namespace' =>'humanResource\Interview', 'middleware' => ['web', '
         Route::POST('recommend}','InterviewReportController@recommend')->name('recommend');
         Route::GET('delete/{uuid}','InterviewReportController@destroy')->name('destroy');
         Route::PUT('update','InterviewReportController@update')->name('update'); 
+
+        // Interview Report Datatables routes
+     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
+        Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
+          Route::get('processing', 'InterviewReportController@AccessProcessingDatatable')->name('processing');
+          Route::get('returned', 'InterviewReportController@AccessDeniedDatatable')->name('returned');
+          Route::get('rejected', 'InterviewReportController@AccessRejectedDatatable')->name('rejected');
+          Route::get('approved', 'InterviewReportController@AccessProvedDatatable')->name('approved');
+          Route::get('saved', 'InterviewReportController@AccessSavedDatatable')->name('saved');
+        });
+        
+    });
   });
 
   //Questions Route
@@ -52,8 +63,9 @@ Route::group(['namespace' =>'humanResource\Interview', 'middleware' => ['web', '
 
         
     });
+});
     Route::group(['prefix' => 'panelist', 'as' => 'panelist.'], function () {
         Route::get('panelistJobs', 'InterviewController@AccessPanelistJobsDatatable')->name('panelistApplication');
+        });
     });
-    });
-});
+
