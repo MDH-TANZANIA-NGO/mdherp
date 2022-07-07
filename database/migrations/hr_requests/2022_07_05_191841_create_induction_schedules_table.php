@@ -15,6 +15,13 @@ class CreateInductionSchedulesTable extends Migration
     {
         Schema::create('induction_schedules', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+            $table->foreignId('designation_id')->constrained('designations')->onDelete('cascade');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('number')->nullable();
+            $table->smallInteger('status')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

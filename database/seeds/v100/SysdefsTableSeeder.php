@@ -173,5 +173,17 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH-INDUCTION-SCHEDULE'],
+            [
+                'name' => 'induction_schedules',
+                'display_name' => 'Induction Schedule Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH-INDUCTION-SCHEDULE',
+                'sysdef_group_id' => 1,
+            ]
+        );
     }
 }
