@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnDistrictIdDescriptionInterviewScheduleTable extends Migration
+class ChangeColumnOnInductionScheduleItems extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class AddColumnDistrictIdDescriptionInterviewScheduleTable extends Migration
      */
     public function up()
     {
-        Schema::table('hr_interview_schedules', function (Blueprint $table) {
-            $table->text('description')->nullable();
-            $table->smallInteger('district_id')->nullable();
+        Schema::table('induction_schedule_items', function (Blueprint $table) {
+            $table->renameColumn('completed', 'completed_at');
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -27,6 +25,8 @@ class AddColumnDistrictIdDescriptionInterviewScheduleTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('induction_schedule_items', function (Blueprint $table) {
+            $table->renameColumn('completed_at', 'completed');
+        });
     }
 }

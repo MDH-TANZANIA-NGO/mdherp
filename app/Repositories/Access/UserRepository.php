@@ -122,6 +122,18 @@ class UserRepository extends BaseRepository
         });
     }
 
+    public function getNewStaffByDesignationId($id){
+        return $this->query()
+            ->select([
+                DB::raw("users.id as id"),
+                DB::raw("concat_ws(' ',users.first_name, users.last_name) as name"),
+            ])
+            ->join('designations', 'designations.id', 'users.designation_id')
+            ->where('users.designation_id', $id)
+            ->where('users.user_account_cv_id', 48)
+            ->pluck('name','id');
+    }
+
     /**
      * update Staff permissions
      * @param User $user
