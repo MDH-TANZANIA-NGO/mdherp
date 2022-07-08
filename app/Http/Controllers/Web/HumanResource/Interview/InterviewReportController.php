@@ -57,8 +57,7 @@ class InterviewReportController extends Controller
         //     throw new GeneralException('already created');
         // }else{
 
-        $hr_requisition_job_id =  $request->hr_requisition_job_id;
-        
+        $hr_requisition_job_id =  $request->hr_requisition_job_id;      
         $hireRequisitionJob = $this->hireRequisitionJobRepository->find($hr_requisition_job_id);
         $interviewReport = $this->interviewReportRepository->store($request->all());
         $interviews = $this->interviewRepository->query()->where('hr_requisition_job_id', $hireRequisitionJob->id)->orderBy('id', 'DESC')->get();
@@ -119,7 +118,7 @@ class InterviewReportController extends Controller
                 'interview_report_id'=> $interviewReport->id,
                 'comment' => $comment
             ]);
-            $next_user = $this->users->getCeo()->first()->user_id;
+            $next_user = $this->users->getDirectorOfHR()->first()->user_id;
             $this->startWorkflow($interviewReport, 1,  $next_user);
             alert()->success('Interview Report Created Successfully', 'success');
             DB::commit();
