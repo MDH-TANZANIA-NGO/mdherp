@@ -7,7 +7,7 @@ use Yajra\DataTables\DataTables;
 trait HireRequisitionJobDatatable
 {
     public function applicationDatatable(){
-        return DataTables::of($this->hire_requisition_jobs->getJobs())
+        return DataTables::of($this->hire_requisition_jobs->getJobApplicationsWhichDoesNotHaveShortlisterReport())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateString();

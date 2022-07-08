@@ -49,7 +49,8 @@ class HrHireRequisitionJobApplicantRepository extends BaseRepository
             //attach applicant and job to mimosa
             $job_applicant = $this->query()->create([
                 'hr_hire_requisitions_job_id' => $hr_hire_requisitions_job_id,
-                'hr_hire_applicant_id' => $hr_hire_applicant_id
+                'hr_hire_applicant_id' => $hr_hire_applicant_id,
+                'user_id' => access()->id(),
             ]);
             //send applicant details to recruitment
              $this->sendApplicantUpdate($hr_hire_requisitions_job_id, $online_applicant_id);
