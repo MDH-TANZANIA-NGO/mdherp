@@ -60,7 +60,7 @@ trait HrUserHireRequisitionJobShortlisterRequestDatatable
         return DataTables::of($this->job_shortlister_requests->getSaved())
             ->addIndexColumn()
             ->addColumn('action', function($query) {
-                return '<a href="'.route('job_shortlister.saved', $query->uuid).'">View</a>';
+                return '<a href="'.route('job_shortlister.initiate', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

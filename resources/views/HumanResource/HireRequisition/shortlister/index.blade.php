@@ -10,10 +10,10 @@
             <div class="tabs-menu1 ">
                 <!-- Tabs -->
                 <ul class="nav panel-tabs">
-                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary"></span></a></li>
-                    <li><a href="#returned_for_modification" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning"></span></a></li>
-                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success"></span></a></li>
-                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default"></span> </a></li>
+                    <li class=""><a href="#processing" class="active" data-toggle="tab">On Process <span class="badge badge-primary">{{ $processing_count }}</span></a></li>
+                    <li><a href="#returned_for_modification" data-toggle="tab" class="">Returned for Modification <span class="badge badge-warning">{{ $return_for_modification_count }}</span></a></li>
+                    <li><a href="#approved" data-toggle="tab" class="">Approved <span class="badge badge-success">{{ $approved_count }}</span></a></li>
+                    <li><a href="#saved" data-toggle="tab" class="">Saved <span class="badge badge-default">{{ $saved_count }}</span> </a></li>
                 </ul>
             </div>
         </div>

@@ -31,7 +31,11 @@ class HrUserHireRequisitionJobShortlisterRequestController extends Controller
      */
     public function index()
     {
-        return view('HumanResource.HireRequisition.shortlister.index');
+        return view('HumanResource.HireRequisition.shortlister.index')
+            ->with('processing_count', $this->job_shortlister_requests->getProcessing()->count())
+            ->with('return_for_modification_count', $this->job_shortlister_requests->getReturnedForModification()->count())
+            ->with('approved_count', $this->job_shortlister_requests->getApproved()->count())
+            ->with('saved_count', $this->job_shortlister_requests->getSaved()->count());
     }
 
     /**
