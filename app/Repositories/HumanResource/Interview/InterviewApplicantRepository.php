@@ -52,7 +52,7 @@ class InterviewApplicantRepository extends BaseRepository
             ->leftjoin('job_offers', 'job_offers.hr_interview_applicant_id', 'hr_interview_applicants.id')
             ->where('hr_interview_applicants.status',1)
             ->whereDoesntHave('jobOffer')
-            ->orWhere('job_offers.status', '1');
+            ->orWhere('job_offers.status', 2);
 
     }
 
