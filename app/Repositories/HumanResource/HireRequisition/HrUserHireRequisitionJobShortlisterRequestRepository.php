@@ -10,6 +10,7 @@ use App\Models\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlister
 use App\Jobs\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterJob;
 use App\Models\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterUser;
 use App\Models\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequest;
+use Ramsey\Uuid\Guid\Guid;
 
 class HrUserHireRequisitionJobShortlisterRequestRepository extends BaseRepository
 {
@@ -61,6 +62,74 @@ class HrUserHireRequisitionJobShortlisterRequestRepository extends BaseRepositor
                 HrUserHireRequisitionJobShortlisterJob::dispatch($list->user, $list->job);
             }
         }
+    }
+
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('hr_user_hire_requisition_job_shortlister_requests.id as id'),
+            DB::raw('hr_user_hire_requisition_job_shortlister_requests.number as number'),
+            DB::raw('hr_user_hire_requisition_job_shortlister_requests.uuid as uuid'),
+            DB::raw("CONCAT_WS(' ',users.last_name, users.first_name) as user_name"),
+            DB::raw("COUNT(hr_user_hire_requisition_job_shortlisters.id) as number_of_jobs"),
+        ])
+        ->join('hr_user_hire_requisition_job_shortlisters','hr_user_hire_requisition_job_shortlisters.hr_user_hire_requisition_job_shortlister_request_id','hr_user_hire_requisition_job_shortlister_requests.id')
+        ->join('users','users.id', 'hr_user_hire_requisition_job_shortlister_requests.user_id')
+        ->groupBy('hr_user_hire_requisition_job_shortlister_requests.id','users.last_name', 'users.first_name');
+    }
+
+
+    /** 
+     * get Access Processing
+     * 
+    */
+    public function getProcessing()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('hr_user_hire_requisition_job_shortlister_requests.wf_done', 0)
+            ->where('hr_user_hire_requisition_job_shortlister_requests.done', true)
+            ->where('hr_user_hire_requisition_job_shortlister_requests.rejected', false);
+    }
+
+
+    /** 
+     * get Access Returned For Modification
+     * 
+    */
+    public function getReturnedForModification()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('hr_user_hire_requisition_job_shortlister_requests.wf_done', 0)
+            ->where('hr_user_hire_requisition_job_shortlister_requests.done', true)
+            ->where('hr_user_hire_requisition_job_shortlister_requests.rejected', true);
+    }
+
+    /** 
+     * get Access Approved
+     * @return mixed
+    */
+    public function getApproved()
+    {
+        return $this->getQuery()
+            ->whereHas('wfTracks')
+            ->where('hr_user_hire_requisition_job_shortlister_requests.wf_done', 1)
+            ->where('hr_user_hire_requisition_job_shortlister_requests.done', true)
+            ->where('hr_user_hire_requisition_job_shortlister_requests.rejected', false);
+    }
+
+    /** 
+     * get Access Saved
+     * @return mixed
+    */
+    public function getSaved()
+    {
+        return $this->getQuery()
+            ->whereDoesntHave('wfTracks')
+            ->where('hr_user_hire_requisition_job_shortlister_requests.wf_done', 0)
+            ->where('hr_user_hire_requisition_job_shortlister_requests.done', false)
+            ->where('hr_user_hire_requisition_job_shortlister_requests.rejected', false);
     }
 
 }
