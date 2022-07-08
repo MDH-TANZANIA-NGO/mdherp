@@ -30,7 +30,7 @@ class HrUserHireRequisitionJobShortlisterRequestController extends Controller
      */
     public function index()
     {
-        //
+        return view('HumanResource.HireRequisition.shortlister.index');
     }
 
     /**
