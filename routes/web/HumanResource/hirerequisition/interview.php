@@ -31,6 +31,7 @@ Route::group(['namespace' => 'humanResource\Interview', 'middleware' => ['web', 
     Route::POST('recommend}', 'InterviewReportController@recommend')->name('recommend');
     Route::GET('delete/{uuid}', 'InterviewReportController@destroy')->name('destroy');
     Route::PUT('update', 'InterviewReportController@update')->name('update');
+    Route::GET('get_interview_by_job/{hr_requisition_job_id}', 'InterviewReportController@getInterviewByJob')->name('getInterviewByJob');
 
     // Interview Report Datatables routes
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {

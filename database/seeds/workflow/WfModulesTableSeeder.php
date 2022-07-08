@@ -244,7 +244,6 @@ class WfModulesTableSeeder extends Seeder
                         'allow_repeat' => 0,
                         'allow_decline' => 0,
                     ),
-
             16 =>
                 array(
                 'id' => 17,

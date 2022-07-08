@@ -18,7 +18,9 @@ use App\Repositories\HumanResource\Interview\InterviewReportRepository;
 use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 use App\Http\Controllers\Web\HumanResource\Interview\Traits\InterviewReportDatatable;
+use App\Models\HumanResource\Interview\InterviewReport;
 use App\Models\HumanResource\Interview\InterviewReportComment;
+use App\Repositories\HumanResource\Interview\InterviewRepository;
 
 class InterviewReportController extends Controller
 {
@@ -33,7 +35,7 @@ class InterviewReportController extends Controller
     public function __construct()
     {
         $this->designationRepository = (new DesignationRepository());
-        $this->interviewRepository = (new Interview());
+        $this->interviewRepository = (new InterviewRepository());
         $this->interviewReportRepository = (new InterviewReportRepository());
         $this->interviewApplicantRepository = (new InterviewApplicantRepository());
         $this->hireRequisitionJobRepository = (new HireRequisitionJobRepository());
@@ -52,15 +54,10 @@ class InterviewReportController extends Controller
     }
     public function initiate(Request $request)
     {        
-        
-        // if($this->interviewReportRepository->query()->where('hr_requisition_job_id',$request->hr_requisition_job_id)->first()){
-        //     throw new GeneralException('already created');
-        // }else{
-
         $hr_requisition_job_id =  $request->hr_requisition_job_id;      
         $hireRequisitionJob = $this->hireRequisitionJobRepository->find($hr_requisition_job_id);
         $interviewReport = $this->interviewReportRepository->store($request->all());
-        $interviews = $this->interviewRepository->query()->where('hr_requisition_job_id', $hireRequisitionJob->id)->orderBy('id', 'DESC')->get();
+        $interviews = $this->interviewRepository->query()->whereIn('id',$request->interview_id)->orderBy('id', 'DESC')->get();
         $this->interviewReportRepository->storeInterviewReport($interviews,$interviewReport->id);  
         $job_title = $this->designationRepository->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first(); 
         $recommended_applicants = InterviewReportRecommendation::join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_report_recommendations.applicant_id')
@@ -133,12 +130,14 @@ class InterviewReportController extends Controller
     {
         $hireRequisitionJob = $this->hireRequisitionJobRepository->find($interviewReport->hr_requisition_job_id);
         $job_title = $this->designationRepository->getQueryDesignationUnit()
-            ->where('designations.id', $hireRequisitionJob->designation_id)
-            ->first();
+                    ->where('designations.id', $hireRequisitionJob->designation_id)
+                    ->first();
+        $interview_id = InterviewReport::where('interview_report_id',$interviewReport->id)->pluck('interview_id')->toArray();
+        
         $interviews = $this->interviewRepository->query()
-            ->where('hr_requisition_job_id', $hireRequisitionJob->id)
-            ->orderBy('id', 'DESC')
-            ->get();
+                    ->whereIn('id', $interview_id)
+                    ->orderBy('id', 'DESC')
+                    ->get();
         $recommended_applicants = InterviewReportRecommendation::join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_report_recommendations.applicant_id')
             ->select([
                     DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
@@ -167,5 +166,10 @@ class InterviewReportController extends Controller
             ->with('interview_report', $interviewReport)
             ->with('comments', $comments)
             ->with("show", true);
+    }
+
+    public function getInterviewByJob($hr_requisition_job_id){
+        $interviews = $this->interviewRepository->getForSelectByJob($hr_requisition_job_id)->get();
+        return $interviews->toJson();
     }
 }

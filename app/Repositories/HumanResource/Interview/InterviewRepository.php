@@ -136,6 +136,21 @@ class InterviewRepository extends BaseRepository
                 ->whereNotNull('hr_interviews.has_questions'); 
       
     }
+    public function getForSelectByJob($hr_requisition_job_id)
+    {
+         return $this->query()->select([
+                    'hr_interviews.id AS id',
+                    'hr_interviews.number AS number',
+                    'hr_interviews.created_at AS created_at',
+                    'hr_interviews.uuid AS uuid',
+                    'hr_interview_types.name as interview_type',
+                    DB::raw("STRING_AGG(to_char(hr_interview_schedules.interview_date,'dd-mm-yyyy'),',') as interview_date"),
+                ])
+                ->join('hr_interview_schedules','hr_interview_schedules.interview_id','hr_interviews.id')
+                ->join('hr_interview_types','hr_interview_types.id','hr_interviews.interview_type_id')
+                ->where('hr_interviews.hr_requisition_job_id',$hr_requisition_job_id)        
+                ->groupby('hr_interviews.id','hr_interviews.number','hr_interviews.created_at','hr_interviews.uuid','hr_interview_schedules.interview_date','hr_interview_types.name');     
+    }
 
     /** 
      * get Access Approved Wait For Evaluation
@@ -163,8 +178,6 @@ class InterviewRepository extends BaseRepository
             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name") 
             ,'hr_hire_requisition_job_applicants.created_at')
             ->join('hr_hire_applicants','hr_hire_applicants.id','hr_hire_requisition_job_applicants.hr_hire_applicant_id');
-           
-
     }
 
 
