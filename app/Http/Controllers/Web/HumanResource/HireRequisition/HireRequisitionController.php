@@ -142,7 +142,7 @@ class HireRequisitionController extends Controller
                 ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
                 ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
                 ->with('departments', $this->departments->getAll())
-                ->with('designations', $this->designation->getAll())
+                ->with('designations', $this->designation->getActiveForSelect())
                 ->with('tools', $tools)
                 ->with('users', $users)
                 ->with('initiate', true)
