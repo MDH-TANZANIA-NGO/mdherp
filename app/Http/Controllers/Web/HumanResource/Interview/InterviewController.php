@@ -21,6 +21,7 @@ use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\HumanResource\HireRequisition\HrHireApplicantRepository;
 use  App\Http\Controllers\Web\HumanResource\Interview\Traits\InterviewDatatable;
 use App\Models\HumanResource\Interview\InterviewPanelistCounter;
+use App\Models\HumanResource\Interview\InterviewPanelistMarks;
 use App\Models\Unit\Department;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
 use App\Repositories\HumanResource\Interview\InterviewPanelistRepository;
@@ -282,6 +283,50 @@ class InterviewController extends Controller
         InterviewPanelistCounter::where('interview_id',$interview->id)->update([]);
         alert()->success('added Successfully');
         return redirect()->route('interview.showPanelistJobs',$interview->uuid)->with('msg','added');
+    }
+
+    public function interviewResult(){
+        return view('humanResource.Interview.result.index');
+    }
+
+    public function showResult(Interview $interview){
+        $applicants =   $this->hrHireApplicantRepository->getSelectedWithMarks($interview)->get();  
+        $completed   =   $this->interviewApplicantRepository->competedScored($interview->id)->count();                     
+        $pending   =   $this->interviewApplicantRepository->pendingScored($interview->id)->count();            
+        $questions =  $this->interviewQuestionRepository->query()
+                        ->where('interview_id', $interview->id)->get();
+        $has_report = $this->panelistRepository->query()
+                    ->where('interview_id',$interview->id)
+                    ->where('has_report',1)
+                    ->where('user_id',access()->id())->first();
+        if($has_report){
+            $has_report = 1;
+        }else{
+            $has_report = 0;
+        } 
+
+        $interview_type = InterviewTypes::find($interview->interview_type_id);
+        return view('HumanResource.Interview.result.show')
+                ->with('applicants', $applicants)
+                ->with('questions', $questions)
+                ->with('interview_type', $interview_type)
+                ->with('completed', $completed)
+                ->with('pending', $pending)
+                ->with('has_report', $has_report)
+                ->with('interview', $interview);
+         
+    }
+
+    public function panelistResultAggrigate(Request $request){
+        $panelist_result_aggrigate = InterviewPanelistMarks::join('users','users.id','hr_interview_panelist_marks.panelist_id')
+                                ->select([
+                                        DB::raw("CONCAT_WS(' ',users.first_name,users.middle_name,users.last_name) as full_name"),
+                                        'hr_interview_panelist_marks.marks'
+                                    ])
+                                ->where('hr_interview_panelist_marks.interview_id',$request->interview_id)
+                                ->where('hr_interview_panelist_marks.applicant_id',$request->applicant_id)->get();
+
+        return $panelist_result_aggrigate->toJson();
     }
 
 }

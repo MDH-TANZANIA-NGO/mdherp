@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">List of Current Jobs</h3>
+        <h3 class="card-title">INTERVIEW LIST</h3>
     </div>
     <div class="card-body">
         <table id="applications" class="table table-striped table-bordered" style="width:100%">

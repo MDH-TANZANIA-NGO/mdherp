@@ -5,16 +5,21 @@ Route::group(['namespace' => 'humanResource\Interview', 'middleware' => ['web', 
   Route::get('create', 'InterviewController@create')->name('create');
   Route::get('list', 'InterviewController@list')->name('list');
   Route::get('show/{interview}', 'InterviewController@show')->name('show');
-
+  Route::get('result', 'InterviewController@interviewResult')->name('result');
   Route::POST('addPanelist', 'InterviewController@addPanelist')->name('addpanelist');
   Route::GET('initiate/{interview}/panelists', 'InterviewController@initiatePanelist')->name('initiate-panelist');
   Route::GET('initiate/{interview}/applicants', 'InterviewController@initiate')->name('initiate');
-
   Route::POST('notifyapplicant', 'InterviewController@notifyApplicant')->name('notifyapplicant');
   Route::POST('add', 'InterviewController@addapplicant')->name('addapplicant');
   Route::GET('applicants/{interview}', 'InterviewController@applicantlist')->name('applicantlist');
   Route::POST('interveiw/submitForReport', 'InterviewController@submitForReport')->name('submitForReport');
   Route::GET('panelists/jobs', 'InterviewController@showPanelistJobs')->name('showPanelistJobs');
+
+  //Interview Report Route
+  Route::group(['prefix' => 'result', 'as' => 'result.'], function () {
+    Route::get('show/{interview}', 'InterviewController@showResult')->name('show');
+    Route::get('panelist_aggrigate', 'InterviewController@panelistResultAggrigate')->name('panelist_aggrigate');
+  });
 
   //Interview Report Route
   Route::group(['prefix' => 'report', 'as' => 'report.'], function () {
@@ -35,6 +40,7 @@ Route::group(['namespace' => 'humanResource\Interview', 'middleware' => ['web', 
         Route::get('rejected', 'InterviewReportController@AccessRejectedDatatable')->name('rejected');
         Route::get('approved', 'InterviewReportController@AccessProvedDatatable')->name('approved');
         Route::get('saved', 'InterviewReportController@AccessSavedDatatable')->name('saved');
+
       });
     });
   });
@@ -55,6 +61,9 @@ Route::group(['namespace' => 'humanResource\Interview', 'middleware' => ['web', 
 
   // Datatables routes
   Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
+    //interview Result Datatable 
+    Route::get('result', 'InterviewController@AccessResultDatatable')->name('result');
+    //Interview Datatable
     Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
       Route::get('processing', 'InterviewController@accessShortlistedDatatable')->name('shortlisted');
       Route::get('wait_for_interview_questions', 'InterviewController@AccessWaitForQuestionsDatatable')->name('wait_for_interview_question');

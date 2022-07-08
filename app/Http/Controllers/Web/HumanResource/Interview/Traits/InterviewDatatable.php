@@ -167,4 +167,20 @@ trait InterviewDatatable
         ->rawColumns(['action'])
         ->make(true);
     }
+
+    public function AccessResultDatatable(){
+        return DataTables::of($this->interviewRepository->getQueryWithInterview())
+        ->addIndexColumn()
+        ->editColumn('created_at', function ($query) {
+            return $query->created_at->toDateString();
+        })
+        ->addColumn('action', function($query) {
+            $action = '<a href="'.route('interview.result.show', $query->uuid).'"> View </a>'; 
+             
+            return $action;
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+    }
+    
 }
