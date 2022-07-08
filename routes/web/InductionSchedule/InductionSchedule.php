@@ -15,6 +15,7 @@ Route::group(['namespace' => 'InductionSchedule', 'middleware' => ['web', 'auth'
     Route::get('{inductionSchedule}/showSchedule', 'InductionScheduleController@showSchedule')->name('showSchedule');
     Route::put('{inductionSchedule}/updateSchedule', 'InductionScheduleController@updateSchedule')->name('updateSchedule');
     Route::put('{inductionSchedule}/markAsComplete', 'InductionScheduleController@markAsComplete')->name('markAsComplete');
+    Route::put('{inductionScheduleItem}/completeInductionScheduleItem', 'InductionScheduleController@completeInductionScheduleItem')->name('completeInductionScheduleItem');
 
 
     /**
