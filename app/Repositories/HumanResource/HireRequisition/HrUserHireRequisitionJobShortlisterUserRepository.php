@@ -11,15 +11,16 @@ class HrUserHireRequisitionJobShortlisterUserRepository extends BaseRepository
 {
     const MODEL = HrUserHireRequisitionJobShortlisterUser::class;
 
-    public function store($input, $hr_user_shortlister_id)
+    public function store($input, $hr_user_shortlister_id, $hr_hire_requisition_job_id)
     {
-        return DB::transaction(function() use($input, $hr_user_shortlister_id){
+        return DB::transaction(function() use($input, $hr_user_shortlister_id,$hr_hire_requisition_job_id){
             if(isset($input['users'])){
                 $this->query()->where('hr_user_hire_requisition_job_shortlister_id', $hr_user_shortlister_id)->delete();
                 foreach($input['users'] as $user_id){
                     $this->query()->create([
                         'hr_user_hire_requisition_job_shortlister_id' => $hr_user_shortlister_id,
-                        'user_id' => $user_id
+                        'user_id' => $user_id,
+                        'hr_hire_requisitions_job_id' => $hr_hire_requisition_job_id,
                     ]);
                 }
             }

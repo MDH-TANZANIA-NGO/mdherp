@@ -22,7 +22,7 @@
     @include('HumanResource.HireRequisition.job._partials._job_description',['hire_requisition_job' => $job->job])
 
     <div class="col-xl-12 col-md-12 col-md-12 col-lg-12">
-        {!! Form::open(['route' => ['job_shortlist_user.store', $job->id] ]) !!}
+        {!! Form::open(['route' => ['job_shortlist_user.store',$job->id,$job->job->id] ]) !!}
         <div class="card">
             <div class="p-3">
                 <div class="col-xl-12 col-md-12 col-md-12 col-lg-12">
