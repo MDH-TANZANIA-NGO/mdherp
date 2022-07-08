@@ -1031,6 +1031,7 @@ class WfTrackRepository extends BaseRepository
      */
     public function getWfModuleAfterWorkflowStart($wf_group_id, $resource_id)
     {
+        // dd($resource_id);
         $current_track = $this->query()->where('resource_id',$resource_id)->whereHas('wfDefinition', function($query) use($wf_group_id){
             $query->whereHas('wfModule', function($query) use($wf_group_id){
                 $query->where('wf_module_group_id',$wf_group_id);

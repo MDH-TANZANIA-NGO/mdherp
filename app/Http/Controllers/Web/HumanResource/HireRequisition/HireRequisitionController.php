@@ -171,17 +171,19 @@ class HireRequisitionController extends Controller
             $hr_requisition_job = $this->hireRequisitionJobRepository->store($data);
             $workingtools = ['tools' => $data['tools'], 'hire_requisition_job_id' => $hr_requisition_job->id];
             $regions = $data['region'];
+            // return $regions;
             $data['hire_requisition_job_id'] = $hr_requisition_job->id;
             $data['hr_requisition_job_id'] = $hr_requisition_job->id;
             if ($request->establishment ==   22) {
                 $hr_requisition_job = $this->hireRequisitionReplacedStaffRepository->store($data);
             }
+            
             foreach ($regions as $region) {
                 $region_data['region_id'] = $region;
                 $region_data['hr_requisition_job_id'] = $hr_requisition_job->id;
-                HireRequisitionLocation::create($region_data);
+                $reg = HireRequisitionLocation::create($region_data);
             }
-            
+            // return $reg;
             $this->hireUserSkillsRepository->store($data);
             $this->hireRequisitionWorkingToolRepository->store($workingtools);
             alert()->success('Hire Requisition Created Successfully', 'success');

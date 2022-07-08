@@ -7,7 +7,7 @@
         <h3 class="card-title">INTERVIEW REPORT </h3>
     </div>
     <div class="card-body">
-        <form action="{{ route('interview.report.initiate') }} " method="post">
+        <form action="{{ route('interview.report.store') }} " method="post">
             @csrf
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">

@@ -19,7 +19,7 @@
             @each('HumanResource.Interview.report.interveiw_list', $interviews, 'interview')
             @include('HumanResource.Interview.report.panelist_list')
             @include('HumanResource.Interview.report.recommendation_list')
-            {!! Form::open(['route' => 'interview.report.store']) !!}
+            {!! Form::open(['route' => 'interview.report.submit']) !!}
             <input type="hidden" name="interview_workflow_report_id" value="{{ $interview_workflow_report_id }}">
             <div class="form-group">
                 <label class="form-lable">Recommendation Comment</label>

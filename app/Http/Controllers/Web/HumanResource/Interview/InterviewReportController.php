@@ -24,7 +24,7 @@ use App\Repositories\HumanResource\Interview\InterviewRepository;
 
 class InterviewReportController extends Controller
 {
-    use WorkflowInitiator,InterviewReportDatatable;
+    use WorkflowInitiator, InterviewReportDatatable;
     public $designationRepository;
     public $interviewRepository;
     public $interviewReportRepository;
@@ -45,26 +45,42 @@ class InterviewReportController extends Controller
     public function index()
     {
         return view('humanResource.Interview.report.index')
-        ->with('processing_count', $this->interviewReportRepository->getAccessProcessingDatatable()->get()->count())
-         ->with('denied_count', $this->interviewReportRepository->getAccessDeniedDatatable()->get()->count())
-         ->with('rejected_count', $this->interviewReportRepository->getAccessRejectedDatatable()->get()->count())
-         ->with('proved_count',$this->interviewReportRepository->getAccessProvedDatatable()->get()->count())
-         ->with('saved_count', $this->interviewReportRepository->getAccessSavedDatatable()->get()->count());
-        
+            ->with('processing_count', $this->interviewReportRepository->getAccessProcessingDatatable()->get()->count())
+            ->with('denied_count', $this->interviewReportRepository->getAccessDeniedDatatable()->get()->count())
+            ->with('rejected_count', $this->interviewReportRepository->getAccessRejectedDatatable()->get()->count())
+            ->with('proved_count', $this->interviewReportRepository->getAccessProvedDatatable()->get()->count())
+            ->with('saved_count', $this->interviewReportRepository->getAccessSavedDatatable()->get()->count());
     }
-    public function initiate(Request $request)
-    {        
-        $hr_requisition_job_id =  $request->hr_requisition_job_id;      
+    public function store(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $interviewReport = $this->interviewReportRepository->store($request->all());
+            $interviews = $this->interviewRepository->query()->whereIn('id', $request->interview_id)->orderBy('id', 'DESC')->get();
+            $this->interviewReportRepository->storeInterviewReport($interviews, $interviewReport->id);
+            DB::commit();
+            return redirect()->route('interview.report.initiate', $interviewReport);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function initiate(InterviewWorkflowReport $interviewReport)
+    {
+        $hr_requisition_job_id =  $interviewReport->hr_requisition_job_id;
         $hireRequisitionJob = $this->hireRequisitionJobRepository->find($hr_requisition_job_id);
-        $interviewReport = $this->interviewReportRepository->store($request->all());
-        $interviews = $this->interviewRepository->query()->whereIn('id',$request->interview_id)->orderBy('id', 'DESC')->get();
-        $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();  
-        $this->interviewReportRepository->storeInterviewReport($interviews,$interviewReport->id);  
-        $job_title = $this->designationRepository->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first(); 
+        $interview_id = InterviewReport::where('interview_report_id', $interviewReport->id)->pluck('interview_id')->toArray();
+        $interviews = $this->interviewRepository->query()->whereIn('id', $interview_id)->orderBy('id', 'DESC')->get();
+        $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();
+        
+        $job_title = $this->designationRepository->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first();
         $recommended_applicants = InterviewReportRecommendation::join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_report_recommendations.applicant_id')
             ->select([
-                    DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
-                    'hr_hire_applicants.email'])
+                'hr_interview_report_recommendations.id',
+                DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
+                'hr_hire_applicants.email'
+            ])
             ->where('hr_interview_report_recommendations.hr_requisition_job_id', $hireRequisitionJob->id)
             ->get();
 
@@ -87,8 +103,22 @@ class InterviewReportController extends Controller
                 'applicant_id' => $request->applicant_id,
                 'hr_requisition_job_id' => $request->hr_requisition_job_id
             ];
-            InterviewReportRecommendation::create($data);
+            InterviewReportRecommendation::updateOrCreate($data);
             alert()->success('Applicant Added Successfully', 'success');
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e->getMessage());
+        }
+        return redirect()->back();
+    }
+    public function removeRecommend($applicant_id)
+    {
+        try {
+            DB::beginTransaction();
+            $applicant = InterviewReportRecommendation::find($applicant_id);
+            $applicant->delete();
+            alert()->success('Applicant Removed Successfully', 'success');
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
@@ -101,10 +131,9 @@ class InterviewReportController extends Controller
     {
         $designations = $this->designationRepository->getActiveAdvertisedForSelect();
         return view('humanResource.Interview.report.create')
-                ->with('designations',$designations);
-                
+            ->with('designations', $designations);
     }
-    public function store(Request $request)
+    public function submit(Request $request)
     {
         $intervies = $request->interviews;
         $comment = $request->comment;
@@ -113,8 +142,8 @@ class InterviewReportController extends Controller
             $interviewReport = $this->interviewReportRepository->find($request->interview_workflow_report_id);
             $this->interviewReportRepository->submit($interviewReport);
             InterviewReportComment::create([
-                'user_id'=>access()->id(),
-                'interview_report_id'=> $interviewReport->id,
+                'user_id' => access()->id(),
+                'interview_report_id' => $interviewReport->id,
                 'comment' => $comment
             ]);
             $next_user = $this->users->getDirectorOfHR()->first()->user_id;
@@ -132,23 +161,24 @@ class InterviewReportController extends Controller
     {
         $hireRequisitionJob = $this->hireRequisitionJobRepository->find($interviewReport->hr_requisition_job_id);
         $job_title = $this->designationRepository->getQueryDesignationUnit()
-                    ->where('designations.id', $hireRequisitionJob->designation_id)
-                    ->first();
-        $interview_id = InterviewReport::where('interview_report_id',$interviewReport->id)->pluck('interview_id')->toArray();
-        
+            ->where('designations.id', $hireRequisitionJob->designation_id)
+            ->first();
+        $interview_id = InterviewReport::where('interview_report_id', $interviewReport->id)->pluck('interview_id')->toArray();
+
         $interviews = $this->interviewRepository->query()
-                    ->whereIn('id', $interview_id)
-                    ->orderBy('id', 'DESC')
-                    ->get();
+            ->whereIn('id', $interview_id)
+            ->orderBy('id', 'DESC')
+            ->get();
         $recommended_applicants = InterviewReportRecommendation::join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_report_recommendations.applicant_id')
             ->select([
-                    DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
-                    'hr_hire_applicants.email'])
+                DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
+                'hr_hire_applicants.email'
+            ])
             ->where('hr_interview_report_recommendations.hr_requisition_job_id', $hireRequisitionJob->id)
             ->get();
-        $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();  
+        $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();
         // return $panelists;
-        $comments = InterviewReportComment::where(['interview_report_id'=>$interviewReport->id])->get();
+        $comments = InterviewReportComment::where(['interview_report_id' => $interviewReport->id])->get();
         $applicants = $this->interviewApplicantRepository->getForSelect($interviews->pluck('id')->toArray());
         $wf_module_group_id = 12;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $interviewReport->id);
@@ -172,7 +202,8 @@ class InterviewReportController extends Controller
             ->with("show", true);
     }
 
-    public function getInterviewByJob($hr_requisition_job_id){
+    public function getInterviewByJob($hr_requisition_job_id)
+    {
         $interviews = $this->interviewRepository->getForSelectByJob($hr_requisition_job_id)->get();
         return $interviews->toJson();
     }

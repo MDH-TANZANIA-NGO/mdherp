@@ -19,7 +19,15 @@
  <div class="row">
      <div class="card">
          <div class="card-header">
-             <h3 class="card-title">INTERVIEW TYPE : {{ $interview->interviewType->name }} </h3>
+            <div class="tags">
+             <span class="tag tag-rounded" style="font-size: 14px"><b>INTERVIEW TYPE :</b> {{ $interview->interviewType->name }}</span>    
+             <span class="tag tag-rounded" style="font-size: 14px"><b>INTERVIEW DATE :</b>
+                     @foreach( $interview->InterviewSchedules as $interview)
+                            {{ date('d-m-Y',strtotime($interview->interview_date))   }}, 
+                    @endforeach   
+            </span>
+             <span class="tag tag-rounded" style="font-size: 14px"><b>INTERVIEW NUMBER :</b> {{ $interview->number }}</span>  
+            </div>
          </div>
          <div class="card-body">
             <table class="table table-bordered table-striped">

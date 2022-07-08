@@ -56,7 +56,7 @@
 
 								<div class="col-6 col-lg-6">
 									<label class="form-label">Job Title</label>
-									{!! Form::select('job_title',$designations,null,['class' => 'form-control select2-show-search', 'id' => 'select-department', 'placeholder' => 'select job title']) !!}
+									{!! Form::select('job_title',$designations,null,['class' => 'form-control select2-show-search', 'id' => 'select-department', 'placeholder' => 'select job title','required'=>'true']) !!}
 								</div>
 							</div>
 							<div class="row">

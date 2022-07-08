@@ -981,7 +981,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'level' => '2',
                     'unit_id' => '5',
                     'designation_id' => '128',
-                    'description' => 'Submit Advertisement',
+                    'description' => 'Approve Advertisement',
                     'msg_next' => 'Review and Approve',
                     'wf_module_id' => 12,
                     'active' => '1',

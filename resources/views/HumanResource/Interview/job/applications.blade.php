@@ -27,7 +27,7 @@
     $(document).ready(function() {
         $("#applications").DataTable({
             destroy: true, retrieve: true, "responsive": true, "autoWidth": false,
-            ajax: "{{ route('interview.datatable.result') }}",
+            ajax: "{{ route('interview.datatable.panelist.panelistApplication') }}",
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', 'bSortable': false, 'aTargets': [0], 'bSearchable': false },
                 { data: 'job_title', name: 'designations.name', searchable: true },

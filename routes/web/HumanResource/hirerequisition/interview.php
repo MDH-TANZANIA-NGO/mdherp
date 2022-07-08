@@ -26,9 +26,11 @@ Route::group(['namespace' => 'humanResource\Interview', 'middleware' => ['web', 
     Route::get('index', 'InterviewReportController@index')->name('index');
     Route::get('create', 'InterviewReportController@create')->name('create');
     Route::POST('store', 'InterviewReportController@store')->name('store');
-    Route::POST('initiate', 'InterviewReportController@initiate')->name('initiate');
+    Route::GET('initiate/{interviewReport}', 'InterviewReportController@initiate')->name('initiate');
+    Route::POST('submit', 'InterviewReportController@submit')->name('submit');
     Route::GET('show/{interviewReport}', 'InterviewReportController@show')->name('show');
     Route::POST('recommend}', 'InterviewReportController@recommend')->name('recommend');
+    Route::GET('remove_recommended/{recommended_applicant}', 'InterviewReportController@removeRecommend')->name('remove_recommended');
     Route::GET('delete/{uuid}', 'InterviewReportController@destroy')->name('destroy');
     Route::PUT('update', 'InterviewReportController@update')->name('update');
     Route::GET('get_interview_by_job/{hr_requisition_job_id}', 'InterviewReportController@getInterviewByJob')->name('getInterviewByJob');
