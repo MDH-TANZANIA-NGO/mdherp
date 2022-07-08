@@ -25,7 +25,7 @@ class HrUserHireRequisitionJobShortlisterJob implements ShouldQueue
     public function __construct(User $user, $job_model)
     {
         $this->user = $user;
-        $this->job = $job_model;
+        $this->job_model = $job_model;
     }
 
     /**
