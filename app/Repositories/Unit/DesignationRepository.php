@@ -40,6 +40,19 @@ class DesignationRepository extends BaseRepository
 //        return $this->getQueryDesignationUnit()->where('designations.id', $id)->first();
     }
 
+    public function getNewStaffDesignations(){
+        return $this->query()->select([
+            DB::raw('designations.id'),
+            DB::raw("concat_ws(' ', units.name, designations.name) as name"),
+            DB::raw("units.id AS unit_id")
+        ])
+            ->join('units', 'units.id', 'designations.unit_id')
+            ->join('users', 'users.designation_id', 'designations.id')
+            ->where('users.user_account_cv_id', 48)
+            ->orderBy('name', 'ASC')
+            ->pluck('name', 'id');
+    }
+
     public function getActive()
     {
         return $this->getQuery()->where('isactive', 1);
@@ -59,7 +72,7 @@ class DesignationRepository extends BaseRepository
                     [
                         DB::raw("concat_ws(' ', units.name, designations.name) as name"),
                         DB::raw('hr_hire_requisitions_jobs.id as hr_hire_requisition_job_id'),
-                        DB::raw('hr_hire_advertisement_requisitions.dead_line as dead_line'),       
+                        DB::raw('hr_hire_advertisement_requisitions.dead_line as dead_line'),
                     ]
             )
             ->join('hr_hire_requisitions_jobs','designations.id','hr_hire_requisitions_jobs.designation_id')

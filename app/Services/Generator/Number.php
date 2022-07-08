@@ -130,6 +130,7 @@ trait Number
                 $value = $this->getSysDefCurrentValue($reference);
                 $number = "MDH_JSR-" . $year . '-' . $value;
 
+
             case 'job_offers':
                 $reference = "MDH-JOB-OFFER";
                 $year = $this->year();

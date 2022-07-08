@@ -10,9 +10,9 @@ Route::group(['namespace' => 'humanResource\HireRequisition', 'middleware' => ['
     Route::post('submit/{uuid}', 'HireRequisitionController@submit')->name('submit');
     Route::get('{hirerequisition}/show', 'HireRequisitionController@show')->name('show');
     Route::get('{hireRequisitionJob}/edit', 'HireRequisitionController@edit')->name('edit');
+    Route::get('{hireRequisitionJob}/destroy', 'HireRequisitionController@destroy')->name('destroy');
     Route::get('skills/{category}/list', 'HireRequisitionController@getSkills')->name('category_skills');
     Route::put('{hirerequisition}/update', 'HireRequisitionController@update')->name('update');
-
     /**
      * Datatables
      */

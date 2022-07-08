@@ -11,6 +11,8 @@
                 <tr>
                     <th class="wd-15p">#</th>
                     <th class="wd-15p">TITLE</th>
+                    <th class="wd-15p">INTERVIEW DATE</th>
+                     <th class="wd-15p">INTERVIEW TYPE</th>
                     <th class="wd-25p">CREATED AT</th>
                     <th class="wd-25p">ACTION</th>
                 </tr>
@@ -25,10 +27,12 @@
     $(document).ready(function() {
         $("#applications").DataTable({
             destroy: true, retrieve: true, "responsive": true, "autoWidth": false,
-            ajax: "{{ route('interview.datatable.panelist.panelistApplication') }}",
+            ajax: "{{ route('interview.datatable.result') }}",
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', 'bSortable': false, 'aTargets': [0], 'bSearchable': false },
                 { data: 'job_title', name: 'designations.name', searchable: true },
+                { data: 'interview_date', name: 'designations.name', searchable: true },
+                { data: 'interview_type', name: 'hr_interview_types.name', searchable: true },
                 { data: 'created_at', name: 'hr_hire_requisitions_jobs.created_at', searchable: true },
                 { data: 'action', name: 'action', searchable: false },
             ]

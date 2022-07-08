@@ -26,7 +26,11 @@
                     </div>
                     <div class="card-body">
                         <ul class="demo-accordion accordionjs m-0" data-active-index="false">
-                         @each('humanResource.hireRequisition._parent.display.hr_job', $hireRequisitionJobs, 'job')
+                        <?php $total_jobs = count($hireRequisitionJobs); ?>
+                        @foreach($hireRequisitionJobs as $job)
+                            @include('humanResource.hireRequisition._parent.display.hr_job')
+                        @endforeach
+                        
                         </ul>
                     </div>
                 </div>

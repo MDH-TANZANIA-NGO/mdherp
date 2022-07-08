@@ -134,7 +134,7 @@ class HireRequisitionController extends Controller
                 $item['establishment'] = code_value()->query()->where('id', $item['establishment'])->first()->name;
             });
 
-
+ 
             return view('humanResource.hireRequisition._parent.form.create')
                 ->with('prospects', code_value()->query()->where('code_id', 7)->get())
                 ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
@@ -142,13 +142,14 @@ class HireRequisitionController extends Controller
                 ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
                 ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
                 ->with('departments', $this->departments->getAll())
-                ->with('designations', $this->designation->getAll())
+                ->with('designations',$this->designation->getActiveForSelect())
                 ->with('tools', $tools)
                 ->with('users', $users)
                 ->with('initiate', true)
                 ->with('uuid', $uuid)
                 ->with('skillCategories', $skillCategories)
                 ->with('hireRequisitionJobs', $hireRequisitionJobs)
+                ->with('current_level', 1)
                 ->with('regions', $this->regions->getAll());
         } else
             return redirect()->back()->with('error', 'invalid parameter');
@@ -180,6 +181,7 @@ class HireRequisitionController extends Controller
                 $region_data['hr_requisition_job_id'] = $hr_requisition_job->id;
                 HireRequisitionLocation::create($region_data);
             }
+            
             $this->hireUserSkillsRepository->store($data);
             $this->hireRequisitionWorkingToolRepository->store($workingtools);
             alert()->success('Hire Requisition Created Successfully', 'success');
@@ -215,6 +217,7 @@ class HireRequisitionController extends Controller
                     $this->hireRequisitionReplacedStaffRepository->store($data);
                 }
                 $this->hireRequisitionWorkingToolRepository->store($workingtools);
+                $this->hireUserSkillsRepository->store($data);
                 alert()->success('Hire Requisition Created Successfully', 'success');
                 DB::commit();
                 return redirect()->route('hirerequisition.initiate', $uuid);
@@ -222,28 +225,7 @@ class HireRequisitionController extends Controller
                 DB::rollback();
                 throw new \Exception($e->getMessage());
             }
-        } else if ($data['submit_job_requisition'] == 'submit') {
-            try {
-                DB::beginTransaction();
-                $hire_requisition_id = $this->hireRequisitionRepository->findByUuid($uuid)->id;
-                $data['hire_requisition_id'] = $hire_requisition_id;
-                $hire_requisition_job = $this->hireRequisitionJobRepository->store($data);
-                $workingtools = ['tools' => $data['tools'], 'hire_requisition_job_id' => $hire_requisition_job->id];
-                $regions = $data['region'];
-                foreach ($regions as $region) {
-                    $data['hr_requisition_job_id'] = $hire_requisition_job->id;
-                    $data['region_id'] = $region;
-                    HireRequisitionLocation::create($data);
-                }
-                $this->hireRequisitionWorkingToolRepository->store($workingtools);
-                alert()->success('Hire Requisition Created Successfully', 'success');
-                DB::commit();
-                return redirect()->route('hirerequisition.show', $uuid);
-            } catch (\Exception $e) {
-                DB::rollback();
-                throw new \Exception($e->getMessage());
-            }
-        } else {
+        }else{  
             return redirect()->back();
         }
     }
@@ -313,7 +295,6 @@ class HireRequisitionController extends Controller
             return $item;
         });
 
-
         return view('humanResource.hireRequisition._parent.display.show')
             ->with('hireRequisition', $hireRequisition)
             ->with('current_level', $current_level)
@@ -336,7 +317,6 @@ class HireRequisitionController extends Controller
         $current_working_tools = HireRequisitionWorkingTool::select("working_tools.id as id")
             ->join('working_tools', 'working_tools.id', 'hr_hire_requisition_working_tools.working_tool_id')
             ->where('hr_hire_requisition_working_tools.hr_requisitions_jobs_id', $hireRequisitionJobs->id)->pluck('id')->toArray();
-
         $current_regions = HireRequisitionLocation::select("regions.id as id")
             ->join('regions', 'regions.id', 'hr_hire_requisition_locations.region_id')
             ->where('hr_hire_requisition_locations.hr_requisition_job_id', $hireRequisitionJobs->id)->pluck('id')->toArray();
@@ -355,7 +335,7 @@ class HireRequisitionController extends Controller
                 ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
                 ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
                 ->with('departments', $this->departments->getAll())
-                ->with('designations', $this->designation->getAll())
+                ->with('designations', $this->designation->getActiveForSelect())
                 ->with('tools', $tools)
                 ->with('current_working_tools', $current_working_tools)
                 ->with('hireRequisitionJobs', $hireRequisitionJobs)
@@ -387,6 +367,7 @@ class HireRequisitionController extends Controller
             $this->hireRequisitionJobRepository->update($data);
             $this->hireRequisitionLocationRepository->update($data);
             $this->hireRequisitionWorkingToolRepository->update($data);
+            $this->hireUserSkillsRepository->update($data);
             alert()->success('Hire Requisition Updated Successfully');
             DB::commit();
             return redirect()->route('hirerequisition.initiate', $hire_requisition_uuid);
@@ -402,9 +383,19 @@ class HireRequisitionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(HireRequisitionJob $hireRequisitionJob)
     {
-        //
+        try {
+            DB::beginTransaction();
+                $hireRequisitionJob->delete();
+            alert()->success('Hire Requisition deleted Successfully');
+            DB::commit();
+            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e->getMessage());
+        }
+       
     }
 
     public function getVacancies()

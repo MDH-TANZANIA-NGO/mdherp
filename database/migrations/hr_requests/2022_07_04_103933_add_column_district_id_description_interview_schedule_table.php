@@ -14,11 +14,11 @@ class AddColumnDistrictIdDescriptionInterviewScheduleTable extends Migration
     public function up()
     {
         Schema::table('hr_interview_schedules', function (Blueprint $table) {
-            $table->text('description');
-            $table->smallInteger('district_id');
+            $table->text('description')->nullable();
+            $table->smallInteger('district_id')->nullable();
         });
     }
-    
+
 
     /**
      * Reverse the migrations.
