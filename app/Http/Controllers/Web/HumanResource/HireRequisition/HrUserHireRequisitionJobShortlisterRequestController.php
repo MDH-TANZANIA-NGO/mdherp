@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
 use Illuminate\Http\Request;
 use App\Services\Workflow\Workflow;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HrUserHireRequisitionJobShortlisterRequestDatatable;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
@@ -12,7 +13,7 @@ use App\Services\Workflow\Traits\WorkflowInitiator;
 
 class HrUserHireRequisitionJobShortlisterRequestController extends Controller
 {
-    use WorkflowInitiator;
+    use WorkflowInitiator, HrUserHireRequisitionJobShortlisterRequestDatatable;
     protected $job_shortlister_requests;
     protected $users;
     protected $wf_tracks;

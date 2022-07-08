@@ -112,7 +112,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: "{{ route('hr.pr.datatable.access.processing') }}",
+                ajax: "{{ route('job_shortlister.datatable.processing') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'pr_reports.number', searchable: true},
@@ -126,7 +126,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: "{{ route('hr.pr.datatable.access.return_for_modification') }}",
+                ajax: "{{ route('job_shortlister.datatable.return_for_modification') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'pr_reports.number', searchable: true},
@@ -140,7 +140,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: "{{ route('hr.pr.datatable.access.approved') }}",
+                ajax: "{{ route('job_shortlister.datatable.approved') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'pr_reports.number', searchable: true},
@@ -154,7 +154,7 @@
                 retrieve: true,
                 "responsive": true,
                 "autoWidth": false,
-                ajax: "{{ route('hr.pr.datatable.access.saved') }}",
+                ajax: "{{ route('job_shortlister.datatable.saved') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'pr_reports.number', searchable: true},
