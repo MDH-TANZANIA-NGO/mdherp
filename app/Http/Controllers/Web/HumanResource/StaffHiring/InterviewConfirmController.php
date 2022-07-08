@@ -25,10 +25,10 @@ class InterviewConfirmController extends Controller
             ->with('interview_details', $interview_details);
         }
 
-        public function update($applicant_id, $interview_id)
+        public function update($interview_applicant_id)
         {
-            $interview_details = $this->interview_applicant->getInterviewScheduleApplicantDetails($applicant_id, $interview_id)->first();
-            InterviewApplicant::query()->where('id', $interview_details->id)->update(['confirm'=>1]);
+
+            $this->interview_applicant->find($interview_applicant_id)->update(['confirm'=>1]);
             return redirect()->back();
         }
 }
