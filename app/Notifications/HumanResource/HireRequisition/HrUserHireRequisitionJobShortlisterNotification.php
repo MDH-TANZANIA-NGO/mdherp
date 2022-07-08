@@ -45,7 +45,7 @@ class HrUserHireRequisitionJobShortlisterNotification extends Notification
             'link' =>  route('hr.job.show',$this->jobs->uuid),
             'subject' => 'You have been Chose as a shortlister',
             'message' => 'You have been selected as one of the shortlister in the following position advertised',
-            'job' => $this->job->designation->full_title
+            'job' => $this->jobs->designation->full_title
         ];
         return (new MailMessage)
             ->subject($resource->subject)
