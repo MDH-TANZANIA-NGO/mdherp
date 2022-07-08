@@ -40,9 +40,9 @@ class HrUserHireRequisitionJobShortlisterUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $hr_user_shortlister_id)
+    public function store(Request $request, $hr_user_shortlister_id, $hr_hire_requisition_job_id)
     {
-        $this->user_shortlister_users->store($request->all(),$hr_user_shortlister_id);
+        $this->user_shortlister_users->store($request->all(),$hr_user_shortlister_id, $hr_hire_requisition_job_id);
         alert()->success('Shortlister(s) Added successfully');
         return redirect()->back();
     }

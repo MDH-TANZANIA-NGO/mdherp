@@ -84,7 +84,10 @@
                             <td>{{ $inductionScheduleItem->date }}</td>
                             <td>{{ $inductionScheduleItem->department->title }}</td>
                             <td>{!! $inductionScheduleItem->area !!}</td>
-                            <td><a href="{{route('induction_schedule.show', $inductionScheduleItem->id)}}" class="btn btn-outline-success"><i class="fa fa-eye"></i></a></td>
+                            <td><a href="{{route('induction_schedule.show', $inductionScheduleItem->id)}}" class="btn btn-outline-success"> Edit</a>
+                                {!! Form::open(['route' => ['induction_schedule.completeInductionScheduleItem', $inductionScheduleItem->id], 'method' => 'put']) !!}
+                                 <button type="submit" class="btn btn-outline-success mt-1">Complete</button>
+                                {!! Form::close() !!} </td>
                         </tr>
                     @endforeach
                 @endif

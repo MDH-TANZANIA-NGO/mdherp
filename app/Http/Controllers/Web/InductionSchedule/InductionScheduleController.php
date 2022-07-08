@@ -11,6 +11,7 @@ use App\Repositories\Access\UserRepository;
 use App\Repositories\Unit\DepartmentRepository;
 use App\Repositories\Unit\DesignationRepository;
 use App\Services\Generator\Number;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class InductionScheduleController extends Controller
@@ -153,7 +154,28 @@ class InductionScheduleController extends Controller
     }
 
     public function completeInductionScheduleItem(InductionScheduleItem $inductionScheduleItem){
+        $inductionScheduleItem->update([
+            'completed_at' => Carbon::now()
+        ]);
+            $inductionScheduleItems = InductionScheduleItem::where('induction_schedule_id',$inductionScheduleItem->induction_schedule_id)->get();
 
+            $numbers = [];
+            foreach ($inductionScheduleItems as $inductionScheduleItemLoop){
+                if (!$inductionScheduleItemLoop->completed_at == NULL){
+                    array_push($numbers, $inductionScheduleItemLoop->id);
+                }
+            }
+        $inductionSchedule = InductionSchedule::where('id', $inductionScheduleItem->induction_schedule_id)->first();
+        if(count($numbers) == count($inductionScheduleItems)){ //All tasks have been done
+            $inductionSchedule->update([
+                'status' => 2
+            ]);
+        } elseif (count($numbers) > 0){ //Some tasks have been completed
+            $inductionSchedule->update([
+                'status' => 1
+            ]);
+        }
+        return redirect()->route('induction_schedule.index');
     }
 
     public function markAsComplete(InductionSchedule $inductionSchedule){
