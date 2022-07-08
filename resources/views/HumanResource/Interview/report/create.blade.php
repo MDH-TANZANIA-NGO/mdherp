@@ -20,9 +20,7 @@
                     <div class="form-group">
                         <label class="form-label">Interview</label>
                         <select id="interview_id" class="form-control select2-show-search" name="interview_id[]" data-placeholder="Select Interview" multiple required>
-                            
                         </select>
-                         
                     </div>
                 </div>
 

@@ -162,4 +162,9 @@ class InterviewReportRepository extends BaseRepository
         ]);
     }
 
+
+    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,$level){
+
+    }
+
 }

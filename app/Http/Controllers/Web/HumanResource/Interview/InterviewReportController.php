@@ -58,6 +58,7 @@ class InterviewReportController extends Controller
         $hireRequisitionJob = $this->hireRequisitionJobRepository->find($hr_requisition_job_id);
         $interviewReport = $this->interviewReportRepository->store($request->all());
         $interviews = $this->interviewRepository->query()->whereIn('id',$request->interview_id)->orderBy('id', 'DESC')->get();
+        $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();  
         $this->interviewReportRepository->storeInterviewReport($interviews,$interviewReport->id);  
         $job_title = $this->designationRepository->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first(); 
         $recommended_applicants = InterviewReportRecommendation::join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_report_recommendations.applicant_id')
@@ -74,6 +75,7 @@ class InterviewReportController extends Controller
             ->with('interviews', $interviews)
             ->with('recommended_applicants', $recommended_applicants)
             ->with('hireRequisitionJob', $hireRequisitionJob->id)
+            ->with('panelists', $panelists)
             ->with('interview_workflow_report_id', $interviewReport->id);
     }
 
@@ -144,7 +146,8 @@ class InterviewReportController extends Controller
                     'hr_hire_applicants.email'])
             ->where('hr_interview_report_recommendations.hr_requisition_job_id', $hireRequisitionJob->id)
             ->get();
-             
+        $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();  
+        // return $panelists;
         $comments = InterviewReportComment::where(['interview_report_id'=>$interviewReport->id])->get();
         $applicants = $this->interviewApplicantRepository->getForSelect($interviews->pluck('id')->toArray());
         $wf_module_group_id = 12;
@@ -165,6 +168,7 @@ class InterviewReportController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($interviewReport))
             ->with('interview_report', $interviewReport)
             ->with('comments', $comments)
+            ->with('panelists', $panelists)
             ->with("show", true);
     }
 

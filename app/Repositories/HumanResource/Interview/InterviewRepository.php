@@ -6,6 +6,7 @@ use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
 use App\Models\Budget\FiscalYear;
 use App\Models\HumanResource\Interview\Interview;
+use App\Models\HumanResource\Interview\InterviewPanelist;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
@@ -178,6 +179,20 @@ class InterviewRepository extends BaseRepository
             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name") 
             ,'hr_hire_requisition_job_applicants.created_at')
             ->join('hr_hire_applicants','hr_hire_applicants.id','hr_hire_requisition_job_applicants.hr_hire_applicant_id');
+    }
+
+
+    public function interviewPanelist($interviews){
+        return InterviewPanelist::select([
+            'users.id',
+            DB::raw("concat_ws(' ', units.name, designations.name) as title"),
+            DB::raw("concat_ws( ' ', users.first_name,users.middle_name, users.last_name) as full_name"),
+            'users.email'       
+        ])
+        ->join('users','users.id','hr_interview_panelists.user_id')
+        ->join('designations','designations.id','users.designation_id')
+        ->join('units','units.id','designations.unit_id')
+        ->whereIn('hr_interview_panelists.interview_id',$interviews->pluck('id')->toArray()); 
     }
 
 
