@@ -5,4 +5,11 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
     Route::get('{shortlister_request}/initiate', 'HrUserHireRequisitionJobShortlisterRequestController@initiate')->name('initiate');
     Route::get('{shortlister_request}/submit', 'HrUserHireRequisitionJobShortlisterRequestController@submit')->name('submit');
     Route::get('{shortlister_request}/show', 'HrUserHireRequisitionJobShortlisterRequestController@show')->name('show');
+    //Datatables
+    Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
+        Route::get('processing', 'HrUserHireRequisitionJobShortlisterRequestController@ProcessingDatatable')->name('processing');
+        Route::get('returned-for-modications', 'HrUserHireRequisitionJobShortlisterRequestController@ReturnedForModificationDatatable')->name('return_for_modification');
+        Route::get('approved', 'HrUserHireRequisitionJobShortlisterRequestController@ApprovedDatatable')->name('approved');
+        Route::get('saved', 'HrUserHireRequisitionJobShortlisterRequestController@SavedDatatable')->name('saved');
+    });
 });
