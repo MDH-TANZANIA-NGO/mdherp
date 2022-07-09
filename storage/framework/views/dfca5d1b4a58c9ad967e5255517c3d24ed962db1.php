@@ -5,6 +5,7 @@
     <?php echo $__env->make('HumanResource.interview.panelist.show', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php echo $__env->make('HumanResource.interview.applicant.selected_for_invitation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </form>
+<?php if(count($interviewApplicants)): ?>
 <form action="<?php echo e(route('interview.addapplicant')); ?> " method="post">
     <div class="row mb-3">
         <label class="form-label col-sm-2 ">Interview Date </label>
@@ -15,14 +16,14 @@
             <label class="form-label">Location </label>
         </div>
         <div class="col-lg-3">
-            <?php echo Form::select('district_id',$districts,null,['class' => 'form-control select2','data-placeholder'=>'Select district','required']); ?>
+            <?php echo Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','placeholder'=>'Select district','required']); ?>
 
         </div>
-       
+
 
     </div>
-    <div class="row">
-        <label class="form-label  col-sm-2">Location Description </label>
+    <div class="row mb-3">
+        <label class="form-label  col-sm-2">Extra Details </label>
         <div class="col-lg-12">
             <textarea class="form-control" name="description" required></textarea>
         </div>
@@ -35,7 +36,7 @@
             <input type="submit" class="btn btn-primary btn-inline-block" name="submit" value="Add Applicant To Interview">
         </div>
     </div>
-    <?php if(count($interviewApplicants)): ?>
+
     <?php echo $__env->make('HumanResource.interview.applicant.shortlisted', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php endif; ?>
 </form>

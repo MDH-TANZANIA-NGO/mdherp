@@ -24,7 +24,7 @@
                                 <?php $__currentLoopData = $interviewApplicants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$interviewApplicant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
                                     <td> <?php echo e(($key + 1)); ?> </td>
-                                    <td> <?php echo e($interviewApplicant->full_name); ?> </td>
+                                    <td> <?php echo e($interviewApplicant->first_name." ".$interviewApplicant->middle_name." ".$interviewApplicant->last_name); ?> </td>
                                     <td> <input type='checkbox' name='applicant[]' value='<?php echo e($interviewApplicant->id); ?> '> </td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

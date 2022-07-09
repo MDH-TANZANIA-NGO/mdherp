@@ -73,7 +73,7 @@ class InterviewReportController extends Controller
         $interview_id = InterviewReport::where('interview_report_id', $interviewReport->id)->pluck('interview_id')->toArray();
         $interviews = $this->interviewRepository->query()->whereIn('id', $interview_id)->orderBy('id', 'DESC')->get();
         $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();
-        
+
         $job_title = $this->designationRepository->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first();
         $recommended_applicants = InterviewReportRecommendation::join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_report_recommendations.applicant_id')
             ->select([
@@ -140,13 +140,17 @@ class InterviewReportController extends Controller
         try {
             DB::beginTransaction();
             $interviewReport = $this->interviewReportRepository->find($request->interview_workflow_report_id);
-            $this->interviewReportRepository->submit($interviewReport);
+
+//            $this->interviewReportRepository->submit($interviewReport);
+//            return "hrer";
             InterviewReportComment::create([
                 'user_id' => access()->id(),
                 'interview_report_id' => $interviewReport->id,
                 'comment' => $comment
             ]);
+
             $next_user = $this->users->getDirectorOfHR()->first()->user_id;
+
             $this->startWorkflow($interviewReport, 1,  $next_user);
             alert()->success('Interview Report Created Successfully', 'success');
             DB::commit();
