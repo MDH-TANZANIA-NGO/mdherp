@@ -2,7 +2,7 @@
 @section('content')
 <form action="{{ route('interview.notifyapplicant') }} " method="post">
     @csrf
-    @include('HumanResource.interview.header')
+    @include('HumanResource.interview.header.main')
     @include('HumanResource.interview.panelist.show')
     @include('HumanResource.interview.applicant.selected_for_invitation')
 </form>
@@ -11,7 +11,7 @@
     <div class="row mb-3">
         <label class="form-label col-sm-2 ">Interview Date </label>
         <div class="col-sm-3 ">
-            <input type="datetime-local" class="form-control" name="interview_date" required>
+            <input type="datetime-local" class="form-control" min="<?php echo date("Y-m-d"); ?>" name="interview_date" required>
         </div>
         <div class="col-lg-2">
             <label class="form-label">Location </label>
@@ -19,7 +19,6 @@
         <div class="col-lg-3">
             {!! Form::select('district_id',$districts,null,['class' => 'form-control select2-show-search','placeholder'=>'Select district','required']) !!}
         </div>
-
 
     </div>
     <div class="row mb-3">

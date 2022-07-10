@@ -32,6 +32,8 @@
                                         <th class="wd-15p">JOB TITLE</th>
                                         <th class="wd-15p">TYPE</th>
                                         <th class="wd-15p">INTERVIEW DATE</th>
+                                        <th class="wd-15p">APPLICANTS</th>
+                                        <th class="wd-15p">CONFIRMED</th>
                                         <th class="wd-25p">CREATED AT</th>
                                         <th class="wd-25p">ACTION</th>
                                     </tr>
@@ -77,6 +79,8 @@
                                         <th class="wd-15p">JOB TITLE</th>
                                         <th class="wd-15p">TYPE</th>
                                         <th class="wd-15p">INTERVIEW DATE</th>
+                                        <th class="wd-15p">APPLICANTS</th>
+                                        <th class="wd-15p">CONFIRMED</th>
                                         <th class="wd-25p">CREATED AT</th>
                                         <th class="wd-25p">ACTION</th>
                                     </tr>
@@ -149,6 +153,8 @@
                     { data: 'job_title', name: '', searchable: true},
                     { data: 'interview_type', name: 'fiscal_years.title', searchable: true},
                     { data: 'interview_date', name: 'pr_reports.from_at', searchable: true},
+                    { data: 'total_applicants', name: 'pr_reports.from_at', searchable: true},
+                    { data: 'total_confirmed', name: 'pr_reports.from_at', searchable: true},
                     { data: 'created_at', name: 'pr_reports.to_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -165,6 +171,8 @@
                     { data: 'job_title', name: '', searchable: true},
                     { data: 'interview_type', name: 'fiscal_years.title', searchable: true},
                     { data: 'interview_date', name: 'pr_reports.from_at', searchable: true},
+                    { data: 'total_applicants', name: 'pr_reports.from_at', searchable: true},
+                    { data: 'total_confirmed', name: 'pr_reports.from_at', searchable: true},
                     { data: 'created_at', name: 'pr_reports.to_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]

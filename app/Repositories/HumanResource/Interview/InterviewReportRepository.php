@@ -137,7 +137,6 @@ class InterviewReportRepository extends BaseRepository
             $input['hr_requisition_job_id'] = $input['hr_requisition_job_id'];
             // $input['shortlist_id'] = '0';
             $input['user_id'] = access()->id();
-            $input['done'] = 1;
             return $this->query()->create($input);
         });
     }

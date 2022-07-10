@@ -20,22 +20,15 @@
                             <td> {{($key+1) }}</td>
                             <td> {{ $panelist->full_name }} </td>
                             <td>
-                                @if(!isset($show)) 
-                                 <input type="radio" name="technical_staff" value="{{$panelist->id}}"> 
+                                @if($panelist->technical_staff == 1)
+                                    <i class="fa fa-check"></i> 
                                 @endif
-                                @if(isset($show) && $panelist->technical_staff == 1) 
-                                 <i class="fa fa-check"></i>
-                                @endif
-
                             </td>
                         </tr>
                         <?php $total_questions = ($key + 1); ?>
                         @endforeach
                     </tbody>
                 </table>
-                <input type="hidden" name="total_questions" value="{{ $total_questions }}">
-                <input type="hidden" name="applicant_id" id="applicant_id" value="" required />
-                <input type="hidden" name="interview_id" id="interview_id" value="" required />
             </div>
         </div>
     </div>

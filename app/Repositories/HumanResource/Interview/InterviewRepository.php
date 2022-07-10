@@ -6,6 +6,7 @@ use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
 use App\Models\Budget\FiscalYear;
 use App\Models\HumanResource\Interview\Interview;
+use App\Models\HumanResource\Interview\InterviewApplicant;
 use App\Models\HumanResource\Interview\InterviewPanelist;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
@@ -59,7 +60,32 @@ class InterviewRepository extends BaseRepository
     }
 
 
-     
+    public function getQuery3()
+    {
+        return $this->query()->select([
+            'hr_interviews.id AS id',
+            'hr_interviews.number AS number',
+            'hr_interviews.created_at AS created_at',
+            'hr_interviews.uuid AS uuid',
+            'hr_interview_types.name as interview_type',
+            'hr_interview_panelists.user_id as user_id',
+             DB::raw("COUNT(hr_interview_applicants.id) as total_applicants"),
+             DB::raw("SUM(CASE WHEN hr_interview_applicants.confirm IS NULL THEN 0 ELSE 1 END) as total_confirmed"),
+             DB::raw("STRING_AGG(to_char(hr_interview_schedules.interview_date,'dd-mm-yyyy'),',') as interview_date"),
+             DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
+        ])
+        // sum(case when level = 'exec' then 1 else 0 end) AS ExecCount,
+            ->join('hr_interview_schedules','hr_interview_schedules.interview_id','hr_interviews.id')
+            ->join('hr_interview_types','hr_interview_types.id','hr_interviews.interview_type_id')
+            ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
+            ->join('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
+            ->join('units','units.id','designations.unit_id')
+            ->join("hr_interview_applicants","hr_interview_applicants.interview_id","hr_interviews.id")
+            ->leftjoin('hr_interview_panelists',function($query){
+                $query->on('hr_interview_panelists.interview_id','hr_interviews.id')->where('hr_interview_panelists.technical_staff',1);
+            })
+            ->groupby('hr_interviews.id','units.title','designations.name','hr_interview_types.name','hr_interview_panelists.user_id');
+    }
 
     public function getQueryWithInterview()
     { 
@@ -72,7 +98,7 @@ class InterviewRepository extends BaseRepository
     */
     public function getAccessProcessing()
     {
-        return $this->getQuery()
+        return $this->getQuery3()
             ->whereHas('wfTracks')
             ->where('hr_interviews.wf_done', 0)
             ->where('hr_interviews.done', true)
@@ -98,7 +124,7 @@ class InterviewRepository extends BaseRepository
     */
     public function getAccessApproved()
     {
-        return $this->getQuery()
+        return $this->getQuery3()
             ->whereHas('wfTracks')
             ->where('hr_interviews.wf_done', 1)
             ->where('hr_interviews.done', true)
@@ -112,7 +138,7 @@ class InterviewRepository extends BaseRepository
     */
     public function getAccessSavedDatatable()
     {
-        return $this->getQuery()
+        return $this->getQuery3()
             ->whereDoesntHave('wfTracks')
             ->where('hr_interviews.wf_done', 0)
             ->where('hr_interviews.done', false)
@@ -126,13 +152,13 @@ class InterviewRepository extends BaseRepository
     */
     public function getAccessWaitForQuestionsDatatable()
     {
-         return $this->getQuery()
+         return $this->getQuery3()
                 ->whereNotNull('hr_interviews.has_interview_invitation')           
                 ->whereNull('hr_interviews.has_questions');           
     }
     public function getAccessWaitForReportDatatable()
     {
-         return $this->getQuery()
+         return $this->getQuery3()
                 ->whereNotNull('hr_interviews.has_interview_invitation')           
                 ->whereNotNull('hr_interviews.has_questions'); 
       
@@ -213,11 +239,25 @@ class InterviewRepository extends BaseRepository
         });
     }
 
-    public function checkIfHasWorkflow(Interview $pr_report)
+    public function checkIfHasWorkflow(Interview $interview)
     {
-        if($pr_report->wfTracks()->count()){
+        if($interview->wfTracks()->count()){
             throw new GeneralException('You can not submit twice');
         }
+    }
+
+    
+    public function invitedApplicants($interview)
+    {
+         return InterviewApplicant::where("interview_id",$interview)->where('is_emailed',1);
+    }
+    public function applicants($interview)
+    {
+         return InterviewApplicant::where("interview_id",$interview);
+    }
+    public function confirmedApplicants($interview)
+    {
+         return InterviewApplicant::where("interview_id",$interview)->where('confirm',1);
     }
 
     public function completed(Interview $pr_report)
