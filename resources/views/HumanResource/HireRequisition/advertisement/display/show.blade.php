@@ -25,9 +25,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <ul class="demo-accordion accordionjs m-0" data-active-index="false">
-                        Department: <span> {!! $_advertisement->description !!} </span> 
-                        </ul>
+                        {!! $_advertisement->description !!}
                     </div>
                 </div>
             </div>

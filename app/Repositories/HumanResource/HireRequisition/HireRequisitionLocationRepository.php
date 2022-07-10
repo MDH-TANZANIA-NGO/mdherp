@@ -14,7 +14,13 @@ class HireRequisitionLocationRepository extends BaseRepository
     }
 
     public function store($input){
-        return $this->query()->create($this->inputProcessor($input));
+        $regions = $input['region'];
+        $hr_requisition_job = $input['hr_requisition_job_id'];
+        foreach ($regions as $region) {
+            $region_data['region_id'] = $region;
+            $region_data['hr_requisition_job_id'] = $hr_requisition_job;
+            $this->query()->create($region_data);
+        }
     }
 
     public function update($input){

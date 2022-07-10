@@ -1,37 +1,38 @@
 <?php
 
 namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
-use App\Events\NewWorkflow;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HireRequisitionDatatable;
-
 use App\Models\Auth\User;
-use App\Models\HumanResource\HireRequisition\HireRequisition;
-use App\Models\HumanResource\HireRequisition\SkillCategory;
+use App\Events\NewWorkflow;
+use Illuminate\Http\Request;
+
+use App\Models\System\WorkingTool;
+use Illuminate\Support\Facades\DB;
+use App\Services\Workflow\Workflow;
+use App\Exceptions\GeneralException;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Redirect;
+use App\Repositories\Access\UserRepository;
+use App\Repositories\System\RegionRepository;
+use App\Repositories\Unit\DepartmentRepository;
+use App\Repositories\Unit\DesignationRepository;
+use App\Repositories\Workflow\WfTrackRepository;
 use App\Models\HumanResource\HireRequisition\Skill;
+use App\Services\Workflow\Traits\WorkflowInitiator;
+use App\Models\HumanResource\HireRequisition\SkillUser;
+use App\Models\HumanResource\HireRequisition\SkillCategory;
+use App\Models\HumanResource\HireRequisition\HireRequisition;
 use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
 use App\Models\HumanResource\HireRequisition\HireRequisitionLocation;
 use App\Models\HumanResource\HireRequisition\HireRequisitionWorkingTool;
-use App\Models\HumanResource\HireRequisition\SkillUser;
-use App\Repositories\Access\UserRepository;
-use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
-use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
-use App\Repositories\Unit\DesignationRepository;
-use App\Repositories\System\RegionRepository;
-use App\Repositories\Unit\DepartmentRepository;
-use App\Repositories\Workflow\WfTrackRepository;
-use App\Services\Workflow\Workflow;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use App\Models\System\WorkingTool;
-use Illuminate\Support\Facades\View;
-use App\Repositories\HumanResource\HireRequisition\HireRequisitionWorkingToolRepository;
-use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobCreteriaRepository;
-use App\Repositories\HumanResource\HireRequisition\HireRequisitionReplacedStaffRepository;
-use App\Repositories\HumanResource\HireRequisition\HireRequisitionLocationRepository;
 use App\Repositories\HumanResource\HireRequisition\HireUserSkillsRepository;
-use App\Services\Workflow\Traits\WorkflowInitiator;
-use Illuminate\Support\Facades\DB;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionLocationRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobCreteriaRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionWorkingToolRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionReplacedStaffRepository;
+use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HireRequisitionDatatable;
 
 class HireRequisitionController extends Controller
 {
@@ -177,13 +178,7 @@ class HireRequisitionController extends Controller
             if ($request->establishment ==   22) {
                 $hr_requisition_job = $this->hireRequisitionReplacedStaffRepository->store($data);
             }
-            
-            foreach ($regions as $region) {
-                $region_data['region_id'] = $region;
-                $region_data['hr_requisition_job_id'] = $hr_requisition_job->id;
-                $reg = HireRequisitionLocation::create($region_data);
-            }
-            // return $reg;
+            $this->hireRequisitionLocationRepository->store($data);
             $this->hireUserSkillsRepository->store($data);
             $this->hireRequisitionWorkingToolRepository->store($workingtools);
             alert()->success('Hire Requisition Created Successfully', 'success');
@@ -191,7 +186,7 @@ class HireRequisitionController extends Controller
             return redirect()->route('hirerequisition.initiate', $hireRequisition->uuid);
         } catch (\Exception $e) {
             DB::rollback();
-            throw new \Exception($e->getMessage());
+            throw new GeneralException($e->getMessage());
         }
     }
 

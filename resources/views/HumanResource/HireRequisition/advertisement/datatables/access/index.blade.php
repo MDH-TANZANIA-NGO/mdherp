@@ -28,7 +28,7 @@
                                     <tr>
                                         <th class="wd-15p">#</th>
                                         <th class="wd-15p">TITLE</th>
-                                        <th class="wd-15p">DESCRIPTION</th>
+                                        <!-- <th class="wd-15p">DESCRIPTION</th> -->
                                         <th class="wd-25p">CREATED AT</th>
                                         <th class="wd-25p">ACTION</th>
                                     </tr>
@@ -46,7 +46,7 @@
                                     <tr>
                                         <th class="wd-15p">#</th>
                                         <th class="wd-15p">TITLE</th>
-                                        <th class="wd-15p">DESCRIPTION</th>
+                                        <!-- <th class="wd-15p">DESCRIPTION</th> -->
                                         <th class="wd-25p">CREATED AT</th>
                                         <th class="wd-25p">ACTION</th>
                                     </tr>
@@ -66,7 +66,7 @@
                                     <tr>
                                         <th class="wd-15p">#</th>
                                         <th class="wd-15p">TITLE</th>
-                                        <th class="wd-15p">DESCRIPTION</th>
+                                        <!-- <th class="wd-15p">DESCRIPTION</th> -->
                                         <th class="wd-25p">CREATED AT</th>
                                         <th class="wd-25p">ACTION</th>
                                     </tr>
@@ -84,7 +84,7 @@
                                     <tr>
                                         <th class="wd-15p">#</th>
                                         <th class="wd-15p">TITLE</th>
-                                        <th class="wd-15p">DESCRIPTION</th>
+                                        <!-- <th class="wd-15p">DESCRIPTION</th> -->
                                         <th class="wd-25p">CREATED AT</th>
                                         <th class="wd-25p">ACTION</th>
                                     </tr>
@@ -102,7 +102,7 @@
                                     <tr>
                                         <th class="wd-15p">#</th>
                                         <th class="wd-15p">TITLE</th>                              
-                                        <th class="wd-15p">DESCRIPTION</th>
+                                        <!-- <th class="wd-15p">DESCRIPTION</th> -->
                                         <th class="wd-25p">CREATED AT</th>                                 
                                         <th class="wd-25p">ACTION</th>
                                     </tr>
@@ -135,7 +135,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'listings.title', searchable: true},
-                    { data: 'description', name: 'hr_hire_advertisement_requisitions.description', searchable: true},
+                    // { data: 'description', name: 'hr_hire_advertisement_requisitions.description', searchable: true},
                     { data: 'created_at', name: 'hr_hire_advertisement_requisitions.created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -152,7 +152,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'hr_hire_advertisement_requisitions.title', searchable: true},
-                    { data: 'description', name: 'hr_hire_advertisement_requisitions.description', searchable: true},
+                    // { data: 'description', name: 'hr_hire_advertisement_requisitions.description', searchable: true},
                     { data: 'created_at', name: 'hr_hire_advertisement_requisitions.created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -169,7 +169,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'hr_hire_advertisement_requisitions.title', searchable: true},
-                    { data: 'description', name: 'hr_hire_advertisement_requisitions.name', searchable: true},
+                    // { data: 'description', name: 'hr_hire_advertisement_requisitions.name', searchable: true},
                     { data: 'created_at', name: 'hr_hire_advertisement_requisitions.created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -186,7 +186,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'hr_hire_advertisement_requisitions.title', searchable: true},
-                    { data: 'description', name: 'hr_hire_advertisement_requisitions.name', searchable: true},
+                    // { data: 'description', name: 'hr_hire_advertisement_requisitions.name', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]
@@ -203,7 +203,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'title', name: 'hr_hire_advertisement_requisitions.title', searchable: true},
-                    { data: 'description', name: 'hr_hire_advertisement_requisitions.name', searchable: true},
+                    // { data: 'description', name: 'hr_hire_advertisement_requisitions.name', searchable: true},
                     { data: 'created_at', name: 'hr_hire_advertisement_requisitions.created_at', searchable: true },
                     { data: 'action', name: 'action', searchable: false },
                 ]

@@ -30,10 +30,21 @@ class AdvertisementRepository extends  BaseRepository
             DB::raw('hr_hire_advertisement_requisitions.uuid AS uuid'),
         ]);
     }
-
+    public function getQuery2(){
+        return $this->query()->select([
+            DB::raw('hr_hire_advertisement_requisitions.title AS title'),
+            DB::raw('hr_hire_advertisement_requisitions.hire_requisition_job_id AS hire_requisition_job_id'),
+            // DB::raw("SUBSTRING(hr_hire_advertisement_requisitions.description, 200) AS description"),
+            // DB::raw('hr_hire_advertisement_requisitions.description AS description'),
+            DB::raw('hr_hire_advertisement_requisitions.number AS number'),
+            DB::raw('hr_hire_advertisement_requisitions.dead_line AS dead_line'),
+            DB::raw('hr_hire_advertisement_requisitions.created_at AS created_at'),
+            DB::raw('hr_hire_advertisement_requisitions.uuid AS uuid'),
+        ]);
+    }
     public function getAccessProcessingDatatable()
     {
-        return $this->getQuery()
+        return $this->getQuery2()
             ->whereHas('wfTracks')
             ->where('hr_hire_advertisement_requisitions.wf_done', 0)
             ->where('hr_hire_advertisement_requisitions.rejected', false)
@@ -41,7 +52,7 @@ class AdvertisementRepository extends  BaseRepository
     }
 
     public function getAccessDeniedDatatable(){
-        return $this->getQuery()
+        return $this->getQuery2()
             ->whereHas('wfTracks')
             ->where('hr_hire_advertisement_requisitions.rejected', true)
             ->where('hr_hire_advertisement_requisitions.user_id', access()->id());
@@ -50,7 +61,7 @@ class AdvertisementRepository extends  BaseRepository
 
     public function getAccessRejectedDatatable()
     {
-        return $this->getQuery()
+        return $this->getQuery2()
             ->whereHas('wfTracks')
             ->where('hr_hire_advertisement_requisitions.wf_done', 5)
             ->where('hr_hire_advertisement_requisitions.user_id', access()->id());
@@ -58,7 +69,7 @@ class AdvertisementRepository extends  BaseRepository
 
     public function getAccessProvedDatatable()
     {
-        return $this->getQuery()
+        return $this->getQuery2()
             ->whereHas('wfTracks')
             ->where('hr_hire_advertisement_requisitions.wf_done', 1)
             ->where('hr_hire_advertisement_requisitions.done', true)
@@ -67,7 +78,7 @@ class AdvertisementRepository extends  BaseRepository
 
     public function getAccessSavedDatatable()
     {
-        return $this->getQuery()
+        return $this->getQuery2()
             ->whereDoesntHave('wfTracks')
             ->where('hr_hire_advertisement_requisitions.wf_done', 0)
             ->where('hr_hire_advertisement_requisitions.done', 0)
@@ -95,7 +106,6 @@ class AdvertisementRepository extends  BaseRepository
         $this->designationRepository->getQueryDesignationUnit();
     }
 
-    
 
     public function submit($hireRequisition)
     {
