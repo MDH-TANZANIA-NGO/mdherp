@@ -12,6 +12,7 @@ Route::group(['namespace' => 'humanResource\HireRequisition', 'middleware' => ['
     Route::get('{hireRequisitionJob}/edit', 'HireRequisitionController@edit')->name('edit');
     Route::get('{hireRequisitionJob}/destroy', 'HireRequisitionController@destroy')->name('destroy');
     Route::get('skills/{category}/list', 'HireRequisitionController@getSkills')->name('category_skills');
+    Route::get('designation/{designation}', 'HireRequisitionController@getDesignationByDepertment')->name('getDesignationByDepertment');
     Route::put('{hirerequisition}/update', 'HireRequisitionController@update')->name('update');
     /**
      * Datatables

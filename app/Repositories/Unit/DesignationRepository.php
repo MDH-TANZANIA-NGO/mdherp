@@ -84,4 +84,8 @@ class DesignationRepository extends BaseRepository
             ->pluck('name', 'hr_hire_requisition_job_id');
     }
 
+    public function getDesignationByDepertment($deparment_id){
+        return $this->getQueryDesignationUnit()->where('designations.department_id',$deparment_id)->get();
+    }
+
 }
