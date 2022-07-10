@@ -81,7 +81,7 @@ class InterviewReportController extends Controller
                 DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
                 'hr_hire_applicants.email'
             ])
-            ->where('hr_interview_report_recommendations.hr_requisition_job_id', $hireRequisitionJob->id)
+            ->where('hr_interview_report_recommendations.interview_report_id', $interviewReport->id)
             ->get();
 
         $applicants = $this->interviewApplicantRepository->getForSelect($interviews->pluck('id')->toArray());
@@ -101,7 +101,8 @@ class InterviewReportController extends Controller
             DB::beginTransaction();
             $data = [
                 'applicant_id' => $request->applicant_id,
-                'hr_requisition_job_id' => $request->hr_requisition_job_id
+                'hr_requisition_job_id' => $request->hr_requisition_job_id,
+                'interview_report_id' => $request->interview_report_id
             ];
             InterviewReportRecommendation::updateOrCreate($data);
             alert()->success('Applicant Added Successfully', 'success');
