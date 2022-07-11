@@ -188,26 +188,26 @@ class SysdefsTableSeeder extends Seeder
             ]
         );
         $sysdef = Sysdef::firstOrCreate(
-            ['reference' => 'MDH_INT_REP'],
+            ['reference' => 'MDH-INT-REP'],
             [
                 'name' => 'hr_interview_workflow_reports',
                 'display_name' => 'Interview Report Number',
                 'value' => '0',
                 'data_type' => 'integer',
                 'isactive' => 1,
-                'reference' => 'MDH_INT_REP',
+                'reference' => 'MDH-INT-REP',
                 'sysdef_group_id' => 1,
             ]
         );
         $sysdef = Sysdef::firstOrCreate(
-            ['reference' => 'MDH_INT_NUM'],
+            ['reference' => 'MDH-INT-NUM'],
             [
                 'name' => 'hr_interviews',
                 'display_name' => 'Interview Number',
                 'value' => '0',
                 'data_type' => 'integer',
                 'isactive' => 1,
-                'reference' => 'MDH_INT_NUM',
+                'reference' => 'MDH-INT-NUM',
                 'sysdef_group_id' => 1,
             ]
         );

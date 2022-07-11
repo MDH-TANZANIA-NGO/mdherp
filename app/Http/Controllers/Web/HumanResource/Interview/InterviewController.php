@@ -62,6 +62,7 @@ class InterviewController extends Controller
     }
     public function list()
     {
+        // return $this->interviewRepository->getAccessSavedDatatable()->get()->count();
         // dd($this->interviewRepository->getAccessWaitForReportDatatable()->get());
         return view('humanResource.Interview.list')
             ->with('processing_count', 0)
@@ -82,13 +83,20 @@ class InterviewController extends Controller
     }
     public function store(Request $request)
     {
-
-        $interview = $this->interviewRepository->store($request->all());
-        alert()->success('initiated Successfully');
-        return redirect()->route('interview.initiate-panelist', $interview->uuid);
+        try{
+            DB::beginTransaction();
+            $interview = $this->interviewRepository->store($request->all());
+            DB::commit();
+            alert()->success('initiated Successfully');
+            return redirect()->route('interview.initiate-panelist', $interview->uuid);
+        }catch(Exception $e){
+            DB::rollBack();
+            throw new GeneralException($e->getMessage());
+        }
+       
     }
     public function show(Interview $interview)
-    {;
+    {
         $schedules = InterviewSchedule::where('interview_id', $interview->id)->get()->pluck('id');
         $interviewApplicants = $this->hrHireApplicantRepository->getPendingSelected($interview)->get();
         $interview_type = InterviewTypes::find($interview->interview_type_id);
@@ -157,6 +165,7 @@ class InterviewController extends Controller
             DB::beginTransaction();
             if ($request->has('applicant'))
                 $interview = $this->interviewRepository->find($request->interview_id);
+                $this->interviewRepository->submit($interview);
             $interviewScheduleData = [
                 'interview_id' => $interview->id,
                 'interview_date' => $request->interview_date,
@@ -263,7 +272,8 @@ class InterviewController extends Controller
         try {          
             DB::beginTransaction();
             $interview = $this->interviewRepository->find($request->interview_id);
-            $interview->update(['has_interview_invitation' => 1]);
+            $interview->update(['has_interview_invitation' => 1,'done'=>1]);
+             
             $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
             foreach ($selectedApplicant as $applicant) {
                 IntervieweeEmailJob::dispatch($applicant, $interview);

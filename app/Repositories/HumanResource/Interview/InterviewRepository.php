@@ -75,12 +75,12 @@ class InterviewRepository extends BaseRepository
              DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
         ])
         // sum(case when level = 'exec' then 1 else 0 end) AS ExecCount,
-            ->join('hr_interview_schedules','hr_interview_schedules.interview_id','hr_interviews.id')
+            ->leftjoin('hr_interview_schedules','hr_interview_schedules.interview_id','hr_interviews.id')
             ->join('hr_interview_types','hr_interview_types.id','hr_interviews.interview_type_id')
             ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
             ->join('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
             ->join('units','units.id','designations.unit_id')
-            ->join("hr_interview_applicants","hr_interview_applicants.interview_id","hr_interviews.id")
+            ->leftjoin("hr_interview_applicants","hr_interview_applicants.interview_id","hr_interviews.id")
             ->leftjoin('hr_interview_panelists',function($query){
                 $query->on('hr_interview_panelists.interview_id','hr_interviews.id')->where('hr_interview_panelists.technical_staff',1);
             })
@@ -139,11 +139,8 @@ class InterviewRepository extends BaseRepository
     public function getAccessSavedDatatable()
     {
         return $this->getQuery3()
-            // ->whereDoesntHave('wfTracks')
-            // ->where('hr_interviews.wf_done', 0)
             ->where('hr_interviews.done', 0)
-            // ->where('hr_interviews.rejected', false)
-            ->where('users.id', access()->id());
+            ->where('hr_interviews.user_id', access()->id());
     }
 
     /** 
@@ -154,13 +151,15 @@ class InterviewRepository extends BaseRepository
     {
          return $this->getQuery3()
                 ->whereNotNull('hr_interviews.has_interview_invitation')           
-                ->whereNull('hr_interviews.has_questions');           
+                ->whereNull('hr_interviews.has_questions')       
+                ->where('hr_interviews.done',1);           
     }
     public function getAccessWaitForReportDatatable()
     {
          return $this->getQuery3()
                 ->whereNotNull('hr_interviews.has_interview_invitation')           
-                ->whereNotNull('hr_interviews.has_questions'); 
+                ->whereNotNull('hr_interviews.has_questions')
+                ->where('hr_interviews.done',1);    
       
     }
     public function getForSelectByJob($hr_requisition_job_id)
@@ -258,6 +257,14 @@ class InterviewRepository extends BaseRepository
     public function confirmedApplicants($interview)
     {
          return InterviewApplicant::where("interview_id",$interview)->where('confirm',1);
+    }
+
+    public function submit($interview)
+    {
+        $number = $this->generateNumber($interview);
+        $interview->update([
+            'number'=> $number
+        ]);
     }
 
     public function completed(Interview $pr_report)

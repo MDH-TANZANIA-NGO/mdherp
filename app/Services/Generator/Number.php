@@ -139,10 +139,17 @@ trait Number
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             case 'hr_interview_workflow_reports':
-                $reference = "MDH-INT-RP";
+                $reference = "MDH-INT-REP";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-INT-RP-" . $year . '-' . $value;
+                $number = "MDH-INT-REP-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            case 'hr_interviews':
+                $reference = "MDH-INT-NUM";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-INT-NUM-" . $year . '-' . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             default:
