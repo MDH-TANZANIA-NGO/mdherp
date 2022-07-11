@@ -139,10 +139,10 @@ class InterviewRepository extends BaseRepository
     public function getAccessSavedDatatable()
     {
         return $this->getQuery3()
-            ->whereDoesntHave('wfTracks')
-            ->where('hr_interviews.wf_done', 0)
-            ->where('hr_interviews.done', false)
-            ->where('hr_interviews.rejected', false)
+            // ->whereDoesntHave('wfTracks')
+            // ->where('hr_interviews.wf_done', 0)
+            ->where('hr_interviews.done', 0)
+            // ->where('hr_interviews.rejected', false)
             ->where('users.id', access()->id());
     }
 

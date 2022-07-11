@@ -69,7 +69,7 @@ class InterviewController extends Controller
             ->with('approved_count', 0)
             ->with('wait_interview_question_count', $this->interviewRepository->getAccessWaitForQuestionsDatatable()->get()->count())
             ->with('wait_interview_report_count', $this->interviewRepository->getAccessWaitForReportDatatable()->get()->count())
-            ->with('saved_count', 0);
+            ->with('saved_count', $this->interviewRepository->getAccessSavedDatatable()->get()->count());
     }
 
     public function create()
