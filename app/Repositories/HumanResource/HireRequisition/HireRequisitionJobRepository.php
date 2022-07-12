@@ -255,10 +255,30 @@ class HireRequisitionJobRepository extends BaseRepository
      */
     public function getJobApplicationWhichHaveShortlistedApplicants()
     {
-        return $this->getQuery()
+        return $this->getQuery()->select([
+            DB::raw('hr_hire_requisitions_jobs.id AS id' ),
+            DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
+            DB::raw('hr_hire_requisitions_jobs.uuid AS uuid' ),
+            DB::raw('departments.title AS department'),
+            DB::raw('hr_hire_requisitions_jobs.empoyees_required AS empoyees_required'),
+            DB::raw('code_values.name AS contract_type'),
+            DB::raw('hr_hire_requisitions_jobs.education_and_qualification AS education_and_qualification'),
+            DB::raw('hr_hire_requisitions_jobs.created_at AS created_at'),
+            DB::raw("COUNT(hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id) AS total_applicants")
+        ])
+        ->leftjoin('hr_hire_requisition_job_applicants','hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id','hr_hire_requisitions_jobs.id')
         ->whereHas('shortlists', function($query){
             $query->whereDoesntHave('request');
-        });
+        })
+        ->groupBy(
+            'hr_hire_requisitions_jobs.id',
+            'units.title', 
+            'designations.name',
+            'departments.title',
+            'hr_hire_requisitions_jobs.empoyees_required',
+            'code_values.name',
+            'hr_hire_requisitions_jobs.education_and_qualification',
+        );
     }
 
 }
