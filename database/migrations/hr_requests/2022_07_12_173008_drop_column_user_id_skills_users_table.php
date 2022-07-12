@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnHrRequisitionJobIdSkillsUsersTable extends Migration
+class DropColumnUserIdSkillsUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,11 @@ class AddColumnHrRequisitionJobIdSkillsUsersTable extends Migration
     public function up()
     {
         Schema::table('skill_user', function (Blueprint $table) {
-            $table->unsignedBigInteger('hr_requisition_job_id');
+            $table->dropColumn('user_id');
            
             // $table->smallInteger('skill_level_cv_id')->nullable()->change();
             // $table->smallInteger('skill_level_cv_id');
         });
-       
     }
 
     /**
