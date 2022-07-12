@@ -1,6 +1,6 @@
 
 <?php
-Route::group(['namespace' => 'humanResource\HireRequisition', 'middleware' => ['web', 'auth'], 'prefix' => 'hirerequisition', 'as' => 'hirerequisition.'], function () {
+Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['web', 'auth'], 'prefix' => 'hirerequisition', 'as' => 'hirerequisition.'], function () {
     Route::get('', 'HireRequisitionController@index')->name('index');
     Route::get('list', 'HireRequisitionController@list')->name('list');
     Route::get('create', 'HireRequisitionController@create')->name('create');
