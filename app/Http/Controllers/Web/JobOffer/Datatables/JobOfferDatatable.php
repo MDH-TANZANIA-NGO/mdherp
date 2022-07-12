@@ -16,7 +16,7 @@ trait JobOfferDatatable
                 return $query->interviewApplicant->applicant->full_name;
             })
             ->addColumn('full_title', function($query) {
-                return $query->interviewApplicant->interviews->jobRequisition->designation->full_title;
+                return $query->interviewApplicant->jobRequisition->designation->full_title;
             })
             ->editColumn('salary', function($query) {
 
@@ -37,8 +37,9 @@ trait JobOfferDatatable
                 return $query->interviewApplicant->applicant->full_name;
             })
             ->addColumn('full_title', function($query) {
-                return $query->interviewApplicant->interviews->jobRequisition->designation->full_title;
+                return $query->interviewApplicant->jobRequisition->designation->full_title;
             })
+
             ->editColumn('salary', function($query) {
 
                 $salary = currency_converter($query->salary, 'TSH');
@@ -58,7 +59,7 @@ trait JobOfferDatatable
                 return $query->interviewApplicant->applicant->full_name;
             })
             ->addColumn('full_title', function($query) {
-                return $query->interviewApplicant->interviews->jobRequisition->designation->full_title;
+                return $query->interviewApplicant->jobRequisition->designation->full_title;
             })
             ->addColumn('status', function($query) {
                 if ($query->status == 1)
