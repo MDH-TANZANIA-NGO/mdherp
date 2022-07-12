@@ -41,21 +41,21 @@ class JobOfferController extends Controller
     public function index()
     {
         //
-        return view('humanResource.jobOffer.index')
+        return view('HumanResource.jobOffer.index')
             ->with('job_offers', $this->job_offers);
     }
 
 
     public function initiate()
     {
-        return view('humanResource.jobOffer.forms.initiate')
+        return view('HumanResource.jobOffer.forms.initiate')
             ->with('applicant', $this->interview_applicants->getApplicantForJobOffer()->get()->pluck('full_name', 'id'));
     }
 
     public function create(Request  $request)
     {
         $job_details =  $this->interview_applicants->getAdvertDetails($request->get('id'))->first();
-        return view('humanResource.jobOffer.forms.create')
+        return view('HumanResource.jobOffer.forms.create')
             ->with('job_details', $job_details)
             ->with('projects', $this->projects->getActiveForPluck());
     }
@@ -69,7 +69,7 @@ class JobOfferController extends Controller
         $department = HireRequisitionJob::find($job_offer->interviewApplicant->hr_requisition_job_id)->department_id;
     //    return $department;
         // $department = $job_offer->interviewApplicant->interviews->jobRequisition->department_id;
-       
+
         $next_user = $this->users->getDirectorOfDepartment($department)->get();
         $next_user =  $next_user->first()->user_id;
         $wf_module_group_id = 14;
@@ -98,7 +98,7 @@ class JobOfferController extends Controller
 
         $designation = access()->user()->designation_id;
 
-        return view('humanResource.jobOffer.display.show')
+        return view('HumanResource.jobOffer.display.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
@@ -116,7 +116,7 @@ class JobOfferController extends Controller
 
         $job_offer_projects =  $this->projects->getJobOfferProjects($job_offer->id)->get();
 
-        return view('humanResource.jobOffer.forms.edit')
+        return view('HumanResource.jobOffer.forms.edit')
             ->with('job_offer', $job_offer)
             ->with('projects',$this->projects->getActiveForPluck())
             ->with('job_offer_projects', $job_offer_projects);
