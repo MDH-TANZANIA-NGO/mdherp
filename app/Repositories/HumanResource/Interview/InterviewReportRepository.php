@@ -162,8 +162,11 @@ class InterviewReportRepository extends BaseRepository
     }
 
 
-    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,$level){
-
+    public function updateRecommendedApplicant($recommendedApplicants){
+        $recommendedApplicants->each(function($item,$key){
+            $item->is_confirmed = 1;
+            $item->save();
+        });
     }
 
 }
