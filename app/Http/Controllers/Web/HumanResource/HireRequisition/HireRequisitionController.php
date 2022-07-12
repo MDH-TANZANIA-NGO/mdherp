@@ -74,12 +74,12 @@ class HireRequisitionController extends Controller
      */
     public function index()
     {
-        return view('humanResource/HireRequisition._parent.index');
+        return view('HumanResource/HireRequisition._parent.index');
     }
     public function list()
     {
         // return $this->hireRequisitionRepository->getAccessProcessingDatatable()->get()->count();
-        return view('humanResource/HireRequisition._parent.hirerequisition');
+        return view('HumanResource/HireRequisition._parent.hirerequisition');
     }
 
     /**
