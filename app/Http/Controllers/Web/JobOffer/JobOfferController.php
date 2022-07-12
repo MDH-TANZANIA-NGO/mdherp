@@ -41,21 +41,21 @@ class JobOfferController extends Controller
     public function index()
     {
         //
-        return view('HumanResource.jobOffer.index')
+        return view('HumanResource.JobOffer.index')
             ->with('job_offers', $this->job_offers);
     }
 
 
     public function initiate()
     {
-        return view('HumanResource.jobOffer.forms.initiate')
+        return view('HumanResource.JobOffer.forms.initiate')
             ->with('applicant', $this->interview_applicants->getApplicantForJobOffer()->get()->pluck('full_name', 'id'));
     }
 
     public function create(Request  $request)
     {
         $job_details =  $this->interview_applicants->getAdvertDetails($request->get('id'))->first();
-        return view('HumanResource.jobOffer.forms.create')
+        return view('HumanResource.JobOffer.forms.create')
             ->with('job_details', $job_details)
             ->with('projects', $this->projects->getActiveForPluck());
     }
@@ -116,7 +116,7 @@ class JobOfferController extends Controller
 
         $job_offer_projects =  $this->projects->getJobOfferProjects($job_offer->id)->get();
 
-        return view('HumanResource.jobOffer.forms.edit')
+        return view('HumanResource.JobOffer.forms.edit')
             ->with('job_offer', $job_offer)
             ->with('projects',$this->projects->getActiveForPluck())
             ->with('job_offer_projects', $job_offer_projects);
