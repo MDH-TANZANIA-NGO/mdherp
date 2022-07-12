@@ -1,5 +1,5 @@
 <div class="card">
-    <form id="application-form" action="{{ route('job_shortlister.store') }}" method="POST">
+    <form id="applicant-form" action="{{ route('job_shortlister.store') }}" method="POST">
         @csrf
         <div class="card-header">
             <h3 class="card-title">List of Current Jobs</h3>
@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="applications" class="table table-striped table-bordered" style="width:100%">
+            <table id="applicants_datatable" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th class="wd-15p">#</th>
@@ -29,7 +29,7 @@
 <script>
     $(document).ready(function() {
 
-        var table = $("#applications").DataTable({
+        var table = $("#applicants_datatable").DataTable({
             destroy: true,
             retrieve: true,
             "responsive": true,
@@ -95,7 +95,7 @@
         });
 
         // Handle click on checkbox to set state of "Select all" control
-        $('#applications tbody').on('change', 'input[type="checkbox"]', function() {
+        $('#applicants_datatable tbody').on('change', 'input[type="checkbox"]', function() {
             // If checkbox is not checked
             if (!this.checked) {
                 var el = $('#select-all').get(0);
@@ -108,7 +108,7 @@
             }
         });
 
-        $('#application-form').on('submit', function(e) {
+        $('#applicant-form').on('submit', function(e) {
             var form = this;
 
             // Iterate over all checkboxes in the table
