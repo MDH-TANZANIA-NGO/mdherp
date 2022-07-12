@@ -466,3 +466,12 @@ if (!function_exists('is_shortlisted')) {
         return true;
     }
 }
+
+if (!function_exists('shortlister_details')) {
+    function shortlister_details($online_applicant_id, $hr_hire_requisition_job_id)
+    {
+        $online_applicant = HrHireApplicant::where('user_recruitment_id', $online_applicant_id)->first();
+        $registered_applicant = HrHireRequisitionJobApplicant::where('hr_hire_applicant_id', $online_applicant->id)->where('hr_hire_requisitions_job_id', $hr_hire_requisition_job_id)->first();
+        return $registered_applicant->user->fullname;
+    }
+}

@@ -6,6 +6,7 @@ Route::group(['namespace' => 'humanResource\HireRequisition', 'middleware' => ['
         Route::get('{hire_requisition_job}/mimosa-recruiment-portal-applicant/{online_applicant_id}/show/', 'HireRequisitionJobController@showMore')->name('show_more');
         Route::group(['prefix' => 'datatables', 'as' => 'datatable.'], function () {
             Route::get('applications', 'HireRequisitionJobController@applicationDatatable')->name('application');
+            Route::get('applications/doesnot-have-requests', 'HireRequisitionJobController@jobApplicationWhichHaveShortlistedApplicantsDatatable')->name('doesnot_have_request');
         });
         // JobApplicant
         Route::group(['prefix' => 'applications', 'as' => 'application.'], function () {

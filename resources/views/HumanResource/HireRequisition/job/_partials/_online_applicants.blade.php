@@ -14,6 +14,7 @@
                         <th class="wd-15p">EMAIL</th>
                         <th class="wd-15p">MOBILE NUMBER</th>
                         <th class="wd-15p">STATUS</th>
+                        <th class="wd-15p">SHORTLISTED BY</th>
                         <th class="wd-25p">ACTION</th>
                     </tr>
                 </thead>
@@ -28,6 +29,9 @@
                         <td>{{ $applicant->phone }}</td>
                         <td>
                             {{ is_shortlisted($applicant->id, $hire_requisition_job->id) ? 'Not Shortlisted' : 'Shortlisted' }}
+                        </td>
+                        <td>
+                            {{ is_shortlisted($applicant->id, $hire_requisition_job->id) ? '' : shortlister_details($applicant->id, $hire_requisition_job->id) }}
                         </td>
                         <td><a href="{{ route('hr.job.show_more',[$hire_requisition_job,$applicant->id]) }}">View More info</td>
                     </tr>
