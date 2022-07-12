@@ -17,7 +17,7 @@
 	<div class="card-body" style="background-color:#FFFFFF">
 		<form action="{{route('advertisement.store')}}" method="post">
 			@csrf
-			<input type="text" name="hr_requisition_job_id" value="{{$hireRequisitionJob->id}}">
+			<input type="hidden" name="hr_requisition_job_id" value="{{$hireRequisitionJob->id}}">
 			<div class="form-group row">
 				<div class="col-2 col-lg-2">
 					<label class="form-label">Post Title </label>
