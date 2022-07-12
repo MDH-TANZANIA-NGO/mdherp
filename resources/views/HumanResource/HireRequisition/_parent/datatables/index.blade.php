@@ -12,7 +12,7 @@
                                 <ul class="demo-accordion accordionjs m-0" data-active-index="false">
                                 
                                 @foreach($hireRequisitionJobs as $job)
-                                    @include('humanResource.hireRequisition._parent.display.hr_job')
+                                    @include('HumanResource.HireRequisition._parent.display.hr_job')
                                 @endforeach
                                 </ul>
                                 <div class="pull-right mt-3">

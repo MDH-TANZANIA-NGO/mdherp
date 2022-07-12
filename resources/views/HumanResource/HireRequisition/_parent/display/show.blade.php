@@ -28,7 +28,7 @@
                         <ul class="demo-accordion accordionjs m-0" data-active-index="false">
                         <?php $total_jobs = count($hireRequisitionJobs); ?>
                         @foreach($hireRequisitionJobs as $job)
-                            @include('humanResource.hireRequisition._parent.display.hr_job')
+                            @include('HumanResource.HireRequisition._parent.display.hr_job')
                         @endforeach
                         
                         </ul>
