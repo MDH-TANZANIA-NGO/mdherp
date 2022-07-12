@@ -2,6 +2,7 @@
 
 namespace App\Models\HumanResource\Interview;
 use App\Models\BaseModel;
+use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
 use App\Models\JobOffer\JobOffer;
 use App\Models\HumanResource\HireRequisition\HrHireApplicant;
 
@@ -16,6 +17,10 @@ class InterviewReportRecommendation extends BaseModel
     public function applicant()
     {
         return $this->belongsTo(HrHireApplicant::class,'applicant_id', 'id');
+    }
+    public function jobRequisition()
+    {
+        return $this->belongsTo(HireRequisitionJob::class,'hr_requisition_job_id', 'id');
     }
   
 }
