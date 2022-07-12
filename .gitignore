@@ -9,6 +9,8 @@
 .phpunit.result.cache
 .idea/*
 .idea
+.phpintel
+.vscode
 Homestead.json
 Homestead.yaml
 npm-debug.log

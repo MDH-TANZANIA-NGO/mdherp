@@ -1,6 +1,13 @@
+@extends('layouts.app')
+@section('content')
+<div class="row mb-2">
+    <div class="col-lg-12">
+        @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
+    </div>
+</div>
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">PANELIST LIST</h3>
+        <h3 class="card-title">INTERVIEW REPORT</h3>
     </div>
     <div class="card-body">
         <div class="row mt-3">
@@ -15,22 +22,16 @@
                     </thead>
                     <tbody>
                         <?php $total_questions = 0; ?>
-                        @foreach($panelists as $key=>$panelist)
-                        <tr>
-                            <td> {{($key+1) }}</td>
-                            <td> {{ $panelist->full_name }} </td>                           
-                            <td>
-                                @if(!Session::has('msg')) <input type="radio" name="technical_staff" value="{{$panelist->id}}"> @endif
-                            </td>
-                        </tr>
-                        <?php $total_questions = ($key + 1); ?>
-                        @endforeach
+                      
                     </tbody>
                 </table>
-                <input type="hidden" name="total_questions" value="{{ $total_questions }}">
-                <input type="hidden" name="applicant_id" id="applicant_id" value="" required />
-                <input type="hidden" name="interview_id" id="interview_id" value="" required />
+                @each('HumanResource.Interview.report.interveiw_list', $interviews, 'interview')
+                @include('HumanResource.Interview.report.panelist_list')
+                @include('HumanResource.Interview.report.recommendation_list')
+                @include('HumanResource.Interview.report.comments')
+
             </div>
         </div>
     </div>
 </div>
+@endsection

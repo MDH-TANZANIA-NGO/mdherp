@@ -11,10 +11,12 @@
                     <label class="form-label">Question </label>
 
                 </div>
-                <div class="col-md-8 col-sm-8 col-lg-8 col-xl-8">
-                    <textarea type="text" name="question" class="form-control" placeholder="enter interview question here ..."></textarea>
+                <div class="col-md-5 col-sm-5 col-lg-5 col-xl-5">
+                    <textarea type="text" name="question" class="form-control" placeholder="enter interview question here ..." required></textarea>
                 </div>
-
+                <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <input type="number" name="marks" class="form-control" placeholder="enter marks ..." required>
+                </div>
                 <div class="col-md-2 col-sm-2 col-lg-2 col-xl-2">
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
@@ -26,20 +28,32 @@
                             <tr>
                                 <th> Qno</th>
                                 <th>Question</th>
+                                <th>Marks</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach($questions as $key=>$question)
+                            
                             <tr>
                                 <td> {{($key+1) }}</td>
                                 <td> {{ $question->question }} </td>
+                                <td> {{ $question->marks }} </td>
                                 <td>
                                     <a data-id="{{ $question->id }}" data-content="{{$question->question}}" data-toggle="modal" data-target="#edit" href="">Edit</a> |
                                     <a href="{{ route('interview.question.destroy',$question->uuid) }}">Delete </a>
                                 </td>
                             </tr>
+                           
                             @endforeach
+                            <tr>
+                                <td> Total </td>
+                                <td>   </td>
+                                <td>  {{ $questions->sum('marks') }} </td>
+                                <td> </td>
+                               
+                            </tr>
                         </tbody>
                     </table>
                 </div>

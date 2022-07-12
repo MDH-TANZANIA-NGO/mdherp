@@ -104,7 +104,7 @@ class HireRequisitionJobRepository extends BaseRepository
             'end_age' =>  $inputs['end_age'],
             'special_employment_condition' => $inputs['special_employment_condition'],
             'duties_and_responsibilities' => $inputs['duties_and_responsibilities'],
-            'experience_years' =>$inputs['contract_type'],
+            'experience_years' =>$inputs['experience_years'],
             'date_required' =>$inputs['date_required'],
             'empoyees_required' => $inputs['empoyees_required'],
             'establishment' => $inputs['establishment'],
@@ -238,12 +238,47 @@ class HireRequisitionJobRepository extends BaseRepository
         });
     }
 
+    /** 
+     * 
+     * List of Jobs which does not have shortlisters
+     * @return mixed
+    */
     public function getJobApplicationsWhichDoesNotHaveShortlisterReport()
     {
         return $this->getQuery()
         ->whereDoesntHave('shortlisted');
     }
-    
 
+    /**
+     * List of jobs which has shortlisted applicants and does not have a request to be approved
+     * @return mixed
+     */
+    public function getJobApplicationWhichHaveShortlistedApplicants()
+    {
+        return $this->getQuery()->select([
+            DB::raw('hr_hire_requisitions_jobs.id AS id' ),
+            DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
+            DB::raw('hr_hire_requisitions_jobs.uuid AS uuid' ),
+            DB::raw('departments.title AS department'),
+            DB::raw('hr_hire_requisitions_jobs.empoyees_required AS empoyees_required'),
+            DB::raw('code_values.name AS contract_type'),
+            DB::raw('hr_hire_requisitions_jobs.education_and_qualification AS education_and_qualification'),
+            DB::raw('hr_hire_requisitions_jobs.created_at AS created_at'),
+            DB::raw("COUNT(hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id) AS total_applicants")
+        ])
+        ->leftjoin('hr_hire_requisition_job_applicants','hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id','hr_hire_requisitions_jobs.id')
+        ->whereHas('shortlists', function($query){
+            $query->whereDoesntHave('request');
+        })
+        ->groupBy(
+            'hr_hire_requisitions_jobs.id',
+            'units.title', 
+            'designations.name',
+            'departments.title',
+            'hr_hire_requisitions_jobs.empoyees_required',
+            'code_values.name',
+            'hr_hire_requisitions_jobs.education_and_qualification',
+        );
+    }
 
 }

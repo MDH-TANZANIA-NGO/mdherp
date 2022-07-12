@@ -18,16 +18,17 @@ class InterviewConfirmController extends Controller
     }
     public function index($applicant_id, $interview_id){
 
-    $interview_details = $this->interview_applicant->getInterviewScheduleApplicantDetails($applicant_id, $interview_id)->first();
-//dd($interview_details);
+        $interview_details = InterviewApplicant::query()->where('applicant_id', $applicant_id)->where('interview_id', $interview_id)->first();
+//    $interview_details = $this->interview_applicant->getInterviewScheduleApplicantDetails($applicant_id, $interview_id)->first();
+//dd($our_query);
         return view('HumanResource.StaffHiring.interviewconfirm')
             ->with('interview_details', $interview_details);
         }
 
-        public function update($applicant_id, $interview_id)
+        public function update($interview_applicant_id)
         {
-            $interview_details = $this->interview_applicant->getInterviewScheduleApplicantDetails($applicant_id, $interview_id)->first();
-            InterviewApplicant::query()->where('id', $interview_details->id)->update(['confirm'=>1]);
+
+            $this->interview_applicant->find($interview_applicant_id)->update(['confirm'=>1]);
             return redirect()->back();
         }
 }

@@ -94,6 +94,7 @@
                 <li><a class="slide-item"  href="{{ route('employee.index') }}"><span>Employees</span></a></li>
                 <li><a class="slide-item"  href="{{ route('designation.create') }}"><span>Add Designation</span></a></li>
                 <li><a class="slide-item"  href="{{ route('job_management.index') }}"><span>Jobs Management</span></a></li>
+                <li><a class="slide-item"  href="{{ route('induction_schedule.index') }}"><span>Induction Schedules</span></a></li>
             </ul>
         </li>
         @endpermission

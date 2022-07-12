@@ -1,10 +1,12 @@
 @extends('layouts.app')
 @section('content')
         @csrf
-        @include('HumanResource.interview.header')
+        @include('HumanResource.interview.header.main')
         @include('HumanResource.interview.panelist.show')
-        @include('HumanResource.interview.applicant.selected_for_invitation')  
+        @include('HumanResource.interview.question.show')
+        @include('HumanResource.interview.applicant.invited')  
         @if(count($interviewApplicants))
             @include('HumanResource.interview.applicant.shortlisted')   
         @endif
+        @include('HumanResource.interview.applicant.confirmed')   
 @endsection

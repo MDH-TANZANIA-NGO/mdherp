@@ -19,7 +19,15 @@
  <div class="row">
      <div class="card">
          <div class="card-header">
-             <h3 class="card-title">INTERVIEW TYPE : {{ $interview->interviewType->name }} </h3>
+            <div class="tags">
+             <span class="tag tag-rounded" style="font-size: 14px"><b>INTERVIEW TYPE :</b> {{ $interview->interviewType->name }}</span>    
+             <span class="tag tag-rounded" style="font-size: 14px"><b>INTERVIEW DATE :</b>
+                     @foreach( $interview->InterviewSchedules as $interview)
+                            {{ date('d-m-Y',strtotime($interview->interview_date))   }}, 
+                    @endforeach   
+            </span>
+             <span class="tag tag-rounded" style="font-size: 14px"><b>INTERVIEW NUMBER :</b> {{ $interview->number }}</span>  
+            </div>
          </div>
          <div class="card-body">
             <table class="table table-bordered table-striped">
@@ -28,15 +36,15 @@
                      <!-- <th> Number </th> -->
                      <th> Applicant </th>
                      <th> Marks </th>
-                     <th> Action </th>
+                     <th> Rank </th>
                  </thead>
                  <tbody>
                     @foreach($interview_reports  as $key=>$interview_report)
                      <tr>
                          <td>{{ $key + 1 }}</td>
                          <td>{{ $interview_report->full_name}}</td>
-                         <td>{{ $interview_report->marks }}</td>
-                         <td></td>
+                         <td>{{ number_format($interview_report->marks,2) }}</td>
+                         <td>{{ $key + 1 }}</td>
                          <!-- <td></td> -->
                      </tr>
                      @endforeach

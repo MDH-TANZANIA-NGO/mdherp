@@ -129,12 +129,25 @@ trait Number
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
                 $number = "MDH_JSR-" . $year . '-' . $value;
-
             case 'job_offers':
                 $reference = "MDH-JOB-OFFER";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
                 $number = "MDH-JOB-OFFER-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            case 'hr_interview_workflow_reports':
+                $reference = "MDH-INT-REP";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-INT-REP-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            case 'hr_interviews':
+                $reference = "MDH-INT-NUM";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-INT-NUM-" . $year . '-' . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             default:

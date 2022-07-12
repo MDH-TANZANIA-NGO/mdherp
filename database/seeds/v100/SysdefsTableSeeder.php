@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Database\Seeder;
 use Database\TruncateTable;
 use Database\DisableForeignKeys;
@@ -186,6 +187,30 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
-        
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH-INT-REP'],
+            [
+                'name' => 'hr_interview_workflow_reports',
+                'display_name' => 'Interview Report Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH-INT-REP',
+                'sysdef_group_id' => 1,
+            ]
+        );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH-INT-NUM'],
+            [
+                'name' => 'hr_interviews',
+                'display_name' => 'Interview Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH-INT-NUM',
+                'sysdef_group_id' => 1,
+            ]
+        );
+
     }
 }

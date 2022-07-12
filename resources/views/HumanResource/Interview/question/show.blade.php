@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">PANELIST LIST</h3>
+        <h3 class="card-title">INTERVIEW QUESTIONS</h3>
     </div>
     <div class="card-body">
         <div class="row mt-3">
@@ -9,28 +9,20 @@
                     <thead>
                         <tr>
                             <th> #</th>
-                            <th> Name </th>
-                            <th> TECHNICAL STAFF</th>
+                            <th> Question </th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $total_questions = 0; ?>
-                        @foreach($panelists as $key=>$panelist)
+                        @foreach($questions as $key=>$question)
                         <tr>
                             <td> {{($key+1) }}</td>
-                            <td> {{ $panelist->full_name }} </td>
-                            
-                            <td>
-                                @if(!Session::has('msg')) <input type="radio" name="technical_staff" value="{{$panelist->id}}"> @endif
-                            </td>
+                            <td> {{ $question->question }} </td>
                         </tr>
                         <?php $total_questions = ($key + 1); ?>
                         @endforeach
                     </tbody>
                 </table>
-                <input type="hidden" name="total_questions" value="{{ $total_questions }}">
-                <input type="hidden" name="applicant_id" id="applicant_id" value="" required />
-                <input type="hidden" name="interview_id" id="interview_id" value="" required />
             </div>
         </div>
     </div>

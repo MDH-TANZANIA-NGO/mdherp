@@ -9,7 +9,7 @@
                 <div class="row mt-5 profie-img">
                     <div class="col-md-12">
                         <div class="media-heading">
-                            <h5><strong>Hi! {{$interview_details->full_name}}</strong></h5>
+                            <h5><strong>Hi! {{$interview_details->applicant->full_name}}</strong></h5>
                         </div>
                         <p>You have been shortlisted for an interview</p>
                         <p>Kindly confirm your availability by pressing a button bellow</p>
@@ -19,13 +19,13 @@
                     <table class="table row table-borderless w-100 m-0 ">
                         <tbody class="col-lg-6 p-0">
                         <tr>
-                            <td><strong>Full Name:</strong> {{$interview_details->full_name}} </td>
+                            <td><strong>Full Name:</strong> {{$interview_details->applicant->full_name}}</td>
                         </tr>
                         <tr>
                             <td><strong>Interview Position:</strong> {{$interview_details->interviews->jobRequisition->designation->full_title}}</td>
                         </tr>
                         <tr>
-                            <td><strong>Interview Date and Time:</strong> {{$interview_details->interview_date}} </td>
+                            <td><strong>Interview Date and Time:</strong> {{$interview_details->schedules->interview_date}} </td>
                         </tr>
                         </tbody>
                         <tbody class="col-lg-6 p-0">
@@ -33,10 +33,10 @@
                             <td><strong>Interview Type:</strong> {{$interview_details->interviews->interviewType->name}}</td>
                         </tr>
                         <tr>
-                            <td><strong>Take place at:</strong> xxxx</td>
+                            <td><strong>Take place at:</strong> {{$interview_details->schedules->district->name}}</td>
                         </tr>
                         <tr>
-                            <td><strong>What to Bring:</strong> xxxx </td>
+                            <td><strong>What to Bring:</strong> {{$interview_details->schedules->description}} </td>
                         </tr>
                         </tbody>
                     </table>
@@ -44,9 +44,9 @@
                 <br>
                 <div class="">
                     <div class="btn-list text-center">
-                        <a href="{{route('interviewconfirm.update', [$interview_details->id,$interview_details->interview_id])}}" class="btn btn-primary">Comfirm</a>
+                        <a href="{{route('interviewconfirm.update', $interview_details->id)}}" class="btn btn-primary">Comfirm</a>
 {{--                        <a href="#" class="btn btn-secondary">Save and continue</a>--}}
-                        <a href="#" class="btn btn-danger">Cancel</a>
+{{--                        <a href="#" class="btn btn-danger">Cancel</a>--}}
                     </div>
                 </div>
 
