@@ -185,7 +185,7 @@ class HireRequisitionController extends Controller
             $this->hireRequisitionWorkingToolRepository->store($workingtools);
             alert()->success('Hire Requisition Created Successfully', 'success');
             DB::commit();
-            return redirect()->route('hireRequisition.initiate', $hireRequisition->uuid);
+            return redirect()->route('hirerequisition.initiate', $hireRequisition->uuid);
         } catch (\Exception $e) {
             DB::rollback();
             throw new GeneralException($e->getMessage());
@@ -219,7 +219,7 @@ class HireRequisitionController extends Controller
                 $this->hireUserSkillsRepository->store($data);
                 alert()->success('Hire Requisition Created Successfully', 'success');
                 DB::commit();
-                return redirect()->route('hireRequisition.initiate', $uuid);
+                return redirect()->route('hirerequisition.initiate', $uuid);
             } catch (\Exception $e) {
                 DB::rollback();
                 throw new \Exception($e->getMessage());
@@ -246,7 +246,7 @@ class HireRequisitionController extends Controller
             // event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $hireRequisition->id, 'region_id' => $hireRequisition->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
             alert()->success('Hire Requisition Created Successfully', 'success');
             DB::commit();
-            return redirect()->route('hireRequisition.show', $uuid);
+            return redirect()->route('hirerequisition.show', $uuid);
         } catch (\Exception $e) {
             DB::rollback();
             throw new \Exception($e->getMessage());
@@ -369,7 +369,7 @@ class HireRequisitionController extends Controller
             $this->hireUserSkillsRepository->update($data);
             alert()->success('Hire Requisition Updated Successfully');
             DB::commit();
-            return redirect()->route('hireRequisition.initiate', $hire_requisition_uuid);
+            return redirect()->route('hirerequisition.initiate', $hire_requisition_uuid);
         } catch (\Exception $e) {
             DB::rollback();
             throw new \Exception($e->getMessage());
