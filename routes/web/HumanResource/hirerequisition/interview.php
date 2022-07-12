@@ -1,5 +1,5 @@
 <?php
-Route::group(['namespace' => 'humanResource\Interview', 'middleware' => ['web', 'auth'], 'prefix' => 'interview', 'as' => 'interview.'], function () {
+Route::group(['namespace' => 'HumanResource\Interview', 'middleware' => ['web', 'auth'], 'prefix' => 'interview', 'as' => 'interview.'], function () {
 
   Route::get('', 'InterviewController@index')->name('index');
   Route::get('create', 'InterviewController@create')->name('create');
