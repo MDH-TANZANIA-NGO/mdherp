@@ -67,7 +67,7 @@ class InterviewQuestionController extends Controller
                     ->query()
                     ->where('interview_id',$interview->id)
                     ->get();
-        return view('humanResource.Interview.question')
+        return view('HumanResource.Interview.question')
                 ->with('questions',$questions)
                 ->with('interview',$interview);
     }
@@ -86,7 +86,7 @@ class InterviewQuestionController extends Controller
                     ->query()
                     ->where('interview_id',$interview->id)
                     ->get();
-        return view('humanResource.Interview.question_marks')
+        return view('HumanResource.Interview.question_marks')
                 ->with('questions',$questions)
                 ->with('interview',$interview);
     }

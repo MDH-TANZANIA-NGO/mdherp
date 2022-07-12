@@ -41,7 +41,7 @@ class HireRequisitionReplacedStaffController extends Controller
      */
     public function index()
     {
-        return view('humanResource/hireRequisition._parent.index');
+        return view('HumanResource/HireRequisition._parent.index');
     }
 
     /**
@@ -53,7 +53,7 @@ class HireRequisitionReplacedStaffController extends Controller
     {
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
-        return view('humanResource.hireRequisition._parent.form.create')
+        return view('HumanResource.HireRequisition._parent.form.create')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('conditions', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())
@@ -76,7 +76,7 @@ class HireRequisitionReplacedStaffController extends Controller
         $next_user = $listing->user->assignedSupervisor()->supervisor_id;
         event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $listing->id,'region_id' => $listing->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
         alert()->success('Hire Requisition Created Successfully','success');
-        return redirect()->route('hirerequisition.index');
+        return redirect()->route('HireRequisition.index');
     }
 
     /**
@@ -97,7 +97,7 @@ class HireRequisitionReplacedStaffController extends Controller
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($listing, $current_level, $workflow->wf_definition_id);
 
-        return view('hirerequisition._parent.display.show')
+        return view('HireRequisition._parent.display.show')
             ->with('listing', $listing)
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)

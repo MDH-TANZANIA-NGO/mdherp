@@ -74,12 +74,12 @@ class HireRequisitionController extends Controller
      */
     public function index()
     {
-        return view('humanResource/hireRequisition._parent.index');
+        return view('humanResource/HireRequisition._parent.index');
     }
     public function list()
     {
         // return $this->hireRequisitionRepository->getAccessProcessingDatatable()->get()->count();
-        return view('humanResource/hireRequisition._parent.hirerequisition');
+        return view('humanResource/HireRequisition._parent.hirerequisition');
     }
 
     /**
@@ -93,7 +93,7 @@ class HireRequisitionController extends Controller
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
-        return view('humanResource.hireRequisition._parent.form.create')
+        return view('HumanResource.HireRequisition._parent.form.create')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())
@@ -138,7 +138,7 @@ class HireRequisitionController extends Controller
             });
 
 
-            return view('humanResource.hireRequisition._parent.form.create')
+            return view('HumanResource.HireRequisition._parent.form.create')
                 ->with('prospects', code_value()->query()->where('code_id', 7)->get())
                 ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
                 ->with('establishments', code_value()->query()->where('code_id', 9)->get())
@@ -185,7 +185,7 @@ class HireRequisitionController extends Controller
             $this->hireRequisitionWorkingToolRepository->store($workingtools);
             alert()->success('Hire Requisition Created Successfully', 'success');
             DB::commit();
-            return redirect()->route('hirerequisition.initiate', $hireRequisition->uuid);
+            return redirect()->route('HireRequisition.initiate', $hireRequisition->uuid);
         } catch (\Exception $e) {
             DB::rollback();
             throw new GeneralException($e->getMessage());
@@ -219,7 +219,7 @@ class HireRequisitionController extends Controller
                 $this->hireUserSkillsRepository->store($data);
                 alert()->success('Hire Requisition Created Successfully', 'success');
                 DB::commit();
-                return redirect()->route('hirerequisition.initiate', $uuid);
+                return redirect()->route('HireRequisition.initiate', $uuid);
             } catch (\Exception $e) {
                 DB::rollback();
                 throw new \Exception($e->getMessage());
@@ -246,7 +246,7 @@ class HireRequisitionController extends Controller
             // event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $hireRequisition->id, 'region_id' => $hireRequisition->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
             alert()->success('Hire Requisition Created Successfully', 'success');
             DB::commit();
-            return redirect()->route('hirerequisition.show', $uuid);
+            return redirect()->route('HireRequisition.show', $uuid);
         } catch (\Exception $e) {
             DB::rollback();
             throw new \Exception($e->getMessage());
@@ -294,7 +294,7 @@ class HireRequisitionController extends Controller
             return $item;
         });
 
-        return view('humanResource.hireRequisition._parent.display.show')
+        return view('HumanResource.HireRequisition._parent.display.show')
             ->with('hireRequisition', $hireRequisition)
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
@@ -325,7 +325,7 @@ class HireRequisitionController extends Controller
         $skill_users  = SkillUser::where('hr_requisition_job_id', $hireRequisitionJobs->id)->pluck('skill_id')->toArray();;
         $skills  = Skill::all();
         $users = User::where('designation_id', '!=', null)->get();
-        return view('humanResource.hireRequisition._parent.form.edit')
+        return view('HumanResource.HireRequisition._parent.form.edit')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('_prospects', code_value()->query()->where('code_id', 7)->get()->pluck('name', 'id'))
             ->with('conditions', code_value()->query()->where('code_id', 8)->get()->pluck('name', 'id'))
@@ -369,7 +369,7 @@ class HireRequisitionController extends Controller
             $this->hireUserSkillsRepository->update($data);
             alert()->success('Hire Requisition Updated Successfully');
             DB::commit();
-            return redirect()->route('hirerequisition.initiate', $hire_requisition_uuid);
+            return redirect()->route('HireRequisition.initiate', $hire_requisition_uuid);
         } catch (\Exception $e) {
             DB::rollback();
             throw new \Exception($e->getMessage());
@@ -399,13 +399,13 @@ class HireRequisitionController extends Controller
     public function getVacancies()
     {
         $hireRequisitions = HireRequisition::where('is_active', true)->get();
-        return view('hireRequisition.vacancy.index')
+        return view('HireRequisition.vacancy.index')
             ->with('hireRequisitions', $hireRequisitions);
     }
 
     public function getVacancy(HireRequisition $hireRequisition)
     {
-        return view('hireRequisition.vacancy.show')
+        return view('HireRequisition.vacancy.show')
             ->with('hireRequisition', $hireRequisition);
     }
 

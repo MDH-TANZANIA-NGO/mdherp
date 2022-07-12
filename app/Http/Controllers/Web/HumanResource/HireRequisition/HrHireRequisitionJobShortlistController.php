@@ -28,7 +28,7 @@ class HrHireRequisitionJobShortlistController extends Controller
     {
         $this->hr_hire_requisition_job_shortlists->shortlist($hire_requisition_job, $input);
         alert()->success('Shortlist Has been done Successfully');
-        return view('humanResource.hireRequisition.shortlist.show');
+        return view('HumanResource.HireRequisition.shortlist.show');
     }
 
     /**
@@ -42,7 +42,7 @@ class HrHireRequisitionJobShortlistController extends Controller
         $next_user_id = (new UserRepository())->getDirectorOfHR()->first()->user_id;
         $this->startWorkflow($hr_hire_requisition_job_shortlist, 1, $next_user_id);
         alert()->success('Shortlist submited to workflow Successfully');
-        return view('humanResource.hireRequisition.shortlist.show');
+        return view('HumanResource.HireRequisition.shortlist.show');
     }
 
 }
