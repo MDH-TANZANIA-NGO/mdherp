@@ -58,13 +58,13 @@ class InterviewController extends Controller
 
     public function index()
     {
-        return view('humanResource.Interview.index');
+        return view('HumanResource.Interview.index');
     }
     public function list()
     {
         // return $this->interviewRepository->getAccessSavedDatatable()->get()->count();
         // dd($this->interviewRepository->getAccessWaitForReportDatatable()->get());
-        return view('humanResource.Interview.list')
+        return view('HumanResource.Interview.list')
             ->with('processing_count', 0)
             ->with('return_for_modification_count', 0)
             ->with('approved_count', 0)
@@ -77,7 +77,7 @@ class InterviewController extends Controller
     {
         $designations = $this->designationRepository->getActiveAdvertisedForSelect();
         $interview_types = InterviewTypes::get()->pluck('name', 'id');
-        return view('humanResource.Interview.create')
+        return view('HumanResource.Interview.create')
             ->with('designations', $designations)
             ->with('interview_types', $interview_types);
     }
@@ -150,7 +150,7 @@ class InterviewController extends Controller
         $job_title = $this->designationRepository->getQueryDesignationUnit()
             ->where('designations.id', $hrHireRequisitionJob->designation_id)
             ->first();
-        return view('humanResource.Interview.panelist.create')
+        return view('HumanResource.Interview.panelist.create')
             ->with('interview', $interview)
             ->with('job_title', $job_title)
             ->with('interview_type', $interview_type)
@@ -325,7 +325,7 @@ class InterviewController extends Controller
     public function showPanelistJobs()
     {
 
-        return view('humanResource.Interview.job.applications');
+        return view('HumanResource.Interview.job.applications');
     }
 
     public function submitForReport(Request $request)
@@ -347,7 +347,7 @@ class InterviewController extends Controller
 
     public function interviewResult()
     {
-        return view('humanResource.Interview.result.index');
+        return view('HumanResource.Interview.result.index');
     }
 
     public function showResult(Interview $interview)
