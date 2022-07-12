@@ -2,9 +2,9 @@
 @section('content')
 <form action="{{ route('interview.notifyapplicant') }} " method="post">
     @csrf
-    @include('HumanResource.interview.header.main')
-    @include('HumanResource.interview.panelist.show')
-    @include('HumanResource.interview.applicant.invited')
+    @include('HumanResource.Interview.header.main')
+    @include('HumanResource.Interview.panelist.show')
+    @include('HumanResource.Interview.applicant.invited')
 </form>
 @if(count($interviewApplicants))
 <form action="{{ route('interview.addapplicant') }} " method="post">
@@ -32,7 +32,7 @@
             <input type="submit" id="add_applicant" class="btn btn-primary btn-inline-block" name="submit" value="Add Applicant To Interview">
         </div>
     </div>
-    @include('HumanResource.interview.applicant.shortlisted')
+    @include('HumanResource.Interview.applicant.shortlisted')
     @endif
 </form>
 @endsection

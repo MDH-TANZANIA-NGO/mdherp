@@ -23,7 +23,7 @@
                             <h3> Interview Date : {{ $_schedule->interview_date }} | Total Candidate : ({{ $total_scheduled_applicants  }}) </h3>
                         </div>
                         <div class="acc_content" style="display: none;">
-                            @include('HumanResource.interview.datatables.confirmed')
+                            @include('HumanResource.Interview.datatables.confirmed')
                         </div>
                     </li>
                 @endforeach

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@include('HumanResource.interview.header.main')
+@include('HumanResource.Interview.header.main')
 <form action="{{ route('interview.addpanelist') }} " method="post">
     @csrf
     <div class="row">
