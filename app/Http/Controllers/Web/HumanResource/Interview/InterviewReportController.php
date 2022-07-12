@@ -44,7 +44,7 @@ class InterviewReportController extends Controller
     }
     public function index()
     {
-        return view('humanResource.Interview.report.index')
+        return view('HumanResource.Interview.report.index')
             ->with('processing_count', $this->interviewReportRepository->getAccessProcessingDatatable()->get()->count())
             ->with('denied_count', $this->interviewReportRepository->getAccessDeniedDatatable()->get()->count())
             ->with('rejected_count', $this->interviewReportRepository->getAccessRejectedDatatable()->get()->count())
@@ -131,7 +131,7 @@ class InterviewReportController extends Controller
     public function create(Request $request)
     {
         $designations = $this->designationRepository->getActiveAdvertisedForSelect();
-        return view('humanResource.Interview.report.create')
+        return view('HumanResource.Interview.report.create')
             ->with('designations', $designations);
     }
     public function submit(Request $request)
