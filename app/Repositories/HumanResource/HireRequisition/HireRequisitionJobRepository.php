@@ -238,12 +238,19 @@ class HireRequisitionJobRepository extends BaseRepository
         });
     }
 
+    /** 
+     * 
+     * Lists of Job which does not have shortlisters
+    */
     public function getJobApplicationsWhichDoesNotHaveShortlisterReport()
     {
         return $this->getQuery()
         ->whereDoesntHave('shortlisted');
     }
-    
 
+    public function getJobApplicationWhichHaveShortlistedApplicants()
+    {
+        return $this->getQuery()->get();
+    }
 
 }

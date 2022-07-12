@@ -25,6 +25,7 @@ class HireRequisitionJobController extends Controller
      */
     public function applications()
     {
+        dd($this->hire_requisition_jobs->getJobApplicationWhichHaveShortlistedApplicants());
         return view('humanResource.hireRequisition.job.applications');
     }
 
