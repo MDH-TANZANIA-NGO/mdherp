@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Api\Recruitment\Advertisement;
-
 use App\Http\Controllers\Api\BaseController;
 use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Repositories\HumanResource\Advertisement\AdvertisementRepository;
@@ -34,7 +32,6 @@ class AdvertisementController extends BaseController
         });
         $response['advertisements'] = $data;
         return $this->sendResponse($response,"Advertisement",200);
-
     }
 
     public function getJobs()
@@ -77,7 +74,6 @@ class AdvertisementController extends BaseController
     {
         $response['advertisement'] =  $advertisement;
         return $this->sendResponse($response,"Advertisement",200);
-
     }
 
     /**
