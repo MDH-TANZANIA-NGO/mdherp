@@ -175,6 +175,7 @@ class InterviewReportController extends Controller
                 'hr_hire_applicants.email'
             ])
             ->where('hr_interview_report_recommendations.hr_requisition_job_id', $hireRequisitionJob->id)
+            ->where('hr_interview_report_recommendations.interview_report_id', $interviewReport->id)
             ->get();
         $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();
         // return $panelists;
