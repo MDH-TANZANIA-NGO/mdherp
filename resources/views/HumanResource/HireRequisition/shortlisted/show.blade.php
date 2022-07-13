@@ -45,13 +45,11 @@
                         <th class="wd-15p">LAST NAME</th>
                         <th class="wd-15p">EMAIL</th>
                         <th class="wd-15p">MOBILE NUMBER</th>
-                        <th class="wd-15p">STATUS</th>
                         <th class="wd-15p">SHORTLISTED BY</th>
-                        <th class="wd-25p">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(\App\Models\HumanResource\HireRequisition\HrHireRequisitionJobApplicant::where('hr_hire_requisitions_job_id', $job->id)->first() AS $key => $hr_job)
+                    @foreach(\App\Models\HumanResource\HireRequisition\HrHireRequisitionJobApplicant::where('hr_hire_requisitions_job_id', $job->id)->get() AS $key => $hr_job)
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $hr_job->applicant->first_name }}</td>
@@ -59,13 +57,7 @@
                         <td>{{ $hr_job->applicant->last_name }}</td>
                         <td>{{ $hr_job->applicant->email }}</td>
                         <td>{{ $hr_job->applicant->phone }}</td>
-                        <td>
-                            {{ is_shortlisted($hr_job->applicant->id, $hr_job->id) ? 'Not Shortlisted' : 'Shortlisted' }}
-                        </td>
-                        <td>
-                            {{ is_shortlisted($hr_job->applicant->id, $hr_job->id) ? '' : shortlister_details($hr_job->applicant->id, $hr_job->id) }}
-                        </td>
-                        <td><a href="{{ route('hr.job.show_more',[$hr_job->uuid,$hr_job->applicant->id]) }}">View More info</td>
+                        <td>{{ $hr_job->user->fullname }}</td>
                     </tr>
                     @endforeach
                 </tbody>
