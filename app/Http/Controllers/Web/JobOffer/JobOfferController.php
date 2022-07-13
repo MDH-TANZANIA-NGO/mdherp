@@ -12,12 +12,9 @@ use App\Repositories\Access\UserRepository;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Notifications\Workflow\WorkflowNotification;
-use App\Models\HumanResource\Interview\InterviewApplicant;
 use App\Models\HumanResource\HireRequisition\HrHireApplicant;
 use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
 use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
-use App\Models\HumanResource\Interview\InterviewReportRecommendation;
-use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\HumanResource\Interview\InterviewReportRecommendationRepository;
 
 class JobOfferController extends Controller
@@ -98,7 +95,7 @@ class JobOfferController extends Controller
 
         $designation = access()->user()->designation_id;
 
-        return view('HumanResource.jobOffer.display.show')
+        return view('HumanResource.JobOffer.display.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
