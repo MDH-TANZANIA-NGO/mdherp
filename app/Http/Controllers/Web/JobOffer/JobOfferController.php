@@ -29,7 +29,6 @@ class JobOfferController extends Controller
    public function __construct()
    {
        $this->job_offers =  (new JobOfferRepository());
-    //    $this->interview_applicants = (new InterviewApplicantRepository());
        $this->interview_applicants = (new InterviewReportRecommendationRepository());
        $this->wf_tracks = (new WfTrackRepository());
        $this->users = (new UserRepository());
@@ -37,7 +36,6 @@ class JobOfferController extends Controller
    }
     public function index()
     {
-        //
         return view('HumanResource.JobOffer.index')
             ->with('job_offers', $this->job_offers);
     }
@@ -60,13 +58,8 @@ class JobOfferController extends Controller
 
     public function store(Request $request)
     {
-        // return  $request;
         $job_offer =   $this->job_offers->store($request->all());
-        // return  $job_offer->interviewApplicant->hr_requisition_job_id;
         $department = HireRequisitionJob::find($job_offer->interviewApplicant->hr_requisition_job_id)->department_id;
-    //    return $department;
-        // $department = $job_offer->interviewApplicant->interviews->jobRequisition->department_id;
-
         $next_user = $this->users->getDirectorOfDepartment($department)->get();
         $next_user =  $next_user->first()->user_id;
         $wf_module_group_id = 14;

@@ -74,7 +74,6 @@ class InterviewRepository extends BaseRepository
              DB::raw("STRING_AGG(to_char(hr_interview_schedules.interview_date,'dd-mm-yyyy'),',') as interview_date"),
              DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
         ])
-        // sum(case when level = 'exec' then 1 else 0 end) AS ExecCount,
             ->leftjoin('hr_interview_schedules','hr_interview_schedules.interview_id','hr_interviews.id')
             ->join('hr_interview_types','hr_interview_types.id','hr_interviews.interview_type_id')
             ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_interviews.hr_requisition_job_id')
@@ -219,11 +218,6 @@ class InterviewRepository extends BaseRepository
         ->join('units','units.id','designations.unit_id')
         ->whereIn('hr_interview_panelists.interview_id',$interviews->pluck('id')->toArray()); 
     }
-
-
-
-
-
     /**
      * Update is done column and generate number
      * @param Requisition $requisition
@@ -244,19 +238,17 @@ class InterviewRepository extends BaseRepository
             throw new GeneralException('You can not submit twice');
         }
     }
-
-    
     public function invitedApplicants($interview)
     {
-         return InterviewApplicant::where("interview_id",$interview)->where('is_emailed',1);
+        return InterviewApplicant::where("interview_id",$interview)->where('is_emailed',1);
     }
     public function applicants($interview)
     {
-         return InterviewApplicant::where("interview_id",$interview);
+        return InterviewApplicant::where("interview_id",$interview);
     }
     public function confirmedApplicants($interview)
     {
-         return InterviewApplicant::where("interview_id",$interview)->where('confirm',1);
+        return InterviewApplicant::where("interview_id",$interview)->where('confirm',1);
     }
 
     public function submit($interview)
@@ -266,15 +258,14 @@ class InterviewRepository extends BaseRepository
             'number'=> $number
         ]);
     }
-
     public function completed(Interview $pr_report)
     {
-            $pr_report->update(['completed' => 1]);
-            $email_resource = (object)[
-                'link' =>  route('hr.pr.show',$pr_report),
-                'subject' => "Kindly Processd with workflow ".$pr_report->parent->type->title." ".$pr_report->parent->number,
-                'message' => 'Employee has Completed to fill all the required inputs'
-            ];
+        $pr_report->update(['completed' => 1]);
+        $email_resource = (object)[
+            'link' =>  route('hr.pr.show',$pr_report),
+            'subject' => "Kindly Processd with workflow ".$pr_report->parent->type->title." ".$pr_report->parent->number,
+            'message' => 'Employee has Completed to fill all the required inputs'
+        ];
             // User::query()->find($pr_report->parent->supervisor_id)->notify(new WorkflowNotification($email_resource));
     }
 }

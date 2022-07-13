@@ -111,7 +111,7 @@ class InterviewReportRepository extends BaseRepository
             ->whereHas('wfTracks')
             ->where('hr_interview_workflow_reports.wf_done', 1)
             ->where('hr_interview_workflow_reports.done', 1)
-            ->whereNULL('hr_interview_workflow_reports.rejected')
+            ->where('hr_interview_workflow_reports.rejected',0)
             ->where('users.id', access()->id());
     }
     

@@ -82,7 +82,6 @@ class InterviewReportController extends Controller
             ])
             ->where('hr_interview_report_recommendations.interview_report_id', $interviewReport->id)
             ->get();
-
         $applicants = $this->interviewApplicantRepository->getForSelect($interviews->pluck('id')->toArray());
         return view('HumanResource.Interview.report.initiate')
             ->with('job_title', $job_title)
@@ -178,7 +177,6 @@ class InterviewReportController extends Controller
             ->where('hr_interview_report_recommendations.interview_report_id', $interviewReport->id)
             ->get();
         $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();
-        // return $panelists;
         $comments = InterviewReportComment::where(['interview_report_id' => $interviewReport->id])->get();
         $applicants = $this->interviewApplicantRepository->getForSelect($interviews->pluck('id')->toArray());
         $wf_module_group_id = 12;
