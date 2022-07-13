@@ -246,6 +246,8 @@ class HireRequisitionJobRepository extends BaseRepository
     public function getJobApplicationsWhichDoesNotHaveShortlisterReport()
     {
         return $this->getQuery()
+        ->join('hr_hire_requisitions', 'hr_hire_requisitions.id','hr_hire_requisitions_jobs.hire_requisition_id')
+        ->where('hr_hire_requisitions.wf_done',true)
         ->whereDoesntHave('shortlisted');
     }
 
