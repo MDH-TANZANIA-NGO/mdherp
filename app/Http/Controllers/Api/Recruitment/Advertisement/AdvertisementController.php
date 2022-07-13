@@ -29,7 +29,7 @@ class AdvertisementController extends BaseController
                         ->where('rejected',0)
                         ->get();
         $data->map(function($item){
-            $item['skills'] = DB::table('skill_user')->where('hr_requisition_job_id',$item['hire_requisition_id'])->get();
+            $item['skills'] = DB::table('skill_user')->where('hr_requisition_job_id',$item['hire_requisition_job_id'])->get();
             $item['jobs'] = DB::table('hr_hire_requisitions_jobs')->where('id',$item['hire_requisition_job_id'])->get();
         });
         $response['advertisements'] = $data;
