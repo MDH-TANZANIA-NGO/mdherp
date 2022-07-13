@@ -1,5 +1,5 @@
 <div class="card">
-    <form id="applicant-form" action="{{ route('job_shortlister.store') }}" method="POST">
+    <form id="applicant-form" action="{{ route('job_applicant_request.store') }}" method="POST">
         @csrf
         <div class="card-header">
             <h3 class="card-title">List of Shortlisted Jobs</h3>
@@ -19,7 +19,7 @@
                         <th class="wd-15p">EDUCATION LEVEL</th>
                         <th class="wd-25p">CREATED AT</th>
                         <th class="wd-25p">ACTION</th>
-                        <th><input name="select_all" value="1" id="select-all" type="checkbox" /></th>
+                        <th><input name="select_all" value="1" id="select-all-shortlited" type="checkbox" /></th>
                     </tr>
                 </thead>
             </table>
@@ -59,7 +59,7 @@
         });
 
         // Handle click on "Select all" control
-        $('#select-all').on('click', function() {
+        $('#select-all-shortlited').on('click', function() {
             // Check/uncheck all checkboxes in the table
             var rows = table.rows({
                 'search': 'applied'
@@ -71,7 +71,7 @@
         $('#applicants_datatable tbody').on('change', 'input[type="checkbox"]', function() {
             // If checkbox is not checked
             if (!this.checked) {
-                var el = $('#select-all').get(0);
+                var el = $('#select-all-shortlited').get(0);
                 // If "Select all" control is checked and has 'indeterminate' property
                 if (el && el.checked && ('indeterminate' in el)) {
                     // Set visual state of "Select all" control 
