@@ -267,9 +267,8 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw("COUNT(hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id) AS total_applicants")
         ])
         ->leftjoin('hr_hire_requisition_job_applicants','hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id','hr_hire_requisitions_jobs.id')
-        ->whereHas('shortlists', function($query){
-            $query->whereDoesntHave('request');
-        })
+        ->whereHas('shortlists')
+        ->whereNull('hr_hire_requisition_job_applicants.hr_hire_requisition_job_applicant_request_id')
         ->groupBy(
             'hr_hire_requisitions_jobs.id',
             'units.title', 
