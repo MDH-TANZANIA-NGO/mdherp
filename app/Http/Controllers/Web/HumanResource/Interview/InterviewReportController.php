@@ -72,8 +72,7 @@ class InterviewReportController extends Controller
         $hireRequisitionJob = $this->hireRequisitionJobRepository->find($hr_requisition_job_id);
         $interview_id = InterviewReport::where('interview_report_id', $interviewReport->id)->pluck('interview_id')->toArray();
         $interviews = $this->interviewRepository->query()->whereIn('id', $interview_id)->orderBy('id', 'DESC')->get();
-        $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();
-        
+        $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();       
         $job_title = $this->designationRepository->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first();
         $recommended_applicants = InterviewReportRecommendation::join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_report_recommendations.applicant_id')
             ->select([

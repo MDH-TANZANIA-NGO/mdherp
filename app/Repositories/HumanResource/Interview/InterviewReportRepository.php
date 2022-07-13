@@ -76,7 +76,7 @@ class InterviewReportRepository extends BaseRepository
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('hr_interview_workflow_reports.wf_done', 0)
-            ->where('hr_interview_workflo_reports.done', true)
+            ->where('hr_interview_workflow_reports.done', true)
             ->whereNull('hr_interview_workflow_reports.rejected')
             ->where('users.id', access()->id());
     }
@@ -157,7 +157,8 @@ class InterviewReportRepository extends BaseRepository
     {
         $number = $this->generateNumber($interviewReport);
         $interviewReport->update([
-            'number'=> $number
+            'number'=> $number,
+            'done'=> 1
         ]);
     }
 
