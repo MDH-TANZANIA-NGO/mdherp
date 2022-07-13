@@ -31,7 +31,10 @@ class HrHireRequisitionJobApplicantRequestController extends Controller
      */
     public function index()
     {
-        return view('HumanResource.HireRequisition.shortlisted.index');
+        return view('HumanResource.HireRequisition.shortlisted.index')
+            ->with('processing_count', $this->hr_hire_job_app_requests->getProcessing()->count())
+            ->with('return_for_modification_count', $this->hr_hire_job_app_requests->getReturnedForModification()->count())
+            ->with('approved_count', $this->hr_hire_job_app_requests->getApproved()->count());
     }
 
     /**
@@ -76,9 +79,6 @@ class HrHireRequisitionJobApplicantRequestController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($hr_hire_job_app_request, $current_level, $workflow->wf_definition_id);
         return view('HumanResource.HireRequisition.shortlisted.show')
             ->with('hr_hire_job_app_request', $hr_hire_job_app_request)
-            ->with('processing_count', $this->hr_hire_job_app_requests->getProcessing()->count())
-            ->with('return_for_modification_count',$this->hr_hire_job_app_requests->getReturnedForModification()->count())
-            ->with('approved_count', $this->hr_hire_job_app_requests->getApproved()->count())
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
@@ -119,5 +119,4 @@ class HrHireRequisitionJobApplicantRequestController extends Controller
     {
         //
     }
-
 }
