@@ -56,7 +56,7 @@
 
 								<div class="col-6 col-lg-6">
 									<label class="form-label">Job Title</label>
-									{!! Form::select('job_title',$designations,null,['class' => 'form-control select2-show-search', 'id' => 'select-department', 'placeholder' => 'select job title','required'=>'true']) !!}
+									{!! Form::select('job_title',$designations,null,['class' => 'form-control select2-show-search', 'id' => 'job_title', 'placeholder' => 'select job title','required'=>'true']) !!}
 								</div>
 							</div>
 							<div class="row">
@@ -97,7 +97,9 @@
 											<div class="input-group-text">
 												<i class="fa fa-calendar tx-16 lh-0 op-6"></i>
 											</div>
+
 										</div><input class="form-control" name="date_required" placeholder="MM/DD/YYYY" type="date" required>
+
 									</div>
 									@error('date_required')
 									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -411,6 +413,28 @@
 				error: function(data) {}
 			});
 		});
+
+		var $_department_id = $("[name='department_id']"); // Button that triggered the modal
+        $_department_id.change(function(e) {
+            $_deparmtment_id = $(this).val();
+			url = "{{route('hirerequisition.getDesignationByDepertment',':department_id')}}";
+			url = url.replace(':department_id', $_deparmtment_id);
+            var $_data = {
+                department_id: $(this).val(),
+            };
+            $.ajax({
+                url: url,
+                type: "get",
+                dataType: 'json',
+                success: function(data) {
+                    var option = "";
+					$.each(data, function(key, value) {
+						option += "<option value='"+value.id+"'>" + value.name+ "</option>";
+					});
+					$("#job_title").html(option);
+                }
+            });
+        });
 	</script>
 	<style>
 		.breadcrumb1 {

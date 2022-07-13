@@ -1,5 +1,5 @@
 <?php
-Route::group(['namespace' => 'humanResource\Interview', 'middleware' => ['web', 'auth'], 'prefix' => 'interview', 'as' => 'interview.'], function () {
+Route::group(['namespace' => 'HumanResource\Interview', 'middleware' => ['web', 'auth'], 'prefix' => 'interview', 'as' => 'interview.'], function () {
 
   Route::get('', 'InterviewController@index')->name('index');
   Route::get('create', 'InterviewController@create')->name('create');
@@ -70,7 +70,8 @@ Route::group(['namespace' => 'humanResource\Interview', 'middleware' => ['web', 
     Route::group(['prefix' => 'access', 'as' => 'access.'], function () {
       Route::get('processing', 'InterviewController@accessShortlistedDatatable')->name('shortlisted');
       Route::get('wait_for_interview_questions', 'InterviewController@AccessWaitForQuestionsDatatable')->name('wait_for_interview_question');
-      Route::get('wait_for_interview_report', 'InterviewController@AccessWaitForReportDatatable')->name('wait_for_interview_report');     
+      Route::get('wait_for_interview_report', 'InterviewController@AccessWaitForReportDatatable')->name('wait_for_interview_report');  
+      Route::get('saved', 'InterviewController@AccessSavedDatatable')->name('saved');   
     });
     Route::group(['prefix' => 'panelist', 'as' => 'panelist.'], function () {
       Route::get('panelistJobs', 'InterviewController@AccessPanelistJobsDatatable')->name('panelistApplication');

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    <div class="align-content-center" style="background-color: rgb(238, 241, 248); height: 40px;">
-        <div class="row text-center" style="font-size: large">
-            <span class="col-12 text-center font-weight-bold" style="margin-top: 10px"><b>Hire Requisition </b></span>
+    <div class="align-content-center">
+        <div class="row" style="font-size: large">
+            <span class="col-lg-12" style="margin-top: 10px"><b>Job Advertisement Request </b></span>
         </div>
     </div>
 
@@ -25,9 +25,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <ul class="demo-accordion accordionjs m-0" data-active-index="false">
-                        Department: <span> {!! $_advertisement->description !!} </span> 
-                        </ul>
+                        {!! $_advertisement->description !!}
                     </div>
                 </div>
             </div>

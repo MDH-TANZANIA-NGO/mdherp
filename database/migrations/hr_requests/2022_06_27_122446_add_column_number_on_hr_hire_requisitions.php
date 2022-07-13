@@ -13,9 +13,9 @@ class AddColumnNumberOnHrHireRequisitions extends Migration
      */
     public function up()
     {
-        Schema::table('hr_hire_requisitions', function (Blueprint $table) {
-            $table->string('number')->nullable();
-        });
+        // Schema::table('hr_hire_requisitions', function (Blueprint $table) {
+        //     $table->string('number')->nullable();
+        // });
     }
 
     /**

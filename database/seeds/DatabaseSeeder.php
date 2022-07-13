@@ -1,12 +1,14 @@
 <?php
 
-use Database\seeds\v100\AttachmentTypeSeeder;
-use Database\seeds\v100\InterviewTypesSeeder;
-use Database\seeds\v100\LeaveTypesTableSeeder;
-use Database\seeds\v100\TransportMeansSeeder;
-use Database\seeds\v100\WorkingToolsTableSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Database\seeds\v100\SkillsTableSeeder;
+use Database\seeds\v100\AttachmentTypeSeeder;
+use Database\seeds\v100\InterviewTypesSeeder;
+use Database\seeds\v100\TransportMeansSeeder;
+use Database\seeds\v100\LeaveTypesTableSeeder;
+use Database\seeds\v100\WorkingToolsTableSeeder;
+use Database\seeds\v100\SkillCategoryTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -67,6 +69,8 @@ class DatabaseSeeder extends Seeder
         $this->call(WfModuleGroupsTableSeeder::class);
         $this->call(WfModulesTableSeeder::class);
         $this->call(WfDefinitionsTableSeeder::class);
+        $this->call(SkillCategoryTableSeeder::class);
+        $this->call(SkillsTableSeeder::class);
 
 
        $this->call(PrTypesTableSeeder::class);

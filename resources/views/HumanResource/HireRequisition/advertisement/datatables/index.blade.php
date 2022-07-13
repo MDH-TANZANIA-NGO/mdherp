@@ -12,7 +12,7 @@
                             </div>
                             <div class="card-body">
                                 <ul class="demo-accordion accordionjs m-0" data-active-index="false">
-                                @each('humanResource.hireRequisition._parent.display.hr_job', $hireRequisitionJobs, 'job')
+                                @each('HumanResource.HireRequisition._parent.display.hr_job', $hireRequisitionJobs, 'job')
                                 </ul>
                                 <div class="pull-right mt-3">
                                     <button type="submit" name="submit_job_requisition" value="submit" class="btn btn-inline-block btn-azure"> <i class="fa fa-paper-plane"></i> Submit For Approval</button>

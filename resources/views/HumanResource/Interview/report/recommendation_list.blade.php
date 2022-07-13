@@ -51,11 +51,9 @@
                      <label class="form-label">Applicant</label>
                      {!! Form::select('applicant_id',$applicants,null,['class' => 'form-control select2','width'=>'100','data-placeholder'=>'Select panelists','required']) !!}
                  </div>
-                 <div class="form-group">
-                     <label class="form-label">Comment </label>
-                     <textarea class="form-control" name="comment" rows="7" placeholder="text here.."></textarea>
-                 </div>
                  <input type="hidden" name="hr_requisition_job_id" value="{{ $hireRequisitionJob }}">
+
+                 <input type="hidden" name="interview_report_id" value="{{ isset($interview_workflow_report_id) ? $interview_workflow_report_id:''  }}" required>
              </div>
              <div class="modal-footer">
                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

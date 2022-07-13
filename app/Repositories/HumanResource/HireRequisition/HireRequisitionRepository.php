@@ -37,18 +37,18 @@ class HireRequisitionRepository extends BaseRepository
             ->whereHas('wfTracks')
             ->where('hr_hire_requisitions.wf_done', 0)
             ->where('hr_hire_requisitions.done', 1)
-            ->where('hr_hire_requisitions.rejected', 0)
+            ->where('hr_hire_requisitions.rejected', false)
             ->where('hr_hire_requisitions.user_id', access()->id());
     }
 
     public function getAccessDeniedDatatable(){
         return $this->getQuery()
             ->whereHas('wfTracks')
-            ->where('hr_hire_requisitions.rejected', 1)
+            ->where('hr_hire_requisitions.rejected', true)
             ->where('hr_hire_requisitions.user_id', access()->id());
     }
-    
-    
+
+
     public function getAccessRejectedDatatable()
     {
         return $this->getQuery()
@@ -62,6 +62,7 @@ class HireRequisitionRepository extends BaseRepository
         return $this->getQuery()
             ->whereHas('wfTracks')
             ->where('hr_hire_requisitions.wf_done', 1)
+            ->where('hr_hire_requisitions.rejected', false)
             ->where('hr_hire_requisitions.done', 1)
             ->where('hr_hire_requisitions.user_id', access()->id());
     }
@@ -72,7 +73,7 @@ class HireRequisitionRepository extends BaseRepository
             ->whereDoesntHave('wfTracks')
             ->where('hr_hire_requisitions.wf_done', 0)
             ->where('hr_hire_requisitions.done', 0)
-            ->where('hr_hire_requisitions.rejected', 0)
+            ->where('hr_hire_requisitions.rejected', false)
             ->where('hr_hire_requisitions.user_id', access()->id());
     }
 
@@ -99,15 +100,15 @@ class HireRequisitionRepository extends BaseRepository
                 $hireRequisition = $this->findByUuid($uuid);
                 $number = $this->generateNumber($hireRequisition);
                 DB::update('update hr_hire_requisitions set number = ?, done = ? where uuid= ?',[$number,true, $uuid]);
-            });       
+            });
     }
 
     public function update($data)
     {
-        return $this->query()->update($data,$data['hr_hire_requisition_id']);    
+        return $this->query()->update($data,$data['hr_hire_requisition_id']);
     }
 
-  
+
 
     /**
      * Store new Project
@@ -115,7 +116,7 @@ class HireRequisitionRepository extends BaseRepository
      * @param Listing $listing
      * @return mixed
      */
-  
+
 
     /**
      * Get applicant level
@@ -162,7 +163,7 @@ class HireRequisitionRepository extends BaseRepository
     public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign = 0, array $inputs = [])
     {
         $listing = $this->find($resource_id);
-        
+
         $applicant_level = $this->getApplicantLevel($wf_module_id);
         $head_of_dept_level = $this->getHeadOfDeptLevel($wf_module_id);
         switch ($inputs['rejected_level'] ?? $current_level) {

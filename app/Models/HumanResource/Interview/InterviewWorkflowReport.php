@@ -24,5 +24,9 @@ class InterviewWorkflowReport extends BaseModel
     {
         return $this->belongsTo(User::class);
     }
+    public function recommendedApplicants()
+    {
+        return $this->hasMany(InterviewReportRecommendation::class,'interview_report_id','id');
+    }
 
 }

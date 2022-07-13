@@ -124,8 +124,8 @@ class InterviewReportRepository extends BaseRepository
         return $this->getQuery()
             ->whereDoesntHave('wfTracks')
             ->where('hr_interview_workflow_reports.wf_done', 0)
-            ->where('hr_interview_workflow_reports.done', false)
-            ->where('hr_interview_workflow_reports.rejected', false)
+            ->where('hr_interview_workflow_reports.done', 0)
+            ->whereNull('hr_interview_workflow_reports.rejected')
             ->where('users.id', access()->id());
     }
 
@@ -137,7 +137,6 @@ class InterviewReportRepository extends BaseRepository
             $input['hr_requisition_job_id'] = $input['hr_requisition_job_id'];
             // $input['shortlist_id'] = '0';
             $input['user_id'] = access()->id();
-            $input['done'] = 1;
             return $this->query()->create($input);
         });
     }
@@ -163,8 +162,11 @@ class InterviewReportRepository extends BaseRepository
     }
 
 
-    public function processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign,$level){
-
+    public function updateRecommendedApplicant($recommendedApplicants){
+        $recommendedApplicants->each(function($item,$key){
+            $item->is_confirmed = 1;
+            $item->save();
+        });
     }
 
 }

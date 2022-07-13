@@ -5,6 +5,7 @@ namespace App\Models\JobOffer;
 use App\Models\Auth\User;
 use App\Models\BaseModel;
 use App\Models\HumanResource\Interview\InterviewApplicant;
+use App\Models\HumanResource\Interview\InterviewReportRecommendation;
 use App\Models\JobOffer\Traits\JobOfferAttribute;
 use App\Models\Project\Project;
 use App\Models\Workflow\WfTrack;
@@ -17,9 +18,9 @@ class JobOffer extends BaseModel
 
     public function interviewApplicant()
     {
-        return $this->belongsTo(InterviewApplicant::class ,'hr_interview_applicant_id', 'id');
+        return $this->belongsTo(InterviewReportRecommendation::class ,'hr_interview_applicant_id', 'id');
     }
-
+    
     /**
      * @return mixed
      */

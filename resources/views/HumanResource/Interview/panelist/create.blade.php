@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@include('HumanResource.interview.header')
+@include('HumanResource.Interview.header.main')
 <form action="{{ route('interview.addpanelist') }} " method="post">
     @csrf
     <div class="row">
@@ -15,6 +15,14 @@
                     </div>
                     <div class="col-lg-8">
                         {!! Form::select('panelist_id[]',$users,null,['class' => 'form-control select2','multiple'=>'true','data-placeholder'=>'Select panelists','required']) !!}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-2">
+                        <label class="form-label">Technical Staff </label>
+                    </div>
+                    <div class="col-lg-8">
+                        {!! Form::select('technical_staff',$users,null,['class' => 'form-control select2-show-search','placeholder'=>'Select technical staff','required']) !!}
                     </div>
                 </div>
                 <input type="submit" value="next" class="btn btn-primary">

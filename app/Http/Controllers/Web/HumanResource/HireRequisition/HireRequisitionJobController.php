@@ -25,12 +25,12 @@ class HireRequisitionJobController extends Controller
      */
     public function applications()
     {
-        return view('humanResource.hireRequisition.job.applications');
+        return view('HumanResource.HireRequisition.job.applications');
     }
 
     public function show(HireRequisitionJob $hire_requisition_job)
     {
-        return view('humanResource.hireRequisition.job.show')
+        return view('HumanResource.HireRequisition.job.show')
         ->with('hire_requisition_job', $hire_requisition_job)
         ->with('applicants', $this->getApplicantsByJob($hire_requisition_job->id));
     }
@@ -38,7 +38,7 @@ class HireRequisitionJobController extends Controller
     public function showMore(HireRequisitionJob $hire_requisition_job, $online_applicant_id)
     {
         $applicant = $this->getApplicantByJob($online_applicant_id, $hire_requisition_job->id);
-        return view('humanResource.hireRequisition.job.applicant_details')
+        return view('HumanResource.HireRequisition.job.applicant_details')
         ->with('hire_requisition_job', $hire_requisition_job)
         ->with('applicants', $this->getApplicantsByJob($hire_requisition_job->id))
         ->with('applicant', $applicant)
