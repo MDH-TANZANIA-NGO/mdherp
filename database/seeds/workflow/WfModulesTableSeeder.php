@@ -272,6 +272,20 @@ class WfModulesTableSeeder extends Seeder
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
+            18 =>
+                array(
+                    'id' => 19,
+                    'name' => 'Shortlisted Applicant Report',
+                    'wf_module_group_id' => 15,
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'type' => 1,
+                    'description' => 'Shortlisted Applicant Report',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
 
         ));
 

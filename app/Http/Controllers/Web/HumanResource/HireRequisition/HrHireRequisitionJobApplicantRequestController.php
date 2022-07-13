@@ -28,7 +28,7 @@ class HrHireRequisitionJobApplicantRequestController extends Controller
      */
     public function index()
     {
-        //
+        return view('HumanResource.HireRequisition.shortlisted.index');
     }
 
     /**
@@ -51,8 +51,9 @@ class HrHireRequisitionJobApplicantRequestController extends Controller
     {
         $hr_hire_job_app_request=$this->hr_hire_job_app_requests->store($request->all());
         $this->startWorkflow($hr_hire_job_app_request,1,$this->users->getCeo()->first()->user_id);
-        alert()->success('');
-        return redirect()->route('');
+        $this->hr_hire_job_app_requests->updateDoneGenerateNumber($hr_hire_job_app_request);
+        alert()->success('Report Sent for approval successfully');
+        return redirect()->route('job_applicant_request.show',$hr_hire_job_app_request);
     }
 
     /**
@@ -70,7 +71,7 @@ class HrHireRequisitionJobApplicantRequestController extends Controller
         $current_wf_track = $workflow->currentWfTrack();
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($hr_hire_job_app_request, $current_level, $workflow->wf_definition_id);
-        return view()
+        return view('HumanResource.HireRequisition.shortlisted.index')
         ->with('hr_hire_job_app_request', $hr_hire_job_app_request)
         ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
