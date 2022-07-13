@@ -445,7 +445,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'id' => 19,
                     'level' => '2',
                     'unit_id' => 74,
-                    'designation_id' => 124,
+                    'designation_id' => 127,
                     'description' => 'Review Leave Request',
                     'msg_next' => 'Review Leave Request',
                     'wf_module_id' => '6',

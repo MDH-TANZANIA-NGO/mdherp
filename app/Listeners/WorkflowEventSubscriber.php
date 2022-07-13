@@ -411,10 +411,14 @@ class WorkflowEventSubscriber
                             $timesheet_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
 
+                            $string = htmlentities(
+                                "There is new"." "."Timesheet Submitted"." "."from ".$timesheet->user->first_name."".$timesheet->user->last_name."pending for your approval."."<br>". "<br>"
+                            );
+
                             $email_resource = (object)[
                                 'link' => route('timesheet.show', $timesheet),
-                                'subject' => $timesheet->id . " Need your Approval",
-                                'message' =>  $timesheet->id . ' need your approval'
+                                'subject' => $timesheet->id . "Timesheet Approval Request",
+                                'message' =>  html_entity_decode($string)
                             ];
 //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;

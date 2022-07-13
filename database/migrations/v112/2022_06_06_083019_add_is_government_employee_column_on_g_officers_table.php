@@ -13,9 +13,9 @@ class AddIsGovernmentEmployeeColumnOnGOfficersTable extends Migration
      */
     public function up()
     {
-        Schema::table('g_officers', function (Blueprint $table) {
-            $table->boolean('is_government_employed')->default(true);
-        });
+//        Schema::table('g_officers', function (Blueprint $table) {
+//            $table->boolean('is_government_employed')->default(true);
+//        });
         //
     }
 
