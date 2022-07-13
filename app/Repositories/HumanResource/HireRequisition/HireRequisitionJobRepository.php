@@ -282,7 +282,7 @@ class HireRequisitionJobRepository extends BaseRepository
     }
 
     /**
-     * List of jobs which has shortlisted applicants and does not have a request to be approved
+     * getJobApplicationWhichHaveRequestForApproval
      * @return mixed
      */
     public function getJobApplicationWhichHaveRequestForApproval($hr_hire_job_app_request_id)
@@ -298,7 +298,7 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw('hr_hire_requisitions_jobs.created_at AS created_at'),
             DB::raw("COUNT(hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id) AS total_applicants")
         ])
-        ->join('hr_hire_requisition_job_applicants','hr_hire_requisition_job_applicants.hr_hire_requisition_job_applicant_request_id','hr_hire_requisitions_jobs.id')
+        ->join('hr_hire_requisition_job_applicants','hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id','hr_hire_requisitions_jobs.id')
         ->where('hr_hire_requisition_job_applicants.hr_hire_requisition_job_applicant_request_id', $hr_hire_job_app_request_id)
         ->groupBy(
             'hr_hire_requisitions_jobs.id',

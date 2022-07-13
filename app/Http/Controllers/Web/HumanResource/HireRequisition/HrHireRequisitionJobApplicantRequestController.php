@@ -74,7 +74,6 @@ class HrHireRequisitionJobApplicantRequestController extends Controller
     public function show($uuid)
     {
         $hr_hire_job_app_request = $this->hr_hire_job_app_requests->findByUuid($uuid);
-        dd($this->hr_hire_requisition_jobs->getJobApplicationWhichHaveRequestForApproval($hr_hire_job_app_request->id)->get());
         $wf_module_group_id = $this->getWfModuleGroupId($hr_hire_job_app_request);
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $hr_hire_job_app_request->id);
         $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $hr_hire_job_app_request->id, 'type' => $wf_module->type]);
@@ -83,6 +82,7 @@ class HrHireRequisitionJobApplicantRequestController extends Controller
         $can_edit_resource = $this->wf_tracks->canEditResource($hr_hire_job_app_request, $current_level, $workflow->wf_definition_id);
         return view('HumanResource.HireRequisition.shortlisted.show')
             ->with('hr_hire_job_app_request', $hr_hire_job_app_request)
+            ->with('jobs', $this->hr_hire_requisition_jobs->getJobApplicationWhichHaveRequestForApproval($hr_hire_job_app_request->id)->get())
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
