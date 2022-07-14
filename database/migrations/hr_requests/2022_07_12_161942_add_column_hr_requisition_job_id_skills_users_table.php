@@ -14,8 +14,7 @@ class AddColumnHrRequisitionJobIdSkillsUsersTable extends Migration
     public function up()
     {
         Schema::table('skill_user', function (Blueprint $table) {
-            $table->unsignedBigInteger('hr_requisition_job_id');
-           
+            $table->unsignedBigInteger('hr_requisition_job_id');         
             // $table->smallInteger('skill_level_cv_id')->nullable()->change();
             // $table->smallInteger('skill_level_cv_id');
         });

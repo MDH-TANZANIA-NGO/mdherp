@@ -62,8 +62,6 @@ class InterviewController extends Controller
     }
     public function list()
     {
-        // return $this->interviewRepository->getAccessSavedDatatable()->get()->count();
-        // dd($this->interviewRepository->getAccessWaitForReportDatatable()->get());
         return view('HumanResource.Interview.list')
             ->with('processing_count', 0)
             ->with('return_for_modification_count', 0)
@@ -195,7 +193,6 @@ class InterviewController extends Controller
             $interview_id = $request->interview_id;
             $technical_staff = $request->technical_staff;
             InterviewPanelistCounter::create(['total_panelist' => $total_panelist, 'interview_id' => $interview_id]);
-            // InterviewPanelist::where('user_id', $request->technical_staff)->update(['technical_staff' => 1]);
             $pan = [];
             foreach ($panelists as $panelist) {
                 $pan[] = InterviewPanelist::create([
@@ -203,9 +200,6 @@ class InterviewController extends Controller
                     'user_id' => $panelist
                 ]);
             }
-
-            // dd($pan);
-
             $panelists = InterviewPanelist::where('interview_id', $interview_id)->get();
             $has_technical_staff = false;
             foreach ($panelists as $panelist) {
@@ -324,7 +318,6 @@ class InterviewController extends Controller
 
     public function showPanelistJobs()
     {
-
         return view('HumanResource.Interview.job.applications');
     }
 
@@ -366,7 +359,6 @@ class InterviewController extends Controller
         } else {
             $has_report = 0;
         }
-
         $interview_type = InterviewTypes::find($interview->interview_type_id);
         return view('HumanResource.Interview.result.show')
             ->with('applicants', $applicants)
@@ -387,7 +379,6 @@ class InterviewController extends Controller
             ])
             ->where('hr_interview_panelist_marks.interview_id', $request->interview_id)
             ->where('hr_interview_panelist_marks.applicant_id', $request->applicant_id)->get();
-
         return $panelist_result_aggrigate->toJson();
     }
 }
