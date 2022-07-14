@@ -278,7 +278,7 @@ class HireRequisitionJobRepository extends BaseRepository
             'departments.title',
             'hr_hire_requisitions_jobs.empoyees_required',
             'code_values.name',
-            'hr_hire_requisitions_jobs.education_and_qualification',
+            'hr_hire_requisitions_jobs.education_and_qualification'
         );
     }
 
