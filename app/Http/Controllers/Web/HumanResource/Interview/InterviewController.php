@@ -188,34 +188,20 @@ class InterviewController extends Controller
         try {
             DB::beginTransaction();
             $panelists = $request->panelist_id;
-
-            $total_panelist = count($panelists);
             $interview_id = $request->interview_id;
             $technical_staff = $request->technical_staff;
+            $total_panelist = count($panelists);  
+            $total_panelist = in_array($technical_staff,$panelists) ? $total_panelist:($total_panelist+1);          
             InterviewPanelistCounter::create(['total_panelist' => $total_panelist, 'interview_id' => $interview_id]);
-            $pan = [];
             foreach ($panelists as $panelist) {
-                $pan[] = InterviewPanelist::create([
-                    'interview_id' => $interview_id,
-                    'user_id' => $panelist
-                ]);
+                InterviewPanelist::create(['interview_id' => $interview_id,  'user_id' => $panelist ]);
             }
-            $panelists = InterviewPanelist::where('interview_id', $interview_id)->get();
-            $has_technical_staff = false;
-            foreach ($panelists as $panelist) {
-                if ($panelist->user_id == $technical_staff) {
-                    $panelist->update(['technical_staff' => 1]);
-                    $has_technical_staff = true;
-                }
-            }
-
-            if (!$has_technical_staff) {
-                InterviewPanelist::create([
-                    'interview_id' => $interview_id,
-                    'user_id' => $technical_staff,
-                    'technical_staff' => 1
-                ]);
-            }
+            $panelists = InterviewPanelist::where('interview_id', $interview_id)->pluck('user_id');
+            if(in_array($technical_staff,$panelists)){
+                InterviewPanelist::where('user_id',$technical_staff)->where('interview_id',$interview_id)->update(['technical_staff' => 1]);
+            }else{
+                InterviewPanelist::create(['interview_id' => $interview_id, 'user_id' => $technical_staff,'technical_staff' => 1]);           
+            }  
             DB::commit();
             alert()->success('added Successfully');
             $interview = $this->interviewRepository->find($request->interview_id);
@@ -266,8 +252,7 @@ class InterviewController extends Controller
         try {          
             DB::beginTransaction();
             $interview = $this->interviewRepository->find($request->interview_id);
-            $interview->update(['has_interview_invitation' => 1,'done'=>1]);
-             
+            $interview->update(['has_interview_invitation' => 1,'done'=>1]);            
             $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
             foreach ($selectedApplicant as $applicant) {
                 IntervieweeEmailJob::dispatch($applicant, $interview);

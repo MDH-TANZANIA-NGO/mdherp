@@ -59,12 +59,8 @@ class JobOfferController extends Controller
     public function store(Request $request)
     {
         $job_offer =   $this->job_offers->store($request->all());
-        $department = HireRequisitionJob::find($job_offer->interviewApplicant->hr_requisition_job_id)->department_id;
-      
+        $department = HireRequisitionJob::find($job_offer->interviewApplicant->hr_requisition_job_id)->department_id;     
         $next_user = $this->users->getDirectorOfDepartment($department)->get();
-        // dd($next_user);
-        // $next_user =  $next_user->first()->user_id;
-        $next_user  = 2;
         $wf_module_group_id = 14;
         event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $job_offer->id,'region_id' => $job_offer->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
         alert()->success('Job Offer Sent for Approval', 'Success');
@@ -75,9 +71,7 @@ class JobOfferController extends Controller
     public function show($uuid)
     {
         $job_offer =  $this->job_offers->findByUuid($uuid);
-
         $job_offer_remarks =  JobOfferRemark::query()->where('job_offer_id', $job_offer->id)->get();
-
         //
         /* Check workflow */
         $wf_module_group_id = 14;
@@ -88,9 +82,7 @@ class JobOfferController extends Controller
         $wf_module_id = $workflow->wf_module_id;
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($job_offer, $current_level, $workflow->wf_definition_id);
-
         $designation = access()->user()->designation_id;
-
         return view('HumanResource.JobOffer.display.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
