@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers\Web\HumanResource\Interview;
+
+use App\Exceptions\GeneralException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Access\UserRepository;
@@ -48,7 +50,12 @@ class InterviewQuestionController extends Controller
 
     public function store(Request $request){
 
-        $this->interviewQuestionRepository->store($request->all());
+        $total_questions_marks = $this->interviewQuestionRepository->query()->where('interview_id',$request->interview_id)->sum('marks');
+        $marks = $total_questions_marks + $request->marks;
+        if($marks > 100 ){
+            throw new GeneralException('Total Marks Cannot Exceed 100');
+        }
+        $this->interviewQuestionRepository->store($request->all());      
         $interview = $this->interviewRepository->find($request->interview_id);
         $interview->update(['has_questions'=>1]);
         alert()->success('initiated Successfully');
@@ -73,11 +80,9 @@ class InterviewQuestionController extends Controller
     }
 
     public function destroy(InterviewQuestion $uuid){
-        $question = $this->interviewQuestionRepository->find($request->question_id);
-        $question->update($request->all());
-        $interview = $this->interviewRepository->find($request->interview_id);
+        $uuid->delete();
         alert()->success('initiated Successfully');
-        return redirect()->route('interview.question.create',$interview->uuid);
+        return redirect()->back();
     }
 
 
