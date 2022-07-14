@@ -11,7 +11,7 @@
 			<label class="form-label">Job Title</label>
 		</div>
 		<div class="col-2 col-lg-2">
-			{{ $hireRequisitionJob->title }}
+			{{ $hireRequisitionJob->job_title }}
 		</div>
 	</div>
 	<div class="card-body" style="background-color:#FFFFFF">
