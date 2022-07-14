@@ -77,7 +77,6 @@ class HrHireRequisitionJobApplicantRequestRepository extends BaseRepository
             $job_applicant_request = $this->query()->create(['user_id' => access()->id()]);
             foreach($input['hr_hire_requisitions_job_ids'] as $hr_hire_requisitions_job_id){
                 HrHireRequisitionJobApplicant::where('hr_hire_requisitions_job_id', $hr_hire_requisitions_job_id)
-                ->first()
                 ->update(['hr_hire_requisition_job_applicant_request_id' => $job_applicant_request->id]);
             }
             return $job_applicant_request;
