@@ -33,7 +33,7 @@
 							@foreach($hireRequisitionJobs as $key=>$hireRequisitionJob)
 							<tr class="wd-15p">
 								<td>{{$key+1}}</td>
-								<td>{{$hireRequisitionJob->title}}</td>
+								<td>{{$hireRequisitionJob->job_title}}</td>
 								<td>{{ $hireRequisitionJob->region }}</td>
 								<td>{{ $hireRequisitionJob->empoyees_required }}</td>
 								<td>{{ $hireRequisitionJob->created_at }}</td>
