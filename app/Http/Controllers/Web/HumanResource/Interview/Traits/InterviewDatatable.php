@@ -100,7 +100,7 @@ trait InterviewDatatable
                 
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('interview.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('interview.initiate', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
