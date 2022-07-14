@@ -135,7 +135,7 @@
                             window.open(base_url + "/human-resource/job-shortlisters/" + aData['resource_uuid']+ '/show');
                             break;
                         case 15: /*Shortlisted Report*/
-                            window.open(base_url + "/human-resource/job-shortlisters/" + aData['resource_uuid']+ '/show');
+                            window.open(base_url + "/human-resource/job-applicant-requests/" + aData['resource_uuid']+ '/show');
                             break;
                         default:
                             break;
