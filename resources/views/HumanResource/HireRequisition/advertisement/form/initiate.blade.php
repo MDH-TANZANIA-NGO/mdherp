@@ -23,7 +23,7 @@
 					<label class="form-label">Post Title </label>
 				</div>
 				<div class="col-8 col-lg-8">
-					<input type="text" class="form-control" value=" {{ $hireRequisitionJob->title }} - ({{ $hireRequisitionJob->empoyees_required }}) POSTS" name="title">
+					<input type="text" class="form-control" value=" {{ $hireRequisitionJob->job_title }} - ({{ $hireRequisitionJob->empoyees_required }}) POSTS" name="title">
 				</div>
 			</div>
 			<div class="form-group row">
