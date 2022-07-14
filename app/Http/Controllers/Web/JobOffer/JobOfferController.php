@@ -1,21 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\Web\JobOffer;
-use App\Events\NewWorkflow;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
 use App\Models\Auth\User;
-use App\Models\HumanResource\HireRequisition\HrHireApplicant;
-use App\Models\HumanResource\Interview\InterviewApplicant;
+use App\Events\NewWorkflow;
+use Illuminate\Http\Request;
+use App\Services\Workflow\Workflow;
+use App\Http\Controllers\Controller;
 use App\Models\JobOffer\JobOfferRemark;
-use App\Notifications\Workflow\WorkflowNotification;
-use App\Repositories\Access\UserRepository;
-use App\Repositories\HumanResource\Interview\InterviewApplicantRepository;
 use App\Repositories\JobOfferRepository;
+use App\Repositories\Access\UserRepository;
 use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Workflow\WfTrackRepository;
-use App\Services\Workflow\Workflow;
-use Illuminate\Http\Request;
+use App\Notifications\Workflow\WorkflowNotification;
+use App\Models\HumanResource\HireRequisition\HrHireApplicant;
+use App\Http\Controllers\Web\JobOffer\Datatables\JobOfferDatatable;
+use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
+use App\Repositories\HumanResource\Interview\InterviewReportRecommendationRepository;
 
 class JobOfferController extends Controller
 {
@@ -29,46 +29,37 @@ class JobOfferController extends Controller
    public function __construct()
    {
        $this->job_offers =  (new JobOfferRepository());
-       $this->interview_applicants = (new InterviewApplicantRepository());
+       $this->interview_applicants = (new InterviewReportRecommendationRepository());
        $this->wf_tracks = (new WfTrackRepository());
        $this->users = (new UserRepository());
        $this->projects = (new ProjectRepository());
    }
     public function index()
     {
-        //
-        return view('humanResource.jobOffer.index')
+        return view('HumanResource.JobOffer.index')
             ->with('job_offers', $this->job_offers);
     }
 
 
     public function initiate()
     {
-
-
-        return view('humanResource.jobOffer.forms.initiate')
+        return view('HumanResource.JobOffer.forms.initiate')
             ->with('applicant', $this->interview_applicants->getApplicantForJobOffer()->get()->pluck('full_name', 'id'));
     }
 
     public function create(Request  $request)
     {
-
         $job_details =  $this->interview_applicants->getAdvertDetails($request->get('id'))->first();
-
-
-        return view('humanResource.jobOffer.forms.create')
+        return view('HumanResource.JobOffer.forms.create')
             ->with('job_details', $job_details)
             ->with('projects', $this->projects->getActiveForPluck());
-
     }
 
 
     public function store(Request $request)
     {
-
         $job_offer =   $this->job_offers->store($request->all());
-
-        $department = $job_offer->interviewApplicant->interviews->jobRequisition->department_id;
+        $department = HireRequisitionJob::find($job_offer->interviewApplicant->hr_requisition_job_id)->department_id;
         $next_user = $this->users->getDirectorOfDepartment($department)->get();
         $next_user =  $next_user->first()->user_id;
         $wf_module_group_id = 14;
@@ -97,7 +88,7 @@ class JobOfferController extends Controller
 
         $designation = access()->user()->designation_id;
 
-        return view('humanResource.jobOffer.display.show')
+        return view('HumanResource.JobOffer.display.show')
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
             ->with('can_edit_resource', $can_edit_resource)
@@ -115,7 +106,7 @@ class JobOfferController extends Controller
 
         $job_offer_projects =  $this->projects->getJobOfferProjects($job_offer->id)->get();
 
-        return view('humanResource.jobOffer.forms.edit')
+        return view('HumanResource.JobOffer.forms.edit')
             ->with('job_offer', $job_offer)
             ->with('projects',$this->projects->getActiveForPluck())
             ->with('job_offer_projects', $job_offer_projects);

@@ -25,7 +25,7 @@
                             <td> {{ $recommended_applicant->full_name }}</td>
                             <td> {{ $recommended_applicant->email }}</td>
                             @if(!isset($show))
-                             <td> <a href="">Remove</a></td>
+                             <td> <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{route('interview.report.remove_recommended',$recommended_applicant->id)}}">Remove</a></td>
                             @endif
                         </tr>
                     @endforeach
@@ -46,15 +46,14 @@
              </div>
              <div class="modal-body">
              {!! Form::open(['route' => 'interview.report.recommend']) !!}
+                @method('POST')
                  <div class="form-group">
                      <label class="form-label">Applicant</label>
                      {!! Form::select('applicant_id',$applicants,null,['class' => 'form-control select2','width'=>'100','data-placeholder'=>'Select panelists','required']) !!}
                  </div>
-                 <div class="form-group">
-                     <label class="form-label">Comment </label>
-                     <textarea class="form-control" name="comment" rows="7" placeholder="text here.."></textarea>
-                 </div>
                  <input type="hidden" name="hr_requisition_job_id" value="{{ $hireRequisitionJob }}">
+
+                 <input type="hidden" name="interview_report_id" value="{{ isset($interview_workflow_report_id) ? $interview_workflow_report_id:''  }}" required>
              </div>
              <div class="modal-footer">
                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

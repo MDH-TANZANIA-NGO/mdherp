@@ -14,7 +14,6 @@
             </div>
             {!! Form::open(['route' => ['retirement.update',$retirement], 'enctype'=>'multipart/form-data']) !!}
             <div class="card-body">
-
                 <div class="row pt-4">
                     <div class="col-lg-6 ">
                         <p class="h3">Safari Advance Details</p>
@@ -22,7 +21,6 @@
                            {{-- Destination: {{$safari_advance->travellingCost->district->name}}<br>
                             Departure: {{date('d-M-Y', strtotime($safari_advance->safariDetails->from))}}<br>
                             Return: {{date('d-M-Y', strtotime($safari_advance->safariDetails->to))}}<br>--}}
-
                         </address>
                     </div>
                     <div class="col-lg-6 text-right">

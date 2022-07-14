@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['namespace' =>'humanResource\Advertisement', 'middleware' => ['web', 'auth'], 'prefix' => 'advertisement', 'as' => 'advertisement.'], function () {
+Route::group(['namespace' =>'HumanResource\Advertisement', 'middleware' => ['web', 'auth'], 'prefix' => 'advertisement', 'as' => 'advertisement.'], function () {
 
   Route::get('', 'AdvertisementController@index')->name('index');
   Route::get('create','AdvertisementController@create')->name('create');
@@ -32,7 +32,7 @@ Route::group(['namespace' =>'humanResource\Advertisement', 'middleware' => ['web
 });
 });
 
-Route::group(['namespace' =>'humanResource\Advertisement', 'middleware' => 'web', 'prefix' => 'jobs', 'as' => 'job.'], function () {
+Route::group(['namespace' =>'HumanResource\Advertisement', 'middleware' => 'web', 'prefix' => 'jobs', 'as' => 'job.'], function () {
     Route::get('', 'AdvertisementController@AccessProcessingDatatable')->name('index');
 });
 

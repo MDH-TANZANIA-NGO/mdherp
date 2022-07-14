@@ -73,4 +73,9 @@ class HireRequisitionJob extends BaseModel
         return $this->hasOne(HrUserHireRequisitionJobShortlister::class,'hr_hire_requisitions_job_id','id');
     }
 
+    public function applicant()
+    {
+        return $this->belongsTo(HrHireApplicant::class,'hr_hire_applicant_id','id');
+    }
+
 }

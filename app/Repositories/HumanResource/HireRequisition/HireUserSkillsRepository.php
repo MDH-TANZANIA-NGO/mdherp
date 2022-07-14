@@ -30,10 +30,13 @@ class HireUserSkillsRepository extends BaseRepository
     }
 
     public function update($inputs){
+        $skills = $inputs['skills'];
         $this->query()->where('hr_requisition_job_id',$inputs['hr_requisition_job_id'])->delete();
         if(is_array($inputs)){
-            foreach($inputs as $input){
-                $this->query()->create($this->inputProcessor($inputs));
+            foreach($skills  as $skill ){
+                $data['hr_requisition_job_id'] = $inputs['hr_requisition_job_id'];
+                $data['skill_id'] = $skill;
+                $this->query()->create($data);
             }
         }   
         

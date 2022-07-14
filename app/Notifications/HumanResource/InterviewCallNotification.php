@@ -61,7 +61,7 @@ class InterviewCallNotification extends Notification
 //        dd($this->interview_call->InterviewType);
         return (new MailMessage)
             ->subject('Invited for Interview')
-            ->markdown('mail.humanResource.interviewcall',[
+            ->markdown('mail.HumanResource.interviewcall',[
                 'link' => $this->interview_call,
                 'fullname' => $notifiable->fullname,
                 'message' => html_entity_decode($string)

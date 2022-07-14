@@ -35,11 +35,10 @@
                     <table class="table table-bordered table-stripped">
                         <thead>
                             <tr>
-                                <th>  Qno     </th>
+                                <th>  #     </th>
                                 <th>  Applicant </th>
                                 <th>  Number </th>
                                 <th>  Marks  </th>
-                                <th>  Status   </th>
                                 @if(isset($has_report) && $has_report != 1 )
                                 <th>  Action   </th>
                                 @endif
@@ -54,7 +53,6 @@
                                 <td> {{ $applicant->first_name }} {{ $applicant->middle_name }}  {{ $applicant->last_name }} </td>
                                 <td> {{ $applicant->number }} </td>
                                 <td> {{ $applicant->marks }} </td>
-                                <td>      </td>
                                 @if(isset($has_report) && $has_report != 1 )
                                 <td><a data-interview_id = "{{ $interview->id }}" data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
                                 @endif
@@ -91,6 +89,7 @@
                             <tr>
                                 <th> Qno</th>
                                 <th>Question</th>
+                                <th>Unit Marks</th>
                                 <th>Marks</th>
                             </tr>
                         </thead>
@@ -101,9 +100,10 @@
                             <tr>
                                 <td> {{($key+1) }}</td>
                                 <td> {{ $question->question }} </td>
+                                <td> {{ $question->marks }} </td>
                                 <td>
                                      <input type="number" name="marks{{($key+1)}}"  required>
-                                     <input type="hidden" value="{{$question->id}}" name="question{{($key+1)}}"  required>
+                                     <input type="hidden" maxlength="{{ $question->marks }}" value="{{$question->id}}" name="question{{($key+1)}}"  required>
                                 </td>
                             </tr>
                             <?php $total_questions = ($key+1); ?>

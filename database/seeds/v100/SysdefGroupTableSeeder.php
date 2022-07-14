@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Database\TruncateTable;
 use Database\DisableForeignKeys;
-use App\Models\Sysdef\Sysdef;
+use App\Models\System\Sysdef;
 
 class SysdefGroupTableSeeder extends Seeder
 {

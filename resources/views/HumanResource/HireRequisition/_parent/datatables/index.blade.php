@@ -10,7 +10,10 @@
                             </div>
                             <div class="card-body">
                                 <ul class="demo-accordion accordionjs m-0" data-active-index="false">
-                                @each('humanResource.hireRequisition._parent.display.hr_job', $hireRequisitionJobs, 'job')
+                                
+                                @foreach($hireRequisitionJobs as $job)
+                                    @include('HumanResource.HireRequisition._parent.display.hr_job')
+                                @endforeach
                                 </ul>
                                 <div class="pull-right mt-3">
                                     <button type="button" id="add_requisition" value="submit" class="btn btn-inline-block btn-azure"> <i class="fa fa-plus"></i> Add </button>

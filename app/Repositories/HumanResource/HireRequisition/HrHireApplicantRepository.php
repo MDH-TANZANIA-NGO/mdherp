@@ -59,14 +59,19 @@ class HrHireApplicantRepository extends BaseRepository
         $interview_id =  $interview->id;
         return $this->query()->select([
             DB::raw("DISTINCT(hr_hire_applicants.id)"),
+            'hr_hire_applicants.first_name',
+            'hr_hire_applicants.middle_name',
+            'hr_hire_applicants.last_name',
             DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
         ])
         ->whereNotIn('hr_hire_applicants.id',function($query) use($interview_id){
             $query->select('hr_interview_applicants.applicant_id')->from('hr_interview_applicants')
                     ->where('interview_id',$interview_id);
         })
+        ->join('hr_hire_requisition_job_applicants','hr_hire_requisition_job_applicants.hr_hire_applicant_id','hr_hire_applicants.id')
+        ->join('hr_hire_requisition_job_applicant_requests','hr_hire_requisition_job_applicant_requests.id','hr_hire_requisition_job_applicants.hr_hire_requisition_job_applicant_request_id')
+        ->where('hr_hire_requisition_job_applicant_requests.wf_done',1)
         ->groupby('hr_hire_applicants.id','hr_hire_applicants.first_name','hr_hire_applicants.middle_name','hr_hire_applicants.last_name');
-
     }
 
 }

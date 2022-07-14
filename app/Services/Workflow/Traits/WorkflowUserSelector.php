@@ -6,6 +6,7 @@ namespace App\Services\Workflow\Traits;
 
 use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
+use App\Models\HumanResource\Interview\InterviewWorkflowReport;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\UserWfDefinition;
 use App\Models\Workflow\WfDefinition;
@@ -326,6 +327,20 @@ trait WorkflowUserSelector
                     break;
                     case 2:
                         $next_user = (new UserRepository())->getDirectorOfHR();
+                        if (!$next_user) {
+                            throw new GeneralException('Director of HR is not yet registered. Please contact system Admin');
+                        }
+                        $user_id = $next_user->first()->user_id;
+                    break;
+                }
+            break;
+            case 16:
+                $pr_report = (new InterviewWorkflowReport())->find($resource_id);
+                switch($level)
+                {
+                   
+                    case 2:
+                        $next_user = (new UserRepository())->getCeo();
                         if (!$next_user) {
                             throw new GeneralException('Director of HR is not yet registered. Please contact system Admin');
                         }

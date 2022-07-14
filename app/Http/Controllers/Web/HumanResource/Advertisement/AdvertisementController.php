@@ -57,8 +57,7 @@ class AdvertisementController extends Controller
      */
     public function index()
     {
-
-        return view('humanResource/hireRequisition/advertisement/advertisement');
+        return view('HumanResource/HireRequisition/advertisement/advertisement');
     }
 
     /**
@@ -76,7 +75,7 @@ class AdvertisementController extends Controller
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
-        return view('humanResource.hireRequisition.advertisement.form.create')
+        return view('HumanResource.HireRequisition.advertisement.form.create')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())
@@ -128,7 +127,6 @@ class AdvertisementController extends Controller
     {
 
         // $advertisement = $this->advertisementRepository->query()->where('uuid',$uuid)->first();
-
         /* Check workflow */
         $wf_module_group_id = 11;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $advertisement->id);
@@ -136,9 +134,7 @@ class AdvertisementController extends Controller
         $current_wf_track = $workflow->currentWfTrack();
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($advertisement, $current_level, $workflow->wf_definition_id);
-
-
-        return view('humanResource.hireRequisition.advertisement.display.show')
+        return view('HumanResource.HireRequisition.advertisement.display.show')
             ->with('_advertisement',$advertisement)
             ->with('current_level', $current_level)
             ->with('current_wf_track', $current_wf_track)
@@ -152,21 +148,9 @@ class AdvertisementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function edit(Listing $listing)
+    public function edit(HireAdvertisementRequisition $advertisement)
     {
-        $tools = WorkingTool::all();
-        $users = User::where('designation_id', '!=', null)->get();
-        //dd($listing);
-        return view('listing._parent.form.edit')
-            ->with('listing', $listing)
-            ->with('prospects', code_value()->query()->where('code_id', 7)->get()->pluck('name','id'))
-            ->with('conditions', code_value()->query()->where('code_id', 8)->get()->pluck('name','id'))
-            ->with('establishments', code_value()->query()->where('code_id', 9)->get()->pluck('name','id'))
-            ->with('departments', $this->departments->getAll()->pluck('title','id'))
-            ->with('tools', $tools )
-            ->with('working_tools', $listing->workingTools->pluck('id')->toArray())
-            ->with('users', $users)
-            ->with('regions', $this->regions->getAll()->pluck('name','id'));
+        return $advertisement;
     }
 
     public function initiate($uuid)
@@ -180,7 +164,7 @@ class AdvertisementController extends Controller
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
-        return view('humanResource.hireRequisition.advertisement.form.initiate')
+        return view('HumanResource.HireRequisition.advertisement.form.initiate')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())

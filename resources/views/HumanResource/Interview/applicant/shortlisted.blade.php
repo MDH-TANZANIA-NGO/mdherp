@@ -3,7 +3,6 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <h3 class="card-title">SHORTLISTED PENDING FOR INTEVIEW INVITATION</h3>
-            <h3 class="card-title">ShortList Number </h3>
         </div>
         <div class="card-body">
 
@@ -24,7 +23,7 @@
                                 @foreach($interviewApplicants as $key=>$interviewApplicant)
                                 <tr>
                                     <td> {{ ($key + 1)  }} </td>
-                                    <td> {{ $interviewApplicant->full_name  }} </td>
+                                    <td> {{ $interviewApplicant->first_name." ".$interviewApplicant->middle_name." ".$interviewApplicant->last_name  }} </td>
                                     <td> <input type='checkbox' name='applicant[]' value='{{ $interviewApplicant->id }} '> </td>
                                 </tr>
                                 @endforeach

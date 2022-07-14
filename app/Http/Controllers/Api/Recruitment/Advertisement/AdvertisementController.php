@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Api\Recruitment\Advertisement;
-
 use App\Http\Controllers\Api\BaseController;
 use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Repositories\HumanResource\Advertisement\AdvertisementRepository;
@@ -29,12 +27,11 @@ class AdvertisementController extends BaseController
                         ->where('rejected',0)
                         ->get();
         $data->map(function($item){
-            $item['skills'] = DB::table('skill_user')->where('hr_requisition_job_id',$item['hire_requisition_id'])->get();
+            $item['skills'] = DB::table('skill_user')->where('hr_requisition_job_id',$item['hire_requisition_job_id'])->get();
             $item['jobs'] = DB::table('hr_hire_requisitions_jobs')->where('id',$item['hire_requisition_job_id'])->get();
         });
         $response['advertisements'] = $data;
         return $this->sendResponse($response,"Advertisement",200);
-
     }
 
     public function getJobs()
@@ -77,7 +74,6 @@ class AdvertisementController extends BaseController
     {
         $response['advertisement'] =  $advertisement;
         return $this->sendResponse($response,"Advertisement",200);
-
     }
 
     /**

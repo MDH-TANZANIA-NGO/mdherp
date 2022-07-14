@@ -1,15 +1,21 @@
 <!-- Section 1 -->
-<li class="acc_section">
+<li class="acc_section @if($total_jobs == 1) {{ 'acc_active' }} @endif">
     <div class="acc_head d-flex justify-content-between">
-        <h3> Job Title : {{$job->title}} | Employees Required: ({{ $job->empoyees_required }}) </h3>
-        <span> <a href="#"> View </a> | <a href="{{ route('hirerequisition.edit',$job->uuid) }} ">Edit</a> | <a href="#">Delete</a></span>
+        <h3> Job Title : {{$job->job_title}} | Employees Required: ({{ $job->empoyees_required }}) </h3>
+        <span> 
+                <a href="#"> View </a> 
+                @if( $current_level != 2) | 
+                <a href="{{ route('hirerequisition.edit',$job->uuid) }} ">Edit</a> | 
+                <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{ route('hirerequisition.destroy',$job->uuid) }}">Delete</a>
+                @endif
+        </span>
     </div>
-    <div class="acc_content" style="display: none;">
-        <table class="table table-bordered">
+    <div class="acc_content"  style="display: @if($total_jobs == 1) {{ '' }} @else {{ 'none' }} @endif">
+        <table class="table table-bordered active">
             <thead>
                 <tr>
                     <th colspan="2" class="text-uppercase">
-                        <h5 class="text-uppercase"> Job Title : {{$job->title}} </h5>
+                        <h5 class="text-uppercase"> Job Title : {{$job->job_title}} </h5>
                     </th>
                 </tr>
             </thead>
@@ -94,7 +100,7 @@
                 </tr>
                 <tr>
                     <td> Age Between</td>
-                    <td> {{ $job->start_age}} And {{ $job->start_age }}</td>
+                    <td> {{ $job->start_age}} And {{ $job->end_age }}</td>
                 </tr>
                 <tr>
                     <td> skills</td>

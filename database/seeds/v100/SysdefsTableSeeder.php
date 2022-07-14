@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Database\Seeder;
 use Database\TruncateTable;
 use Database\DisableForeignKeys;
@@ -173,18 +174,6 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
-        $sysdef = Sysdef::firstOrCreate(
-            ['reference' => 'MDH-INT-RP'],
-            [
-                'name' => 'hr_interview_workflow_reports',
-                'display_name' => 'Interview Report',
-                'value' => '0',
-                'data_type' => 'integer',
-                'isactive' => 1,
-                'reference' => 'MDH-INT-RP',
-                'sysdef_group_id' => 1,
-            ]
-        );
         // MDH_JST
         $sysdef = Sysdef::firstOrCreate(
             ['reference' => 'MDH_JSR'],
@@ -199,16 +188,41 @@ class SysdefsTableSeeder extends Seeder
             ]
         );
         $sysdef = Sysdef::firstOrCreate(
-            ['reference' => 'MDH-INDUCTION-SCHEDULE'],
+            ['reference' => 'MDH-INT-REP'],
             [
-                'name' => 'induction_schedules',
-                'display_name' => 'Induction Schedule Number',
+                'name' => 'hr_interview_workflow_reports',
+                'display_name' => 'Interview Report Number',
                 'value' => '0',
                 'data_type' => 'integer',
                 'isactive' => 1,
-                'reference' => 'MDH-INDUCTION-SCHEDULE',
+                'reference' => 'MDH-INT-REP',
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH-INT-NUM'],
+            [
+                'name' => 'hr_interviews',
+                'display_name' => 'Interview Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH-INT-NUM',
+                'sysdef_group_id' => 1,
+            ]
+        );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH-JAR-NUM'],
+            [
+                'name' => 'hr_hire_requisition_job_applicant_requests',
+                'display_name' => 'job applicant request Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH-JAR-NUM',
+                'sysdef_group_id' => 1,
+            ]
+        );
+
     }
 }

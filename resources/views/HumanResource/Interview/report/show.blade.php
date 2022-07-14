@@ -28,6 +28,7 @@
                 @each('HumanResource.Interview.report.interveiw_list', $interviews, 'interview')
                 @include('HumanResource.Interview.report.panelist_list')
                 @include('HumanResource.Interview.report.recommendation_list')
+                @include('HumanResource.Interview.report.comments')
 
             </div>
         </div>
