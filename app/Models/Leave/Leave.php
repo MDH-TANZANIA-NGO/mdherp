@@ -29,9 +29,10 @@ class Leave extends BaseModel
         return $this->belongsTo(LeaveType::class, 'leave_type_id', 'id');
     }
 
-    public function balance(){
+    public function leave_balance(){
         return $this->belongsTo(LeaveBalance::class, 'leave_balance');
     }
+
 
     public function getResourceNameAttribute()
     {
@@ -50,6 +51,10 @@ class Leave extends BaseModel
             ->where('user_id', $this->user_id)
             ->first();
         return $balance->remaining_days;
+    }
+
+    public function getGender(){
+
     }
 
 }
