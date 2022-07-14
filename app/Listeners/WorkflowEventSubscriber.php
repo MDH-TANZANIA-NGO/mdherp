@@ -534,6 +534,9 @@ class WorkflowEventSubscriber
                     //workflowAction class
                     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
                     break;
+                case 19:
+                    $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
+                    break;
             }
 
             $workflow->forward($data);
@@ -827,6 +830,10 @@ class WorkflowEventSubscriber
                 break;
             case 18:
                 (new JobOfferRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
+                break;
+
+            case 19:
+                (new HrHireRequisitionJobApplicantRequestRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
                 break;
         }
     }
