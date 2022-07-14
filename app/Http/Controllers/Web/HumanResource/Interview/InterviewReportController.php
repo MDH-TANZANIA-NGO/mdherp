@@ -139,13 +139,17 @@ class InterviewReportController extends Controller
         try {
             DB::beginTransaction();
             $interviewReport = $this->interviewReportRepository->find($request->interview_workflow_report_id);
-            $this->interviewReportRepository->submit($interviewReport);
+
+//            $this->interviewReportRepository->submit($interviewReport);
+//            return "hrer";
             InterviewReportComment::create([
                 'user_id' => access()->id(),
                 'interview_report_id' => $interviewReport->id,
                 'comment' => $comment
             ]);
+
             $next_user = $this->users->getDirectorOfHR()->first()->user_id;
+
             $this->startWorkflow($interviewReport, 1,  $next_user);
             alert()->success('Interview Report Created Successfully', 'success');
             DB::commit();

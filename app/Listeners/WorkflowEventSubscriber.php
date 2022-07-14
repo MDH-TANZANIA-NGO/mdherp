@@ -31,6 +31,7 @@ use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Jobs\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterJob;
 use App\Models\HumanResource\Interview\InterviewApplicant;
 use App\Models\HumanResource\Interview\InterviewWorkflowReport;
+use App\Repositories\HumanResource\HireRequisition\HrHireRequisitionJobApplicantRequestRepository;
 use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
 use App\Repositories\HumanResource\Interview\InterviewReportRepository;
 
@@ -468,7 +469,7 @@ class WorkflowEventSubscriber
                     break;
                 case 16:
                     $interview_report = (new InterviewWorkflowReport());
-                   
+
                     $interview_report  = $interview_report->find($resource_id);
                     $interview_report->recommendedApplicants();
                     // dd($interview_report->id);
@@ -714,8 +715,8 @@ class WorkflowEventSubscriber
                     $this->updateWfDone($interviewReport);
                     $email_resource = (object)[
                         'link' =>  route('interview.report.show', $interviewReport),
-                        'subject' =>'Interview Report'.$interviewReport->number ." Has been Approved Successfully",
-                        'message' =>'Interview Report'. $interviewReport->number . ' ' . "Has been Approved successfully"
+                        'subject' => 'Interview Report' . $interviewReport->number . " Has been Approved Successfully",
+                        'message' => 'Interview Report' . $interviewReport->number . ' ' . "Has been Approved successfully"
                     ];
                     // $interviewReport->user->notify(new WorkflowNotification($email_resource));
                     User::query()->find($interviewReport->user_id)->notify(new WorkflowNotification($email_resource));
@@ -748,8 +749,18 @@ class WorkflowEventSubscriber
                         'message' => ' Click a link to view approved shortlisters'
                     ];
                     User::query()->find($shortlister_request->user_id)->notify(new WorkflowNotification($email_resource));
-                    //TODO send email to all shortlisters
                     $shortlister_request_repo->completedAndSendEmails($shortlister_request);
+                    break;
+                case 19:
+                    $job_applicant_request_repo = (new HrHireRequisitionJobApplicantRequestRepository());
+                    $job_applicant_request = $job_applicant_request_repo->find($resource_id);
+                    $this->updateWfDone($job_applicant_request);
+                    $email_resource = (object)[
+                        'link' =>  route('job_applicant_request.show', $job_applicant_request),
+                        'subject' => $job_applicant_request->number . " Shortlisted Applicants approved Successfully",
+                        'message' => ' Click a link to view approved shortlisted Applicant'
+                    ];
+                    User::query()->find($job_applicant_request->user_id)->notify(new WorkflowNotification($email_resource));
                     break;
             }
         }
