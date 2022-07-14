@@ -54,7 +54,7 @@
                                 <td> {{ $applicant->number }} </td>
                                 <td> {{ $applicant->marks }} </td>
                                 @if(isset($has_report) && $has_report != 1 )
-                                <td><a data-interview_id = "{{ $interview->id }}" data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
+                                <td><a data-applicant-name="{{ $applicant->first_name }} {{ $applicant->middle_name }}  {{ $applicant->last_name }}" data-interview_id = "{{ $interview->id }}" data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
                                 @endif
                             </tr>
                             <?php $total_questions = ($key+1); ?>
@@ -76,6 +76,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Marks</h5>
+                <h5 class="modal-title" id="applicant_name">Add Marks</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

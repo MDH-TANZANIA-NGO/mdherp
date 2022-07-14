@@ -52,7 +52,7 @@ class InterviewQuestionController extends Controller
 
         $total_questions_marks = $this->interviewQuestionRepository->query()->where('interview_id',$request->interview_id)->sum('marks');
         $marks = $total_questions_marks + $request->marks;
-        if($marks > 100 ){
+        if($total_questions_marks > 100 ){
             throw new GeneralException('Total Marks Cannot Exceed 100');
         }
         $this->interviewQuestionRepository->store($request->all());      
