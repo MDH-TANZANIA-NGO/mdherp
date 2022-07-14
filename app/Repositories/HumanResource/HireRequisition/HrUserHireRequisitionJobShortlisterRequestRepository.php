@@ -27,6 +27,15 @@ class HrUserHireRequisitionJobShortlisterRequestRepository extends BaseRepositor
         });
     }
 
+    public function update($uuid, $input)
+    {
+        return DB::transaction(function() use($input, $uuid){
+            $shortlister_request = $this->findByUuid($uuid);
+            (new HrUserHireRequisitionJobShortlisterRepository())->attachRequestAndJob($shortlister_request, $input);
+            return $shortlister_request;
+        });
+    }
+
     public function checkIfHrHireRequisitionsJobSelected($input)
     {
         if(!isset($input['hr_hire_requisitions_job_ids'])){
