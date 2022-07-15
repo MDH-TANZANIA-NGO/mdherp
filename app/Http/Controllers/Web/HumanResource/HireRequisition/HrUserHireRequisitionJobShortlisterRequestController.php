@@ -66,6 +66,19 @@ class HrUserHireRequisitionJobShortlisterRequestController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $job_shortlister_request_uuid)
+    {
+        $this->job_shortlister_requests->update($job_shortlister_request_uuid, $request->all());
+        alert()->success('Shortlisters Updated Successfully');
+        return redirect()->back();
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
