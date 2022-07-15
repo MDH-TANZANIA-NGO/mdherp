@@ -42,7 +42,7 @@
                                 <td> {{($key+1) }}</td>
                                 <td> {{ $applicant->first_name }} {{ $applicant->middle_name }} {{ $applicant->last_name }} </td>
                                 <td> {{ $applicant->number }} </td>
-                                <td> {{ $applicant->marks }} </td>
+                                <td> {{ number_format($applicant->marks,2) }} </td>
                                 <td><a data-interview_id="{{ $interview->id }}" data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> view </a></td>
                             </tr>
                             <?php $total_questions = ($key + 1); ?>

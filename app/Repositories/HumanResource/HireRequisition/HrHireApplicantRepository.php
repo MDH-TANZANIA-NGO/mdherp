@@ -39,19 +39,15 @@ class HrHireApplicantRepository extends BaseRepository
             'hr_hire_applicants.last_name',
             DB::raw("hr_hire_applicants.email") ,
             DB::raw("hr_interview_applicants.number"),
-            DB::raw("SUM(hr_interview_panelist_marks.marks) as Marks")
+            "hr_interview_applicant_marks.marks as marks"
         ])
-        ->join('hr_interview_applicants','hr_interview_applicants.applicant_id','hr_hire_applicants.id')
-        // ->leftjoin('hr_interview_question_marks',function($query) use($interview){
-        //     $query->on('hr_interview_question_marks.applicant_id','hr_hire_applicants.id')->where('hr_interview_question_marks.interview_id',$interview->id);
-        // })
-        ->whereNull('hr_interview_panelist_marks.deleted_at')
-        ->leftjoin('hr_interview_panelist_marks',function($query) use($interview){
-                $query->on('hr_interview_panelist_marks.applicant_id','hr_hire_applicants.id')->where('hr_interview_panelist_marks.interview_id',$interview->id)
-                     ->where('hr_interview_panelist_marks.panelist_id',access()->id());
+        ->join('hr_interview_applicants','hr_interview_applicants.applicant_id','hr_hire_applicants.id')      
+        ->leftjoin('hr_interview_applicant_marks',function($query) use($interview){
+            $query->on('hr_interview_applicant_marks.applicant_id','hr_hire_applicants.id')->where('hr_interview_applicant_marks.interview_id',$interview->id);        
         })
-        ->where('hr_interview_applicants.interview_id',$interview->id)
-        ->groupby('hr_hire_applicants.id','hr_interview_applicants.number','hr_hire_applicants.email');
+        ->whereNull('hr_interview_applicant_marks.deleted_at')
+        ->where('hr_interview_applicants.interview_id',$interview->id);
+         
             
     }
     public function getPendingSelected($interview){
