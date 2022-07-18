@@ -15,19 +15,18 @@ class TimeController extends Controller
 
     public function __construct()
     {
-        
+
         $this->users = (new UserRepository());
-    } 
+    }
 
     public function time()
     {
         $times = Time::all();
         $user = User::all();
         $current = Carbon::now();
-       
-        return view('time.time', ['current' => $current, 'times' => $times, 'user' => $user ]);
 
-     }
+        return view('time.time', ['current' => $current, 'times' => $times, 'user' => $user]);
+    }
 
 
     public function store(Request $request)
@@ -36,22 +35,21 @@ class TimeController extends Controller
         $data = ['time_start' => $time, 'lat_in' => $request->input('lat_in'), 'long_in' => $request->input('long_in'), 'user_id' => Auth::user()->id, 'name' => Auth::user()->first_name];
         Time::create($data);
 
-       
+
         return redirect()->back();
     }
 
     public function update(Request $request)
     {
         $time = date('Y-m-d H:i:s');
-        $end= Time::where('user_id', Auth::user()->id)->whereNull('time_end')->first();
+        $end = Time::where('user_id', Auth::user()->id)->whereNull('time_end')->first();
         //    {{ access()->user()->full_name_formatted }}
         $end->time_end = $time;
         $end->lat_out = $request->input('lat_out');
         $end->long_out = $request->input('long_out');
         $end->save();
-        
-        return redirect()->back();
 
+        return redirect()->back();
     }
 
     public function show()
@@ -65,11 +63,11 @@ class TimeController extends Controller
     public function view($id)
     {
         $time = Time::find($id);
-      
-       
 
-        return view('time.view', ['time'=>$time]);
-}
+
+
+        return view('time.view', ['time' => $time]);
+    }
 
     public function view2($id)
     {
@@ -77,16 +75,21 @@ class TimeController extends Controller
 
         return view('time.view2', ['time' => $time]);
     }
+
+
+    public function viewall()
+    {
+
+        $time = Time::all();
+        return view('time.viewall', ['time' => $time]);
+    }
+
+    
 }
 
 
 
 
-
-
-    
 // echo $hour = $interval->format('%h hour');
 // echo $min = $interval->format('%i min');
 // echo $sec = $interval->format('%s second');
-
-

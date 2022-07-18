@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realtime location tracker</title>
+    <title>MDH</title>
 
     <!-- leaflet css  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -34,7 +34,7 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
     // Map initialization 
-    var map = L.map('map').setView([14.0860746, 100.608406], 6);
+    var map = L.map('map').setView([-6.78637, 39.2789], 6);
 
     //osm layer
     var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -58,13 +58,13 @@
         // var lat = position.coords.latitude
         // var long = position.coords.longitude
         // var accuracy = position.coords.accuracy
-       
+
         var lat = "{{$time->lat_in}}";
         var long = "{{$time->long_in}}";
 
         var accuracy = position.coords.accuracy
-       
-        
+
+
 
         if (marker) {
             map.removeLayer(marker)
@@ -74,17 +74,23 @@
             map.removeLayer(circle)
         }
 
-        marker = L.marker([lat, long])
-        circle = L.circle([lat, long], {
-            radius: accuracy
-        })
+        let markerOptions = {
+            title: '{{$time->user->fullname}}',
+            clickable: 'true'
+        }
 
-        var featureGroup = L.featureGroup([marker, circle]).addTo(map)
+        marker = L.marker([lat, long], markerOptions)
 
-        map.fitBounds(featureGroup.getBounds())
+                    circle = L.circle([lat, long], {
+                        radius: accuracy
+                    })
 
-        console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
-    }
+                    var featureGroup = L.featureGroup([marker, circle]).addTo(map)
+
+                    map.fitBounds(featureGroup.getBounds())
+
+                    console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
+                }
 </script>
 
 @endsection

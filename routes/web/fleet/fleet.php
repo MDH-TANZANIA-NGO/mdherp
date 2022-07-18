@@ -3,6 +3,8 @@
 
 Route::group(['namespace' => 'Fleet', 'middleware' => ['web', 'auth'], 'prefix' => 'fleet', 'as' => 'fleet.'], function () {
    
+
+    //Fleet
     Route::get('index2', 'FleetController@index2')->name('index2');
     Route::post('register.store','FleetController@storeRegister')->name('register.store');
     Route::get('register.create', 'FleetController@createRegister')->name('register.create');
@@ -12,7 +14,7 @@ Route::group(['namespace' => 'Fleet', 'middleware' => ['web', 'auth'], 'prefix' 
     Route::get('register.view/{id}', 'FleetController@viewRegister')->name('register.view');
    
 
-
+   //Fleet request
 
     Route::get('', 'RequestController@index')->name('index');
     Route::post('store', 'RequestController@store')->name('store');
@@ -23,6 +25,7 @@ Route::group(['namespace' => 'Fleet', 'middleware' => ['web', 'auth'], 'prefix' 
     Route::get('destroy/{id}', 'RequestController@destroy')->name('destroy');
 
     Route::get('flee', 'RequestController@flee')->name('flee');
+
     
         /**
          * Datatables
@@ -37,6 +40,22 @@ Route::group(['namespace' => 'Fleet', 'middleware' => ['web', 'auth'], 'prefix' 
         });
         });
     });
+
+
+//Map
+Route::get('/distance/index', [App\Http\Controllers\DistanceController::class, 'index'])->name('distance-index');
+Route::post('/distance/store', [App\Http\Controllers\DistanceController::class, 'store'])->name('distance');
+Route::get('/distance/show', [App\Http\Controllers\DistanceController::class, 'show'])->name('distance-show');
+
+
+//Driver
+Route::get('/driver/index', [App\Http\Controllers\Web\Driver\DriverController::class, 'index'])->name('driver-index');
+Route::post('/driver/store', [App\Http\Controllers\Web\Driver\DriverController::class, 'store'])->name('driver-store');
+Route::get('/driver/create', [App\Http\Controllers\Web\Driver\DriverController::class, 'create'])->name('driver-create');
+Route::get('/driver/edit/{driver}', [App\Http\Controllers\Web\Driver\DriverController::class, 'edit'])->name('driver-edit');
+Route::post('/driver/update/{id}', [App\Http\Controllers\Web\Driver\DriverController::class, 'update'])->name('driver-update');
+Route::get('/driver/delete/{id}', [App\Http\Controllers\Web\Driver\DriverController::class, 'delete'])->name('driver-delete');
+
 
 
 
