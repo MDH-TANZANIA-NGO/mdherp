@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-4 ">
                     <h3 class="mb-0">{{ collect($applicants)->count() - $hire_requisition_job->shortlists()->count() }}</h3>
-                    <span class=" mb-0 fs-12 text-muted">Unselect Applicants</span>
+                    <span class=" mb-0 fs-12 text-muted">Unshortlisted Applicants</span>
                 </div>
             </div>
         </div>
