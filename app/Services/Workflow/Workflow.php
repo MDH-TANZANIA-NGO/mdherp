@@ -462,8 +462,8 @@ class Workflow
                     $timesheet = $timesheetrepo->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('timesheet.show',$timesheet),
-                        'subject' =>  " Need your Approval",
-                        'message' => ' need your approval'
+                        'subject' =>  'Timesheet number '.$timesheet->number." Needs your Approval",
+                        'message' => 'Kindly approve Timesheet number '.$timesheet->number.' of '.$timesheet->user->fullname,
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
