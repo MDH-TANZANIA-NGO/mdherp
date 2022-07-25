@@ -65,7 +65,7 @@ class LeaveController extends Controller
     public function store(Request $request)
     {
         //department director
-        $get_leave_balance = $this->leave_balance->getAccessLeaveBalanceByLeaveType(access()->user()->id,$request['leave_type_id'])->get()->first();
+        $get_leave_balance = $this->leave_balance->getAccessLeaveBalanceByLeaveType(access()->user()->id,$request['leave_type_id'])->first();
         $days_requested =  getNoDays($request['start_date'], $request['end_date']);
         if ($get_leave_balance->remaining_days < $days_requested )
         {
