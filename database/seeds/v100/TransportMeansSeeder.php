@@ -1,9 +1,12 @@
 <?php
 namespace Database\seeds\v100;
 use Illuminate\Database\Seeder;
+use Database\DisableForeignKeys;
+use Database\TruncateTable;
 
 class TransportMeansSeeder extends Seeder
 {
+    use DisableForeignKeys, TruncateTable;
     /**
      * Run the database seeds.
      *
@@ -11,6 +14,9 @@ class TransportMeansSeeder extends Seeder
      */
     public function run()
     {
+        $this->disableForeignKeys("transport_means");
+        $this->delete('transport_means');
+
         \DB::table('transport_means')->insert(array (
             0 =>
                 array (

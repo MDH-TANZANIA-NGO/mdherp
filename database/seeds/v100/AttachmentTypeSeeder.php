@@ -1,9 +1,12 @@
 <?php
 namespace Database\seeds\v100;
+use Database\DisableForeignKeys;
+use Database\TruncateTable;
 use Illuminate\Database\Seeder;
 
 class AttachmentTypeSeeder extends Seeder
 {
+    use DisableForeignKeys, TruncateTable;
     /**
      * Run the database seeds.
      *
@@ -11,6 +14,9 @@ class AttachmentTypeSeeder extends Seeder
      */
     public function run()
     {
+        $this->disableForeignKeys("attachment_types");
+        $this->delete('attachment_types');
+
         \DB::table('attachment_types')->insert(array (
             0 =>
                 array (

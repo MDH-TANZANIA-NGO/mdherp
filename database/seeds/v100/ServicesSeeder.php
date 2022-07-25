@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class ServicesSeeder extends Seeder
 {
+    use DisableForeignKeys, TruncateTable;
 
     /**
      * Run the database seeds.
@@ -14,7 +15,8 @@ class ServicesSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $this->disableForeignKeys("services");
+        $this->delete('services');
 
         \DB::table('services')->insert(array (
             0 =>
