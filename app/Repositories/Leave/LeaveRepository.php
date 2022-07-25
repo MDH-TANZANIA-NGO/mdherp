@@ -81,7 +81,7 @@ class LeaveRepository extends BaseRepository
     {
        $get_delegeted_leaves =  $this->getAccessDelegetedLeaves($inputs['start_date'], $inputs['end_date'])->get()->first();
 
-       if ($get_delegeted_leaves)
+       if ($get_delegeted_leaves != null)
        {
            alert()->error($get_delegeted_leaves->user->first_name.' '.$get_delegeted_leaves->user->last_name. ' delegated responsibilities to you', 'Failed');
        return  redirect()->back();
