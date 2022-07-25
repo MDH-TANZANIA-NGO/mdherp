@@ -87,7 +87,7 @@ class LeaveRepository extends BaseRepository
        }
 
        else{
-           
+
            return DB::transaction(function () use ($inputs){
                $this->query()->create($this->inputProcess($inputs));
 
