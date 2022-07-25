@@ -433,7 +433,7 @@ class Workflow
                         "There is new"." "."leave application"." "."from "." ".$leave->user->first_name." ".$leave->user->last_name." pending for your review and approval."."<br>". "<br>".
                         "<b>Region:</b>".$leave->region->name."<br>".
                         "<b>Leave Type:</b>".$leave->type->name."<br>".
-                        "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
+//                        "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
                         "<b>Comments:</b>". $leave->comment."<br>".
                         "<b>Starting Date:</b>". $leave->start_date."<br>".
                         "<b>End Date:</b>". $leave->end_date."<br>".
