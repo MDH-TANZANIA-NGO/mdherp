@@ -67,8 +67,8 @@ class LeaveController extends Controller
         //department director
         $get_leave_balance = $this->leave_balance->getAccessLeaveBalanceByLeaveType(access()->user()->id,$request['leave_type_id'])->first();
         $days_requested =  getNoDays($request['start_date'], $request['end_date']);
-        dd($get_leave_balance);
-        if ($get_leave_balance->remaining_days < $days_requested )
+
+        if ($get_leave_balance != null && $get_leave_balance->remaining_days < $days_requested )
         {
             alert()->error('You have no available leave balances', 'Failed');
         }
