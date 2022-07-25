@@ -65,10 +65,26 @@ class LeaveController extends Controller
     public function store(Request $request)
     {
         //department director
-//        dd(access()->user()->id);
-        $this->leaves->store($request->all());
+        $get_leave_balance = $this->leave_balance->getAccessLeaveBalanceByLeaveType(access()->user()->id,$request['leave_type_id'])->get()->first();
+        $days_requested =  getNoDays($request['start_date'], $request['end_date']);
+        if ($get_leave_balance->remaining_days < $days_requested )
+        {
+            alert()->error('You have no available leave balances', 'Failed');
+        }
+        else{
+            $leave = $this->leaves->store($request->all(), $get_leave_balance);
+            $wf_module_group_id = 5;
+            $next_user = $leave->user->assignedSupervisor()->supervisor_id;
 
-        return redirect()->back();
+            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id, 'region_id' => $leave->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
+            alert()->success('Your Leave Request have been submitted Successfully', 'success');
+
+
+        }
+
+
+
+        return redirect()->route('leave.index');
     }
 
     /**

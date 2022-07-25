@@ -77,7 +77,7 @@ class LeaveRepository extends BaseRepository
     }
 
 
-    public function store($inputs)
+    public function store($inputs, $leave_balance)
     {
        $get_delegeted_leaves =  $this->getAccessDelegetedLeaves($inputs['start_date'], $inputs['end_date'])->get();
 
@@ -85,15 +85,15 @@ class LeaveRepository extends BaseRepository
        {
            alert()->error($get_delegeted_leaves->first()->user->first_name.' '.$get_delegeted_leaves->first()->user->last_name. ' delegated responsibilities to you', 'Failed');
        }
-
        else{
 
-           return DB::transaction(function () use ($inputs){
-               $this->query()->create($this->inputProcess($inputs));
-
+           return DB::transaction(function () use ($inputs, $leave_balance){
+               $leave = $this->query()->create($this->inputProcess($inputs));
+               alert()->success('Your leave request have been submitted successful', 'Success');
+            return $leave;
            });
        }
-        return redirect()->back();
+
     }
 
     public function getAllApprovedLeaves()

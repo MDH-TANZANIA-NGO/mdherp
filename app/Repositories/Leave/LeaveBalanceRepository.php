@@ -33,4 +33,11 @@ class LeaveBalanceRepository extends  BaseRepository
         return $this->getQuery()
             ->where('leave_balances.user_id', $user_id);
     }
+
+    public function getAccessLeaveBalanceByLeaveType($user_id, $leave_type_id)
+    {
+       return $this->getAccessLeaveBalance($user_id)
+            ->where('leave_balances.leave_type_id', $leave_type_id)
+           ->where('fiscal_years.active', true);
+    }
 }

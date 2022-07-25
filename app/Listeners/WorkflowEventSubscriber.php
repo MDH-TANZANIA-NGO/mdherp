@@ -7,6 +7,7 @@ use App\Exceptions\WorkflowException;
 use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\Leave\LeaveBalanceRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Listing\ListingRepository;
 use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
@@ -524,7 +525,11 @@ class WorkflowEventSubscriber
                     break;
                 case 6:
                     $leave_repo = (new LeaveRepository());
+                    $leave_balance_repo =  (new LeaveBalanceRepository());
                     $leave = $leave_repo->find($resource_id);
+                    $leave_balance = $leave_balance_repo->find($leave->leave_balance);
+                    $days = $leave_balance->remaining_days - (getNoDays($leave->start_date, $leave->end_date)+1);
+                    $leave_balance->update(['remaining_days'=>$days]);
                     $this->updateWfDone($leave);
                     $email_resource = (object)[
                         'link' =>  route('leave.show', $leave),
