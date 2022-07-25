@@ -47,7 +47,7 @@ class GOfficerImportedTemporaryData implements ToModel, WithHeadingRow, ToCollec
             'password'=> bcrypt(strtolower($row['last_name'])),
             'fingerprint_data'=> $this->g_officer_repo->getDefaultFingerprints(),
             'fingerprint_length'=> $this->g_officer_repo->getFingerprintLength(),
-            'check_no'=>'0'.$row['region_id'].'-'.'0'.$row['month'].'-'.substr($row['year'], -2).'-'.rand(1, 200000),
+            'check_no'=>'0'.$row['region_id'].'-'.date('m', strtotime(now())).'-'.substr(date('Y', strtotime(now())), -2).'-'.rand(1, 200000),
             'user_id'=>access()->user()->id,
             'file_name'=>$this->file_name
         ]);

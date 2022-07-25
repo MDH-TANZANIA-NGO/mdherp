@@ -104,7 +104,7 @@ class WfModuleGroupsTableSeeder extends Seeder
             9 =>
                 array (
                     'id' => 10,
-                    'name' => 'Performance Review Report',
+                    'name' => 'Performance Appraisal Report',
                     'table_name' => 'pr_reports',
                     'created_at' => NULL,
                     'updated_at' => NULL,

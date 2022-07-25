@@ -221,5 +221,5 @@ return [
         'rejected' => 'Rejected Leave',
         'completed' => 'Completed Leave',
     ],
-    'performance_review' => 'Performance Review Reports',
+    'performance_review' => 'Performance Appraisal Reports',
 ];
