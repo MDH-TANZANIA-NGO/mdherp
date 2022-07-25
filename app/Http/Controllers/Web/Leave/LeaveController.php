@@ -72,7 +72,8 @@ class LeaveController extends Controller
             alert()->error('You have no available leave balances', 'Failed');
         }
         else{
-            $leave = $this->leaves->store($request->all(), $get_leave_balance);
+           $leave_id = $this->leaves->store($request->all(), $get_leave_balance);
+           $leave =  $this->leaves->find($leave_id);
             $wf_module_group_id = 5;
             $next_user = $leave->user->assignedSupervisor()->supervisor_id;
 
