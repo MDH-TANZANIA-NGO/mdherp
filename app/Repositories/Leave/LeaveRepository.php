@@ -90,8 +90,7 @@ class LeaveRepository extends BaseRepository
        else{
            return DB::transaction(function () use ($inputs, $leave_balance){
                $leave_id = $this->query()->create($this->inputProcess($inputs))->id;
-               dd($leave_id);
-               alert()->success('Your leave request have been submitted successful', 'Success');
+
             return $leave_id;
            });
        }
