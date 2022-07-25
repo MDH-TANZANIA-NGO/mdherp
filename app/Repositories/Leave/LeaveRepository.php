@@ -86,7 +86,7 @@ class LeaveRepository extends BaseRepository
            alert()->error($get_delegeted_leaves->first()->user->first_name.' '.$get_delegeted_leaves->first()->user->last_name. ' delegated responsibilities to you', 'Failed');
        }
        else{
-
+            dd(1);
            return DB::transaction(function () use ($inputs, $leave_balance){
                $leave = $this->query()->create($this->inputProcess($inputs));
                alert()->success('Your leave request have been submitted successful', 'Success');
