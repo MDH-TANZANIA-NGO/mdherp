@@ -57,7 +57,7 @@ class LeaveRepository extends BaseRepository
        return $this->getQueryAll()
             ->where('leaves.employee_id', access()->user()->id)
             ->where('leaves.end_date', '>=',$end_date)
-            ->orWhere('leaves.start_date', '>=',$start_date);
+            ->orWhere('leaves.end_date', '<=',$start_date);
     }
 
     public function inputProcess($inputs){
@@ -79,12 +79,12 @@ class LeaveRepository extends BaseRepository
 
     public function store($inputs, $leave_balance)
     {
-       $get_delegeted_leaves =  $this->getAccessDelegetedLeaves($inputs['start_date'], $inputs['end_date'])->get()->first();
+       $get_delegeted_leaves =  $this->getAccessDelegetedLeaves($inputs['start_date'], $inputs['end_date'])->get();
 
-       if ($get_delegeted_leaves != null)
+       if ($get_delegeted_leaves->count() > 0)
        {
-           alert()->error($get_delegeted_leaves->user->first_name.' '.$get_delegeted_leaves->user->last_name. ' delegated responsibilities to you', 'Failed');
-       return  redirect()->back();
+         alert()->error('You have been delegated responsibilities', 'Failed');
+           return  redirect()->back();
 
        }
        else{
