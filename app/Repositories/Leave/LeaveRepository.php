@@ -79,11 +79,11 @@ class LeaveRepository extends BaseRepository
 
     public function store($inputs, $leave_balance)
     {
-       $get_delegeted_leaves =  $this->getAccessDelegetedLeaves($inputs['start_date'], $inputs['end_date'])->get();
+       $get_delegeted_leaves =  $this->getAccessDelegetedLeaves($inputs['start_date'], $inputs['end_date'])->get()->first();
 
-       if ($get_delegeted_leaves->count() > 0)
+       if ($get_delegeted_leaves)
        {
-           alert()->error($get_delegeted_leaves->first()->user->first_name.' '.$get_delegeted_leaves->first()->user->last_name. ' delegated responsibilities to you', 'Failed');
+           alert()->error($get_delegeted_leaves->user->first_name.' '.$get_delegeted_leaves->user->last_name. ' delegated responsibilities to you', 'Failed');
        return  redirect()->back();
 
        }
