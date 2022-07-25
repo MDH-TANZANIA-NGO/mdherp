@@ -42,6 +42,7 @@ class LeaveRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('leaves.id AS id'),
+            DB::raw('leaves.user_id AS user_id'),
             DB::raw('leaves.start_date AS start_date'),
             DB::raw('leaves.end_date AS end_date'),
             DB::raw('leave_balance AS leave_balance'),
@@ -49,6 +50,14 @@ class LeaveRepository extends BaseRepository
             DB::raw('leaves.leave_type_id AS leave_type_id')
                 ])
             ->join('users','users.id', 'leaves.user_id');
+    }
+
+    public function getAccessDelegetedLeaves( $start_date, $end_date)
+    {
+       return $this->getQueryAll()
+            ->where('leaves.employee_id', access()->user()->id)
+            ->where('leaves.end_date', '>=',$end_date)
+            ->orWhere('leaves.start_date', '>=',$start_date);
     }
 
     public function inputProcess($inputs){
@@ -70,9 +79,21 @@ class LeaveRepository extends BaseRepository
 
     public function store($inputs)
     {
-        return DB::transaction(function () use ($inputs){
-            return $this->query()->create($this->inputProcess($inputs));
-        });
+       $get_delegeted_leaves =  $this->getAccessDelegetedLeaves($inputs['start_date'], $inputs['end_date'])->get();
+
+       if ($get_delegeted_leaves->count() > 0)
+       {
+           alert()->error($get_delegeted_leaves->first()->user->first_name.' '.$get_delegeted_leaves->first()->user->last_name. ' delegated responsibilities to you', 'Failed');
+       }
+
+       else{
+           
+           return DB::transaction(function () use ($inputs){
+               $this->query()->create($this->inputProcess($inputs));
+
+           });
+       }
+        return redirect()->back();
     }
 
     public function getAllApprovedLeaves()

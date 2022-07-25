@@ -13,6 +13,7 @@ use App\Models\Leave\LeaveType;
 use App\Models\Timesheet\EffortLevel;
 use App\Models\Unit\Designation;
 use App\Repositories\Access\UserRepository;
+use App\Repositories\Leave\LeaveBalanceRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Services\Workflow\Workflow;
@@ -29,12 +30,15 @@ class LeaveController extends Controller
     protected $leaves;
     protected $wf_tracks;
     protected $user;
+    protected $leave_balance;
 
     public function __construct()
     {
         $this->leaves = (new LeaveRepository());
         $this->wf_tracks = (new WfTrackRepository());
         $this->user = (new UserRepository());
+        $this->leave_balance =  (new LeaveBalanceRepository());
+
     }
 
     /**
@@ -47,69 +51,24 @@ class LeaveController extends Controller
         return view('leave._parent.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
+
     public function create()
     {
         $leaveTypes = LeaveType::all()->pluck('name', 'id');
-
-        $users = $this->user->forSelect();
-        $leaveBalances = LeaveBalance::all()->where('user_id', access()->user()->id);
-
         return view('leave._parent.form.create')
             ->with('leaveTypes', $leaveTypes)
-            ->with('users', $users)
-            ->with('leave_balances', $leaveBalances);
+            ->with('users', $this->user->forSelect())
+            ->with('leave_balances', $this->leave_balance->getAccessLeaveBalance(access()->user()->id)->get());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+
     public function store(Request $request)
     {
         //department director
-        $is_assigned = Leave::all()->where('employee_id', access()->user()->id)->where('end_date', '>=', $request['end_date']);
-        $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_type_id', $request['leave_type_id'])->first();
-        $start = Carbon::parse($request['start_date']);
-        $end = Carbon::parse($request['end_date']);
-        $days = $start->diffInDays($end) + 1;
+//        dd(access()->user()->id);
+        $this->leaves->store($request->all());
 
-
-
-        if ($leave_balance ==  null){
-            alert()->error('No leave Balances Set', 'Failed');
-            return redirect()->back();
-        }
-        else{
-            $actual_remaining_days = $leave_balance->remaining_days - $days;
-            if ($is_assigned->count() > 0 && $request['leave_type_id'] == 1){
-                alert()->error('You have been delegated responsibilities', 'Failed');
-                return redirect()->back();
-            }
-            else{
-
-                if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0) {
-                    $leave = $this->leaves->store($request->all());
-                    DB::update('update leave_balances set remaining_days =?  where id= ?', [$actual_remaining_days, $leave_balance->id]);
-                    $wf_module_group_id = 5;
-                    $next_user = $leave->user->assignedSupervisor()->supervisor_id;
-
-                    event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $leave->id, 'region_id' => $leave->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
-                    alert()->success('Your Leave Request have been submitted Successfully', 'success');
-
-                    return redirect()->route('leave.index');
-                } else {
-                    alert()->error('You do not have any available leave balances on '.$leave_balance->leaveType->name, 'Failed');
-                    return redirect()->back();
-                }
-            }
-        }
+        return redirect()->back();
     }
 
     /**
