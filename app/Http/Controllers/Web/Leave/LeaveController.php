@@ -73,6 +73,7 @@ class LeaveController extends Controller
         }
         else{
            $leave = $this->leaves->store($request->all(), $get_leave_balance);
+           dd($leave);
             $wf_module_group_id = 5;
             $next_user = $leave->user->assignedSupervisor()->supervisor_id;
 
