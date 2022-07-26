@@ -526,32 +526,23 @@ class WorkflowEventSubscriber
                     break;
                 case 6:
                     $leave_repo = (new LeaveRepository());
-                    $leave_balance_repo =  (new LeaveBalanceRepository());
                     $leave = $leave_repo->find($resource_id);
-                    $leave_balance = $leave_balance_repo->find($leave->leave_balance);
-                    $days = $leave_balance->remaining_days - (getNoDays($leave->start_date, $leave->end_date));
+                    $this->updateWfDone($leave);
+                    $email_resource = (object)[
+                        'link' =>  route('leave.show', $leave),
+                        'subject' => "Approved Successfully",
+                        'message' => 'The Leave Application has been Approved successfully'
+                    ];
+                    $delegeted_email = (object)[
+                        'link' =>  route('leave.show', $leave),
+                        'subject' => "Delegated Responsibilities",
+                        'message' => $leave->user->first_name . ' ' . $leave->user->last_name . 'Have gone for ' . $leave->balance->leaveType->name . 'until' . ' ' . $leave->end_date . '. You have been delegated hi/her responsibilities.'
+                    ];
+                    $delegeted_user = User::query()->where('id', $leave->employee_id)->first();
+                    $leave->user->notify(new WorkflowNotification($email_resource));
+                    $delegeted_user->notify(new WorkflowNotification($delegeted_email));
 
-                    if ($days >= 0 )
-                    {
-                        LeaveBalance::query()->find($leave_balance->id)->update(['remaining_days'=>$days]);
-                        $this->updateWfDone($leave);
-                        $email_resource = (object)[
-                            'link' =>  route('leave.show', $leave),
-                            'subject' => "Approved Successfully",
-                            'message' => 'The Leave Application has been Approved successfully'
-                        ];
-                        $delegeted_email = (object)[
-                            'link' =>  route('leave.show', $leave),
-                            'subject' => "Delegated Responsibilities",
-                            'message' => $leave->user->first_name . ' ' . $leave->user->last_name . 'Have gone for ' . $leave->balance->leaveType->name . 'until' . ' ' . $leave->end_date . '. You have been delegated hi/her responsibilities.'
-                        ];
-                        $delegeted_user = User::query()->where('id', $leave->employee_id)->first();
-                        $leave->user->notify(new WorkflowNotification($email_resource));
-                        $delegeted_user->notify(new WorkflowNotification($delegeted_email));
-                    }
-                    else{
-                        alert()->error('Requester does not have available leave balances', 'Failed');
-                    }
+
 
 
                     break;
