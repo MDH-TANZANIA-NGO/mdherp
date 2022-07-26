@@ -27,6 +27,12 @@ class CreateHotspotsTable extends Migration
             $table->longText('camp')->nullable()->comment('place where the cov is conducting');
             $table->dateTime('checkin_time');
             $table->dateTime('checkout_time')->nullable();
+            $table->double('checkin_latitude')->nullable();
+            $table->double('checkin_longitude')->nullable();
+            $table->string('checkin_location')->nullable();
+            $table->double('checkout_latitude')->nullable();
+            $table->double('checkout_longitude')->nullable();
+            $table->string('checkout_location')->nullable();
             $table->uuid('uuid');
             $table->timestamps();
         });
