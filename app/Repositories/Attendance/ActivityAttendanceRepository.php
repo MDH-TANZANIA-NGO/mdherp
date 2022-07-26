@@ -128,4 +128,50 @@ class ActivityAttendanceRepository extends  BaseRepository
             return $attendances;
         });
     }
+
+    public function allByHotspot(Hotspot $hotspot)
+    {
+        return $this->getQueryOnlyAttendance()->where('hotspots.id', $hotspot->id);
+    }
+    public function getQueryOnlyAttendance()
+    {
+        return $this->query()->select([
+            DB::raw('activity_attendances.id AS id'),
+            DB::raw('hotspots.id AS hotspot_id'),
+            DB::raw('hotspots.camp AS camp'),
+            DB::raw('g_officers.id AS g_officer_id'),
+            DB::raw("concat_ws(' ',g_officers.first_name,g_officers.last_name) AS fullname"),
+            DB::raw("concat_ws(' ',users.first_name,users.last_name) AS cov"),
+            DB::raw('activity_attendances.checkin_time AS checkin_time'),
+            DB::raw('activity_attendances.checkout_time AS checkout_time'),
+            DB::raw('activity_attendances.checkin_latitude AS checkin_latitude'),
+            DB::raw('activity_attendances.checkin_longitude AS checkin_longitude'),
+            DB::raw('activity_attendances.checkin_location AS checkin_location'),
+            DB::raw('activity_attendances.checkout_latitude AS checkout_latitude'),
+            DB::raw('activity_attendances.checkout_longitude AS checkout_longitude'),
+            DB::raw('activity_attendances.checkout_location AS checkout_location'),
+            DB::raw('activity_attendances.created_at AS created_at'),
+            DB::raw('activity_attendances.updated_at AS updated_at'),
+            DB::raw('activity_attendances.uuid AS uuid'),
+            DB::raw('activity_attendances.amount_requested AS amount_requested'),
+            DB::raw('activity_attendances.amount_paid AS amount_paid'),
+            DB::raw('activity_attendances.status AS status'),
+            DB::raw('activity_attendances.mobile AS mobile'),
+            DB::raw('hotspots.creator_id AS creator_id'),
+            DB::raw('districts.name AS district_name'),
+//            DB::raw('reports.wf_done_date AS wf_done_date'),
+            DB::raw('units.name AS unit'),
+//            DB::raw('reports.id AS report_id'),
+//            DB::raw('reports.number AS report_number')
+//            DB::raw("CASE WHEN reports.wf_done = 1 THEN 1 ELSE 0 END AS paid "),
+//            DB::raw("CASE WHEN reports.id THEN 'Initiated' ELSE 'Not Initiated' END AS initiated "),
+        ])
+            ->join('hotspots', 'hotspots.id', 'activity_attendances.hotspot_id')
+            ->join('g_officers', 'g_officers.id', 'activity_attendances.creator_id')
+//            ->leftjoin('hotspot_report', 'hotspot_report.hotspot_id', 'hotspots.id')
+//            ->leftjoin('reports', 'reports.id', 'hotspot_report.report_id')
+//            ->leftjoin('districts', 'districts.id', 'hotspots.district_id')
+            ->leftjoin('users', 'users.id', 'hotspots.creator_id')
+            ->leftjoin('units', 'units.id', 'activity_attendances.unit_id');
+    }
 }

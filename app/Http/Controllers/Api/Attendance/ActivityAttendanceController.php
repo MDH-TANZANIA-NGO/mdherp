@@ -23,6 +23,11 @@ class ActivityAttendanceController extends BaseController
         $attendance = $this->attendances->returnStore($request->all());
         return $this->sendResponse($attendance->data,$attendance->message,$attendance->code);
     }
-
+    public function allByHotspot(Hotspot $hotspot)
+    {
+        $attendances = $this->attendances->allByHotspot($hotspot)->get();
+        $data['attendance_list'] = $attendances;
+        return $this->sendResponse($data,'Attendances retrieved Successfully');
+    }
 
 }
