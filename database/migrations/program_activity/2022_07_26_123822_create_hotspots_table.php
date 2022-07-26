@@ -16,7 +16,8 @@ class CreateHotspotsTable extends Migration
         Schema::create('hotspots', function (Blueprint $table) {
             $table->id();
             $table->morphs('creator');
-            $table->longText('location')->nullable();
+            $table->text('checkin_location')->nullable();
+            $table->text('checkout_location')->nullable();
             $table->smallInteger('requisition_id')->nullable();
             $table->smallInteger('is_done')->default(0);
             $table->unsignedInteger('district_id')->nullable();
