@@ -63,7 +63,8 @@ class ActivityAttendanceRepository extends  BaseRepository
         $return = true;
         $date = Carbon::create($input['checkin_time'])->format('Y-m-d');
         $query = $this->query()
-            ->where('hcw_id', $input['hcw_id'])
+            ->where('creator_id', $input['creator_id'])
+            ->where('creator_type', $input['creator_type'])
             ->where('hotspot_id', $input['hotspot_id'])
             ->whereDate('checkin_time', $date);
         if  ($query->count() > 0){

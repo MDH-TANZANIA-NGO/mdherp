@@ -35,6 +35,7 @@ class CreateHotspotsTable extends Migration
             $table->double('checkout_longitude')->nullable();
             $table->string('checkout_location')->nullable();
             $table->uuid('uuid');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

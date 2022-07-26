@@ -38,6 +38,7 @@ class CreateActivityAttendancesTable extends Migration
             $table->string('checkout_location')->nullable();
             $table->string('mobile')->nullable();
             $table->uuid('uuid');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
