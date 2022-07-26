@@ -23,7 +23,9 @@ class CreateActivityAttendancesTable extends Migration
             $table->bigInteger('government_scale_id')->nullable();
             $table->bigInteger('designation_id')->nullable();
             $table->smallInteger('status')->default(1);
+            $table->bigInteger('payment_id')->nullable();
             $table->boolean('paid')->default(false);
+            $table->boolean('fraud')->default(false);
             $table->decimal('amount_requested', 15,2)->nullable();
             $table->decimal('amount_paid', 15,2)->nullable();
             $table->dateTime('checkin_time');
