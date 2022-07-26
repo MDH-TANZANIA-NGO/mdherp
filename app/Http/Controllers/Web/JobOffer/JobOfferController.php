@@ -61,6 +61,7 @@ class JobOfferController extends Controller
         $job_offer =   $this->job_offers->store($request->all());
         $department = HireRequisitionJob::find($job_offer->interviewApplicant->hr_requisition_job_id)->department_id;     
         $next_user = $this->users->getDirectorOfDepartment($department)->get();
+        $next_user =  $next_user->first()->user_id; 
         $wf_module_group_id = 14;
         event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $job_offer->id,'region_id' => $job_offer->user->region_id, 'type' => 1],[],['next_user_id' => $next_user]));
         alert()->success('Job Offer Sent for Approval', 'Success');
@@ -207,8 +208,6 @@ class JobOfferController extends Controller
         ];
         $job_offer->interviewApplicant->applicant->notify(new  WorkflowNotification($email_resource_to_applicant));
         alert()->success('Reply sent successfully');
-
         return redirect()->back();
-
     }
 }

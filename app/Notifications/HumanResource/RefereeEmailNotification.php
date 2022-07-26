@@ -1,25 +1,24 @@
 <?php
 
-namespace App\Notifications\HumanResource\HireRequisition;
+namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class HrUserHireRequisitionJobShortlisterNotification extends Notification
+class RefereeEmailNotification extends Notification
 {
     use Queueable;
 
-    protected $jobs;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($jobs)
+    public function __construct()
     {
-        $this->jobs = $jobs;
+        //
     }
 
     /**
@@ -41,15 +40,10 @@ class HrUserHireRequisitionJobShortlisterNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $resource = (object)[
-            'link' =>  route('hr.job.show',$this->jobs->uuid),
-            'subject' => 'You have been selected as a shortlister',
-            'message' => 'You have been selected as one of the shortlister in the following position advertised',
-            'job' => $this->jobs->designation->full_title
-        ];
         return (new MailMessage)
-            ->subject($resource->subject)
-            ->markdown('mail.HumanResource.HireRequisition.shortlister', ['resource' => $resource, 'name' => $notifiable->last_name. ' '.$notifiable->first_name]);
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
