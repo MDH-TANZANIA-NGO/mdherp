@@ -17,7 +17,8 @@ class CreateHotspotsTable extends Migration
             $table->id();
             $table->morphs('creator');
             $table->longText('location')->nullable();
-            $table->smallInteger('isdone')->default(0);
+            $table->smallInteger('requisition_id')->nullable();
+            $table->smallInteger('is_done')->default(0);
             $table->unsignedInteger('district_id')->nullable();
             $table->bigInteger('report_id')->nullable();
             $table->string('latitude');
