@@ -17,7 +17,7 @@ class HireRequisitionJob extends BaseModel
 {
     // use HireRequisitionJobRelationship;
     protected $table = 'hr_hire_requisitions_jobs';
-    protected $guarded =[];
+    protected $guarded = [];
 
     public function regions()
     {
@@ -42,6 +42,10 @@ class HireRequisitionJob extends BaseModel
     public function designation()
     {
         return $this->belongsTo(Designation::class);
+    }
+    public function reportTo()
+    {
+        return $this->belongsTo(Designation::class,'report_to','id');
     }
     public function unit()
     {

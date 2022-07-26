@@ -5,7 +5,7 @@
         <div class="tags">
             <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">JOB TITLE: {{ $job_title->name }} </span>
             <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px">INTERVIEW TYPE: {{ $interview_type->name }} </span>
-            <span class="tag tag-rounded" style="background-color: #fff; font-size: 16px"> REQUISITION NO : </span>
+            
         </div>
     </div>
 </div>

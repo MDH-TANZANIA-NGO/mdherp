@@ -8,7 +8,6 @@
 		<label class="form-label">Hire Requisition Number</label>
 		<span class="ml-3"> {{ $hireRequisition->number }} </span>
 		<div class="col-2 col-lg-2">
-			<label class="form-label">Job Title</label>
 		</div>
 		<div class="col-2 col-lg-2">
 			{{ $hireRequisitionJob->job_title }}
@@ -26,6 +25,7 @@
 					<input type="text" class="form-control" value=" {{ $hireRequisitionJob->job_title }} - ({{ $hireRequisitionJob->empoyees_required }}) POSTS" name="title">
 				</div>
 			</div>
+			
 			<div class="form-group row">
 				<div class="col-2 col-lg-2">
 					<label class="form-label"> Dead Line </label>
@@ -34,10 +34,37 @@
 					<input type="date" class="form-control" name="dead_line">
 				</div>
 			</div>
+			 
 			<div class="form-group row">
 				<div class="col-12 col-lg-12">
 					<label class="form-label">Description</label>
-					<textarea type="text" rows="10" class="form-control summernotecontent" name="description" placeholder="description" required></textarea>
+					
+					<textarea type="text" rows="10" class="form-control summernotecontent" name="description" placeholder="description" required>
+						<p>
+							<h4>Job Title: </h4> {{ $hireRequisitionJob->job_title }}	
+						</p>	
+						<p>
+							<h4> Reports to : {{ $hireRequisitionJob->reportTo }}<h4> 
+						</p>
+						<p>
+							<h4> Job Summary :  <h4> 
+							{{ $hireRequisitionJob->possition_summary }}
+						</p>
+						<p>
+							<h4>Duties and Responsibilities:</h4>
+							{{ $hireRequisitionJob->duties_and_responsibilities }}
+					    <P>
+						<p>
+							<h4>Requirements, Education, work experience and skills</h4>
+							{{ $hireRequisitionJob->education_and_qualification }}
+							{{ $hireRequisitionJob->practical_experience }}
+							{{ $hireRequisitionJob->special_qualities_skills }}
+					    <P>
+						<h4>Reporting Line </h4>
+						{{ $hireRequisitionJob->special_employment_condition }}
+					    <P>
+						
+					</textarea>
 					@error('duties_and_responsibilities')
 					<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 					@enderror
@@ -75,7 +102,7 @@
 		});
 
 		$('.summernotecontent').summernote({
-			height: 140,
+			height: '100%',
 			spellCheck: true,
 			toolbar: [
 				['style', ['style']],

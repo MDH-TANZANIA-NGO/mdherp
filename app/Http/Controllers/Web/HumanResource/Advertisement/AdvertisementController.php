@@ -71,7 +71,6 @@ class AdvertisementController extends Controller
                                 ->getAprovedJobs()
                                 ->where("is_advertised",0)
                                 ->get();
-
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
@@ -155,12 +154,11 @@ class AdvertisementController extends Controller
 
     public function initiate($uuid)
     {
-        $hireRequisitionJob = $this->hireRequisitionJobRepository->getQuery()->where('hr_hire_requisitions_jobs.uuid',$uuid)->first();
+        $hireRequisitionJob = $this->hireRequisitionJobRepository->getQuery()->with('reportTo')->where('hr_hire_requisitions_jobs.uuid',$uuid)->first();
         $hireRequisition = $this->hireRequisitionRepository
                             ->getQuery()
                             ->where('hire_requisition_id',$hireRequisitionJob->hire_requisition_id)
                             ->first();
-
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
@@ -187,11 +185,11 @@ class AdvertisementController extends Controller
      * @param Listing $listing
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Listing $listing)
+    public function update(Request $request, HireAdvertisementRequisition $advertisement)
     {
-        $this->listing->update($request->all(), $listing);
+        $advertisement = $this->advertisementRepository->update($request->all(), $advertisement);
         alert()->success('Hire Requisition Updated Successfully');
-        return redirect()->route('listing.show', $listing);
+        return redirect()->route('listing.show', $advertisement);
     }
 
     /**

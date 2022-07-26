@@ -1,13 +1,11 @@
 @extends('layouts.app')
 @section('content')
-
 @if(isset($initiate))
 <?php
-	$total_jobs = count($hireRequisitionJobs);
+$total_jobs = count($hireRequisitionJobs);
 ?>
 @include('HumanResource.HireRequisition._parent.datatables.index')
 @endif
-
 <div class="panel panel-primary add_requisition_body" style="display: {{ isset($create) && $create == true ? ' ':'none' }} ">
 	<div class=" tab-menu-heading card-header sw-theme-dots">
 		<div class="tabs-menu1">
@@ -53,16 +51,19 @@
 									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 									@enderror
 								</div>
-
 								<div class="col-6 col-lg-6">
 									<label class="form-label">Job Title</label>
 									{!! Form::select('job_title',$designations,null,['class' => 'form-control select2-show-search', 'id' => 'job_title', 'placeholder' => 'select job title','required'=>'true']) !!}
+								</div>
+								<div class="col-6 col-lg-6">
+									<label class="form-label">Report To</label>
+									{!! Form::select('report_to',$designations,null,['class' => 'form-control select2-show-search', 'id' => 'job_title', 'placeholder' => 'select title','required'=>'true']) !!}
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-6">
 									<label class="form-label">Number of Employees Required</label>
-									<input type="number" class="form-control" name="empoyees_required" placeholder="ie. 1, 4" required>
+									<input type="number" class="form-control" value="{{ old('empoyees_required') }}" name="empoyees_required" placeholder="ie. 1, 4" required>
 									@error('number')
 									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 									@enderror
@@ -82,8 +83,17 @@
 							</div>
 							<div class="row">
 								<div class="col-12 col-lg-12">
+									<label class="form-label">Possition Summary</label>
+									<textarea type="text" class="form-control summernotecontent" name="possition_summary" placeholder="Duties and responsibilities here" required>{{ old('possition_summary') }}</textarea>
+									@error('possition_summary')
+									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+									@enderror
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 col-lg-12">
 									<label class="form-label">Duties And Resposibilities</label>
-									<textarea type="text" class="form-control summernotecontent" name="duties_and_responsibilities" placeholder="Duties and responsibilities here" required></textarea>
+									<textarea type="text" class="form-control summernotecontent" name="duties_and_responsibilities" placeholder="Duties and responsibilities here" required>{{ old('duties_and_responsibilities') }}</textarea>
 									@error('duties_and_responsibilities')
 									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 									@enderror
@@ -97,35 +107,34 @@
 											<div class="input-group-text">
 												<i class="fa fa-calendar tx-16 lh-0 op-6"></i>
 											</div>
-
-										</div><input class="form-control" name="date_required" placeholder="MM/DD/YYYY" type="date" required>
-
+										</div><input class="form-control" value="{{ old('date_required') }}" name="date_required" placeholder="MM/DD/YYYY" type="date" required>
 									</div>
 									@error('date_required')
 									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 									@enderror
 								</div>
-
 								<div class="col-6">
 									<label class="form-label">Prospect for appointment</label>
 									@foreach($prospects as $prospect)
-									<label class="custom-control custom-radio">
-										<input type="radio" class="custom-control-input" name="prospect_for_appointment_cv_id" value="{{$prospect->id}}" checked>
-										<span class="custom-control-label">{{$prospect->name}}</span>
-									</label>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" value="{{ old('prospect_for_appointment_cv_id',$prospect->id) }}" name="prospect_for_appointment_cv_id" id="prospect_for_appointment">
+										<label class="form-check-label" for="inlineRadio1">{{$prospect->name}}</label>
+									</div>
 									@endforeach
 									@error('prospect_for_appointment_cv_id')
 									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 									@enderror
 								</div>
 							</div>
-							<ol class="breadcrumb1">
+							<ol class="breadcrumb1 mt-2">
 								<li class="breadcrumb-item1 h5"> Person Requirement </li>
 							</ol>
 							<div class="row mt-2">
 								<div class="col-12 ">
 									<label class="form-label">Education And Qualification</label>
-									<textarea class="form-control summernotecontent " id="education_and_qualification" name="education_and_qualification" rows="2" placeholder="Describe the requirements for education and qualifications for this post" required></textarea>
+									<textarea class="form-control summernotecontent " id="education_and_qualification" name="education_and_qualification" rows="2" placeholder="Describe the requirements for education and qualifications for this post" required>
+									{{ old('education_and_qualification') }}
+									</textarea>
 								</div>
 								@error('education_and_qualification')
 								<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -134,7 +143,9 @@
 							<div class="row mt-2">
 								<div class="col-12">
 									<label class="form-label">Practical Experience</label>
-									<textarea class="form-control summernotecontent" name="practical_experience" rows="4" placeholder="Practical experience required for this post" required></textarea>
+									<textarea class="form-control summernotecontent" name="practical_experience" rows="4" placeholder="Practical experience required for this post" required>
+									{{ old('practical_experience')}}
+									</textarea>
 								</div>
 								@error('practical_experience')
 								<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -143,7 +154,9 @@
 							<div class="row mt-2">
 								<div class="col-12">
 									<label class="form-label">Other Special Qualities/Skills</label>
-									<textarea class="form-control  summernotecontent" name="special_qualities_skills" rows="4" placeholder="Other Special Qualities or Skills" required></textarea>
+									<textarea class="form-control  summernotecontent" name="special_qualities_skills" rows="4" placeholder="Other Special Qualities or Skills" required>
+									{{ old('special_qualities_skills')}}
+									</textarea>
 								</div>
 								@error('other_qualities')
 								<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
@@ -160,27 +173,28 @@
 								<div class="col-6">
 									<label class="form-label">Employment Condition</label>
 									@foreach($contract_types as $contract_type)
-									<label class="custom-control custom-radio">
-										<input type="radio" class="custom-control-input" name="contract_type" value="{{$contract_type->id}}" checked>
-										<span class="custom-control-label">{{$contract_type->name}}</span>
-									</label>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="contract_type" id="employment_condition" value="{{ old('contract_type',$contract_type->id)}}">
+										<label class="form-check-label" for="inlineRadio1">{{$contract_type->name}}</label>
+									</div>
 									@endforeach
 									@error('employment_condition_cv_id')
 									<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 									@enderror
 								</div>
-
 								@error('special_employment_condition')
 								<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 								@enderror
 							</div>
-							<div class="row">
+							<div class="row mt-2">
 								<div class="col-lg-12">
 									<label class="form-label">Explain any Special Employment Condition</label>
-									<textarea class="form-control summernotecontent" name="special_employment_condition" rows="2" placeholder="Explain any Special Employment Condition" required></textarea>
+									<textarea class="form-control summernotecontent" name="special_employment_condition" rows="2" placeholder="Explain any Special Employment Condition" required>
+									{{ old('special_employment_condition')}}
+									</textarea>
 								</div>
 							</div>
-							<div class="row">
+							<div class="row mt-2">
 								<div class="col-6 col-lg-6">
 									<label class="form-label">Establishment</label>
 									<select name="establishment" id="select-establishment" class="form-control custom-select establishment select2" data-placeholder="Select Establishment">
@@ -196,7 +210,14 @@
 								<div class="col-6 col-lg-6 budget " style="display: none">
 									<div class="form-label">Is there a budget for this position?</div>
 									<div class="d-flex flex-row">
-										<input type="number" name="budget" class="form-control" placeholder="enter budget here">
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="has_budget" id="has_budget" value="1">
+											<label class="form-check-label" for="inlineRadio1">yes</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="has_budget" id="has_budget" value="0">
+											<label class="form-check-label" for="inlineRadio2">No</label>
+										</div>
 									</div>
 								</div>
 								<div class="col-6 col-lg-6 employee" style="display: none">
@@ -255,7 +276,7 @@
 						<div class="col-8">
 							<label class="form-label"> Minimum Years Of Experince </label>
 							<div class="d-flex flex-row">
-								<input type="number" class="form-control" name="experience_years" placeholder="Years of experience" required>
+								<input type="number" class="form-control" name="experience_years" value="{{old('experience_years')}}" placeholder="Years of experience" required>
 							</div>
 						</div>
 						<div class="col-2">
@@ -264,25 +285,10 @@
 						<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 						@enderror
 					</div>
-
-					<div class="form-group row mt-2">
-						<div class="col-2">
-							<label class="form-label"> Age </label>
-						</div>
-						<div class="col-8 d-flex flex-row">
-							<span class="mr-2"> Between </span>
-							<input type="number" class="form-control" name="start_age">
-							<span class="mx-2"> And </span>
-							<input type="number" class="form-control" name="end_age">
-						</div>
-						@error('practical_experience')
-						<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-						@enderror
-					</div>
 					<div class="row mt-2">
 						<div class="col-8">
 							<label class="form-label"> Skill Category </label>
-							<select class="form-control select2-show-search" id="skill_category_id" name="skill_category_id" data-placeholder="Select filter" >
+							<select class="form-control select2-show-search" id="skill_category_id" name="skill_category_id" data-placeholder="Select filter">
 								<option> choose Category</option>
 								@foreach($skillCategories as $skillCategory)
 								<option value="{{ $skillCategory->id }}">{{$skillCategory->name}}</option>
@@ -313,7 +319,6 @@
 							@endif
 							<button type="button" class="btn btn-inline-block btn-azure prev-step"> <i class="fa fa-angle-left"></i> Back </button>
 							<button type="submit" name="submit_job_requisition" value="add" class="btn btn-inline-block btn-azure"> <i class="fa fa-save"></i> Add Requisition</button>
-
 						</div>
 					</div>
 				</div>
@@ -322,7 +327,6 @@
 		</div>
 	</div>
 	@endsection
-
 	@push('after-scripts')
 	<script>
 		$(document).ready(function() {
@@ -331,7 +335,7 @@
 					$('.budget').show()
 					$('.employee').hide()
 				}
-				if ($(this).val() == 22) {
+				if ($(this).val() == 49) {
 					$('.employee').show()
 					$('.budget').hide()
 				}
@@ -382,7 +386,6 @@
 		function prevTab(elem) {
 			$(elem).parent().prev().find('a[data-toggle="tab"]').click();
 		}
-
 		$("#add_requisition").click(function() {
 			$(".add_requisition_body").show();
 			$(".hire_requisition_list").hide();
@@ -413,28 +416,27 @@
 				error: function(data) {}
 			});
 		});
-
 		var $_department_id = $("[name='department_id']"); // Button that triggered the modal
-        $_department_id.change(function(e) {
-            $_deparmtment_id = $(this).val();
+		$_department_id.change(function(e) {
+			$_deparmtment_id = $(this).val();
 			url = "{{route('hirerequisition.getDesignationByDepertment',':department_id')}}";
 			url = url.replace(':department_id', $_deparmtment_id);
-            var $_data = {
-                department_id: $(this).val(),
-            };
-            $.ajax({
-                url: url,
-                type: "get",
-                dataType: 'json',
-                success: function(data) {
-                    var option = "";
+			var $_data = {
+				department_id: $(this).val(),
+			};
+			$.ajax({
+				url: url,
+				type: "get",
+				dataType: 'json',
+				success: function(data) {
+					var option = "";
 					$.each(data, function(key, value) {
-						option += "<option value='"+value.id+"'>" + value.name+ "</option>";
+						option += "<option value='" + value.id + "'>" + value.name + "</option>";
 					});
 					$("#job_title").html(option);
-                }
-            });
-        });
+				}
+			});
+		});
 	</script>
 	<style>
 		.breadcrumb1 {
@@ -451,5 +453,4 @@
 			background-color: #f2f5fb;
 		}
 	</style>
-
 	@endpush

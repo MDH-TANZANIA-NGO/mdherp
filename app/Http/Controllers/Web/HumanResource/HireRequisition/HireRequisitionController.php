@@ -233,7 +233,6 @@ class HireRequisitionController extends Controller
 
     public function submit(Request $request, $uuid)
     {
-
         try {
             DB::beginTransaction();
             $hireRequisition = $this->hireRequisitionRepository->findByUuid($uuid);

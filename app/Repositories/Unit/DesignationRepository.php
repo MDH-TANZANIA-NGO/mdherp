@@ -87,5 +87,6 @@ class DesignationRepository extends BaseRepository
     public function getDesignationByDepertment($deparment_id){
         return $this->getQueryDesignationUnit()->where('designations.department_id',$deparment_id)->get();
     }
+   
 
 }

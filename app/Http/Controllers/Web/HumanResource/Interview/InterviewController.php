@@ -84,14 +84,14 @@ class InterviewController extends Controller
         try{
             DB::beginTransaction();
             $interview = $this->interviewRepository->store($request->all());
+            $this->interviewRepository->submit($interview);
             DB::commit();
             alert()->success('initiated Successfully');
             return redirect()->route('interview.initiate-panelist', $interview->uuid);
         }catch(Exception $e){
             DB::rollBack();
             throw new GeneralException($e->getMessage());
-        }
-       
+        }       
     }
     public function show(Interview $interview)
     {
@@ -137,8 +137,8 @@ class InterviewController extends Controller
     public function initiatePanelist(Interview $interview)
     {
         $users = $this->userRepository->forSelect();
-        $schedules = InterviewSchedule::where('interview_id', $interview->id)->get()->pluck('id');
-        $interviewApplicants = $this->hrHireApplicantRepository->getPendingSelected($interview)->get();
+        InterviewSchedule::where('interview_id', $interview->id)->get()->pluck('id');
+        $this->hrHireApplicantRepository->getPendingSelected($interview)->get();
         $interview_type = InterviewTypes::find($interview->interview_type_id);
         $hrHireRequisitionJob = $this->hireRequisitionJobRepository
             ->query()
@@ -163,7 +163,7 @@ class InterviewController extends Controller
             DB::beginTransaction();
             if ($request->has('applicant'))
                 $interview = $this->interviewRepository->find($request->interview_id);
-                $this->interviewRepository->submit($interview);
+               
             $interviewScheduleData = [
                 'interview_id' => $interview->id,
                 'interview_date' => $request->interview_date,

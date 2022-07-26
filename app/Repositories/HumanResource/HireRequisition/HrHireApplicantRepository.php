@@ -39,13 +39,15 @@ class HrHireApplicantRepository extends BaseRepository
             'hr_hire_applicants.last_name',
             DB::raw("hr_hire_applicants.email") ,
             DB::raw("hr_interview_applicants.number"),
-            "hr_interview_applicant_marks.marks as marks"
+            "hr_interview_panelist_marks.marks as marks"
         ])
         ->join('hr_interview_applicants','hr_interview_applicants.applicant_id','hr_hire_applicants.id')      
-        ->leftjoin('hr_interview_applicant_marks',function($query) use($interview){
-            $query->on('hr_interview_applicant_marks.applicant_id','hr_hire_applicants.id')->where('hr_interview_applicant_marks.interview_id',$interview->id);        
+        ->leftjoin('hr_interview_panelist_marks',function($query) use($interview){
+            $query->on('hr_interview_panelist_marks.applicant_id','hr_hire_applicants.id')
+            ->where('panelist_id',access()->id())
+            ->where('hr_interview_panelist_marks.interview_id',$interview->id);        
         })
-        ->whereNull('hr_interview_applicant_marks.deleted_at')
+        ->whereNull('hr_interview_panelist_marks.deleted_at')
         ->where('hr_interview_applicants.interview_id',$interview->id);
          
             

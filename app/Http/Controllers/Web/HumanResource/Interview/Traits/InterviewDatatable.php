@@ -147,7 +147,7 @@ trait InterviewDatatable
         ->addColumn('action', function($query) {
             $action = '<a href="'.route('interview.applicantlist', $query->uuid).'"> View Applicants </a>'; 
             if(isset($query->user_id) && $query->user_id == access()->id()){
-                $action .= '| <a href="'.route('interview.question.create', $query->uuid).'"> Add Questions  </a>';
+                $action .= '| <a href="'.route('interview.question.create', $query->uuid).'"> Prepare Questions </a>';
             }
             return $action;
         })
