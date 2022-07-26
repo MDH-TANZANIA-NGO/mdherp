@@ -17,7 +17,6 @@ class CreateActivityAttendancesTable extends Migration
             $table->id();
             $table->integer('hotspot_id');
             $table->morphs('creator');
-//            $table->multiPolygon('geometry')->nullable();
             $table->bigInteger('offline_id');
             $table->bigInteger('g_scale_id')->nullable();
             $table->bigInteger('government_scale_id')->nullable();
