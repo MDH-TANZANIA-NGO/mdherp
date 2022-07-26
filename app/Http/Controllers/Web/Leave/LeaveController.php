@@ -96,7 +96,7 @@ class LeaveController extends Controller
 
                 if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0) {
                     $leave = $this->leaves->store($request->all());
-                    DB::update('update leave_balances set remaining_days =?  where id= ?', [$actual_remaining_days, $leave_balance->id]);
+//                    DB::update('update leave_balances set remaining_days =?  where id= ?', [$actual_remaining_days, $leave_balance->id]);
                     $wf_module_group_id = 5;
                     $next_user = $leave->user->assignedSupervisor()->supervisor_id;
 

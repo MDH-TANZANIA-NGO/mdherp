@@ -42,22 +42,13 @@ class LeaveRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('leaves.id AS id'),
-            DB::raw('leaves.user_id AS user_id'),
             DB::raw('leaves.start_date AS start_date'),
             DB::raw('leaves.end_date AS end_date'),
             DB::raw('leave_balance AS leave_balance'),
             DB::raw('leaves.comment AS comment'),
             DB::raw('leaves.leave_type_id AS leave_type_id')
-                ])
+        ])
             ->join('users','users.id', 'leaves.user_id');
-    }
-
-    public function getAccessDelegetedLeaves( $start_date, $end_date)
-    {
-       return $this->getQueryAll()
-            ->where('leaves.employee_id', access()->user()->id)
-            ->where('leaves.end_date', '>=',$end_date)
-            ->orWhere('leaves.end_date', '<=',$start_date);
     }
 
     public function inputProcess($inputs){
@@ -77,24 +68,11 @@ class LeaveRepository extends BaseRepository
     }
 
 
-    public function store($inputs, $leave_balance)
+    public function store($inputs)
     {
-       $get_delegeted_leaves =  $this->getAccessDelegetedLeaves($inputs['start_date'], $inputs['end_date'])->get();
-
-       if ($get_delegeted_leaves->count() > 0)
-       {
-         alert()->error('You have been delegated responsibilities', 'Failed');
-           return  redirect()->back();
-
-       }
-       else{
-           return DB::transaction(function () use ($inputs, $leave_balance){
-               $leave_id = $this->query()->create($this->inputProcess($inputs))->id;
-
-            return $leave_id;
-           });
-       }
-
+        return DB::transaction(function () use ($inputs){
+            return $this->query()->create($this->inputProcess($inputs));
+        });
     }
 
     public function getAllApprovedLeaves()
@@ -136,7 +114,7 @@ class LeaveRepository extends BaseRepository
         return $this->getQuery()
             ->whereDoesntHave('wfTracks')
             ->where('leaves.wf_done', 0)
-           // ->where('leaves.done', false)
+            // ->where('leaves.done', false)
             ->where('leaves.rejected', false)
             ->where('users.id', access()->id());
     }
