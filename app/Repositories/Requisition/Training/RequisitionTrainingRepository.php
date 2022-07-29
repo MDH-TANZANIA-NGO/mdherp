@@ -52,8 +52,8 @@ class RequisitionTrainingRepository extends BaseRepository
                 DB::raw("CONCAT_WS(' ', requisitions.number, districts.name, requisition_trainings.start_date, requisition_trainings.end_date ) AS training")
             ])
             ->where('requisitions.wf_done', 1)
-            ->where('requisitions.user_id', access()->id())
-            ->whereDoesntHave('programActivity');
+            ->where('requisitions.is_closed', false)
+            ->where('requisitions.user_id', access()->id());
     }
     public function getPluckRequisitionNo()
     {

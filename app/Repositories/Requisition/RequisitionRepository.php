@@ -53,6 +53,23 @@ RequisitionRepository extends BaseRepository
             ->join('regions', 'requisitions.region_id', 'regions.id')
             ->join('users', 'users.id', 'requisitions.user_id');
     }
+    public function getAccessTrainingRequisition()
+    {
+        return $this->getQuery()
+            ->addSelect([
+                DB::raw('districts.name AS district_name'),
+                'requisitions.number',
+                'requisition_trainings.id',
+                DB::raw("CONCAT_WS(' ', requisitions.number, districts.name, requisition_trainings.start_date, requisition_trainings.end_date ) AS training")
+            ])
+            ->join('requisition_trainings','requisition_trainings.requisition_id','requisitions.id')
+            ->join('districts','districts.id','requisition_trainings.district_id' )
+            ->where('requisitions.requisition_type_category', 2)
+            ->where('requisitions.user_id', access()->user()->id)
+            ->where('requisitions.wf_done', 1);
+
+    }
+
 
     public function getQueryAll()
     {

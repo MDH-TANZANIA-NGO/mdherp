@@ -204,8 +204,7 @@
 {!! Html::script(url('mdh/js/custom.js')) !!}
 
 <!--Accordion-Wizard-Form js-->
-{{--<script src="mdh/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js"></script>--}}
-{{--<script src="mdh/js/form-wizard.js"></script>--}}
+
 
 @stack('in-scripts')
 <!-- AdminLTE App -->
