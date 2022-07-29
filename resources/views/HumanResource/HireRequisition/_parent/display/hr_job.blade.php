@@ -43,6 +43,11 @@
                     <td><strong>Date Required : </strong></td>
                     <td>{{ $job->date_required }}</td>
                 </tr>
+                
+                <tr>
+                    <td><strong>Position Summary : </strong></td>
+                    <td>{!! $job->possition_summary !!}</td>
+                </tr>
                 <tr class="gray">
                     <td colspan="2">
                         <h5 class="text-uppercase">Person Required </h5>

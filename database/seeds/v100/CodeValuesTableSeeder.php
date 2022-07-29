@@ -255,9 +255,9 @@ class CodeValuesTableSeeder extends Seeder
                 array (
                     'id' => 22,
                     'code_id' => 9,
-                    'name' => 'Addition/Replacement to existing staff',
+                    'name' => 'Addition to existing staff',
                     'lang' => NULL,
-                    'description' => 'Addition or replacement to existing staff',
+                    'description' => 'Addition to existing staff',
                     'reference' => 'Add',
                     'sort' => 0,
                     'isactive' => 1,
@@ -548,11 +548,19 @@ class CodeValuesTableSeeder extends Seeder
                     'sort' => 0,
                     'isactive' => 1,
                 ),
-
-
+            48 =>
+                array (
+                    'id' => 49,
+                    'code_id' => 9,
+                    'name' => 'Replacement of the existing Staff',
+                    'lang' => NULL,
+                    'description' => 'Replacement of the existing Staff',
+                    'reference' => 'Replace',
+                    'sort' => 0,
+                    'isactive' => 1,
+                ),
 
         ));
         $this->enableForeignKeys("code_values");
-
     }
 }

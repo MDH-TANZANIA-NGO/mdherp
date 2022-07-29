@@ -39,19 +39,17 @@ class HrHireApplicantRepository extends BaseRepository
             'hr_hire_applicants.last_name',
             DB::raw("hr_hire_applicants.email") ,
             DB::raw("hr_interview_applicants.number"),
-            DB::raw("SUM(hr_interview_panelist_marks.marks) as Marks")
+            "hr_interview_panelist_marks.marks as marks"
         ])
-        ->join('hr_interview_applicants','hr_interview_applicants.applicant_id','hr_hire_applicants.id')
-        // ->leftjoin('hr_interview_question_marks',function($query) use($interview){
-        //     $query->on('hr_interview_question_marks.applicant_id','hr_hire_applicants.id')->where('hr_interview_question_marks.interview_id',$interview->id);
-        // })
-        ->whereNull('hr_interview_panelist_marks.deleted_at')
+        ->join('hr_interview_applicants','hr_interview_applicants.applicant_id','hr_hire_applicants.id')      
         ->leftjoin('hr_interview_panelist_marks',function($query) use($interview){
-                $query->on('hr_interview_panelist_marks.applicant_id','hr_hire_applicants.id')->where('hr_interview_panelist_marks.interview_id',$interview->id)
-                     ->where('hr_interview_panelist_marks.panelist_id',access()->id());
+            $query->on('hr_interview_panelist_marks.applicant_id','hr_hire_applicants.id')
+            ->where('panelist_id',access()->id())
+            ->where('hr_interview_panelist_marks.interview_id',$interview->id);        
         })
-        ->where('hr_interview_applicants.interview_id',$interview->id)
-        ->groupby('hr_hire_applicants.id','hr_interview_applicants.number','hr_hire_applicants.email');
+        ->whereNull('hr_interview_panelist_marks.deleted_at')
+        ->where('hr_interview_applicants.interview_id',$interview->id);
+         
             
     }
     public function getPendingSelected($interview){
@@ -71,6 +69,7 @@ class HrHireApplicantRepository extends BaseRepository
         ->join('hr_hire_requisition_job_applicants','hr_hire_requisition_job_applicants.hr_hire_applicant_id','hr_hire_applicants.id')
         ->join('hr_hire_requisition_job_applicant_requests','hr_hire_requisition_job_applicant_requests.id','hr_hire_requisition_job_applicants.hr_hire_requisition_job_applicant_request_id')
         ->where('hr_hire_requisition_job_applicant_requests.wf_done',1)
+        ->where('hr_hire_requisition_job_applicants.hr_hire_requisitions_job_id',$hr_requisition_job_id)
         ->groupby('hr_hire_applicants.id','hr_hire_applicants.first_name','hr_hire_applicants.middle_name','hr_hire_applicants.last_name');
     }
 

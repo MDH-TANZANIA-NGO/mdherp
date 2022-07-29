@@ -16,6 +16,7 @@
             <h3 class="card-title">INTERVIEW REPORT</h3>
         </div>
         <div class="card-body">
+            
             @each('HumanResource.Interview.report.interveiw_list', $interviews, 'interview')
             @include('HumanResource.Interview.report.panelist_list')
             @include('HumanResource.Interview.report.recommendation_list')

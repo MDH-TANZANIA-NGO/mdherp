@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropColumnNumberOnRatesTable extends Migration
+class ColumnHasBudgetHireRequisitionJobsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class DropColumnNumberOnRatesTable extends Migration
      */
     public function up()
     {
-        Schema::table('rates', function (Blueprint $table) {
-            //$table->dropColumn('number');
+        Schema::table('hr_hire_requisitions_jobs',function(Blueprint $table){
+            $table->smallInteger('has_budget')->nullable();
+            $table->text('possition_summary')->nullable();
         });
     }
 
@@ -25,8 +26,6 @@ class DropColumnNumberOnRatesTable extends Migration
      */
     public function down()
     {
-        Schema::table('rates', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

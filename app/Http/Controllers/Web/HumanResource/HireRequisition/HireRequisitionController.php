@@ -233,16 +233,14 @@ class HireRequisitionController extends Controller
 
     public function submit(Request $request, $uuid)
     {
-
         try {
             DB::beginTransaction();
             $hireRequisition = $this->hireRequisitionRepository->findByUuid($uuid);
             $hire_requisition_id = $hireRequisition->id;
             $wf_done  = $hireRequisition->done;
             $this->hireRequisitionRepository->submit($uuid);
-            $wf_module_group_id = 8;
-            $next_user = $hireRequisition->user->assignedSupervisor()->supervisor_id;
-            $this->startWorkflow($hireRequisition, 1,  $next_user);
+            $wf_module_group_id = 8;        
+            $this->startWorkflow($hireRequisition, 1, $hireRequisition->user->head_of_department_user_id);
             // event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $hireRequisition->id, 'region_id' => $hireRequisition->region_id, 'type' => 1], [], ['next_user_id' => $next_user]));
             alert()->success('Hire Requisition Created Successfully', 'success');
             DB::commit();

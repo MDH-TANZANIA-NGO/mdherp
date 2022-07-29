@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="card">
         <div class="card-header">
@@ -56,8 +57,8 @@
             @method('PUT')
             <div class="modal-body">
                 <textarea class="form-control" type="text" id="question" name="question"></textarea>
-                <input type="text" id="question_id" name="question_id">
-                <input type="text" id="interview_id" name="interview_id" value="{{ $interview->id }}">
+                <input type="hidden" id="question_id" name="question_id">
+                <input type="hidden" id="interview_id" name="interview_id" value="{{ $interview->id }}">
                 
             </div>
             <div class="modal-footer">

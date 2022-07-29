@@ -84,14 +84,14 @@ class InterviewController extends Controller
         try{
             DB::beginTransaction();
             $interview = $this->interviewRepository->store($request->all());
+            $this->interviewRepository->submit($interview);
             DB::commit();
             alert()->success('initiated Successfully');
             return redirect()->route('interview.initiate-panelist', $interview->uuid);
         }catch(Exception $e){
             DB::rollBack();
             throw new GeneralException($e->getMessage());
-        }
-       
+        }       
     }
     public function show(Interview $interview)
     {
@@ -137,8 +137,8 @@ class InterviewController extends Controller
     public function initiatePanelist(Interview $interview)
     {
         $users = $this->userRepository->forSelect();
-        $schedules = InterviewSchedule::where('interview_id', $interview->id)->get()->pluck('id');
-        $interviewApplicants = $this->hrHireApplicantRepository->getPendingSelected($interview)->get();
+        InterviewSchedule::where('interview_id', $interview->id)->get()->pluck('id');
+        $this->hrHireApplicantRepository->getPendingSelected($interview)->get();
         $interview_type = InterviewTypes::find($interview->interview_type_id);
         $hrHireRequisitionJob = $this->hireRequisitionJobRepository
             ->query()
@@ -163,7 +163,7 @@ class InterviewController extends Controller
             DB::beginTransaction();
             if ($request->has('applicant'))
                 $interview = $this->interviewRepository->find($request->interview_id);
-                $this->interviewRepository->submit($interview);
+               
             $interviewScheduleData = [
                 'interview_id' => $interview->id,
                 'interview_date' => $request->interview_date,
@@ -185,37 +185,24 @@ class InterviewController extends Controller
 
     public function addPanelist(Request $request)
     {
+         
         try {
             DB::beginTransaction();
-            $panelists = $request->panelist_id;
-
-            $total_panelist = count($panelists);
-            $interview_id = $request->interview_id;
-            $technical_staff = $request->technical_staff;
-            InterviewPanelistCounter::create(['total_panelist' => $total_panelist, 'interview_id' => $interview_id]);
-            $pan = [];
-            foreach ($panelists as $panelist) {
-                $pan[] = InterviewPanelist::create([
-                    'interview_id' => $interview_id,
-                    'user_id' => $panelist
-                ]);
-            }
-            $panelists = InterviewPanelist::where('interview_id', $interview_id)->get();
-            $has_technical_staff = false;
-            foreach ($panelists as $panelist) {
-                if ($panelist->user_id == $technical_staff) {
-                    $panelist->update(['technical_staff' => 1]);
-                    $has_technical_staff = true;
+                $panelists = $request->panelist_id;
+                $interview_id = $request->interview_id;
+                $technical_staff = $request->technical_staff;
+                $total_panelist = count($panelists);  
+                $total_panelist = in_array($technical_staff,$panelists) ? $total_panelist:($total_panelist+1);       
+                InterviewPanelistCounter::create(['total_panelist' => $total_panelist, 'interview_id' => $interview_id]);
+                foreach ($panelists as $panelist) {
+                    InterviewPanelist::create(['interview_id' => $interview_id, 'user_id' => $panelist ]);
                 }
-            }
-
-            if (!$has_technical_staff) {
-                InterviewPanelist::create([
-                    'interview_id' => $interview_id,
-                    'user_id' => $technical_staff,
-                    'technical_staff' => 1
-                ]);
-            }
+                $panelists = InterviewPanelist::where('interview_id', $interview_id)->pluck('user_id')->toArray();
+                if(in_array($technical_staff,$panelists)){
+                    InterviewPanelist::where('user_id',$technical_staff)->where('interview_id',$interview_id)->update(['technical_staff' => 1]);
+                }else{
+                    InterviewPanelist::create(['interview_id' => $interview_id, 'user_id' => $technical_staff,'technical_staff' => 1]);           
+                }  
             DB::commit();
             alert()->success('added Successfully');
             $interview = $this->interviewRepository->find($request->interview_id);
@@ -266,8 +253,7 @@ class InterviewController extends Controller
         try {          
             DB::beginTransaction();
             $interview = $this->interviewRepository->find($request->interview_id);
-            $interview->update(['has_interview_invitation' => 1,'done'=>1]);
-             
+            $interview->update(['has_interview_invitation' => 1,'done'=>1]);            
             $selectedApplicant = $this->hrHireApplicantRepository->getSelected($interview)->get();
             foreach ($selectedApplicant as $applicant) {
                 IntervieweeEmailJob::dispatch($applicant, $interview);
@@ -346,6 +332,7 @@ class InterviewController extends Controller
     public function showResult(Interview $interview)
     {
         $applicants =   $this->hrHireApplicantRepository->getSelectedWithMarks($interview)->get();
+        // return $applicants;
         $completed   =   $this->interviewApplicantRepository->competedScored($interview->id)->count();
         $pending   =   $this->interviewApplicantRepository->pendingScored($interview->id)->count();
         $questions =  $this->interviewQuestionRepository->query()

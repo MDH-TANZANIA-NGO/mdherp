@@ -35,7 +35,6 @@ class InterviewReportRepository extends BaseRepository
             ->join('hr_hire_requisitions_jobs', 'hr_hire_requisitions_jobs.id', 'hr_interview_workflow_reports.hr_requisition_job_id')
             ->join('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
             ->join('units','units.id','designations.unit_id')
-            
             ->join('users','users.id','hr_interview_workflow_reports.user_id');
             // ->join('hr_hire_requisition_locations','hr_hire_requisition_locations.hr_requisition_job_id','hr_interview_workflow_reports.hr_requisition_job_id')
             // ->join('regions','regions.id','hr_hire_requisition_locations.region_id')
@@ -162,6 +161,9 @@ class InterviewReportRepository extends BaseRepository
         ]);
     }
 
+    public function processWorkflowLevelsAction(){
+
+    }
 
     public function updateRecommendedApplicant($recommendedApplicants){
         $recommendedApplicants->each(function($item,$key){

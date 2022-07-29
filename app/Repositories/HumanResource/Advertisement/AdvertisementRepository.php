@@ -115,4 +115,8 @@ class AdvertisementRepository extends  BaseRepository
         ]);
     }
 
+    public function update($input,$advertisement){
+        return $advertisement->update($input);
+    }
+
 }

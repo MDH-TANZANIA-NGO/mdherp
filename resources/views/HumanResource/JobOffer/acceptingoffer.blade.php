@@ -42,7 +42,7 @@
                 <div class="card-body">
                     <div class="">
                         <h4 class="mb-1"><strong>Congratulation! {{$job_offer->interviewApplicant->applicant->full_name}},</strong>,</h4>
-                        has been given offer of <strong>${{currency_converter($job_offer->salary, 'TSH')}}</strong> (USD) for job position as <b>{{strtoupper($job_offer->interviewApplicant->interviews->jobRequisition->designation->full_title)}}</b>
+                        has been given offer of <strong>${{currency_converter($job_offer->salary, 'TSH')}}</strong> (USD) for job position as <b>{{strtoupper($job_offer->interviewApplicant->jobRequisition->designation->full_title)}}</b>
                     </div>
 
                     <div class="card-body pl-0 pr-0">

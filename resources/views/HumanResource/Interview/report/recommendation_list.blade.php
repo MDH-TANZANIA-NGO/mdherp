@@ -47,9 +47,12 @@
              <div class="modal-body">
              {!! Form::open(['route' => 'interview.report.recommend']) !!}
                 @method('POST')
-                 <div class="form-group">
+                 <div class="form-row">
                      <label class="form-label">Applicant</label>
-                     {!! Form::select('applicant_id',$applicants,null,['class' => 'form-control select2','width'=>'100','data-placeholder'=>'Select panelists','required']) !!}
+                     <div class="col-lg-8">
+                     {!! Form::select('applicant_id',$applicants,null,['class' => 'form-control select2-show-search','width'=>'100','placeholder'=>'Select panelists','required']) !!}
+                     </div>
+                    
                  </div>
                  <input type="hidden" name="hr_requisition_job_id" value="{{ $hireRequisitionJob }}">
 
@@ -57,7 +60,7 @@
              </div>
              <div class="modal-footer">
                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                 <button type="submit" class="btn btn-primary">Save changes</button>
+                 <button type="submit" class="btn btn-primary">Add Applicant</button>
              </div>
              {!! Form::close() !!}
          </div>

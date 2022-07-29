@@ -100,7 +100,7 @@ trait InterviewDatatable
                 
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('interview.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('interview.initiate', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -147,7 +147,7 @@ trait InterviewDatatable
         ->addColumn('action', function($query) {
             $action = '<a href="'.route('interview.applicantlist', $query->uuid).'"> View Applicants </a>'; 
             if(isset($query->user_id) && $query->user_id == access()->id()){
-                $action .= '| <a href="'.route('interview.question.create', $query->uuid).'"> Add Questions  </a>';
+                $action .= '| <a href="'.route('interview.question.create', $query->uuid).'"> Prepare Questions </a>';
             }
             return $action;
         })

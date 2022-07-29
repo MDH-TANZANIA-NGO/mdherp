@@ -16,7 +16,7 @@ class HireRequisitionJobRepository extends BaseRepository
     public function getQuery(){
         return $this->query()->select([
             DB::raw('hr_hire_requisitions_jobs.id AS id' ),
-            DB::raw("CONCAT_WS(' ',units.title, designations.name) AS job_title"),
+            DB::raw("CONCAT_WS(' ',units.name, designations.name) AS job_title"),
             DB::raw('hr_hire_requisitions_jobs.uuid AS uuid' ),
             DB::raw('hr_hire_requisitions_jobs.designation_id AS designation_id'),
             DB::raw('hr_hire_requisitions_jobs.department_id AS department_id'),
@@ -39,6 +39,8 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw('hr_hire_requisitions_jobs.special_employment_condition AS special_employment_condition'),
             DB::raw('hr_hire_requisitions_jobs.created_at AS created_at'),
             DB::raw('hr_hire_requisitions_jobs.budget AS budget'),
+            DB::raw('hr_hire_requisitions_jobs.has_budget AS has_budget'),
+            DB::raw('hr_hire_requisitions_jobs.possition_summary AS possition_summary'),
             DB::raw('hr_hire_requisitions_jobs.updated_at AS updated_at'),
         ])
             ->leftjoin('departments','departments.id','hr_hire_requisitions_jobs.department_id')
@@ -100,8 +102,8 @@ class HireRequisitionJobRepository extends BaseRepository
             'designation_id' => $inputs['job_title'],
             'department_id' => $inputs['department_id'],
             'hr_contract_type_id' =>  $inputs['contract_type'],
-            'start_age' =>  $inputs['start_age'],
-            'end_age' =>  $inputs['end_age'],
+            // 'start_age' =>  $inputs['start_age'],
+            // 'end_age' =>  $inputs['end_age'],
             'special_employment_condition' => $inputs['special_employment_condition'],
             'duties_and_responsibilities' => $inputs['duties_and_responsibilities'],
             'experience_years' =>$inputs['experience_years'],
@@ -114,7 +116,10 @@ class HireRequisitionJobRepository extends BaseRepository
             'appointement_prospects_id' => $inputs['prospect_for_appointment_cv_id'],
             'education_level' => $inputs['education_level'],
             'hire_requisition_id' => $inputs['hire_requisition_id'],
-            'budget' => $inputs['budget']
+            // 'budget' => $inputs['budget'],
+            'report_to' => $inputs['report_to'],
+            'has_budget' => isset($inputs['has_budget']) ? $inputs['has_budget'] : null,
+            'possition_summary' => $inputs['possition_summary'],
         ];
       
     }
@@ -278,7 +283,7 @@ class HireRequisitionJobRepository extends BaseRepository
             'departments.title',
             'hr_hire_requisitions_jobs.empoyees_required',
             'code_values.name',
-            'hr_hire_requisitions_jobs.education_and_qualification',
+            'hr_hire_requisitions_jobs.education_and_qualification'
         );
     }
 

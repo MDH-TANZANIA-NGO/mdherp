@@ -52,4 +52,10 @@ trait HireRequisitionJobService
         }
         return $response->successful();
     }
+
+    public function getApplicantsById($applicant_id)
+    {
+        $response = Http::get(config('mdh.recruitment_portal_url') . 'applicant/'.$applicant_id);
+        return json_decode($response);
+    }
 }

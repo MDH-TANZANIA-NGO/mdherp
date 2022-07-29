@@ -47,14 +47,17 @@
                         <tbody>
                             <?php $total_questions = 0; ?>
                             @foreach($applicants as $key=>$applicant)
-                            
+                            @php
+                                $full_name = $applicant->first_name." ".$applicant->middle_name." ".$applicant->last_name;
+                                $number = $applicant->number;
+                            @endphp
                             <tr>
                                 <td> {{($key+1) }}</td>
-                                <td> {{ $applicant->first_name }} {{ $applicant->middle_name }}  {{ $applicant->last_name }} </td>
+                                <td> {{ $full_name }} </td>
                                 <td> {{ $applicant->number }} </td>
-                                <td> {{ $applicant->marks }} </td>
+                                <td> {{ number_format($applicant->marks,2) }} </td>
                                 @if(isset($has_report) && $has_report != 1 )
-                                <td><a data-interview_id = "{{ $interview->id }}" data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
+                                <td><a data-applicant_name="{{  $full_name.'('.$number.')'  }}" data-interview_id = "{{ $interview->id }}" data-applicant_id="{{$applicant->id}}" data-toggle="modal" data-target="#edit" data-whatever="@mdo" href="#"> Add Marks </a></td>
                                 @endif
                             </tr>
                             <?php $total_questions = ($key+1); ?>
@@ -75,7 +78,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Marks</h5>
+                <h5 class="modal-title" id="applicant_name"></h5>
+       
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -102,8 +106,8 @@
                                 <td> {{ $question->question }} </td>
                                 <td> {{ $question->marks }} </td>
                                 <td>
-                                     <input type="number" name="marks{{($key+1)}}"  required>
-                                     <input type="hidden" maxlength="{{ $question->marks }}" value="{{$question->id}}" name="question{{($key+1)}}"  required>
+                                     <input type="number" min="0" max="{{$question->marks}}" name="marks{{($key+1)}}"  required>
+                                     <input type="hidden"  value="{{$question->id}}" name="question{{($key+1)}}"  required>
                                 </td>
                             </tr>
                             <?php $total_questions = ($key+1); ?>
@@ -136,10 +140,12 @@
         var id = button.data('id'); // Button that triggered the modal
         var applicant_id = button.data('applicant_id'); // Button that triggered the modal
         var interview_id = button.data('interview_id'); // Button that triggered the modal
+        var applicant_name = button.data('applicant_name'); // Button that triggered the modal
         $("#question").val(content);
         $("#question_id").val(id);
         $("#applicant_id").val(applicant_id);
         $("#interview_id").val(interview_id);
+        $("#applicant_name").text(applicant_name);
     });
 </script>
 @endpush

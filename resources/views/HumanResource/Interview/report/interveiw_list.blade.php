@@ -14,7 +14,9 @@
                 where hr_interview_applicant_marks.interview_id = ".$interview->id."
                 order by
                 hr_interview_applicant_marks.marks desc";
-   $interview_reports =  \DB::select($sql);   
+   $interview_reports =  \DB::select($sql);  
+   $total_applicants = \DB::select("select count(*) as total FROM hr_interview_applicants WHERE interview_id = '$interview->id'");
+   $total_applicants = $total_applicants[0]->total;
     ?>
  <div class="row">
      <div class="card">
@@ -22,11 +24,12 @@
             <div class="tags">
              <span class="tag tag-rounded" style="font-size: 14px"><b>INTERVIEW TYPE :</b> {{ $interview->interviewType->name }}</span>    
              <span class="tag tag-rounded" style="font-size: 14px"><b>INTERVIEW DATE :</b>
-                     @foreach( $interview->InterviewSchedules as $interview)
-                            {{ date('d-m-Y',strtotime($interview->interview_date))   }}, 
+                     @foreach( $interview->InterviewSchedules as $interview_schedule)
+                            {{ date('d-m-Y',strtotime($interview_schedule->interview_date))   }}, 
                     @endforeach   
             </span>
-             <span class="tag tag-rounded" style="font-size: 14px"><b>INTERVIEW NUMBER :</b> {{ $interview->number }}</span>  
+             <span class="tag tag-rounded" style="font-size: 14px"><b>INTERVIEW NUMBER :</b> {{ $interview->number  }}</span>  
+             <span class="tag tag-rounded" style="font-size: 14px"><b>TOTAL APPLICANTS :</b> {{ $total_applicants  }}</span>  
             </div>
          </div>
          <div class="card-body">
