@@ -65,14 +65,14 @@ class WfModulesTableSeeder extends Seeder
             3 =>
                 array (
                     'id' => 4,
-                    'name' => 'Program Activities Initiated ',
+                    'name' => 'Program Activity Initiated ',
                     'wf_module_group_id' => '3',
                     'created_at' => '2021-12-13 12:36:03',
                     'updated_at' => \Carbon\Carbon::now(),
                     'deleted_at' => NULL,
                     'isactive' => '1',
                     'type' => '1',
-                    'description' => 'All Program Activities Inititated',
+                    'description' => 'All Program Activity Inititated',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
@@ -216,7 +216,7 @@ class WfModulesTableSeeder extends Seeder
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
-                
+
         ));
 
         $this->enableForeignKeys('wf_modules');

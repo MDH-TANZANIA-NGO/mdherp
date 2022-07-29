@@ -43,7 +43,7 @@ class SysdefsTableSeeder extends Seeder
             ['reference' => 'PROGRAMACTIVITYNUM'],
             [
                 'name' => 'programactivity',
-                'display_name' => 'Program Activities',
+                'display_name' => 'Program Activity',
                 'value' => '0',
                 'data_type' => 'integer',
                 'isactive' => 1,

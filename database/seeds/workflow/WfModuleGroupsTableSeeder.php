@@ -41,7 +41,7 @@ class WfModuleGroupsTableSeeder extends Seeder
             2 =>
                 array (
                     'id' => 3,
-                    'name' => 'Program Activities',
+                    'name' => 'Program Activity',
                     'table_name' => 'program_activities',
                     'created_at' => '2021-11-22 10:15:25',
                     'updated_at' => \Carbon\Carbon::now(),
