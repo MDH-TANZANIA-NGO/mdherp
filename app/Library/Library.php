@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use App\Models\Auth\User;
+use App\Models\HumanResource\HireRequisition\HrHireApplicant;
+use App\Models\HumanResource\HireRequisition\HrHireRequisitionJobApplicant;
 use App\Models\HumanResource\PerformanceReview\PrAttributeRate;
 use App\Models\HumanResource\PerformanceReview\PrCompetence;
 use App\Models\HumanResource\PerformanceReview\PrCompetenceKey;
@@ -448,5 +450,28 @@ if (!function_exists('pr_remark_driver')) {
             'can_submit_remark' => $can_submit_remark,
             'pr_remarks_by' => $pr_remarks_by
         ];
+    }
+}
+
+if (!function_exists('is_shortlisted')) {
+    function is_shortlisted($online_applicant_id, $hr_hire_requisition_job_id)
+    {
+        if(HrHireApplicant::where('user_recruitment_id', $online_applicant_id)->count() == 0){
+            return true;
+        }
+        $applicant = HrHireApplicant::where('user_recruitment_id', $online_applicant_id)->first();
+        if(HrHireRequisitionJobApplicant::where('hr_hire_applicant_id', $applicant->id)->where('hr_hire_requisitions_job_id', $hr_hire_requisition_job_id)->count() > 0){
+            return false;
+        }
+        return true;
+    }
+}
+
+if (!function_exists('shortlister_details')) {
+    function shortlister_details($online_applicant_id, $hr_hire_requisition_job_id)
+    {
+        $online_applicant = HrHireApplicant::where('user_recruitment_id', $online_applicant_id)->first();
+        $registered_applicant = HrHireRequisitionJobApplicant::where('hr_hire_applicant_id', $online_applicant->id)->where('hr_hire_requisitions_job_id', $hr_hire_requisition_job_id)->first();
+        return $registered_applicant->user->fullname;
     }
 }

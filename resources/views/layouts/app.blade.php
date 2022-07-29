@@ -22,9 +22,13 @@
 <!-- Style css -->
     {{ Html::style(url('mdh/css/style.css')) }}
 
+    {!! Html::script(url('mdh/plugins/horizontal-menu/dropdown-effects/fade-up.css')) !!}
+    {!! Html::script(url('mdh/plugins/horizontal-menu/horizontal.css')) !!}
+
 
 {{--    text editor--}}
 {{ Html::style(url('mdh/plugins/wysiwyag/richtext.css')) }}
+{{ Html::style(url('mdh/css/summernote.min.css')) }}
 
         <!-- Date Picker css -->
     {!! Html::script(url('mdh/plugins/date-picker/date-picker.css')) !!}
@@ -59,6 +63,10 @@
 <!-- Accordion Css -->
     {{ Html::style(url('mdh/plugins/accordion/accordion.css')) }}
 
+   <!-- smartwizard js -->
+   <!-- {!! Html::style(url('mdh/css/forn-wizard.min.css')) !!} -->
+    {!! Html::style(url('mdh/css/smart_wizard.min.css')) !!}
+    {!! Html::style(url('mdh/css/smart_wizard_theme_circles.min.css')) !!}
     {{ Html::style(url('mdh/plugins/notify/css/notifIt.css')) }}
 
     @stack('after-styles')
@@ -84,6 +92,7 @@
     @if(!access()->guest())
         {{--Header--}}
             @include('includes.navigation.header')
+{{--        @include('includes.navigation.subheader')--}}
         {{--Header closed--}}
 
         <!--aside open-->
@@ -94,7 +103,7 @@
         <div class="app-content page-body">
 
             <!-- Horizontal-menu -->
-        {{--            @include('includes.navigation.horizontal')--}}
+{{--                    @include('includes.navigation.horizontal')--}}
         <!-- Horizontal-menu end -->
 
             {{--main body--}}
@@ -138,6 +147,7 @@
 
 <script>
     var base_url = "{!! url("/") !!}";
+    var recruitment_portal_url = "{{ config('mdh.recruitment_portal_url') }}";
 </script>
 <!-- Jquery js-->
 {!! Html::script(url('mdh/js/vendors/jquery-3.4.0.min.js')) !!}
@@ -193,6 +203,7 @@
 {!! Html::script(url('mdh/plugins/wysiwyag/jquery.richtext.js')) !!}
 {!! Html::script(url('mdh/js/form-editor.js')) !!}
 
+
 {!! Html::script(url('mdh/js/popover.js')) !!}
 <!-- Notifications js -->
 {!! Html::script(url('mdh/plugins/notify/js/rainbow.js')) !!}
@@ -204,15 +215,25 @@
 {!! Html::script(url('mdh/js/custom.js')) !!}
 
 <!--Accordion-Wizard-Form js-->
+<!-- <script src="mdh/plugins/accordion/accordion.min.js"></script> -->
+{!! Html::script(url('mdh/plugins/accordion/accordion.min.js')) !!}
 
+{!! Html::script(url('mdh/plugins/horizontal-menu/horizontal.js')) !!}
+
+{{--<script src="mdh/js/form-wizard.js"></script>--}}
 
 @stack('in-scripts')
 <!-- AdminLTE App -->
 {{--{!! Html::script(url('dist/js/adminlte.min.js')) !!}--}}
 
-{{--{!! Html::script(url('plugins/summernote/summernote-bs4.min.js')) !!}--}}
+{!! Html::script(url('mdh/js/summernote.min.js')) !!}
 
 {!! Html::script(url('plugins/maskmoney/jquery.maskMoney.js')) !!}
+
+<!-- smartwizard js -->
+{!! Html::script(url('mdh/js/jquery.smartWizard.min.js')) !!}
+{!! Html::script(url('mdh/js/fromwizard.js')) !!}
+
 <script>
     $(document).ready(function () {
         $('.textarea').summernote({
@@ -225,13 +246,17 @@
                 ['view', ['fullscreen']],
             ],
         });
+
         $(".money").maskMoney({
             precision: 2,
             allowZero: false,
             affixesStay: false,
             thousands: '',
         });
-    })
+    });
+
+    $(".demo-accordion").accordionjs();
+
 </script>
 
 @stack('after-scripts')

@@ -278,4 +278,9 @@ trait UserAttribute
         return Carbon::create($this->getThreeMonthProbationAttribute())->addMonths(3)->format('Y-m-d');
     }
 
+    public function getHeadOfDepartmentUserIdAttribute()
+    {
+        return (new UserRepository())->getDirectorOfDepartment($this->designation->department_id)->first() ? (new UserRepository())->getDirectorOfDepartment($this->designation->department_id)->first()->user_id : null;
+    }
+
 }

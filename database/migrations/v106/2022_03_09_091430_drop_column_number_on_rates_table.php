@@ -14,7 +14,7 @@ class DropColumnNumberOnRatesTable extends Migration
     public function up()
     {
         Schema::table('rates', function (Blueprint $table) {
-            $table->dropColumn('number');
+            //$table->dropColumn('number');
         });
     }
 

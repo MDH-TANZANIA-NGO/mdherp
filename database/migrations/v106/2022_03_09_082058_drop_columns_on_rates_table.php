@@ -16,9 +16,9 @@ class DropColumnsOnRatesTable extends Migration
         Schema::table('rates', function (Blueprint $table) {
             $table->dropColumn('wf_done');
             $table->dropColumn('wf_done_date');
-            $table->dropColumn('next_user_id');
-            $table->dropColumn('done');
-            $table->dropColumn('rejected');
+            //$table->dropColumn('next_user_id');
+            //$table->dropColumn('done');
+            //$table->dropColumn('rejected');
         });
     }
 

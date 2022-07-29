@@ -86,8 +86,8 @@ class WfModuleGroupsTableSeeder extends Seeder
             7 =>
                 array (
                     'id' => 8,
-                    'name' => 'Listing',
-                    'table_name' => 'listings',
+                    'name' => 'Hire Requisition',
+                    'table_name' => 'hr_hire_requisitions',
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now(),
                     'deleted_at' => NULL,
@@ -106,6 +106,51 @@ class WfModuleGroupsTableSeeder extends Seeder
                     'id' => 10,
                     'name' => 'Performance Appraisal Report',
                     'table_name' => 'pr_reports',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            10 =>
+                array (
+                    'id' => 11,
+                    'name' => 'Job Advertisement',
+                    'table_name' => 'hr_hire_advertisement_requisitions',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            11 =>
+                array (
+                    'id' => 12,
+                    'name' => 'Job Interview Report',
+                    'table_name' => 'hr_interview_workflow_reports',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            12 =>
+                array (
+                    'id' => 13,
+                    'name' => 'Hire Requisition Shortlister(s)',
+                    'table_name' => 'hr_user_hire_requisition_job_shortlister_requests',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            13 =>
+                array (
+                    'id' => 14,
+                    'name' => 'Job Offer Module',
+                    'table_name' => 'job_offers',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
+            14 =>
+                array (
+                    'id' => 15,
+                    'name' => 'Shortlisted Applicant Report',
+                    'table_name' => 'hr_hire_requisition_job_applicant_requests',
                     'created_at' => NULL,
                     'updated_at' => NULL,
                     'deleted_at' => NULL,

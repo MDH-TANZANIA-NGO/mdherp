@@ -7,6 +7,7 @@ use Database\DisableForeignKeys;
 class RetirementTypeSeeder extends Seeder
 {
 
+    use DisableForeignKeys, TruncateTable;
     /**
      * Run the database seeds.
      *
@@ -14,6 +15,9 @@ class RetirementTypeSeeder extends Seeder
      */
     public function run()
     {
+
+        $this->disableForeignKeys("retirement_types");
+        $this->delete('retirement_types');
 
         \DB::table('retirement_types')->insert(array (
             0 =>
@@ -34,5 +38,6 @@ class RetirementTypeSeeder extends Seeder
         ));
 
     }
+
 
 }
