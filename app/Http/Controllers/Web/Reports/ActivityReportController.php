@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\Reports\Datatables\Activities\ActivityReportDatatab
 use App\Repositories\Activity\ActivityReportRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ActivityReportController extends Controller
 {
@@ -41,6 +42,7 @@ class ActivityReportController extends Controller
 
         return view('reports.Activities.forms.initiate')
             ->with('activity_report', $this->activity_reports)
+            ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
             ->with('trainings', $this->trainings->getPluckRequisitionNo());
     }
 }
