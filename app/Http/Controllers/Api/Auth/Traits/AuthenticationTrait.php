@@ -25,12 +25,14 @@ trait AuthenticationTrait
     protected $g_officers;
     protected $program_activity_repo;
     protected $requisition_training_repo;
+    protected $users;
 
     public function __construct()
     {
         $this->g_officers = (new GOfficerRepository());
         $this->program_activity_repo =  (new ProgramActivityRepository());
         $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
+        $this->users = (new UserRepository());
     }
 
     public function loginValidator()
@@ -145,7 +147,8 @@ trait AuthenticationTrait
             'access_token' => $access_token,
         ];
 
-        $success['g_officers'] = $this->g_officers->getQuery()->get();
+        $success['g_officers'] = $this->g_officers->getFilteredGofficerByRegion($gOfficer->region_id)->get();
+        $success['staffs'] = $this->users->getUserQuery()->get();
 
         $wards = DB::table("wards")
             ->selectRaw('wards.id as id')
