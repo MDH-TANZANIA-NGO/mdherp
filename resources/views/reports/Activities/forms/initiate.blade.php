@@ -64,28 +64,30 @@
 
             <div class="card">
                 <div class="card-header">
-                    <div class="tags">
-                        <div class="tag">
-                            Requisition number
-                            <span class="tag-addon tag-blue">MB1233020</span>
+                    @if($requisition)
+                        <div class="tags">
+                            <div class="tag">
+                                Requisition number
+                                <span class="tag-addon tag-blue">{{$requisition->number}}</span>
+                            </div>
+                            <div class="tag">
+                                Code number
+                                <span class="tag-addon tag-success">92038929202</span>
+                            </div>
+                            <div class="tag">
+                                Amount Requested
+                                <span class="tag-addon tag-success">30000000</span>
+                            </div>
+                            <div class="tag">
+                                Expected participants
+                                <span class="tag-addon tag-success">100</span>
+                            </div>
+                            <div class="tag">
+                                Attended participants
+                                <span class="tag-addon tag-success">20</span>
+                            </div>
                         </div>
-                        <div class="tag">
-                            Code number
-                            <span class="tag-addon tag-success">92038929202</span>
-                        </div>
-                        <div class="tag">
-                            Amount Requested
-                            <span class="tag-addon tag-success">30000000</span>
-                        </div>
-                        <div class="tag">
-                            Expected participants
-                            <span class="tag-addon tag-success">100</span>
-                        </div>
-                        <div class="tag">
-                            Attended participants
-                            <span class="tag-addon tag-success">20</span>
-                        </div>
-                    </div>
+                    @endif
                     <div class="card-options ">
                         <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                         <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>

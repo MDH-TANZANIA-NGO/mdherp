@@ -60,6 +60,11 @@ class RequisitionTrainingRepository extends BaseRepository
         return $this->getRequisitionFilter()->pluck('training','requisition_trainings.id');
 
     }
+    public function getPluckRequisitionNoWithRequisitionId()
+    {
+        return $this->getRequisitionFilter()->pluck('training','requisitions.id');
+
+    }
     public function inputProcess($input)
     {
 

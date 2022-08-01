@@ -10,33 +10,103 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table id="attendance" class="table table-striped table-bordered" style="width:100%">
-                        <thead >
-                        <tr>
-                            <th >Name</th>
-                            <th >Phone</th>
-                            <th>Days</th>
-                            <th >Perdiem</th>
-                            <th >Transportation</th>
-                            <th>Other Cost</th>
-                            <th >Amount Requested</th>
-                            <th >Amount Paid</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                       <tr>
-                           <td>Elinipendo Mziray</td>
-                           <td>0758698022</td>
-                           <td>0/10</td>
-                           <td>600,000</td>
-                           <td>60,000</td>
-                           <td>0</td>
-                           <td>0</td>
-                           <td>0</td>
-                       </tr>
-                        </tbody>
-                    </table>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table id="payment_table" class="table table-condensed table-striped">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Full name</th>
+                                <th>Phone</th>
+                                <th>Days</th>
+                                <th>Perdiem</th>
+                                <th>Transportation</th>
+                                <th>Others</th>
+                                <th>Amount Requested</th>
+                                <th>Amount Paid</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+                                <td><button class="btn btn-default btn-xs"><i class="fa fa-plus-circle"></i></button></td>
+                                <td>Elinipendo Mziray</td>
+                                <td>0758698022</td>
+                                <td>0/10</td>
+                                <td>600,000</td>
+                                <td>20,000</td>
+                                <td>0</td>
+                                <td>620,000</td>
+                                <td><input type="number" class="form-control" name="amount_paid" value="50000"></td>
+                                <td><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Swap participant"><i class="fa fa-exchange"></i></a> | <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove participant"><i class="fa fa-minus-circle"></i></a></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="12" class="hiddenRow">
+                                    <div class="accordian-body collapse" id="demo1">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr class="info">
+                                                <th>Hotspot</th>
+                                                <th>Date</th>
+                                                <th>Time in</th>
+                                                <th>Time out</th>
+                                                <th>Checkin location</th>
+                                                <th>Checkout location</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                            <tr data-toggle="collapse"  class="accordion-toggle" data-target="#demo10">
+                                                <td> <a href="#">Juliana Pub</a></td>
+                                                <td>30th August 2022</td>
+                                                <td>10:30 AM</td>
+                                                <td>4:00 PM</td>
+                                                <td>Mikocheni A</td>
+                                                <td>Mikocheni B</td>
+                                            </tr>
+
+                                            <tr data-toggle="collapse"  class="accordion-toggle" data-target="#demo10">
+                                                <td> <a href="#">Juliana Pub</a></td>
+                                                <td>30th August 2022</td>
+                                                <td>10:30 AM</td>
+                                                <td>4:00 PM</td>
+                                                <td>Mikocheni A</td>
+                                                <td>Mikocheni B</td>
+                                            </tr>
+
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+
+
+                            <tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
+                                <td><button class="btn btn-default btn-xs"><i class="fa fa-plus-circle"></i></button></td>
+                                <td>Elinipendo Mziray</td>
+                                <td>0758698022</td>
+                                <td>0/10</td>
+                                <td>600,000</td>
+                                <td>20,000</td>
+                                <td>0</td>
+                                <td>620,000</td>
+                                <td><input type="number" class="form-control" name="amount_paid" value="50000"></td>
+                                <td><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Swap participant"><i class="fa fa-exchange"></i></a> | <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove participant"><i class="fa fa-minus-circle"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td colspan="11" class="hiddenRow"><div id="demo2" class="accordian-body collapse">No attendance available</div></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
                 <!-- table-responsive -->
             </div>
@@ -44,187 +114,19 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Employee
-            </div>
-            <div class="panel-body">
-                <table class="table table-condensed table-striped">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Full name</th>
-                        <th>Phone</th>
-                        <th>Days</th>
-                        <th>Perdiem</th>
-                        <th>Transportation</th>
-                        <th>Others</th>
-                        <th>Amount Requested</th>
-                        <th>Amount Paid</th>
-                    </tr>
-                    </thead>
 
-                    <tbody>
-                    <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
-                        <td><button class="btn btn-default btn-xs"><i></i></button></td>
-                        <td>Elinipendo Mziray</td>
-                        <td>0758698022</td>
-                        <td>0/10</td>
-                        <td>600,000</td>
-                        <td>20,000</td>
-                        <td>0</td>
-                        <td>620,000</td>
-                        <td>50,000</td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="12" class="hiddenRow">
-                            <div class="accordian-body collapse" id="demo1">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr class="info">
-                                        <th>Job</th>
-                                        <th>Company</th>
-                                        <th>Salary</th>
-                                        <th>Date On</th>
-                                        <th>Date off</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                    <tr data-toggle="collapse"  class="accordion-toggle" data-target="#demo10">
-                                        <td> <a href="#">Enginner Software</a></td>
-                                        <td>Google</td>
-                                        <td>U$8.00000 </td>
-                                        <td> 2016/09/27</td>
-                                        <td> 2017/09/27</td>
-                                        <td>
-                                            <a href="#" class="btn btn-default btn-sm">
-                                                <i class="glyphicon glyphicon-cog"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td colspan="12" class="hiddenRow">
-                                            <div class="accordian-body collapse" id="demo10">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                    <tr>
-                                                        <td><a href="#"> XPTO 1</a></td>
-                                                        <td>XPTO 2</td>
-                                                        <td>Obs</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>item 1</th>
-                                                        <th>item 2</th>
-                                                        <th>item 3 </th>
-                                                        <th>item 4</th>
-                                                        <th>item 5</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>item 1</td>
-                                                        <td>item 2</td>
-                                                        <td>item 3</td>
-                                                        <td>item 4</td>
-                                                        <td>item 5</td>
-                                                        <td>
-                                                            <a href="#" class="btn btn-default btn-sm">
-                                                                <i class="glyphicon glyphicon-cog"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Scrum Master</td>
-                                        <td>Google</td>
-                                        <td>U$8.00000 </td>
-                                        <td> 2016/09/27</td>
-                                        <td> 2017/09/27</td>
-                                        <td> <a href="#" class="btn btn-default btn-sm">
-                                                <i class="glyphicon glyphicon-cog"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td>Back-end</td>
-                                        <td>Google</td>
-                                        <td>U$8.00000 </td>
-                                        <td> 2016/09/27</td>
-                                        <td> 2017/09/27</td>
-                                        <td> <a href="#" class="btn btn-default btn-sm">
-                                                <i class="glyphicon glyphicon-cog"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td>Front-end</td>
-                                        <td>Google</td>
-                                        <td>U$8.00000 </td>
-                                        <td> 2016/09/27</td>
-                                        <td> 2017/09/27</td>
-                                        <td> <a href="#" class="btn btn-default btn-sm">
-                                                <i class="glyphicon glyphicon-cog"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-
-
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </td>
-                    </tr>
-
-
-
-                    <tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
-                        <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                        <td>Silvio</td>
-                        <td>Santos</td>
-                        <td>São Paulo</td>
-                        <td>SP</td>
-                        <td> new</td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="hiddenRow"><div id="demo2" class="accordian-body collapse">Demo2</div></td>
-                    </tr>
-                    <tr data-toggle="collapse" data-target="#demo3" class="accordion-toggle">
-                        <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>Dracena</td>
-                        <td>SP</td>
-                        <td> New</td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="hiddenRow"><div id="demo3" class="accordian-body collapse">Demo3 sadasdasdasdasdas</div></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-
-    </div>
 </div>
+
+@push('after-scripts')
+    <script>
+        $(document).ready(function (){
+            $("#payment_table").dataTable({
+                pagingType: 'full_numbers',
+            })
+
+        })
+
+        </script>
+@endpush
 
 

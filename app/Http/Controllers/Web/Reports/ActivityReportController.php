@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 //use App\Http\Controllers\Web\Reports\Datatables\Activities\ActivityReportDatatables;
 use App\Http\Controllers\Web\Reports\Datatables\Activities\ActivityReportDatatables;
 use App\Repositories\Activity\ActivityReportRepository;
+use App\Repositories\Attendance\ActivityAttendanceRepository;
+use App\Repositories\Hotspot\HotspotRepository;
+use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,11 +21,18 @@ class ActivityReportController extends Controller
 
     protected $activity_reports;
     protected $trainings;
+    protected $hotspot;
+    protected $activity_attendance;
+    protected $requisition;
 
     public function __construct()
     {
     $this->activity_reports =  (new ActivityReportRepository());
         $this->trainings = (new RequisitionTrainingRepository());
+        $this->hotspot = (new HotspotRepository());
+        $this->activity_attendance = (new ActivityAttendanceRepository());
+        $this->requisition = (new RequisitionRepository());
+
 
     }
 
@@ -39,10 +49,19 @@ class ActivityReportController extends Controller
     }
     public function initiate(Request $request)
     {
+        $option =  [];
+       if ( isset($request['requisition_id'])){
+                $option['requisition'] =  $this->requisition->find($request['requisition_id']);
+                $option['hotspot'] =   $this->hotspot->getHotspotByRequisition($request['requisition_id'])->get();
+
+       }
+
 
         return view('reports.Activities.forms.initiate')
+            ->with('hotspots',isset($option['hotspot'])? $option['hotspot']: [])
+            ->with('requisition',isset($option['requisition'])? $option['requisition']: [])
             ->with('activity_report', $this->activity_reports)
             ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
-            ->with('trainings', $this->trainings->getPluckRequisitionNo());
+            ->with('trainings', $this->trainings->getPluckRequisitionNoWithRequisitionId());
     }
 }

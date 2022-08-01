@@ -129,9 +129,9 @@ class ActivityAttendanceRepository extends  BaseRepository
         });
     }
 
-    public function allByHotspot(Hotspot $hotspot)
+    public function allByHotspot( $hotspot_id)
     {
-        return $this->getQueryOnlyAttendance()->where('hotspots.id', $hotspot->id);
+        return $this->getQueryOnlyAttendance()->where('hotspots.id', $hotspot_id);
     }
     public function getQueryOnlyAttendance()
     {
@@ -159,19 +159,9 @@ class ActivityAttendanceRepository extends  BaseRepository
             DB::raw('activity_attendances.mobile AS mobile'),
             DB::raw('hotspots.creator_id AS creator_id'),
             DB::raw('districts.name AS district_name'),
-//            DB::raw('reports.wf_done_date AS wf_done_date'),
             DB::raw('units.name AS unit'),
-//            DB::raw('reports.id AS report_id'),
-//            DB::raw('reports.number AS report_number')
-//            DB::raw("CASE WHEN reports.wf_done = 1 THEN 1 ELSE 0 END AS paid "),
-//            DB::raw("CASE WHEN reports.id THEN 'Initiated' ELSE 'Not Initiated' END AS initiated "),
         ])
-            ->join('hotspots', 'hotspots.id', 'activity_attendances.hotspot_id')
-            ->join('g_officers', 'g_officers.id', 'activity_attendances.creator_id')
-//            ->leftjoin('hotspot_report', 'hotspot_report.hotspot_id', 'hotspots.id')
-//            ->leftjoin('reports', 'reports.id', 'hotspot_report.report_id')
-//            ->leftjoin('districts', 'districts.id', 'hotspots.district_id')
-            ->leftjoin('users', 'users.id', 'hotspots.creator_id')
-            ->leftjoin('units', 'units.id', 'activity_attendances.unit_id');
+            ->join('hotspots', 'hotspots.id', 'activity_attendances.hotspot_id');
     }
+
 }
