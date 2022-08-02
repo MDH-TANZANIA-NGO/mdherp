@@ -16,6 +16,7 @@
 {{--                </div>--}}
 {{--            </div>--}}
             <div class="card-body">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">View modal</button>
                 @if(access()->user()->assignedSupervisor())
 
                     {!! Form::open(['route' => ['activity_report.initiate'], 'method'=>'GET']) !!}
@@ -25,7 +26,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {!! Form::label('requisition_id', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
-                                    {!! Form::select('requisition_id', $trainings, null,['class' => 'form-control select2-show-search', 'required']) !!}
+                                    {!! Form::select('requisition_id', $trainings, null,['class' => 'form-control select2-show-search','placeholder'=>'Select approved requisition', 'required']) !!}
                                     {!! $errors->first('requisition_id', '<span class="badge badge-danger">:message</span>') !!}
                                 </div>
                             </div>
@@ -43,7 +44,7 @@
                                     {!! $errors->first('requisition_training_id', '<span class="badge badge-danger">:message</span>') !!}
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-outline-success" style="margin-left: 30%" ><i class="fa fa-filter"></i>Filter</button>
+                            <button type="submit" class="btn btn-outline-success" style="margin-left: 30%" ><i class="fa fa-filter"></i>Filter</button> <a href="{{route('activity_report.initiate')}}" class="btn btn-outline-info" style="margin-left: 1%"> <i class="fa fa-undo"></i> Reset</a>
 
 
                             {!! Form::close() !!}
@@ -113,7 +114,11 @@
 
                                         <li class="acc_section">
 
-                                            @if($hotspots->count() == 0)
+                                            @if(!$requisition)
+                                                <div class="expanel-body">
+                                                    You have not select approved requisition (No data available)
+                                                </div>
+                                            @elseif($requisition || !$hotspots)
                                                 <div class="expanel-body">
                                                     No hotspot available <b class="text-danger">(attendance was not captured)</b>
                                                 </div>
@@ -153,6 +158,38 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Swap with</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {!! Form::open(['route' => ['activity_report.initiate'], 'method'=>'GET']) !!}
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {!! Form::label('requisition_id', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
+                                    {!! Form::select('requisition_id', $trainings, null,['class' => 'form-control select2-show-search','placeholder'=>'Select approved requisition', 'required']) !!}
+                                    {!! $errors->first('requisition_id', '<span class="badge badge-danger">:message</span>') !!}
+                                </div>
+                            </div>
+
+                            {!! Form::close() !!}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 

@@ -80,6 +80,11 @@ class HotspotRepository extends BaseRepository
         return $this->getQuery()
             ->where('hotspots.requisition_id', $requisition_id);
     }
+    public function getHotspotByRequisitionOnDateRange($requisition_id, $start_date, $end_date)
+    {
+        return $this->getHotspotByRequisition($requisition_id)
+            ->whereBetween('hotspots.checkin_time', [$start_date, $end_date]);
+    }
 
 
 }

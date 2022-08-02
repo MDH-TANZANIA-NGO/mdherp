@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Attendance;
 
+use App\Models\Attendance\ActivityAttendance;
 use App\Models\Attendance\Hotspot;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Carbon;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class ActivityAttendanceRepository extends  BaseRepository
 {
+    const MODEL =  ActivityAttendance::class;
     public function __construct()
     {
         //
@@ -158,10 +160,9 @@ class ActivityAttendanceRepository extends  BaseRepository
             DB::raw('activity_attendances.status AS status'),
             DB::raw('activity_attendances.mobile AS mobile'),
             DB::raw('hotspots.creator_id AS creator_id'),
-            DB::raw('districts.name AS district_name'),
-            DB::raw('units.name AS unit'),
         ])
             ->join('hotspots', 'hotspots.id', 'activity_attendances.hotspot_id')
+            ->leftjoin('districts', 'districts.id', 'hotspots.district_id')
             ->leftjoin('g_officers', 'g_officers.id', 'activity_attendances.creator_id')
             ->leftjoin('users', 'users.id', 'activity_attendances.creator_id');
     }
@@ -169,6 +170,19 @@ class ActivityAttendanceRepository extends  BaseRepository
     {
         return $this->getQueryOnlyAttendance()
             ->where('activity_attendances.creator_type', 'App\Model\GOfficer');
+    }
+    public function getGOfficerAttendanceByRequisition($requisition_id)
+    {
+        return $this->getGOfficerAttendances()
+//            ->addSelect([
+//                ''
+//            ])
+            ->where('hotspots.requisition_id', $requisition_id)
+            ->groupBy('activity_attendances.creator_id','activity_attendances.id','hotspots.id','g_officers.id','users.first_name','users.last_name');
+    }
+    public function getGOfficerAttendanceByRequisitionForPluck($requisition_id)
+    {
+        return $this->getGOfficerAttendanceByRequisition($requisition_id)->pluck('full_name', 'id');
     }
     public function getStaffAttendances()
     {

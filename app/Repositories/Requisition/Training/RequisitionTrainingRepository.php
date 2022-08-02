@@ -53,6 +53,7 @@ class RequisitionTrainingRepository extends BaseRepository
             ])
             ->where('requisitions.wf_done', 1)
             ->where('requisitions.is_closed', false)
+            ->where('requisition_trainings.completed', false)
             ->where('requisitions.user_id', access()->id());
     }
 
