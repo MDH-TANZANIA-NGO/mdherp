@@ -96,17 +96,17 @@
 
         </div>--}}
 
-        <div class="col-4 col-sm-4 col-lg-3">
-            <a href="{{ route('hr.pr.index') }}">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="h2 m-0"><i class="fa fa-file text-primary"></i></div>
-                        <div class="text-muted mb-0">{{ __('label.performance_review') }}</div>
-                    </div>
-                </div>
-            </a>
+{{--        <div class="col-4 col-sm-4 col-lg-3">--}}
+{{--            <a href="{{ route('hr.pr.index') }}">--}}
+{{--                <div class="card">--}}
+{{--                    <div class="card-body text-center">--}}
+{{--                        <div class="h2 m-0"><i class="fa fa-file text-primary"></i></div>--}}
+{{--                        <div class="text-muted mb-0">{{ __('label.performance_review') }}</div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </a>--}}
 
-        </div>
+{{--        </div>--}}
 
     </div>
 @endsection
