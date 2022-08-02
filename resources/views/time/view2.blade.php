@@ -86,7 +86,7 @@
 
         map.fitBounds(featureGroup.getBounds())
 
-        console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy + " Title: " + title)
+        console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy  )
     }
 </script>
 

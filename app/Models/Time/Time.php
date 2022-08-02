@@ -33,7 +33,9 @@ class Time extends Model
         'lat_in',
         'long_in',
         'lat_out',
-        'long_out'
+        'long_out',
+        'location_in',
+        'location_out',
     ];
 
     public function user()

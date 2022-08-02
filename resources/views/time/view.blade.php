@@ -54,10 +54,7 @@
 
 
     function getPosition(position) {
-        // console.log(position)
-        // var lat = position.coords.latitude
-        // var long = position.coords.longitude
-        // var accuracy = position.coords.accuracy
+       
 
         var lat = "{{$time->lat_in}}";
         var long = "{{$time->long_in}}";
@@ -81,16 +78,16 @@
 
         marker = L.marker([lat, long], markerOptions)
 
-                    circle = L.circle([lat, long], {
-                        radius: accuracy
-                    })
+        circle = L.circle([lat, long], {
+            radius: accuracy
+        })
 
-                    var featureGroup = L.featureGroup([marker, circle]).addTo(map)
+        var featureGroup = L.featureGroup([marker, circle]).addTo(map)
 
-                    map.fitBounds(featureGroup.getBounds())
+        map.fitBounds(featureGroup.getBounds())
 
-                    console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
-                }
+        console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
+    }
 </script>
 
 @endsection

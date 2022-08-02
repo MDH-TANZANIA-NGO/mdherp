@@ -32,13 +32,15 @@
         </div>
     </div> --}}
 
-    @if ($check_time->count() == 0)
 
+    @if ($check_time->count() == 0)
     @if($visibility2)
+
     <form action="{{route('store-time')}}" method="POST">
         @csrf
         <input type="hidden" name='lat_in' id='in'>
         <input type="hidden" name='long_in' id='long'>
+        <input type="hidden" name='location_in' id='name_in'>
         <div class="punch-btn-section">
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -62,16 +64,33 @@
                     var accuracy = position.coords.accuracy
                     $("#in").val(lat)
                     $("#long").val(long)
+                    get_name(lat, long)
                     console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
+                }
+
+                function get_name(lat, long) {
+                    // let $location = "";
+                    // const LAT = -6.762005683734191;
+                    // const LNG = 39.254017289197506;
+                    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyD1QQqFo-up3KsoKw8AEko98izYqsSxaDQ&libraries=places`;
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            $("#name_in").val(data.results[0].formatted_address);
+                            // console.log($location)
+                        })
+                        .catch(err => console.warn(err.message));
                 }
             </script>
         </div>
     </form>
+
     @endif
     @else
     <form action="{{route('update-time')}}" method="POST">
         <input type="hidden" name='lat_out' id='out'>
         <input type="hidden" name='long_out' id='longo'>
+        <input type="hidden" name='location_out' id='name_out'>
         @csrf
         <div class="punch-btn-section">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -89,13 +108,26 @@
                 }
 
                 function getPosition(position) {
-                    // console.log(position)
+
                     var lat = position.coords.latitude
                     var long = position.coords.longitude
                     var accuracy = position.coords.accuracy
                     $("#out").val(lat)
                     $("#longo").val(long)
+                    get_name(lat, long)
                     console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
+                }
+
+                function get_name(lat, long) {
+
+                    let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyD1QQqFo-up3KsoKw8AEko98izYqsSxaDQ&libraries=places`;
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            $("#name_out").val(data.results[0].formatted_address);
+
+                        })
+                        .catch(err => console.warn(err.message));
                 }
             </script>
 

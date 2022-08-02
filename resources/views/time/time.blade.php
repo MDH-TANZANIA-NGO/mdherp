@@ -50,8 +50,10 @@
                                     <th class="wd-15p">Start time</th>
                                     <th class="wd-15p">End Time</th>
                                     <th class="wd-15p">User</th>
-                                    
+
                                     <th class="wd-15p">Production</th>
+                                    <th class="wd-15p">Location In</th>
+                                    <th class="wd-15p">Location Out</th>
 
                                 </tr>
                             </thead>
@@ -62,7 +64,7 @@
                                     <td>{{$data->time_start}}</td>
                                     <td>{{$data->time_end}}</td>
                                     <td>{{$data->user->fullname}}</td>
-                                   
+
                                     <td>
                                         <?php
                                         $start = $data->time_start;
@@ -74,6 +76,8 @@
                                         echo $calc;
                                         ?>
                                     </td>
+                                    <td>{{$data->location_in}}</td>
+                                    <td>{{$data->location_out}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

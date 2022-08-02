@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1QQqFo-up3KsoKw8AEko98izYqsSxaDQ&libraries=places"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
