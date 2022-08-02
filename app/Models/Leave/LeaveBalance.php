@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class LeaveBalance extends Model
 {
     //
+    protected $guarded = [];
     public function leaveType()
     {
         return $this->belongsTo(LeaveType::class);

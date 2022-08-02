@@ -4,9 +4,11 @@ namespace App\Listeners;
 
 use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
+use App\Models\Leave\LeaveBalance;
 use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\Leave\LeaveBalanceRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Listing\ListingRepository;
 use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
@@ -547,6 +549,10 @@ class WorkflowEventSubscriber
                     $delegeted_user = User::query()->where('id', $leave->employee_id)->first();
                     $leave->user->notify(new WorkflowNotification($email_resource));
                     $delegeted_user->notify(new WorkflowNotification($delegeted_email));
+
+
+
+
                     break;
                 case 7:
                     $finance_repo = (new FinanceActivityRepository());

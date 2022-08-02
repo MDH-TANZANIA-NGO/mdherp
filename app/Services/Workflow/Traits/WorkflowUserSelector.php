@@ -190,15 +190,12 @@ trait WorkflowUserSelector
                         $user_id = $next_user->id;
                         break;
                     case 5:
-                        $next_user = User::query()
-                            ->where('users.designation_id', 13)
-                            ->where('users.active',true)
-                            ->orderBy('id','DESC')
-                            ->first();
+                        $next_user = (new UserRepository())->getCeo();
                         if (!$next_user) {
                             throw new GeneralException('CEO is not assigned');
                         }
-                        $user_id = $next_user->id;
+
+                        $user_id = $next_user->first()->user_id;
                         break;
                 }
                 break;
@@ -299,7 +296,7 @@ trait WorkflowUserSelector
                             // }
                             // $user_id = $next_user->first()->user_id;
                             break;
-        
+
                         case 5:
                             $next_user = (new UserRepository())->getCeo();
                             if ($next_user->count() == 0) {
