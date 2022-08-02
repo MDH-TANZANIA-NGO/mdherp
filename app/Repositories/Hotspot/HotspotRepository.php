@@ -2,11 +2,13 @@
 
 namespace App\Repositories\Hotspot;
 
+use App\Models\Attendance\Hotspot;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
 class HotspotRepository extends BaseRepository
 {
+    const MODEL =  Hotspot::class;
     public function __construct()
     {
         //
@@ -71,7 +73,7 @@ class HotspotRepository extends BaseRepository
             DB::raw('hotspots.created_at AS created_at')
             ])
             ->join('requisitions', 'requisitions.id', 'hotspots.requisition_id')
-            ->leftjoin('reports', 'reports.id', 'hotspots.report_id');
+            ->leftjoin('activity_reports', 'activity_reports.id', 'hotspots.report_id');
     }
     public function getHotspotByRequisition($requisition_id)
     {

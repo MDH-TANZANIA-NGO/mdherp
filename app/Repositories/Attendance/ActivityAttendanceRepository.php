@@ -140,8 +140,8 @@ class ActivityAttendanceRepository extends  BaseRepository
             DB::raw('hotspots.id AS hotspot_id'),
             DB::raw('hotspots.camp AS camp'),
             DB::raw('g_officers.id AS g_officer_id'),
-            DB::raw("concat_ws(' ',g_officers.first_name,g_officers.last_name) AS fullname"),
-            DB::raw("concat_ws(' ',users.first_name,users.last_name) AS cov"),
+            DB::raw("concat_ws(' ',g_officers.first_name,g_officers.last_name) AS full_name"),
+            DB::raw("concat_ws(' ',users.first_name,users.last_name) AS staff_name"),
             DB::raw('activity_attendances.checkin_time AS checkin_time'),
             DB::raw('activity_attendances.checkout_time AS checkout_time'),
             DB::raw('activity_attendances.checkin_latitude AS checkin_latitude'),
@@ -161,7 +161,24 @@ class ActivityAttendanceRepository extends  BaseRepository
             DB::raw('districts.name AS district_name'),
             DB::raw('units.name AS unit'),
         ])
-            ->join('hotspots', 'hotspots.id', 'activity_attendances.hotspot_id');
+            ->join('hotspots', 'hotspots.id', 'activity_attendances.hotspot_id')
+            ->leftjoin('g_officers', 'g_officers.id', 'activity_attendances.creator_id')
+            ->leftjoin('users', 'users.id', 'activity_attendances.creator_id');
+    }
+    public function getGOfficerAttendances()
+    {
+        return $this->getQueryOnlyAttendance()
+            ->where('activity_attendances.creator_type', 'App\Model\GOfficer');
+    }
+    public function getStaffAttendances()
+    {
+        return $this->getQueryOnlyAttendance()
+            ->where('activity_attendances.creator_type', 'App\Model\User');
+    }
+    public function getGOfficerAttendancesById($g_officer_id)
+    {
+        return $this->getGOfficerAttendances()
+            ->where('activity_attendances.creator_id', $g_officer_id);
     }
 
 }

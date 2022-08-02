@@ -1,18 +1,18 @@
 <div class ="row">
     <div class="container lst">
         <div class="input-group hdtuto control-group lst" >
-
+            <div class="col-md-3 col-lg-3 col-xl-3" >
+                {!! Form::select('attachment_type[]', $attachment_type, null, ['class' =>'form-control select2-show-search ', 'placeholder' => __('Select attachment type') , 'aria-describedby' => '', 'required']) !!}
+            </div>
             <div class="col-md-3 col-lg-3 col-xl-3" >
                 <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
             </div>
 
-            <div class="col-md-3 col-lg-3 col-xl-3" >
-                <input type="number" id="" name="amount_attachment[]" placeholder="Total Amount of the receipts" class="form-control">
-            </div>
+{{--            <div class="col-md-3 col-lg-3 col-xl-3" >--}}
+{{--                <input type="text" id="" name="amount_attachment[]" placeholder="Total Amount of the receipts" class="form-control">--}}
+{{--            </div>--}}
 
-            <div class="col-md-3 col-lg-3 col-xl-3" >
-                {!! Form::select('attachment_type[]', $attachment_type, null, ['class' =>'form-control select2-show-search ', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
-            </div>
+
 
             <div class="input-group-btn col-md-3 col-lg-3 col-xl-3">
                 <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
@@ -43,16 +43,17 @@
                 $increment.prepend('' +
                     '<div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">'+
                     '<div class="col-md-3 col-lg-3 col-xl-3" >'+
+                    '{!! Form::select("attachment_type[]", $attachment_type, null, ["class" =>"form-control select2-show-search", "placeholder" => __("Select attachment type") , "aria-describedby" => "", "required"]) !!}'+
+                    '</div>'+
+
+
+                    '<div class="col-md-3 col-lg-3 col-xl-3" >'+
                     '<input type="file" accept="application/pdf" name="attachments[]" class="form-control">'+
                     '</div>'+
 
-                    '<div class="col-md-3 col-lg-3 col-xl-3" >'+
-                    '<input type="number" id="" name="amount_attachment[]" placeholder="Total Amount of the receipts"  class="form-control">'+
-                    '</div>'+
 
-                    '<div class="col-md-3 col-lg-3 col-xl-3" >'+
-                    '{!! Form::select("attachment_type[]", $attachment_type, null, ["class" =>"form-control select2-show-search", "placeholder" => __("label.select") , "aria-describedby" => "", "required"]) !!}'+
-                    '</div>'+
+
+
 
                     '<div class="input-group-btn col-md-3 col-lg-3 col-xl-3" >'+
                     '<button class="btn btn-danger att_button_rem" type="button"><i class=""></i>Remove attachment field</button>'+

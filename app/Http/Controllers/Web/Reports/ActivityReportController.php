@@ -10,6 +10,7 @@ use App\Repositories\Activity\ActivityReportRepository;
 use App\Repositories\Attendance\ActivityAttendanceRepository;
 use App\Repositories\Hotspot\HotspotRepository;
 use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +25,7 @@ class ActivityReportController extends Controller
     protected $hotspot;
     protected $activity_attendance;
     protected $requisition;
+    protected $training_costs;
 
     public function __construct()
     {
@@ -32,6 +34,7 @@ class ActivityReportController extends Controller
         $this->hotspot = (new HotspotRepository());
         $this->activity_attendance = (new ActivityAttendanceRepository());
         $this->requisition = (new RequisitionRepository());
+        $this->training_costs = (new RequestTrainingCostRepository());
 
 
     }
@@ -49,10 +52,14 @@ class ActivityReportController extends Controller
     }
     public function initiate(Request $request)
     {
+
         $option =  [];
        if ( isset($request['requisition_id'])){
+
                 $option['requisition'] =  $this->requisition->find($request['requisition_id']);
                 $option['hotspot'] =   $this->hotspot->getHotspotByRequisition($request['requisition_id'])->get();
+                $option['training_cost'] = $this->training_costs->getParticipantsByRequisition($request['requisition_id']);
+
 
        }
 
@@ -60,7 +67,9 @@ class ActivityReportController extends Controller
         return view('reports.Activities.forms.initiate')
             ->with('hotspots',isset($option['hotspot'])? $option['hotspot']: [])
             ->with('requisition',isset($option['requisition'])? $option['requisition']: [])
+            ->with('training_costs',isset($option['training_cost'])? $option['training_cost']: [])
             ->with('activity_report', $this->activity_reports)
+            ->with('attendances',$this->activity_attendance)
             ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
             ->with('trainings', $this->trainings->getPluckRequisitionNoWithRequisitionId());
     }

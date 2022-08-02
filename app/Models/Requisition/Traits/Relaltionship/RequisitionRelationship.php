@@ -2,6 +2,7 @@
 
 namespace App\Models\Requisition\Traits\Relaltionship;
 
+use App\Models\Attendance\Hotspot;
 use App\Models\Auth\User;
 use App\Models\Budget\Budget;
 use App\Models\GOfficer\GOfficer;
@@ -105,6 +106,10 @@ trait RequisitionRelationship
     public function budget()
     {
         return $this->belongsTo(Budget::class);
+    }
+    public function hotspots()
+    {
+        return $this->hasMany(Hotspot::class);
     }
 
 }

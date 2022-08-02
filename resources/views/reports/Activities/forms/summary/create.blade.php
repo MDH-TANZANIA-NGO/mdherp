@@ -23,39 +23,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
-                        {!! Form::label('background_info', __("Background Information"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::textarea('background_info',null,['class' => 'form-control summernotecontent','required']) !!}
+                        {!! Form::label('background_info', __("Report content"),['class'=>'form-label','required_asterik']) !!}
+{{--                        {!! Form::textarea('background_info',null,['class' => 'summernotecontent','required']) !!}--}}
+                        <textarea class="content richText-initial" name="example" style="display: none;"></textarea>
                         {!! $errors->first('background_info', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        {!! Form::label('plan', __("What Was Planned?"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::textarea('plan',null,['class' => 'form-control summernotecontent ','required']) !!}
-                        {!! $errors->first('plan', '<span class="badge badge-danger">:message</span>') !!}
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        {!! Form::label('objectives', __("Objectives"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::textarea('objectives',null,['class' => 'form-control summernotecontent','required']) !!}
-                        {!! $errors->first('objectives', '<span class="badge badge-danger">:message</span>') !!}
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        {!! Form::label('methodology', __("Methodology"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::textarea('methodology',null,['class' => 'form-control summernotecontent','required']) !!}
-                        {!! $errors->first('methodology', '<span class="badge badge-danger">:message</span>') !!}
-                    </div>
-                </div>
+{{--                <div class="col-md-6">--}}
+{{--                    <div class="form-group">--}}
+{{--                        {!! Form::label('plan', __("What Was Planned?"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                        {!! Form::textarea('plan',null,['class' => 'form-control summernotecontent ','required']) !!}--}}
+{{--                        {!! $errors->first('plan', '<span class="badge badge-danger">:message</span>') !!}--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
             </div>
 
@@ -64,33 +46,11 @@
 
 
 
-            <div class="row"> <div class="col-md-6">
-                    <div class="form-group">
-                        {!! Form::label('achievement', __("Achievements"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::textarea('achievement',null,['class' => 'form-control summernotecontent ','required']) !!}
-                        {!! $errors->first('achievement', '<span class="badge badge-danger">:message</span>') !!}
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        {!! Form::label('challenges', __("Challenges"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::textarea('challenges',null,['class' => 'form-control summernotecontent ','required']) !!}
-                        {!! $errors->first('challenges', '<span class="badge badge-danger">:message</span>') !!}
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        {!! Form::label('recommendations', __("Recommendation"),['class'=>'form-label','required_asterik']) !!}
-                        {!! Form::textarea('recommendations',null,['class' => 'form-control  summernotecontent','required']) !!}
-                        {!! $errors->first('recommendations', '<span class="badge badge-danger">:message</span>') !!}
-                    </div>
-                </div>
-            </div>
 
 
 
 
-            <button type="submit" class="btn btn-outline-info" style="margin-left:40%;"><i class="fa fa-save"></i> Save and continue</button>
+{{--            <button type="submit" class="btn btn-outline-info" style="margin-left:40%;"><i class="fa fa-save"></i> Save and continue</button>--}}
 
         </div>
     </div>

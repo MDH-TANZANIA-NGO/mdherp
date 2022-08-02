@@ -22,29 +22,31 @@
                                 <th>Perdiem</th>
                                 <th>Transportation</th>
                                 <th>Others</th>
-                                <th>Amount Requested</th>
-                                <th>Amount Paid</th>
+                                <th>Total</th>
+                                <th>Paid</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
 
                             <tbody>
-                            <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+                            @foreach($training_costs as $key=>$training_cost)
+                            <tr data-toggle="collapse" data-target="#demo{{$key}}" class="accordion-toggle">
+
                                 <td><button class="btn btn-default btn-xs"><i class="fa fa-plus-circle"></i></button></td>
-                                <td>Elinipendo Mziray</td>
-                                <td>0758698022</td>
+                                <td>{{$training_cost->full_name}}</td>
+                                <td>{{$training_cost->phone}}</td>
                                 <td>0/10</td>
-                                <td>600,000</td>
-                                <td>20,000</td>
-                                <td>0</td>
-                                <td>620,000</td>
-                                <td><input type="number" class="form-control" name="amount_paid" value="50000"></td>
+                                <td>{{number_2_format($training_cost->perdiem_total_amount)}}</td>
+                                <td>{{number_2_format($training_cost->transportation)}}</td>
+                                <td>{{number_2_format($training_cost->other_cost)}}</td>
+                                <td>{{number_2_format($training_cost->total_amount)}}</td>
+                                <td><input type="number" class="form-control" name="amount_paid" value="{{$training_cost->amount_paid}}"></td>
                                 <td><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Swap participant"><i class="fa fa-exchange"></i></a> | <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove participant"><i class="fa fa-minus-circle"></i></a></td>
                             </tr>
 
                             <tr>
                                 <td colspan="12" class="hiddenRow">
-                                    <div class="accordian-body collapse" id="demo1">
+                                    <div class="accordian-body collapse" id="demo{{$key}}">
                                         <table class="table table-striped">
                                             <thead>
                                             <tr class="info">
@@ -58,25 +60,18 @@
                                             </thead>
 
                                             <tbody>
-
+                                            @foreach($attendances->getGOfficerAttendancesById($training_cost->participant_uid)->get() as $attendance)
                                             <tr data-toggle="collapse"  class="accordion-toggle" data-target="#demo10">
-                                                <td> <a href="#">Juliana Pub</a></td>
-                                                <td>30th August 2022</td>
-                                                <td>10:30 AM</td>
-                                                <td>4:00 PM</td>
-                                                <td>Mikocheni A</td>
-                                                <td>Mikocheni B</td>
+                                                <td> {{$attendance->camp}}</td>
+                                                <td>{{date('d-m-Y', strtotime($attendance->checkin_time))}}</td>
+                                                <td>{{date('Gi.s', strtotime($attendance->checkin_time))}}</td>
+                                                <td>{{date('Gi.s', strtotime($attendance->checkout_time))}}</td>
+                                                <td>{{$attendance->checkin_location}}</td>
+                                                <td>{{$attendance->checkout_location}}</td>
                                             </tr>
+                                            @endforeach
 
-                                            <tr data-toggle="collapse"  class="accordion-toggle" data-target="#demo10">
-                                                <td> <a href="#">Juliana Pub</a></td>
-                                                <td>30th August 2022</td>
-                                                <td>10:30 AM</td>
-                                                <td>4:00 PM</td>
-                                                <td>Mikocheni A</td>
-                                                <td>Mikocheni B</td>
-                                            </tr>
-
+                                            @endforeach
 
                                             </tbody>
                                         </table>
@@ -84,24 +79,9 @@
                                     </div>
                                 </td>
                             </tr>
-
-
-
-                            <tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
-                                <td><button class="btn btn-default btn-xs"><i class="fa fa-plus-circle"></i></button></td>
-                                <td>Elinipendo Mziray</td>
-                                <td>0758698022</td>
-                                <td>0/10</td>
-                                <td>600,000</td>
-                                <td>20,000</td>
-                                <td>0</td>
-                                <td>620,000</td>
-                                <td><input type="number" class="form-control" name="amount_paid" value="50000"></td>
-                                <td><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Swap participant"><i class="fa fa-exchange"></i></a> | <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove participant"><i class="fa fa-minus-circle"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td colspan="11" class="hiddenRow"><div id="demo2" class="accordian-body collapse">No attendance available</div></td>
-                            </tr>
+{{--                            <tr>--}}
+{{--                                <td colspan="11" class="hiddenRow"><div id="demo2" class="accordian-body collapse">No attendance available</div></td>--}}
+{{--                            </tr>--}}
 
                             </tbody>
                         </table>

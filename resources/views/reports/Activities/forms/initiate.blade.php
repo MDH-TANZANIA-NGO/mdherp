@@ -18,15 +18,15 @@
             <div class="card-body">
                 @if(access()->user()->assignedSupervisor())
 
-                    {!! Form::open(['route' => ['programactivity.store','method'=>'GET']]) !!}
+                    {!! Form::open(['route' => ['activity_report.initiate'], 'method'=>'GET']) !!}
                     <div class="card-body">
                         <div class="row">
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {!! Form::label('requisition_training_id', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
-                                    {!! Form::select('requisition_training_id', $trainings, null,['class' => 'form-control select2-show-search', 'required']) !!}
-                                    {!! $errors->first('requisition_training_id', '<span class="badge badge-danger">:message</span>') !!}
+                                    {!! Form::label('requisition_id', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
+                                    {!! Form::select('requisition_id', $trainings, null,['class' => 'form-control select2-show-search', 'required']) !!}
+                                    {!! $errors->first('requisition_id', '<span class="badge badge-danger">:message</span>') !!}
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -72,19 +72,19 @@
                             </div>
                             <div class="tag">
                                 Code number
-                                <span class="tag-addon tag-success">92038929202</span>
+                                <span class="tag-addon tag-success">{{$requisition->code}}</span>
                             </div>
                             <div class="tag">
                                 Amount Requested
-                                <span class="tag-addon tag-success">30000000</span>
+                                <span class="tag-addon tag-success">{{$requisition->amount}}</span>
                             </div>
                             <div class="tag">
                                 Expected participants
-                                <span class="tag-addon tag-success">100</span>
+                                <span class="tag-addon tag-success">{{$requisition->trainingCost()->get()->count()}}</span>
                             </div>
                             <div class="tag">
                                 Attended participants
-                                <span class="tag-addon tag-success">20</span>
+                                <span class="tag-addon tag-success">{{$requisition->hotspots()->get()->count()}}</span>
                             </div>
                         </div>
                     @endif
@@ -112,11 +112,23 @@
                                     <ul class="demo-accordion accordionjs m-0" data-active-index="false">
 
                                         <li class="acc_section">
-                                            <div class="acc_head"><h3>Hotspot: Juliana Pub; Date: 22-07-2022; Location: Mikocheni </h3></div>
+
+                                            @if($hotspots->count() == 0)
+                                                <div class="expanel-body">
+                                                    No hotspot available <b class="text-danger">(attendance was not captured)</b>
+                                                </div>
+                                            @else
+                                            @foreach($hotspots as $hotspot)
+                                            <div class="acc_head">
+
+                                                <h3>Hotspot: {{$hotspot->camp}}; Date: {{$hotspot->checkin_time}}; Location: {{$hotspot->checkin_location}} </h3></div>
+
                                             <div class="acc_content" style="">
                                                 @include('reports.Activities.datatables.attendances.index')
 
                                             </div>
+                                            @endforeach
+                                                @endif
                                         </li>
 
 

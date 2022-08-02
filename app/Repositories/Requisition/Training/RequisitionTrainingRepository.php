@@ -55,6 +55,8 @@ class RequisitionTrainingRepository extends BaseRepository
             ->where('requisitions.is_closed', false)
             ->where('requisitions.user_id', access()->id());
     }
+
+
     public function getPluckRequisitionNo()
     {
         return $this->getRequisitionFilter()->pluck('training','requisition_trainings.id');
