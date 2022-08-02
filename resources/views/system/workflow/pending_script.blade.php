@@ -92,35 +92,35 @@
                 $(nRow).click(function() {
                     switch(aData['module_group_id']) {
                         case 1: /*Requisition*/
-                            window.open(base_url + "/requisitions/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/requisitions/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                         case 2: /*Safari*/
-                            window.open(base_url + "/safari/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/safari/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                         case 3: /*programactivity*/
-                            window.open(base_url + "/programactivity/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/programactivity/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                         case 4: /*retirement*/
-                            window.open(base_url + "/retirement/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/retirement/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                         case 5: /*leave*/
-                            window.open(base_url + "/leave/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/leave/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                         case 6: /*finance*/
-                            window.open(base_url + "/finance/" + aData['resource_uuid'] + '/view' , "_blank");
+                            window.open(base_url + "/finance/" + aData['resource_uuid'] + '/view' , "_self");
                             break;
                         case 7: /*timesheet*/
-                            window.open(base_url + "/timesheet/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/timesheet/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                         case 8: /*listing*/
-                            window.open(base_url + "/listings/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/listings/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                             break;
                         case 9: /*Program Activity Report*/
-                            window.open(base_url + "/programactivityreport/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/programactivityreport/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                         case 10: /*Performance Review Report*/
-                            window.open(base_url + "/human-resource/performance-reviews/" + aData['resource_uuid'] + '/show' , "_blank");
+                            window.open(base_url + "/human-resource/performance-reviews/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                         default:
                             break;
