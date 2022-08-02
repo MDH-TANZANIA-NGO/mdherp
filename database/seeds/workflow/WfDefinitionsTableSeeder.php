@@ -493,7 +493,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'id' => 21,
                     'level' => '5',
                     'unit_id' => 2,
-                    'designation_id' => 4,
+                    'designation_id' => 8,
                     'description' => 'Endorse Leave Request',
                     'msg_next' => 'Endorse Leave Request',
                     'wf_module_id' => '6',
