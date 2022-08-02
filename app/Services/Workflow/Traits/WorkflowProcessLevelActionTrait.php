@@ -178,7 +178,6 @@ trait WorkflowProcessLevelActionTrait
                 break;
         }
 
-
         switch($inputs['status']){
 //            case 3: //holded
 //                $this->updateWfDoneAndWfDoneDate($this->getResource($wf_module_id, $resource_id), $inputs['status']);

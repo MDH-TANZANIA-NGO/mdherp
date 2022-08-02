@@ -29,7 +29,7 @@
             <div class="field-layout mb-2">
                 <div class="form-group">
                     <label class="required_asterik" for="level">{{ __('Return For modifications to') }}</label>
-                    {!! Form::select('level', $previous_levels, null, ['class' => '','style'=>'width:100%;border-radius:3px;height:32px;','required'])
+                    {!! Form::select('level', $previous_levels, null, ['class' => '','style'=>'width:100%;border-radius:3px;height:32px;','required','placeholder' => 'Select Designation'])
                      !!}
                 </div>
             </div>

@@ -16,10 +16,22 @@
 
 {{--action button--}}
 @if($wf_track->checkIfHasRightCurrentWfTrackAction())
-<a href='#exampleModalCenter' class='btn btn-secondary' data-toggle='modal' id='approve_modal'>
+{{-- <a href='#exampleModalCenter' class='btn btn-secondary' data-toggle='modal' id='approve_modal'>
     {{ __('label.action') }}
-</a>
+</a> --}}
 
+<!-- rejected -->
+@if(isset($statuses[5]))
+<a href='#' class='btn btn-secondary' data-toggle='modal' 
+onclick="event.preventDefault();if(confirm('Are you sure you want to reject this request')){
+    $('#RejectModel').modal('show')
+}">
+{{ $statuses[5] }}</a>
+@include('system/workflow/modal/reject_model')
+@endif
+
+<!-- Reverse -->
+@if(isset($statuses[2]))
 <a href="#ReverseToLevelModel" class='btn btn-warning' data-toggle='modal' id='approve_modal'>Reverse to level</a>
 <div class="modal fade" id="ReverseToLevelModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -28,6 +40,19 @@
         </div>
     </div>
 </div>
+@endif
+
+<!-- Approve -->
+@if(isset($statuses[1]))
+<a href='#' class='btn btn-primary' onclick="event.preventDefault(); document.getElementById('workflow_approve_form').submit()">{{ $statuses[1] }}</a>
+<form id="workflow_approve_form" action="{{ route('workflow.update_workflow',$wf_track->id) }}" method="POST" class="d-none">
+    @csrf
+    {!! Form::hidden('action', "approve_reject") !!}
+    {!! Form::hidden('comments', $statuses[1]) !!}
+    {!! Form::hidden('status', 1) !!}
+</form>
+@endif
+
 @endif
 
 {{--action button--}}
