@@ -365,7 +365,6 @@ class workflowController extends Controller
         $this->checkIfUserHasAccessOnUpdateWf($wf_track);
         $action = $request->input("action");
         $option_array = [];
-        dd($request->input("status"));
         switch ($action) {
             case 'assign':
                 $input = ['user_id' => access()->id(), 'assigned' => 1];
