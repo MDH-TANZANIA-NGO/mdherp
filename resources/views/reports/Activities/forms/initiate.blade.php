@@ -16,7 +16,7 @@
 {{--                </div>--}}
 {{--            </div>--}}
             <div class="card-body">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">View modal</button>
+{{--                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">View modal</button>--}}
                 @if(access()->user()->assignedSupervisor())
 
                     {!! Form::open(['route' => ['activity_report.initiate'], 'method'=>'GET']) !!}
@@ -173,11 +173,11 @@
                     <div class="card-body">
                         <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    {!! Form::label('requisition_id', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
-                                    {!! Form::select('requisition_id', $trainings, null,['class' => 'form-control select2-show-search','placeholder'=>'Select approved requisition', 'required']) !!}
-                                    {!! $errors->first('requisition_id', '<span class="badge badge-danger">:message</span>') !!}
+                                    {!! Form::label('participant_uid', __("Select attended Participant"),['class'=>'form-label','required_asterik']) !!}
+                                    {!! Form::select('participant_uid', $participants_attended, null,['class' => 'form-control select2-show-search','placeholder'=>'Select attended participant', 'required']) !!}
+                                    {!! $errors->first('participant_uid', '<span class="badge badge-danger">:message</span>') !!}
                                 </div>
                             </div>
 
@@ -185,7 +185,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary">Swap Participant</button>
                 </div>
             </div>
         </div>

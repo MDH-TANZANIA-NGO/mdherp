@@ -19,6 +19,7 @@ class ActivityReportRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('activity_reports.id AS id'),
+            DB::raw('activity_reports.requisition_id AS requisition_id'),
             DB::raw('activity_reports.user_id AS user_id'),
             DB::raw("concat_ws(' ', users.first_name, users.last_name) as full_name"),
             DB::raw('users.email AS email'),

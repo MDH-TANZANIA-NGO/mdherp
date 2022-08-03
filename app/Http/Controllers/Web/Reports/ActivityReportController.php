@@ -66,9 +66,33 @@ class ActivityReportController extends Controller
 
 
         return view('reports.Activities.forms.initiate')
+            ->with('participants_attended',isset($option['attendance_for_pluck'])? $option['attendance_for_pluck']: [])
             ->with('hotspots',isset($option['hotspot'])? $option['hotspot']: [])
             ->with('requisition',isset($option['requisition'])? $option['requisition']: [])
             ->with('training_costs',isset($option['training_cost'])? $option['training_cost']: [])
+            ->with('activity_report', $this->activity_reports)
+            ->with('attendances',$this->activity_attendance)
+            ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
+            ->with('trainings', $this->trainings->getPluckRequisitionNoWithRequisitionId());
+    }
+
+    public function show($uuid)
+    {
+        $activity_report =  $this->activity_reports->findByUuid($uuid);
+        $option =  [];
+
+        $option['requisition'] =  $this->requisition->find($activity_report->requisition_id);
+        $option['hotspot'] =   $this->hotspot->getHotspotByRequisitionOnDateRange($activity_report->requisition_id, $activity_report->start_date, $activity_report->end_date)->get();
+        $option['training_cost'] = $this->training_costs->getParticipantsByRequisition($activity_report->requisition_id);
+        $option['attendance_for_pluck'] = $this->activity_attendance->getGOfficerAttendanceByRequisitionForPluck($activity_report->requisition_id);
+
+
+
+        return view('reports.Activities.forms.initiate')
+            ->with('participants_attended', $option['attendance_for_pluck'])
+            ->with('hotspots',$option['hotspot'])
+            ->with('requisition',$option['requisition'])
+            ->with('training_costs',$option['training_cost'])
             ->with('activity_report', $this->activity_reports)
             ->with('attendances',$this->activity_attendance)
             ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
