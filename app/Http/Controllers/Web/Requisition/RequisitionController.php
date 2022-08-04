@@ -11,6 +11,7 @@ use App\Models\Payment\Payment;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
+use App\Models\Requisition\Training\RequisitionTrainingCostFavourite;
 use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
@@ -158,6 +159,7 @@ class RequisitionController extends Controller
             ->with('training', $requisition->training)
             ->with('training_details', $requisition->training()->first())
             ->with('access_training_costs_favourites', $this->training_cost_favourites->getAccessFavourites()->get())
+            ->with('requisition_favourite', RequisitionTrainingCostFavourite::query()->where('requisition_id', '=', $requisition->id)->first())
             ->with('training_costs_favourites', $this->training_cost_favourites->getAccessFavoritesForPluck());
     }
 
@@ -275,15 +277,7 @@ class RequisitionController extends Controller
 
     }
 
-    public function buildFromRequisitionTrainingCost(Request $request)
-    {
 
-        dd($request->all());
-        $training_cost_favourite =  $this->training_cost_favourites->find($request['id']);
-
-        return view('requisition.Direct.training.favourites')
-            ->with('favourites_costs', $this->training_cost->getParticipantsByRequisition($training_cost_favourite->requisition_id)->get());
-    }
 
 
 }

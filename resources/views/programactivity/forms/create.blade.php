@@ -21,6 +21,89 @@
 
 @include('programactivity.forms.event-schedule.create')
 
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header" style="background-color: rgb(238, 241, 248)">
+                    <h3 class="card-title">Logistics Arrangements</h3>
+                </div>
+                <div class="card-body">
+                    @if($hotels->count() > 0)
+                    <div class="row">
+                        <div class="col-md-12  col-xl-6">
+                            <div class="card">
+
+                                <div class="card-alert alert alert-info mb-0">
+                                    Select and add venue based on your priority
+                                </div>
+                                <div class="card-body">
+                                    {!! Form::open(['route' => 'programactivity.storeHotelReservation']) !!}
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="form-group " style="width: 100%;">
+                                                {{--                                                        {!! Form::label('hotel', __("Choose Hotel"),['class'=>'form-label','required_asterik']) !!}--}}
+                                                {!! Form::select('hotel_id', $hotels, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                                                {!! $errors->first('hotel_id', '<span class="badge badge-danger">:message</span>') !!}
+                                            </div>
+                                            <button type="submit" class="btn btn-info" style="margin-left:45%;"><i class="fa fa-plus-circle mr-2"></i>Add Venue</button>
+                                            <select name="priority_level" class="form-control" hidden>
+                                                <option value="1">First</option>
+                                                <option value="2">Second</option>
+                                                <option value="3">Third</option>
+                                                <option value="4">Fourth</option>
+                                            </select>
+                                            <input type="number" name="program_activity_id" value="{{$program_activity->id}}" hidden class="form-control" >
+
+
+
+                                        </div>
+                                    </div>
+
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12  col-xl-6">
+                            <div class="card">
+                                <div class="card-alert alert alert-success mb-0">
+                                    Selected venues arranged based on your selection
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        @if($hotels_reserved->count() > 0)
+                                            @foreach($hotels_reserved as $hotels)
+                                                <li class="list-group-item justify-content-between">
+                                                      {{$hotels->name}}
+                                                    <span class="badgetext badge ">
+
+                                                       <a class="btn btn-outline-danger" href="{{route('programactivity.removeHotel', $hotels->uuid)}}" onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash text-danger" aria-hidden="true" ></i> Remove</a>
+
+
+                                                    </span>
+
+
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            No hotel reserved
+                                        @endif
+                                        @if($hotels_reserved->count() > 0)
+
+
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
+                    <!-- table-responsive -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-lg-12">

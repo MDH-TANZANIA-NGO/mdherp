@@ -5,12 +5,16 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">PARTICIPANTS LIST</div>
+
                 <div class="card-options ">
                     @if($training_costs->count() > 0)
-                        {!! Form::open(['route' => ['requisition.training_cost_favourite'], 'method'=>'GET']) !!}
+                        @if($requisition_favourite == null)
+                        {!! Form::open(['route' => ['favourite.store']]) !!}
 
                         <div class="input-group">
+
                             <input type="text" class="form-control form-control-sm" placeholder="Favorite name" name="name">
+                            <input type="text" value="{{$requisition->id}}" hidden name="requisition_id">
                             <span class="input-group-btn ml-2">
 														<button class="btn btn-sm btn-primary" type="submit">
 															Save Favourite
@@ -18,6 +22,7 @@
 													</span>
                         </div>
                     {!! Form::close() !!}
+                    @endif
                     @endif
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>

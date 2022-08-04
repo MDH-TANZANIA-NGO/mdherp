@@ -10,6 +10,7 @@
                 </div>
             </div>
             <div class="card-body">
+
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <table id="payment_table" class="table table-condensed table-striped">
@@ -29,12 +30,15 @@
                             </thead>
 
                             <tbody>
+
+
+
                             @foreach($training_costs as $key=>$training_cost)
                             <tr data-toggle="collapse" data-target="#demo{{$key}}" class="accordion-toggle">
-
+                                {{dd($key)}}
                                 <td><button class="btn btn-default btn-xs"><i class="fa fa-plus-circle"></i></button></td>
-                                <td>{{$training_cost->full_name}}</td>
-                                <td>{{$training_cost->phone}}</td>
+                                <td>{{$training_cost->user->first_name}} {{$training_cost->user->last_name}}</td>
+                                <td>{{$training_cost->user->phone}}</td>
                                 <td>0/10</td>
                                 <td>{{number_2_format($training_cost->perdiem_total_amount)}}</td>
                                 <td>{{number_2_format($training_cost->transportation)}}</td>
@@ -47,6 +51,7 @@
                             <tr>
                                 <td colspan="12" class="hiddenRow">
                                     <div class="accordian-body collapse" id="demo{{$key}}">
+                                        @endforeach
                                         <table class="table table-striped">
                                             <thead>
                                             <tr class="info">
@@ -71,7 +76,7 @@
                                             </tr>
                                             @endforeach
 
-                                            @endforeach
+
 
                                             </tbody>
                                         </table>

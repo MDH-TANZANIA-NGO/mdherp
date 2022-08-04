@@ -57,7 +57,7 @@ class ActivityReportController extends Controller
 
                 $option['requisition'] =  $this->requisition->find($request['requisition_id']);
                 $option['hotspot'] =   $this->hotspot->getHotspotByRequisitionOnDateRange($request['requisition_id'], $request['start_date'], $request['end_date'])->get();
-                $option['training_cost'] = $this->training_costs->getParticipantsByRequisition($request['requisition_id']);
+                $option['training_cost'] = $this->training_costs->getParticipantsByRequisition($request['requisition_id'])->get();
                 $option['attendance_for_pluck'] = $this->activity_attendance->getGOfficerAttendanceByRequisitionForPluck($request['requisition_id']);
 
 

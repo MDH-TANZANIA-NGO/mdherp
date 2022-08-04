@@ -29,6 +29,14 @@ class HotelRepository extends BaseRepository
             ->join('districts','districts.id', 'hotels.district_id')
             ->join('regions','regions.id', 'districts.region_id');
     }
+    public function getSelectedHotelForActivity($program_activity)
+    {
+      return  $this->getQuery()
+          ->addSelect('program_activity_hotels.priority_level')
+            ->join('program_activity_hotels', 'program_activity_hotels.hotel_id', 'hotels.id')
+            ->join('program_activities', 'program_activities.id', 'program_activity_hotels.program_activity_id')
+        ->where('program_activity_hotels.program_activity_id', $program_activity);
+    }
     public function inputProcess($inputs)
     {
         return [

@@ -43,4 +43,21 @@ class RequisitionTrainingCostFavouriteRepository extends BaseRepository
         return $this->getAccessFavourites()->get()->pluck('name', 'id');
     }
 
+    public function inputProcess($inputs)
+    {
+        return [
+            'user_id'=>access()->user()->id,
+            'requisition_id'=>$inputs['requisition_id'],
+            'name'=>$inputs['name']
+        ];
+    }
+
+    public function store($inputs)
+    {
+        return DB::transaction(function () use ($inputs){
+            $this->query()->create($this->inputProcess($inputs));
+        });
+
+    }
+
 }

@@ -16,4 +16,5 @@ class ProgramActivity extends BaseModel
 
         return $this->hasMany(ProgramActivityReport::class);
     }
+
 }

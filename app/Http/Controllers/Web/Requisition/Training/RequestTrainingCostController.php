@@ -70,10 +70,7 @@ class RequestTrainingCostController extends Controller
     {
         $from = $request->get('from');
         $to = $request->get('to');
-        $datetime1 = new \DateTime($from);
-        $datetime2 = new  \DateTime($to);
-        $interval = $datetime1->diff($datetime2);
-        $days = $interval->format('%a');
+        $days = getNoDays($from, $to);
 
         $training = new requisition_training();
         $training-> requisition_id = request('requisition_id');

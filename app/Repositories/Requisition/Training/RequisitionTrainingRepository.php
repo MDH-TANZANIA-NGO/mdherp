@@ -48,6 +48,7 @@ class RequisitionTrainingRepository extends BaseRepository
         return $this->getRequisition()
             ->select([
                 'requisitions.number',
+                'requisitions.id AS requisition_id',
                 'requisition_trainings.id',
                 DB::raw("CONCAT_WS(' ', requisitions.number, districts.name, requisition_trainings.start_date, requisition_trainings.end_date ) AS training")
             ])
@@ -72,7 +73,7 @@ class RequisitionTrainingRepository extends BaseRepository
                 $query->where('program_activities.wf_done', 1);
             })
 
-            ->pluck('training','requisitions.id');
+            ->pluck('training','requisition_id');
 
     }
     public function inputProcess($input)

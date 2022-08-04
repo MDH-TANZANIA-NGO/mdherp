@@ -46,7 +46,8 @@
                             <div class="card-header">
                                 <h3 class="card-title">Participant's Costs</h3>
                                 <div class="card-options ">
-                                    @if($access_training_costs_favourites->count() > 0)
+                                    @if($access_training_costs_favourites->count() > 0 and $training_costs->count() == 0)
+
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Select from favourite</button>
                                     @endif
 

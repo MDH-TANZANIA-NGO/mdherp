@@ -38,6 +38,7 @@ class RequestTrainingCostRepository extends BaseRepository
     }
 public function getParticipantsByRequisition($requisition_id)
 {
+
     return $this->getQuery()
         ->where('requisition_training_costs.requisition_id', $requisition_id);
 }
