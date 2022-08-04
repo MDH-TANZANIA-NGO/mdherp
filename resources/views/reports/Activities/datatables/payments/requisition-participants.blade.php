@@ -35,7 +35,7 @@
 
                             @foreach($training_costs as $key=>$training_cost)
                             <tr data-toggle="collapse" data-target="#demo{{$key}}" class="accordion-toggle">
-                                {{dd($key)}}
+
                                 <td><button class="btn btn-default btn-xs"><i class="fa fa-plus-circle"></i></button></td>
                                 <td>{{$training_cost->user->first_name}} {{$training_cost->user->last_name}}</td>
                                 <td>{{$training_cost->user->phone}}</td>
