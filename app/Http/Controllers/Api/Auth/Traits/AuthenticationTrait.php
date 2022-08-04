@@ -18,6 +18,8 @@ use App\Models\Requisition\Training\requisition_training_cost;
 use App\Repositories\ProgramActivity\ProgramActivityAttendanceRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
+use App\Repositories\System\RegionRepository;
+use App\Repositories\System\DistrictRepository;
 
 
 trait AuthenticationTrait
@@ -26,6 +28,8 @@ trait AuthenticationTrait
     protected $program_activity_repo;
     protected $requisition_training_repo;
     protected $users;
+    protected $regions;
+    protected $district;
 
     public function __construct()
     {
@@ -33,6 +37,8 @@ trait AuthenticationTrait
         $this->program_activity_repo =  (new ProgramActivityRepository());
         $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
         $this->users = (new UserRepository());
+        $this->regions = (new RegionRepository());
+        $this->districts = (new DistrictRepository());
     }
 
     public function loginValidator()
@@ -149,6 +155,8 @@ trait AuthenticationTrait
 
         $success['g_officers'] = $this->g_officers->getFilteredGofficerByRegion($gOfficer->region_id)->get();
         $success['staffs'] = $this->users->getUserQuery()->get();
+        $success['regions'] = $this->regions->getQuery()->get();
+        $success['districts'] = $this->districts->getQuery()->get();
 
         $wards = DB::table("wards")
             ->selectRaw('wards.id as id')
