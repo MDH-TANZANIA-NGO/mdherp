@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Attendance;
 
+use App\Models\Attendance\ActivityAttendance;
 use App\Models\Attendance\Hotspot;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Carbon;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class ActivityAttendanceRepository extends  BaseRepository
 {
+    const MODEL =  ActivityAttendance::class;
     public function __construct()
     {
         //
@@ -129,9 +131,9 @@ class ActivityAttendanceRepository extends  BaseRepository
         });
     }
 
-    public function allByHotspot(Hotspot $hotspot)
+    public function allByHotspot( $hotspot_id)
     {
-        return $this->getQueryOnlyAttendance()->where('hotspots.id', $hotspot->id);
+        return $this->getQueryOnlyAttendance()->where('hotspots.id', $hotspot_id);
     }
     public function getQueryOnlyAttendance()
     {
@@ -140,8 +142,8 @@ class ActivityAttendanceRepository extends  BaseRepository
             DB::raw('hotspots.id AS hotspot_id'),
             DB::raw('hotspots.camp AS camp'),
             DB::raw('g_officers.id AS g_officer_id'),
-            DB::raw("concat_ws(' ',g_officers.first_name,g_officers.last_name) AS fullname"),
-            DB::raw("concat_ws(' ',users.first_name,users.last_name) AS cov"),
+            DB::raw("concat_ws(' ',g_officers.first_name,g_officers.last_name) AS full_name"),
+            DB::raw("concat_ws(' ',users.first_name,users.last_name) AS staff_name"),
             DB::raw('activity_attendances.checkin_time AS checkin_time'),
             DB::raw('activity_attendances.checkout_time AS checkout_time'),
             DB::raw('activity_attendances.checkin_latitude AS checkin_latitude'),
@@ -158,20 +160,39 @@ class ActivityAttendanceRepository extends  BaseRepository
             DB::raw('activity_attendances.status AS status'),
             DB::raw('activity_attendances.mobile AS mobile'),
             DB::raw('hotspots.creator_id AS creator_id'),
-            DB::raw('districts.name AS district_name'),
-//            DB::raw('reports.wf_done_date AS wf_done_date'),
-            DB::raw('units.name AS unit'),
-//            DB::raw('reports.id AS report_id'),
-//            DB::raw('reports.number AS report_number')
-//            DB::raw("CASE WHEN reports.wf_done = 1 THEN 1 ELSE 0 END AS paid "),
-//            DB::raw("CASE WHEN reports.id THEN 'Initiated' ELSE 'Not Initiated' END AS initiated "),
         ])
             ->join('hotspots', 'hotspots.id', 'activity_attendances.hotspot_id')
-            ->join('g_officers', 'g_officers.id', 'activity_attendances.creator_id')
-//            ->leftjoin('hotspot_report', 'hotspot_report.hotspot_id', 'hotspots.id')
-//            ->leftjoin('reports', 'reports.id', 'hotspot_report.report_id')
-//            ->leftjoin('districts', 'districts.id', 'hotspots.district_id')
-            ->leftjoin('users', 'users.id', 'hotspots.creator_id')
-            ->leftjoin('units', 'units.id', 'activity_attendances.unit_id');
+            ->leftjoin('districts', 'districts.id', 'hotspots.district_id')
+            ->leftjoin('g_officers', 'g_officers.id', 'activity_attendances.creator_id')
+            ->leftjoin('users', 'users.id', 'activity_attendances.creator_id');
     }
+    public function getGOfficerAttendances()
+    {
+        return $this->getQueryOnlyAttendance()
+            ->where('activity_attendances.creator_type', 'App\Model\GOfficer');
+    }
+    public function getGOfficerAttendanceByRequisition($requisition_id)
+    {
+        return $this->getGOfficerAttendances()
+//            ->addSelect([
+//                ''
+//            ])
+            ->where('hotspots.requisition_id', $requisition_id)
+            ->groupBy('activity_attendances.creator_id','activity_attendances.id','hotspots.id','g_officers.id','users.first_name','users.last_name');
+    }
+    public function getGOfficerAttendanceByRequisitionForPluck($requisition_id)
+    {
+        return $this->getGOfficerAttendanceByRequisition($requisition_id)->pluck('full_name', 'id');
+    }
+    public function getStaffAttendances()
+    {
+        return $this->getQueryOnlyAttendance()
+            ->where('activity_attendances.creator_type', 'App\Model\User');
+    }
+    public function getGOfficerAttendancesById($g_officer_id)
+    {
+        return $this->getGOfficerAttendances()
+            ->where('activity_attendances.creator_id', $g_officer_id);
+    }
+
 }

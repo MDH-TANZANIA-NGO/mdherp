@@ -2,10 +2,13 @@
 
 namespace App\Repositories\Hotspot;
 
+use App\Models\Attendance\Hotspot;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class HotspotRepository extends BaseRepository
 {
+    const MODEL =  Hotspot::class;
     public function __construct()
     {
         //
@@ -51,4 +54,37 @@ class HotspotRepository extends BaseRepository
             ]
         ];
     }
+    public function getQuery()
+    {
+        return $this->query()->select([
+            DB::raw('hotspots.id AS id'),
+            DB::raw('hotspots.creator_type AS creator_type'),
+            DB::raw('hotspots.creator_id AS creator_id'),
+            DB::raw('hotspots.requisition_id AS requisition_id'),
+            DB::raw('hotspots.is_done AS is_done'),
+            DB::raw('hotspots.status AS status'),
+            DB::raw('hotspots.district_id AS district_id'),
+            DB::raw('hotspots.report_id AS report_id'),
+            DB::raw('hotspots.total_participant AS total_participant'),
+            DB::raw('hotspots.camp AS camp'),
+            DB::raw('hotspots.checkin_time AS checkin_time'),
+            DB::raw('hotspots.checkout_time AS checkout_time'),
+            DB::raw('hotspots.uuid AS uuid'),
+            DB::raw('hotspots.created_at AS created_at')
+            ])
+            ->join('requisitions', 'requisitions.id', 'hotspots.requisition_id')
+            ->leftjoin('activity_reports', 'activity_reports.id', 'hotspots.report_id');
+    }
+    public function getHotspotByRequisition($requisition_id)
+    {
+        return $this->getQuery()
+            ->where('hotspots.requisition_id', $requisition_id);
+    }
+    public function getHotspotByRequisitionOnDateRange($requisition_id, $start_date, $end_date)
+    {
+        return $this->getHotspotByRequisition($requisition_id)
+            ->whereBetween('hotspots.checkin_time', [$start_date, $end_date]);
+    }
+
+
 }

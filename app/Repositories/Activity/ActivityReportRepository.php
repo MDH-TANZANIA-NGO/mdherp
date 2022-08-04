@@ -5,11 +5,13 @@ namespace App\Repositories\Activity;
 //use App\Activities\Reports\ActivityReport;
 use App\Models\Activities\Reports\ActivityReport;
 use App\Repositories\BaseRepository;
+use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
 
 class ActivityReportRepository extends BaseRepository
 {
     const MODEL = ActivityReport::class;
+    use Number;
     public function __construct()
     {
         //
@@ -19,6 +21,7 @@ class ActivityReportRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('activity_reports.id AS id'),
+            DB::raw('activity_reports.requisition_id AS requisition_id'),
             DB::raw('activity_reports.user_id AS user_id'),
             DB::raw("concat_ws(' ', users.first_name, users.last_name) as full_name"),
             DB::raw('users.email AS email'),
@@ -60,5 +63,27 @@ class ActivityReportRepository extends BaseRepository
             ->where('activity_reports.user_id', access()->user()->id)
             ->where('activity_reports.rejected', false)
             ->where('activity_reports.wf_done', 1);
+    }
+    public function inputsProcess($inputs)
+    {
+        return [
+            'start_date'=>$inputs['start_date'],
+            'end_date'=>$inputs['end_date'],
+            'report_type'=>$inputs['report_type'],
+            'done'=>true,
+            'user_id'=> access()->user()->id,
+            'region_id'=> access()->user()->region_id,
+            'requisition_id'=>$inputs['requisition_id'],
+
+        ];
+    }
+    public function store($inputs)
+    {
+        return DB::transaction(function () use ($inputs){
+           $activity_report_id =  $this->query()->create($this->inputsProcess($inputs))->id;
+           $activity_report = $this->find($activity_report_id);
+           $number =  $this->generateNumber($activity_report);
+           $activity_report->update(['number'=>$number]);
+        });
     }
 }

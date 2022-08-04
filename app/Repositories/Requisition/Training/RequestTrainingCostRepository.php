@@ -90,4 +90,28 @@ public function getParticipantsByRequisition($requisition_id)
             return $requisition;
         });
     }
+    public function getActivityCostWithParticipants()
+    {
+        return $this->query()->select([
+            DB::raw('requisition_training_costs.id AS id'),
+            DB::raw('requisition_training_costs.requisition_training_id AS requisition_training_id'),
+            DB::raw('requisition_training_costs.perdiem_total_amount AS perdiem_total_amount'),
+            DB::raw('requisition_training_costs.transportation AS transportation'),
+            DB::raw('requisition_training_costs.total_amount AS total_amount'),
+            DB::raw('requisition_training_costs.other_cost AS other_cost'),
+            DB::raw('requisition_training_costs.amount_paid AS amount_paid'),
+            DB::raw('requisition_training_costs.requisition_id AS requisition_id'),
+            DB::raw('requisition_training_costs.participant_uid AS participant_uid'),
+            DB::raw('requisition_training_costs.participant_uid AS participant_uid'),
+            DB::raw('g_officers.phone AS phone'),
+            DB::raw("CONCAT_WS(', ',g_officers.last_name, g_officers.first_name) AS full_name"),
+        ])
+            ->join('requisitions', 'requisitions.id','requisition_training_costs.requisition_id')
+            ->join('g_officers', 'g_officers.id','requisition_training_costs.participant_uid');
+    }
+    public function getActivityCostWithParticipantsByRequisitionId($requisition_id)
+    {
+        return $this->getActivityCostWithParticipants()
+            ->where('requisition_training_costs.requisition_id', $requisition_id);
+    }
 }

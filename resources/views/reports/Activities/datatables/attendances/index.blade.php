@@ -5,10 +5,9 @@
         <tr>
 
             <th >Full name</th>
-            <th >Type</th>
             <th >Phone</th>
-            <th >Requested</th>
-            <th >Paid</th>
+{{--            <th >Requested</th>--}}
+            <th >Date</th>
             <th >Time in</th>
             <th >Time Out</th>
             <th >Location</th>
@@ -18,15 +17,28 @@
         </thead>
         <tbody>
         <tr>
-            <td><i class="fa fa-check mr-1 text-success"></i>Elinipendo Mziray</td>
-            <td>mdh staff</td>
-            <td>0758698022</td>
-            <td>680000</td>
-            <td>380000</td>
-            <td>10:30:00 AM</td>
-            <td>04:30:00 PM</td>
-            <td>Mikocheni Plaza</td>
+            @foreach($attendances->allByHotspot($hotspot->id) as $attendance)
+                @if($attendance->creator_type == 'App\Model\GOfficer')
+            <td><i class="fa fa-check-circle-o mr-1 text-success"></i>{{$attendance->gOfficer->first_name}}</td>
+            <td>{{$attendance->gOfficer->phone}}</td>
+{{--            <td>680000</td>--}}
+            <td>{{date('d-m-Y', strtotime($attendance->checkin_time))}}</td>
+            <td>{{date('Gi.s', strtotime($attendance->checkin_time))}}</td>
+                    <td>{{date('Gi.s', strtotime($attendance->checkout_time))}}</td>
+            <td>{{$attendance->checkin_location}}</td>
+                @elseif($attendance->creator_type == 'App\Model\User')
+
+                        <td><i class="fa fa-check-circle-o mr-1 text-success"></i>{{$attendance->user->full_name_formatted}}</td>
+                        <td>{{$attendance->user->phone}}</td>
+                        {{--            <td>680000</td>--}}
+                        <td>{{date('d-m-Y', strtotime($attendance->checkin_time))}}</td>
+                        <td>{{date('Gi.s', strtotime($attendance->checkin_time))}}</td>
+                        <td>{{date('Gi.s', strtotime($attendance->checkout_time))}}</td>
+                        <td>{{$attendance->checkin_location}}</td>
+                @endif
+            @endforeach
         </tr>
+
 
         </tbody>
     </table>

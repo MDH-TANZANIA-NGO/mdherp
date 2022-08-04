@@ -223,6 +223,18 @@ class SysdefsTableSeeder extends Seeder
                 'sysdef_group_id' => 1,
             ]
         );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH-ACT-RPT'],
+            [
+                'name' => 'activity_reports',
+                'display_name' => 'Activity Report Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH-ACT-RPT',
+                'sysdef_group_id' => 1,
+            ]
+        );
 
     }
 }
