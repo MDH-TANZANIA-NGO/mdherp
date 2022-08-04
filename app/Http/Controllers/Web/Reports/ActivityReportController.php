@@ -88,7 +88,7 @@ class ActivityReportController extends Controller
 
 
 
-        return view('reports.Activities.forms.initiate')
+        return view('reports.Activities.display.show')
             ->with('participants_attended', $option['attendance_for_pluck'])
             ->with('hotspots',$option['hotspot'])
             ->with('requisition',$option['requisition'])
@@ -97,5 +97,10 @@ class ActivityReportController extends Controller
             ->with('attendances',$this->activity_attendance)
             ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
             ->with('trainings', $this->trainings->getPluckRequisitionNoWithRequisitionId());
+    }
+
+    public function store(Request $request)
+    {
+        $this->activity_reports->store($request->all());
     }
 }

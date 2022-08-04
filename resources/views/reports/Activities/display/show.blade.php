@@ -82,10 +82,10 @@
 {{--                                    @include('reports.Activities.forms.summary.create')--}}
                                 </div>
                                 <div class="tab-pane" id="tab7">
-{{--                                    @include('reports.Activities.forms.attachments.create')--}}
+                                    @include('reports.Activities.display.attachments')
                                 </div>
                                 <div class="tab-pane" id="tab8">
-{{--                                    @include('reports.Activities.datatables.payments.requisition-participants')--}}
+                                    @include('reports.Activities.display.payments')
                                 </div>
 
                             </div>

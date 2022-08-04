@@ -3,6 +3,7 @@ Route::group(['namespace' => 'Reports', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('index', 'ActivityReportController@index')->name('index');
     Route::get('create', 'ActivityReportController@create')->name('create');
     Route::get('initiate', 'ActivityReportController@initiate')->name('initiate');
+    Route::get('{uuid}/show', 'ActivityReportController@show')->name('show');
 //    Route::get('approved', 'TimesheetReportController@getApprovedTimesheets')->name('approved');
 //    Route::get('rejected', 'TimesheetReportController@getRejectedTimesheets')->name('rejected');
 //    Route::post('filter_range', 'TimesheetReportController@getFilteredRange')->name('filter_range');
