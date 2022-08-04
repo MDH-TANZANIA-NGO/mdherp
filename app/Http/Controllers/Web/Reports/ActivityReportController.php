@@ -52,7 +52,6 @@ class ActivityReportController extends Controller
     }
     public function initiate(Request $request)
     {
-
         $option =  [];
        if ( isset($request['requisition_id'])){
 
