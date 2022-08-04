@@ -34,7 +34,7 @@ class RequestTrainingCostRepository extends BaseRepository
             DB::raw('program_activities.uuid AS activity_uuid')
         ])
             ->join('requisition_trainings', 'requisition_trainings.id', 'requisition_training_costs.requisition_training_id')
-            ->join('program_activities', 'program_activities.requisition_training_id', 'requisition_trainings.id');
+            ->leftjoin('program_activities', 'program_activities.requisition_training_id', 'requisition_trainings.id');
     }
 public function getParticipantsByRequisition($requisition_id)
 {

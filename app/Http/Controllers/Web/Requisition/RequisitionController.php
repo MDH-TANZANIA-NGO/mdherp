@@ -18,6 +18,8 @@ use App\Repositories\Finance\FinancialReportsRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
+use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
+use App\Repositories\Requisition\Training\RequisitionTrainingCostFavouriteRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
 use App\Repositories\Requisition\Training\trainingRepository;
 use App\Repositories\System\RegionRepository;
@@ -54,6 +56,8 @@ class RequisitionController extends Controller
     protected $requisition_training;
     protected $requisition_training_items;
     protected $financialReport;
+    protected $training_cost_favourites;
+    protected $training_cost;
 
 
     public function __construct()
@@ -73,6 +77,8 @@ class RequisitionController extends Controller
         $this->requisition_training = (new trainingRepository());
         $this->requisition_training_items = (new RequisitionTrainingItemsRepository());
         $this->financialReport = (new FinancialReportsRepository());
+        $this->training_cost_favourites =  (new RequisitionTrainingCostFavouriteRepository());
+        $this->training_cost =  (new RequestTrainingCostRepository());
 
 
     }
@@ -150,7 +156,9 @@ class RequisitionController extends Controller
             ->with('users', $this->users->getQuery()->pluck('name', 'user_id'))
             ->with('requisition_training_items', $requisition->trainingItems)
             ->with('training', $requisition->training)
-            ->with('training_details', $requisition->training()->first());
+            ->with('training_details', $requisition->training()->first())
+            ->with('access_training_costs_favourites', $this->training_cost_favourites->getAccessFavourites()->get())
+            ->with('training_costs_favourites', $this->training_cost_favourites->getAccessFavoritesForPluck());
     }
 
     /**
@@ -265,6 +273,16 @@ class RequisitionController extends Controller
          $this->requisitions->updateActualAmount($requisition);
          return redirect()->back();
 
+    }
+
+    public function buildFromRequisitionTrainingCost(Request $request)
+    {
+
+        dd($request->all());
+        $training_cost_favourite =  $this->training_cost_favourites->find($request['id']);
+
+        return view('requisition.Direct.training.favourites')
+            ->with('favourites_costs', $this->training_cost->getParticipantsByRequisition($training_cost_favourite->requisition_id)->get());
     }
 
 

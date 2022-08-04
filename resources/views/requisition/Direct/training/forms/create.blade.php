@@ -46,8 +46,9 @@
                             <div class="card-header">
                                 <h3 class="card-title">Participant's Costs</h3>
                                 <div class="card-options ">
+                                    @if($access_training_costs_favourites->count() > 0)
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Select from favourite</button>
-
+                                    @endif
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,9 +67,9 @@
 
                                                         <div class="col-md-12" style="width: 100%">
                                                             <div class="form-group">
-                                                                {!! Form::label('participant', __("Favorite Name"),['class'=>'form-label','required_asterik']) !!}
-                                                                {!! Form::select('participant_uid',$gofficer, null, ['class' => 'form-control select2-show-search', 'required','placeholder'=>'Select Favourite']) !!}
-                                                                {!! $errors->first('participant_uid', '<span class="badge badge-danger">:message</span>') !!}
+                                                                {!! Form::label('favourite_id', __("Favorite Name"),['class'=>'form-label','required_asterik']) !!}
+                                                                {!! Form::select('favourite_id',$training_costs_favourites, null, ['class' => 'form-control select2-show-search', 'required','placeholder'=>'Select Favourite']) !!}
+                                                                {!! $errors->first('favourite_id', '<span class="badge badge-danger">:message</span>') !!}
                                                             </div>
                                                         </div>
                                                 </div>

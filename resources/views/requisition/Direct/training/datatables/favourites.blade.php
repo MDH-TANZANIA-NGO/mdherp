@@ -1,27 +1,14 @@
 
-
+@extends('layouts.app')
+@section('content')
 <div class="row">
     <div class="col-md-12 col-lg-12">
         <div class="card">
             <div class="card-header">
                 <div class="card-title">PARTICIPANTS LIST</div>
                 <div class="card-options ">
-                    @if($training_costs->count() > 0)
-                        {!! Form::open(['route' => ['requisition.training_cost_favourite'], 'method'=>'GET']) !!}
-
-                        <div class="input-group">
-                            <input type="text" class="form-control form-control-sm" placeholder="Favorite name" name="name">
-                            <span class="input-group-btn ml-2">
-														<button class="btn btn-sm btn-primary" type="submit">
-															Save Favourite
-														</button>
-													</span>
-                        </div>
-                    {!! Form::close() !!}
-                    @endif
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
-
                 </div>
             </div>
             <div class="card-body">
@@ -37,7 +24,7 @@
                             <th class="wd-10p">Others</th>
                             <th class="wd-25p">Others Description</th>
                             <th class="wd-15p">Total</th>
-{{--                            <th class="wd-15p">District</th>--}}
+                            {{--                            <th class="wd-15p">District</th>--}}
                             <th class="wd-4p">Action</th>
 
                         </tr>
@@ -54,8 +41,8 @@
                                 <td>{{number_2_format($participants->other_cost)}}</td>
                                 <td>{{$participants->others_description}}</td>
                                 <td>{{number_2_format($participants->total_amount)}}</td>
-{{--                                <td>{{$participants->user->facilities->name}}</td>--}}
-{{--                                <td>{{$participants->user->district->name}}</td>--}}
+                                {{--                                <td>{{$participants->user->facilities->name}}</td>--}}
+                                {{--                                <td>{{$participants->user->district->name}}</td>--}}
                                 <td><a  href="{{route('training.removeParticipant', $participants->uuid)}}"  onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash"></i></a></td>
 
                             </tr>
@@ -120,7 +107,7 @@
         </div>
     </div>
 </div>
-
+@endsection
 @push('after-scripts')
     <script>
         $(document).ready(function (){
