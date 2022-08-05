@@ -27,9 +27,11 @@ class RequestTrainingCostRepository extends BaseRepository
             DB::raw('requisition_training_costs.transportation AS transportation'),
             DB::raw('requisition_training_costs.total_amount AS total_amount'),
             DB::raw('requisition_training_costs.other_cost AS other_cost'),
+            DB::raw('requisition_training_costs.others_description AS others_description'),
             DB::raw('requisition_training_costs.requisition_id AS requisition_id'),
             DB::raw('requisition_training_costs.perdiem_rate_id AS perdiem_rate_id'),
             DB::raw('requisition_training_costs.participant_uid AS participant_uid'),
+            DB::raw('requisition_training_costs.uuid AS uuid'),
             DB::raw('requisition_trainings.id AS training_id'),
             DB::raw('program_activities.id AS activity_id'),
             DB::raw('program_activities.uuid AS activity_uuid')
@@ -50,10 +52,31 @@ public function getParticipantsByRequisition($requisition_id)
             ->where('program_activities.uuid', $uuid);
     }
 
+    public function insertBulkFromFavourites($training_costs, $current_requisition)
+    {
+
+       foreach ($training_costs as $cost)
+       {
+           $this->query()->create([
+               'requisition_id'=>$current_requisition->requisition_id,
+               'participant_uid'=>$cost->participant_uid,
+               'perdiem_rate_id'=>$cost->perdiem_rate_id,
+               'no_days'=>$current_requisition->no_days,
+               'perdiem_total_amount'=>$cost->perdiem_total_amount,
+               'transportation'=> $cost->transportation,
+               'other_cost'=>$cost->other_cost,
+               'total_amount'=>$cost->total_amount,
+               'others_description'=>$cost->others_description,
+               'requisition_training_id'=>$current_requisition->id
+           ]);
+       }
+       return redirect()->back();
+    }
 
 
     public function inputProcess($inputs)
     {
+
         $requisition_training_details =  requisition_training::query()->where('id', $inputs['requisition_training_id'])->first();
         $days = getNoDays($requisition_training_details->start_date, $requisition_training_details->end_date);
 //        dd($days);
@@ -82,7 +105,13 @@ public function getParticipantsByRequisition($requisition_id)
             'total_amount' => $total_amount,
         ];
     }
+    public function update($training_cost, $inputs)
+    {
 
+        return DB::transaction(function () use ($training_cost, $inputs){
+            $this->findByUuid($inputs['uuid'])->update($this->inputProcess($inputs));
+        });
+    }
     public function store(Requisition $requisition, $inputs)
     {
         return DB::transaction(function () use ($requisition, $inputs){

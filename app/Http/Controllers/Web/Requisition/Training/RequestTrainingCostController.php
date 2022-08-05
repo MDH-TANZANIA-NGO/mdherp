@@ -123,5 +123,42 @@ class RequestTrainingCostController extends Controller
 
 
     }
+
+    public function updateBulk(Request $request)
+    {
+
+        foreach ($request['participant_uid'] as $key=> $user)
+        {
+            $data = [];
+            $data = [
+                'participant_uid'=>$request['participant_uid'][$key],
+                'requisition_training_id'=>$request['requisition_training_id'][$key],
+                'uuid'=>$request['uuid'][$key],
+                'transportation'=>$request['transportation'][$key],
+                'other_cost'=>$request['other_cost'][$key],
+                'others_description'=>$request['others_description'][$key],
+                'perdiem_rate_id'=>$request['perdiem_rate_id'][$key],
+            ];
+          $training_cost =   $this->trainingCost->findByUuid($request['uuid'][$key]);
+           $this->trainingCost->update($training_cost, $data);
+        }
+
+        alert()->success('Data saved successfully', 'Success');
+
+        return redirect()->route('requisition.initiate', $request['requisition_uuid']);
+    }
+    public function removeAllParticipant($requisition_id)
+    {
+
+        $training_cost =  $this->trainingCost->getParticipantsByRequisition($requisition_id)->get();
+
+        foreach ($training_cost as $costs)
+        {
+            $this->trainingCost->findByUuid($costs->uuid)->forceDelete();
+        }
+        alert()->success('Participants cleared successfully','Success');
+        return redirect()->back();
+    }
+
 }
 

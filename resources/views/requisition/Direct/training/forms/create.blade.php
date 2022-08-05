@@ -65,7 +65,7 @@
                                                     {!! Form::open(['route' => ['favourite.pull_favourites'],'method'=>'GET']) !!}
 
                                                     <div class="row">
-
+                                                    <input type="number" value="{{$requisition->id}}" hidden name="requisition_id">
                                                         <div class="col-md-12" style="width: 100%">
                                                             <div class="form-group">
                                                                 {!! Form::label('favourite_id', __("Favorite Name"),['class'=>'form-label','required_asterik']) !!}

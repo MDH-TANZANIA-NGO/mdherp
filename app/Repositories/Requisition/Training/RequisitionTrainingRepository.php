@@ -23,13 +23,15 @@ class RequisitionTrainingRepository extends BaseRepository
             DB::raw('requisition_trainings.start_date AS start_date'),
             DB::raw('requisition_trainings.end_date AS end_date'),
             DB::raw('requisition_trainings.district_id AS district_id'),
+            DB::raw('requisition_trainings.no_days AS no_days'),
 //            DB::raw('requisitions.id AS requisition_ID'),
             DB::raw('requisition_trainings.requisition_id AS requisition_id'),
 //            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
             DB::raw('program_activities.id AS program_activity_id'),
             DB::raw('program_activities.number AS program_activity_number'),
 
-        ]);
+        ])
+            ->leftjoin('program_activities', 'program_activities.requisition_training_id','requisition_trainings.id');
     }
 
     public function getValidProgramActivity(){
@@ -42,6 +44,11 @@ class RequisitionTrainingRepository extends BaseRepository
         return $this->getQuery()
             ->join('requisitions', 'requisitions.id', 'requisition_trainings.requisition_id')
             ->join('districts', 'districts.id', 'requisition_trainings.district_id');
+    }
+    public function getByRequisitionId($requisition_id)
+    {
+        return $this->getQuery()
+            ->where('requisition_trainings.requisition_id', $requisition_id);
     }
     public function getRequisitionFilter()
     {

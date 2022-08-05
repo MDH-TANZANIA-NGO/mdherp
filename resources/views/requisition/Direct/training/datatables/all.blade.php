@@ -4,11 +4,14 @@
     <div class="col-md-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <div class="card-title">PARTICIPANTS LIST</div>
-
+                <div class="card-title">PARTICIPANTS LIST
+                </div>
+                @if($training_costs->count() > 0)
+                    <a class="btn btn-outline-danger" style="margin-left: 1%" href="{{route('training.removeAllParticipant', $requisition->id)}}" onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash"></i> clear all</a>
+                @endif
                 <div class="card-options ">
-                    @if($training_costs->count() > 0)
-                        @if($requisition_favourite == null)
+                   @if($training_costs->count() > 0)
+                @if($requisition_favourite == null)
                         {!! Form::open(['route' => ['favourite.store']]) !!}
 
                         <div class="input-group">
