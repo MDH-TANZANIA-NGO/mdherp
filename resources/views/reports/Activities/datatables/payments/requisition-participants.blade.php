@@ -44,7 +44,14 @@
                                 <td>{{number_2_format($training_cost->transportation)}}</td>
                                 <td>{{number_2_format($training_cost->other_cost)}}</td>
                                 <td>{{number_2_format($training_cost->total_amount)}}</td>
-                                <td><input type="number" class="form-control" name="amount_paid" value="{{$training_cost->amount_paid}}"></td>
+                                <td>
+
+                                    @if($training_cost->amount_paid == null)
+                                    <input type="text" class="form-control" name="amount_paid" value="{{number_2_format($training_cost->total_amount)}}">
+                                    @else
+                                        <input type="number" class="form-control" name="amount_paid" value="{{$training_cost->amount_paid}}">
+                                        @endif
+                                </td>
                                 <td><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Swap participant"><i class="fa fa-exchange"></i></a> | <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove participant"><i class="fa fa-close"></i></a></td>
                             </tr>
 

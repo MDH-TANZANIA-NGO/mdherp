@@ -28,6 +28,7 @@ class RequestTrainingCostRepository extends BaseRepository
             DB::raw('requisition_training_costs.total_amount AS total_amount'),
             DB::raw('requisition_training_costs.other_cost AS other_cost'),
             DB::raw('requisition_training_costs.requisition_id AS requisition_id'),
+            DB::raw('requisition_training_costs.perdiem_rate_id AS perdiem_rate_id'),
             DB::raw('requisition_training_costs.participant_uid AS participant_uid'),
             DB::raw('requisition_trainings.id AS training_id'),
             DB::raw('program_activities.id AS activity_id'),

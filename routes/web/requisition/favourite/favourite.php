@@ -2,6 +2,7 @@
 Route::group(['namespace' => 'Requisition\Favourite', 'middleware' => ['web', 'auth'], 'prefix' => 'favourite', 'as' => 'favourite.'], function () {
     Route::get('', 'FavouritesController@index')->name('index');
     Route::post('store', 'FavouritesController@store')->name('store');
+    Route::get('pull_favourites', 'FavouritesController@buildFromRequisitionTrainingCost')->name('pull_favourites');
 
     /**
      * Datatables

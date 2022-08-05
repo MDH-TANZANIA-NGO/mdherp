@@ -62,7 +62,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    {!! Form::open(['route' => ['activity_report.initiate']]) !!}
+                                                    {!! Form::open(['route' => ['favourite.pull_favourites'],'method'=>'GET']) !!}
 
                                                     <div class="row">
 
@@ -77,7 +77,7 @@
 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Select</button>
+                                                    <button type="submit" class="btn btn-primary">Select</button>
                                                 </div>
                                                     {!! Form::close() !!}
                                             </div>
@@ -92,6 +92,7 @@
                                 {!! Form::open(['route' => ['training.store',$requisition]]) !!}
 
                                 <div class="row">
+
                                     {{--                                            {!! Form::number('from',$training->from,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'from']) !!}--}}
                                     @foreach($training AS $training)
                                         <input type="date" name="from" value="{{$training->from}}" hidden>
