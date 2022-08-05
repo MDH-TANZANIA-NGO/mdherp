@@ -28,6 +28,7 @@
 
                 </div>
 
+
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
@@ -44,11 +45,54 @@
                             <div class="card-status card-status-left bg-red br-bl-7 br-tl-7"></div>
                             <div class="card-header">
                                 <h3 class="card-title">Participant's Costs</h3>
+                                <div class="card-options ">
+                                    @if($access_training_costs_favourites->count() > 0 and $training_costs->count() == 0)
+
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Select from favourite</button>
+                                    @endif
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Pick your favourite</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {!! Form::open(['route' => ['favourite.pull_favourites'],'method'=>'GET']) !!}
+
+                                                    <div class="row">
+                                                    <input type="number" value="{{$requisition->id}}" hidden name="requisition_id">
+                                                        <div class="col-md-12" style="width: 100%">
+                                                            <div class="form-group">
+                                                                {!! Form::label('favourite_id', __("Favorite Name"),['class'=>'form-label','required_asterik']) !!}
+                                                                {!! Form::select('favourite_id',$training_costs_favourites, null, ['class' => 'form-control select2-show-search', 'required','placeholder'=>'Select Favourite']) !!}
+                                                                {!! $errors->first('favourite_id', '<span class="badge badge-danger">:message</span>') !!}
+                                                            </div>
+                                                        </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Select</button>
+                                                </div>
+                                                    {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <!-- Modal -->
+
+                                </div>
                             </div>
                             <div class="card-body">
                                 {!! Form::open(['route' => ['training.store',$requisition]]) !!}
 
                                 <div class="row">
+
                                     {{--                                            {!! Form::number('from',$training->from,['class' => 'form-control', 'placeholder' => '','required', 'id'=>'from']) !!}--}}
                                     @foreach($training AS $training)
                                         <input type="date" name="from" value="{{$training->from}}" hidden>

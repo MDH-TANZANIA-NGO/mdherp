@@ -11,6 +11,7 @@ use App\Models\Payment\Payment;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
+use App\Models\Requisition\Training\RequisitionTrainingCostFavourite;
 use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
@@ -18,6 +19,8 @@ use App\Repositories\Finance\FinancialReportsRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
+use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
+use App\Repositories\Requisition\Training\RequisitionTrainingCostFavouriteRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
 use App\Repositories\Requisition\Training\trainingRepository;
 use App\Repositories\System\RegionRepository;
@@ -54,6 +57,8 @@ class RequisitionController extends Controller
     protected $requisition_training;
     protected $requisition_training_items;
     protected $financialReport;
+    protected $training_cost_favourites;
+    protected $training_cost;
 
 
     public function __construct()
@@ -73,6 +78,8 @@ class RequisitionController extends Controller
         $this->requisition_training = (new trainingRepository());
         $this->requisition_training_items = (new RequisitionTrainingItemsRepository());
         $this->financialReport = (new FinancialReportsRepository());
+        $this->training_cost_favourites =  (new RequisitionTrainingCostFavouriteRepository());
+        $this->training_cost =  (new RequestTrainingCostRepository());
 
 
     }
@@ -150,7 +157,10 @@ class RequisitionController extends Controller
             ->with('users', $this->users->getQuery()->pluck('name', 'user_id'))
             ->with('requisition_training_items', $requisition->trainingItems)
             ->with('training', $requisition->training)
-            ->with('training_details', $requisition->training()->first());
+            ->with('training_details', $requisition->training()->first())
+            ->with('access_training_costs_favourites', $this->training_cost_favourites->getAccessFavourites()->get())
+            ->with('requisition_favourite', RequisitionTrainingCostFavourite::query()->where('requisition_id', '=', $requisition->id)->first())
+            ->with('training_costs_favourites', $this->training_cost_favourites->getAccessFavoritesForPluck());
     }
 
     /**
@@ -266,6 +276,8 @@ class RequisitionController extends Controller
          return redirect()->back();
 
     }
+
+
 
 
 }

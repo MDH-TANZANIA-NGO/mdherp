@@ -10,6 +10,7 @@
                 </div>
             </div>
             <div class="card-body">
+
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <table id="payment_table" class="table table-condensed table-striped">
@@ -29,24 +30,35 @@
                             </thead>
 
                             <tbody>
+
+
+
                             @foreach($training_costs as $key=>$training_cost)
                             <tr data-toggle="collapse" data-target="#demo{{$key}}" class="accordion-toggle">
 
                                 <td><button class="btn btn-default btn-xs"><i class="fa fa-plus-circle"></i></button></td>
-                                <td>{{$training_cost->full_name}}</td>
-                                <td>{{$training_cost->phone}}</td>
+                                <td>{{$training_cost->user->first_name}} {{$training_cost->user->last_name}}</td>
+                                <td>{{$training_cost->user->phone}}</td>
                                 <td>0/10</td>
                                 <td>{{number_2_format($training_cost->perdiem_total_amount)}}</td>
                                 <td>{{number_2_format($training_cost->transportation)}}</td>
                                 <td>{{number_2_format($training_cost->other_cost)}}</td>
                                 <td>{{number_2_format($training_cost->total_amount)}}</td>
-                                <td><input type="number" class="form-control" name="amount_paid" value="{{$training_cost->amount_paid}}"></td>
+                                <td>
+
+                                    @if($training_cost->amount_paid == null)
+                                    <input type="text" class="form-control" name="amount_paid" value="{{number_2_format($training_cost->total_amount)}}">
+                                    @else
+                                        <input type="number" class="form-control" name="amount_paid" value="{{$training_cost->amount_paid}}">
+                                        @endif
+                                </td>
                                 <td><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Swap participant"><i class="fa fa-exchange"></i></a> | <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove participant"><i class="fa fa-close"></i></a></td>
                             </tr>
 
                             <tr>
                                 <td colspan="12" class="hiddenRow">
                                     <div class="accordian-body collapse" id="demo{{$key}}">
+                                        @endforeach
                                         <table class="table table-striped">
                                             <thead>
                                             <tr class="info">
@@ -71,7 +83,7 @@
                                             </tr>
                                             @endforeach
 
-                                            @endforeach
+
 
                                             </tbody>
                                         </table>

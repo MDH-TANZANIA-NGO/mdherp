@@ -4,6 +4,7 @@ namespace App\Repositories\ProgramActivity;
 
 use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\ProgramActivity\ProgramActivityAttendance;
+use App\Models\ProgramActivity\ProgramActivityHotel;
 use App\Models\ProgramActivity\Traits\ProgramActivityRelationship;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
@@ -474,6 +475,20 @@ public function checkOutParticipant($attendance)
                 $rejected = 1;
             }
             return $program_activity->update(['rejected' => $rejected]);
+        });
+    }
+
+    public function storeHotelReservation($inputs)
+    {
+        return DB::transaction(function () use ($inputs){
+            return ProgramActivityHotel::query()->create(
+                [
+                    'program_activity_id'=>$inputs['program_activity_id'],
+                    'hotel_id'=>$inputs['hotel_id'],
+                    'priority_level'=>$inputs['priority_level'],
+
+                ]
+            );
         });
     }
 

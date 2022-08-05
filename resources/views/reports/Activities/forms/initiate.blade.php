@@ -44,7 +44,7 @@
                                     {!! $errors->first('requisition_training_id', '<span class="badge badge-danger">:message</span>') !!}
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-outline-success" style="margin-left: 30%" ><i class="fa fa-filter"></i>Filter</button> <a href="{{route('activity_report.initiate')}}" class="btn btn-outline-info" style="margin-left: 1%"> <i class="fa fa-undo"></i> Reset</a>
+                            <button type="submit" class="btn btn-outline-success" style="margin-left: 30%"  id="filter"><i class="fa fa-filter"></i>Filter</button> <a href="{{route('activity_report.initiate')}}" class="btn btn-outline-info" style="margin-left: 1%"> <i class="fa fa-undo"></i> Reset</a>
 
 
                             {!! Form::close() !!}
@@ -191,6 +191,32 @@
         </div>
     </div>
 @endsection
+{{--            @push('after-scripts')--}}
+{{--                <script>--}}
+{{--                    $(document).ready(function () {--}}
+{{--                        let $requisition_id = $("select[name='requisition_id']").val();--}}
+{{--                        let $filter = $("#filter");--}}
+{{--                        let $start_date = $("input[name='start_date']").val();--}}
+{{--                        let $end_date = $("input[name='end_date']").val();--}}
+
+{{--                        $filter.click(function (event){--}}
+{{--                            $.ajax({--}}
+{{--                                url: "activity_report.initiate",--}}
+{{--                                type:"GET",--}}
+{{--                                data:{--}}
+{{--                                    "_token": "{{ csrf_token() }}",--}}
+{{--                                    requisition_id:$requisition_id,--}}
+{{--                                    start_date:$start_date,--}}
+{{--                                    end_date:$end_date,--}}
+{{--                                }--}}
+
+{{--                        });--}}
+{{--                    })});--}}
+
+
+{{--                </script>--}}
+
+{{--    @endpush--}}
 
 
 
