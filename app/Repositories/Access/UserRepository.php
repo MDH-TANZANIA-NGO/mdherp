@@ -19,32 +19,6 @@ class UserRepository extends BaseRepository
 
     protected $user_account_cv_id = 9;
 
-//    /**
-//     * @return mixed
-//     */
-//    public function getQuery()
-//    {
-//        return $this->query()
-//            ->select([
-//                DB::raw("users.id AS user_id"),
-//                DB::raw("concat_ws(' ', users.first_name, users.last_name) as name"),
-//                DB::raw("code_values.name as gender"),
-//                DB::raw('users.phone as phone'),
-//                DB::raw("concat_ws(' ', units.name, designations.name) as designation"),
-//                DB::raw('regions.name as region'),
-//                DB::raw("users.isactive as isactive"),
-//                DB::raw("users.uuid as uuid"),
-//                DB::raw("users.email as email"),
-////                DB::raw("users.fingerprint_length as fingerprint_length"),
-////                DB::raw("users.fingerprint_data as fingerprint_data"),
-//            ])
-//            ->leftjoin('regions', 'regions.id', 'users.region_id')
-//            ->leftjoin('code_values', 'code_values.id', 'users.gender_cv_id')
-//            ->leftjoin('designations', 'designations.id', 'users.designation_id')
-//            ->leftjoin('units', 'units.id', 'designations.unit_id');
-////            ->where('users.user_account_cv_id', '!=', $this->user_account_cv_id);
-//    }
-
     public function getUserByEmail($email)
     {
         return $this->query()
@@ -146,6 +120,18 @@ class UserRepository extends BaseRepository
             }
             return true;
         });
+    }
+
+    public function getNewStaffByDesignationId($id){
+        return $this->query()
+            ->select([
+                DB::raw("users.id as id"),
+                DB::raw("concat_ws(' ',users.first_name, users.last_name) as name"),
+            ])
+            ->join('designations', 'designations.id', 'users.designation_id')
+            ->where('users.designation_id', $id)
+            ->where('users.user_account_cv_id', 48)
+            ->pluck('name','id');
     }
 
     /**
@@ -290,6 +276,7 @@ class UserRepository extends BaseRepository
             DB::raw('regions.name AS region'),
             DB::raw("CONCAT_WS(' ', units.name, designations.name) AS designation"),
             DB::raw("string_agg(DISTINCT projects.title, ',') as project_list"),
+            DB::raw("CONCAT_WS(' ', users.first_name,users.last_name,' (',units.name, designations.name,')','(',regions.name,')') AS name_and_unit")
         ])
             ->join('regions','regions.id', 'users.region_id')
             ->join('designations','designations.id','users.designation_id')
@@ -472,6 +459,11 @@ class UserRepository extends BaseRepository
             ->join('units','units.id','designations.unit_id')
             ->where('designations.id', 121)
             ->where('units.id', 5);
+    }
+
+    public function pluckWithDesignation()
+    {
+        return $this->getQuery()->pluck('name_and_unit','user_id');
     }
 
 

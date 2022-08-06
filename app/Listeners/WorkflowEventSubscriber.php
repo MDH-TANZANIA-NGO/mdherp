@@ -2,33 +2,38 @@
 
 namespace App\Listeners;
 
+use Carbon\Carbon;
+use App\Models\Auth\User;
+use App\Services\Workflow\Workflow;
+use Illuminate\Support\Facades\Log;
 use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
-use App\Models\Leave\LeaveBalance;
-use App\Models\SafariAdvance\SafariAdvanceDetails;
-use App\Notifications\Workflow\WorkflowNotification;
-use App\Repositories\Finance\FinanceActivityRepository;
-use App\Repositories\Leave\LeaveBalanceRepository;
-use App\Repositories\Leave\LeaveRepository;
-use App\Repositories\Listing\ListingRepository;
-use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
-use App\Repositories\ProgramActivity\ProgramActivityRepository;
-use App\Repositories\Requisition\RequisitionRepository;
-use App\Repositories\Retirement\RetirementRepository;
-use App\Repositories\SafariAdvance\SafariAdvanceRepository;
-use App\Repositories\Timesheet\TimesheetRepository;
-use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
-use App\Services\Workflow\Traits\WorkflowUserSelector;
-use App\Services\Workflow\Workflow;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
-use App\Models\Auth\User;
-use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
+use App\Repositories\JobOfferRepository;
 use App\Services\Workflow\WorkflowAction;
-use League\CommonMark\Util\Html5EntityDecoder;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
-
+use App\Repositories\Leave\LeaveRepository;
+use League\CommonMark\Util\Html5EntityDecoder;
+use App\Models\SafariAdvance\SafariAdvanceDetails;
+use App\Repositories\Timesheet\TimesheetRepository;
+use App\Notifications\Workflow\WorkflowNotification;
+use App\Repositories\Retirement\RetirementRepository;
+use App\Services\Workflow\Traits\WorkflowUserSelector;
+use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\SafariAdvance\SafariAdvanceRepository;
+use App\Repositories\ProgramActivity\ProgramActivityRepository;
+use App\Services\Workflow\Traits\WorkflowProcessLevelActionTrait;
+use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
+use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
+use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
+use App\Jobs\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterJob;
+use App\Models\HumanResource\Interview\InterviewApplicant;
+use App\Models\HumanResource\Interview\InterviewWorkflowReport;
+use App\Repositories\HumanResource\HireRequisition\HrHireRequisitionJobApplicantRequestRepository;
+use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
+use App\Repositories\HumanResource\Interview\InterviewReportRepository;
 
 class WorkflowEventSubscriber
 {
@@ -97,7 +102,6 @@ class WorkflowEventSubscriber
                 //                'zone_id' => isset($input['zone_id']) ? $input['zone_id'] : null,
                 'region_id' => $input['region_id'],
             ];
-
             switch ($wf_module_id) {
                 case 1:
                     $requisition_repo = (new RequisitionRepository());
@@ -418,16 +422,14 @@ class WorkflowEventSubscriber
                                 'link' => route('timesheet.show', $timesheet),
                                 'subject' => $timesheet->id . "Timesheet Approval Request",
                                 'message' =>  html_entity_decode($string),
-                                'subject' => $timesheet->number . " need your Approval",
-                                'message' =>  $timesheet->number . ' need your approval'
                             ];
-                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     }
                     break;
 
                 case 9:
-                    $listing_repo = (new ListingRepository());
+                    $listing_repo = (new HireRequisitionRepository());
                     $listing  = $listing_repo->find($resource_id);
                     /*check levels*/
                     switch ($level) {
@@ -443,12 +445,100 @@ class WorkflowEventSubscriber
                             ];
                             //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
+                        case 2: //Applicant level
+                            //                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $listing->update(['rejected' => false]);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('listing.show', $listing),
+                                'subject' => $listing->id . " Needs your Approval",
+                                'message' =>  $listing->id . ' needs your approval'
+                            ];
+                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                        case 3: //Applicant level
+                            //                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $listing->update(['rejected' => false]);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('listing.show', $listing),
+                                'subject' => $listing->id . " Needs your Approval",
+                                'message' =>  $listing->id . ' needs your approval'
+                            ];
+                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
                     }
                     break;
+                case 16:
+                    $interview_report = (new InterviewWorkflowReport());
 
+                    $interview_report  = $interview_report->find($resource_id);
+                    $interview_report->recommendedApplicants();
+                    // dd($interview_report->id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            //                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $interview_report->update(['rejected' => false]);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('interview.report.show', $interview_report),
+                                'subject' => $interview_report->id . " Needs your Approval",
+                                'message' =>  $interview_report->id . ' needs your approval'
+                            ];
+                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                        case 2: //Applicant level
+                            //                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $interview_report->update(['rejected' => false]);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                            $email_resource = (object)[
+                                'link' => route('interview.report.show', $interview_report),
+                                'subject' => $interview_report->id . " Needs your Approval",
+                                'message' =>  $interview_report->id . ' needs your approval'
+                            ];
+                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                        case 3: //Applicant level
+                            //                            $listing_repo ->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $interview_report->update(['rejected' => false]);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                            $email_resource = (object)[
+                                'link' => route('interview.report.show', $interview_report),
+                                'subject' => $interview_report->id . " Needs your Approval",
+                                'message' =>  $interview_report->id . ' needs your approval'
+                            ];
+                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+                    break;
+                case 18:
+                    $job_offer_repo = (new JobOfferRepository());
+                    $job_offer  = $job_offer_repo->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $job_offer_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('job_offer.show', $job_offer),
+                                'subject' => $job_offer->number . " job offer your approval",
+                                'message' =>  $job_offer->number . ' Job offer need your approval.'
+                            ];
+                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+                    break;
                 case 11:
                 case 13:
                     //workflowAction class
+                    $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
+                    break;
+                case 19:
                     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
                     break;
             }
@@ -549,10 +639,6 @@ class WorkflowEventSubscriber
                     $delegeted_user = User::query()->where('id', $leave->employee_id)->first();
                     $leave->user->notify(new WorkflowNotification($email_resource));
                     $delegeted_user->notify(new WorkflowNotification($delegeted_email));
-
-
-
-
                     break;
                 case 7:
                     $finance_repo = (new FinanceActivityRepository());
@@ -586,11 +672,11 @@ class WorkflowEventSubscriber
                     $timesheet->user->notify(new WorkflowNotification($email_resource));
                     break;
                 case 9:
-                    $listingrepo = (new ListingRepository());
+                    $listingrepo = (new HireRequisitionRepository());
                     $listing = $listingrepo->find($resource_id);
                     $this->updateWfDone($listing);
                     $email_resource = (object)[
-                        'link' =>  route('listing.show', $listing),
+                        'link' =>  route('hirerequisition.show', $listing),
                         'subject' => "Approved Successfully",
                         'message' => 'This Hire Requisition has been Approved successfully'
                     ];
@@ -619,6 +705,71 @@ class WorkflowEventSubscriber
                     ];
                     // $pr_report->user->notify(new WorkflowNotification($email_resource));
                     // User::query()->find($pr_report->supervisor_id)->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 12:
+                    $advertisement = (new HireAdvertisementRequisition())->find($resource_id);
+                    $this->updateWfDone($advertisement);
+                    $email_resource = (object)[
+                        'link' =>  route('advertisement.show', $advertisement),
+                        'subject' => $advertisement->number . ' ' . $advertisement->title . "Job Advertisement : Has been Approved Successfully",
+                        'message' => $advertisement->number . ' ' . $advertisement->title . ' Job Advertisement : Has been Approved successfully'
+                    ];
+                    $advertisement->user->notify(new WorkflowNotification($email_resource));
+                    // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 16:
+                    $interviewReportRepository = (new InterviewReportRepository());
+                    $interviewReport = $interviewReportRepository->find($resource_id);
+                    $interviewReportRepository->updateRecommendedApplicant($interviewReport->recommendedApplicants);
+                    $this->updateWfDone($interviewReport);
+                    $email_resource = (object)[
+                        'link' =>  route('interview.report.show', $interviewReport),
+                        'subject' => 'Interview Report' . $interviewReport->number . " Has been Approved Successfully",
+                        'message' => 'Interview Report' . $interviewReport->number . ' ' . "Has been Approved successfully"
+                    ];
+                    // $interviewReport->user->notify(new WorkflowNotification($email_resource));
+                    User::query()->find($interviewReport->user_id)->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 18:
+                    $job_offer = (new JobOfferRepository())->find($resource_id);
+                    $this->updateWfDone($job_offer);
+                    $email_resource = (object)[
+                        'link' =>  route('job_offer.show', $job_offer),
+                        'subject' => $job_offer->number . ' ' . $job_offer->title . "Job Offer : Has been Approved Successfully",
+                        'message' => $job_offer->number . ' ' . $job_offer->title . ' Job Offer : Has been Approved successfully'
+                    ];
+                    $email_resource_to_applicant = (object)[
+                        'link' =>  route('job_offer.accepting_offer', $job_offer),
+                        'subject' => "Job Offer: Management and Development for Health",
+                        'message' =>  " <p>I am pleased to extend the following offer of employment to you on behalf of <b>Management and Development for Health </b>. You have been selected as the best candidate for the " .$job_offer->interviewApplicant->applicant->full_name." position.</p> " . ",  Kindly login to portal for your action"
+
+                    ];
+                    $job_offer->user->notify(new WorkflowNotification($email_resource));
+                    $job_offer->interviewApplicant->applicant->notify(new  WorkflowNotification($email_resource_to_applicant));
+                    // User::query()->find($advertisement->supervisor_id)->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 17:
+                    $shortlister_request_repo = (new HrUserHireRequisitionJobShortlisterRequestRepository());
+                    $shortlister_request = $shortlister_request_repo->find($resource_id);
+                    $this->updateWfDone($shortlister_request);
+                    $email_resource = (object)[
+                        'link' =>  route('job_offer.show', $shortlister_request),
+                        'subject' => $shortlister_request->number . " Shortlisters approved Successfully",
+                        'message' => ' Click a link to view approved shortlisters'
+                    ];
+                    User::query()->find($shortlister_request->user_id)->notify(new WorkflowNotification($email_resource));
+                    $shortlister_request_repo->completedAndSendEmails($shortlister_request);
+                    break;
+                case 19:
+                    $job_applicant_request_repo = (new HrHireRequisitionJobApplicantRequestRepository());
+                    $job_applicant_request = $job_applicant_request_repo->find($resource_id);
+                    $this->updateWfDone($job_applicant_request);
+                    $email_resource = (object)[
+                        'link' =>  route('job_applicant_request.show', $job_applicant_request),
+                        'subject' => $job_applicant_request->number . " Shortlisted Applicants approved Successfully",
+                        'message' => ' Click a link to view approved shortlisted Applicant'
+                    ];
+                    User::query()->find($job_applicant_request->user_id)->notify(new WorkflowNotification($email_resource));
                     break;
             }
         }
@@ -675,10 +826,20 @@ class WorkflowEventSubscriber
                 (new TimesheetRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
                 break;
             case 9:
-                (new ListingRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
+                (new HireRequisitionRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
                 break;
             case 10:
                 (new ProgramActivityReportRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
+                break;
+            case 16:
+                (new InterviewReportRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
+                break;
+            case 18:
+                (new JobOfferRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
+                break;
+
+            case 19:
+                (new HrHireRequisitionJobApplicantRequestRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
                 break;
         }
     }

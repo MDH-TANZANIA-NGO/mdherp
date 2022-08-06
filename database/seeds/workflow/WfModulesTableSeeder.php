@@ -174,6 +174,20 @@ class WfModulesTableSeeder extends Seeder
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
+                11 =>
+                array (
+                    'id' => 12,
+                    'name' => 'Job Advertisement',
+                    'wf_module_group_id' => '11',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => '1',
+                    'description' => 'Workflow for Job Advertisement',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
             12 =>
                 array (
                     'id' => 13,
@@ -202,21 +216,77 @@ class WfModulesTableSeeder extends Seeder
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
-            14 =>
-                array (
-                    'id' => 15,
-                    'name' => 'Performance Appraisal Goals/Objectives Agreement [ For Other Regions ]',
-                    'wf_module_group_id' => '10',
+                14 =>
+                    array (
+                        'id' => 15,
+                        'name' => 'Performance Appraisal Goals/Objectives Agreement [ For Other Regions ]',
+                        'wf_module_group_id' => '10',
+                        'created_at' => NULL,
+                        'updated_at' => NULL,
+                        'deleted_at' => NULL,
+                        'isactive' => '1',
+                        'type' => 3,
+                        'description' => 'Performance Review for Probatioinary Appraisal Goals/Objectives Agreement',
+                        'allow_repeat' => 0,
+                        'allow_decline' => 0,
+                    ),
+                    15 =>
+                    array (
+                        'id' => 16,
+                        'name' => 'Job Interview Report',
+                        'wf_module_group_id' => '12',
+                        'created_at' => NULL,
+                        'updated_at' => NULL,
+                        'deleted_at' => NULL,
+                        'isactive' => '1',
+                        'type' => '1',
+                        'description' => 'Workflow for Job Advertisement',
+                        'allow_repeat' => 0,
+                        'allow_decline' => 0,
+                    ),
+            16 =>
+                array(
+                'id' => 17,
+                'name' => 'Hire Requisition Shortlister(s) Module',
+                'wf_module_group_id' => 13,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+                'deleted_at' => NULL,
+                'isactive' => '1',
+                'type' => '1',
+                'description' => 'Workflow for Hire Requisition Shortlister(s)',
+                'allow_repeat' => 0,
+                'allow_decline' => 0,
+            ),
+            17 =>
+                array(
+                    'id' => 18,
+                    'name' => 'Job Offer Module',
+                    'wf_module_group_id' => 14,
                     'created_at' => NULL,
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                     'isactive' => '1',
-                    'type' => 3,
-                    'description' => 'Performance Review for Probatioinary Appraisal Goals/Objectives Agreement',
+                    'type' => '1',
+                    'description' => 'Workflow for Job Offers',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
-                
+            18 =>
+                array(
+                    'id' => 19,
+                    'name' => 'Shortlisted Applicant Report',
+                    'wf_module_group_id' => 15,
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'type' => 1,
+                    'description' => 'Shortlisted Applicant Report',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
+
         ));
 
         $this->enableForeignKeys('wf_modules');

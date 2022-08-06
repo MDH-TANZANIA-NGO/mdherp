@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Database\DisableForeignKeys;
+use Database\TruncateTable;
 
 class CountryTableSeeder extends Seeder
 {
+    use DisableForeignKeys, TruncateTable;
     /**
      * Run the database seeds.
      *
@@ -11,6 +14,10 @@ class CountryTableSeeder extends Seeder
      */
     public function run()
     {
+        $this->disableForeignKeys("countries");
+        $this->delete('countries');
+
+
         //
         \DB::table('countries')->insert(array (
             'id' => 1,

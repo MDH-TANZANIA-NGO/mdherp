@@ -6,6 +6,7 @@ use App\Models\HumanResource\PerformanceReview\PrRemark;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Observers\HumanResource\PerformanceReview\PrRemarkObserver;
 use App\Observers\HumanResource\PerformanceReview\PrReportObserver;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 
@@ -33,5 +34,6 @@ class AppServiceProvider extends ServiceProvider
         });
         PrReport::observe(PrReportObserver::class);
         PrRemark::observe(PrRemarkObserver::class);
+        JsonResource::withoutWrapping();
     }
 }

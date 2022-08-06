@@ -37,14 +37,14 @@ class CodesTableSeeder extends Seeder
                 ),
             2 =>
                 array (
-                    'id' => 3,
+                    'id' => 4,
                     'name' => 'user_account',
                     'lang' => 'user_account',
                     'is_system_defined' => 1,
                 ),
             3 =>
                 array (
-                    'id' => 4,
+                    'id' => 3,
                     'name' => 'marital_status',
                     'lang' => 'marital_status',
                     'is_system_defined' => 1,

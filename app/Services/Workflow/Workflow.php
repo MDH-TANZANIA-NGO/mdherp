@@ -11,7 +11,8 @@ use App\Models\Workflow\WfTrack;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
-use App\Repositories\Listing\ListingRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
+use App\Repositories\JobOfferRepository;
 use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Report\ReportRepository;
@@ -26,6 +27,8 @@ use App\Repositories\Workflow\WfModuleRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
 use App\Exceptions\GeneralException;
+use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
+use App\Models\HumanResource\Interview\InterviewWorkflowReport;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -38,15 +41,6 @@ use Illuminate\Support\Facades\Log;
  * the process of forwarding the application process and handle the proper completion of
  * each workflow.
  *
- * @author     Erick Chrysostom <e.chrysostom@nextbyte.co.tz>
- * @category   MAC
- * @package    App\Services\Workflow
- * @subpackage None
- * @copyright  Copyright (c) Workers Compensation Fund (WCF) Tanzania
- * @license    Not Applicable
- * @version    Release: 1.02
- * @link       None
- * @since      Class available since Release 1.0.0
  */
 
 class Workflow
@@ -183,11 +177,11 @@ class Workflow
     {
         $assessment_level = null;
         switch ($this->wf_module_id) {
-            // Basic Procedure - wf_module
+                // Basic Procedure - wf_module
             case 3:
                 $assessment_level = 4;
                 break;
-            // Proposed Procedure 1 Occupation Accident, Disease & Death
+                // Proposed Procedure 1 Occupation Accident, Disease & Death
             case 10:
                 $assessment_level = 7;
                 break;
@@ -251,20 +245,20 @@ class Workflow
 
     public function previousWfTrack()
     {
-        return WfTrack::query()->where('id',$this->currentWfTrack()->parent_id)->first();
+        return WfTrack::query()->where('id', $this->currentWfTrack()->parent_id)->first();
     }
 
 
     public function previousWfTrackChecker()
     {
         $return = false;
-        if($this->currentWfTrack()->parent_id){
+        if ($this->currentWfTrack()->parent_id) {
             $return = $this->previousWfTrack()->user_id == access()->id() ?? true;
         }
-//        else{
-//            if($this->currentWfTrack()->user_id == access()->id())
-//                $return = true;
-//        }
+        //        else{
+        //            if($this->currentWfTrack()->user_id == access()->id())
+        //                $return = true;
+        //        }
         return $return;
     }
 
@@ -360,49 +354,49 @@ class Workflow
 
         /*Check if definition for this resource already created to avoid duplicate*/
         $check_if_already_created = $this->checkIfResourceDefinitionIsAlreadyPending();
-        if($check_if_already_created == false) {
+        if ($check_if_already_created == false) {
             /*If no duplicate entry create new*/
 
             $track = new WfTrackRepository();
             $wf_track = $track->query()->create($insert);
             /*update port*/
-//        $port_id = isset($wf_track->resource->wf_port_id) ? $wf_track->resource->wf_port_id : null;
-//        $wf_track->update(['port_id' => $port_id]);
-//        $input['port_id'] = $port_id;
+            //        $port_id = isset($wf_track->resource->wf_port_id) ? $wf_track->resource->wf_port_id : null;
+            //        $wf_track->update(['port_id' => $port_id]);
+            //        $input['port_id'] = $port_id;
             /*end update port*/
 
             //update Resource Type for the current wftrack
             $this->updateResourceType($wf_track);
+
             $nextInsert = $this->upNew($input);
-            if(!isset($this->nextWfTrack($wf_track->id)->id)){
+            if (!isset($this->nextWfTrack($wf_track->id)->id)) {
                 $wf_track = $track->query()->create($nextInsert); // changed
                 //update Resource Type for the next wftrack
                 $this->updateResourceType($wf_track);
             }
 
             //Send mail notification
-            switch($this->wf_module_id)
-            {
+            switch ($this->wf_module_id) {
                 case 1:
                     $requisition_repo = (new RequisitionRepository());
                     $requisition = $requisition_repo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('requisition.show',$requisition),
-                        'subject' => $requisition->typeCategory->title." Requisition Need your Approval",
-                        'message' => 'There is new'.$requisition->typeCategory->title." Requisition ".$requisition->number."Pending your approval".' '.
+                        'link' =>  route('requisition.show', $requisition),
+                        'subject' => $requisition->typeCategory->title . " Requisition Need your Approval",
+                        'message' => 'There is new' . $requisition->typeCategory->title . " Requisition " . $requisition->number . "Pending your approval" . ' ' .
                             "<b>New</b>"
 
-];
+                    ];
                     User::query()->find($wf_track->user_id)->notify(new WorkflowNotification($email_resource));
                     break;
 
-                    case 3:
+                case 3:
                     $safari_advance_repo = (new SafariAdvanceRepository());
                     $safari = $safari_advance_repo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('safari.show',$safari),
-                        'subject' => "Safari Advance".$safari->number." Needs your Approval",
-                        'message' => $safari->number.' '.'for'.$safari->user->frist_name.' '.$safari->user->last_name.' need your approval.'
+                        'link' =>  route('safari.show', $safari),
+                        'subject' => "Safari Advance" . $safari->number . " Needs your Approval",
+                        'message' => $safari->number . ' ' . 'for' . $safari->user->frist_name . ' ' . $safari->user->last_name . ' need your approval.'
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
@@ -410,9 +404,9 @@ class Workflow
                     $program_activity_repo = (new ProgramActivityRepository());
                     $program_activity = $program_activity_repo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('programactivity.show',$program_activity),
-                        'subject' => 'Activity: '.$program_activity->number." needs your approval to be Initiated",
-                        'message' => 'Activity No: '.$program_activity->number.' requested by'.$program_activity->user->first_name.' '.$program_activity->user->last_name.' needs your approval to be initiated'
+                        'link' =>  route('programactivity.show', $program_activity),
+                        'subject' => 'Activity: ' . $program_activity->number . " needs your approval to be Initiated",
+                        'message' => 'Activity No: ' . $program_activity->number . ' requested by' . $program_activity->user->first_name . ' ' . $program_activity->user->last_name . ' needs your approval to be initiated'
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
@@ -420,9 +414,9 @@ class Workflow
                     $retirement_repo = (new RetirementRepository());
                     $retirement = $retirement_repo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('retirement.show',$retirement),
-                        'subject' => $retirement->number." Retirement Approval Request",
-                        'message' => $retirement->number.' need your approval'
+                        'link' =>  route('retirement.show', $retirement),
+                        'subject' => $retirement->number . " Retirement Approval Request",
+                        'message' => $retirement->number . ' need your approval'
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
@@ -430,30 +424,30 @@ class Workflow
                     $leave_repo = (new LeaveRepository());
                     $leave = $leave_repo->find($wf_track->resource_id);
                     $string = htmlentities(
-                        "There is new"." "."leave application"." "."from "." ".$leave->user->first_name." ".$leave->user->last_name." pending for your review and approval."."<br>". "<br>".
-                        "<b>Region:</b>".$leave->region->name."<br>".
-                        "<b>Leave Type:</b>".$leave->type->name."<br>".
-//                        "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
-                        "<b>Comments:</b>". $leave->comment."<br>".
-                        "<b>Starting Date:</b>". $leave->start_date."<br>".
-                        "<b>End Date:</b>". $leave->end_date."<br>".
-                        "<b>Requested Days:</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
+                        "There is new" . " " . "leave application" . " " . "from " . " " . $leave->user->first_name . " " . $leave->user->last_name . " pending for your approval." . "<br>" . "<br>" .
+                            "<b>Region:</b>" . $leave->region->name . "<br>" .
+                            "<b>Leave Type:</b>" . $leave->type->name . "<br>" .
+                            "<b>Remaining days:</b>" . $leave->balance->remaining_days . "<br>" .
+                            "<b>Comments:</b>" . $leave->comment . "<br>" .
+                            "<b>Starting Date:</b>" . $leave->start_date . "<br>" .
+                            "<b>End Date:</b>" . $leave->end_date . "<br>" .
+                            "<b>Requested Days:</b>" . getNoDays($leave->start_date, $leave->end_date) . "<br>"
 
                     );
                     $email_resource = (object)[
-                        'link' =>  route('leave.show',$leave),
+                        'link' =>  route('leave.show', $leave),
                         'subject' => " Leave application need your approval",
                         'message' =>  html_entity_decode($string)
                     ];
-                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    // User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
                 case 7:
                     $financerepo = (new FinanceActivityRepository());
                     $finance = $financerepo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('finance.view',$finance),
-                        'subject' =>'Payment batch: '.$finance->number. " From".$finance->user->first_name. " ".$finance->user->last_name ." Needs your Approval",
-                        'message' => $finance->user->first_name. " ".$finance->user->last_name. " Initiated Payments with Batch number: " .$finance->number."which needs your approval"
+                        'link' =>  route('finance.view', $finance),
+                        'subject' => 'Payment batch: ' . $finance->number . " From" . $finance->user->first_name . " " . $finance->user->last_name . " Needs your Approval",
+                        'message' => $finance->user->first_name . " " . $finance->user->last_name . " Initiated Payments with Batch number: " . $finance->number . "which needs your approval"
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
@@ -461,17 +455,17 @@ class Workflow
                     $timesheetrepo = (new TimesheetRepository());
                     $timesheet = $timesheetrepo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('timesheet.show',$timesheet),
-                        'subject' =>  'Timesheet number '.$timesheet->number." Needs your Approval",
-                        'message' => 'There is timesheet '.$timesheet->number.' of '.$timesheet->user->fullname. "pending for your review and approval",
+                        'link' =>  route('timesheet.show', $timesheet),
+                        'subject' =>  " Need your Approval",
+                        'message' => ' need your approval'
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
                 case 9:
-                    $listingrepo = (new ListingRepository());
+                    $listingrepo = (new HireRequisitionRepository());
                     $listing = $listingrepo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('listing.show',$listing),
+                        'link' =>  route('hirerequisition.show', $listing),
                         'subject' =>  "Hire Requisition Approval",
                         'message' => 'This Hire Requisition Needs your Approval'
                     ];
@@ -481,31 +475,49 @@ class Workflow
                     $program_activity_report_repo = (new ProgramActivityReportRepository());
                     $program_activity_report = $program_activity_report_repo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('programactivityreport.show',$program_activity_report),
-                        'subject' => "Activity Report ".$program_activity_report->number. "needs your approval.",
-                        'message' =>  $program_activity_report->user->first_name." ".$program_activity_report->user->last_name."Submitted activity report".$program_activity_report->number. " which needs your approval"
+                        'link' =>  route('programactivityreport.show', $program_activity_report),
+                        'subject' => "Activity Report " . $program_activity_report->number . "needs your approval.",
+                        'message' =>  $program_activity_report->user->first_name . " " . $program_activity_report->user->last_name . "Submitted activity report" . $program_activity_report->number . " which needs your approval"
 
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
 
-                case 11: case 13:
+                case 11:
+                case 13:
                     $pr_report = (new PrReportRepository())->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('hr.pr.show',$pr_report),
+                        'link' =>  route('hr.pr.show', $pr_report),
                         'subject' =>  " Need your review",
                         'message' => ' Performance Appraisal'
                     ];
                     // User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
+                case 16:
+                    $interview_report = (new InterviewWorkflowReport())->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('interview.report.show', $interview_report),
+                        'subject' =>  " Need your review",
+                        'message' => $interview_report->user->first_name . " " . $interview_report->user->last_name . "Submitted Interview report" . $interview_report->number . " which needs your approval"
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
 
+                case 18:
+                    $job_offer_repo = (new JobOfferRepository());
+                    $job_offer = $job_offer_repo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('job_offer.show', $job_offer),
+                        'subject' => "Job Offer " . $job_offer->number . "needs your approval.",
+                        'message' =>  "<b>" . $job_offer->user->first_name . "  " . $job_offer->user->last_name . ", " . "Submitted job offer:" . " " . $job_offer->number . ",  which needs your approval"
+
+                    ];
+
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    //                    $job_offer->interviewApplicant->applicant->notify(new  WorkflowNotification($email_resource_to_applicant));
+                    break;
             }
-
-
-
         }
-
-
     }
 
     /**
@@ -525,14 +537,14 @@ class Workflow
      */
     public function getModelFromTable($table)
     {
-        foreach( get_declared_classes() as $class ) {
-            if( is_subclass_of( $class, 'Illuminate\Database\Eloquent\Model' ) ) {
+        foreach (get_declared_classes() as $class) {
+            if (is_subclass_of($class, 'Illuminate\Database\Eloquent\Model')) {
                 $model = new $class;
                 if ($model->getTable() === $table)
                     return $class;
             }
         }
-            return false;
+        return false;
     }
 
     /**
@@ -580,7 +592,7 @@ class Workflow
      */
     public function upNew($input)
     {
-        $resource =$this->currentWfTrack()->resource;
+        $resource = $this->currentWfTrack()->resource;
         $insert = [
             'status' => 0,
             'resource_id' => $input['resource_id'],
@@ -588,13 +600,13 @@ class Workflow
             'parent_id' => $this->currentTrack(),
             'receive_date' => Carbon::now(),
             //'wf_definition_id' => $this->nextDefinition($input['sign']),
-//            'port_id' => isset($input['port_id']) ? $input['port_id'] : null,
-//            'zone_id' => isset($input['zone_id']) ? $input['zone_id'] : null,
+            //            'port_id' => isset($input['port_id']) ? $input['port_id'] : null,
+            //            'zone_id' => isset($input['zone_id']) ? $input['zone_id'] : null,
             'region_id' => $resource->region_id,
         ];
 
         /*If user_id isset*/
-        if  (isset($input['next_user_id'])){
+        if (isset($input['next_user_id'])) {
             $insert['user_id'] = $input['next_user_id'];
             $insert['assigned'] = 1;
         }
@@ -608,18 +620,18 @@ class Workflow
             $level = $this->nextLevel();
             $insert['wf_definition_id'] = $this->nextDefinition($input['sign']);
             //check if there is previous level
-            if($this->previousWfTrack()){
+            if ($this->previousWfTrack()) {
                 //if previous level was rejected
-                if($this->previousWfTrack()->status == 2){
+                if ($this->previousWfTrack()->status == 2) {
                     $level = $this->previousWfTrack()->wfDefinition->level;
                     $insert['wf_definition_id'] = $this->previousWfTrack()->wf_definition_id;
                     $insert['user_id'] = $this->previousWfTrack()->user_id;
-                }else{
+                } else {
                     $level = $this->nextLevel();
                 }
             }
-//            $level = $this->nextLevel();
-//            $insert['wf_definition_id'] = $this->nextDefinition($input['sign']);
+            //            $level = $this->nextLevel();
+            //            $insert['wf_definition_id'] = $this->nextDefinition($input['sign']);
         }
         //round robin can be implemented Here
         event(new BroadcastWorkflowUpdated($this->wf_module_id, $this->resource_id, $level));
@@ -634,7 +646,7 @@ class Workflow
     public function hasParticipated()
     {
         $return = $this->wf_track->hasParticipated($this->wf_module_id, $this->resource_id, $this->currentLevel());
-        if ($return And env("TESTING_MODE")) {
+        if ($return and env("TESTING_MODE")) {
             $return = false;
         }
         return $return;
@@ -647,7 +659,7 @@ class Workflow
      * @description Workflow Approve Action -- Forward to next level or complete level
      * @deprecated since version 1.00
      */
-    public function wfApprove($input,$input_update)
+    public function wfApprove($input, $input_update)
     {
         $this->updateLog($input_update);
         if (!is_null($this->nextLevel())) {
@@ -663,7 +675,7 @@ class Workflow
         $track = new WfTrackRepository();
         $wf_tracks = $track->query()->where('resource_id', $this->resource_id)->whereHas('wfDefinition', function ($query) {
             $query->where('wf_module_id', $this->wf_module_id);
-        })->orderBy('id','desc');
+        })->orderBy('id', 'desc');
         $wf_tracks->delete();
     }
 
@@ -673,7 +685,7 @@ class Workflow
      */
     public function checkIfHasWorkflow()
     {
-        if ($this->currentWfTrack()){
+        if ($this->currentWfTrack()) {
             $return = true;
         } else {
             $return = false;
@@ -754,7 +766,7 @@ class Workflow
     {
         $current_level  = $this->currentLevel();
         $current_status = $this->currentWfTrack()->status;
-        if ($current_level == $level_id && $current_status == 0){
+        if ($current_level == $level_id && $current_status == 0) {
             $return = true;
         } else {
             $return = false;
@@ -801,17 +813,16 @@ class Workflow
 
 
 
-// public function getNexUsersToAssign($wf_module_id)
+    // public function getNexUsersToAssign($wf_module_id)
 
     /*Check if current resource definition is pending - when creating new log wf*/
     public function checkIfResourceDefinitionIsAlreadyPending()
     {
-        $wf_track =  $this->wf_track->query()->where('resource_id', $this->resource_id)->where('wf_definition_id', $this->wf_definition_id)->where('status',0)->count();
-        if($wf_track > 0){
+        $wf_track =  $this->wf_track->query()->where('resource_id', $this->resource_id)->where('wf_definition_id', $this->wf_definition_id)->where('status', 0)->count();
+        if ($wf_track > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-
 }

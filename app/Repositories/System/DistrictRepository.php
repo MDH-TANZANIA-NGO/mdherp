@@ -85,6 +85,7 @@ class DistrictRepository extends BaseRepository
             DB::raw('districts.id AS id'),
             DB::raw('districts.name AS name'),
 //            DB::raw('districts.separate_id AS separate_id'),
+            DB::raw('districts.region_id AS region_id'),
             DB::raw('regions.name AS region_name'),
 //            DB::raw('code_values.name as code_name'),
         ])

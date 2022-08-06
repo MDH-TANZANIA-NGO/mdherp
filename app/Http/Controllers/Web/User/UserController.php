@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function index()
     {
-   
+
         return view('user.index')
             ->with('active_user_count', $this->users->getActive()->get()->count())
             ->with('inactive_user_count', $this->users->getInactive()->get()->count());

@@ -20361,10 +20361,6 @@ a.chip:hover {
     display: inline-flex;
     cursor: default;
     font-weight: 400;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 a.tag {
     text-decoration: none;

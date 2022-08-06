@@ -18,6 +18,9 @@ use App\Models\Requisition\Training\requisition_training_cost;
 use App\Repositories\ProgramActivity\ProgramActivityAttendanceRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
+use App\Repositories\System\RegionRepository;
+use App\Repositories\System\DistrictRepository;
+use App\Repositories\GOfficer\GScaleRepository;
 
 
 trait AuthenticationTrait
@@ -25,12 +28,20 @@ trait AuthenticationTrait
     protected $g_officers;
     protected $program_activity_repo;
     protected $requisition_training_repo;
+    protected $users;
+    protected $regions;
+    protected $district;
+    protected $gScales;
 
     public function __construct()
     {
         $this->g_officers = (new GOfficerRepository());
         $this->program_activity_repo =  (new ProgramActivityRepository());
         $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
+        $this->users = (new UserRepository());
+        $this->regions = (new RegionRepository());
+        $this->districts = (new DistrictRepository());
+        $this->gScales = (new GScaleRepository());
     }
 
     public function loginValidator()
@@ -145,7 +156,11 @@ trait AuthenticationTrait
             'access_token' => $access_token,
         ];
 
-        $success['g_officers'] = $this->g_officers->getQuery()->get();
+        $success['g_officers'] = $this->g_officers->getFilteredGofficerByRegion($gOfficer->region_id)->get();
+        $success['staffs'] = $this->users->getUserQuery()->get();
+        $success['regions'] = $this->regions->getQuery()->get();
+        $success['districts'] = $this->districts->getQuery()->get();
+        $success['g_scales'] = $this->gScales->getActive()->get();
 
         $wards = DB::table("wards")
             ->selectRaw('wards.id as id')

@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Project\Project;
 
-class RequisitionRepository extends BaseRepository
+class
+RequisitionRepository extends BaseRepository
 {
     use InitiatorBudgetChecker, Number, WorkflowUserSelector;
 
@@ -30,16 +31,45 @@ class RequisitionRepository extends BaseRepository
             DB::raw('requisitions.amount AS amount'),
             DB::raw('requisitions.uuid AS uuid'),
             DB::raw('requisitions.user_id AS user_id'),
+            DB::raw('requisitions.user_id AS user_id'),
+            DB::raw('requisitions.wf_done AS wf_done'),
+            DB::raw('requisitions.wf_done_date AS wf_done_date'),
+            DB::raw('requisitions.requisition_type_category AS requisition_type_category'),
+            DB::raw('requisitions.user_id AS user_id'),
+            DB::raw('requisitions.rejected AS rejected'),
+            DB::raw('requisitions.code AS code'),
+            DB::raw('requisitions.created_at AS created_at'),
+            DB::raw('requisitions.updated_at AS updated_at'),
+            DB::raw('requisitions.deleted_at AS deleted_at'),
+            DB::raw('regions.name AS region_name'),
             DB::raw('requisitions.is_closed AS is_closed'),
             DB::raw('requisitions.created_at AS created_at'),
-//            DB::raw('projects.title AS project_title'),
+            DB::raw('projects.title AS project_title'),
             DB::raw('activities.title AS activity_title'),
         ])
             ->join('requisition_types', 'requisition_types.id', 'requisitions.requisition_type_id')
             ->join('projects', 'projects.id', 'requisitions.project_id')
             ->join('activities', 'activities.id', 'requisitions.activity_id')
+            ->join('regions', 'requisitions.region_id', 'regions.id')
             ->join('users', 'users.id', 'requisitions.user_id');
     }
+    public function getAccessTrainingRequisition()
+    {
+        return $this->getQuery()
+            ->addSelect([
+                DB::raw('districts.name AS district_name'),
+                'requisitions.number',
+                'requisition_trainings.id',
+                DB::raw("CONCAT_WS(' ', requisitions.number, districts.name, requisition_trainings.start_date, requisition_trainings.end_date ) AS training")
+            ])
+            ->join('requisition_trainings','requisition_trainings.requisition_id','requisitions.id')
+            ->join('districts','districts.id','requisition_trainings.district_id' )
+            ->where('requisitions.requisition_type_category', 2)
+            ->where('requisitions.user_id', access()->user()->id)
+            ->where('requisitions.wf_done', 1);
+
+    }
+
 
     public function getQueryAll()
     {
@@ -63,6 +93,42 @@ class RequisitionRepository extends BaseRepository
             ->where('requisitions.is_closed', true)
             ->whereHas('budget');
     }
+
+//    Get all approved requests but which they have not been closed
+
+   public function getAllApprovedNotClosedRequisitions()
+   {
+       return $this->getAllApprovedRequisitions()
+           ->where('requisitions.is_closed', false);
+   }
+
+/*   Get all requisitions which are approved and they are for
+    training or other program activities*/
+
+    public function getAllApprovedTrainingRequisitions()
+    {
+        return $this->getAllApprovedRequisitions()
+            ->where('requisitions.requisition_type_category', 2);
+    }
+    /*   Get all requisitions which are approved and they are for
+        training or other program activities but they have not been closed */
+
+    public function getAllApprovedTrainingNotClosedRequisitions()
+    {
+        return $this->getAllApprovedTrainingRequisitions()
+            ->where('requisitions.is_closed', false);
+    }
+
+    /*   Get all requisitions which are approved and they are for
+       training or other program activities but they have not been closed By region*/
+
+    public function getAllApprovedTrainingNotClosedRequisitionsByRegion($region_id)
+    {
+        return $this->getAllApprovedTrainingNotClosedRequisitions()
+            ->where('requisitions.region_id', $region_id);
+    }
+
+//    Get all approved requisitions from all requisition types
 
     public function getAllApprovedRequisitions()
     {

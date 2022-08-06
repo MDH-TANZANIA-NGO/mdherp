@@ -318,13 +318,7 @@ class workflowController extends Controller
         } else {
             $statuses['1'] = $approved;
         }
-//        switch ($wf_track->wf_definition_id){
-//            case 5:
-//                $statuses['3'] = "Holded";
-//                $statuses['4'] = "Ended";
-//
-//        }
-//        $this->wf_tracks->updateDropDown($wf_track);;
+
         if ($workflow->currentLevel() <> 1) {
             $prevWfDefinition = $workflow->nextWfDefinition(-1, true);
             if ($prevWfDefinition->allow_rejection) {
@@ -332,6 +326,7 @@ class workflowController extends Controller
                 $statuses['5'] = "Reject";
             }
         }
+        
         /*end action*/
         return view("includes.workflow.workflow_contents")
 //            ->with("assign_status", $assignStatus)

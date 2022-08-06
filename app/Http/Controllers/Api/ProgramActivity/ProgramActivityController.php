@@ -61,7 +61,7 @@ class ProgramActivityController extends BaseController
 
         $success['program_activities'] = $valid_program_activities;
 
-        return $this->sendResponse($success, "All Valid Program Activities");
+        return $this->sendResponse($success, "All Valid Program Activity");
 
     }
 

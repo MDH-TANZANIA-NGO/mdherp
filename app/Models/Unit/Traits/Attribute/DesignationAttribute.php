@@ -11,5 +11,8 @@ namespace App\Models\Unit\Traits\Attribute;
 
 trait DesignationAttribute
 {
-    
+    public function getFullTitleAttribute()
+    {
+        return $this->unit->name." ".$this->name;
+    }
 }

@@ -18,28 +18,27 @@ trait Number
      */
     public function generateNumber(Model $model)
     {
-        switch ($model->getTable())
-        {
+        switch ($model->getTable()) {
             case 'requisitions':
                 #generate Reference number
                 $reference = "REQNUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-R-".$year.$value;
+                $number = "MDH-R-" . $year . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             case 'safari_advances':
                 $reference = "SAFNUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-S-".$year.$value;
+                $number = "MDH-S-" . $year . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             case 'retirements':
                 $reference = "RETIREMENTSAFARINUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-RT-".$year.$value;
+                $number = "MDH-RT-" . $year . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             case 'program_activities':
@@ -47,7 +46,7 @@ trait Number
                 $reference = "PROGRAMACTIVITYNUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-P-A-".$year.$value;
+                $number = "MDH-P-A-" . $year . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             case 'payments':
@@ -55,7 +54,7 @@ trait Number
                 $reference = "PAYMENTNUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-F-".$year.$value;
+                $number = "MDH-F-" . $year . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
 
@@ -64,7 +63,7 @@ trait Number
                 $reference = "PROGRAMCTIVITYREPORTNUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-PA-R-".$year.$value;
+                $number = "MDH-PA-R-" . $year . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             case 'rates':
@@ -72,7 +71,7 @@ trait Number
                 $reference = "RATENUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-RT-".$year.$value;
+                $number = "MDH-RT-" . $year . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             case 'g_officers':
@@ -81,7 +80,16 @@ trait Number
                 $year = $this->year();
                 $month = $this->month();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = '-'.$month.'-'.$year.'-'.$value;
+                $number = '-' . $month . '-' . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            case 'hr_hire_requisitions':
+                #generate Reference number
+                $reference = "CHECKNO";
+                $year = $this->year();
+                $month = $this->month();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = 'MDH-HR-' . $month . '-' . $year . '-' . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
 
@@ -89,13 +97,76 @@ trait Number
                 $reference = "PRNUM";
                 $year = $this->year();
                 $value = $this->getSysDefCurrentValue($reference);
-                $number = "MDH-PR-".$year.'-'.$value;
+                $number = "MDH-PR-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+
+            case 'hr_hire_advertisement_requisitions':
+                $reference = "HRADV";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-HRADV-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+
+            case 'hr_hire_requisition_job_shortlists':
+                $reference = "HRJOBSHORT";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-HRJS-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            case 'hr_interview_applicants':
+                $reference = "MDH-INT";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-INT-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+
+            case 'hr_user_hire_requisition_job_shortlister_requests':
+                $reference = "MDH_JSR";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH_JSR-" . $year . '-' . $value;
+            case 'job_offers':
+                $reference = "MDH-JOB-OFFER";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-JOB-OFFER-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            case 'hr_interview_workflow_reports':
+                $reference = "MDH-INT-REP";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-INT-REP-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            case 'hr_interviews':
+                $reference = "MDH-INT-NUM";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-INT-NUM-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            case 'hr_hire_requisition_job_applicant_requests':
+                $reference = "MDH-JAR-NUM";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-JAR-" . $year . '-' . $value;
+                return $this->getSpecific($model, $reference, $value, $number);
+                break;
+            case 'activity_reports':
+                $reference = "MDH-ACT-RPT";
+                $year = $this->year();
+                $value = $this->getSysDefCurrentValue($reference);
+                $number = "MDH-ACT-RPT" . $year . '-' . $value;
                 return $this->getSpecific($model, $reference, $value, $number);
                 break;
             default:
                 throw new GeneralException(__('Number Not Set. Kindly contact system developer'));
                 break;
-
         }
     }
 
@@ -110,7 +181,7 @@ trait Number
     public function getSpecific(Model $model, $reference, $value, $number)
     {
         #Update current value + 1
-        $this->updateSysDefValue($reference,$value);
+        $this->updateSysDefValue($reference, $value);
 
         // call the same function if the number exists already
         if ($this->checkIfNumberExists($model, $number)) {
@@ -150,9 +221,9 @@ trait Number
      * @param $value
      * @return mixed
      */
-    private function updateSysDefValue ($reference,$value)
+    private function updateSysDefValue($reference, $value)
     {
-        return DB::transaction(function () use($reference,$value) {
+        return DB::transaction(function () use ($reference, $value) {
             return DB::table('sysdefs')
                 ->where('reference', $reference)
                 ->update(['value' => $value]);

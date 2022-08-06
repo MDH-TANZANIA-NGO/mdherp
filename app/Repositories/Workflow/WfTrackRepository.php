@@ -245,7 +245,7 @@ class WfTrackRepository extends BaseRepository
                         case '3':
                         case '4':
                         case '5':
-                            $this->processWorkflowLevelsAction($wf_track->resource->id,$wf_track->wfDefinition->wf_module_id, $wf_track->wf_definition_id,$wf_track->wfDefinition->level, 0, $input,$wf_track->id);
+                            $this->processWorkflowLevelsAction($wf_track->resource->id,$wf_track->wfDefinition->wf_module_id, $wf_track->wf_definition_id,$wf_track->wfDefinition->level, 0, $input,$wf_track->id,$wf_track->resource);
                             break;
                     }
                 }
@@ -1031,6 +1031,7 @@ class WfTrackRepository extends BaseRepository
      */
     public function getWfModuleAfterWorkflowStart($wf_group_id, $resource_id)
     {
+        // dd($resource_id);
         $current_track = $this->query()->where('resource_id',$resource_id)->whereHas('wfDefinition', function($query) use($wf_group_id){
             $query->whereHas('wfModule', function($query) use($wf_group_id){
                 $query->where('wf_module_group_id',$wf_group_id);

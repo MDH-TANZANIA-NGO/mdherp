@@ -23,13 +23,15 @@ class RequisitionTrainingRepository extends BaseRepository
             DB::raw('requisition_trainings.start_date AS start_date'),
             DB::raw('requisition_trainings.end_date AS end_date'),
             DB::raw('requisition_trainings.district_id AS district_id'),
-            DB::raw('requisitions.id AS requisition_ID'),
+            DB::raw('requisition_trainings.no_days AS no_days'),
+//            DB::raw('requisitions.id AS requisition_ID'),
             DB::raw('requisition_trainings.requisition_id AS requisition_id'),
 //            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
             DB::raw('program_activities.id AS program_activity_id'),
             DB::raw('program_activities.number AS program_activity_number'),
 
-        ]);
+        ])
+            ->leftjoin('program_activities', 'program_activities.requisition_training_id','requisition_trainings.id');
     }
 
     public function getValidProgramActivity(){
@@ -43,21 +45,43 @@ class RequisitionTrainingRepository extends BaseRepository
             ->join('requisitions', 'requisitions.id', 'requisition_trainings.requisition_id')
             ->join('districts', 'districts.id', 'requisition_trainings.district_id');
     }
+    public function getByRequisitionId($requisition_id)
+    {
+        return $this->getQuery()
+            ->where('requisition_trainings.requisition_id', $requisition_id);
+    }
     public function getRequisitionFilter()
     {
         return $this->getRequisition()
             ->select([
                 'requisitions.number',
+                'requisitions.id AS requisition_id',
                 'requisition_trainings.id',
                 DB::raw("CONCAT_WS(' ', requisitions.number, districts.name, requisition_trainings.start_date, requisition_trainings.end_date ) AS training")
             ])
+
             ->where('requisitions.wf_done', 1)
-            ->where('requisitions.user_id', access()->id())
-            ->whereDoesntHave('programActivity');
+            ->where('requisitions.is_closed', false)
+            ->where('requisition_trainings.completed', false)
+            ->where('requisitions.user_id', access()->id());
     }
+
+
     public function getPluckRequisitionNo()
     {
         return $this->getRequisitionFilter()->pluck('training','requisition_trainings.id');
+
+    }
+    public function getPluckRequisitionNoWithRequisitionId()
+    {
+        return $this->getRequisitionFilter()
+//            ->join('program_activities', 'program_activities.requisition_training_id','requisition_trainings.id')
+            ->whereHas('programActivity', function ($query){
+                $query->where('program_activities.wf_done', 1);
+            })
+            ->where('requisition_trainings.completed', false)
+
+            ->pluck('training','requisition_id');
 
     }
     public function inputProcess($input)
@@ -71,6 +95,8 @@ class RequisitionTrainingRepository extends BaseRepository
 
         ];
     }
+
+
 
     public function update($uuid, $inputs){
 

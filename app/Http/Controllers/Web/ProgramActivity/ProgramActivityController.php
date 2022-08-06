@@ -12,6 +12,7 @@ use App\Models\GOfficer\GOfficer;
 use App\Models\GOfficer\Traits\Relationship\GOfficerRelationship;
 use App\Models\ProgramActivity\ProgramActivity;
 use App\Models\ProgramActivity\ProgramActivityAttendance;
+use App\Models\ProgramActivity\ProgramActivityHotel;
 use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Training\requisition_training;
 use App\Models\Requisition\Training\requisition_training_cost;
@@ -21,6 +22,7 @@ use App\Models\Requisition\Training\Traits\Relationship\RequisitionTrainingRelat
 use App\Notifications\ProgramActivityReport\ProgramActivityReportNotification;
 use App\Repositories\Access\SupervisorUserRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
+use App\Repositories\Hotel\HotelRepository;
 use App\Repositories\ProgramActivity\ProgramActivityAttendanceRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -54,6 +56,7 @@ class ProgramActivityController extends Controller
     protected $requisition_training_items;
     protected $supervisorUser;
     protected $program_activity_attendance;
+    protected $hotel;
 
 
     public function __construct()
@@ -70,6 +73,7 @@ class ProgramActivityController extends Controller
         $this->requisition_training_items =  (new RequisitionTrainingItemsRepository());
         $this->supervisorUser =  (new  SupervisorUserRepository());
         $this->program_activity_attendance = (new ProgramActivityAttendanceRepository());
+        $this->hotel = (new HotelRepository());
     }
 
 
@@ -100,12 +104,15 @@ class ProgramActivityController extends Controller
 
     public  function  create(ProgramActivity $programActivity)
     {
+
         $training_costs =  requisition_training_cost::all()->where('requisition_id', $programActivity->requisition_id);
         $requisition_training = requisition_training::all()->where('id', $programActivity->requisition_training_id);
         $requisition_training_items = requisition_training_item::all()->where('requisition_id', $programActivity->requisition_id);
         $requisition = Requisition::all()->where('id', $programActivity->requisition_id);
 
         return view('programactivity.forms.create')
+            ->with('hotels', $this->hotel->getHotelByRegion($programActivity->training->district->region->id)->pluck('name', 'id'))
+            ->with('hotels_reserved', $this->hotel->getSelectedHotelForActivity($programActivity->id)->get())
             ->with('requisition', $requisition)
             ->with('training_items', $requisition_training_items)
             ->with('requisition_training', $requisition_training->first())
@@ -339,5 +346,17 @@ class ProgramActivityController extends Controller
 
     }
 
+    public function storeHotelReservation(Request $request)
+    {
+        $this->program_activity->storeHotelReservation($request);
+        alert()->success('Hotel reserved successfully','Success');
+        return redirect()->back();
+    }
+    public function removeHotel($uuid)
+    {
+        ProgramActivityHotel::query()->where('uuid', $uuid)->forceDelete();
+        alert()->success('Hotel reserved deleted successfully','Success');
+        return redirect()->back();
+    }
 
 }

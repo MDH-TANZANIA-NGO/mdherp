@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Notifications\ProgramActivityReport
-;
+namespace App\Notifications\ProgramActivityReport;
 
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use Illuminate\Bus\Queueable;
