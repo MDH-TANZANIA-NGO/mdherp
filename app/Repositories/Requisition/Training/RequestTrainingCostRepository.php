@@ -31,6 +31,10 @@ class RequestTrainingCostRepository extends BaseRepository
             DB::raw('requisition_training_costs.requisition_id AS requisition_id'),
             DB::raw('requisition_training_costs.perdiem_rate_id AS perdiem_rate_id'),
             DB::raw('requisition_training_costs.participant_uid AS participant_uid'),
+            DB::raw('requisition_training_costs.remarks AS remarks'),
+            DB::raw('requisition_training_costs.amount_paid AS amount_paid'),
+            DB::raw('requisition_training_costs.is_substitute AS is_substitute'),
+            DB::raw('requisition_training_costs.account_no AS account_no'),
             DB::raw('requisition_training_costs.uuid AS uuid'),
             DB::raw('requisition_trainings.id AS training_id'),
             DB::raw('program_activities.id AS activity_id'),
@@ -38,6 +42,30 @@ class RequestTrainingCostRepository extends BaseRepository
         ])
             ->join('requisition_trainings', 'requisition_trainings.id', 'requisition_training_costs.requisition_training_id')
             ->leftjoin('program_activities', 'program_activities.requisition_training_id', 'requisition_trainings.id');
+    }
+
+    public function payWithSwap($uuid, $inputs)
+    {
+        return DB::transaction(function () use ($uuid, $inputs){
+            if ($inputs['substitute_participant'] ==  null)
+            {
+                $this->findByUuid($uuid)->update([
+                    'amount_paid'=>$inputs['amount_paid'],
+                    'account_no'=>$inputs['account_no'],
+                    'remarks'=>$inputs['remarks']
+                ]);
+            }
+            else{
+                $this->findByUuid($uuid)->update([
+                    'amount_paid'=>$inputs['amount_paid'],
+                    'account_no'=>$inputs['account_no'],
+                    'remarks'=>$inputs['remarks'],
+                    'is_substitute'=> true,
+                    'substituted_user_id'=>$inputs['current_participant'],
+                    'participant_uid'=>$inputs['substitute_participant']
+                ]);
+            }
+        });
     }
 public function getParticipantsByRequisition($requisition_id)
 {

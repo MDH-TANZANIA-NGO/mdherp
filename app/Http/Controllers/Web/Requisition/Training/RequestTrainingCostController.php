@@ -147,6 +147,39 @@ class RequestTrainingCostController extends Controller
 
         return redirect()->route('requisition.initiate', $request['requisition_uuid']);
     }
+
+    public function payBulk(Request $request)
+    {
+
+        foreach ($request['uuid'] as $key=> $uuid) {
+            $data =  [];
+
+            if ($request['substitute_participant'][$key] != null){
+                $data = [
+                    'amount_paid'=>$request['amount_paid'][$key],
+                    'substitute_participant'=>$request['substitute_participant'][$key],
+                    'current_participant'=>$request['current_participant'][$key],
+                    'uuid'=>$request['uuid'][$key],
+                    'remarks'=>$request['remarks'][$key],
+                    'account_no'=>$request['account_no'][$key],
+                ];
+            }
+            else{
+                $data = [
+                    'amount_paid'=>$request['amount_paid'][$key],
+                    'substitute_participant'=>null,
+                    'uuid'=>$request['uuid'][$key],
+                    'remarks'=>$request['remarks'][$key],
+                    'account_no'=>$request['account_no'][$key],
+                ];
+            }
+
+            $this->trainingCost->payWithSwap($request['uuid'][$key], $data);
+       }
+        alert()->success('Payment saved successfully', 'Success');
+        return redirect()->back();
+
+    }
     public function removeAllParticipant($requisition_id)
     {
 

@@ -7,9 +7,9 @@
                     <div class="form-group">
                         {!! Form::label('report_type', __("Report Type"),['class'=>'form-label','required_asterik']) !!}
 
-                        <select class="form-control" name="status">
-                            <option value="progressive">Progressive</option>
-                            <option value="final">Final</option>
+                        <select class="form-control" name="report_type">
+                            <option value="1">Progressive</option>
+                            <option value="2">Final</option>
                         </select>
                         {!! $errors->first('report_type', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
@@ -27,7 +27,7 @@
                     <div class="form-group">
                         {!! Form::label('background_info', __("Report content"),['class'=>'form-label','required_asterik']) !!}
 {{--                        {!! Form::textarea('background_info',null,['class' => 'summernotecontent','required']) !!}--}}
-                        <textarea class="content richText-initial" name="example" style="display: none;"></textarea>
+                        <textarea class="content richText-initial" name="content" style="display: none;"></textarea>
                         {!! $errors->first('background_info', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>

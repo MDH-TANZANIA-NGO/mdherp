@@ -59,6 +59,11 @@ class ActivityReportController extends Controller
        if ( isset($request['requisition_id'])){
 
                 $option['requisition'] =  $this->requisition->find($request['requisition_id']);
+                $option['inputs'] = [
+                    'requisition_id'=>$request['requisition_id'],
+                    'start_date'=>$request['start_date'],
+                    'end_date'=>$request['end_date']
+                ];
                 $option['hotspot'] =   $this->hotspot->getHotspotByRequisitionOnDateRange($request['requisition_id'], $request['start_date'], $request['end_date'])->get();
                 $option['training_cost'] = $this->training_costs->getParticipantsByRequisition($request['requisition_id'])->get();
                 $option['attendance_for_pluck'] = $this->activity_attendance->getGOfficerAttendanceByRequisitionForPluck($request['requisition_id']);
@@ -71,6 +76,7 @@ class ActivityReportController extends Controller
             ->with('gofficer',$this->gofficer->getForPluckUnique())
             ->with('participants_attended',isset($option['attendance_for_pluck'])? $option['attendance_for_pluck']: [])
             ->with('hotspots',isset($option['hotspot'])? $option['hotspot']: [])
+            ->with('inputs',isset($option['inputs'])? $option['inputs']: [])
             ->with('requisition',isset($option['requisition'])? $option['requisition']: [])
             ->with('training_costs',isset($option['training_cost'])? $option['training_cost']: [])
             ->with('activity_report', $this->activity_reports)

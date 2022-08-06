@@ -70,6 +70,8 @@ class ActivityReportRepository extends BaseRepository
             'start_date'=>$inputs['start_date'],
             'end_date'=>$inputs['end_date'],
             'report_type'=>$inputs['report_type'],
+            'venue'=>$inputs['venue'],
+            'content'=>$inputs['content'],
             'done'=>true,
             'user_id'=> access()->user()->id,
             'region_id'=> access()->user()->region_id,

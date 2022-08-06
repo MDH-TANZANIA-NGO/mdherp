@@ -4,6 +4,7 @@ Route::group(['namespace' => 'Requisition\Training', 'middleware' => ['web', 'au
     Route::post('requisitions/{requisition}/store', 'RequestTrainingCostController@store')->name('store');
     Route::post('storeTraining', 'RequestTrainingCostController@storeTraining')->name('storeTraining');
     Route::post('updateBulk', 'RequestTrainingCostController@updateBulk')->name('updateBulk');
+    Route::post('payBulk', 'RequestTrainingCostController@payBulk')->name('payBulk');
     Route::post('{uuid}/updateSchedule', 'RequestTrainingCostController@updateSchedule')->name('updateSchedule');
     Route::post('requisitions/{requisition}/storeTrainingItems', 'RequestTrainingCostController@storeTrainingItems')->name('storeTrainingItems');
     Route::get('{uuid}/show', 'RequestTrainingCostController@show')->name('show');
