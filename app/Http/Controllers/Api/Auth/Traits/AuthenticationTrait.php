@@ -20,6 +20,7 @@ use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\System\DistrictRepository;
+use App\Repositories\GOfficer\GScaleRepository;
 
 
 trait AuthenticationTrait
@@ -30,6 +31,7 @@ trait AuthenticationTrait
     protected $users;
     protected $regions;
     protected $district;
+    protected $gScales;
 
     public function __construct()
     {
@@ -39,6 +41,7 @@ trait AuthenticationTrait
         $this->users = (new UserRepository());
         $this->regions = (new RegionRepository());
         $this->districts = (new DistrictRepository());
+        $this->gScales = (new GScaleRepository());
     }
 
     public function loginValidator()
@@ -157,6 +160,7 @@ trait AuthenticationTrait
         $success['staffs'] = $this->users->getUserQuery()->get();
         $success['regions'] = $this->regions->getQuery()->get();
         $success['districts'] = $this->districts->getQuery()->get();
+        $success['g_scales'] = $this->gScales->getActive()->get();
 
         $wards = DB::table("wards")
             ->selectRaw('wards.id as id')
