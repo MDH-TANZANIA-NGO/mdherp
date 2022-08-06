@@ -81,8 +81,6 @@ class LeaveController extends Controller
         $end = Carbon::parse($request['end_date']);
         $days = $start->diffInDays($end) + 1;
 
-
-
         if ($leave_balance ==  null){
             alert()->error('No leave Balances Set', 'Failed');
             return redirect()->back();
@@ -122,7 +120,6 @@ class LeaveController extends Controller
      */
     public function show(Leave $leave)
     {
-
         $wf_module_group_id = 5;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $leave->id);
         $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $leave->id, 'type' => $wf_module->type]);
@@ -180,7 +177,8 @@ class LeaveController extends Controller
      */
     public function update(Request $request, Leave $leave)
     {
-        $is_assigned = Leave::all()->where('employee_id', access()->user()->id)->where('end_date', '>=', $request['end_date']);
+        $is_assigned = Leave::where('employee_id', access()->id())->where('end_date', '>=', $request['end_date'])->get();
+        //dd($is_assigned);
         $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_type_id', $request['leave_type_id'])->first();
         $start = Carbon::parse($request['start_date']);
         $end = Carbon::parse($request['end_date']);

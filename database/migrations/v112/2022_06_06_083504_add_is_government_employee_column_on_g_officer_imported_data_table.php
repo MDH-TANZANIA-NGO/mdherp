@@ -14,9 +14,9 @@ class AddIsGovernmentEmployeeColumnOnGOfficerImportedDataTable extends Migration
     public function up()
     {
         //
-        Schema::table('gofficer_imported_data', function (Blueprint $table) {
-            $table->boolean('is_government_employed')->default(true);
-        });
+//        Schema::table('gofficer_imported_data', function (Blueprint $table) {
+//            $table->boolean('is_government_employed')->default(true);
+//        });
     }
 
     /**

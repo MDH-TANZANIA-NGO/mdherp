@@ -13,7 +13,7 @@ class AddGenderAndOtherColumnsOnGOfficerImportedDataTable extends Migration
      */
     public function up()
     {
-        //
+//        //
         Schema::table('gofficer_imported_data', function (Blueprint $table) {
             $table->text('phone2')->nullable();
             $table->bigInteger('gender_cv_id')->nullable();
