@@ -36,8 +36,8 @@ trait AuthenticationTrait
     public function __construct()
     {
         $this->g_officers = (new GOfficerRepository());
-        $this->program_activity_repo =  (new ProgramActivityRepository());
-        $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
+        // $this->program_activity_repo =  (new ProgramActivityRepository());
+        // $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
         $this->users = (new UserRepository());
         $this->regions = (new RegionRepository());
         $this->districts = (new DistrictRepository());
@@ -225,9 +225,9 @@ trait AuthenticationTrait
         $success['g_officer_mchs_sent'] = $g_officer_mchs;
         
 
-        $valid_program_activities = $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
+        // $valid_program_activities = $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
 
-        $success['program_activities'] = $valid_program_activities;
+        // $success['program_activities'] = $valid_program_activities;
 
         return  $this->sendResponse($success, 'GOfficer Log in successfully');
 
