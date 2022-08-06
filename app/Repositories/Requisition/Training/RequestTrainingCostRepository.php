@@ -70,6 +70,8 @@ public function getParticipantsByRequisition($requisition_id)
                'requisition_training_id'=>$current_requisition->id
            ]);
        }
+       $requisition =  Requisition::query()->find($current_requisition->requisition_id);
+        $requisition->updatingTotalAmount();
        return redirect()->back();
     }
 
@@ -110,6 +112,8 @@ public function getParticipantsByRequisition($requisition_id)
 
         return DB::transaction(function () use ($training_cost, $inputs){
             $this->findByUuid($inputs['uuid'])->update($this->inputProcess($inputs));
+            $requisition =  Requisition::query()->find($this->findByUuid($inputs['uuid'])->requisition_id);
+            $requisition->updatingTotalAmount();
         });
     }
     public function store(Requisition $requisition, $inputs)

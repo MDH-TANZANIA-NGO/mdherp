@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Reports\Datatables\Activities\ActivityReportDatatables;
 use App\Repositories\Activity\ActivityReportRepository;
 use App\Repositories\Attendance\ActivityAttendanceRepository;
+use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\Hotspot\HotspotRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
@@ -26,6 +27,7 @@ class ActivityReportController extends Controller
     protected $activity_attendance;
     protected $requisition;
     protected $training_costs;
+    protected $gofficer;
 
     public function __construct()
     {
@@ -35,6 +37,7 @@ class ActivityReportController extends Controller
         $this->activity_attendance = (new ActivityAttendanceRepository());
         $this->requisition = (new RequisitionRepository());
         $this->training_costs = (new RequestTrainingCostRepository());
+        $this->gofficer =  (new GOfficerRepository());
 
 
     }
@@ -65,6 +68,7 @@ class ActivityReportController extends Controller
 
 
         return view('reports.Activities.forms.initiate')
+            ->with('gofficer',$this->gofficer->getForPluckUnique())
             ->with('participants_attended',isset($option['attendance_for_pluck'])? $option['attendance_for_pluck']: [])
             ->with('hotspots',isset($option['hotspot'])? $option['hotspot']: [])
             ->with('requisition',isset($option['requisition'])? $option['requisition']: [])

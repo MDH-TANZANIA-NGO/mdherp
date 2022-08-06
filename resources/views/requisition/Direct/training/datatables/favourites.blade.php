@@ -8,9 +8,10 @@
             <div class="card-header">
 
                 <input type="text" value="{{$requisition->uuid}}" hidden name="requisition_uuid">
-               <a class="btn btn-danger txt-white" href="{{route('requisition.initiate', $requisition->uuid)}}"><i class="fa fa-arrow-left"></i> Back</a>
-                @if($requisition->trainingCost()->get()->count() > 0)
+               @if($requisition->trainingCost()->get()->count() > 0)
                <button type="submit" class="btn btn-success" style="margin-left: 2%"><i class="fa fa-save"></i> Save</button>
+                @else
+                    <a class="btn btn-danger txt-white" href="{{route('requisition.initiate', $requisition->uuid)}}"><i class="fa fa-arrow-left"></i> Back</a>
                 @endif
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
