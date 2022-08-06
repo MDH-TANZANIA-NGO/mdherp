@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
     <div class="row pull-right">
         <a href="#" class="btn btn-info" > <i class="fa fa-paper-plane-o"></i> Send for approval</a>
     </div>
@@ -26,7 +27,11 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {!! Form::label('requisition_id', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
+                                    @if(empty($inputs))
                                     {!! Form::select('requisition_id', $trainings, null,['class' => 'form-control select2-show-search','placeholder'=>'Select approved requisition', 'required']) !!}
+                                    @else
+                                        {!! Form::select('requisition_id', $trainings, $inputs['requisition_id'],['class' => 'form-control select2-show-search','placeholder'=>'Select approved requisition', 'disabled']) !!}
+                                     @endif
                                     {!! $errors->first('requisition_id', '<span class="badge badge-danger">:message</span>') !!}
                                 </div>
                             </div>

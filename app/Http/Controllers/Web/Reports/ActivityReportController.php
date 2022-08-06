@@ -110,6 +110,16 @@ class ActivityReportController extends Controller
 
     public function store(Request $request)
     {
+        $training =  $this->trainings->getByRequisitionId($request['requisition_id'])->first();
+
+        if ($request['status'] == 1)
+        {
+            $training->update(['completed'=>true]);
+        }
         $this->activity_reports->store($request->all());
+
+        alert()->success('Report submitted successfully', 'Success');
+
+        return redirect()->back();
     }
 }

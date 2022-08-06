@@ -79,6 +79,7 @@ class RequisitionTrainingRepository extends BaseRepository
             ->whereHas('programActivity', function ($query){
                 $query->where('program_activities.wf_done', 1);
             })
+            ->where('requisition_trainings.completed', false)
 
             ->pluck('training','requisition_id');
 
