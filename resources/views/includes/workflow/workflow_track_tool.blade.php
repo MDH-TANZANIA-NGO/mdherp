@@ -13,30 +13,32 @@
                 </div>
                 <div id="collapse1Two" class="collapse">
                     <div class="card-body">
-                        @foreach($completed_tracks as $track)
-                        <div class="row">
-                            <div class="col-sm-2">Level</div>
-                            <div class="col-sm-9">{{ $track->wfDefinition->level }}</div>
-                            <div class="col-sm-2">Designation</div>
-                            <div class="col-sm-9">
-                                {{ $track->users->designation ? $track->users->designation->unit->name : '' }} {{ $track->users->designation ? $track->users->designation->name : '' }}
-                            </div>
-                            <div class="col-sm-2">Name</div>
-                            <div class="col-sm-9">{{ $track->users->full_name }}</div>
-                            <div class="col-sm-12">Comment</div>
-                            <div class="col-sm-12"><p class="alert" style="border: 1px solid #000; background-color:
-                            rgb(238, 241, 248);
-                            color: #000; display:
-                            inline-block;
-                            margin-top:5px; margin-bottom:
-                            5px">{{ $track->comments }}</p></div>
-                            <div class="col-sm-12">Received Date : {{ $track->receive_date_formatted }}</div>
-                            <div class="col-sm-12">{{ $track->status_narration }} Forwarded Date : {{ $track->forward_date_formatted }}</div>
-                            <div class="col-sm-2">Status</div>
-                            <div class="col-sm-9">{!! $track->status_narration_badge !!}</div>
-                        </div>
-                        <hr class="dotted">
-                        @endforeach
+                        <table class="table table-striped">
+                            <thead>
+                                <th>#</th>
+                                <th>LEVEL</th>
+                                <th>DESIGNATION</th>
+                                <th>USER</th>
+                                <th>COMMENT</th>
+                                <th>RECEIVED DATE</th>
+                                <th>FORWARDED DATE</th>
+                                <th>STATUS</th>
+                            </thead>
+                            <tbody>
+                                @foreach($completed_tracks as $key => $track)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $track->wfDefinition->level }}</td>
+                                        <td>{{ $track->users->designation ? $track->users->designation->unit->name : '' }} {{ $track->users->designation ? $track->users->designation->name : '' }}</td>
+                                        <td>{{ $track->users->full_name }}</td>
+                                        <td>{{ $track->comments }}</td>
+                                        <td>{{ $track->receive_date_formatted }}</td>
+                                        <td>{{ $track->forward_date_formatted }}</td>
+                                        <td>{!! $track->status_narration_badge !!}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

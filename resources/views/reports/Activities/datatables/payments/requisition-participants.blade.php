@@ -5,7 +5,7 @@
             <div class="card-header">
 
                 <button type="submit" class="btn btn-success" ><i class="fa fa-save"></i> Save</button>
-
+                <a href="#" class="btn btn-outline-success" style="margin-left: 2%"><i class="fa fa-file-excel-o"></i> Export to Excel</a>
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
@@ -17,9 +17,6 @@
                         <thead>
                                     <tr>
                                         <th>Full name</th>
-{{--                                        <th>Perdiem</th>--}}
-{{--                                        <th>Transport</th>--}}
-{{--                                        <th>Others</th>--}}
                                         <th>Amount Requested</th>
                                         <th>Amount Paid</th>
                                         <th>Phone</th>
@@ -33,7 +30,7 @@
                                     @foreach($training_costs as $key=>$training_cost)
 
                                          <td>
-                                             @if($training_cost->amount_paid == 0)
+                                             @if($training_cost->amount_paid == 0 and $training_cost->amount_paid != null)
                                              <s> {{$training_cost->user->first_name}} {{$training_cost->user->last_name}}</s>
                                              @else
                                                  @if($training_cost->is_substitute == true)

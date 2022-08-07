@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+    <div class="row mb-2">
+        <div class="col-lg-12">
+            @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
 
@@ -41,9 +47,10 @@
                                 <!-- Tabs -->
                                 <ul class="nav panel-tabs">
                                     <li class=""><a href="#tab5" class="active" data-toggle="tab">Attendance</a></li>
-                                    <li><a href="#tab6" data-toggle="tab" class="">Report</a></li>
-                                    <li><a href="#tab7" data-toggle="tab" class="">Attachments</a></li>
                                     <li><a href="#tab8" data-toggle="tab" class="">Payments</a></li>
+                                    <li><a href="#tab6" data-toggle="tab" class="">Report</a></li>
+{{--                                    <li><a href="#tab7" data-toggle="tab" class="">Attachments</a></li>--}}
+
                                 </ul>
                             </div>
                         </div>
@@ -54,22 +61,25 @@
 
                                         <li class="acc_section">
 
-                                            @if(!$requisition)
-                                                <div class="expanel-body">
-                                                    You have not select approved requisition (No data available)
-                                                </div>
-                                            @elseif($requisition || !$hotspots)
+                                            @if($hotspots->count() == 0)
                                                 <div class="expanel-body">
                                                     No hotspot available <b class="text-danger">(attendance was not captured)</b>
                                                 </div>
                                             @else
-                                                @foreach($hotspots as $hotspot)
+                                             <div class="row">
+                                                 <div class="col-md-3">
+                                                     <a href="{{route('activity_report.export_attendance', $activity_report->uuid)}}" class="btn btn-outline-success" ><i class="fa fa-file-excel-o"></i> Export to Excel</a>
+
+                                                 </div>
+
+                                             </div>
+                                            @foreach($hotspots as $hotspot)
                                                     <div class="acc_head">
 
                                                         <h3>Hotspot: {{$hotspot->camp}}; Date: {{$hotspot->checkin_time}}; Location: {{$hotspot->checkin_location}} </h3></div>
 
                                                     <div class="acc_content" style="">
-{{--                                                        @include('reports.Activities.datatables.attendances.index')--}}
+                                                        @include('reports.Activities.datatables.attendances.index')
 
                                                     </div>
                                                 @endforeach
@@ -79,13 +89,27 @@
 
                                     </ul> </div>
                                 <div class="tab-pane" id="tab6">
-{{--                                    @include('reports.Activities.forms.summary.create')--}}
+                                    @include('reports.Activities.display.content')
                                 </div>
                                 <div class="tab-pane" id="tab7">
                                     @include('reports.Activities.display.attachments')
                                 </div>
                                 <div class="tab-pane" id="tab8">
-                                    @include('reports.Activities.display.payments')
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <a href="{{route('activity_report.export_participants', $activity_report->uuid)}}" class="btn btn-outline-success" ><i class="fa fa-file-excel-o"></i> Export to Excel</a>
+
+                                        </div>
+
+
+                                    </div>
+                                    <br>
+                                    @if(in_array(access()->user()->designation_id, $finance_designations))
+                                        @include('reports.Activities.datatables.payments.requisition-participants')
+
+                                    @else
+                                        @include('reports.Activities.display.payments')
+                                        @endif
                                 </div>
 
                             </div>

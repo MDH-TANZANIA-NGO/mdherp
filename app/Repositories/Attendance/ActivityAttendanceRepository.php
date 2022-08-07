@@ -195,4 +195,10 @@ class ActivityAttendanceRepository extends  BaseRepository
             ->where('activity_attendances.creator_id', $g_officer_id);
     }
 
+    public function getGOfficerAttendancesByHotspotId($hotspot_id)
+    {
+        return $this->getGOfficerAttendances()
+            ->where('activity_attendances.hotspot_id', $hotspot_id);
+    }
+
 }

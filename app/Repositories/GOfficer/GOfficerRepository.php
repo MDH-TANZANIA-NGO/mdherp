@@ -21,7 +21,7 @@ class GOfficerRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
-            DB::raw('g_officers.id AS id'),
+            DB::raw('g_officers.id AS g_officer_id'),
             DB::raw('g_officers.first_name AS first_name'),
             DB::raw('g_officers.middle_name AS middle_name'),
             DB::raw('g_officers.last_name AS last_name'),
@@ -60,7 +60,7 @@ class GOfficerRepository extends BaseRepository
     public function getForPluckUnique()
     {
         return $this->getQuery()
-            ->pluck('unique', 'id');
+            ->pluck('unique', 'g_officer_id');
     }
 
 

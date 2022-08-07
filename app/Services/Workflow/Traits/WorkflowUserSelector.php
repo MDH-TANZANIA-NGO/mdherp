@@ -10,6 +10,7 @@ use App\Models\HumanResource\Interview\InterviewWorkflowReport;
 use App\Models\Unit\Designation;
 use App\Models\Workflow\UserWfDefinition;
 use App\Models\Workflow\WfDefinition;
+use App\Repositories\Activity\ActivityReportRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\JobOfferRepository;
 use App\Repositories\Leave\LeaveRepository;
@@ -368,6 +369,19 @@ trait WorkflowUserSelector
                             throw new GeneralException('CEO is not yet registered. Please contact system Admin');
                         }
                         $user_id = $next_user->first()->user_id;
+                        break;
+                }
+                break;
+            case 20:
+                switch ($level) {
+
+                    case 1:
+                        $activity_report = (new ActivityReportRepository())->find($resource_id);
+                        $next_user = $activity_report->user->assignedSupervisor();
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user->supervisor_id;
                         break;
                 }
                 break;

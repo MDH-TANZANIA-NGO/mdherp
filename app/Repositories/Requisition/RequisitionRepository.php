@@ -26,29 +26,35 @@ RequisitionRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('requisitions.id AS id'),
+            DB::raw("CONCAT_WS(' ', users.first_name,users.last_name) AS full_name"),
             DB::raw('requisitions.number AS number'),
             DB::raw('requisition_types.title AS type_title'),
             DB::raw('requisitions.amount AS amount'),
             DB::raw('requisitions.uuid AS uuid'),
             DB::raw('requisitions.user_id AS user_id'),
+            DB::raw('requisitions.budget_id AS budget_id'),
             DB::raw('requisitions.user_id AS user_id'),
             DB::raw('requisitions.wf_done AS wf_done'),
+            DB::raw('requisitions.done AS done'),
             DB::raw('requisitions.wf_done_date AS wf_done_date'),
             DB::raw('requisitions.requisition_type_category AS requisition_type_category'),
             DB::raw('requisitions.user_id AS user_id'),
             DB::raw('requisitions.rejected AS rejected'),
             DB::raw('requisitions.code AS code'),
+            DB::raw('requisitions.numeric_output AS numeric_output'),
+            DB::raw('requisitions.descriptions AS descriptions'),
             DB::raw('requisitions.created_at AS created_at'),
             DB::raw('requisitions.updated_at AS updated_at'),
             DB::raw('requisitions.deleted_at AS deleted_at'),
             DB::raw('regions.name AS region_name'),
             DB::raw('requisitions.is_closed AS is_closed'),
             DB::raw('requisitions.created_at AS created_at'),
+            DB::raw('requisitions.project_id AS project_id'),
             DB::raw('projects.title AS project_title'),
             DB::raw('activities.title AS activity_title'),
         ])
             ->join('requisition_types', 'requisition_types.id', 'requisitions.requisition_type_id')
-            ->join('projects', 'projects.id', 'requisitions.project_id')
+            ->leftjoin('projects', 'projects.id', 'requisitions.project_id')
             ->join('activities', 'activities.id', 'requisitions.activity_id')
             ->join('regions', 'requisitions.region_id', 'regions.id')
             ->join('users', 'users.id', 'requisitions.user_id');
@@ -132,7 +138,7 @@ RequisitionRepository extends BaseRepository
 
     public function getAllApprovedRequisitions()
     {
-        return $this->getQueryAll()
+        return $this->getQuery()
             ->where('requisitions.wf_done', 1);
     }
     public function getAllApprovedNotClosedInSameBudget()
@@ -686,6 +692,14 @@ RequisitionRepository extends BaseRepository
 
         return $days;
     }
+
+    public function getNoHours($from, $to)
+    {
+        $hourdiff = round((strtotime($from) - strtotime($to))/3600, 1);
+
+        return $hourdiff;
+    }
+
 
 
 }
