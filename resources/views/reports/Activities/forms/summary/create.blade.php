@@ -12,7 +12,7 @@
                     <div class="form-group">
                         {!! Form::label('report_type', __("Report Type"),['class'=>'form-label','required_asterik']) !!}
 
-                        <select class="form-control" name="status">
+                        <select class="form-control" name="status" required>
                             <option value="0">Progressive</option>
                             <option value="1">Final</option>
                         </select>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        {!! Form::label('venue', __("Venue Name"),['class'=>'form-label','required_asterik']) !!}
+                        {!! Form::label('venue', __("Venue Name"),['class'=>'form-label','required_asterik','required']) !!}
                         {!! Form::text('venue', null, ['class' => 'form-control', 'required']) !!}
                         {!! $errors->first('venue', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
@@ -32,7 +32,7 @@
                     <div class="form-group">
                         {!! Form::label('background_info', __("Report content"),['class'=>'form-label','required_asterik']) !!}
 {{--                        {!! Form::textarea('background_info',null,['class' => 'summernotecontent','required']) !!}--}}
-                        <textarea class="content richText-initial" name="content" style="display: none;"></textarea>
+                        <textarea class="content richText-initial" name="content" style="display: none;" required></textarea>
                         {!! $errors->first('background_info', '<span class="badge badge-danger">:message</span>') !!}
                     </div>
                 </div>
@@ -46,7 +46,7 @@
 {{--                </div>--}}
 
             </div>
-            <button type="submit" class="btn btn-outline-info"><i class="fa fa-save"></i> Submit</button>
+            <button type="submit" class="btn btn-outline-info"><i class="fa fa-paper-plane-o"></i> Submit for approval</button>
 
 
 

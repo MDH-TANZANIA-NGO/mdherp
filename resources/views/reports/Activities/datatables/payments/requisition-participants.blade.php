@@ -33,7 +33,7 @@
                                     @foreach($training_costs as $key=>$training_cost)
 
                                          <td>
-                                             @if($training_cost->amount_paid == 0)
+                                             @if($training_cost->amount_paid == 0 and $training_cost->amount_paid != null)
                                              <s> {{$training_cost->user->first_name}} {{$training_cost->user->last_name}}</s>
                                              @else
                                                  @if($training_cost->is_substitute == true)

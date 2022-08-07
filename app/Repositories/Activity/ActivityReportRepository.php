@@ -49,6 +49,14 @@ class ActivityReportRepository extends BaseRepository
             ->where('activity_reports.rejected', false)
             ->where('activity_reports.wf_done', 0);
     }
+    public function getAccessSaved()
+    {
+        return $this->getQuery()
+            ->where('activity_reports.done', false)
+            ->where('activity_reports.user_id', access()->user()->id)
+            ->where('activity_reports.rejected', false)
+            ->where('activity_reports.wf_done', 0);
+    }
     public function getAccessRejected()
     {
         return $this->getQuery()
@@ -93,6 +101,11 @@ class ActivityReportRepository extends BaseRepository
                 Hotspot::query()->find($hotspot->id)->update(['report_id'=>$activity_report_id]);
            }
         });
+    }
+    public function getAccessSavedByRequisitionId($requisition_id)
+    {
+        return $this->getAccessSaved()
+            ->where('activity_reports.requisition_id', $requisition_id);
     }
 
 
