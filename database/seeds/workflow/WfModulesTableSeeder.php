@@ -163,7 +163,7 @@ class WfModulesTableSeeder extends Seeder
             10 =>
                 array (
                     'id' => 11,
-                    'name' => 'Performance Appraisal Goals/Objectives Evaluation',
+                    'name' => 'Performance Appraisal Goals/Objectives Evaluation[ Regional Normal Staff ]',
                     'wf_module_group_id' => '10',
                     'created_at' => NULL,
                     'updated_at' => NULL,
@@ -297,6 +297,34 @@ class WfModulesTableSeeder extends Seeder
                     'isactive' => '1',
                     'type' => 1,
                     'description' => 'Performance Review for Probatioinary Appraisal Goals/Objectives Agreement',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
+            20 =>
+                array (
+                    'id' => 21,
+                    'name' => 'Performance Appraisal Goals/Objectives Evaluation[ Normal HQ Staff ]',
+                    'wf_module_group_id' => '10',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => 2,
+                    'description' => 'Performance Review for Probatioinary Appraisal Goals/Objectives Evaluation',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
+            21 =>
+                array (
+                    'id' => 22,
+                    'name' => 'Performance Appraisal Goals/Objectives Evaluation[ HQ Managers ]',
+                    'wf_module_group_id' => '10',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => '1',
+                    'type' => 2,
+                    'description' => 'Performance Review for Probatioinary Appraisal Goals/Objectives Evaluation',
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
