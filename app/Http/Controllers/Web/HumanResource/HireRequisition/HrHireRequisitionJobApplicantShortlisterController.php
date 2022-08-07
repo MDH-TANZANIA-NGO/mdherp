@@ -3,10 +3,18 @@
 namespace App\Http\Controllers\Web\HumanResource\HireRequisition;
 
 use App\Http\Controllers\Controller;
+use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
+use App\Repositories\HumanResource\HireRequisition\HrHireRequisitionJobApplicantShortlisterRepository;
 use Illuminate\Http\Request;
 
 class HrHireRequisitionJobApplicantShortlisterController extends Controller
 {
+    protected $hr_applicant_shortlists;
+
+    public function __construct()
+    {
+        $this->hr_applicant_shortlists = (new HrHireRequisitionJobApplicantShortlisterRepository());
+    }
     /**
      * Display a listing of the resource.
      *
@@ -33,9 +41,11 @@ class HrHireRequisitionJobApplicantShortlisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function shortlist(Request $request, HireRequisitionJob $hire_requisition_job)
     {
-        //
+        $this->hr_applicant_shortlists->shortlist($hire_requisition_job, $request->all());
+        alert()->success('Applicants Shortlisted Successfully');
+        return redirect()->back();
     }
 
     /**
