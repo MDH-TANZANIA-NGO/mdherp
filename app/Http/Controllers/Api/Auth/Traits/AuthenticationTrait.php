@@ -21,6 +21,7 @@ use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Repositories\GOfficer\GScaleRepository;
+use App\Repositories\Requisition\RequisitionRepository;
 
 
 trait AuthenticationTrait
@@ -42,6 +43,7 @@ trait AuthenticationTrait
         $this->regions = (new RegionRepository());
         $this->districts = (new DistrictRepository());
         $this->gScales = (new GScaleRepository());
+        $this->requisitions = (new RequisitionRepository());
     }
 
     public function loginValidator()
@@ -161,6 +163,7 @@ trait AuthenticationTrait
         $success['regions'] = $this->regions->getQuery()->get();
         $success['districts'] = $this->districts->getQuery()->get();
         $success['g_scales'] = $this->gScales->getActive()->get();
+        $success['requisitions'] = $this->requisitions->getAllApprovedTrainingNotClosedRequisitionsByRegion($gOfficer->region_id)->get();
 
         $wards = DB::table("wards")
             ->selectRaw('wards.id as id')
