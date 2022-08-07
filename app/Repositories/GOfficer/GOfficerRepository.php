@@ -60,7 +60,7 @@ class GOfficerRepository extends BaseRepository
     public function getForPluckUnique()
     {
         return $this->getQuery()
-            ->pluck('unique', 'id');
+            ->pluck('unique', 'g_officer_id');
     }
 
 
