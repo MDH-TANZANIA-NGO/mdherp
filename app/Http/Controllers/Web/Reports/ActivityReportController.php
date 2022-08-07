@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web\Reports;
 
 
+use App\Exports\ActivityReportAttendancesExport;
+use App\Exports\RequisitionTrainingCostExport;
 use App\Http\Controllers\Controller;
 //use App\Http\Controllers\Web\Reports\Datatables\Activities\ActivityReportDatatables;
 use App\Http\Controllers\Web\Reports\Datatables\Activities\ActivityReportDatatables;
@@ -15,6 +17,7 @@ use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Excel;
 
 class ActivityReportController extends Controller
 {
@@ -93,7 +96,7 @@ class ActivityReportController extends Controller
         $option =  [];
         $option['finance_designations'] = ['48','49','96','107','114'];
         $option['requisition'] =  $this->requisition->find($activity_report->requisition_id);
-        $option['hotspot'] =   $this->hotspot->getHotspotByRequisitionOnDateRange($activity_report->requisition_id, $activity_report->start_date, $activity_report->end_date)->get();
+        $option['hotspot'] =   $this->hotspot->getHotspotByReportId($activity_report->id)->get();
         $option['training_cost'] = $this->training_costs->getParticipantsByRequisition($activity_report->requisition_id)->get();
         $option['attendance_for_pluck'] = $this->activity_attendance->getGOfficerAttendanceByRequisitionForPluck($activity_report->requisition_id);
 
@@ -127,4 +130,17 @@ class ActivityReportController extends Controller
 
         return redirect()->back();
     }
+    public function ExportReportAttendance($uuid)
+    {
+        $activity_report =  $this->activity_reports->findByUuid($uuid);
+
+        return \Maatwebsite\Excel\Facades\Excel::download(new ActivityReportAttendancesExport($activity_report), 'Attendance export'.$activity_report->number.'.csv');
+    }
+
+    public function ExportParticipantPayment($uuid)
+    {
+        $activity_report = $this->activity_reports->findByUuid($uuid);
+        return \Maatwebsite\Excel\Facades\Excel::download(new RequisitionTrainingCostExport($activity_report),'Participants Costs.csv');
+    }
+
 }

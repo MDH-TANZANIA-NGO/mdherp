@@ -296,7 +296,7 @@ if (!function_exists('getNoDays')) {
 }
 
 if (!function_exists('getNoHours')) {
-    function getNoDays($from, $to)
+    function getNoHours($from, $to)
     {
         return (new \App\Repositories\Requisition\RequisitionRepository())->getNoHours($from, $to);
     }

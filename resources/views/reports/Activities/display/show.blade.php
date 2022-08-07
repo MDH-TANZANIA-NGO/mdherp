@@ -55,16 +55,19 @@
 
                                         <li class="acc_section">
 
-                                            @if(!$requisition)
-                                                <div class="expanel-body">
-                                                    You have not select approved requisition (No data available)
-                                                </div>
-                                            @elseif($requisition || !$hotspots)
+                                            @if($hotspots->count() == 0)
                                                 <div class="expanel-body">
                                                     No hotspot available <b class="text-danger">(attendance was not captured)</b>
                                                 </div>
                                             @else
-                                                @foreach($hotspots as $hotspot)
+                                             <div class="row">
+                                                 <div class="col-md-3">
+                                                     <a href="{{route('activity_report.export_attendance', $activity_report->uuid)}}" class="btn btn-outline-success" ><i class="fa fa-file-excel-o"></i> Export to Excel</a>
+
+                                                 </div>
+
+                                             </div>
+                                            @foreach($hotspots as $hotspot)
                                                     <div class="acc_head">
 
                                                         <h3>Hotspot: {{$hotspot->camp}}; Date: {{$hotspot->checkin_time}}; Location: {{$hotspot->checkin_location}} </h3></div>
@@ -86,6 +89,15 @@
                                     @include('reports.Activities.display.attachments')
                                 </div>
                                 <div class="tab-pane" id="tab8">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <a href="{{route('activity_report.export_participants', $activity_report->uuid)}}" class="btn btn-outline-success" ><i class="fa fa-file-excel-o"></i> Export to Excel</a>
+
+                                        </div>
+
+
+                                    </div>
+                                    <br>
                                     @if(in_array(access()->user()->designation_id, $finance_designations))
                                         @include('reports.Activities.datatables.payments.requisition-participants')
 

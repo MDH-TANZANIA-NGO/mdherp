@@ -6,8 +6,10 @@ use App\Models\Attendance\ActivityAttendance;
 use App\Repositories\Attendance\ActivityAttendanceRepository;
 use App\Repositories\Hotspot\HotspotRepository;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
-class ActivityReportAttendancesExport implements FromCollection
+class ActivityReportAttendancesExport implements FromCollection, WithMapping, WithHeadings
 {
     protected $activity_attendance;
     protected $hotspots;
@@ -25,7 +27,7 @@ class ActivityReportAttendancesExport implements FromCollection
     */
     public function collection()
     {
-        $hotspots =  $this->hotspots->getHotspotByReportId($this->activity_report->id);
+        $hotspots =  $this->hotspots->getHotspotByReportId($this->activity_report->id)->get();
         foreach ($hotspots as $hotspot)
         {
             return  $this->activity_attendance->getGOfficerAttendancesByHotspotId($hotspot->id);
@@ -43,7 +45,7 @@ class ActivityReportAttendancesExport implements FromCollection
             $row->checkin_location,
             $row->checkout_location,
             $row->camp,
-
+            getNoHours($row->checkin_time, $row->checkout_time)
 
         ];
     }
@@ -54,12 +56,12 @@ class ActivityReportAttendancesExport implements FromCollection
             'First Name',
             'Last Name',
             'Phone',
-            'Total Perdiem',
-            'Transport Cost',
-            'Other Costs',
-            'Other Cost Description',
-            'Amount Paid',
-            'Total Amount Requested'
+            'Checkin Time',
+            'Checkout Time',
+            'Checkin Location',
+            'Checkout Location',
+            'Hotspot Name',
+            'Working hours'
         ];
     }
 }
