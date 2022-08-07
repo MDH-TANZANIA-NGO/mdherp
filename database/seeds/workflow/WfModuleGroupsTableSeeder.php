@@ -155,6 +155,15 @@ class WfModuleGroupsTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
+            15 =>
+                array (
+                    'id' => 16,
+                    'name' => 'Activity Report',
+                    'table_name' => 'activity_reports',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
         ));
 
         $this->enableForeignKeys('wf_module_groups');

@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models\Activities\Traits;
 trait ActivityReportAttribute
 {
     public function getResourceNameAttribute()

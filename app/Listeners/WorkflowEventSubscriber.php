@@ -2,6 +2,10 @@
 
 namespace App\Listeners;
 
+use App\Jobs\SendEmailToFinanceJob;
+use App\Jobs\Workflow\WorkflowSendEmailJob;
+use App\Repositories\Access\UserRepository;
+use App\Repositories\Activity\ActivityReportRepository;
 use Carbon\Carbon;
 use App\Models\Auth\User;
 use App\Services\Workflow\Workflow;
@@ -528,6 +532,34 @@ class WorkflowEventSubscriber
                             //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     }
+                case 20:
+                    $activity_report_repo = (new ActivityReportRepository());
+                    $activity_report  = $activity_report_repo->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 1: //Applicant level
+                            $activity_report_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                            $string = htmlentities(
+                                "There is new" . " " . "activity report" . " " . "from " . $activity_report->user->first_name . "" . $activity_report->user->last_name . "pending for your approval." . "<br>" . "<br>" .
+                                "<b>Region:</b>" . $activity_report->region->name . "<br>" .
+                                "<b>Activity Report Number:</b>" . $activity_report->number . "<br>" .
+//                                "<b>Activity Number:</b>" . $activity_report->requisition->training->programActivity->number . "<br>" .
+//                                "<b>Starting Date:</b>" . $activity_report->requisition->training->start_date . "<br>" .
+//                                "<b>End Date</b>" . $activity_report->requisition->training->end_date . "<br>" .
+//                                "<b>Activity Location</b>" . $activity_report->requisition->training->district . "<br>".
+                                "<b>Activity Venue</b>" . $activity_report->venue. "<br>"
+
+                            );
+                            $email_resource = (object)[
+                                'link' => route('activity_report.show', $activity_report),
+                                'subject' => $activity_report->number . " Activity report need your approval",
+                                'message' =>  html_entity_decode($string)
+                            ];
+                            WorkflowSendEmailJob::dispatch(User::query()->find($data['next_user_id']), $email_resource);
+                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
                     break;
                 case 11:
                 case 13:
@@ -646,13 +678,13 @@ class WorkflowEventSubscriber
                         'message' => $finance->number . ':This payment batch has been Approved successfully'
                     ];
                     $activity_owner_email = (object)[
-                        'link' =>  route('programactivityreport.show', $finance->activityPayment->activityReport->uuid),
+                        'link' =>  route('finance.view', $finance),
                         'subject' => "Activity Payment Approved",
                         'message' => 'Your activity payments has been approved'
                     ];
-                    $activity_owner = User::query()->where('id', $finance->activityPayment->activityReport->user_id)->first();
+//                    $activity_owner = User::query()->where('id', $finance->activityPayment->activityReport->user_id)->first();
                     $finance->user->notify(new WorkflowNotification($email_resource));
-                    $activity_owner->notify(new WorkflowNotification(($activity_owner_email)));
+//                    $activity_owner->notify(new WorkflowNotification(($activity_owner_email)));
                     break;
                 case 8:
                     $timesheetrepo = (new TimesheetRepository());
@@ -765,6 +797,54 @@ class WorkflowEventSubscriber
                     ];
                     User::query()->find($job_applicant_request->user_id)->notify(new WorkflowNotification($email_resource));
                     break;
+                case 20:
+                    $user_repo =  (new UserRepository());
+                    $activity_report_repo = (new ActivityReportRepository());
+                    $activity_report = $activity_report_repo->find($resource_id);
+                    $finance_team =  $user_repo->getRegionFinanceTeam($activity_report->user->region_id);
+                    $this->updateWfDone($activity_report);
+
+                    $string = htmlentities(
+                         "<b>Your Activity report has been approved</b><br>".
+                        "<b>Region:</b>" . $activity_report->region->name . "<br>" .
+                        "<b>Activity Report Number:</b>" . $activity_report->number . "<br>" .
+//                        "<b>Activity Number:</b>" . $activity_report->requisition->training->programActivity->number . "<br>" .
+//                        "<b>Starting Date:</b>" . $activity_report->requisition->training->start_date . "<br>" .
+//                        "<b>End Date</b>" . $activity_report->requisition->training->end_date . "<br>" .
+//                        "<b>Activity Location</b>" . $activity_report->requisition->training->district . "<br>".
+                        "<b>Activity Venue</b>" . $activity_report->venue. "<br>"
+
+                    );
+                    $string_second = htmlentities(
+                        "There is approved activity report need to be paid" . "<br>" .
+                        "<b>Region:</b>" . $activity_report->region->name . "<br>" .
+                        "<b>Activity Report Number:</b>" . $activity_report->number . "<br>" .
+//                        "<b>Activity Number:</b>" . $activity_report->requisition->training->programActivity->number . "<br>" .
+//                        "<b>Starting Date:</b>" . $activity_report->requisition->training->start_date . "<br>" .
+//                        "<b>End Date</b>" . $activity_report->requisition->training->end_date . "<br>" .
+//                        "<b>Activity Location</b>" . $activity_report->requisition->training->district . "<br>".
+                        "<b>Activity Venue</b>" . $activity_report->venue. "<br>"
+
+                    );
+                    $email_resource = (object)[
+                        'link' =>  route('activity_report.show', $activity_report),
+                        'subject' => $activity_report->number . "Activity report approved successfully",
+                        'message' => html_entity_decode($string)
+                    ];
+                    $email_resource_finance = (object)[
+                        'link' =>  route('activity_report.show', $activity_report),
+                        'subject' => $activity_report->number . "Approved activity report needs payments",
+                        'message' => html_entity_decode($string_second)
+                    ];
+
+                    foreach ($finance_team as $finance)
+                    {
+                       SendEmailToFinanceJob::dispatch($finance, $email_resource_finance);
+                    }
+
+                    WorkflowSendEmailJob::dispatch(User::query()->find($activity_report->user_id), $email_resource);
+//                    User::query()->find($activity_report->user_id)->notify(new WorkflowNotification($email_resource));
+                    break;
             }
         }
     }
@@ -834,6 +914,9 @@ class WorkflowEventSubscriber
 
             case 19:
                 (new HrHireRequisitionJobApplicantRequestRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
+                break;
+            case 20:
+                (new ActivityReportRepository())->processWorkflowLevelsAction($resource_id, $wf_module_id, $current_level, $sign, ['rejected_level' => $level]);
                 break;
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Reports;
 
 
+use App\Events\NewWorkflow;
 use App\Exports\ActivityReportAttendancesExport;
 use App\Exports\RequisitionTrainingCostExport;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,9 @@ use App\Repositories\Hotspot\HotspotRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
+use App\Repositories\Workflow\WfTrackRepository;
+use App\Services\Workflow\Traits\WorkflowInitiator;
+use App\Services\Workflow\Workflow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Excel;
@@ -22,7 +26,7 @@ use Maatwebsite\Excel\Excel;
 class ActivityReportController extends Controller
 {
     //
-    use ActivityReportDatatables;
+    use ActivityReportDatatables, WorkflowInitiator;
 
     protected $activity_reports;
     protected $trainings;
@@ -31,6 +35,7 @@ class ActivityReportController extends Controller
     protected $requisition;
     protected $training_costs;
     protected $gofficer;
+    protected $wf_tracks;
 
     public function __construct()
     {
@@ -41,6 +46,7 @@ class ActivityReportController extends Controller
         $this->requisition = (new RequisitionRepository());
         $this->training_costs = (new RequestTrainingCostRepository());
         $this->gofficer =  (new GOfficerRepository());
+        $this->wf_tracks = (new WfTrackRepository());
 
 
     }
@@ -100,9 +106,23 @@ class ActivityReportController extends Controller
         $option['training_cost'] = $this->training_costs->getParticipantsByRequisition($activity_report->requisition_id)->get();
         $option['attendance_for_pluck'] = $this->activity_attendance->getGOfficerAttendanceByRequisitionForPluck($activity_report->requisition_id);
 
+        /* Check workflow */
+        $wf_module_group_id = 16;
+        $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $activity_report->id);
+        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $activity_report->id, 'type' => $wf_module->type]);
+        $check_workflow = $workflow->checkIfHasWorkflow();
+        $current_wf_track = $workflow->currentWfTrack();
+        $wf_module_id = $workflow->wf_module_id;
+        $current_level = $workflow->currentLevel();
+        $can_edit_resource = $this->wf_tracks->canEditResource($activity_report, $current_level, $workflow->wf_definition_id);
 
+        $designation = access()->user()->designation_id;
 
         return view('reports.Activities.display.show')
+            ->with('current_level', $current_level)
+            ->with('current_wf_track', $current_wf_track)
+            ->with('can_edit_resource', $can_edit_resource)
+            ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($activity_report))
             ->with('gofficer',$this->gofficer->getForPluckUnique())
             ->with('finance_designations', $option['finance_designations'])
             ->with('participants_attended', $option['attendance_for_pluck'])
@@ -124,11 +144,13 @@ class ActivityReportController extends Controller
         {
             $training->update(['completed'=>true]);
         }
-        $this->activity_reports->store($request->all());
+        $activity_report = $this->activity_reports->store($request->all());
+        $this->startWorkflow($activity_report,1,$activity_report->user->assignedSupervisor()->supervisor_id);
+         alert()->success('Report submitted successfully', 'Success');
+        return redirect()->route('activity_report.show',$activity_report->uuid);
 
-        alert()->success('Report submitted successfully', 'Success');
 
-        return redirect()->back();
+
     }
     public function ExportReportAttendance($uuid)
     {
