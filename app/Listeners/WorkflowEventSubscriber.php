@@ -678,13 +678,13 @@ class WorkflowEventSubscriber
                         'message' => $finance->number . ':This payment batch has been Approved successfully'
                     ];
                     $activity_owner_email = (object)[
-                        'link' =>  route('programactivityreport.show', $finance->activityPayment->activityReport->uuid),
+                        'link' =>  route('finance.view', $finance),
                         'subject' => "Activity Payment Approved",
                         'message' => 'Your activity payments has been approved'
                     ];
-                    $activity_owner = User::query()->where('id', $finance->activityPayment->activityReport->user_id)->first();
+//                    $activity_owner = User::query()->where('id', $finance->activityPayment->activityReport->user_id)->first();
                     $finance->user->notify(new WorkflowNotification($email_resource));
-                    $activity_owner->notify(new WorkflowNotification(($activity_owner_email)));
+//                    $activity_owner->notify(new WorkflowNotification(($activity_owner_email)));
                     break;
                 case 8:
                     $timesheetrepo = (new TimesheetRepository());
