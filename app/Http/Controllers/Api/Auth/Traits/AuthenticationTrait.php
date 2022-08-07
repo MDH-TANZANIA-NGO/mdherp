@@ -21,6 +21,7 @@ use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
 use App\Repositories\System\RegionRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Repositories\GOfficer\GScaleRepository;
+use App\Repositories\Requisition\RequisitionRepository;
 
 
 trait AuthenticationTrait
@@ -36,12 +37,13 @@ trait AuthenticationTrait
     public function __construct()
     {
         $this->g_officers = (new GOfficerRepository());
-        $this->program_activity_repo =  (new ProgramActivityRepository());
-        $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
+        // $this->program_activity_repo =  (new ProgramActivityRepository());
+        // $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
         $this->users = (new UserRepository());
         $this->regions = (new RegionRepository());
         $this->districts = (new DistrictRepository());
         $this->gScales = (new GScaleRepository());
+        $this->requisitions = (new RequisitionRepository());
     }
 
     public function loginValidator()
@@ -161,6 +163,7 @@ trait AuthenticationTrait
         $success['regions'] = $this->regions->getQuery()->get();
         $success['districts'] = $this->districts->getQuery()->get();
         $success['g_scales'] = $this->gScales->getActive()->get();
+        $success['requisitions'] = $this->requisitions->getAllApprovedTrainingNotClosedRequisitionsByRegion($gOfficer->region_id)->get();
 
         $wards = DB::table("wards")
             ->selectRaw('wards.id as id')
@@ -225,9 +228,9 @@ trait AuthenticationTrait
         $success['g_officer_mchs_sent'] = $g_officer_mchs;
         
 
-        $valid_program_activities = $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
+        // $valid_program_activities = $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
 
-        $success['program_activities'] = $valid_program_activities;
+        // $success['program_activities'] = $valid_program_activities;
 
         return  $this->sendResponse($success, 'GOfficer Log in successfully');
 
