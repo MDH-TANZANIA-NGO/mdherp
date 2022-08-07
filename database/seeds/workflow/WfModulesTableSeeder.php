@@ -286,6 +286,20 @@ class WfModulesTableSeeder extends Seeder
                     'allow_repeat' => 0,
                     'allow_decline' => 0,
                 ),
+            19 =>
+                array(
+                    'id' => 20,
+                    'name' => 'Activity Report',
+                    'wf_module_group_id' => 16,
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'isactive' => 1,
+                    'type' => 1,
+                    'description' => 'Activity Report',
+                    'allow_repeat' => 0,
+                    'allow_decline' => 0,
+                ),
 
         ));
 

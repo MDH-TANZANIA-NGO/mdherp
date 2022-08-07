@@ -9,6 +9,7 @@ use App\Models\Workflow\WfDefinition;
 use App\Models\Workflow\WfModule;
 use App\Models\Workflow\WfTrack;
 use App\Notifications\Workflow\WorkflowNotification;
+use App\Repositories\Activity\ActivityReportRepository;
 use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
@@ -510,6 +511,19 @@ class Workflow
                         'link' =>  route('job_offer.show', $job_offer),
                         'subject' => "Job Offer " . $job_offer->number . "needs your approval.",
                         'message' =>  "<b>" . $job_offer->user->first_name . "  " . $job_offer->user->last_name . ", " . "Submitted job offer:" . " " . $job_offer->number . ",  which needs your approval"
+
+                    ];
+
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    //                    $job_offer->interviewApplicant->applicant->notify(new  WorkflowNotification($email_resource_to_applicant));
+                    break;
+                case 20:
+                    $activity_report_repo = (new ActivityReportRepository());
+                    $activity_report  = $activity_report_repo->find($wf_track->resource_id);
+                    $email_resource = (object)[
+                        'link' =>  route('activity_report.show', $activity_report),
+                        'subject' => "Job Offer " . $activity_report->number . "needs your approval.",
+                        'message' =>  "<b>" . $activity_report->user->first_name . "  " . $activity_report->user->last_name . ", " . "Submitted activity report:" . " " . $activity_report->number . ",  which needs your approval"
 
                     ];
 
