@@ -4,6 +4,7 @@ namespace App\Repositories\Activity;
 
 //use App\Activities\Reports\ActivityReport;
 use App\Models\Activities\Reports\ActivityReport;
+use App\Models\Attendance\Hotspot;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
 use Illuminate\Support\Facades\DB;
@@ -48,6 +49,14 @@ class ActivityReportRepository extends BaseRepository
             ->where('activity_reports.rejected', false)
             ->where('activity_reports.wf_done', 0);
     }
+    public function getAccessSaved()
+    {
+        return $this->getQuery()
+            ->where('activity_reports.done', false)
+            ->where('activity_reports.user_id', access()->user()->id)
+            ->where('activity_reports.rejected', false)
+            ->where('activity_reports.wf_done', 0);
+    }
     public function getAccessRejected()
     {
         return $this->getQuery()
@@ -69,7 +78,9 @@ class ActivityReportRepository extends BaseRepository
         return [
             'start_date'=>$inputs['start_date'],
             'end_date'=>$inputs['end_date'],
-            'report_type'=>$inputs['report_type'],
+            'status'=>$inputs['status'],
+            'venue'=>$inputs['venue'],
+            'content'=>$inputs['content'],
             'done'=>true,
             'user_id'=> access()->user()->id,
             'region_id'=> access()->user()->region_id,
@@ -84,6 +95,18 @@ class ActivityReportRepository extends BaseRepository
            $activity_report = $this->find($activity_report_id);
            $number =  $this->generateNumber($activity_report);
            $activity_report->update(['number'=>$number]);
+           $hotspots =  Hotspot::query()->where('requisition_id', $activity_report->requisition_id)->whereDate('checkin_time','>=',$activity_report->start_date)->whereDate('checkin_time', '<=', $activity_report->end_date)->get();
+
+            foreach ($hotspots as  $hotspot) {
+                Hotspot::query()->find($hotspot->id)->update(['report_id'=>$activity_report_id]);
+           }
         });
     }
+    public function getAccessSavedByRequisitionId($requisition_id)
+    {
+        return $this->getAccessSaved()
+            ->where('activity_reports.requisition_id', $requisition_id);
+    }
+
+
 }

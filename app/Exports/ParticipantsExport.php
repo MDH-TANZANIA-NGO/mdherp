@@ -40,7 +40,7 @@ class ParticipantsExport implements FromCollection, WithMapping, WithHeadings
 
     public function map($row): array
     {
-return [
+    return [
     $row->user->first_name,
     $row->user->last_name,
     substr($row->user->phone, -9),

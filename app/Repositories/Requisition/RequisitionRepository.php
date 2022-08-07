@@ -687,5 +687,13 @@ RequisitionRepository extends BaseRepository
         return $days;
     }
 
+    public function getNoHours($from, $to)
+    {
+        $hourdiff = round((strtotime($from) - strtotime($to))/3600, 1);
+
+        return $hourdiff;
+    }
+
+
 
 }

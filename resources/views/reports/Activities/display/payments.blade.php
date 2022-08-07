@@ -1,104 +1,53 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+{{--            <div class="card-header">--}}
+{{--                <a href="{{route('activity_report.export_attendance', $activity_report->uuid)}}" class="btn btn-outline-success" style="margin-left: 2%"><i class="fa fa-file-excel-o"></i> Export to Excel</a>--}}
+
+{{--            </div>--}}
             <div class="card-body">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <table id="payment_table" class="table table-condensed table-striped">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Full name</th>
-                                <th>Phone</th>
-                                <th>Days</th>
-                                <th>Perdiem</th>
-                                <th>Transportation</th>
-                                <th>Others</th>
-                                <th>Total</th>
-                                <th>Paid</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead >
+                        <tr>
+                            <th>Full name</th>
+                            <th>Amount Requested</th>
+                            <th>Amount Paid</th>
+                            <th>Phone</th>
+                            <th>Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                            <tbody>
-                            @foreach($training_costs as $key=>$training_cost)
-                                <tr data-toggle="collapse" data-target="#demo{{$key}}" class="accordion-toggle">
-
-                                    <td><button class="btn btn-default btn-xs"><i class="fa fa-plus-circle"></i></button></td>
-                                    <td>{{$training_cost->full_name}}</td>
-                                    <td>{{$training_cost->phone}}</td>
-                                    <td>0/10</td>
-                                    <td>{{number_2_format($training_cost->perdiem_total_amount)}}</td>
-                                    <td>{{number_2_format($training_cost->transportation)}}</td>
-                                    <td>{{number_2_format($training_cost->other_cost)}}</td>
-                                    <td>{{number_2_format($training_cost->total_amount)}}</td>
-                                    <td><input type="number" class="form-control" name="amount_paid" value="{{$training_cost->amount_paid}}"></td>
-                                    <td><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Swap participant"><i class="fa fa-exchange"></i></a> | <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Remove participant"><i class="fa fa-close"></i></a></td>
-                                </tr>
+                        @foreach($training_costs as $key=>$training_cost)
 
                                 <tr>
-                                    <td colspan="12" class="hiddenRow">
-                                        <div class="accordian-body collapse" id="demo{{$key}}">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr class="info">
-                                                    <th>Hotspot</th>
-                                                    <th>Date</th>
-                                                    <th>Time in</th>
-                                                    <th>Time out</th>
-                                                    <th>Checkin location</th>
-                                                    <th>Checkout location</th>
-                                                </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                @foreach($attendances->getGOfficerAttendancesById($training_cost->participant_uid)->get() as $attendance)
-                                                    <tr data-toggle="collapse"  class="accordion-toggle" data-target="#demo10">
-                                                        <td> {{$attendance->camp}}</td>
-                                                        <td>{{date('d-m-Y', strtotime($attendance->checkin_time))}}</td>
-                                                        <td>{{date('Gi.s', strtotime($attendance->checkin_time))}}</td>
-                                                        <td>{{date('Gi.s', strtotime($attendance->checkout_time))}}</td>
-                                                        <td>{{$attendance->checkin_location}}</td>
-                                                        <td>{{$attendance->checkout_location}}</td>
-                                                    </tr>
-                                                @endforeach
-
-                                                @endforeach
-
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                    </td>
+                                    <td>       @if($training_cost->amount_paid == 0 and $training_cost->amount_paid != null)
+                                            <s> {{$training_cost->user->first_name}} {{$training_cost->user->last_name}}</s>
+                                        @else
+                                            @if($training_cost->is_substitute == true)
+                                                <i class="fa fa-exchange text-info"></i>  {{$training_cost->user->first_name}} {{$training_cost->user->last_name}}
+                                            @else
+                                                {{$training_cost->user->first_name}} {{$training_cost->user->last_name}}
+                                            @endif
+                                        @endif</td>
+                                  <td>{{number_2_format($training_cost->total_amount)}}</td>
+                                    <td>{{number_2_format($training_cost->amount_paid)}}</td>
+                                    <td>{{$training_cost->user->phone}}</td>
+                                    <td>{{$training_cost->remarks}}</td>
                                 </tr>
-                                {{--                            <tr>--}}
-                                {{--                                <td colspan="11" class="hiddenRow"><div id="demo2" class="accordian-body collapse">No attendance available</div></td>--}}
-                                {{--                            </tr>--}}
 
-                            </tbody>
-                        </table>
-                    </div>
 
+
+                        @endforeach
+                        </tbody>
+
+                    </table>
                 </div>
-                <!-- table-responsive -->
             </div>
         </div>
     </div>
 </div>
 
-
-</div>
-
-@push('after-scripts')
-    <script>
-        $(document).ready(function (){
-            $("#payment_table").dataTable({
-                pagingType: 'full_numbers',
-            })
-
-        })
-
-    </script>
-@endpush
 
 

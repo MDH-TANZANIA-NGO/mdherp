@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row pull-right">
-        <a href="#" class="btn btn-info" > <i class="fa fa-paper-plane-o"></i> Send for approval</a>
-    </div>
-    <br><br><br>
+
+{{--    <div class="row pull-right">--}}
+{{--        <a href="#" class="btn btn-info" > <i class="fa fa-paper-plane-o"></i> Send for approval</a>--}}
+{{--    </div>--}}
+{{--    <br><br><br>--}}
+    @if(empty($inputs))
     <div class="row">
     <div class="col-md-12  col-xl-12">
         <div class="card">
@@ -16,9 +18,9 @@
 {{--                </div>--}}
 {{--            </div>--}}
             <div class="card-body">
+
 {{--                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">View modal</button>--}}
                 @if(access()->user()->assignedSupervisor())
-
                     {!! Form::open(['route' => ['activity_report.initiate'], 'method'=>'GET']) !!}
                     <div class="card-body">
                         <div class="row">
@@ -26,6 +28,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {!! Form::label('requisition_id', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
+
                                     {!! Form::select('requisition_id', $trainings, null,['class' => 'form-control select2-show-search','placeholder'=>'Select approved requisition', 'required']) !!}
                                     {!! $errors->first('requisition_id', '<span class="badge badge-danger">:message</span>') !!}
                                 </div>
@@ -50,15 +53,20 @@
                             {!! Form::close() !!}
                         </div>
                     </div>
-                    {!! Form::close() !!}
+
+
                 @else
                     You Have no supervisor
-                @endif </div>
+                @endif
+            </div>
         </div>
     </div>
 
     </div>
-{{--    @include('reports.Activities.hotspots')--}}
+
+    @elseif(empty($incomplete_report))
+
+    {{--    @include('reports.Activities.hotspots')--}}
 
     <div class="row">
         <div class="col-md-12">
@@ -84,8 +92,65 @@
                                 <span class="tag-addon tag-success">{{$requisition->trainingCost()->get()->count()}}</span>
                             </div>
                             <div class="tag">
-                                Attended participants
-                                <span class="tag-addon tag-success">{{$requisition->hotspots()->get()->count()}}</span>
+                                Start Date
+                                <span class="tag-addon tag-success">{{$inputs['start_date']}}</span>
+                            </div>
+                            <div class="tag">
+                                End Date
+                                <span class="tag-addon tag-success">{{$inputs['end_date']}}</span>
+                            </div>
+                            <div class="tag">
+                                Change dates?
+                                <a href="#" class="tag-addon tag-info" data-toggle="modal" data-target="#largeModal">click here</a>
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largemodal" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg " role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="largemodal1">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            @if(access()->user()->assignedSupervisor())
+                                                {!! Form::open(['route' => ['activity_report.initiate'], 'method'=>'GET']) !!}
+                                            <div class="modal-body">
+                                 <div class="row">
+                                     <div class="col-md-6">
+                                         <div class="form-group">
+                                             {!! Form::label('requisition_id', __("Requisition Number"),['class'=>'form-label','required_asterik']) !!}
+
+                                             {!! Form::select('requisition_id', $trainings, $inputs['requisition_id'],['class' => 'form-control select2-show-search','placeholder'=>'Select approved requisition', 'required']) !!}
+                                             {!! $errors->first('requisition_id', '<span class="badge badge-danger">:message</span>') !!}
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3">
+                                         <div class="form-group">
+                                             {!! Form::label('start_date', __("From"),['class'=>'form-label','required_asterik']) !!}
+                                             {!! Form::date('start_date', $inputs['start_date'],['class' => 'form-control', 'required']) !!}
+                                             {!! $errors->first('start_date', '<span class="badge badge-danger">:message</span>') !!}
+                                         </div>
+                                     </div>
+                                     <div class="col-md-3">
+                                         <div class="form-group">
+                                             {!! Form::label('end_date', __("To"),['class'=>'form-label','required_asterik']) !!}
+                                             {!! Form::date('end_date', $inputs['end_date'],['class' => 'form-control ', 'required']) !!}
+                                             {!! $errors->first('requisition_training_id', '<span class="badge badge-danger">:message</span>') !!}
+                                         </div>
+                                     </div>
+                                 </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                                {!! Form::close() !!}
+                                                @endif
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endif
@@ -103,7 +168,7 @@
                                     <li class=""><a href="#tab5" class="active" data-toggle="tab">Attendance</a></li>
                                     <li><a href="#tab8" data-toggle="tab" class="">Payments</a></li>
                                     <li><a href="#tab6" data-toggle="tab" class="">Report</a></li>
-                                    <li><a href="#tab7" data-toggle="tab" class="">Attachments</a></li>
+{{--                                    <li><a href="#tab7" data-toggle="tab" class="">Attachments</a></li>--}}
                                 </ul>
                             </div>
                         </div>
@@ -190,6 +255,8 @@
             </div>
         </div>
     </div>
+
+    @endif
 @endsection
 {{--            @push('after-scripts')--}}
 {{--                <script>--}}

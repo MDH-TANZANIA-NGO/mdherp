@@ -4,6 +4,9 @@ Route::group(['namespace' => 'Reports', 'middleware' => ['web', 'auth'], 'prefix
     Route::get('create', 'ActivityReportController@create')->name('create');
     Route::get('initiate', 'ActivityReportController@initiate')->name('initiate');
     Route::get('{uuid}/show', 'ActivityReportController@show')->name('show');
+    Route::post('store', 'ActivityReportController@store')->name('store');
+    Route::get('{uuid}/export_attendance', 'ActivityReportController@ExportReportAttendance')->name('export_attendance');
+    Route::get('{uuid}/export_participants', 'ActivityReportController@ExportParticipantPayment')->name('export_participants');
 //    Route::get('approved', 'TimesheetReportController@getApprovedTimesheets')->name('approved');
 //    Route::get('rejected', 'TimesheetReportController@getRejectedTimesheets')->name('rejected');
 //    Route::post('filter_range', 'TimesheetReportController@getFilteredRange')->name('filter_range');

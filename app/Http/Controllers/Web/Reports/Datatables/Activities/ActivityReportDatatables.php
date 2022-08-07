@@ -12,7 +12,7 @@ trait ActivityReportDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('safari.show', $query->uuid).'" class="btn btn-outline-success">view</a>';
+                return '<a href="'.route('activity_report.show', $query->uuid).'" class="btn btn-outline-success">view</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -25,7 +25,7 @@ trait ActivityReportDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('safari.show', $query->uuid).'" class="btn btn-outline-success">view</a>';
+                return '<a href="'.route('activity_report.show', $query->uuid).'" class="btn btn-outline-success">view</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -38,7 +38,7 @@ trait ActivityReportDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('safari.show', $query->uuid).'" class="btn btn-outline-success">view</a>';
+                return '<a href="'.route('activity_report.show', $query->uuid).'" class="btn btn-outline-success">view</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
