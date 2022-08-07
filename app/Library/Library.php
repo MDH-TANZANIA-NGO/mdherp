@@ -295,6 +295,13 @@ if (!function_exists('getNoDays')) {
     }
 }
 
+if (!function_exists('getNoHours')) {
+    function getNoDays($from, $to)
+    {
+        return (new \App\Repositories\Requisition\RequisitionRepository())->getNoHours($from, $to);
+    }
+}
+
 
 if (!function_exists('currency_converter')) {
     function currency_converter($amount, $currency)
