@@ -92,7 +92,7 @@
                 $(nRow).click(function() {
                     switch(aData['module_group_id']) {
                         case 1: /*Requisition*/
-                            window.open(base_url + "/requisitions/" + aData['resource_uuid'] + '/show');
+                            window.open(base_url + "/requisitions/" + aData['resource_uuid'] + '/show',"_self");
                             break;
                         case 2: /*Safari*/
                             window.open(base_url + "/safari/" + aData['resource_uuid'] + '/show');

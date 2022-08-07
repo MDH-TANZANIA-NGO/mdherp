@@ -7,6 +7,7 @@ use App\Models\Auth\User;
 use App\Models\Budget\FiscalYear;
 use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Notifications\Workflow\WorkflowNotification;
+use App\Repositories\Access\UserRepository;
 use App\Repositories\BaseRepository;
 use App\Services\Generator\Number;
 use Carbon\Carbon;
@@ -100,9 +101,15 @@ class PrReportRepository extends BaseRepository
     */
     public function getAccessApprovedWaitForEvaluation()
     {
-        return $this->getAccessApproved()
-            ->whereDoesntHave('child');
+        // return $this->getAccessApproved()
+        //     ->whereDoesntHave('child');
             // ->whereDate('pr_reports.to_at', '<=', Carbon::now()->format('Y-m-d'));
+            return $this->getQuery()
+            ->whereDoesntHave('child')
+            ->where('pr_reports.wf_done', 1)
+            ->where('pr_reports.done', true)
+            ->where('pr_reports.rejected', false)
+            ->where('users.id', access()->id());
     }
 
     /** 
@@ -175,6 +182,7 @@ class PrReportRepository extends BaseRepository
         $this->checkIfHasWorkflow($pr_report);
         $number = $pr_report->parent ? null : $this->generateNumber($pr_report);
         return DB::transaction(function () use ($pr_report, $number) {
+            $this->updateTypes($pr_report);
             return $pr_report->update(['done' => true]);
         });
     }
@@ -196,4 +204,45 @@ class PrReportRepository extends BaseRepository
             ];
             // User::query()->find($pr_report->parent->supervisor_id)->notify(new WorkflowNotification($email_resource));
     }
+
+    public function updateTypes(PrReport $pr_report)
+    {
+        $types = null;
+        if(!$pr_report->parent){
+            $types = 1;
+        }else{
+            if($pr_report->user->assignesSupervisor()){
+                throw new GeneralException('Kindly contact IT to assign you a supervisor');
+            }else{
+                switch((new UserRepository())->getUserGroups($pr_report->user_id))
+                {
+                    case 'hq_managers' : case 'managers' :
+                        $types = 8;
+                    break;
+
+                    case 'ceo' : case 'hr_director' :
+                        $types = 10;
+                    break;
+                    
+                    case 'regional_user' :
+                        $types = 2;
+                    break;
+        
+                    case 'director' : case 'rpm' :
+                        $types = 9;
+                    break;
+
+                    case 'hq_users' :
+                        $types = 7;
+                    break;
+
+                    default:
+                    throw new GeneralException('Can not find workflow. contact IT');
+                    break;
+                }
+            }
+        }
+        return $pr_report->update([ 'types' => $types ]);
+    }
+
 }

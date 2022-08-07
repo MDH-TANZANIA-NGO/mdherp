@@ -1512,9 +1512,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Submited',
 //                'assign_next_user' => 0,
                 ),
-            58 =>
+            65 =>
                 array (
-                    'id' => 59,
+                    'id' => 66,
                     'level' => '2',
                     'unit_id' => 74,
                     'designation_id' => 127,
