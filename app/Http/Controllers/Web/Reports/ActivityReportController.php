@@ -91,20 +91,23 @@ class ActivityReportController extends Controller
     {
         $activity_report =  $this->activity_reports->findByUuid($uuid);
         $option =  [];
-
+        $option['finance_designations'] = ['48','49','96','107','114'];
         $option['requisition'] =  $this->requisition->find($activity_report->requisition_id);
         $option['hotspot'] =   $this->hotspot->getHotspotByRequisitionOnDateRange($activity_report->requisition_id, $activity_report->start_date, $activity_report->end_date)->get();
-        $option['training_cost'] = $this->training_costs->getParticipantsByRequisition($activity_report->requisition_id);
+        $option['training_cost'] = $this->training_costs->getParticipantsByRequisition($activity_report->requisition_id)->get();
         $option['attendance_for_pluck'] = $this->activity_attendance->getGOfficerAttendanceByRequisitionForPluck($activity_report->requisition_id);
 
 
 
         return view('reports.Activities.display.show')
+            ->with('gofficer',$this->gofficer->getForPluckUnique())
+            ->with('finance_designations', $option['finance_designations'])
             ->with('participants_attended', $option['attendance_for_pluck'])
             ->with('hotspots',$option['hotspot'])
             ->with('requisition',$option['requisition'])
             ->with('training_costs',$option['training_cost'])
-            ->with('activity_report', $this->activity_reports)
+            ->with('activity_reports', $this->activity_reports)
+            ->with('activity_report', $activity_report)
             ->with('attendances',$this->activity_attendance)
             ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
             ->with('trainings', $this->trainings->getPluckRequisitionNoWithRequisitionId());
