@@ -537,28 +537,29 @@ class UserRepository extends BaseRepository
         $user_group = [];
         if($this->HqManagerUser($user_id)->count() > 0)
         {
-            $user_group['hq_managers'];
+            $user_group['hq_managers'] = true;
         }
         if($this->CeoUser($user_id)->count() > 0){
-            $user_group['ceo'];
+            $user_group['ceo'] = true;
         }
         if($this->RegionalManagerUser($user_id)->count() > 0){
-            $user_group['managers'];
+            $user_group['managers'] = true;
         }
         if($this->hrDirector($user_id)->count() > 0){
-            $user_group['hr_director'];
+            $user_group['hr_director'] = true;
         }
         if($this->regionalUser($user_id)->count() > 0){
-            $user_group['regional_user'];
+            $user_group['regional_user'] = true;
         }
         if($this->rpmlUser($user_id)->count() > 0){
-            $user_group['rpm'];
+            $user_group['rpm'] = true;
         }
         if($this->director($user_id)->count() > 0){
-            $user_group['director'];
-        }else{
-            $user_group['hq_users'];
+            $user_group['director'] = true;
         }
+        // else{
+        //     $user_group['hq_users'] = true;
+        // }
         return $user_group;
     }
 }

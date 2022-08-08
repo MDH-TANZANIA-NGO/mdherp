@@ -209,12 +209,14 @@ class PrReportRepository extends BaseRepository
     public function updateTypes(PrReport $pr_report)
     {
         $types = null;
+        $supervisor_id = null;
         if(!$pr_report->parent){
             $types = 1;
         }else{
             if(!$pr_report->user->assignedSupervisor()){
                 throw new GeneralException('Kindly contact IT to assign you a supervisor');
             }else{
+                $supervisor_id = $pr_report->user->assignedSupervisor()->supervisor_id;
                 switch((new UserRepository())->getUserGroups($pr_report->user_id))
                 {
                     case 'hq_managers' : case 'managers' :
@@ -231,19 +233,16 @@ class PrReportRepository extends BaseRepository
         
                     case 'director' : case 'rpm' :
                         $types = 9;
+                        $supervisor_id = (new UserRepository())->getDirectorOfHR()->user_id;
                     break;
 
-                    case 'hq_users' :
+                    default: //HQ users
                         $types = 7;
-                    break;
-
-                    default:
-                    throw new GeneralException('Can not find workflow. contact IT');
                     break;
                 }
             }
         }
-        return $pr_report->update([ 'types' => $types ]);
+        return $pr_report->update([ 'types' => $types, 'supervisor_id' => $supervisor_id ]);
     }
 
 }
