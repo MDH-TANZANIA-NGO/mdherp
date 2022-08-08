@@ -471,7 +471,7 @@ class UserRepository extends BaseRepository
     public function regionalUser($user_id)
     {
         return $this->query()
-        ->where('id', $user_id)
+        ->where('users.id', $user_id)
         ->where('designation_id', '!=', 82)
         ->where('region_id', '!=', 34);
     }
@@ -480,7 +480,7 @@ class UserRepository extends BaseRepository
     public function rpmlUser($user_id)
     {
         return $this->query()
-        ->where('id', $user_id)
+        ->where('users.id', $user_id)
         ->where('designation_id', 82)
         ->where('region_id', '!=', 34);
     }
@@ -491,7 +491,7 @@ class UserRepository extends BaseRepository
         return $this->query()
         ->leftjoin('designations', 'designations.id', 'users.designation_id')
         ->leftjoin('units', 'units.id', 'designations.unit_id')
-        ->where('id', $user_id)
+        ->where('users.id', $user_id)
         ->where('units.id', 1)
         ->where('designations.id', '!=',8);
     }
@@ -500,7 +500,7 @@ class UserRepository extends BaseRepository
     public function hrDirector($user_id)
     {
         return $this->query()
-        ->where('id', $user_id)
+        ->where('users.id', $user_id)
         ->whereIn('designation_id',[8,13]);
     }
 
@@ -508,7 +508,7 @@ class UserRepository extends BaseRepository
     public function CeoUser($user_id)
     {
         return $this->query()
-        ->where('id', $user_id)
+        ->where('users.id', $user_id)
         ->where('designation_id',121);
     }
 
@@ -517,7 +517,7 @@ class UserRepository extends BaseRepository
     {
         return $this->query()
         ->leftjoin('designations', 'designations.id', 'users.designation_id')
-        ->where('id', $user_id)
+        ->where('users.id', $user_id)
         ->where('region_id', 34)
         ->where('designations.name','Manager');
     }
@@ -527,7 +527,7 @@ class UserRepository extends BaseRepository
     {
         return $this->query()
         ->leftjoin('designations', 'designations.id', 'users.designation_id')
-        ->where('id', $user_id)
+        ->where('users.id', $user_id)
         ->where('region_id', '!=', 34)
         ->where('designations.name','Manager');
     }

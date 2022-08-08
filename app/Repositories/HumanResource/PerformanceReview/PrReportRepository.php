@@ -31,7 +31,8 @@ class PrReportRepository extends BaseRepository
             'pr_reports.uuid AS uuid',
             'pr_types.title AS pr_type_title',
             'fiscal_years.title AS fiscal_year_title',
-            'pr_reports.wf_done_date as approved_at'
+            'pr_reports.wf_done_date as approved_at',
+            'pr_reports.types AS types',
         ])
             ->join('users', 'users.id', 'pr_reports.user_id')
             ->join('pr_types', 'pr_types.id', 'pr_reports.pr_type_id')
@@ -211,7 +212,7 @@ class PrReportRepository extends BaseRepository
         if(!$pr_report->parent){
             $types = 1;
         }else{
-            if($pr_report->user->assignesSupervisor()){
+            if(!$pr_report->user->assignedSupervisor()){
                 throw new GeneralException('Kindly contact IT to assign you a supervisor');
             }else{
                 switch((new UserRepository())->getUserGroups($pr_report->user_id))
