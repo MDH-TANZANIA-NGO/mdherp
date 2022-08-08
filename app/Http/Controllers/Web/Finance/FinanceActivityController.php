@@ -22,6 +22,7 @@ use App\Models\SafariAdvance\SafariAdvance;
 use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Models\SafariAdvance\SafariAdvancePayment;
 use App\Models\SafariAdvance\Traits\SafariAdvanceRelationship;
+use App\Repositories\Activity\ActivityReportRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Hotel\HotelRepository;
 use App\Repositories\ProgramActivity\ProgramActivityPaymentRepository;
@@ -56,9 +57,11 @@ class FinanceActivityController extends Controller
     protected $designations;
     protected $program_activity_payment_repo;
     protected $hotel;
+    protected $activity_reports;
 
     public function __construct()
     {
+        $this->activity_reports = (new ActivityReportRepository());
         $this->requisitions = (new RequisitionRepository());
         $this->safariAdvance =  (new SafariAdvanceRepository());
         $this->program_activity = (new ProgramActivityRepository());

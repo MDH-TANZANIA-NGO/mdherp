@@ -76,6 +76,11 @@ class ActivityReportRepository extends BaseRepository
             ->where('activity_reports.rejected', false)
             ->where('activity_reports.wf_done', 1);
     }
+    public function getAllApproved()
+    {
+        return $this->getQuery()
+            ->where('activity_reports.wf_done' , 1);
+    }
     public function inputsProcess($inputs)
     {
         return [

@@ -32,7 +32,7 @@ trait ActivityReportDatatables
     }
     public function AccessApprovedDatatable()
     {
-        return DataTables::of($this->activity_reports->getAccessProcessing())
+        return DataTables::of($this->activity_reports->getAccessApproved())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateTimeString();
