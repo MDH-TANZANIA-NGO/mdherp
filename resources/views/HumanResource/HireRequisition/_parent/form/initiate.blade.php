@@ -6,55 +6,32 @@ $total_jobs = count($hireRequisitionJobs);
 ?>
 @include('HumanResource.HireRequisition._parent.datatables.index')
 @endif
-<div class="card">
-	<div class="card tabs-menu-body" style="background-color:#FFFFFF">
-		<form action="{{route('hirerequisition.store')}}" method="POST">
-			@csrf
-			<div class="row">
-				<div class="col-6 col-lg-6">
-					<label class="form-label">Department</label>
-					<select name="department_id" id="select-department" data-placeholder="Select Department" class="form-control select2-show-search" required>
-						<option></option>
-						@foreach($departments as $department)
-						<option value="{{$department->id}}">{{$department->title}}</option>
-						@endforeach
-					</select>
-					@error('department_id')
-					<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-					@enderror
-				</div>
-				<div class="col-6 col-lg-6">
-					<label class="form-label">Job Title</label>
-					{!! Form::select('job_title',$designations,null,['class' => 'form-control select2-show-search', 'id' => 'job_title', 'placeholder' => 'select job title','required'=>'true']) !!}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-6 col-lg-6">
-					<input type="submit" class="btn btn-primary">
-				</div>
-			</div>
-			<form>
+<div class="card card-primary add_requisition_body" style="display: {{ isset($create) && $create == true ? ' ':'none' }}">
+	<div class=" tab-menu-heading card-header sw-theme-dots">
+		<div class="tabs-menu">
+			<ul class="nav panel-tabs">
+				<li class="nav-item"><a href="#processing" class="nav-link active" data-toggle="tab">1.General</a></li>
+				<li class="nav-item"><a href="#personal_requirement" class="nav-link disabled" data-toggle="tab">2.Personal Requirement</a></li>
+				<li class="nav-item"><a href="#employement_condition" class="nav-link disabled" data-toggle="tab">3.Employment Condition</a></li>
+				<li class="nav-item"><a href="#returned" class="nav-link disabled" data-toggle="tab">4.Criteria</a></li>
+			</ul>
+		</div>
 	</div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div>
+	<div class="card tabs-menu-body" style="background-color:#FFFFFF">
+		<div class="tab-content">
+			<div class="tab-pane active" id="processing">
+			@if(isset($initiate))
+			<form action="{{route('hirerequisition.steps.general',$uuid)}}" method="GET">
+			@else
+			<form action="{{route('hirerequisition.store')}}" method="GET">
+				@endif
+				@csrf
+				@include('HumanResource.HireRequisition._parent.form.general')
+			</from>
 		</div>
 	</div>
 </div>
+
 @endsection
 @push('after-scripts')
 <script>
@@ -79,31 +56,32 @@ $total_jobs = count($hireRequisitionJobs);
 				['view', ['fullscreen']]
 			]
 		});
-		$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-			var $target = $(e.target);
-			if ($target.parent().hasClass('disabled')) {
-				return false;
-			}
-		});
-		$(".next-step").click(function(e) {
-			var $active = $('.panel-tabs li>.active');
+		// $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+		// 	var $target = $(e.target);
+		// 	if ($target.parent().hasClass('disabled')) {
+		// 		return false;
+		// 	}
+		// });
 
-			$active.parent().next().find('.nav-link').removeClass('disabled');
-			nextTab($active);
-		});
-		$(".prev-step").click(function(e) {
-			var $active = $('.panel-tabs li>a.active');
-			prevTab($active);
-		});
+		// $(".next-step").click(function(e) {
+		// 	var $active = $('.panel-tabs li>.active');
+			
+		// 	$active.parent().next().find('.nav-link').removeClass('disabled');
+		// 	nextTab($active);
+		// });
+		// $(".prev-step").click(function(e) {
+		// 	var $active = $('.panel-tabs li>a.active');
+		// 	prevTab($active);
+		// });
 	});
 
-	function nextTab(elem) {
-		$(elem).parent().next().find('a[data-toggle="tab"]').click();
-	}
+	// function nextTab(elem) {
+	// 	$(elem).parent().next().find('a[data-toggle="tab"]').click();
+	// }
 
-	function prevTab(elem) {
-		$(elem).parent().prev().find('a[data-toggle="tab"]').click();
-	}
+	// function prevTab(elem) {
+	// 	$(elem).parent().prev().find('a[data-toggle="tab"]').click();
+	// }
 	$("#add_requisition").click(function() {
 		$(".add_requisition_body").show();
 		$(".hire_requisition_list").hide();

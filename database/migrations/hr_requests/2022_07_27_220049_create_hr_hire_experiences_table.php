@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHrHireRequisitioinJobCriteriaTable extends Migration
+class CreateHrHireExperiencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateHrHireRequisitioinJobCriteriaTable extends Migration
      */
     public function up()
     {
-        Schema::create('hr_hire_requisitioin_job_criterias', function (Blueprint $table) {
+        Schema::create('hr_hire_experiences', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->text('description');
             $table->uuid('uuid');
             $table->softDeletes();
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateHrHireRequisitioinJobCriteriaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hr_hire_requisitioin_job_criteria');
+        Schema::dropIfExists('hr_hire_experiences');
     }
 }

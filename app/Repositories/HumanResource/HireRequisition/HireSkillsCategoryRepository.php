@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Repositories\HumanResource\HireRequisition;
-use App\Models\Auth\User;
-use App\Models\HumanResource\HireRequisition\SkillUser;
+
+use App\Models\HumanResource\HireRequisition\SkillCategory;
 use App\Repositories\BaseRepository;
-class HireUserSkillsRepository extends BaseRepository
+class HireSkillsCategoryRepository extends BaseRepository
 {
-    const MODEL = SkillUser::class;
+    const MODEL = SkillCategory::class;
 
     public function getQuery(){
         return $this->query();
@@ -19,12 +20,12 @@ class HireUserSkillsRepository extends BaseRepository
     }
 
     public function store($inputs){
-
+        
         if(is_array($inputs['skills'])){
             foreach($inputs['skills'] as $input){
                 $this->query()->create(['skill_id'=>$input,'hr_requisition_job_id'=>$inputs['hr_requisition_job_id']]);
             }
-        }
+        }   
     }
 
     public function update($inputs){
@@ -36,8 +37,13 @@ class HireUserSkillsRepository extends BaseRepository
                 $data['skill_id'] = $skill;
                 $this->query()->create($data);
             }
-        }
+        }   
+        
+    }
 
+
+    public function skillsForSelect(){
+        return $this->query()->get()->pluck('name','id');
     }
 
 }

@@ -16,7 +16,6 @@ class HireRequisitionWorkingToolRepository extends BaseRepository
     public function store($workingTools)
     {
         $tools = $workingTools['tools'];
-       
         foreach($tools as $tool){
             $data['working_tool_id'] = $tool;
             $data['hr_requisitions_jobs_id'] = $workingTools['hire_requisition_job_id'];

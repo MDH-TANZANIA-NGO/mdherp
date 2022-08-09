@@ -1,21 +1,17 @@
+@extends('layouts.app')
+@section('content')
+@include('HumanResource.HireRequisition._parent.form.step_header')
+
 <!-- Section 1 -->
-<li class="acc_section @if($total_jobs == 1) {{ 'acc_active' }} @endif">
-    <div class="acc_head d-flex justify-content-between">
-        <h3> Job Title : {{$job->job_title}} | Employees Required: ({{ $job->empoyees_required }}) </h3>
-        <span> 
-                <a href="#"> View </a> 
-                @if( $current_level != 2) | 
-                <a href="{{ route('hirerequisition.edit',$job->uuid) }} ">Edit</a> | 
-                <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{ route('hirerequisition.destroy',$job->uuid) }}">Delete</a>
-                @endif
-        </span>
-    </div>
-    <div class="acc_content"  style="display: @if($total_jobs == 1) {{ '' }} @else {{ 'none' }} @endif">
+<form action="{{ route('hirerequisition.submit',$hireRequisition->uuid) }}" method="POST">
+@csrf
+<li class="">
+    <div class="acc_content">
         <table class="table table-bordered active">
             <thead>
                 <tr>
                     <th colspan="2" class="text-uppercase">
-                        <h5 class="text-uppercase"> Job Title : {{$job->job_title}} </h5>
+                        <h5 class="text-uppercase"> Job Title : {{$hireRequisitionJob->job_title}} </h5>
                     </th>
                 </tr>
             </thead>
@@ -27,26 +23,25 @@
                 </tr>
                 <tr>
                     <td> <strong>Department: </strong></td>
-                    <td> {{ $job->department }} </td>
+                    <td> {{ $hireRequisitionJob->department->title }} </td>
                 </tr>
                 <tr>
                     <td><strong>Number of Employees Required: </strong></td>
-                    <td>{{ $job->empoyees_required }}</td>
+                    <td>{{ $hireRequisitionJob->empoyees_required }}</td>
                 </tr>
                 <tr>
                     <td><strong>Location: </strong></td>
-                    <td> {{ $job->regions }}
-
+                    <td> {{ $regions }}
                     </td>
                 </tr>
                 <tr>
                     <td><strong>Date Required : </strong></td>
-                    <td>{{ $job->date_required }}</td>
+                    <td>{{ $hireRequisitionJob->date_required }}</td>
                 </tr>
-                
+
                 <tr>
                     <td><strong>Position Summary : </strong></td>
-                    <td>{!! $job->possition_summary !!}</td>
+                    <td>{!! $hireRequisitionJob->possition_summary !!}</td>
                 </tr>
                 <tr class="gray">
                     <td colspan="2">
@@ -55,16 +50,15 @@
                 </tr>
                 <tr>
                     <td><strong>Education and Qualification: </strong></td>
-                    <td> {!! $job->education_and_qualification !!}</td>
+                    <td> {!! $hireRequisitionJob->education_and_qualification !!}</td>
                 </tr>
                 <tr>
-
                     <td><strong>Practical Experience: </strong></td>
-                    <td> {!! $job->practical_experience !!}</td>
+                    <td> {!! $hireRequisitionJob->practical_experience !!}</td>
                 </tr>
                 <tr>
                     <td><strong>Other Special Qualities / Skills: </strong></td>
-                    <td> {!! $job->special_qualities_skills !!} </td>
+                    <td> {!! $hireRequisitionJob->special_qualities_skills !!} </td>
                 </tr>
                 <tr class="gray">
                     <td colspan="2" class="text-uppercase">
@@ -73,21 +67,20 @@
                 </tr>
                 <tr>
                     <td><strong>Prospect for appointment : </strong></td>
-                    <td> {!! $job->contract_type !!} </td>
+                    <td> {!! $hireRequisitionJob->contract_type !!} </td>
                 </tr>
                 <tr>
                     <td><strong>Special Employment Condition : </strong></td>
-                    <td> {!! $job->special_employment_condition !!} </td>
-                </tr>
+                    <td> {!! $hireRequisitionJob->special_employment_condition !!} </td>
                 </tr>
                 <tr>
                     <td><strong> Establishment : </strong></td>
-                    <td> {{ $job->establishment }} </td>
+                    <td> {{ $hireRequisitionJob->establishment }} </td>
                 </tr>
                 <tr>
                     <td><strong> Working Tools : </strong></td>
                     <td>
-                        {{ $job->working_tools }}
+                        {{ $working_tools }}
                     </td>
                 </tr>
                 <tr class="gray">
@@ -97,21 +90,21 @@
                 </tr>
                 <tr>
                     <td> Education Level </td>
-                    <td> {{ isset($job->_education_level->name) ? $job->_education_level->name:"" }}</td>
+                    <td> {{ isset($hireRequisitionJob->_education_level->name) ? $hireRequisitionJob->_education_level->name:""  }}</td>
                 </tr>
                 <tr>
                     <td> Years Of Experience </td>
-                    <td> {{ $job->experience_years }}</td>
+                    <td> {{ $hireRequisitionJob->experience_years }}</td>
                 </tr>
                 <tr>
                     <td> Age Between</td>
-                    <td> {{ $job->start_age}} And {{ $job->end_age }}</td>
+                    <td> {{ $hireRequisitionJob->start_age}} And {{ $hireRequisitionJob->end_age }}</td>
                 </tr>
                 <tr>
                     <td> skills</td>
                     <td>
                         <ul class="ml-3" style="list-style-type: circle;">
-                            @foreach( $job->skills as $skill)
+                            @foreach( $skills as $skill)
                             <li> {{ $skill->name }} </li>
                             @endforeach
                         </ul>
@@ -121,3 +114,19 @@
         </table>
     </div>
 </li>
+
+<div class="row mt-3">
+	<div class="col-6">
+	</div>
+	<div class="col-6">
+		@if(!isset($create))
+		<button id="" type="button" name="submit_job_requisition" value="Cancel" class="btn btn-inline-block btn-danger cancel"> <i class="fa fa-times"></i> Cancel </button>
+		@endif
+		<button type="button" class="btn btn-inline-block btn-azure prev-step"> <i class="fa fa-angle-left"></i> Back </button>
+		<button href="{{ route('hirerequisition.submit',$hireRequisitionJob->uuid) }}" class="btn btn-inline-block btn-azure"> <i class="fa fa-save"></i> Finish</button>
+	</div>
+</div>
+</form>
+<!-- Modal -->
+@include('HumanResource.HireRequisition._parent.form.step_footer')
+@endsection('content')
