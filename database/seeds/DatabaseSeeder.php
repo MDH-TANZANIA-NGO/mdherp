@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RequisitionTypeCategoriesTableSeeder::class);
         $this->call(RetirementTypeSeeder::class);
         $this->call(CountryTableSeeder::class);
-        $this->call(CountryOrganisationTableSeeder::class);
+        // $this->call(CountryOrganisationTableSeeder::class);
         $this->call(FacilityCategoryTableSeeder::class);
         $this->call(FacilityTypeTableSeeder::class);
         $this->call(OwnershipCategoryTableSeeder::class);

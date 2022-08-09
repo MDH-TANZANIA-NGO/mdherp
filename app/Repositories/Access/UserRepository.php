@@ -467,4 +467,99 @@ class UserRepository extends BaseRepository
     }
 
 
+    //Not In HQ and not RPM
+    public function regionalUser($user_id)
+    {
+        return $this->query()
+        ->where('users.id', $user_id)
+        ->where('designation_id', '!=', 82)
+        ->where('region_id', '!=', 34);
+    }
+
+    //Not In HQ and RPM
+    public function rpmlUser($user_id)
+    {
+        return $this->query()
+        ->where('users.id', $user_id)
+        ->where('designation_id', 82)
+        ->where('region_id', '!=', 34);
+    }
+
+    //Director
+    public function director($user_id)
+    {
+        return $this->query()
+        ->leftjoin('designations', 'designations.id', 'users.designation_id')
+        ->leftjoin('units', 'units.id', 'designations.unit_id')
+        ->where('users.id', $user_id)
+        ->where('units.id', 1)
+        ->where('designations.id', '!=',8);
+    }
+
+    //Hr and CEO ASS
+    public function hrDirector($user_id)
+    {
+        return $this->query()
+        ->where('users.id', $user_id)
+        ->whereIn('designation_id',[8,13]);
+    }
+
+    //CEO
+    public function CeoUser($user_id)
+    {
+        return $this->query()
+        ->where('users.id', $user_id)
+        ->where('designation_id',121);
+    }
+
+    //Hq Managers
+    public function HqManagerUser($user_id)
+    {
+        return $this->query()
+        ->leftjoin('designations', 'designations.id', 'users.designation_id')
+        ->where('users.id', $user_id)
+        ->where('region_id', 34)
+        ->where('designations.name','Manager');
+    }
+
+    // Managers
+    public function RegionalManagerUser($user_id)
+    {
+        return $this->query()
+        ->leftjoin('designations', 'designations.id', 'users.designation_id')
+        ->where('users.id', $user_id)
+        ->where('region_id', '!=', 34)
+        ->where('designations.name','Manager');
+    }
+
+    public function getUserGroups($user_id)
+    {
+        $user_group = [];
+        if($this->HqManagerUser($user_id)->count() > 0)
+        {
+            $user_group['hq_managers'] = true;
+        }
+        if($this->CeoUser($user_id)->count() > 0){
+            $user_group['ceo'] = true;
+        }
+        if($this->RegionalManagerUser($user_id)->count() > 0){
+            $user_group['managers'] = true;
+        }
+        if($this->hrDirector($user_id)->count() > 0){
+            $user_group['hr_director'] = true;
+        }
+        if($this->regionalUser($user_id)->count() > 0){
+            $user_group['regional_user'] = true;
+        }
+        if($this->rpmlUser($user_id)->count() > 0){
+            $user_group['rpm'] = true;
+        }
+        if($this->director($user_id)->count() > 0){
+            $user_group['director'] = true;
+        }
+        // else{
+        //     $user_group['hq_users'] = true;
+        // }
+        return $user_group;
+    }
 }
