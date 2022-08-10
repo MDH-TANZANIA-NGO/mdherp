@@ -106,8 +106,8 @@
                             <td></td>
                             <td colspan="2" class="font-w600 text-right">Total Amount</td>
                             <td class="font-weight-bold text-right">
-                                <input type="text" id="total_amount" onblur="calculate('accomodation','perdiem_total_amount','ticket_fair','ontransit','transportation','other_cost')" disabled name="" class="form-control" value="">
-                                <input type="text" id="total_amount" onblur="calculate('accomodation','perdiem_total_amount','ticket_fair','ontransit','transportation','other_cost')" hidden name="total_amount" class="form-control" value="">
+                                <input type="text" id="total_amount" class="form-control" disabled>
+                                <input type="text" id="total_amount_hidden" hidden name="total_amount" class="form-control" value="">
 
                             </td>
                         </tr>
@@ -118,14 +118,14 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td colspan="2" class="font-w600 text-right">Total Amount Due to Employee</td>
-                            <td class="font-weight-bold text-right">{{number_2_format($safariDetails->total_amount)}}</td>
+                            <td colspan="2" class="font-w600 text-right">Balance</td>
+                            <td class="font-weight-bold text-right"><span id="calculation"></span></td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td colspan="2" class="font-w600 text-right">Total Amount Due to the Organization</td>
-                            <td class="font-weight-bold text-right">{{number_2_format($safariDetails->total_amount)}}</td>
-                        </tr>
+{{--                        <tr>--}}
+{{--                            <td></td>--}}
+{{--                            <td colspan="2" class="font-w600 text-right">Total Amount Due to the Organization</td>--}}
+{{--                            <td class="font-weight-bold text-right">{{number_2_format($safariDetails->total_amount)}}</td>--}}
+{{--                        </tr>--}}
                     </table>
                 </div>
 
@@ -272,69 +272,89 @@
 
     @push('after-scripts')
         <script>
-            calculate = function (a_paid, a_spent, a_variance) {
-                var amount_advanced = (document.getElementById(a_paid).value);
-                var amount_spent = parseFloat(document.getElementById(a_spent).value).toFixed(2);
-                var amount_variance = amount_advanced - amount_spent;
-                (document.getElementById(a_variance).value) = (amount_variance);
+            // calculate = function (perdiem_total_amount, accomodation, ticket_fair,ontransit,transportation,other_cost) {
+            //     var perdiem_total_amount1 = (document.getElementById(perdiem_total_amount).value).toFixed(2);
+            //     var accomodation1 = parseFloat(document.getElementById(accomodation).value).toFixed(2);
+            //     var ticket_fair1 = parseFloat(document.getElementById(ticket_fair).value).toFixed(2);
+            //     var ontransit1 = parseFloat(document.getElementById(ontransit).value).toFixed(2);
+            //     var transportation1 = parseFloat(document.getElementById(transportation).value).toFixed(2);
+            //     var other_cost1 = parseFloat(document.getElementById(other_cost).value).toFixed(2);
+            //
+            //     var total_amount1 = perdiem_total_amount1 + accomodation1 + ticket_fair1 + ontransit1 + transportation1 + other_cost1;
+            //     (document.getElementById(total_amount).value) = (total_amount1);
+            //
+            // }
 
-            }
+            $(document).ready(function (){
 
-            $(document).ready(function() {
-                $(".att_button").click(function(event){
+                let $perdiem_total_amount = $("#perdiem_total_amount");
+                let $accomodation = $("#accomodation");
+                let $ticket_fair = $("#ticket_fair");
+                let $ontransit = $("#ontransit");
+                let $transportation = $("#transportation");
+                let $other_cost = $("#other_cost");
+                let $total_amount = $("#total_amount");
+                let $total_amount_hidden = $("#total_amount_hidden");
+                let $calculation = $("#calculation");
+
+                sum();
+
+                $perdiem_total_amount.keyup(function (event){
                     event.preventDefault();
-                    // var lsthmtl = $(".clone").html();
-                    // $(".increment").after(lsthmtl);
-                    let $increment = $("#increment");
-
-                    $increment.prepend('' +
-                            '<div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">'+
-                                '<div class="col-md-3 col-lg-3 col-xl-3" >'+
-                                    '<input type="file" accept="application/pdf" name="attachments[]" class="form-control">'+
-                                '</div>'+
-
-                        '<div class="col-md-3 col-lg-3 col-xl-3" >'+
-                        '<input type="number" id="" name="amount_attachment[]" placeholder="Total Amount of the receipts"  class="form-control">'+
-                        '</div>'+
-
-                        '<div class="col-md-3 col-lg-3 col-xl-3" >'+
-                        '{!! Form::select("attachment_type[]", $attachment_type, null, ["class" =>"form-control select2-show-search", "placeholder" => __("label.select") , "aria-describedby" => "", "required"]) !!}'+
-                        '</div>'+
-
-                                '<div class="input-group-btn col-md-3 col-lg-3 col-xl-3" >'+
-                                    '<button class="btn btn-danger att_button_rem" type="button"><i class=""></i>Remove attachment field</button>'+
-                                '</div>'+
-                            '</div>')
-
+                    sum()
                 });
-                $("body").on("click",".att_button_rem",function(){
-                    $(this).parents(".remuv").remove();
+
+                $accomodation.keyup(function (event){
+                    event.preventDefault();
+                    sum()
                 });
+
+                $ticket_fair.keyup(function (event){
+                    event.preventDefault();
+                    sum()
+                });
+
+                $ontransit.keyup(function (event){
+                    event.preventDefault();
+                    sum()
+                });
+
+                $transportation.keyup(function (event){
+                    event.preventDefault();
+                    sum()
+                });
+
+                $other_cost.keyup(function (event){
+                    event.preventDefault()
+                    sum()
+                });
+
+                function sum(){
+                    let $sum = (parseInt($perdiem_total_amount.val().replace(/\,/g,'')) +
+                        parseInt($accomodation.val().replace(/\,/g,'')) +
+                        parseInt($ticket_fair.val().replace(/\,/g,'')) +
+                        parseInt($ontransit.val().replace(/\,/g,'')) +
+                        parseInt($transportation.val().replace(/\,/g,'')) +
+                        parseInt($other_cost.val().replace(/\,/g,''))).toFixed(2)
+                    $total_amount.val($sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $total_amount_hidden.val($sum);
+                    let $paid = "{{ $safariDetails->disbursed_amount }}";
+                    let $substraction =  $paid - $sum;
+                    if($paid > $sum){
+                        $calculation.removeClass("text-success");
+                        $calculation.addClass("text-danger");
+                    }else{
+                        $calculation.removeClass("text-danger");
+                        $calculation.addClass("text-success");
+                    }
+                    $calculation.html($substraction);
+
+                }
             });
 
-           /* $(document).ready(function() {
-                var max_fields      = 6; //maximum input boxes allowed
-                var wrapper         = $(".increment"); //Fields wrapper
-                var add_button      = $(".btn-success"); //Add button ID
 
-                var x = 1; //initlal text box count
-                $(add_button).click(function(e){ //on add input button click
-                    e.preventDefault();
-                    if(x < max_fields){ //max input box allowed
-                        x++; //text box increment
-                        $(wrapper).append('<div class="input-group-btn">'
-                            +'<button class="btn btn-danger remove_field" type="button">'+
-                            +'<i class="fldemo glyphicon glyphicon-remove"></i> Remove</button>'+
-                            +'</div>');
-                        var lsthmtl = $(".clone").html();
-                        $(".increment").after(lsthmtl);//add input box
-                    }
-                });
 
-                $(wrapper).on("click",".btn-danger", function(e){ //user click on remove text
-                    e.preventDefault(); $(this).parent('div').remove(); x--;
-                })
-            });*/
+
 
         </script>
 
