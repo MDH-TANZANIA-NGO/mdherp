@@ -26,9 +26,9 @@
                     <div class="col-lg-6 text-right">
                         <p class="h3">Paid To</p>
                         <address>
-                            {{--{{$safari_advance->user->full_name_formatted}}<br>
-                            {{$safari_advance->user->phone}}<br>
-                            {{$safari_advance->user->email}}--}}
+{{--                            {{$safari_advance->user->full_name_formatted}}<br>--}}
+                           {{$safariDetails->account_no}}<br>
+                            {{--{{$safari_advance->user->email}}--}}
                         </address>
                     </div>
                 </div>
@@ -89,12 +89,12 @@
 
                             <div class="text-muted"></div>
                         </tr>
-                        <tr>
+                       {{-- <tr>
                             <td colspan="2" class="font-w600 text-right">Account No</td>
 
 
                             <td class="text-right">{{$safariDetails->account_no}}</td>
-                        </tr>
+                        </tr>--}}
                         <tr>
                             <td colspan="2" class="font-w600 text-right">Total Amount</td>
                             <td class="font-weight-bold text-right">{{number_2_format($safariDetails->total_amount)}}</td>
