@@ -104,7 +104,7 @@
                         </tr>--}}
                         <tr>
                             <td></td>
-                            <td colspan="2" class="font-w600 text-right">Total Amount</td>
+                            <td colspan="2" class="font-w600 text-right">Total Amount Expense</td>
                             <td class="font-weight-bold text-right">
                                 <input type="text" id="total_amount" class="form-control" disabled>
                                 <input type="text" id="total_amount_hidden" hidden name="total_amount" class="form-control" value="">
@@ -114,13 +114,16 @@
                         <tr>
                             <td></td>
                             <td colspan="2" class="font-w600 text-right">Total Amount Paid</td>
-                            <td class="font-weight-bold text-right">{{number_2_format($safariDetails->disbursed_amount)}}</td>
+                            <td class="font-weight-bold text-right">
+                                {{number_2_format($safariDetails->disbursed_amount)}}
+                                <input type="text" hidden name="total_amount_paid" class="form-control" value="{{number_2_format($safariDetails->disbursed_amount)}}">
+                            </td>
                         </tr>
                         <tr>
                             <td></td>
                             <td colspan="2" class="font-w600 text-right">Balance</td>
 
-                            <td class="font-weight-bold text-right"><span id="calculation"></span></td>
+                            <td class="font-weight-bold text-right"><span id="calculation"></span> <input type="text" id="calculation_hidden" hidden name="balance" class="form-control" value=""> </td>
                         </tr>
                         <tr>
                             <td></td>
@@ -169,91 +172,6 @@
 
                 </div>
 
-
-{{--
-                    <div class="row">
-                        <div class="col-md-12" >
-                            <div class="form-group">
-                                <label class="form-label">What was Planned:</label>
-                                <textarea rows="2" cols="50" class="content" name="planned_report" placeholder="Write the plan.." required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="row">
-                        <div  class="col-md-2">
-                            <div class="form-group">
-                                <label class="form-label">Number of Participants:</label>
-                            <input type="number" name="no_participants" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <div class="col-md-10" >
-                            <div class="form-group">
-                                <label class="form-label">Objectives:</label>
-                                <textarea rows="2" cols="50" class="content2" name="objective_report" placeholder="Write your objectives.." required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12" >
-                            <div class="form-group">
-                                <label class="form-label">Methodology:</label>
-                                <textarea rows="2" cols="50" class="form-control content" name="methodology_report" placeholder="Write the methodology..." required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12" >
-                            <div class="form-group">
-                                <label class="form-label">Achievements:</label>
-                                <textarea rows="2" cols="50" class="content" name="achievement_report" placeholder="Write the Achievements..." required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12" >
-                            <div class="form-group">
-                                <label class="form-label">Challenges:</label>
-                                <textarea rows="2" cols="50" class="form-control content" name="challenge_report" placeholder="Write the Challenges:..." required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12" >
-                            <div class="form-group">
-                                <label class="form-label">Recommendations/Action plans :</label>
-                                <textarea class="content" name="action_report" placeholder="Write the Recommendations/Action plans..." required></textarea>
-                            </div>
-                        </div>
-                    </div>
---}}
-
-                    {{--<div class ="row">
-                        <div class="container lst">
-                            <div class="input-group hdtuto control-group lst" >
-
-                      --}}{{--  <div class="col-md-4" >
-                        <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
-                        </div>--}}{{--
-                                <div class="col-md-4" >
-                                    <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
-                                </div>
-                                <div class="input-group-btn col-md-4">
-                                    <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
-                                </div>
-                            </div>
-
-                            <div id="increment"></div>
-
-                        </div>
-                    </div>--}}
-
                     <hr>
 &nbsp;
 
@@ -297,6 +215,7 @@
                 let $total_amount = $("#total_amount");
                 let $total_amount_hidden = $("#total_amount_hidden");
                 let $calculation = $("#calculation");
+                let $calculation_hidden = $("#calculation_hidden");
                 let $file_holder = $("#file_holder");
                 let $file_holder_text = $("#file_holder_text");
                 let $receipt_attachment = $("input[name='receipt_attachment']");
@@ -358,6 +277,8 @@
                         $receipt_attachment.attr('disabled',true);
                     }
                     $calculation.html($substraction);
+                    $calculation_hidden.html($substraction);
+
 
                 }
             });
