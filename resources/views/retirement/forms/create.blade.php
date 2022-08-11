@@ -119,13 +119,14 @@
                         <tr>
                             <td></td>
                             <td colspan="2" class="font-w600 text-right">Balance</td>
+
                             <td class="font-weight-bold text-right"><span id="calculation"></span></td>
                         </tr>
-{{--                        <tr>--}}
-{{--                            <td></td>--}}
-{{--                            <td colspan="2" class="font-w600 text-right">Total Amount Due to the Organization</td>--}}
-{{--                            <td class="font-weight-bold text-right">{{number_2_format($safariDetails->total_amount)}}</td>--}}
-{{--                        </tr>--}}
+                        <tr>
+                            <td></td>
+                            <td colspan="2" class="font-w600 text-right"> <span class="hidden" id="file_holder_text"> Attach Bank slip</span></td>
+                            <td class="font-weight-bold text-right"> <div class="hidden" id="file_holder"> <input type="file" id="" accept="application/pdf" name="receipt_attachment" class="form-control" required disabled> </div> </td>
+                        </tr>
                     </table>
                 </div>
 
@@ -296,6 +297,9 @@
                 let $total_amount = $("#total_amount");
                 let $total_amount_hidden = $("#total_amount_hidden");
                 let $calculation = $("#calculation");
+                let $file_holder = $("#file_holder");
+                let $file_holder_text = $("#file_holder_text");
+                let $receipt_attachment = $("input[name='receipt_attachment']");
 
                 sum();
 
@@ -343,9 +347,15 @@
                     if($paid > $sum){
                         $calculation.removeClass("text-success");
                         $calculation.addClass("text-danger");
+                        $file_holder.removeClass('hidden');
+                        $file_holder_text.removeClass('hidden');
+                        $receipt_attachment.attr('disabled',false);
                     }else{
                         $calculation.removeClass("text-danger");
                         $calculation.addClass("text-success");
+                        $file_holder.addClass('hidden');
+                        $file_holder_text.addClass('hidden');
+                        $receipt_attachment.attr('disabled',true);
                     }
                     $calculation.html($substraction);
 
