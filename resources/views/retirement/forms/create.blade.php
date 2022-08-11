@@ -75,7 +75,7 @@
                         <tr>
                             <td class="text-center">5</td>
                             <td>
-                                <p class="font-w600 mb-1">Ground Transport To Airport</p>
+                                <p class="font-w600 mb-1">Ground Transport</p>
                             </td>
                             <td class="text-right"><input type="file" accept="application/pdf" name="transportation_attachments" class="form-control"></td>
                             <td><input type="text" id="transportation" name="transportation" class="form-control" value="{{number_2_format($safariDetails->transportation)}}"></td>
