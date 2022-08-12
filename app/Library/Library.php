@@ -206,6 +206,15 @@ if (! function_exists('number_0_format')) {
     }
 }
 
+/* Number format with no thousand separator 10000.00 */
+
+if (! function_exists('number_3_format')) {
+    function number_3_format($value)
+    {
+        return  number_format( $value , 2, '.' , '');
+    }
+}
+
 /*short date format D-M-Y*/
 if (! function_exists('short_date_format')) {
     function short_date_format($date)

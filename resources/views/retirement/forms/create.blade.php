@@ -18,6 +18,9 @@
                     <div class="col-lg-6 ">
                         <p class="h3">Safari Advanced Details</p>
                         <address>
+                            <input type="text" name="safari_advance_id"  value="{{$retirement->safari_advance_id}}" hidden>
+
+{{--                            {{$safari_id}}--}}
                            {{-- Destination: {{$safari_advance->travellingCost->district->name}}<br>
                             {{--Departure: {{date('d-M-Y', strtotime($safari_advance->safariDetails->from))}}<br>
                             Return: {{date('d-M-Y', strtotime($safari_advance->safariDetails->to))}}<br>--}}
@@ -123,7 +126,7 @@
                             <td></td>
                             <td colspan="2" class="font-w600 text-right">Balance</td>
 
-                            <td class="font-weight-bold text-right"><span id="calculation"></span> <input type="text" id="calculation_hidden" hidden name="balance" class="form-control" value=""> </td>
+                            <td class="font-weight-bold text-right"><span id="calculation"></span> <input type="text" id="calculation_hidden" name="balance" hidden class="form-control" value=""> </td>
                         </tr>
                         <tr>
                             <td></td>
@@ -221,16 +224,17 @@
                 let $receipt_attachment = $("input[name='receipt_attachment']");
 
                 sum();
+                
+                $accomodation.keyup(function (event){
+                    event.preventDefault();
+                    sum()
+                });
 
                 $perdiem_total_amount.keyup(function (event){
                     event.preventDefault();
                     sum()
                 });
 
-                $accomodation.keyup(function (event){
-                    event.preventDefault();
-                    sum()
-                });
 
                 $ticket_fair.keyup(function (event){
                     event.preventDefault();
@@ -277,7 +281,7 @@
                         $receipt_attachment.attr('disabled',true);
                     }
                     $calculation.html($substraction);
-                    $calculation_hidden.html($substraction);
+                    $calculation_hidden.val($substraction);
 
 
                 }

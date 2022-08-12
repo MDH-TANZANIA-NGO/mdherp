@@ -184,10 +184,11 @@ class RetirementRepository extends BaseRepository
                         'retirement_id'=> $retire->id,
                         'safari_advance_id'=>$inputs['safari_advance_id'],
                         'number' => $number,
-                        'from'=>$inputs['from'],
-                        'to'=>$inputs['to'],
-                        'district_id'=>$inputs['district_id'],
-                        'amount_requested'=>$inputs['amount_requested'],
+//                        'from'=>$inputs['from'],
+//                        'to'=>$inputs['to'],
+//                        'district_id'=>$inputs['district_id'],
+
+                       /* 'amount_requested'=>$inputs['amount_requested'],
                         'amount_paid'=>$inputs['amount_paid'],
                         'amount_received'=>$inputs['amount_received'],
                         'amount_spent'=>$inputs['amount_spent'],
@@ -199,7 +200,22 @@ class RetirementRepository extends BaseRepository
                         'methodology_report'=>$inputs['methodology_report'],
                         'achievement_report'=>$inputs['achievement_report'],
                         'challenge_report'=>$inputs['challenge_report'],
-                        'action_report'=>$inputs['action_report'],
+                        'action_report'=>$inputs['action_report'],*/
+
+                        'accomodation'=>$inputs['accomodation'],
+                        'perdiem_total_amount'=>$inputs['perdiem_total_amount'],
+                        'ticket_fair'=>$inputs['ticket_fair'],
+                        'ontransit'=>$inputs['ontransit'],
+                        'transportation'=>$inputs['transportation'],
+                        'other_cost'=>$inputs['other_cost'],
+                        'total_amount'=>$inputs['total_amount'],
+                        'total_amount_paid'=>$inputs['total_amount_paid'],
+                        'balance'=>$inputs['balance'],
+                        'activity_report'=>$inputs['activity_report'],
+
+
+
+
                     ]
 
                 );
