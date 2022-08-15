@@ -2,6 +2,7 @@
 
 namespace App\Services\Calculator\Requisition;
 
+use App\Models\Requisition\RequisitionFundChecker;
 use App\Models\Requisition\RequisitionType\RequisitionType;
 use App\Repositories\Project\ActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -69,5 +70,7 @@ trait InitiatorBudgetChecker
             $rate = Rate::query()->find($rate_id)->amount;
         return $rate;
     }
+
+
 
 }

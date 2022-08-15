@@ -418,10 +418,14 @@ class WorkflowEventSubscriber
                             $timesheet_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
 
+                            $string = htmlentities(
+                                "There is new"." "."Timesheet Submitted"." "."from ".$timesheet->user->first_name."".$timesheet->user->last_name."pending for your approval."."<br>". "<br>"
+                            );
+
                             $email_resource = (object)[
                                 'link' => route('timesheet.show', $timesheet),
-                                'subject' => $timesheet->id . " Need your Approval",
-                                'message' =>  $timesheet->id . ' need your approval'
+                                'subject' => $timesheet->id . "Timesheet Approval Request",
+                                'message' =>  html_entity_decode($string),
                             ];
                             //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -657,9 +661,11 @@ class WorkflowEventSubscriber
                         'subject' => "Approved Successfully",
                         'message' => 'The Leave Application has been Approved successfully'
                     ];
+                    //dd($leave->type->name);
                     $delegeted_email = (object)[
                         'link' =>  route('leave.show', $leave),
                         'subject' => "Delegated Responsibilities",
+                        'message' => $leave->user->first_name. ' '.$leave->user->last_name. 'Have gone for '. $leave->type->name. 'until'.' '. $leave->end_date. '. You have been delegated hi/her responsibilities.',
                         'message' => $leave->user->first_name . ' ' . $leave->user->last_name . 'Have gone for ' . $leave->balance->leaveType->name . 'until' . ' ' . $leave->end_date . '. You have been delegated hi/her responsibilities.'
                     ];
                     $delegeted_user = User::query()->where('id', $leave->employee_id)->first();

@@ -6,8 +6,10 @@ use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
 use App\Models\Project\Traits\Relationship\ActivityRelationship;
 use App\Models\Requisition\Requisition;
+use App\Models\Requisition\RequisitionFundChecker;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
+use App\Repositories\Budget\BudgetRepository;
 use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
 use App\Services\Generator\Number;
 use App\Services\Workflow\Traits\WorkflowUserSelector;
@@ -588,25 +590,25 @@ RequisitionRepository extends BaseRepository
         ]);
     }
 
-    public function updateIndividualAvailableBudget($requisition, $requested, $addition = null)
-    {
-        $current_amount = 0;
-        if ($requisition->amount) {
-            $current_amount = $requisition->amount;
-        }
-        if ($addition) {
-            $difference_amount = $current_amount - $requested;
-
+//    public function updateIndividualAvailableBudget($requisition, $requested, $addition = null)
+//    {
+//        $current_amount = 0;
+//        if ($requisition->amount) {
+//            $current_amount = $requisition->amount;
+//        }
+//        if ($addition) {
+//            $difference_amount = $current_amount - $requested;
 //
-            $actual_amount = $requisition->fundChecker()->first()->actual_amount + $difference_amount;
-
-            $requisition->fundChecker()->update([
-                'actual_amount' => $actual_amount
-            ]);
-
-
-        }
-    }
+////
+//            $actual_amount = $requisition->fundChecker()->first()->actual_amount + $difference_amount;
+//
+//            $requisition->fundChecker()->update([
+//                'actual_amount' => $actual_amount
+//            ]);
+//
+//
+//        }
+//    }
     /*public function checkAvailableBudgetIndividual($requisition, $total_amount, $current_amount = null, $updated_amount = null)
     {
         $check_budget = $requisition->fundChecker()->first();
@@ -669,7 +671,7 @@ RequisitionRepository extends BaseRepository
 
             throw new GeneralException('Insufficient Fund' );
         }
-        return $this->updateIndividualAvailableBudget($requisition, $check_budget->actual_amount,$requested_amount, $options);
+        return redirect()->back();
 
 
 
@@ -699,6 +701,51 @@ RequisitionRepository extends BaseRepository
 
         return $hourdiff;
     }
+
+    public function addActualAmountOnRequisitionFundChecker($requisition_id, $current_total, $new_total = null )
+    {
+        $amount_diff =  $current_total - $new_total;
+        $requisition_fund_checker =  RequisitionFundChecker::query()->where('requisition_id', $requisition_id)->first();
+        $amount_to_add =  $requisition_fund_checker->actual_amount + $amount_diff;
+        if ($requisition_fund_checker->available_budget >= $requisition_fund_checker->actual_amount)
+        {
+            $requisition_fund_checker->update(['actual_amount'=>$amount_to_add]);
+        }
+        else
+        {
+            alert()->error('Failed to check budget','Error');
+        }
+
+
+        return $requisition_fund_checker;
+
+    }
+
+    public function deductActualAmountOnRequisitionFundChecker($requisition_id, $current_total, $new_total = null)
+    {
+        $amount_diff =  $current_total - $new_total;
+        $requisition_fund_checker =  RequisitionFundChecker::query()->where('requisition_id', $requisition_id)->first();
+        if ($requisition_fund_checker->actual_amount >=  $amount_diff)
+        {
+            $amount_to_add =  $requisition_fund_checker->actual_amount - $amount_diff;
+
+            $requisition_fund_checker->update(['actual_amount'=>$amount_to_add]);
+        }
+        else
+        {
+            alert()->error('Insufficient fund', 'Failed');
+        }
+
+
+        return $requisition_fund_checker;
+    }
+
+    public function checkAvailaleFund($budget_id)
+    {
+        $budget =  (new BudgetRepository())->find($budget_id);
+   
+    }
+
 
 
 

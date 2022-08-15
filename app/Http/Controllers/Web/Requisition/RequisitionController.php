@@ -143,7 +143,6 @@ class RequisitionController extends Controller
      */
     public function initiate(Requisition $requisition)
     {
-
  return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
@@ -215,6 +214,10 @@ class RequisitionController extends Controller
     {
 //        check_available_budget_individual($requisition,$requisition->amount);
         DB::transaction(function () use ($requisition){
+            $actual_amount = $requisition->budget->actual_amount;
+            $pipeline =  $this->check($requisition->requisition_type_id, $requisition->project_id, $requisition->activity_id, $requisition->region_id,$requisition->budget->fiscal_year_id)->pipeline;
+            $available_amount = $actual;
+
             $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
             $wf_module_group_id = 1;
             $next_user = null;

@@ -94,35 +94,35 @@
         <div class="col-md-3">
             <div class="form-group">
                 {!! Form::label('accommodation', __("Accommodation per night"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::number('accommodation',$trip_details->accommodation,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                {!! Form::number('accommodation',$trip_details->accommodation,['class' => 'form-control', 'placeholder' => '']) !!}
                 {!! $errors->first('accommodation', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 {!! Form::label('transportation', __("Ground Transport"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::number('transportation',$trip_details->transportation,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                {!! Form::number('transportation',$trip_details->transportation,['class' => 'form-control', 'placeholder' => '']) !!}
                 {!! $errors->first('transportation', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 {!! Form::label('ticket_fair', __("Ticket Fair"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::number('ticket_fair',$trip_details->ticket_fair,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                {!! Form::number('ticket_fair',$trip_details->ticket_fair,['class' => 'form-control', 'placeholder' => '']) !!}
                 {!! $errors->first('ticket_fair', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 {!! Form::label('other_cost', __("Other Cost"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::number('other_cost',$trip_details->other_cost,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                {!! Form::number('other_cost',$trip_details->other_cost,['class' => 'form-control', 'placeholder' => '']) !!}
                 {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 {!! Form::label('other_cost_description', __("Other Cost Description"),['class'=>'form-label','required_asterik']) !!}
-                {!! Form::text('other_cost_description',$trip_details->other_cost_description,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                {!! Form::text('other_cost_description',$trip_details->other_cost_description,['class' => 'form-control', 'placeholder' => '']) !!}
                 {!! $errors->first('other_cost_description', '<span class="badge badge-danger">:message</span>') !!}
             </div>
         </div>
