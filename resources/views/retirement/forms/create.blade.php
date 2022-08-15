@@ -49,7 +49,7 @@
                                 <p class="font-w600 mb-1">Accommodation</p>
                             </td>
                             <td class="text-right"><input type="file" accept="application/pdf" name="accomodation_attachments" class="form-control"></td>
-                            <td><input type="text" id="accomodation" name="accomodation" class="form-control" value="{{number_2_format($safariDetails->accommodation)}}"></td>
+                            <td><input type="text" id="accomodation" name="accomodation" class="form-control" value="{{number_3_format($safariDetails->accommodation)}}"></td>
                         </tr>
                         <tr>
                             <td class="text-center">2</td>
@@ -57,7 +57,7 @@
                                 <p class="font-w600 mb-1">Meals and Incidentals</p>
                             </td>
                             <td class="text-right"></td>
-                            <td><input type="text" id="perdiem_total_amount" name="perdiem_total_amount" class="form-control" value="{{number_2_format($safariDetails->perdiem_total_amount)}}"></td>
+                            <td><input type="text" id="perdiem_total_amount" name="perdiem_total_amount" class="form-control" value="{{number_3_format($safariDetails->perdiem_total_amount)}}"></td>
                         </tr>
                         <tr>
                             <td class="text-center">3</td>
@@ -65,7 +65,7 @@
                                 <p class="font-w600 mb-1">Ticket Fair</p>
                             </td>
                             <td class="text-right"><input type="file" accept="application/pdf" name="ticket_attachments" class="form-control"></td>
-                            <td><input type="text" id="ticket_fair" name="ticket_fair" class="form-control" value="{{number_2_format($safariDetails->ticket_fair)}}"></td>
+                            <td><input type="text" id="ticket_fair" name="ticket_fair" class="form-control" value="{{number_3_format($safariDetails->ticket_fair)}}"></td>
                         </tr>
                         <tr>
                             <td class="text-center">4</td>
@@ -73,7 +73,7 @@
                                 <p class="font-w600 mb-1">Ontransit Allowance</p>
                             </td>
                             <td class="text-right"></td>
-                            <td><input type="text" id="ontransit" name="ontransit" class="form-control" value="{{number_2_format($safariDetails->ontransit)}}"></td>
+                            <td><input type="text" id="ontransit" name="ontransit" class="form-control" value="{{number_3_format($safariDetails->ontransit)}}"></td>
                         </tr>
                         <tr>
                             <td class="text-center">5</td>
@@ -81,7 +81,7 @@
                                 <p class="font-w600 mb-1">Ground Transport</p>
                             </td>
                             <td class="text-right"><input type="file" accept="application/pdf" name="transportation_attachments" class="form-control"></td>
-                            <td><input type="text" id="transportation" name="transportation" class="form-control" value="{{number_2_format($safariDetails->transportation)}}"></td>
+                            <td><input type="text" id="transportation" name="transportation" class="form-control" value="{{number_3_format($safariDetails->transportation)}}"></td>
                         </tr>
                         <tr>
                             <td class="text-center">6</td>
@@ -89,7 +89,7 @@
                                 <p class="font-w600 mb-1">Other Cost</p>
                             </td>
                             <td class="text-right"><input type="file" accept="application/pdf" name="othercost_attachments" class="form-control"></td>
-                            <td><input type="text" id="other_cost" name="other_cost" class="form-control" value="{{number_2_format($safariDetails->other_cost)}}"></td>
+                            <td><input type="text" id="other_cost" name="other_cost" class="form-control" value="{{number_3_format($safariDetails->other_cost)}}"></td>
 
                             <div class="text-muted"></div>
                         </tr>
@@ -119,7 +119,7 @@
                             <td colspan="2" class="font-w600 text-right">Total Amount Paid</td>
                             <td class="font-weight-bold text-right">
                                 {{number_2_format($safariDetails->disbursed_amount)}}
-                                <input type="text" hidden name="total_amount_paid" class="form-control" value="{{number_2_format($safariDetails->disbursed_amount)}}">
+                                <input type="text" hidden name="total_amount_paid" class="form-control" value="{{number_3_format($safariDetails->disbursed_amount)}}">
                             </td>
                         </tr>
                         <tr>
@@ -224,7 +224,7 @@
                 let $receipt_attachment = $("input[name='receipt_attachment']");
 
                 sum();
-                
+
                 $accomodation.keyup(function (event){
                     event.preventDefault();
                     sum()

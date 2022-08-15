@@ -17,6 +17,7 @@
 {{--                <a href="{{ url()->previous() }}" class="btn btn-info btn-arrow-right">Back</a>--}}
                 &nbsp;&nbsp;
                 <h3 class="card-title">Retirement Summary</h3>
+
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
@@ -35,57 +36,6 @@
 
                             &nbsp;
 
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1"><b>What was planned:</b></h5>
-                            </div>
-
-                            <p class="mb-1">{{$retirement->details->planned_report}}</p>
-
-                            <hr>
-                        <h5 class="mb-1"><b>Number of Participants: </b>{{$retirement->details->no_participants}}</h5>
-
-                            <hr>
-
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1"><b>Objectives:</b></h5>
-                            </div>
-
-                            <p class="mb-1">{{$retirement->details->objective_report}}</p>
-
-                            <hr>
-
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1"><b>Methodology:</b></h5>
-                            </div>
-
-                            <p class="mb-1">{{$retirement->details->methodology_report}}</p>
-
-                            <hr>
-
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1"><b>Achievements:</b></h5>
-                            </div>
-
-                            <p class="mb-1">{{$retirement->details->achievement_report}}</p>
-
-                            <hr>
-
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1"><b>Challenges:</b></h5>
-                            </div>
-
-                            <p class="mb-1">{{$retirement->details->challenge_report}}</p>
-
-                            <hr>
-
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1"><b>Recommendations/Action plans:</b></h5>
-                            </div>
-
-                            <p class="mb-1">{{$retirement->details->action_report}}</p>
-
-
-
                     </div>
 
 
@@ -96,33 +46,9 @@
 
                 <div class="table-responsive">
                     <table class="table card-table table-vcenter text-nowrap">
-                        <thead >
-                        <tr>
 
-                            <th>Retirement Number</th>
-                            <th>Destination</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Amount Paid</th>
-                            <th>Amount Received</th>
-                            <th>Amount Spent</th>
-                            <th>Amount Variance</th>
-                        </tr>
-                        </thead>
                         <tbody>
                         @foreach($retirementz as $retirement)
-                            <tr>
-                                <td>{{$retirement->number}}</td>
-                                <td>{{$retirement->districts->name}}</td>
-                                <td>{{$retirement->from}}</td>
-                                <td>{{$retirement->to}}</td>
-                                <td>{{$retirement->amount_paid}}</td>
-                                <td>{{$retirement->amount_received}}</td>
-                                <td>{{$retirement->amount_spent}}</td>
-                                <td>{{$retirement->amount_variance}}</td>
-
-                            </tr>
-
                         @endforeach
                         </tbody>
                     </table>
@@ -131,10 +57,10 @@
                 <hr>
 
                 <div class="table-responsive">
-{{--                    {{$retirement->getMedia('attachments')}}--}}
-{{--                    @foreach($retirement->getMedia('attachments') as $media)--}}
-{{--                        <a href="{{ $media->original_url }}">{{ $media->file_name }}</a>--}}
-{{--                    @endforeach--}}
+{{--                    {{$retirement->getMedia('attachments')}}
+                    @foreach($retirement->getMedia('attachments') as $media)
+                        <a href="{{ $media->original_url }}">{{ $media->file_name }}</a>
+                    @endforeach--}}
                     @if($retirement->getMedia('attachments'))
                     <table class="table card-table table-vcenter text-nowrap">
                         <thead >
@@ -171,6 +97,81 @@
                 </div>
                 <!-- table-responsive -->
             </div>
+
+            <hr>
+
+
+                <div class="card-body">
+
+                    <div class="">
+                        <div class="table-responsive">
+                            <table class="table mb-0 table-vcenter table-hover text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th></th>
+                                    <th>Total Amount</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($retirementz as $retirement)
+                                <tr>
+                                    <td><i class="fa fa-bed"></i></td>
+                                    <td>Accommodation</td>
+                                    <td>{{number_2_format($retirement->accomodation)}}</td>
+
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-cutlery"></i></td>
+                                    <td>Meals and Incidentals</td>
+                                    <td>{{number_2_format($retirement->perdiem_total_amount)}}</td>
+
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-subway"></i></td>
+                                    <td>On transit</td>
+                                    <td>{{number_2_format($retirement->ontransit)}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-ticket"></i></td>
+                                    <td>Ticket Fair</td>
+                                    <td>{{number_2_format($retirement->ticket_fair)}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-taxi"></i></td>
+                                    <td>Ground Transportation</td>
+                                    <td>{{number_2_format($retirement->transportation)}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td><i class="fa fa-exclamation"></i></td>
+                                    <td>Other Cost</td>
+                                    <td>{{number_2_format($retirement->other_cost)}}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><b>Total Amount Spent</b></td>
+                                    <td><b>{{number_2_format($retirement->total_amount)}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><b>Total Amount Paid</b></td>
+                                    <td><b>{{number_2_format($retirement->total_amount_paid)}}</b></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><b>Balance</b></td>
+                                    <td><b>{{number_2_format($retirement->balance)}}</b></td>
+                                </tr>
+
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
         </div>
     </div>
 

@@ -183,7 +183,7 @@ class RetirementController extends Controller
 
         $retirementatt =$this->retirements = (new RetirementRepository());
 
-        //dd($retirementatt->getattachment()->get());
+        //dd($retirement);
 
         return view('retirement.show')
             ->with('current_level', $current_level)
@@ -191,7 +191,7 @@ class RetirementController extends Controller
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($retirement))
             ->with('retirement', $retirement)
-            ->with('retirementz',$retirement->details()->get());
+            ->with('retirementz', $retirement->details()->get());
             //->with('attachmentname', $retirementatt->getattachment()->get('attachment_name'));
     }
 
