@@ -331,7 +331,7 @@ class WfModulesTableSeeder extends Seeder
             22 =>
                 array (
                     'id' => 23,
-                    'name' => 'Performance Appraisal Goals/Objectives Evaluation[ Directors ]',
+                    'name' => 'Performance Appraisal Goals/Objectives Evaluation[ Directors and RPM(S) ]',
                     'wf_module_group_id' => '10',
                     'created_at' => NULL,
                     'updated_at' => NULL,
