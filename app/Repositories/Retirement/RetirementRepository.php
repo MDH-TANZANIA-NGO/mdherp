@@ -122,12 +122,13 @@ class RetirementRepository extends BaseRepository
 /*
             'retirement_id'=> $retirement->id,
             'safari_advance_id'=>$inputs['safari_advance_id'],
-            'from'=>$inputs['from'],
-            'to'=>$inputs['to'],
+
             'district_id'=>$inputs['district_id'],
             'amount_requested'=>$inputs['amount_requested'],
             'amount_paid'=>$inputs['amount_paid'],
             'amount_received'=>$inputs['amount_received'],*/
+            'from'=>$inputs['from'],
+            'to'=>$inputs['to'],
             'amount_spent'=>$inputs['amount_spent'],
             'amount_variance'=>$inputs['amount_variance'],
             'activity_report'=>$inputs['activity_report'],
@@ -184,9 +185,20 @@ class RetirementRepository extends BaseRepository
                         'retirement_id'=> $retire->id,
                         'safari_advance_id'=>$inputs['safari_advance_id'],
                         'number' => $number,
-//                        'from'=>$inputs['from'],
-//                        'to'=>$inputs['to'],
-//                        'district_id'=>$inputs['district_id'],
+                        'from'=>$inputs['from'],
+                        'to'=>$inputs['to'],
+                        'accomodation'=>$inputs['accomodation'],
+                        'perdiem_total_amount'=>$inputs['perdiem_total_amount'],
+                        'ticket_fair'=>$inputs['ticket_fair'],
+                        'ontransit'=>$inputs['ontransit'],
+                        'transportation'=>$inputs['transportation'],
+                        'other_cost'=>$inputs['other_cost'],
+                        'total_amount'=>$inputs['total_amount'],
+                        'total_amount_paid'=>$inputs['total_amount_paid'],
+                        'balance'=>$inputs['balance'],
+                        'activity_report'=>$inputs['activity_report'],
+
+//                      'district_id'=>$inputs['district_id'],
 
                        /* 'amount_requested'=>$inputs['amount_requested'],
                         'amount_paid'=>$inputs['amount_paid'],
@@ -201,20 +213,6 @@ class RetirementRepository extends BaseRepository
                         'achievement_report'=>$inputs['achievement_report'],
                         'challenge_report'=>$inputs['challenge_report'],
                         'action_report'=>$inputs['action_report'],*/
-
-                        'accomodation'=>$inputs['accomodation'],
-                        'perdiem_total_amount'=>$inputs['perdiem_total_amount'],
-                        'ticket_fair'=>$inputs['ticket_fair'],
-                        'ontransit'=>$inputs['ontransit'],
-                        'transportation'=>$inputs['transportation'],
-                        'other_cost'=>$inputs['other_cost'],
-                        'total_amount'=>$inputs['total_amount'],
-                        'total_amount_paid'=>$inputs['total_amount_paid'],
-                        'balance'=>$inputs['balance'],
-                        'activity_report'=>$inputs['activity_report'],
-
-
-
 
                     ]
 

@@ -63,7 +63,7 @@ class RetirementController extends Controller
     {
 
         $safariDetails = $this->finance->getPaidSafari($retirement->safari_advance_id)->first();
-        //dd($this->safari_advances->getDisbursedAmount()->get()->where('safari_id', $retirement->safari_advance_id));
+        //dd($this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
         return view('retirement.forms.create')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())

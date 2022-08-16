@@ -16,22 +16,38 @@
             <div class="card-body">
                 <div class="row pt-4">
                     <div class="col-lg-6 ">
-                        <p class="h3">Safari Advanced Details</p>
                         <address>
                             <input type="text" name="safari_advance_id"  value="{{$retirement->safari_advance_id}}" hidden>
 
-{{--                            {{$safari_id}}--}}
-                           {{-- Destination: {{$safari_advance->travellingCost->district->name}}<br>
-                            {{--Departure: {{date('d-M-Y', strtotime($safari_advance->safariDetails->from))}}<br>
-                            Return: {{date('d-M-Y', strtotime($safari_advance->safariDetails->to))}}<br>--}}
+                            @foreach($retire_safaris as $safaridetail)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+                                        <label class="form-label">Departure Date:</label>
+                                        {!! Form::date('from_show', $safaridetail->from, ['class' => 'form-control', 'disabled', 'id'=>'from']) !!}
+                                        {!! Form::date('from', $safaridetail->from, ['class' => 'form-control','hidden', 'required', 'id'=>'from']) !!}
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Return Date:</label>
+                                        {!! Form::date('to', $safaridetail->to, ['class' => 'form-control', 'required','id'=>'to']) !!}<br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @endforeach
+
                         </address>
                     </div>
                     <div class="col-lg-6 text-right">
                         <p class="h3">Paid To</p>
                         <address>
 {{--                            {{$safari_advance->user->full_name_formatted}}<br>--}}
-                           {{$safariDetails->account_no}}<br>
-                            {{--{{$safari_advance->user->email}}--}}
+                          Account: <b>{{$safariDetails->account_no}}</b> <br>
+{{--                            {{$safariDetails->user->email}}--}}
                         </address>
                     </div>
                 </div>
