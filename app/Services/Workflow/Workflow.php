@@ -339,7 +339,8 @@ class Workflow
      * @throws GeneralException
      * @description Create a new workflow log
      */
-    public function createLog($input, $source = 1)
+    public function 
+    createLog($input, $source = 1)
     {
         $insert = [
             'user_id' => $input['user_id'],
