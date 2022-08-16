@@ -113,14 +113,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($retirementz as $retirement)
+                                @foreach($retirementz as $retirementd)
                                 <tr>
                                     <td><i class="fa fa-bed"></i></td>
                                     <td>Accommodation</td>
                                     <td>{{number_2_format($retirement->accomodation)}}</td>
                                     {{--  attachment--}}
-                                    @if($retirement->getMedia('attachments'))
-                                        <td><a href="{{$retirement->getMedia('attachments')}}" target="_blank">View attachment</a></td>
+                                    @if($retirement->getMedia())
+                                        <td><a href="{{$retirement->getMedia()}}" target="_blank">View attachment</a></td>
                                         {{--@foreach($retirement->getMedia('attachments') as $media)
                                            <td><a href="{{$media->original_url}}" target="_blank">View attachment</a></td>
                                         @endforeach--}}
@@ -132,52 +132,52 @@
                                 <tr>
                                     <td><i class="fa fa-cutlery"></i></td>
                                     <td>Meals and Incidentals</td>
-                                    <td>{{number_2_format($retirement->perdiem_total_amount)}}</td>
+                                    <td>{{number_2_format($retirementd->perdiem_total_amount)}}</td>
                                     <td></td>
 
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-subway"></i></td>
                                     <td>On transit</td>
-                                    <td>{{number_2_format($retirement->ontransit)}}</td>
+                                    <td>{{number_2_format($retirementd->ontransit)}}</td>
                                     <td>attachment</td>
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-ticket"></i></td>
                                     <td>Ticket Fair</td>
-                                    <td>{{number_2_format($retirement->ticket_fair)}}</td>
+                                    <td>{{number_2_format($retirementd->ticket_fair)}}</td>
                                     <td>attachment</td>
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-taxi"></i></td>
                                     <td>Ground Transportation</td>
-                                    <td>{{number_2_format($retirement->transportation)}}</td>
+                                    <td>{{number_2_format($retirementd->transportation)}}</td>
                                     <td>attachment</td>
                                 </tr>
 
                                 <tr>
                                     <td><i class="fa fa-exclamation"></i></td>
                                     <td>Other Cost</td>
-                                    <td>{{number_2_format($retirement->other_cost)}}</td>
+                                    <td>{{number_2_format($retirementd->other_cost)}}</td>
                                     <td>attachment</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><b>Total Amount Spent</b></td>
-                                    <td><b>{{number_2_format($retirement->total_amount)}}</b></td>
+                                    <td><b>{{number_2_format($retirementd->total_amount)}}</b></td>
                                     <td></td>
 
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><b>Total Amount Paid</b></td>
-                                    <td><b>{{number_2_format($retirement->total_amount_paid)}}</b></td>
+                                    <td><b>{{number_2_format($retirementd->total_amount_paid)}}</b></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><b>Balance</b></td>
-                                    <td><b>{{number_2_format($retirement->balance)}}</b></td>
+                                    <td><b>{{number_2_format($retirementd->balance)}}</b></td>
                                     <td>attachment</td>
                                 </tr>
 
