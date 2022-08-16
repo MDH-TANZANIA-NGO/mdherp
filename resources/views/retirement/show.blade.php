@@ -32,7 +32,7 @@
                                 <h5 class="mb-1"><b>Background Information:</b></h5>
                             </div>
 
-                            <p class="mb-1">{{$retirement->details->activity_report}}</p>
+                            <p class="mb-1">{!! html_entity_decode($retirement->details->activity_report) !!}</p>
 
                             &nbsp;
 
@@ -66,7 +66,7 @@
                                     <td>{{number_2_format($retirement->accomodation)}}</td>
                                     {{-- Accomodation attachment--}}
                                     @if($retirement->getFirstMediaUrl('accomodation_attachments'))
-                                        <td><a href="{{$retirement->getFirstMediaUrl('accomodation_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank">View attachment</a></td>
+                                        <td><a href="{{$retirement->getFirstMediaUrl('accomodation_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank"> <i class="fa fa-file-pdf-o"></i> View attachment</a></td>
                                     @else
                                         <td></td>
                                     @endif
@@ -91,7 +91,7 @@
                                     <td>{{number_2_format($retirement->ticket_fair)}}</td>
                                     {{-- Ticket fair attachment--}}
                                     @if($retirement->getFirstMediaUrl('ticket_attachments'))
-                                        <td><a href="{{$retirement->getFirstMediaUrl('ticket_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank">View attachment</a></td>
+                                        <td><a href="{{$retirement->getFirstMediaUrl('ticket_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank"><i class="fa fa-file-pdf-o"></i> View attachment</a></td>
                                     @else
                                         <td></td>
                                     @endif
@@ -102,7 +102,7 @@
                                     <td>{{number_2_format($retirement->transportation)}}</td>
                                     {{-- Ground Transport attachment--}}
                                     @if($retirement->getFirstMediaUrl('transportation_attachments'))
-                                        <td><a href="{{$retirement->getFirstMediaUrl('transportation_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank">View attachment</a></td>
+                                        <td><a href="{{$retirement->getFirstMediaUrl('transportation_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank"><i class="fa fa-file-pdf-o"></i> View attachment</a></td>
                                     @else
                                         <td></td>
                                     @endif
@@ -114,7 +114,7 @@
                                     <td>{{number_2_format($retirement->other_cost)}}</td>
                                     {{-- Other Cost attachment--}}
                                     @if($retirement->getFirstMediaUrl('othercost_attachments'))
-                                        <td><a href="{{$retirement->getFirstMediaUrl('othercost_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank">View attachment</a></td>
+                                        <td><a href="{{$retirement->getFirstMediaUrl('othercost_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank"><i class="fa fa-file-pdf-o"></i> View attachment</a></td>
                                     @else
                                         <td></td>
                                     @endif
@@ -138,7 +138,7 @@
                                     <td><b>{{number_2_format($retirement->balance)}}</b></td>
                                     {{-- Balance/Receipt attachment--}}
                                     @if($retirement->getFirstMediaUrl('receipt_attachment'))
-                                        <td><a href="{{$retirement->getFirstMediaUrl('receipt_attachment')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank">View attachment</a></td>
+                                        <td><a href="{{$retirement->getFirstMediaUrl('receipt_attachment')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank"><i class="fa fa-file-pdf-o"></i> View attachment</a></td>
                                     @else
                                         <td></td>
                                     @endif
@@ -150,7 +150,6 @@
                         </div>
                     </div>
                 </div>
-
 
         </div>
     </div>
