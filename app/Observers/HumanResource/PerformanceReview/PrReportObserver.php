@@ -2,8 +2,9 @@
 
 namespace App\Observers\HumanResource\PerformanceReview;
 
-use App\Models\HumanResource\PerformanceReview\PrReport;
 use App\Services\Generator\Number;
+use App\Exceptions\GeneralException;
+use App\Models\HumanResource\PerformanceReview\PrReport;
 
 class PrReportObserver
 {
@@ -28,6 +29,9 @@ class PrReportObserver
     public function updated(PrReport $prReport)
     {
         if($prReport->isDirty('done') && $prReport->number == null && $prReport->parent == null){
+            if (!access()->user()->assignedSupervisor()) {
+                throw new GeneralException('You are not assigned a supervisor');
+            }
             $prReport->update(['number' => $this->generateNumber($prReport), 'supervisor_id' => access()->user()->assignedSupervisor()->supervisor_id]);
         }
     }

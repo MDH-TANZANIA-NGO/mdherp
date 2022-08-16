@@ -233,7 +233,7 @@ class PrReportRepository extends BaseRepository
         
                     case 'director' : case 'rpm' :
                         $types = 9;
-                        $supervisor_id = (new UserRepository())->getDirectorOfHR()->user_id;
+                        $supervisor_id = (new UserRepository())->getDirectorOfHR()->first()->user_id;
                     break;
 
                     default: //HQ users

@@ -8,6 +8,9 @@ use App\Services\Workflow\Workflow;
 use Illuminate\Support\Facades\Log;
 use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
+use App\Models\Leave\LeaveBalance;
+use App\Repositories\Leave\LeaveBalanceRepository;
+use App\Repositories\Listing\ListingRepository;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\JobOfferRepository;
 use App\Services\Workflow\WorkflowAction;
@@ -122,12 +125,11 @@ class WorkflowEventSubscriber
                                 'link' =>  route('requisition.show', $requisition),
                                 'subject' => $requisition->typeCategory->title . " Need your Approval",
                                 'message' => html_entity_decode($string)
-
                             ];
                             //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
+
                         case 2:
-                            //                                $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
                             $string = htmlentities(
                                 "There is new" . " " . $requisition->typeCategory->title . " " . "From " . $requisition->user->first_name . "" . $requisition->user->last_name . "pending your approval." . "<br>" . "<b>Number:</b>" . $requisition->number . "<br>" .
@@ -157,7 +159,6 @@ class WorkflowEventSubscriber
                                 'link' =>  route('requisition.show', $requisition),
                                 'subject' => $requisition->typeCategory->title . " Need your Approval",
                                 'message' => html_entity_decode($string)
-
                             ];
                             User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -416,10 +417,10 @@ class WorkflowEventSubscriber
 
                             $email_resource = (object)[
                                 'link' => route('timesheet.show', $timesheet),
-                                'subject' => $timesheet->id . " Need your Approval",
-                                'message' =>  $timesheet->id . ' need your approval'
+                                'subject' => $timesheet->number . " need your Approval",
+                                'message' =>  $timesheet->number . ' need your approval'
                             ];
-                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     }
                     break;
@@ -530,13 +531,21 @@ class WorkflowEventSubscriber
                     }
                     break;
                 case 11:
-                case 13:
+                case 21:
+                case 22:
+                case 23:
+                case 24:
                     //workflowAction class
                     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
                     break;
                 case 19:
                     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
                     break;
+                // case 11:
+                // case 13:
+                //     //workflowAction class
+                //     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
+                //     break;
             }
 
             $workflow->forward($data);
@@ -633,6 +642,10 @@ class WorkflowEventSubscriber
                     $delegeted_user = User::query()->where('id', $leave->employee_id)->first();
                     $leave->user->notify(new WorkflowNotification($email_resource));
                     $delegeted_user->notify(new WorkflowNotification($delegeted_email));
+
+
+
+
                     break;
                 case 7:
                     $finance_repo = (new FinanceActivityRepository());
@@ -688,8 +701,7 @@ class WorkflowEventSubscriber
                     $program_activity_report->user->notify(new WorkflowNotification($email_resource));
                     break;
 
-                case 11:
-                case 13:
+                case 11: case 21: case 22: case 23: case 24:
                     $pr_report = (new PrReportRepository())->find($resource_id);
                     $this->updateWfDone($pr_report);
                     $email_resource = (object)[
@@ -735,7 +747,7 @@ class WorkflowEventSubscriber
                     $email_resource_to_applicant = (object)[
                         'link' =>  route('job_offer.accepting_offer', $job_offer),
                         'subject' => "Job Offer: Management and Development for Health",
-                        'message' =>  " <p>I am pleased to extend the following offer of employment to you on behalf of <b>Management and Development for Health </b>. You have been selected as the best candidate for the " .$job_offer->interviewApplicant->applicant->full_name." position.</p> " . ",  Kindly login to portal for your action"
+                        'message' =>  " <p>I am pleased to extend the following offer of employment to you on behalf of <b>Management and Development for Health </b>. You have been selected as the best candidate for the " . $job_offer->interviewApplicant->applicant->full_name . " position.</p> " . ",  Kindly login to portal for your action"
 
                     ];
                     $job_offer->user->notify(new WorkflowNotification($email_resource));

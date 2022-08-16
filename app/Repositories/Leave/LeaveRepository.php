@@ -47,7 +47,7 @@ class LeaveRepository extends BaseRepository
             DB::raw('leave_balance AS leave_balance'),
             DB::raw('leaves.comment AS comment'),
             DB::raw('leaves.leave_type_id AS leave_type_id')
-                ])
+        ])
             ->join('users','users.id', 'leaves.user_id');
     }
 
@@ -114,7 +114,7 @@ class LeaveRepository extends BaseRepository
         return $this->getQuery()
             ->whereDoesntHave('wfTracks')
             ->where('leaves.wf_done', 0)
-           // ->where('leaves.done', false)
+            // ->where('leaves.done', false)
             ->where('leaves.rejected', false)
             ->where('users.id', access()->id());
     }

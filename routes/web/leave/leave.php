@@ -8,6 +8,7 @@ Route::group(['namespace' => 'Leave', 'middleware' => ['web', 'auth'], 'prefix' 
     Route::put('{leave}/update', 'LeaveController@update')->name('update');
     Route::put('{user_id}/update_setup', 'LeaveController@updateSetup')->name('update_setup');
     Route::get('{leave}/show', 'LeaveController@show')->name('show');
+    Route::get('{leave}/delete', 'LeaveController@deleteAccessLeave')->name('delete');
 
 
 

@@ -534,31 +534,31 @@ class UserRepository extends BaseRepository
 
     public function getUserGroups($user_id)
     {
-        $user_group = [];
+        $user_group = null;
         if($this->HqManagerUser($user_id)->count() > 0)
         {
-            $user_group['hq_managers'] = true;
+            $user_group = 'hq_managers';
         }
         if($this->CeoUser($user_id)->count() > 0){
-            $user_group['ceo'] = true;
+            $user_group = 'ceo';
         }
         if($this->RegionalManagerUser($user_id)->count() > 0){
-            $user_group['managers'] = true;
+            $user_group = 'managers';
         }
         if($this->hrDirector($user_id)->count() > 0){
-            $user_group['hr_director'] = true;
+            $user_group = 'hr_director';
         }
         if($this->regionalUser($user_id)->count() > 0){
-            $user_group['regional_user'] = true;
+            $user_group = 'regional_user';
         }
         if($this->rpmlUser($user_id)->count() > 0){
-            $user_group['rpm'] = true;
+            $user_group = 'rpm';
         }
         if($this->director($user_id)->count() > 0){
-            $user_group['director'] = true;
+            $user_group = 'director';
         }
         // else{
-        //     $user_group['hq_users'] = true;
+        //     $user_group['hq_users';
         // }
         return $user_group;
     }

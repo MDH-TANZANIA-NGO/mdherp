@@ -17,19 +17,25 @@ class Leave extends BaseModel
         return $this->morphMany(WfTrack::class, 'resource');
     }
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function user()
+    {
+
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function employee() {
-        return $this->belongsTo(User::class, 'employee_id');
+
+        return $this->belongsTo(User::class, 'employee_id','id');
+
     }
 
-    public function type(){
+    public function type()
+    {
         return $this->belongsTo(LeaveType::class, 'leave_type_id', 'id');
     }
 
-    public function balance(){
+    public function balance()
+    {
         return $this->belongsTo(LeaveBalance::class, 'leave_balance');
     }
 
