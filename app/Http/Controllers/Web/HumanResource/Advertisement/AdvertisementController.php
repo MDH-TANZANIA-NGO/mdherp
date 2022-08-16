@@ -226,10 +226,10 @@ class AdvertisementController extends Controller
             ->with('skillCategories', $skillCategories)
             ->with('regions', $this->regions->getAll());
     }
-    public function postAdvertisement(Request $request,HireAdvertisementRequisition $advertisement)
+    public function postAdvertisement(Request $request)
     {
   
-        $hireRequisitionJob = $this->hireRequisitionJobRepository->getQuery()->with('reportTo')->where('hr_hire_requisitions_jobs.uuid',$uuid)->first();
+        // $hireRequisitionJob = $this->hireRequisitionJobRepository->getQuery()->with('reportTo')->where('hr_hire_requisitions_jobs.uuid',$uuid)->first();
         $hireRequisition = $this->advertisement->update(['dead_line'=> $request->dead_line]);
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @include('HumanResource.HireRequisition._parent.form.step_header')
-<form action="{{route('hirerequisition.steps.personal_requirement',$uuid)}}" method="GET">
+<form action="{{route('hirerequisition.steps.personal_requirement',$uuid)}}" method="POST">
 @csrf
 <div class="row mt-2">
 	<div class="col-12">

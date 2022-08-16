@@ -18,9 +18,9 @@
 		<div class="tab-content">
 			<div class="tab-pane active" id="processing">
 			@if(isset($initiate))
-			<form action="{{route('hirerequisition.steps.general',$uuid)}}" method="GET">
+			<form action="{{route('hirerequisition.steps.general',$uuid)}}" method="POST">
 			@else
-			<form action="{{route('hirerequisition.store')}}" method="GET">
+			<form action="{{route('hirerequisition.store')}}" method="POST">
 				@endif
 				@csrf
 				@include('HumanResource.HireRequisition._parent.form.general')

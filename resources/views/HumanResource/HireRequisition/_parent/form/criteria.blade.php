@@ -136,7 +136,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{route('hirerequisition.steps.add_criteria',$uuid)}}" method="get">
+				<form action="{{route('hirerequisition.steps.add_criteria',$uuid)}}" method="post">
 					@csrf
 					<div class="row">
 						<label>Criteria</label>
