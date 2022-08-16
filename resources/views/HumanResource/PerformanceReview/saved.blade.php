@@ -26,7 +26,7 @@
         @endif
 
         @switch($pr_report->type->id)
-            @case(1)
+            @case(1) @case(2)
                 @include('HumanResource.PerformanceReview.form.next_objective_saved')
                 @include('HumanResource.PerformanceReview.datatables.next_objectives',['pr_next_objectives' => $pr_report->nextObjectives])
             @break

@@ -483,8 +483,7 @@ class Workflow
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
 
-                case 11:
-                case 13:
+                case 11: case 13: case 14: case 15: case 20: case 21: case 22: case 23: case 24:
                     $pr_report = (new PrReportRepository())->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('hr.pr.show', $pr_report),

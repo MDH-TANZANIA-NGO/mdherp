@@ -91,7 +91,7 @@ trait PrReportDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('hr.pr.show', $query->uuid).'">View</a>';
+                return $query->types == 1 ? '<a href="'.route('hr.pr.show_completed', $query->uuid).'">View</a>' : '<a href="'.route('hr.pr.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

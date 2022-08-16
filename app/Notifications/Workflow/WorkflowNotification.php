@@ -59,4 +59,5 @@ class WorkflowNotification extends Notification
             //
         ];
     }
+    
 }

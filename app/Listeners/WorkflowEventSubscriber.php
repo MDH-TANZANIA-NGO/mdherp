@@ -530,7 +530,10 @@ class WorkflowEventSubscriber
                     }
                     break;
                 case 11:
-                case 13:
+                case 21:
+                case 22:
+                case 23:
+                case 24:
                     //workflowAction class
                     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
                     break;
@@ -688,8 +691,7 @@ class WorkflowEventSubscriber
                     $program_activity_report->user->notify(new WorkflowNotification($email_resource));
                     break;
 
-                case 11:
-                case 13:
+                case 11: case 21: case 22: case 23: case 24:
                     $pr_report = (new PrReportRepository())->find($resource_id);
                     $this->updateWfDone($pr_report);
                     $email_resource = (object)[
@@ -735,7 +737,7 @@ class WorkflowEventSubscriber
                     $email_resource_to_applicant = (object)[
                         'link' =>  route('job_offer.accepting_offer', $job_offer),
                         'subject' => "Job Offer: Management and Development for Health",
-                        'message' =>  " <p>I am pleased to extend the following offer of employment to you on behalf of <b>Management and Development for Health </b>. You have been selected as the best candidate for the " .$job_offer->interviewApplicant->applicant->full_name." position.</p> " . ",  Kindly login to portal for your action"
+                        'message' =>  " <p>I am pleased to extend the following offer of employment to you on behalf of <b>Management and Development for Health </b>. You have been selected as the best candidate for the " . $job_offer->interviewApplicant->applicant->full_name . " position.</p> " . ",  Kindly login to portal for your action"
 
                     ];
                     $job_offer->user->notify(new WorkflowNotification($email_resource));
