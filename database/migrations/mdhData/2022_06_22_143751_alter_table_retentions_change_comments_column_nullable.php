@@ -16,7 +16,7 @@ class AlterTableRetentionsChangeCommentsColumnNullable extends Migration
         Schema::table('retentions', function (Blueprint $table) {
             $table->text('comments')->nullable()->change();
         });
-    }
+    } 
 
     /**
      * Reverse the migrations.

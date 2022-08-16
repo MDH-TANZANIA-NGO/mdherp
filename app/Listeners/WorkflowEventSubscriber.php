@@ -8,6 +8,9 @@ use App\Services\Workflow\Workflow;
 use Illuminate\Support\Facades\Log;
 use App\Exceptions\GeneralException;
 use App\Exceptions\WorkflowException;
+use App\Models\Leave\LeaveBalance;
+use App\Repositories\Leave\LeaveBalanceRepository;
+use App\Repositories\Listing\ListingRepository;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\JobOfferRepository;
 use App\Services\Workflow\WorkflowAction;
@@ -31,6 +34,7 @@ use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Jobs\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterJob;
 use App\Models\HumanResource\Interview\InterviewApplicant;
 use App\Models\HumanResource\Interview\InterviewWorkflowReport;
+use App\Repositories\HumanResource\Advertisement\AdvertisementRepository;
 use App\Repositories\HumanResource\HireRequisition\HrHireRequisitionJobApplicantRequestRepository;
 use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
 use App\Repositories\HumanResource\Interview\InterviewReportRepository;
@@ -90,7 +94,7 @@ class WorkflowEventSubscriber
         $current_level = $wfTrack->wfDefinition->level;
 
         $workflow_action = (new WorkflowAction());
-
+      
         /* check if there is next level */
         if (!is_null($workflow->nextLevel())) {
 
@@ -122,12 +126,11 @@ class WorkflowEventSubscriber
                                 'link' =>  route('requisition.show', $requisition),
                                 'subject' => $requisition->typeCategory->title . " Need your Approval",
                                 'message' => html_entity_decode($string)
-
                             ];
                             //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
+
                         case 2:
-                            //                                $requisition_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
                             $string = htmlentities(
                                 "There is new" . " " . $requisition->typeCategory->title . " " . "From " . $requisition->user->first_name . "" . $requisition->user->last_name . "pending your approval." . "<br>" . "<b>Number:</b>" . $requisition->number . "<br>" .
@@ -157,7 +160,6 @@ class WorkflowEventSubscriber
                                 'link' =>  route('requisition.show', $requisition),
                                 'subject' => $requisition->typeCategory->title . " Need your Approval",
                                 'message' => html_entity_decode($string)
-
                             ];
                             User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -416,10 +418,10 @@ class WorkflowEventSubscriber
 
                             $email_resource = (object)[
                                 'link' => route('timesheet.show', $timesheet),
-                                'subject' => $timesheet->id . " Need your Approval",
-                                'message' =>  $timesheet->id . ' need your approval'
+                                'subject' => $timesheet->number . " need your Approval",
+                                'message' =>  $timesheet->number . ' need your approval'
                             ];
-                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     }
                     break;
@@ -529,7 +531,24 @@ class WorkflowEventSubscriber
                             break;
                     }
                     break;
-                case 11:
+                case 12:
+                    $advertisement = (new AdvertisementRepository());
+                    $advertisement  = $advertisement->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 2: //Applicant level
+                            // $advertisement->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                            // dd($this->nextUserSelector($wf_module_id, $resource_id, $level));
+                            // $email_resource = (object)[
+                            //     'link' => route('job_offer.show', $job_offer),
+                            //     'subject' => $job_offer->number . " job offer your approval",
+                            //     'message' =>  $job_offer->number . ' Job offer need your approval.'
+                            // ];
+                            // //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+                    break;
                 case 21:
                 case 22:
                 case 23:
@@ -540,6 +559,11 @@ class WorkflowEventSubscriber
                 case 19:
                     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
                     break;
+                // case 11:
+                // case 13:
+                //     //workflowAction class
+                //     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
+                //     break;
             }
 
             $workflow->forward($data);
@@ -636,6 +660,10 @@ class WorkflowEventSubscriber
                     $delegeted_user = User::query()->where('id', $leave->employee_id)->first();
                     $leave->user->notify(new WorkflowNotification($email_resource));
                     $delegeted_user->notify(new WorkflowNotification($delegeted_email));
+
+
+
+
                     break;
                 case 7:
                     $finance_repo = (new FinanceActivityRepository());

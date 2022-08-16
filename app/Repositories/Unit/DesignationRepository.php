@@ -27,7 +27,6 @@ class DesignationRepository extends BaseRepository
         return $this->query()->select([
             DB::raw('designations.id'),
             DB::raw("concat_ws(' ', units.name, designations.name) as name"),
-
             DB::raw("units.id AS unit_id")
         ])
             ->join('units', 'units.id', 'designations.unit_id');

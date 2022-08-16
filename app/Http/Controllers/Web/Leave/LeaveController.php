@@ -12,6 +12,7 @@ use App\Models\Leave\LeaveBalance;
 use App\Models\Leave\LeaveType;
 use App\Models\Timesheet\EffortLevel;
 use App\Models\Unit\Designation;
+use App\Models\Workflow\WfTrack;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Leave\LeaveRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -251,6 +252,23 @@ class LeaveController extends Controller
             $leaveBalance->save();
         }
         alert('Leave Balances Updated Successfully', 'Success');
+        return redirect()->back();
+    }
+
+    public function deleteAccessLeave($uuid)
+    {
+        $leave = $this->leaves->findByUuid($uuid);
+        $days = getNoDays($leave->start_date, $leave->end_date);
+        $leave_balance =  LeaveBalance::query()->find($leave->leave_balance);
+        $actual_days_balance =  $leave_balance->remaining_days + $days;
+        $leave_balance->update(['remaining_days'=>$actual_days_balance]);
+        $wf_tracks =  WfTrack::query()->where('resource_type', '=','App\Models\Leave\Leave')->where('resource_id', '=',$leave->id)->get();
+        foreach ($wf_tracks as $track)
+        {
+            $track->delete();
+        }
+        $leave->delete();
+        alert()->success('Leave has been deleted successfully','Success');
         return redirect()->back();
     }
 }

@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
 //        $this->call(TransportMeansSeeder::class);
         $this->call(AttachmentTypeSeeder::class);
         $this->call(ServicesSeeder::class);
+        $this->call(HrHireRequisitionCriteriaTableSeeder::class);
 
 
 //        $this->call(CountryTableSeeder::class);

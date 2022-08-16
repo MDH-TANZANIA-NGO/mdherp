@@ -40,7 +40,7 @@ trait AdvertisementDatatable
                 return $query->created_at->toDateString();
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('advertisement.show', $query->uuid).'">View</a>';
+                $action =  '<a href="'.route('advertisement.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action','description'])
             ->make(true);

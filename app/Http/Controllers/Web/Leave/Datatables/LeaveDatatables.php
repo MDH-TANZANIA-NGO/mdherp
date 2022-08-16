@@ -18,7 +18,7 @@ trait LeaveDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('leave.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. '&nbsp' .'<a href="'.route('leave.edit', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
+                return '<a href="'.route('leave.show', $query->uuid).'" class="btn btn-outline-success">view</a>'. '&nbsp' .'<a href="'.route('leave.edit', $query->uuid).'" class="btn btn-outline-primary">Edit</a>';
 
             })
             ->rawColumns(['action'])
@@ -37,7 +37,7 @@ trait LeaveDatatables
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('leave.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. '&nbsp' .'<a href="'.route('leave.edit', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
+                return '<a href="'.route('leave.show', $query->uuid).'" class="btn btn-outline-success">view</a>'. '&nbsp' .'<a href="'.route('leave.edit', $query->uuid).'" class="btn btn-outline-primary">Edit</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -73,7 +73,7 @@ trait LeaveDatatables
                 return $query->created_at->toDateString();
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('leave.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('leave.show', $query->uuid).'" class="btn btn-outline-success">view</a>'. '&nbsp' .'<a href="'.route('leave.edit', $query->uuid).'" class="btn btn-outline-primary">Edit</a>'. '&nbsp' .'<a href="'.route('leave.delete', $query->uuid).'" onclick="if (confirm()){ return true} else{return false} " class="btn btn-outline-danger">Delete</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

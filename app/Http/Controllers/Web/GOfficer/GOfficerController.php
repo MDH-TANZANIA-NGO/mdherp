@@ -238,12 +238,17 @@ class GOfficerController extends Controller
             if (empty($duplicates)){
                 foreach ($upload as $data)
                 {
+
                     $this->g_officers->query()->create([
                         'first_name'=>$data->first_name,
                         'middle_name'=>$data->middle_name,
                         'last_name'=>$data->last_name,
                         'phone'=>$data->phone,
                         'region_id'=>$data->region_id,
+                        'district_id'=>$data->district_id,
+                        'gender_cv_id'=>$data->gender_cv_id,
+                        'user_id'=>$data->user_id,
+                        'government_scale_id'=>$data->government_scale_id,
                         'password'=>$data->password,
                         'fingerprint_data'=>$data->fingerprint_data,
                         'fingerprint_length'=>$data->fingerprint_length,
@@ -340,8 +345,15 @@ class GOfficerController extends Controller
     public function filterGofficer(Request $request)
     {
 
+        if ($request->get('region') ==  null){
+            $get_filtered_g_officers_by_district =  $this->g_officers->getQuery()->get();
+            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_district), 'Beneficiaries List.xlsx');
+
+        }
+
         if (isset($request['region']) and $request['districts']== null)
         {
+
             $get_filtered_g_officers_by_region = $this->g_officers->getFilteredGofficerByRegion($request['region'])->get();
             return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_region), 'Beneficiaries List.xlsx');
 
@@ -357,6 +369,8 @@ class GOfficerController extends Controller
 
 
 
+
+
         return  redirect()->back();
 
     }
@@ -365,6 +379,7 @@ class GOfficerController extends Controller
 
         if (isset($request['region']) and $request['districts']== null)
         {
+
             $get_filtered_g_officers_by_region = $this->g_officers->getFilteredGofficerByRegion($request['region'])->get();
             return \Maatwebsite\Excel\Facades\Excel::download(new BeneficiaryFilteredExport($get_filtered_g_officers_by_region), 'Beneficiaries List.xlsx');
 
