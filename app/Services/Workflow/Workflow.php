@@ -425,14 +425,14 @@ class Workflow
                     $leave_repo = (new LeaveRepository());
                     $leave = $leave_repo->find($wf_track->resource_id);
                     $string = htmlentities(
-                        "There is new" . " " . "leave application" . " " . "from " . " " . $leave->user->first_name . " " . $leave->user->last_name . " pending for your approval." . "<br>" . "<br>" .
-                            "<b>Region:</b>" . $leave->region->name . "<br>" .
-                            "<b>Leave Type:</b>" . $leave->type->name . "<br>" .
-                            "<b>Remaining days:</b>" . $leave->balance->remaining_days . "<br>" .
-                            "<b>Comments:</b>" . $leave->comment . "<br>" .
-                            "<b>Starting Date:</b>" . $leave->start_date . "<br>" .
-                            "<b>End Date:</b>" . $leave->end_date . "<br>" .
-                            "<b>Requested Days:</b>" . getNoDays($leave->start_date, $leave->end_date) . "<br>"
+                        "There is new"." "."leave application"." "."from "." ".$leave->user->first_name." ".$leave->user->last_name." pending for your review and approval."."<br>". "<br>".
+                        "<b>Region:</b>".$leave->region->name."<br>".
+                        "<b>Leave Type:</b>".$leave->type->name."<br>".
+//                        "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
+                        "<b>Comments:</b>". $leave->comment."<br>".
+                        "<b>Starting Date:</b>". $leave->start_date."<br>".
+                        "<b>End Date:</b>". $leave->end_date."<br>".
+                        "<b>Requested Days:</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
 
                     );
                     $email_resource = (object)[
@@ -456,9 +456,9 @@ class Workflow
                     $timesheetrepo = (new TimesheetRepository());
                     $timesheet = $timesheetrepo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('timesheet.show', $timesheet),
-                        'subject' =>  " Need your Approval",
-                        'message' => ' need your approval'
+                        'link' =>  route('timesheet.show',$timesheet),
+                        'subject' =>  'Timesheet number '.$timesheet->number." Needs your Approval",
+                        'message' => 'There is timesheet '.$timesheet->number.' of '.$timesheet->user->fullname. "pending for your review and approval",
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
