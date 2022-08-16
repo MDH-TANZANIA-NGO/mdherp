@@ -105,7 +105,7 @@ class RetirementController extends Controller
         $retirement_attribute =$this->retirements->findByUuid($uuid);
 
 
-        dd($request->all());
+        //dd($request->all());
         //dd($this->retirements->update($request->all(),$uuid));
 
         if ($retirement_attribute->done == true)
