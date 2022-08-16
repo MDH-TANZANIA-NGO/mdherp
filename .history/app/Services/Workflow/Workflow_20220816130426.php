@@ -492,7 +492,7 @@ class Workflow
                         'subject' =>  " Performance Appraisal Request",
                         'message' => ' Performance Appraisal is on your level kindly aprove'
                     ];
-                    SendEmail::dispatch(User::query()->find($pr_report->supervisor_id), $email_resource);
+                    Se::dispatch(User::query()->find($pr_report->supervisor_id), $email_resource);
                     break;
                 case 16:
                     $interview_report = (new InterviewWorkflowReport())->find($wf_track->resource_id);

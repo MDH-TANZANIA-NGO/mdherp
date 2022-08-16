@@ -58,7 +58,7 @@ class HrHireRequisitionJobApplicantShortlisterRepository extends BaseRepository
                 $hr_hire_applicant_id = HrHireApplicant::where('user_recruitment_id', $online_applicant_id)->first()->id;
             }
             //check if shortlisted
-            $shortlisted = HrHireRequisitionJobApplicant::where('hr_hire_applicant_id', $hr_hire_applicant_id)->where('hr_hire_requisitions_job_id', $hr_hire_requisitions_job_id)->first();
+            $shortlisted = HrHireRequisitionJobApplicant::where('hr_hire_applicant_id', $hr_hire_applicant_id)->where('hr_hire_requisitions_job_id', $hr_hire_requisitions_job_id);
             if ($shortlisted->count() > 0) {
                 //add to shortlist
                 //checkif user has shortlisted

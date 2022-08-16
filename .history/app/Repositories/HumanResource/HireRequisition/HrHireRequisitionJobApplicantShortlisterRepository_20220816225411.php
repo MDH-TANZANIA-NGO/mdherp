@@ -33,7 +33,7 @@ class HrHireRequisitionJobApplicantShortlisterRepository extends BaseRepository
         $this->checkIfHrHireRequisitionsJobSelected($input);
         return DB::transaction(function () use ($hire_requisition_job, $input) {
             foreach($input['hr_applicants'] as $online_applicant_id){
-                $this->shortlistAndUpdate($hire_requisition_job->id, (int)$online_applicant_id);
+                $this->shortlistAndUpdate($hire_requisition_job, $online_applicant_id);
             }
         });
     }
@@ -41,6 +41,8 @@ class HrHireRequisitionJobApplicantShortlisterRepository extends BaseRepository
     public function shortlistAndUpdate($hr_hire_requisitions_job_id, $online_applicant_id)
     {
         return DB::transaction(function () use ($hr_hire_requisitions_job_id, $online_applicant_id) {
+            //register applicant on mimosa
+            //check if user has been registerd
             if (HrHireApplicant::where('user_recruitment_id', $online_applicant_id)->count() == 0) {
                 //call api for online recruitment applicants details
                 $applicant = $this->getApplicantByJob($online_applicant_id, $hr_hire_requisitions_job_id);
@@ -58,7 +60,7 @@ class HrHireRequisitionJobApplicantShortlisterRepository extends BaseRepository
                 $hr_hire_applicant_id = HrHireApplicant::where('user_recruitment_id', $online_applicant_id)->first()->id;
             }
             //check if shortlisted
-            $shortlisted = HrHireRequisitionJobApplicant::where('hr_hire_applicant_id', $hr_hire_applicant_id)->where('hr_hire_requisitions_job_id', $hr_hire_requisitions_job_id)->first();
+            $shortlisted = HrHireRequisitionJobApplicant::where('hr_hire_applicant_id', $hr_hire_applicant_id)->where('hr_hire_requisitions_job_id', $hr_hire_requisitions_job_id);
             if ($shortlisted->count() > 0) {
                 //add to shortlist
                 //checkif user has shortlisted
@@ -79,6 +81,7 @@ class HrHireRequisitionJobApplicantShortlisterRepository extends BaseRepository
                 $hr_hire_job_applicant = HrHireRequisitionJobApplicant::query()->create([
                     'hr_hire_requisitions_job_id' => $hr_hire_requisitions_job_id,
                     'hr_hire_applicant_id' => $hr_hire_applicant_id,
+                    'user_id' => access()->id(),
                 ]);
                 HrHireRequisitionJobApplicantShortlister::query()->create([
                     'hr_hire_requisition_job_applicant_id' => $hr_hire_job_applicant->id,

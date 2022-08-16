@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class HrHireRequisitionJobApplicantShortlister extends Model
 {
-    protected $guarded = [];
+    protected $fillable[
+        'hr_hire_requisition_job_applicant_id'
+    ]
 }

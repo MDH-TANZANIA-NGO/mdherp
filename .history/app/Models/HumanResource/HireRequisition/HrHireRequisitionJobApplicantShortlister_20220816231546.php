@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class HrHireRequisitionJobApplicantShortlister extends Model
 {
-    protected $guarded = [];
+    protected $fillable
 }
