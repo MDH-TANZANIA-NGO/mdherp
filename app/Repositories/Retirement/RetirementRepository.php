@@ -122,12 +122,13 @@ class RetirementRepository extends BaseRepository
 /*
             'retirement_id'=> $retirement->id,
             'safari_advance_id'=>$inputs['safari_advance_id'],
-            'from'=>$inputs['from'],
-            'to'=>$inputs['to'],
+
             'district_id'=>$inputs['district_id'],
             'amount_requested'=>$inputs['amount_requested'],
             'amount_paid'=>$inputs['amount_paid'],
             'amount_received'=>$inputs['amount_received'],*/
+            'from'=>$inputs['from'],
+            'to'=>$inputs['to'],
             'amount_spent'=>$inputs['amount_spent'],
             'amount_variance'=>$inputs['amount_variance'],
             'activity_report'=>$inputs['activity_report'],

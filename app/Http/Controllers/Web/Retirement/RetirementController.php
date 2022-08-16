@@ -63,7 +63,7 @@ class RetirementController extends Controller
     {
 
         $safariDetails = $this->finance->getPaidSafari($retirement->safari_advance_id)->first();
-        //dd($this->safari_advances->getDisbursedAmount()->get()->where('safari_id', $retirement->safari_advance_id));
+        //dd($this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id));
         return view('retirement.forms.create')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
@@ -105,7 +105,7 @@ class RetirementController extends Controller
         $retirement_attribute =$this->retirements->findByUuid($uuid);
 
 
-        //dd($request->all());
+        dd($request->all());
         //dd($this->retirements->update($request->all(),$uuid));
 
         if ($retirement_attribute->done == true)
