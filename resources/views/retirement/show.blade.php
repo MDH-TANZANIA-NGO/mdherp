@@ -42,60 +42,6 @@
                 </div>
 
             </div>
-            <div class="card-body">
-
-
-
-
-{{--                        @foreach($retirementz as $retirementd)--}}
-{{--                        @endforeach--}}
-
-
-
-                <hr>
-
-                <div class="table-responsive">
-                    {{--{{$retirement->getMedia('attachments')}}
-                    @foreach($retirement->getMedia('attachments') as $media)
-                        <a href="{{ $media->original_url }}">{{ $media->file_name }}</a>
-                    @endforeach--}}
-
-                   {{-- @if($retirement->getMedia('attachments'))
-                    <table class="table card-table table-vcenter text-nowrap">
-                        <thead >
-                        <tr>
-
-                            <th>#</th>
-                            <th>Attachment Name</th>
-                            <th>Attachment </th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        @foreach($retirement->getMedia('attachments') as $key => $media)
-                            <tr>
-                                <td>{{ $key+1 }}</td>
-                                <td>{{ $media->name }}</td>
---}}{{--                                <td>{{$retirement->getFirstMedia('attachments')->pluck('name')}}</td>--}}{{--
---}}{{--                                {{$retirement->getRegisteredMediaCollections()}}--}}{{--
-                                <td><a href="{{$media->original_url}}" target="_blank">View attachment</a></td>
-                            </tr>
-
-                        @endforeach
-
-                        </tbody>
-                    </table>
-                    @else
-
-                            <div class="col-md-12 align-content-center">
-                            <label class="">No Attachment</label>
-                            </div>
-
-                    @endif--}}
-                </div>
-                <!-- table-responsive -->
-            </div>
 
             <hr>
 
@@ -118,14 +64,11 @@
                                     <td><i class="fa fa-bed"></i></td>
                                     <td>Accommodation</td>
                                     <td>{{number_2_format($retirement->accomodation)}}</td>
-                                    {{--  attachment--}}
-                                    @if($retirement->getMedia())
-                                        <td><a href="{{$retirement->getMedia()}}" target="_blank">View attachment</a></td>
-                                        {{--@foreach($retirement->getMedia('attachments') as $media)
-                                           <td><a href="{{$media->original_url}}" target="_blank">View attachment</a></td>
-                                        @endforeach--}}
+                                    {{-- Accomodation attachment--}}
+                                    @if($retirement->getFirstMediaUrl('accomodation_attachments'))
+                                        <td><a href="{{$retirement->getFirstMediaUrl('accomodation_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank">View attachment</a></td>
                                     @else
-                                        <td>No Attachment</td>
+                                        <td></td>
                                     @endif
 
                                 </tr>
@@ -140,26 +83,41 @@
                                     <td><i class="fa fa-subway"></i></td>
                                     <td>On transit</td>
                                     <td>{{number_2_format($retirement->ontransit)}}</td>
-                                    <td>No Attachment</td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-ticket"></i></td>
                                     <td>Ticket Fair</td>
                                     <td>{{number_2_format($retirement->ticket_fair)}}</td>
-                                    <td>No Attachment</td>
+                                    {{-- Ticket fair attachment--}}
+                                    @if($retirement->getFirstMediaUrl('ticket_attachments'))
+                                        <td><a href="{{$retirement->getFirstMediaUrl('ticket_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank">View attachment</a></td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-taxi"></i></td>
                                     <td>Ground Transportation</td>
                                     <td>{{number_2_format($retirement->transportation)}}</td>
-                                    <td>No Attachment</td>
+                                    {{-- Ground Transport attachment--}}
+                                    @if($retirement->getFirstMediaUrl('transportation_attachments'))
+                                        <td><a href="{{$retirement->getFirstMediaUrl('transportation_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank">View attachment</a></td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                 </tr>
 
                                 <tr>
                                     <td><i class="fa fa-exclamation"></i></td>
                                     <td>Other Cost</td>
                                     <td>{{number_2_format($retirement->other_cost)}}</td>
-                                    <td>No Attachment</td>
+                                    {{-- Other Cost attachment--}}
+                                    @if($retirement->getFirstMediaUrl('othercost_attachments'))
+                                        <td><a href="{{$retirement->getFirstMediaUrl('othercost_attachments')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank">View attachment</a></td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -178,7 +136,12 @@
                                     <td></td>
                                     <td><b>Balance</b></td>
                                     <td><b>{{number_2_format($retirement->balance)}}</b></td>
-                                    <td>No Attachment</td>
+                                    {{-- Balance/Receipt attachment--}}
+                                    @if($retirement->getFirstMediaUrl('receipt_attachment'))
+                                        <td><a href="{{$retirement->getFirstMediaUrl('receipt_attachment')}}" class="btn btn-outline-info btn-sm mb-1" target="_blank">View attachment</a></td>
+                                    @else
+                                        <td></td>
+                                    @endif
                                 </tr>
 
                                 @endforeach
