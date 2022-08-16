@@ -27,6 +27,7 @@ use App\Repositories\Workflow\WfModuleRepository;
 use App\Repositories\Workflow\WfTrackRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
 use App\Exceptions\GeneralException;
+use App\Jobs\Workflow\SendEmail;
 use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Models\HumanResource\Interview\InterviewWorkflowReport;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
@@ -488,9 +489,10 @@ class Workflow
                     $pr_report = (new PrReportRepository())->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('hr.pr.show', $pr_report),
-                        'subject' =>  " Need your review",
-                        'message' => ' Performance Appraisal'
+                        'subject' =>  " Performance Appraisal Request",
+                        'message' => ' Performance Appraisal is on your level kindly aprove'
                     ];
+                    SendEmail::dispatch(User::query()->find($pr_report->supervisor_id), $email_resource);
                     // User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
                 case 16:
