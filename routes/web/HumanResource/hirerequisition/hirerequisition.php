@@ -3,7 +3,7 @@
 Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['web', 'auth'], 'prefix' => 'hirerequisition', 'as' => 'hirerequisition.'], function () {
     Route::get('', 'HireRequisitionController@index')->name('index');
     Route::get('list', 'HireRequisitionController@list')->name('list');
-    Route::get('create', 'HireRequisitionController@create')->name('create');
+    Route::get('create/{uuid?}', 'HireRequisitionController@create')->name('create');
     Route::get('initiate/{uuid}', 'HireRequisitionController@initiate')->name('initiate');
     Route::post('initiate/{uuid}', 'HireRequisitionController@addRequisition')->name('addRequisition');
     Route::post('store', 'HireRequisitionController@store')->name('store');
@@ -15,9 +15,11 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
             Route::GET('criteria/{hireRequisitionJob}', 'HireRequisitionController@stepCriteria')->name('criteria');
             Route::GET('criteria/{hireRequisitionJob}', 'HireRequisitionController@stepReview')->name('review');
             Route::GET('add_criteria/{hireRequisitionJob}', 'HireRequisitionController@addCriteria')->name('add_criteria');
+            Route::post('finish/{uuid}', 'HireRequisitionController@finish')->name('finish');
     });
 
     Route::post('submit/{uuid}', 'HireRequisitionController@submit')->name('submit');
+
     Route::get('{hirerequisition}/show', 'HireRequisitionController@show')->name('show');
     Route::get('hirerequisitionjob/{hireRequisitionJob}/show', 'HireRequisitionController@stepReview')->name('hire_requisition_job_show');
     Route::get('{hireRequisitionJob}/edit', 'HireRequisitionController@edit')->name('edit');

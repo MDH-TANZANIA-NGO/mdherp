@@ -97,7 +97,10 @@
                 </tr>
                 <tr>
                     <td> Education Level </td>
-                    <td> {{ isset($job->_education_level->name) ? $job->_education_level->name:"" }}</td>
+                    <td> 
+                        {{ isset($job->_education_level->name) ? $job->_education_level->name:"" }}
+                   
+                    </td>
                 </tr>
                 <tr>
                     <td> Years Of Experience </td>

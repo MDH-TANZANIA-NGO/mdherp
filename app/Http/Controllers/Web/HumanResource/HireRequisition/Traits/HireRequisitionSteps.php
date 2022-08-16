@@ -29,7 +29,7 @@ trait HireRequisitionSteps
             $region_data['region_id'] = $region;
             HireRequisitionLocation::create($region_data);
         }
-        $hireRequisitionJob->update($request->except('region', 'files', 'prospect_for_appointment_cv_id'));
+        $hireRequisitionJob->update($request->except('region', 'files'));
         return view('HumanResource.HireRequisition._parent.form.personal_required')
             ->with('step', $step)
             ->with('job_title', $job_title)
@@ -54,7 +54,7 @@ trait HireRequisitionSteps
             ->with('job_title', $job_title)
             ->with('uuid', $hireRequisitionJob->uuid)
             ->with('hireRequisitionJob', $hireRequisitionJob)
-            ->with('current_working_tools', $current_working_tools)
+            ->with('current_working_tools', $current_working_tools) 
             ->with('establishments', code_value()->query()->where('code_id', 9)->get());
     }
     public function stepEmploymentCondition(HireRequisitionJob $hireRequisitionJob, Request $request)
@@ -104,8 +104,8 @@ trait HireRequisitionSteps
     {
         $step = 5;
         $job_title = $this->designation->getQueryDesignationUnit()
-        ->where('designations.id', $hireRequisitionJob->designation_id)
-        ->first();
+                    ->where('designations.id', $hireRequisitionJob->designation_id)
+                    ->first();
         $working_tools = HireRequisitionWorkingTool::select("working_tools.name as name")
             ->join('working_tools', 'working_tools.id', 'hr_hire_requisition_working_tools.working_tool_id')
             ->where('hr_hire_requisition_working_tools.hr_requisitions_jobs_id', $hireRequisitionJob->id)->get()->implode('name', ',');
@@ -116,19 +116,22 @@ trait HireRequisitionSteps
             ->join('skills', 'skills.id', 'skill_user.skill_id', 'skills.id')
             ->where('hr_requisition_job_id', $hireRequisitionJob->id)->get();
         $_education_level =  code_value()->query()->where('id', $hireRequisitionJob->education_level)->first();
-        $establishment = isset(code_value()->query()->where('id', $hireRequisitionJob->establishment)->first()->name) ?? "";
+        // return $_education_level;
+        $establishment = code_value()->query()->where('id', $hireRequisitionJob->establishment)->first();
         $hireRequisition = $this->hireRequisitionRepository->find($hireRequisitionJob->hire_requisition_id);
+        $appointment_prospect =  code_value()->query()->where('id', $hireRequisitionJob->appointement_prospects_id)->first();
         return view('HumanResource.HireRequisition._parent.form.review')
-            ->with('designations', $this->designation->getActiveForSelect())
-            ->with('working_tools', $working_tools)
-            ->with('regions', $regions)
-            ->with('skills', $skills)
-            ->with('_education_level', $_education_level)
-            ->with('establishment', $establishment)
-            ->with('step', $step) 
-            ->with('job_title', $job_title ) 
-            ->with('hireRequisition', $hireRequisition)
-            ->with('hireRequisitionJob', $hireRequisitionJob);
+                ->with('designations', $this->designation->getActiveForSelect())
+                ->with('working_tools', $working_tools)
+                ->with('regions', $regions)
+                ->with('skills', $skills)
+                ->with('_education_level', $_education_level)
+                ->with('establishment', $establishment)
+                ->with('appointment_prospect', $appointment_prospect)
+                ->with('step', $step) 
+                ->with('job_title', $job_title ) 
+                ->with('hireRequisition', $hireRequisition)
+                ->with('hireRequisitionJob', $hireRequisitionJob);
     }
     public function addCriteria(HireRequisitionJob $hireRequisitionJob, Request $request)
     {
@@ -139,7 +142,8 @@ trait HireRequisitionSteps
 
         // Age Limit
         if ($request->criteria_id == 2) {
-            return  $request->criteria_id;
+            $hireRequisitionJob->update($request->except('criteria_id','education_level_id','weight'));
+            
         }
 
         // Skills 
@@ -165,7 +169,12 @@ trait HireRequisitionSteps
             'weight' =>  $request->weight,
         ];
 
-        HrHireRequisitionJobsCriteriaWeight::create($data);
+        $jobCriteria = HrHireRequisitionJobsCriteriaWeight::where('hr_requisition_job_id',$hireRequisitionJob->id)->where('hr_hire_requisitioin_job_criteria_id',$request->criteria_id)->first();
+        if($jobCriteria){
+            $jobCriteria->update($data);
+        }else{
+            HrHireRequisitionJobsCriteriaWeight::create($data);
+        }
         return redirect()->back();
     }
 }

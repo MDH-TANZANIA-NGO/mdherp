@@ -25,9 +25,8 @@
 	<div class="col-lg-12">
 		<label class="form-label">Explain any Special Employment Condition</label>
 		<textarea class="form-control summernotecontent" name="special_employment_condition" rows="2" placeholder="Explain any Special Employment Condition" required>
-		{{ old('special_employment_condition')}}
+			{{ old('special_employment_condition')}}
 			{{ $hireRequisitionJob->special_employment_condition }}
-
 		</textarea>
 	</div>
 </div>

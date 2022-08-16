@@ -62,7 +62,7 @@
 		<label class="form-label">Prospect for appointment</label>
 		@foreach($prospects as $prospect)
 		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" value="{{ old('prospect_for_appointment_cv_id',$prospect->id) }}" name="prospect_for_appointment_cv_id" id="prospect_for_appointment">
+			<input class="form-check-input" type="radio" value="{{ old('appointement_prospects_id',$prospect->id) }}" name="appointement_prospects_id" id="appointement_prospects_id">
 			<label class="form-check-label" for="inlineRadio1">{{$prospect->name}}</label>
 		</div>
 		@endforeach

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@if(isset($initiate))
+@if(isset($initiate) && $initiate== true)
 <?php
 $total_jobs = count($hireRequisitionJobs);
 ?>
@@ -11,6 +11,7 @@ $total_jobs = count($hireRequisitionJobs);
 		<form action="{{route('hirerequisition.store')}}" method="POST">
 			@csrf
 			<div class="row">
+				<input type="hidden" name="hr_hire_requisition_id" value="{{ isset($hireRequisition->id) ? $hireRequisition->id:''}}">
 				<div class="col-6 col-lg-6">
 					<label class="form-label">Department</label>
 					<select name="department_id" id="select-department" data-placeholder="Select Department" class="form-control select2-show-search" required>
@@ -69,6 +70,7 @@ $total_jobs = count($hireRequisitionJobs);
 				$('.budget').hide()
 			}
 		});
+
 		$('.summernotecontent').summernote({
 			height: 140,
 			spellCheck: true,
@@ -79,18 +81,20 @@ $total_jobs = count($hireRequisitionJobs);
 				['view', ['fullscreen']]
 			]
 		});
+
 		$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
 			var $target = $(e.target);
 			if ($target.parent().hasClass('disabled')) {
 				return false;
 			}
 		});
+
 		$(".next-step").click(function(e) {
 			var $active = $('.panel-tabs li>.active');
-
 			$active.parent().next().find('.nav-link').removeClass('disabled');
 			nextTab($active);
 		});
+
 		$(".prev-step").click(function(e) {
 			var $active = $('.panel-tabs li>a.active');
 			prevTab($active);
@@ -108,10 +112,12 @@ $total_jobs = count($hireRequisitionJobs);
 		$(".add_requisition_body").show();
 		$(".hire_requisition_list").hide();
 	});
+
 	$(".cancel").click(function() {
 		$(".add_requisition_body").hide();
 		$(".hire_requisition_list").show();
 	});
+
 	$(document).on('change', '#skill_category_id', function() {
 		skill_category_id = $(this).val();
 		url = "{{ route('hirerequisition.category_skills',':property_id') }}";
@@ -132,6 +138,7 @@ $total_jobs = count($hireRequisitionJobs);
 			}
 		});
 	});
+
 	var $_department_id = $("[name='department_id']"); // Button that triggered the modal
 	$_department_id.change(function(e) {
 		$_deparmtment_id = $(this).val();
@@ -153,6 +160,7 @@ $total_jobs = count($hireRequisitionJobs);
 			}
 		});
 	});
+	
 	$(document).on('change', '#job_title', function() {
 		designation_id = $(this).val();
 		url = "{{ route('hirerequisition.criteriaFilter',':designation_id') }}";

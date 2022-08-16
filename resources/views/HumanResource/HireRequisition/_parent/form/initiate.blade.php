@@ -1,12 +1,9 @@
 @extends('layouts.app')
 @section('content')
 @if(isset($initiate))
-<?php
-$total_jobs = count($hireRequisitionJobs);
-?>
-@include('HumanResource.HireRequisition._parent.datatables.index')
 @endif
-<div class="card card-primary add_requisition_body" style="display: {{ isset($create) && $create == true ? ' ':'none' }}">
+@include('HumanResource.HireRequisition._parent.form.step_header')
+<!-- <div class="card card-primary add_requisition_body" style="display: {{ isset($create) && $create == true ? ' ':'none' }}">
 	<div class=" tab-menu-heading card-header sw-theme-dots">
 		<div class="tabs-menu">
 			<ul class="nav panel-tabs">
@@ -17,7 +14,7 @@ $total_jobs = count($hireRequisitionJobs);
 			</ul>
 		</div>
 	</div>
-	<div class="card tabs-menu-body" style="background-color:#FFFFFF">
+	<div class="card tabs-menu-body" style="background-color:#FFFFFF"> -->
 		<div class="tab-content">
 			<div class="tab-pane active" id="processing">
 			@if(isset($initiate))

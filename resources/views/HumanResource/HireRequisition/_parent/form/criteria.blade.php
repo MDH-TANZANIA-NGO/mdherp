@@ -9,7 +9,6 @@
 			<th>Weight</th>
 		</tr>
 	</thead>
-
 	<tbody>
 		<?php
 		 	$total = 0;
@@ -27,18 +26,28 @@
 					@endif
 					@if($criteriaWeight->hr_hire_requisitioin_job_criteria_id == 4)
 						<ul>
-						@foreach($_experiences as $_experience)
-							<li> {{ $_experience->description  }} </li>
-						@endforeach
+							@foreach($_experiences as $_experience)
+								<li> {{ $_experience->description  }} </li>
+							@endforeach
 						</ul>
 					@endif
 					@if($criteriaWeight->hr_hire_requisitioin_job_criteria_id == 1)
 						<ul>
-						@foreach($education_levels as $education_level)
-							@if($hireRequisitionJob->education_level == $education_level->id )
-								<li> {{ $education_level->name  }} </li>
-							@endif
-						@endforeach
+							@foreach($education_levels as $education_level)
+								@if($hireRequisitionJob->education_level == $education_level->id )
+									<li> {{ $education_level->name  }} </li>
+								@endif
+							@endforeach
+						</ul>
+					@endif
+					@if($criteriaWeight->hr_hire_requisitioin_job_criteria_id == 2)
+						<ul>
+							 
+						 
+									<li> Minimum Age {{ $hireRequisitionJob->start_age }} </li>
+									<li> Maxmum Age {{ $hireRequisitionJob->end_age }} </li>
+							 
+							 
 						</ul>
 					@endif
 
@@ -165,6 +174,12 @@
 							@endforeach
 						</select>
 					</div>
+					<div class="row mt-2" id="age_limit" style="display:none;">
+						<div class="d-flex">
+						 <input type="number" placeholder="minimum age" name="start_age"class="form-control">
+						 <input type="number" placeholder="maximum age" name="end_age" class="form-control">
+						</div>
+					</div>
 					<div class="row" id="weight" style="display:none;">
 						<label> Weight </label>
 						<input type="number" name="weight" class="form-control" required>
@@ -189,24 +204,30 @@
 			$("#education").show();
 			$("#skill").hide();
 			$("#experience").hide();
+			$("#age_limit").hide();
 		 }else if(criteria_id == 2){
+			
 			$("#education").hide();
 			$("#skill").hide();
 			$("#experience").hide();
+			$("#age_limit").show();
 		 }else if(criteria_id == 3){
 			// show skills
 			$("#education").hide();
 			$("#skill").show();
 			$("#experience").hide();
+			$("#age_limit").hide();
 		 }else if(criteria_id == 4){
 			// hide skills
 			$("#education").hide();
 			$("#skill").hide();
 			$("#experience").show();
+			$("#age_limit").hide();
 		 }else if(criteria_id == 5){
 			$("#education").show();
 			$("#skill").hide();
 			$("#experience").hide();
+			$("#age_limit").hide();
 		 }
 	 });
 </script>

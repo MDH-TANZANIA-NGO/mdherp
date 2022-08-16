@@ -3,7 +3,7 @@
 @include('HumanResource.HireRequisition._parent.form.step_header')
 
 <!-- Section 1 -->
-<form action="{{ route('hirerequisition.submit',$hireRequisition->uuid) }}" method="POST">
+<form action="{{ route('hirerequisition.steps.finish',$hireRequisition->uuid) }}" method="POST">
 @csrf
 <li class="">
     <div class="acc_content">
@@ -67,7 +67,7 @@
                 </tr>
                 <tr>
                     <td><strong>Prospect for appointment : </strong></td>
-                    <td> {!! $hireRequisitionJob->contract_type !!} </td>
+                    <td> {{ $appointment_prospect->name }} </td>
                 </tr>
                 <tr>
                     <td><strong>Special Employment Condition : </strong></td>
@@ -75,7 +75,7 @@
                 </tr>
                 <tr>
                     <td><strong> Establishment : </strong></td>
-                    <td> {{ $hireRequisitionJob->establishment }} </td>
+                    <td> {{ $establishment->name }} </td>
                 </tr>
                 <tr>
                     <td><strong> Working Tools : </strong></td>
@@ -90,7 +90,7 @@
                 </tr>
                 <tr>
                     <td> Education Level </td>
-                    <td> {{ isset($hireRequisitionJob->_education_level->name) ? $hireRequisitionJob->_education_level->name:""  }}</td>
+                    <td> {{ isset($_education_level->name) ? $_education_level->name : " "  }}</td>
                 </tr>
                 <tr>
                     <td> Years Of Experience </td>
@@ -123,7 +123,7 @@
 		<button id="" type="button" name="submit_job_requisition" value="Cancel" class="btn btn-inline-block btn-danger cancel"> <i class="fa fa-times"></i> Cancel </button>
 		@endif
 		<button type="button" class="btn btn-inline-block btn-azure prev-step"> <i class="fa fa-angle-left"></i> Back </button>
-		<button href="{{ route('hirerequisition.submit',$hireRequisitionJob->uuid) }}" class="btn btn-inline-block btn-azure"> <i class="fa fa-save"></i> Finish</button>
+		<button type="submit" class="btn btn-inline-block btn-azure"> <i class="fa fa-save"></i> Finish</button>
 	</div>
 </div>
 </form>
