@@ -34,6 +34,7 @@ use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Jobs\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterJob;
 use App\Models\HumanResource\Interview\InterviewApplicant;
 use App\Models\HumanResource\Interview\InterviewWorkflowReport;
+use App\Repositories\HumanResource\Advertisement\AdvertisementRepository;
 use App\Repositories\HumanResource\HireRequisition\HrHireRequisitionJobApplicantRequestRepository;
 use App\Repositories\HumanResource\HireRequisition\HrUserHireRequisitionJobShortlisterRequestRepository;
 use App\Repositories\HumanResource\Interview\InterviewReportRepository;
@@ -93,7 +94,7 @@ class WorkflowEventSubscriber
         $current_level = $wfTrack->wfDefinition->level;
 
         $workflow_action = (new WorkflowAction());
-
+      
         /* check if there is next level */
         if (!is_null($workflow->nextLevel())) {
 
@@ -530,7 +531,24 @@ class WorkflowEventSubscriber
                             break;
                     }
                     break;
-                case 11:
+                case 12:
+                    $advertisement = (new AdvertisementRepository());
+                    $advertisement  = $advertisement->find($resource_id);
+                    /*check levels*/
+                    switch ($level) {
+                        case 2: //Applicant level
+                            // $advertisement->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                            // dd($this->nextUserSelector($wf_module_id, $resource_id, $level));
+                            // $email_resource = (object)[
+                            //     'link' => route('job_offer.show', $job_offer),
+                            //     'subject' => $job_offer->number . " job offer your approval",
+                            //     'message' =>  $job_offer->number . ' Job offer need your approval.'
+                            // ];
+                            // //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+                    }
+                    break;
                 case 21:
                 case 22:
                 case 23:

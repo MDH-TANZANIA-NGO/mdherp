@@ -88,6 +88,30 @@ class AdvertisementController extends Controller
             ->with('skillCategories', $skillCategories)
             ->with('regions', $this->regions->getAll());
     }
+    public function post()
+    {
+        $hireRequisitionJobs = $this->hireRequisitionJobRepository
+                                ->getAprovedJobs()
+                                ->where("is_advertised",0)
+                                ->whereNull("posted_on")
+                                ->get();
+        $tools = WorkingTool::all();
+        $users = User::where('designation_id', '!=', null)->get();
+        $skillCategories = SkillCategory::get();
+        return view('HumanResource.HireRequisition.advertisement.form.post')
+            ->with('prospects', code_value()->query()->where('code_id', 7)->get())
+            ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
+            ->with('establishments', code_value()->query()->where('code_id', 9)->get())
+            ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
+            ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
+            ->with('departments', $this->departments->getAll())
+            ->with('designations', $this->designation->getAll())
+            ->with('tools', $tools)
+            ->with('users', $users)
+            ->with('hireRequisitionJobs', $hireRequisitionJobs)
+            ->with('skillCategories', $skillCategories)
+            ->with('regions', $this->regions->getAll());
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -103,7 +127,7 @@ class AdvertisementController extends Controller
                 $advertisement->update(['done'=>1]);
                 $hireRequisitionJob =  $this->hireRequisitionJobRepository->find($advertisement->hire_requisition_job_id);
                 $hireRequisitionJob->update(['is_advertised'=>1]);
-                $next_user = $this->users->getCeo()->first()->user_id;
+                $next_user = $this->users->getDirectorOfHR()->first()->user_id;
                 $this->startWorkflow($advertisement , 1,  $next_user);
                 $this->advertisementRepository->submit($advertisement);
                 alert()->success('Hire Requisition Created Successfully','success');
@@ -163,6 +187,54 @@ class AdvertisementController extends Controller
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
         return view('HumanResource.HireRequisition.advertisement.form.initiate')
+            ->with('prospects', code_value()->query()->where('code_id', 7)->get())
+            ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
+            ->with('establishments', code_value()->query()->where('code_id', 9)->get())
+            ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
+            ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
+            ->with('departments', $this->departments->getAll())
+            ->with('designations', $this->designation->getAll())
+            ->with('tools', $tools)
+            ->with('users', $users)
+            ->with('hireRequisitionJob', $hireRequisitionJob)
+            ->with('hireRequisition', $hireRequisition)
+            ->with('skillCategories', $skillCategories)
+            ->with('regions', $this->regions->getAll());
+    }
+    public function publish($uuid)
+    {
+        $hireRequisitionJob = $this->hireRequisitionJobRepository->getQuery()->with('reportTo')->where('hr_hire_requisitions_jobs.uuid',$uuid)->first();
+        $hireRequisition = $this->hireRequisitionRepository
+                            ->getQuery()
+                            ->where('hire_requisition_id',$hireRequisitionJob->hire_requisition_id)
+                            ->first();
+        $tools = WorkingTool::all();
+        $users = User::where('designation_id', '!=', null)->get();
+        $skillCategories = SkillCategory::get();
+        return view('HumanResource.HireRequisition.advertisement.form.publish')
+            ->with('prospects', code_value()->query()->where('code_id', 7)->get())
+            ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
+            ->with('establishments', code_value()->query()->where('code_id', 9)->get())
+            ->with('education_levels', code_value()->query()->where('code_id', 10)->get())
+            ->with('language_proficiencies', code_value()->query()->where('code_id', 13)->get())
+            ->with('departments', $this->departments->getAll())
+            ->with('designations', $this->designation->getAll())
+            ->with('tools', $tools)
+            ->with('users', $users)
+            ->with('hireRequisitionJob', $hireRequisitionJob)
+            ->with('hireRequisition', $hireRequisition)
+            ->with('skillCategories', $skillCategories)
+            ->with('regions', $this->regions->getAll());
+    }
+    public function postAdvertisement(Request $request,HireAdvertisementRequisition $advertisement)
+    {
+  
+        $hireRequisitionJob = $this->hireRequisitionJobRepository->getQuery()->with('reportTo')->where('hr_hire_requisitions_jobs.uuid',$uuid)->first();
+        $hireRequisition = $this->advertisement->update(['dead_line'=> $request->dead_line]);
+        $tools = WorkingTool::all();
+        $users = User::where('designation_id', '!=', null)->get();
+        $skillCategories = SkillCategory::get();
+        return view('HumanResource.HireRequisition.advertisement.form.publish')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('establishments', code_value()->query()->where('code_id', 9)->get())

@@ -4,7 +4,7 @@
         <h3> Job Title : {{$job->job_title}} | Employees Required: ({{ $job->empoyees_required }}) </h3>
         <span> 
                 <a href="#"> View </a> 
-                @if( $current_level != 2) | 
+                @if( $can_edit_resource != 2) | 
                 <a href="{{ route('hirerequisition.edit',$job->uuid) }} ">Edit</a> | 
                 <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{ route('hirerequisition.destroy',$job->uuid) }}">Delete</a>
                 @endif

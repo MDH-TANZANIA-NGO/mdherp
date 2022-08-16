@@ -113,7 +113,7 @@
                             window.open(base_url + "/timesheet/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                         case 8: /*listing*/
-                            window.open(base_url + "/listings/" + aData['resource_uuid'] + '/show' , "_self");
+                            window.open(base_url + "/hirerequisition/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
                             break;
                         case 9: /*Program Activity Report*/
@@ -121,6 +121,9 @@
                             break;
                         case 10: /*Performance Review Report*/
                             window.open(base_url + "/human-resource/performance-reviews/" + aData['resource_uuid'] + '/show' , "_self");
+                            break;
+                        case 11: /*Job Advertisement*/
+                            window.open(base_url + "/advertisement/show/" + aData['resource_uuid'] , "_self");
                             break;
                         default:
                             break;
