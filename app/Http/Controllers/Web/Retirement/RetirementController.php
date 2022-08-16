@@ -114,10 +114,40 @@ class RetirementController extends Controller
 
             $retirement_detailz = RetirementDetail::where('retirement_id', $retirement_attribute->id)->first();
 
-            if ($request->hasFile('attachments')){
+            /*if ($request->hasFile('attachments')){
                 foreach($request->file('attachments') as $attachment){
                     $retirement_detailz->addMedia($attachment)->toMediaCollection('attachments');
                 }
+            }*/
+
+            //Accomodation Attachment
+            if ($request->hasFile('accomodation_attachments'))
+            {
+                $retirement_detailz->addMediaFromRequest('accomodation_attachments')->toMediaCollection('accomodation_attachments');
+            }
+
+            //Ticket Fair Attachment
+            if ($request->hasFile('ticket_attachments'))
+            {
+                $retirement_detailz->addMediaFromRequest('ticket_attachments')->toMediaCollection('ticket_attachments');
+            }
+
+            //Ground Transport Attachment
+            if ($request->hasFile('transportation_attachments'))
+            {
+                $retirement_detailz->addMediaFromRequest('transportation_attachments')->toMediaCollection('transportation_attachments');
+            }
+
+            //Other Cost Attachment
+            if ($request->hasFile('othercost_attachments'))
+            {
+                $retirement_detailz->addMediaFromRequest('othercost_attachments')->toMediaCollection('othercost_attachments');
+            }
+
+            //Balance Attachment
+            if ($request->hasFile('receipt_attachment'))
+            {
+                $retirement_detailz->addMediaFromRequest('receipt_attachment')->toMediaCollection('receipt_attachment');
             }
 
             alert()->success('Retirement Submitted Successfully','Success');
@@ -128,11 +158,41 @@ class RetirementController extends Controller
 
             $retirement_detailz = RetirementDetail::where('retirement_id', $retirement_attribute->id)->first();
 
-            if ($request->hasFile('attachments')){
+            //Accomodation Attachemnt
+            if ($request->hasFile('accomodation_attachments'))
+            {
+                $retirement_detailz->addMediaFromRequest('accomodation_attachments')->toMediaCollection('accomodation_attachments');
+            }
+
+            //Ticket Fair Attachment
+            if ($request->hasFile('ticket_attachments'))
+            {
+                $retirement_detailz->addMediaFromRequest('ticket_attachments')->toMediaCollection('ticket_attachments');
+            }
+
+            //Ground Transport Attachment
+            if ($request->hasFile('transportation_attachments'))
+            {
+                $retirement_detailz->addMediaFromRequest('transportation_attachments')->toMediaCollection('transportation_attachments');
+            }
+
+            //Other Cost Attachment
+            if ($request->hasFile('othercost_attachments'))
+            {
+                $retirement_detailz->addMediaFromRequest('othercost_attachments')->toMediaCollection('othercost_attachments');
+            }
+
+            //Balance Attachment
+            if ($request->hasFile('receipt_attachment'))
+            {
+                $retirement_detailz->addMediaFromRequest('receipt_attachment')->toMediaCollection('receipt_attachment');
+            }
+
+            /*if ($request->hasFile('attachments')){
                 foreach($request->file('attachments') as $attachment){
                     $retirement_detailz->addMedia($attachment)->toMediaCollection('attachments');
                 }
-            }
+            }*/
 
             $retirement = $this->retirements->findByUuid($uuid);
 

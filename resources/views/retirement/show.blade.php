@@ -47,8 +47,8 @@
 
 
 
-                        @foreach($retirementz as $retirement)
-                        @endforeach
+{{--                        @foreach($retirementz as $retirementd)--}}
+{{--                        @endforeach--}}
 
 
 
@@ -60,7 +60,7 @@
                         <a href="{{ $media->original_url }}">{{ $media->file_name }}</a>
                     @endforeach--}}
 
-                    @if($retirement->getMedia('attachments'))
+                   {{-- @if($retirement->getMedia('attachments'))
                     <table class="table card-table table-vcenter text-nowrap">
                         <thead >
                         <tr>
@@ -77,8 +77,8 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $media->name }}</td>
-{{--                                <td>{{$retirement->getFirstMedia('attachments')->pluck('name')}}</td>--}}
-{{--                                {{$retirement->getRegisteredMediaCollections()}}--}}
+--}}{{--                                <td>{{$retirement->getFirstMedia('attachments')->pluck('name')}}</td>--}}{{--
+--}}{{--                                {{$retirement->getRegisteredMediaCollections()}}--}}{{--
                                 <td><a href="{{$media->original_url}}" target="_blank">View attachment</a></td>
                             </tr>
 
@@ -92,7 +92,7 @@
                             <label class="">No Attachment</label>
                             </div>
 
-                    @endif
+                    @endif--}}
                 </div>
                 <!-- table-responsive -->
             </div>
@@ -113,7 +113,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($retirementz as $retirementd)
+                                @foreach($retirementz as $retirement)
                                 <tr>
                                     <td><i class="fa fa-bed"></i></td>
                                     <td>Accommodation</td>
@@ -132,53 +132,53 @@
                                 <tr>
                                     <td><i class="fa fa-cutlery"></i></td>
                                     <td>Meals and Incidentals</td>
-                                    <td>{{number_2_format($retirementd->perdiem_total_amount)}}</td>
+                                    <td>{{number_2_format($retirement->perdiem_total_amount)}}</td>
                                     <td></td>
 
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-subway"></i></td>
                                     <td>On transit</td>
-                                    <td>{{number_2_format($retirementd->ontransit)}}</td>
-                                    <td>attachment</td>
+                                    <td>{{number_2_format($retirement->ontransit)}}</td>
+                                    <td>No Attachment</td>
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-ticket"></i></td>
                                     <td>Ticket Fair</td>
-                                    <td>{{number_2_format($retirementd->ticket_fair)}}</td>
-                                    <td>attachment</td>
+                                    <td>{{number_2_format($retirement->ticket_fair)}}</td>
+                                    <td>No Attachment</td>
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-taxi"></i></td>
                                     <td>Ground Transportation</td>
-                                    <td>{{number_2_format($retirementd->transportation)}}</td>
-                                    <td>attachment</td>
+                                    <td>{{number_2_format($retirement->transportation)}}</td>
+                                    <td>No Attachment</td>
                                 </tr>
 
                                 <tr>
                                     <td><i class="fa fa-exclamation"></i></td>
                                     <td>Other Cost</td>
-                                    <td>{{number_2_format($retirementd->other_cost)}}</td>
-                                    <td>attachment</td>
+                                    <td>{{number_2_format($retirement->other_cost)}}</td>
+                                    <td>No Attachment</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><b>Total Amount Spent</b></td>
-                                    <td><b>{{number_2_format($retirementd->total_amount)}}</b></td>
+                                    <td><b>{{number_2_format($retirement->total_amount)}}</b></td>
                                     <td></td>
 
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><b>Total Amount Paid</b></td>
-                                    <td><b>{{number_2_format($retirementd->total_amount_paid)}}</b></td>
+                                    <td><b>{{number_2_format($retirement->total_amount_paid)}}</b></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><b>Balance</b></td>
-                                    <td><b>{{number_2_format($retirementd->balance)}}</b></td>
-                                    <td>attachment</td>
+                                    <td><b>{{number_2_format($retirement->balance)}}</b></td>
+                                    <td>No Attachment</td>
                                 </tr>
 
                                 @endforeach
