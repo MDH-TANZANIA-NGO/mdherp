@@ -6,6 +6,8 @@ use App\Events\NewWorkflow;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\FilesAttachment\FilesAttachment;
+use App\Models\Requisition\Requisition;
+use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\Retirement\RetirementDetail;
 use App\Models\SafariAdvance\SafariAdvance;
@@ -245,8 +247,11 @@ class RetirementController extends Controller
         $retirementatt =$this->retirements = (new RetirementRepository());
 
         $safari_details  =  SafariAdvance::where('id', $retirement->safari_advance_id)->first();
+        $requisition_traveling_details = requisition_travelling_cost::query()->where('id', $safari_details->requisition_travelling_cost_id)->first();
+        $requisition_details = Requisition::query()->where('id', $requisition_traveling_details->requisition_id)->first();
 
-        //dd($safari_details);
+
+        //dd($requisition_details);
 
         return view('retirement.show')
             ->with('current_level', $current_level)
@@ -255,6 +260,7 @@ class RetirementController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($retirement))
             ->with('retirement', $retirement)
             ->with('safari_details', $safari_details)
+            ->with('requisition_details', $requisition_details)
             ->with('retirementz', $retirement->details()->get());
             //->with('attachmentname', $retirementatt->getattachment()->get('attachment_name'));
     }

@@ -20,7 +20,7 @@
                 <h3 class="card-title">Retirement Summary</h3>
 
                 &nbsp;&nbsp;
-                <a href="" class="btn btn-outline-success btn-sm">Approved Request: </a>
+                <a href="{{route('requisition.show', $requisition_details->uuid)}}" class="btn btn-outline-success btn-sm">Approved Request: {{$requisition_details->number}}</a>
 
                 &nbsp;&nbsp;
                 <a href="{{route('safari.show',$safari_details->uuid)}}" class="btn btn-outline-success btn-sm">Safari Advance: {{$safari_details->number}}</a>
