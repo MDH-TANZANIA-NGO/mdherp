@@ -14,52 +14,62 @@
         <div class="card">
             <div class="card-header">
                 <a href="{{ url()->previous() }}" class="btn btn-outline-info">Back</a>
+
 {{--                <a href="{{ url()->previous() }}" class="btn btn-info btn-arrow-right">Back</a>--}}
                 &nbsp;&nbsp;
                 <h3 class="card-title">Retirement Summary</h3>
+
+                &nbsp;&nbsp;
+                <a href="{{route('requisition.show', $requisition_details->uuid)}}" class="btn btn-outline-success btn-sm">Approved Request: {{$requisition_details->number}}</a>
+
+                &nbsp;&nbsp;
+                <a href="{{route('safari.show',$safari_details->uuid)}}" class="btn btn-outline-success btn-sm">Safari Advance: {{$safari_details->number}}</a>
 
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
                 </div>
             </div>
+
             <div class="card-body">
-
-                <div class="list-group">
-                    <div class="list-group-item list-group-item-action flex-column align-items-start">
-
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1"><b>Activity Report:</b></h5>
+                <div class="p-3">
+                    {{--                        <h3 class="card-title mb-2">Safari to: <b>Nzega</b></h3>--}}
+                    @foreach($retirementz as $retirement)
+                        <div class="row">
+                            <div class="col-3 border-right">
+                                <p class=" mb-0 fs-12  text-muted">Departure</p>
+                                <h3 class="mb-0">{{date('d-M-Y', strtotime($retirement->from))}}</h3>
                             </div>
-
-                            <p class="mb-1">{!! html_entity_decode($retirement->details->activity_report) !!}</p>
-
-                            &nbsp;
-
-                    </div>
-
-
+                            <div class="col-3 border-right">
+                                <p class=" mb-0 fs-12  text-muted">Destination</p>
+                                <h3 class="mb-0">{{$safari_advance_details->district->name}}</h3>
+                            </div>
+                            <div class="col-3 border-right">
+                                <p class=" mb-0 fs-12 text-muted">Returning</p>
+                                <h3 class="mb-0">{{date('d-M-Y', strtotime($retirement->to))}}</h3>
+                            </div>
+                            <div class="col-3 border-right">
+                                <p class=" mb-0 fs-12 text-muted">Amount Requested & Approved</p>
+                                <h3 class="mb-0">{{number_2_format($requisition_details->amount)}} Tshs</h3>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-
             </div>
 
-            <hr>
+            <div class="card-body">
 
-
-                <div class="card-body">
-
-                    <div class="">
-                        <div class="table-responsive">
-                            <table class="table mb-0 table-vcenter table-hover text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th></th>
-                                    <th>Total Amount</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($retirementz as $retirement)
+                    <div class="table-responsive">
+                        <table class="table mb-0 table-vcenter table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th></th>
+                                <th>Total Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($retirementz as $retirement)
                                 <tr>
                                     <td><i class="fa fa-bed"></i></td>
                                     <td>Accommodation</td>
@@ -109,7 +119,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><i class="fa fa-exclamation"></i></td>
+                                    <td><i class="fa fa-get-pocket"></i></td>
                                     <td>Other Cost</td>
                                     <td>{{number_2_format($retirement->other_cost)}}</td>
                                     {{-- Other Cost attachment--}}
@@ -144,12 +154,34 @@
                                     @endif
                                 </tr>
 
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
+
+            </div>
+            <div class="card-body">
+
+                <div class="list-group">
+
+
+
+                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><b>Activity Report:</b></h5>
+                            </div>
+
+                            <p class="mb-1">{!! html_entity_decode($retirement->activity_report) !!}</p>
+
+                            &nbsp;
+
+                    </div>
+
+
                 </div>
+
+            </div>
 
         </div>
     </div>
