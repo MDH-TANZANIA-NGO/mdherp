@@ -14,9 +14,16 @@
         <div class="card">
             <div class="card-header">
                 <a href="{{ url()->previous() }}" class="btn btn-outline-info">Back</a>
+
 {{--                <a href="{{ url()->previous() }}" class="btn btn-info btn-arrow-right">Back</a>--}}
                 &nbsp;&nbsp;
                 <h3 class="card-title">Retirement Summary</h3>
+
+                &nbsp;&nbsp;
+                <a href="" class="btn btn-outline-success btn-sm">Approved Request: </a>
+
+                &nbsp;&nbsp;
+                <a href="{{route('safari.show',$retirement->uuid)}}" class="btn btn-outline-success btn-sm">Safari Advance: {{$retirement->number}}</a>
 
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
