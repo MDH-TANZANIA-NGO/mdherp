@@ -31,7 +31,7 @@
 					<label class="form-label"> Dead Line </label>
 				</div>
 				<div class="col-8 col-lg-8">
-					<input type="date" class="form-control" name="dead_line">
+					<input type="date" class="form-control" required name="dead_line">
 				</div>
 			</div>
 			 
@@ -56,18 +56,9 @@
 					    <P>
 						<p>
 							<h4>Requirements, Education, work experience and skills</h4>
-							{{ $hireRequisitionJob->education_and_qualification }}
-							{{ $hireRequisitionJob->practical_experience }}
-							{{ $hireRequisitionJob->special_qualities_skills }}
-					    <P>
-						<h4>Reporting Line </h4>
-						{{ $hireRequisitionJob->special_employment_condition }}
-					    <P>
-						
-					 
-					@error('duties_and_responsibilities')
-					<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-					@enderror
+							{!! $hireRequisitionJob->education_and_qualification !!}
+							{!! $hireRequisitionJob->practical_experience !!}
+							{!! $hireRequisitionJob->special_qualities_skills !!}
 				</div>
 			</div>
 			<div class="form-group row mt-3">
