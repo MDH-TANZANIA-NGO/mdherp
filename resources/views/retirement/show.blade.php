@@ -30,43 +30,20 @@
                     {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
                 </div>
             </div>
+
             <div class="card-body">
 
-                <div class="list-group">
-                    <div class="list-group-item list-group-item-action flex-column align-items-start">
-
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1"><b>Activity Report:</b></h5>
-                            </div>
-
-                            <p class="mb-1">{!! html_entity_decode($retirement->details->activity_report) !!}</p>
-
-                            &nbsp;
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-            <hr>
-
-
-                <div class="card-body">
-
-                    <div class="">
-                        <div class="table-responsive">
-                            <table class="table mb-0 table-vcenter table-hover text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th></th>
-                                    <th>Total Amount</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($retirementz as $retirement)
+                    <div class="table-responsive">
+                        <table class="table mb-0 table-vcenter table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th></th>
+                                <th>Total Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($retirementz as $retirement)
                                 <tr>
                                     <td><i class="fa fa-bed"></i></td>
                                     <td>Accommodation</td>
@@ -151,12 +128,48 @@
                                     @endif
                                 </tr>
 
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
+
+            </div>
+            <div class="card-body">
+
+                <div class="list-group">
+
+                    <div class="p-3">
+{{--                        <h3 class="card-title mb-2">Safari to: <b>Nzega</b></h3>--}}
+                        @foreach($retirementz as $retirement)
+                        <div class="row">
+                            <div class="col-4 border-right">
+                                <p class=" mb-0 fs-12  text-muted">Departure</p>
+                                <h3 class="mb-0">{{date('d-M-Y', strtotime($retirement->from))}}</h3>
+                            </div>
+                            <div class="col-4 ">
+                                <p class=" mb-0 fs-12 text-muted">Returning</p>
+                                <h3 class="mb-0">{{date('d-M-Y', strtotime($retirement->to))}}</h3>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1"><b>Activity Report:</b></h5>
+                            </div>
+
+                            <p class="mb-1">{!! html_entity_decode($retirement->activity_report) !!}</p>
+
+                            &nbsp;
+
+                    </div>
+
+
                 </div>
+
+            </div>
 
         </div>
     </div>
