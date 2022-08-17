@@ -32,6 +32,28 @@
             </div>
 
             <div class="card-body">
+                <div class="p-3">
+                    {{--                        <h3 class="card-title mb-2">Safari to: <b>Nzega</b></h3>--}}
+                    @foreach($retirementz as $retirement)
+                        <div class="row">
+                            <div class="col-4 border-right">
+                                <p class=" mb-0 fs-12  text-muted">Departure</p>
+                                <h3 class="mb-0">{{date('d-M-Y', strtotime($retirement->from))}}</h3>
+                            </div>
+                            <div class="col-4 border-right">
+                                <p class=" mb-0 fs-12  text-muted">Destination</p>
+                                <h3 class="mb-0">{{$safari_advance_details->district->name}}</h3>
+                            </div>
+                            <div class="col-4 ">
+                                <p class=" mb-0 fs-12 text-muted">Returning</p>
+                                <h3 class="mb-0">{{date('d-M-Y', strtotime($retirement->to))}}</h3>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="card-body">
 
                     <div class="table-responsive">
                         <table class="table mb-0 table-vcenter table-hover text-nowrap">
@@ -138,21 +160,7 @@
 
                 <div class="list-group">
 
-                    <div class="p-3">
-{{--                        <h3 class="card-title mb-2">Safari to: <b>Nzega</b></h3>--}}
-                        @foreach($retirementz as $retirement)
-                        <div class="row">
-                            <div class="col-4 border-right">
-                                <p class=" mb-0 fs-12  text-muted">Departure</p>
-                                <h3 class="mb-0">{{date('d-M-Y', strtotime($retirement->from))}}</h3>
-                            </div>
-                            <div class="col-4 ">
-                                <p class=" mb-0 fs-12 text-muted">Returning</p>
-                                <h3 class="mb-0">{{date('d-M-Y', strtotime($retirement->to))}}</h3>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
+
 
                     <div class="list-group-item list-group-item-action flex-column align-items-start">
 

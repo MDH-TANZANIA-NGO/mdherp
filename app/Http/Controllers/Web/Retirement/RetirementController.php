@@ -245,7 +245,7 @@ class RetirementController extends Controller
 
         $designation = access()->user()->designation_id;
 
-        $retirementatt =$this->retirements = (new RetirementRepository());
+        //$retirementatt =$this->retirements = (new RetirementRepository());
 
         $safari_details  =  SafariAdvance::where('id', $retirement->safari_advance_id)->first();
         $safari_advance_details = SafariAdvanceDetails::where('safari_advance_id', $safari_details->id)->first();
@@ -253,7 +253,7 @@ class RetirementController extends Controller
         $requisition_details = Requisition::query()->where('id', $requisition_traveling_details->requisition_id)->first();
 
 
-        dd($safari_advance_details->district_id);
+        //dd($safari_advance_details->district->name);
 
         return view('retirement.show')
             ->with('current_level', $current_level)
@@ -262,6 +262,7 @@ class RetirementController extends Controller
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($retirement))
             ->with('retirement', $retirement)
             ->with('safari_details', $safari_details)
+            ->with('safari_advance_details', $safari_advance_details)
             ->with('requisition_details', $requisition_details)
             ->with('retirementz', $retirement->details()->get());
             //->with('attachmentname', $retirementatt->getattachment()->get('attachment_name'));
