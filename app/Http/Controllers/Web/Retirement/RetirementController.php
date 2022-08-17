@@ -253,7 +253,7 @@ class RetirementController extends Controller
         $requisition_details = Requisition::query()->where('id', $requisition_traveling_details->requisition_id)->first();
 
 
-        //dd($safari_advance_details->district->name);
+        //dd($requisition_details);
 
         return view('retirement.show')
             ->with('current_level', $current_level)

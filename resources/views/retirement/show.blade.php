@@ -36,17 +36,21 @@
                     {{--                        <h3 class="card-title mb-2">Safari to: <b>Nzega</b></h3>--}}
                     @foreach($retirementz as $retirement)
                         <div class="row">
-                            <div class="col-4 border-right">
+                            <div class="col-3 border-right">
                                 <p class=" mb-0 fs-12  text-muted">Departure</p>
                                 <h3 class="mb-0">{{date('d-M-Y', strtotime($retirement->from))}}</h3>
                             </div>
-                            <div class="col-4 border-right">
+                            <div class="col-3 border-right">
                                 <p class=" mb-0 fs-12  text-muted">Destination</p>
                                 <h3 class="mb-0">{{$safari_advance_details->district->name}}</h3>
                             </div>
-                            <div class="col-4 ">
+                            <div class="col-3 border-right">
                                 <p class=" mb-0 fs-12 text-muted">Returning</p>
                                 <h3 class="mb-0">{{date('d-M-Y', strtotime($retirement->to))}}</h3>
+                            </div>
+                            <div class="col-3 border-right">
+                                <p class=" mb-0 fs-12 text-muted">Amount Requested & Approved</p>
+                                <h3 class="mb-0">{{number_2_format($requisition_details->amount)}} Tshs</h3>
                             </div>
                         </div>
                     @endforeach
@@ -115,7 +119,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><i class="fa fa-exclamation"></i></td>
+                                    <td><i class="fa fa-get-pocket"></i></td>
                                     <td>Other Cost</td>
                                     <td>{{number_2_format($retirement->other_cost)}}</td>
                                     {{-- Other Cost attachment--}}
