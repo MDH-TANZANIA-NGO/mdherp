@@ -34,7 +34,7 @@
 							<tr class="wd-15p">
 								<td>{{$key+1}}</td>
 								<td>{{$hireRequisitionJob->job_title}}</td>
-								<td>{{ $hireRequisitionJob->region }}</td>
+								<td>{{ $hireRequisitionJob->regions()->get()->implode('name',',') }}</td>
 								<td>{{ $hireRequisitionJob->empoyees_required }}</td>
 								<td>{{ $hireRequisitionJob->created_at }}</td>
 								<td>{{ $hireRequisitionJob->created_at }}</td>

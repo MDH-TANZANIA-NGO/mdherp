@@ -71,7 +71,6 @@ class AdvertisementController extends Controller
                                 ->getAprovedJobs()
                                 ->where("is_advertised",0)
                                 ->get();
-            
         $tools = WorkingTool::all();
         $users = User::where('designation_id', '!=', null)->get();
         $skillCategories = SkillCategory::get();
