@@ -493,7 +493,6 @@ class Workflow
                         'message' => ' Performance Appraisal is on your level kindly aprove'
                     ];
                     SendEmail::dispatch(User::query()->find($pr_report->supervisor_id), $email_resource);
-                    // User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
                 case 16:
                     $interview_report = (new InterviewWorkflowReport())->find($wf_track->resource_id);
