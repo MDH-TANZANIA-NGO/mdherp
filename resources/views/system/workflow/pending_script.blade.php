@@ -122,6 +122,9 @@
                         case 10: /*Performance Review Report*/
                             window.open(base_url + "/human-resource/performance-reviews/" + aData['resource_uuid'] + '/show' , "_self");
                             break;
+                            case 13: /*job-shortlisters*/
+                            window.open(base_url + "/human-resource/job-shortlisters/" + aData['resource_uuid'] + '/show' , "_self");
+                            break;
                         default:
                             break;
                     }
