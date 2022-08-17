@@ -37,7 +37,7 @@ class ActivityAttendanceRepository extends  BaseRepository
             'status' => true,
             'message' => 'Umefanikiwa kutoka',
             'data' => [
-                'success_attendance' => $attendance,
+                'attendance' => $attendance,
             ],
         ];
     }

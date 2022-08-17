@@ -16,7 +16,7 @@ class HotspotRepository extends BaseRepository
     public function store($input)
     {
         return DB::transaction(function () use ($input) {
-            return access()->user()->hotspots()->create([
+            return $this->query()->create([
                 'camp' => $input['camp'],
                 'checkin_latitude' => isset($input['checkin_latitude']) ? $input['checkin_latitude'] : NULL,
                 'checkin_longitude' => isset($input['checkin_longitude']) ? $input['checkin_longitude'] : NULL,
@@ -75,20 +75,23 @@ class HotspotRepository extends BaseRepository
             ->join('requisitions', 'requisitions.id', 'hotspots.requisition_id')
             ->leftjoin('activity_reports', 'activity_reports.id', 'hotspots.report_id');
     }
+
     public function getHotspotByRequisition($requisition_id)
     {
         return $this->getQuery()
             ->where('hotspots.requisition_id', $requisition_id);
     }
+
     public function getHotspotByRequisitionOnDateRange($requisition_id, $start_date, $end_date)
     {
         return $this->getHotspotByRequisition($requisition_id)
             ->whereBetween('hotspots.checkin_time', [$start_date, $end_date]);
     }
+
     public function getHotspotByReportId($report_id)
     {
         return $this->getQuery()
-            ->where('hotspots.report_id', $report_id);
+        ->where('hotspots.report_id', $report_id);
     }
 
 
