@@ -3,8 +3,7 @@
 @include('HumanResource.HireRequisition._parent.form.step_header')
 
 <!-- Section 1 -->
-<form action="{{ route('hirerequisition.steps.finish',$hireRequisition->uuid) }}" method="POST">
-@csrf
+<form action="{{ route('hirerequisition.steps.finish',$hireRequisition->uuid) }}" method="get">
 <li class="">
     <div class="acc_content">
         <table class="table table-bordered active">
@@ -43,6 +42,10 @@
                     <td><strong>Position Summary : </strong></td>
                     <td>{!! $hireRequisitionJob->possition_summary !!}</td>
                 </tr>
+                 <tr>
+                    <td><strong>Duties And Resposibilities: </strong></td>
+                    <td>{!! $hireRequisitionJob->duties_and_responsibilities !!}</td>
+                </tr>
                 <tr class="gray">
                     <td colspan="2">
                         <h5 class="text-uppercase">Person Required </h5>
@@ -62,7 +65,7 @@
                 </tr>
                 <tr class="gray">
                     <td colspan="2" class="text-uppercase">
-                        <h5> Employement Condition </h5>
+                        <h5> Employment Condition </h5>
                     </td>
                 </tr>
                 <tr>

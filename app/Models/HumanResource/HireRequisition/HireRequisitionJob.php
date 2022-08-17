@@ -21,7 +21,7 @@ class HireRequisitionJob extends BaseModel
 
     public function regions()
     {
-        return $this->belongsToMany(Region::class,HireRequisitionLocation::class,'region_id');
+        return $this->belongsToMany(Region::class,HireRequisitionLocation::class,'hr_requisition_job_id');
     }
 
     public function getRegionAttribute()

@@ -4,8 +4,8 @@
         <h3> Job Title : {{$job->job_title}} | Employees Required: ({{ $job->empoyees_required }}) </h3>
         <span> 
                 <a href="#"> View </a> 
-                @if( $can_edit_resource != 2) | 
-                <a href="{{ route('hirerequisition.edit',$job->uuid) }} ">Edit</a> | 
+                @if(isset($can_edit_resource) && $can_edit_resource == true ) |
+                <a href="{{ route('hirerequisition.edit',$job->uuid) }} ">Edt</a> | 
                 <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{ route('hirerequisition.destroy',$job->uuid) }}">Delete</a>
                 @endif
         </span>
@@ -47,6 +47,10 @@
                 <tr>
                     <td><strong>Position Summary : </strong></td>
                     <td>{!! $job->possition_summary !!}</td>
+                </tr>
+                 <tr>
+                    <td><strong>Duties And Resposibilities: </strong></td>
+                    <td>{!! $job->duties_and_responsibilities !!}</td>
                 </tr>
                 <tr class="gray">
                     <td colspan="2">

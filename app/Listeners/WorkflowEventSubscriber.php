@@ -438,8 +438,8 @@ class WorkflowEventSubscriber
 
                             $email_resource = (object)[
                                 'link' => route('listing.show', $listing),
-                                'subject' => $listing->id . " Needs your Approval",
-                                'message' =>  $listing->id . ' needs your approval'
+                                'subject' => $listing->number . " Needs your Approval",
+                                'message' =>  $listing->number . ' needs your approval'
                             ];
                             //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -703,7 +703,7 @@ class WorkflowEventSubscriber
                     $email_resource = (object)[
                         'link' =>  route('hirerequisition.show', $listing),
                         'subject' => "Approved Successfully",
-                        'message' => 'This Hire Requisition has been Approved successfully'
+                        'message' => 'Hire Requisition'.$listingrepo->number.' has been Approved successfully'
                     ];
                     $listing->user->notify(new WorkflowNotification($email_resource));
                     break;

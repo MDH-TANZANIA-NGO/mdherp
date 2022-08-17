@@ -29,10 +29,13 @@ trait HireRequisitionSteps
             $region_data['region_id'] = $region;
             HireRequisitionLocation::create($region_data);
         }
-        $hireRequisitionJob->update($request->except('region', 'files'));
+         $hireRequisitionJob->update($request->except('region', 'files'));
         return view('HumanResource.HireRequisition._parent.form.personal_required')
             ->with('step', $step)
             ->with('job_title', $job_title)
+            ->with('job_title', $job_title)
+            ->with('job_title', $job_title)
+            ->with('hireRequisitionJob', $hireRequisitionJob)
             ->with('uuid', $hireRequisitionJob->uuid);
     }
     public function stepGeneralView(HireRequisitionJob $hireRequisitionJob, Request $request)
@@ -44,11 +47,14 @@ trait HireRequisitionSteps
         return view('HumanResource.HireRequisition._parent.form.personal_required')
             ->with('step', $step)
             ->with('job_title', $job_title)
+            ->with('hireRequisitionJob', $hireRequisitionJob)
+            
             ->with('uuid', $hireRequisitionJob->uuid);
     }
     public function stepPersonalRequirement(HireRequisitionJob $hireRequisitionJob, Request $request)
     {
         $step = 3;
+        
         $job_title = $this->designation->getQueryDesignationUnit()
         ->where('designations.id', $hireRequisitionJob->designation_id)
         ->first();
@@ -140,6 +146,7 @@ trait HireRequisitionSteps
     public function stepEmploymentConditionView(HireRequisitionJob $hireRequisitionJob, Request $request)
     {
         $step = 4;
+       
         $job_title = $this->designation->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first();
         $education_level =  code_value()->query()->where('code_id', 10)->get();
         $skillCategories = SkillCategory::get();

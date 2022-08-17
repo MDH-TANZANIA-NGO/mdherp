@@ -23,10 +23,7 @@
 <div class="row mt-2">
 	<div class="col-lg-12">
 		<label class="form-label">Explain any Special Employment Condition</label>
-		<textarea class="form-control summernotecontent" name="special_employment_condition" rows="2" placeholder="Explain any Special Employment Condition" required>
-			{{ old('special_employment_condition')}}
-			{{ $hireRequisitionJob->special_employment_condition }}
-		</textarea>
+		<textarea class="form-control summernotecontent" name="special_employment_condition" rows="2" placeholder="Explain any Special Employment Condition">{{ old('special_employment_condition')}}{{ $hireRequisitionJob->special_employment_condition }}</textarea>
 	</div>
 </div>
 <div class="row mt-2">
@@ -83,10 +80,8 @@
 	<div class="col-6">
 	</div>
 	<div class="col-6">
-		@if(!isset($create))
-		<button type="button" name="submit_job_requisition" value="Cancel" class="btn btn-inline-block btn-danger cancel"> <i class="fa fa-times"></i> Cancel </button>
-		@endif
-		<button type="button" class="btn btn-inline-block btn-azure prev-step"> <i class="fa fa-angle-left"></i> Back </button>
+ 
+		<a href="{{ route('hirerequisition.steps.general',$uuid) }}" type="button" class="btn btn-inline-block btn-azure prev-step"> <i class="fa fa-angle-left"></i> Back </a>
 		<button type="submit" class="btn  btn-primary next-step"> <i class="fa fa-angle-right"></i> Proceed </button>
 	</div>
 </div>

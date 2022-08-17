@@ -12,6 +12,7 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
             Route::POST('general/{hireRequisitionJob}', 'HireRequisitionController@stepGeneral')->name('general');
             Route::get('general/{hireRequisitionJob}', 'HireRequisitionController@stepGeneralView')->name('general');
             Route::POST('personal_requirement/{hireRequisitionJob}', 'HireRequisitionController@stepPersonalRequirement')->name('personal_requirement');
+            Route::get('personal_requirement/{hireRequisitionJob}', 'HireRequisitionController@stepPersonalRequirementView')->name('personal_requirement');
             Route::post('employement_condition/{hireRequisitionJob}', 'HireRequisitionController@stepEmploymentCondition')->name('employement_condition');
             Route::get('employement_condition/{hireRequisitionJob}', 'HireRequisitionController@stepEmploymentConditionView')->name('employement_condition');
             Route::POST('criteria/{hireRequisitionJob}', 'HireRequisitionController@stepCriteriaView')->name('criteria');
@@ -19,6 +20,7 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
             Route::POST('add_criteria/{hireRequisitionJob}', 'HireRequisitionController@addCriteria')->name('add_criteria');
             Route::get('add_criteria/{hireRequisitionJob}', 'HireRequisitionController@addCriteriaView')->name('add_criteria');
             Route::get('finish/{uuid}', 'HireRequisitionController@finish')->name('finish');
+            
     });
 
     Route::post('submit/{uuid}', 'HireRequisitionController@submit')->name('submit');
