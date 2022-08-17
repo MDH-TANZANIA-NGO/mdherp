@@ -76,7 +76,7 @@ trait HireRequisitionSteps
     }
     public function stepPersonalRequirementView(HireRequisitionJob $hireRequisitionJob, Request $request)
     {
-        $step = 3;
+        $step = 3; 
         $job_title = $this->designation->getQueryDesignationUnit()
         ->where('designations.id', $hireRequisitionJob->designation_id)
         ->first();

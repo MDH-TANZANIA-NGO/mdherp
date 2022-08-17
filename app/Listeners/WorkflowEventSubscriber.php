@@ -50,6 +50,7 @@ class WorkflowEventSubscriber
      */
     public function onNewWorkflow($event)
     {
+    
         $input = $event->input;
         $par = $event->par;
         $extra = $event->extra;
@@ -106,6 +107,7 @@ class WorkflowEventSubscriber
                 //                'zone_id' => isset($input['zone_id']) ? $input['zone_id'] : null,
                 'region_id' => $input['region_id'],
             ];
+          
             switch ($wf_module_id) {
                 case 1:
                     $requisition_repo = (new RequisitionRepository());
@@ -524,8 +526,8 @@ class WorkflowEventSubscriber
 
                             $email_resource = (object)[
                                 'link' => route('job_offer.show', $job_offer),
-                                'subject' => $job_offer->number . " job offer your approval",
-                                'message' =>  $job_offer->number . ' Job offer need your approval.'
+                                'subject' => $job_offer->number . " Needs your approval",
+                                'message' =>  $job_offer->number . ' Needs need your approval.'
                             ];
                             //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
@@ -536,16 +538,26 @@ class WorkflowEventSubscriber
                     $advertisement  = $advertisement->find($resource_id);
                     /*check levels*/
                     switch ($level) {
+                        case 1: //Applicant level
+                            // $advertisement->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                            // dd($data['next_user_id']);
+                            $email_resource = (object)[
+                                'link' => route('advertisement.show', $advertisement),
+                                'subject' => $advertisement->number . " Job Advertisement Post your approval",
+                                'message' =>  $advertisement->number . 'Job Advertisement Post needs  approval.'
+                            ];
+                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
                         case 2: //Applicant level
                             // $advertisement->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
-                            // dd($this->nextUserSelector($wf_module_id, $resource_id, $level));
-                            // $email_resource = (object)[
-                            //     'link' => route('job_offer.show', $job_offer),
-                            //     'subject' => $job_offer->number . " job offer your approval",
-                            //     'message' =>  $job_offer->number . ' Job offer need your approval.'
-                            // ];
-                            // //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            $email_resource = (object)[
+                                'link' => route('advertisement.show', $advertisement),
+                                'subject' => $advertisement->number . " Job Advertisement Post needs your approval",
+                                'message' =>  $advertisement->number . ' Job Advertisement Post needs  your approval.'
+                            ];
+                             User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     }
                     break;

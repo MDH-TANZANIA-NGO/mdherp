@@ -21,25 +21,21 @@
 							<tr>
 								<th class="wd-15p">#</th>
 								<th class="wd-15p">TITLE</th>
-								<th class="wd-15p">REGION</th>
-								<th class="wd-25p"># OF EMPLOYEES</th>
 								<th class="wd-25p">CREATED AT</th>
-								<th class="wd-25p">CREATED BY</th>
+								<!-- <th class="wd-25p">CREATED BY</th> -->
 								<th class="wd-25p">APPROVED ON</th>
 								<th class="wd-25p">ACTION</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($hireRequisitionJobs as $key=>$hireRequisitionJob)
+							@foreach($advertisements as $key=>$advertisements)
 							<tr class="wd-15p">
 								<td>{{$key+1}}</td>
-								<td>{{$hireRequisitionJob->job_title}}</td>
-								<td>{{ $hireRequisitionJob->region }}</td>
-								<td>{{ $hireRequisitionJob->empoyees_required }}</td>
-								<td>{{ $hireRequisitionJob->created_at }}</td>
-								<td>{{ $hireRequisitionJob->created_at }}</td>
-								<td>{{ $hireRequisitionJob->created_at }}</td>
-								<td><a href="{{ route('advertisement.publish',$hireRequisitionJob->uuid) }}"> Post Advertisement </a></td>
+								<td>{{	$advertisements->title}}</td>
+								<td>{{  $advertisements->created_at }}</td>
+								 
+								<td>{{  $advertisements->created_at }}</td>
+								<td><a href="{{ route('advertisement.publish',$advertisements->uuid) }}"> Post Advertisement </a></td>
 							</tr>
 							@endforeach
 						</tbody>
