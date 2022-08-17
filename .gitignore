@@ -11,6 +11,7 @@
 .idea
 .phpintel
 .vscode
+.history
 Homestead.json
 Homestead.yaml
 npm-debug.log

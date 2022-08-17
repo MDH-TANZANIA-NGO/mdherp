@@ -75,7 +75,7 @@ class LeaveController extends Controller
     public function store(Request $request)
     {
         //department director
-        $is_assigned = Leave::all()->where('employee_id', access()->user()->id)->where('end_date', '>=', $request['end_date']);
+        // $is_assigned = Leave::all()->where('employee_id', access()->user()->id)->where('end_date', '>=', $request['end_date']);
         $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_type_id', $request['leave_type_id'])->first();
         $start = Carbon::parse($request['start_date']);
         $end = Carbon::parse($request['end_date']);
@@ -87,11 +87,11 @@ class LeaveController extends Controller
         }
         else{
             $actual_remaining_days = $leave_balance->remaining_days - $days;
-            if ($is_assigned->count() > 0 && $request['leave_type_id'] == 1){
-                alert()->error('You have been delegated responsibilities', 'Failed');
-                return redirect()->back();
-            }
-            else{
+            // if ($is_assigned->count() > 0 && $request['leave_type_id'] == 1){
+            //     alert()->error('You have been delegated responsibilities', 'Failed');
+            //     return redirect()->back();
+            // }
+            // else{
 
                 if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0) {
                     $leave = $this->leaves->store($request->all());
@@ -107,7 +107,7 @@ class LeaveController extends Controller
                     alert()->error('You do not have any available leave balances on '.$leave_balance->leaveType->name, 'Failed');
                     return redirect()->back();
                 }
-            }
+            // }
         }
     }
 
@@ -177,7 +177,7 @@ class LeaveController extends Controller
      */
     public function update(Request $request, Leave $leave)
     {
-        $is_assigned = Leave::where('employee_id', access()->id())->where('end_date', '>=', $request['end_date'])->get();
+        // $is_assigned = Leave::where('employee_id', access()->id())->where('end_date', '>=', $request['end_date'])->get();
         //dd($is_assigned);
         $leave_balance = LeaveBalance::where('user_id', access()->id())->where('leave_type_id', $request['leave_type_id'])->first();
         $start = Carbon::parse($request['start_date']);
@@ -190,11 +190,11 @@ class LeaveController extends Controller
         $actual_remaining_days_before = $leave_balance->remaining_days + $days_old;
         $actual_remaining_days = $actual_remaining_days_before  - $days;
 
-        if ($is_assigned->count() > 0 && $request['leave_type_id'] == 1){
-            alert()->error('You have been delegated responsibilities', 'Failed');
-            return redirect()->back();
-        }
-        else{
+        // if ($is_assigned->count() > 0 && $request['leave_type_id'] == 1){
+        //     alert()->error('You have been delegated responsibilities', 'Failed');
+        //     return redirect()->back();
+        // }
+        // else{
 
             if ($days <= $leave_balance->remaining_days && $leave_balance->remaining_days != 0) {
                 $leave->update($request->all());
@@ -205,7 +205,7 @@ class LeaveController extends Controller
                 alert()->error('You do not have any available leave balances on '.$leave_balance->leaveType->name, 'Failed');
                 return redirect()->back();
             }
-        }
+        // }
 
 
 
