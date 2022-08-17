@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\Retirement\Datatables\RetirementDatatables;
 use App\Models\FilesAttachment\FilesAttachment;
 use App\Models\Retirement\Retirement;
 use App\Models\Retirement\RetirementDetail;
+use App\Models\SafariAdvance\SafariAdvance;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
@@ -243,7 +244,9 @@ class RetirementController extends Controller
 
         $retirementatt =$this->retirements = (new RetirementRepository());
 
-        //dd($retirement);
+        $safari_details  =  SafariAdvance::where('id', $retirement->safari_advance_id)->first();
+
+        //dd($safari_details);
 
         return view('retirement.show')
             ->with('current_level', $current_level)
@@ -251,6 +254,7 @@ class RetirementController extends Controller
             ->with('can_edit_resource', $can_edit_resource)
             ->with('wfTracks', (new WfTrackRepository())->getStatusDescriptions($retirement))
             ->with('retirement', $retirement)
+            ->with('safari_details', $safari_details)
             ->with('retirementz', $retirement->details()->get());
             //->with('attachmentname', $retirementatt->getattachment()->get('attachment_name'));
     }

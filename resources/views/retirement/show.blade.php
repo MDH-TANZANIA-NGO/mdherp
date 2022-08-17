@@ -23,7 +23,7 @@
                 <a href="" class="btn btn-outline-success btn-sm">Approved Request: </a>
 
                 &nbsp;&nbsp;
-                <a href="{{route('safari.show',$retirement->uuid)}}" class="btn btn-outline-success btn-sm">Safari Advance: {{$retirement->number}}</a>
+                <a href="{{route('safari.show',$safari_details->uuid)}}" class="btn btn-outline-success btn-sm">Safari Advance: {{$safari_details->number}}</a>
 
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
