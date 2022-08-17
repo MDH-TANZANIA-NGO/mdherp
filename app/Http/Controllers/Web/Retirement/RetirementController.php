@@ -11,6 +11,7 @@ use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\Retirement\Retirement;
 use App\Models\Retirement\RetirementDetail;
 use App\Models\SafariAdvance\SafariAdvance;
+use App\Models\SafariAdvance\SafariAdvanceDetails;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
@@ -247,11 +248,12 @@ class RetirementController extends Controller
         $retirementatt =$this->retirements = (new RetirementRepository());
 
         $safari_details  =  SafariAdvance::where('id', $retirement->safari_advance_id)->first();
+        $safari_advance_details = SafariAdvanceDetails::where('safari_advance_id', $safari_details->id)->first();
         $requisition_traveling_details = requisition_travelling_cost::query()->where('id', $safari_details->requisition_travelling_cost_id)->first();
         $requisition_details = Requisition::query()->where('id', $requisition_traveling_details->requisition_id)->first();
 
 
-        //dd($requisition_details);
+        dd($safari_advance_details->district_id);
 
         return view('retirement.show')
             ->with('current_level', $current_level)
