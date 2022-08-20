@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Hotel;
 
 //use App\Hotel;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Hotel\Datatables\BookingRequestsDatatable;
 use App\Models\Hotel\Vendor;
 use App\Repositories\Hotel\HotelRepository;
 use App\Repositories\System\DistrictRepository;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class HotelController extends Controller
 {
+    use  bookingRequestsDatatable;
     protected $hotels;
     protected $regions;
     protected $districts;

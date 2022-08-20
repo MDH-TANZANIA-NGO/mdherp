@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <div class="h2 m-0"><i class="zmdi zmdi-bus multiple-outline text-primary"></i></div>
-                        <div class="text-muted mb-0">Safaris</div>
+                        <div class="text-muted mb-0">Booking Requests</div>
                     </div>
                 </div>
             </a>
