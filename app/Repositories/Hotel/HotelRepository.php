@@ -26,8 +26,10 @@ class HotelRepository extends BaseRepository
             DB::raw('districts.name AS district_name'),
             DB::raw('regions.name AS region_name'),
         ])
-            ->join('districts','districts.id', 'hotels.district_id')
-            ->join('regions','regions.id', 'districts.region_id');
+            ->leftjoin('districts','districts.id', 'hotels.district_id')
+            ->leftjoin('safari_advance_hotel_selections', 'safari_advance_hotel_selections.hotel_id', 'hotels.id')
+            ->leftjoin('program_activity_hotels','program_activity_hotels.hotel_id', 'hotels.id')
+            ->leftjoin('regions','regions.id', 'districts.region_id');
     }
     public function getSelectedHotelForActivity($program_activity)
     {
@@ -85,13 +87,34 @@ class HotelRepository extends BaseRepository
 
     public function getAllApprovedSafariBookingHotels()
     {
-        $this->getQuery()
+
+       return  $this->getQuery()
         ->addSelect([
-        DB::raw('safari_advance_hotel_selections.priority_level AS priority_level'),
+//        DB::raw('safari_advance_hotel_selections.id AS hotel_reservation_id'),
         DB::raw('safari_advance_hotel_selections.reserved AS reserved'),
         DB::raw('safari_advance_hotel_selections.uuid AS uuid'),
+            DB::raw('safari_advances.uuid AS safari_uuid'),
+            DB::raw('safari_advances.id AS safari_id'),
+            DB::raw('safari_advances.user_id AS user_id'),
+            DB::raw("concat_ws(' ', users.first_name, users.last_name) as requester"),
+            DB::raw('safari_advances.number AS safari_number'),
+            DB::raw('requisition_travelling_costs.from AS start_date'),
     ])
-        ->join('safari_advances','safari_advance_hotel_selections.safari_advance_id', 'safari_advances.id')
+        ->leftjoin('safari_advances','safari_advance_hotel_selections.safari_advance_id', 'safari_advances.id')
+           ->leftjoin('requisition_travelling_costs','requisition_travelling_costs.id', 'safari_advances.requisition_travelling_cost_id')
+           ->leftjoin('users','users.id', 'safari_advances.user_id')
         ->where('safari_advances.wf_done', 1);
     }
+    public function getAllSafariBookedHotels()
+    {
+       return $this->getAllApprovedSafariBookingHotels()
+       ->where('safari_advance_hotel_selections.reserved', true);
+    }
+    public function getAllSafariUnbookedHotels()
+    {
+        return $this->getAllApprovedSafariBookingHotels()
+            ->where('safari_advance_hotel_selections.reserved', false)
+            ->groupBy('safari_advances.id','hotels.id','districts.name','regions.name','safari_advance_hotel_selections.reserved','safari_advance_hotel_selections.uuid','users.first_name', 'users.last_name','requisition_travelling_costs.from');
+    }
+
 }

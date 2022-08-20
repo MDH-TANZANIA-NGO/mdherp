@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Web\Hotel;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Hotel\Datatables\BookingRequestsDatatable;
 use App\Models\Hotel\Vendor;
+use App\Models\SafariAdvance\SafariAdvanceHotelSelection;
 use App\Repositories\Hotel\HotelRepository;
 use App\Repositories\System\DistrictRepository;
 use App\Repositories\System\RegionRepository;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class HotelController extends Controller
 {
-    use  bookingRequestsDatatable;
+    use  BookingRequestsDatatable;
     protected $hotels;
     protected $regions;
     protected $districts;
@@ -39,6 +40,14 @@ class HotelController extends Controller
 
             return view('Hotel.index')
                 ->with('hotels', $this->hotels->getQuery()->get());
+    }
+
+    public function hotelRequests()
+    {
+
+//        dd($this->hotels->getAllSafariUnbookedHotels()->get());
+        return view('Hotel.datatables.booking_requests')
+            ->with('hotels', $this->hotels->getAllSafariUnbookedHotels()->get());
     }
 
     /**

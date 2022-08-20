@@ -8,16 +8,11 @@ trait bookingRequestsDatatable
 {
     public function getAllSafariBookingRequests()
     {
-        return DataTables::of($this->getAllSafariBookingRequests())
+        return DataTables::of($this->hotels->getAllApprovedSafariBookingHotels()->get())
             ->addIndexColumn()
-            ->editColumn('created_at', function ($query) {
-                return $query->created_at->toDateTimeString();
-            })
-            ->addColumn('amount', function ($query) {
-                return number_2_format($query->amount_requested);
-            })
+
             ->addColumn('action', function($query) {
-                return '<a href="'.route('safari.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>';
+                return '<a href="'.route('safari.show', $query->safari_uuid).'" class="btn btn-outline-success">view</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
