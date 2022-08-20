@@ -743,7 +743,7 @@ RequisitionRepository extends BaseRepository
     public function checkAvailaleFund($budget_id)
     {
         $budget =  (new BudgetRepository())->find($budget_id);
-   
+
     }
 
 
