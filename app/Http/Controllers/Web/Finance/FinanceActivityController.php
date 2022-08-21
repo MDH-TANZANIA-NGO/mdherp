@@ -367,7 +367,6 @@ class FinanceActivityController extends Controller
         $safari_advance =  $this->safariAdvance->findByUuid($uuid);
         $requisition = $safari_advance->travellingCost->requisition()->first();
         $payment =  $safari_advance->travellingCost->requisition->payments()->first();
-        dd($payment);
         $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $safari_advance->id)->first();
         return view('finance.payments.safariAdvance.forms.edit')
             ->with('safari_advance', $safari_advance)
@@ -382,7 +381,7 @@ class FinanceActivityController extends Controller
         return DB::transaction(function () use ( $request, $uuid){
             $payment = $this->finance->findByUuid($uuid);
             $safari_advance_payment =  SafariAdvancePayment::query()->where('safari_advance_id', $request->get('safari_advance_id'))->first();
-            DB::update('update payments set payed_amount = ? where uuid = ?',[$request->get('total_amount'), $uuid]);
+            DB::update('update payments set payed_amount = ?, remarks = ? where uuid = ?',[$request->get('total_amount'), $request->get('remarks'), $uuid]);
             DB::update('update safari_advance_payments set disbursed_amount = ?, account_no = ? where uuid = ?',[$request->get('total_amount'), $request->get('phone'), $safari_advance_payment->uuid]);
 
             alert()->success('Safari Advance Payment Updated Successfully', 'Success');

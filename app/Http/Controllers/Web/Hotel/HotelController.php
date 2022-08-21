@@ -47,7 +47,8 @@ class HotelController extends Controller
 
 //        dd($this->hotels->getAllSafariUnbookedHotels()->get());
         return view('Hotel.datatables.booking_requests')
-            ->with('hotels', $this->hotels->getAllSafariUnbookedHotels()->get());
+            ->with('hotels', $this->hotels->getAllSafariUnbookedHotels()->get())
+        ->with('activity_hotels', $this->hotels->getAllActivityUnbookedHotels()->get());
     }
 
     /**

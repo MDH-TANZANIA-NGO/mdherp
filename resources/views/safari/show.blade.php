@@ -133,7 +133,8 @@
         <tr>
 {{--            <th>NO</th>--}}
             <th>Hotel Name</th>
-{{--            <th>Priority Level</th>--}}
+            <th>Region</th>
+            <th>District</th>
             <th>Status</th>
             @permission('admin_panel')
             @if($safari->wf_done ==  1)
@@ -147,6 +148,8 @@
         <tr>
 
                     <td>{{$hotels->name}}</td>
+            <td>{{$hotels->district->region->name}}</td>
+            <td>{{$hotels->district->name}}</td>
                     <td>
                         @if($hotels->reserved == false)
                             Not reserved
