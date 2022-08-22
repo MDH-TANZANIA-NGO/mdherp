@@ -13,6 +13,7 @@
                 </div>
             </div>
             {!! Form::open(['route' => ['retirement.refurbish',$retirement], 'enctype'=>'multipart/form-data']) !!}
+            @foreach($retirementz as $retirement)
             <div class="card-body">
                 <div class="row pt-4">
                     <div class="col-lg-6 ">
@@ -134,8 +135,8 @@
                             <td></td>
                             <td colspan="2" class="font-w600 text-right">Total Amount Paid</td>
                             <td class="font-weight-bold text-right">
-                                {{number_2_format($safariDetails->disbursed_amount)}}
-                                <input type="text" hidden name="total_amount_paid" class="form-control" value="{{number_3_format($safariDetails->disbursed_amount)}}">
+                                {{number_2_format($retirement->total_amount_paid)}}
+                                <input type="text" hidden name="total_amount_paid" class="form-control" value="{{number_3_format($retirement->total_amount_paid)}}">
                             </td>
                         </tr>
                         <tr>
@@ -180,11 +181,12 @@
                   </div>
               <hr>--}}
 
+
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
                             <label class="form-label">Activity Report <span class="form-label-small">56/100</span></label>
-                            <textarea class="content" name="activity_report" rows="2" placeholder="Write activity report.." required></textarea>
+                            <textarea class="content" name="activity_report" rows="2" placeholder="Write activity report.." required>{!! html_entity_decode($retirement->activity_report) !!}</textarea>
                         </div>
                     </div>
 
@@ -204,6 +206,7 @@
                 </div>
 
             </div>
+            @endforeach
             {!! Form::close() !!}
         </div>
     </div>
