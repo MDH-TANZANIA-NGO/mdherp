@@ -20,23 +20,23 @@
                             <input type="text" name="safari_advance_id"  value="{{$retirement->safari_advance_id}}" hidden>
 
                             @foreach($retire_safaris as $safaridetail)
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
 
-                                        <label class="form-label">Departure Date:</label>
-                                        {!! Form::date('from_show', $safaridetail->from, ['class' => 'form-control', 'disabled', 'id'=>'from']) !!}
-                                        {!! Form::date('from', $safaridetail->from, ['class' => 'form-control','hidden', 'required', 'id'=>'from']) !!}
+                                            <label class="form-label">Departure Date:</label>
+                                            {!! Form::date('from_show', $safaridetail->from, ['class' => 'form-control', 'disabled', 'id'=>'from']) !!}
+                                            {!! Form::date('from', $safaridetail->from, ['class' => 'form-control','hidden', 'required', 'id'=>'from']) !!}
 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Return Date:</label>
+                                            {!! Form::date('to', $safaridetail->to, ['class' => 'form-control', 'required','id'=>'to']) !!}<br>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Return Date:</label>
-                                        {!! Form::date('to', $safaridetail->to, ['class' => 'form-control', 'required','id'=>'to']) !!}<br>
-                                    </div>
-                                </div>
-                            </div>
 
                             @endforeach
 
@@ -45,9 +45,9 @@
                     <div class="col-lg-6 text-right">
                         <p class="h3">Paid To</p>
                         <address>
-{{--                            {{$safari_advance->user->full_name_formatted}}<br>--}}
-                          Account: <b>{{$safariDetails->account_no}}</b> <br>
-{{--                            {{$safariDetails->user->email}}--}}
+                            {{--                            {{$safari_advance->user->full_name_formatted}}<br>--}}
+                            Account: <b>{{$safariDetails->account_no}}</b> <br>
+                            {{--                            {{$safariDetails->user->email}}--}}
                         </address>
                     </div>
                 </div>
@@ -109,12 +109,12 @@
 
                             <div class="text-muted"></div>
                         </tr>
-                       {{-- <tr>
-                            <td colspan="2" class="font-w600 text-right">Account No</td>
+                        {{-- <tr>
+                             <td colspan="2" class="font-w600 text-right">Account No</td>
 
 
-                            <td class="text-right">{{$safariDetails->account_no}}</td>
-                        </tr>--}}
+                             <td class="text-right">{{$safariDetails->account_no}}</td>
+                         </tr>--}}
                         {{--<tr>
                             <td></td>
                             <td colspan="2" class="font-w600 text-right">Total Amount Requested</td>
@@ -153,32 +153,32 @@
                 </div>
 
                 <hr>
-                  {{--  <div class ="row">
-                        <div class="container lst">
-                            <div class="input-group hdtuto control-group lst" >
+                {{--  <div class ="row">
+                      <div class="container lst">
+                          <div class="input-group hdtuto control-group lst" >
 
-                                <div class="col-md-3 col-lg-3 col-xl-3" >
-                                    <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
-                                </div>
+                              <div class="col-md-3 col-lg-3 col-xl-3" >
+                                  <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
+                              </div>
 
-                                <div class="col-md-3 col-lg-3 col-xl-3" >
-                                <input type="number" id="" name="amount_attachment[]" placeholder="Total Amount of the receipts" class="form-control">
-                                </div>
+                              <div class="col-md-3 col-lg-3 col-xl-3" >
+                              <input type="number" id="" name="amount_attachment[]" placeholder="Total Amount of the receipts" class="form-control">
+                              </div>
 
-                                <div class="col-md-3 col-lg-3 col-xl-3" >
-                                    {!! Form::select('attachment_type[]', $attachment_type, null, ['class' =>'form-control select2-show-search ', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
-                                </div>
+                              <div class="col-md-3 col-lg-3 col-xl-3" >
+                                  {!! Form::select('attachment_type[]', $attachment_type, null, ['class' =>'form-control select2-show-search ', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                              </div>
 
-                                <div class="input-group-btn col-md-3 col-lg-3 col-xl-3">
-                                    <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
-                                </div>
-                            </div>
+                              <div class="input-group-btn col-md-3 col-lg-3 col-xl-3">
+                                  <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
+                              </div>
+                          </div>
 
-                            <div id="increment"></div>
+                          <div id="increment"></div>
 
-                        </div>
-                    </div>
-                <hr>--}}
+                      </div>
+                  </div>
+              <hr>--}}
 
                 <div class="row">
                     <div class="col-md-12" >
@@ -191,8 +191,8 @@
 
                 </div>
 
-                    <hr>
-&nbsp;
+                <hr>
+                &nbsp;
 
                 <div class="row">
                     <div class="col-md-12">

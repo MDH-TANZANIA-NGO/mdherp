@@ -88,11 +88,26 @@ class RetirementController extends Controller
 
     public  function  edit(Retirement $retirement)
     {
+        $safariDetails = $this->finance->getPaidSafari($retirement->safari_advance_id)->first();
+
         return view('retirement.forms.edit')
             ->with('retirement', $retirement)
             ->with('district', $this->district->getForPluck())
             ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id))
-            ->with('retirementz',$retirement->details()->get());
+            ->with('retirementz',$retirement->details()->get())
+            ->with('safariDetails', $safariDetails);
+    }
+
+    public  function  saved(Retirement $retirement)
+    {
+        $safariDetails = $this->finance->getPaidSafari($retirement->safari_advance_id)->first();
+
+        return view('retirement.forms.saved')
+            ->with('retirement', $retirement)
+            ->with('district', $this->district->getForPluck())
+            ->with('retire_safaris', $this->safari_advances->getSafariDetails()->get()->where('safari_id', $retirement->safari_advance_id))
+            ->with('retirementz',$retirement->details()->get())
+            ->with('safariDetails', $safariDetails);
     }
 
     public function store(Request $request)
