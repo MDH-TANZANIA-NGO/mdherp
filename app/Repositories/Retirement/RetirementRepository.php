@@ -126,7 +126,7 @@ class RetirementRepository extends BaseRepository
             'district_id'=>$inputs['district_id'],
             'amount_requested'=>$inputs['amount_requested'],
             'amount_paid'=>$inputs['amount_paid'],
-            'amount_received'=>$inputs['amount_received'],*/
+            'amount_received'=>$inputs['amount_received'],
             'from'=>$inputs['from'],
             'to'=>$inputs['to'],
             'amount_spent'=>$inputs['amount_spent'],
@@ -138,7 +138,20 @@ class RetirementRepository extends BaseRepository
             'methodology_report'=>$inputs['methodology_report'],
             'achievement_report'=>$inputs['achievement_report'],
             'challenge_report'=>$inputs['challenge_report'],
-            'action_report'=>$inputs['action_report'],
+            'action_report'=>$inputs['action_report'], */
+
+            'from'=>$inputs['from'],
+            'to'=>$inputs['to'],
+            'accomodation'=>$inputs['accomodation'],
+            'perdiem_total_amount'=>$inputs['perdiem_total_amount'],
+            'ticket_fair'=>$inputs['ticket_fair'],
+            'ontransit'=>$inputs['ontransit'],
+            'transportation'=>$inputs['transportation'],
+            'other_cost'=>$inputs['other_cost'],
+            'total_amount'=>$inputs['total_amount'],
+            'total_amount_paid'=>$inputs['total_amount_paid'],
+            'balance'=>$inputs['balance'],
+            'activity_report'=>$inputs['activity_report'],
 
         ];
     }
@@ -146,7 +159,7 @@ class RetirementRepository extends BaseRepository
     public function UpdateProcessRetirement($inputs)
     {
         return[
-            'amount_spent'=>$inputs['amount_spent'],
+            /*'amount_spent'=>$inputs['amount_spent'],
             'amount_variance'=>$inputs['amount_variance'],
             'activity_report'=>$inputs['activity_report'],
             'planned_report'=>$inputs['planned_report'],
@@ -155,7 +168,20 @@ class RetirementRepository extends BaseRepository
             'methodology_report'=>$inputs['methodology_report'],
             'achievement_report'=>$inputs['achievement_report'],
             'challenge_report'=>$inputs['challenge_report'],
-            'action_report'=>$inputs['action_report'],
+            'action_report'=>$inputs['action_report'],*/
+
+            'from'=>$inputs['from'],
+            'to'=>$inputs['to'],
+            'accomodation'=>$inputs['accomodation'],
+            'perdiem_total_amount'=>$inputs['perdiem_total_amount'],
+            'ticket_fair'=>$inputs['ticket_fair'],
+            'ontransit'=>$inputs['ontransit'],
+            'transportation'=>$inputs['transportation'],
+            'other_cost'=>$inputs['other_cost'],
+            'total_amount'=>$inputs['total_amount'],
+            'total_amount_paid'=>$inputs['total_amount_paid'],
+            'balance'=>$inputs['balance'],
+            'activity_report'=>$inputs['activity_report'],
 
         ];
     }
@@ -226,7 +252,7 @@ class RetirementRepository extends BaseRepository
     public function refurbishing($inputs, $uuid){
 
         return DB::transaction(function () use ($inputs, $uuid){
-            $this->query()->update($this->inputProcess($inputs));
+            //$this->query()->update($this->inputProcess($inputs));
             return DB::table('retirement_details')->update($this->UpdateProcessRetirement($inputs));
 
         });
