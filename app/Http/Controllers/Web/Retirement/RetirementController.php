@@ -251,24 +251,28 @@ class RetirementController extends Controller
             //Ticket Fair Attachment
             if ($request->hasFile('ticket_attachments'))
             {
+                $retirement_detailz->clearMediaCollection('ticket_attachments');
                 $retirement_detailz->addMediaFromRequest('ticket_attachments')->toMediaCollection('ticket_attachments');
             }
 
             //Ground Transport Attachment
             if ($request->hasFile('transportation_attachments'))
             {
+                $retirement_detailz->clearMediaCollection('transportation_attachments');
                 $retirement_detailz->addMediaFromRequest('transportation_attachments')->toMediaCollection('transportation_attachments');
             }
 
             //Other Cost Attachment
             if ($request->hasFile('othercost_attachments'))
             {
+                $retirement_detailz->clearMediaCollection('othercost_attachments');
                 $retirement_detailz->addMediaFromRequest('othercost_attachments')->toMediaCollection('othercost_attachments');
             }
 
             //Balance Attachment
             if ($request->hasFile('receipt_attachment'))
             {
+                $retirement_detailz->clearMediaCollection('receipt_attachment');
                 $retirement_detailz->addMediaFromRequest('receipt_attachment')->toMediaCollection('receipt_attachment');
             }
 
