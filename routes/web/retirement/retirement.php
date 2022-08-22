@@ -3,6 +3,7 @@ Route::group(['namespace' => 'Retirement', 'middleware' => ['web', 'auth'], 'pre
     Route::get('', 'RetirementController@index')->name('index');
     Route::get('{retirement}/create', 'RetirementController@create')->name('create');
     Route::get('{retirement}/edit', 'RetirementController@edit')->name('edit');
+    Route::get('{retirement}/saved', 'RetirementController@saved')->name('saved');
     Route::post('store', 'RetirementController@store')->name('store');
     Route::post('{uuid}/update', 'RetirementController@update')->name('update');
     Route::post('{uuid}/refurbish', 'RetirementController@refurbish')->name('refurbish');

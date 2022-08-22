@@ -14,208 +14,181 @@
             </div>
             {!! Form::open(['route' => ['retirement.refurbish',$retirement], 'enctype'=>'multipart/form-data']) !!}
             <div class="card-body">
-                @foreach($retire_safaris AS $retire_safari)
-                    <div class="row">
+                <div class="row pt-4">
+                    <div class="col-lg-6 ">
+                        <address>
+                            <input type="text" name="safari_advance_id"  value="{{$retirement->safari_advance_id}}" hidden>
 
-                        <div class="col-md-4" >
-                            <div class="form-group">
-                                <label class="form-label">Destination</label>
-                                <div class="input-group">
-                                    {!! Form::select('district_id',$district, $retire_safari->district_id, ['class' => 'form-control', 'hidden']) !!}
-                                    {!! Form::select('district_id_show',$district, $retire_safari->district_id, ['class' => 'form-control select2-show-search', 'disabled']) !!}
-                                    {!! Form:: text('safari_advance_id', $retire_safari->safari_id,['class'=>'form-control','hidden'])!!}
+                            @foreach($retire_safaris as $safaridetail)
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
 
+                                            <label class="form-label">Departure Date:</label>
+                                            {!! Form::date('from_show', $safaridetail->from, ['class' => 'form-control', 'disabled', 'id'=>'from']) !!}
+                                            {!! Form::date('from', $safaridetail->from, ['class' => 'form-control','hidden', 'required', 'id'=>'from']) !!}
 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Return Date:</label>
+                                            {!! Form::date('to', $safaridetail->to, ['class' => 'form-control', 'required','id'=>'to']) !!}<br>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
 
-                                <label class="form-label">Travel Date:</label>
-                                {!! Form::date('from_show', $retire_safari->from, ['class' => 'form-control', 'disabled', 'id'=>'from']) !!}
-                                {!! Form::date('from', $retire_safari->from, ['class' => 'form-control','hidden', 'required', 'id'=>'from']) !!}
+                            @endforeach
 
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-
-                                <label class="form-label">Return Date:</label>
-                                {!! Form::date('to', $retire_safari->to, ['class' => 'form-control', 'required','id'=>'to']) !!}
-
-                            </div>
-                        </div>
-
+                        </address>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-4" >
-
-                            <div class="form-group">
-                                <label class="form-label">Amount Requested & Approved</label>
-                                <div class="input-group">
-                                    {!! Form::text('amount_requested_show', $retire_safari->amount_requested, ['class' => 'form-control', 'disabled' ]) !!}
-                                    {!! Form::text('amount_requested', $retire_safari->amount_requested, ['class' => 'form-control', 'hidden' ]) !!}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4" >
-
-                            <div class="form-group">
-                                <label class="form-label">Amount Advanced</label>
-                                {{--                    {!! Form::text('amount_paid_show', $retire_safari->amount_paid, ['class' => 'form-control', 'disabled' ]) !!}--}}
-                                <input type="text" id="a_paid" onblur="calculate('a_paid','a_spent','a_variance')" disabled name="amount_paid_show" class="form-control" value="{{$retire_safari->amount_paid}}">
-                                {!! Form::text('amount_paid', $retire_safari->amount_paid, ['class' => 'form-control', 'hidden' ]) !!}
-                            </div>
-                        </div>
-
-                        <div class="col-md-4" >
-
-                            <div class="form-group">
-                                <label class="form-label">Amount Received </label>
-                                {!! Form::number('amount_received', $retire_safari->amount_paid, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}
-                                {{--                            <input type="number" name="amount_received" class="form-control" placeholder="Enter amount you received">--}}
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-md-6" >
-
-                            <div class="form-group">
-                                <label class="form-label">Actual Amount Spent </label>
-                                {{--                            {!! Form::number('amount_spent',$retire_safari->amount_received, ['class' => 'form-control', 'placeholder'=>'Enter amount you received' ]) !!}--}}
-                                <input type="number" id="a_spent" onkeydown="calculate('a_paid','a_spent','a_variance')" name="amount_spent" class="form-control" required placeholder="Enter amount you spent" value="{{$retirement->details->amount_spent}}">
-
-                            </div>
-                        </div>
-                        <div class="col-md-6" >
-
-                            <div class="form-group">
-                                <label class="form-label">Variance Amount</label>
-                                <input type="number" value="{{$retirement->details->amount_variance}}" id="a_variance" onblur="calculate('a_paid','a_spent','a_variance')" name="amount_variance" class="form-control" placeholder="" required >
-                            </div>
-                        </div>
-
-                    </div>
-                @endforeach
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="form-label">Background Information: <span class="form-label-small">56/100</span></label>
-                            <textarea class="form-control" name="activity_report" rows="2" placeholder="Write activity report.." required>{{$retirement->details->activity_report}}</textarea>
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="form-label">What was Planned:</label>
-                            <textarea rows="2" cols="50" class="form-control" name="planned_report" placeholder="Write the plan.." required>{{$retirement->details->planned_report}}</textarea>
-                        </div>
+                    <div class="col-lg-6 text-right">
+                        <p class="h3">Paid To</p>
+                        <address>
+                            {{--                            {{$safari_advance->user->full_name_formatted}}<br>--}}
+                            Account: <b>{{$safariDetails->account_no}}</b> <br>
+                            {{--                            {{$safariDetails->user->email}}--}}
+                        </address>
                     </div>
                 </div>
+                <div class="table-responsive push">
+                    <table class="table table-bordered table-hover">
+                        <tr class=" ">
+                            <th class="text-center " style="width: 1%"></th>
+                            <th>Travel Requirements</th>
+                            <th class="text-right" style="width: 20%">Attachments</th>
+                            <th class="text-right" style="width: 20%">Amount</th>
+                        </tr>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>
+                                <p class="font-w600 mb-1">Accommodation</p>
+                            </td>
+                            <td class="text-right"><input type="file" accept="application/pdf" name="accomodation_attachments" class="form-control"></td>
+                            <td><input type="number" id="accomodation" name="accomodation" class="form-control" value="{{number_3_format($safariDetails->accommodation)}}"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td>
+                                <p class="font-w600 mb-1">Meals and Incidentals</p>
+                            </td>
+                            <td class="text-right"></td>
+                            <td><input type="number" id="perdiem_total_amount" name="perdiem_total_amount" class="form-control" value="{{number_3_format($safariDetails->perdiem_total_amount)}}"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td>
+                                <p class="font-w600 mb-1">Ticket Fair</p>
+                            </td>
+                            <td class="text-right"><input type="file" accept="application/pdf" name="ticket_attachments" class="form-control"></td>
+                            <td><input type="number" id="ticket_fair" name="ticket_fair" class="form-control" value="{{number_3_format($safariDetails->ticket_fair)}}"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">4</td>
+                            <td>
+                                <p class="font-w600 mb-1">Ontransit Allowance</p>
+                            </td>
+                            <td class="text-right"></td>
+                            <td><input type="number" id="ontransit" name="ontransit" class="form-control" value="{{number_3_format($safariDetails->ontransit)}}"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">5</td>
+                            <td>
+                                <p class="font-w600 mb-1">Ground Transport</p>
+                            </td>
+                            <td class="text-right"><input type="file" accept="application/pdf" name="transportation_attachments" class="form-control"></td>
+                            <td><input type="number" id="transportation" name="transportation" class="form-control" value="{{number_3_format($safariDetails->transportation)}}"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">6</td>
+                            <td>
+                                <p class="font-w600 mb-1">Other Cost</p>
+                            </td>
+                            <td class="text-right"><input type="file" accept="application/pdf" name="othercost_attachments" class="form-control"></td>
+                            <td><input type="number" id="other_cost" name="other_cost" class="form-control" value="{{number_3_format($safariDetails->other_cost)}}"></td>
+
+                            <div class="text-muted"></div>
+                        </tr>
+                        {{-- <tr>
+                             <td colspan="2" class="font-w600 text-right">Account No</td>
 
 
+                             <td class="text-right">{{$safariDetails->account_no}}</td>
+                         </tr>--}}
+                        {{--<tr>
+                            <td></td>
+                            <td colspan="2" class="font-w600 text-right">Total Amount Requested</td>
+--}}{{--                            <td class="font-weight-bold text-right">{{number_2_format($safariDetails->total_amount)}}</td>--}}{{--
+                            <td class="font-weight-bold text-right">{{number_2_format($safariDetails->requested_amount)}}</td>
+                        </tr>--}}
+                        <tr>
+                            <td></td>
+                            <td colspan="2" class="font-w600 text-right">Total Amount Expense</td>
+                            <td class="font-weight-bold text-right">
+                                <input type="text" id="total_amount" class="form-control" disabled>
+                                <input type="text" id="total_amount_hidden" hidden name="total_amount" class="form-control" value="">
 
-                <div class="row">
-                    <div  class="col-md-2">
-                        <div class="form-group">
-                            <label class="form-label">Number of Participants:</label>
-                            <input type="number" name="no_participants" class="form-control" placeholder="" value="{{$retirement->details->no_participants}}">
-                        </div>
-                    </div>
-                    <div class="col-md-10" >
-                        <div class="form-group">
-                            <label class="form-label">Objectives:</label>
-                            <textarea rows="2" cols="50" class="form-control" name="objective_report" placeholder="Write your objectives.." required>{{$retirement->details->objective_report}}</textarea>
-                        </div>
-                    </div>
-                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="2" class="font-w600 text-right">Total Amount Paid</td>
+                            <td class="font-weight-bold text-right">
+                                {{number_2_format($safariDetails->disbursed_amount)}}
+                                <input type="text" hidden name="total_amount_paid" class="form-control" value="{{number_3_format($safariDetails->disbursed_amount)}}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="2" class="font-w600 text-right">Balance</td>
 
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="form-label">Methodology:</label>
-                            <textarea rows="2" cols="50" class="form-control" name="methodology_report" placeholder="Write the methodology.." required>{{$retirement->details->methodology_report}}</textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="form-label">Achievements:</label>
-                            <textarea rows="2" cols="50" class="form-control" name="achievement_report" placeholder="Write the Achievements.." required>{{$retirement->details->achievement_report}}</textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="form-label">Challenges:</label>
-                            <textarea rows="2" cols="50" class="form-control" name="challenge_report" placeholder="Write the Challenges:.." required>{{$retirement->details->challenge_report}}</textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12" >
-                        <div class="form-group">
-                            <label class="form-label">Recommendations/Action plans :</label>
-                            <textarea rows="2" cols="50" class="form-control" name="action_report" placeholder="Write the Recommendations/Action plans .." required>{{$retirement->details->action_report}}</textarea>
-                        </div>
-                    </div>
+                            <td class="font-weight-bold text-right"><span id="calculation"></span> <input type="text" id="calculation_hidden" name="balance" hidden class="form-control" value=""> </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="2" class="font-w600 text-right"> <span class="hidden" id="file_holder_text"> Attach Bank slip</span></td>
+                            <td class="font-weight-bold text-right"> <div class="hidden" id="file_holder"> <input type="file" id="" accept="application/pdf" name="receipt_attachment" class="form-control" required disabled> </div> </td>
+                        </tr>
+                    </table>
                 </div>
 
                 <hr>
+                {{--  <div class ="row">
+                      <div class="container lst">
+                          <div class="input-group hdtuto control-group lst" >
 
-                <div class ="row">
-                    <div class="container lst">
-                        <div class="input-group hdtuto control-group lst increment" >
+                              <div class="col-md-3 col-lg-3 col-xl-3" >
+                                  <input type="file" accept="application/pdf" name="attachments[]" class="form-control">
+                              </div>
 
-                            {{--  <div class="col-md-4" >
-                              <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
-                              </div>--}}
-                            <div class="col-md-4" >
-                                <input type="file" name="attachments[]" class="form-control">
-                            </div>
-                            <div class="input-group-btn col-md-4">
-                                <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
-                            </div>
+                              <div class="col-md-3 col-lg-3 col-xl-3" >
+                              <input type="number" id="" name="amount_attachment[]" placeholder="Total Amount of the receipts" class="form-control">
+                              </div>
+
+                              <div class="col-md-3 col-lg-3 col-xl-3" >
+                                  {!! Form::select('attachment_type[]', $attachment_type, null, ['class' =>'form-control select2-show-search ', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
+                              </div>
+
+                              <div class="input-group-btn col-md-3 col-lg-3 col-xl-3">
+                                  <button class="btn btn-success att_button" type="button"><i class=""></i>Add attachment field</button>
+                              </div>
+                          </div>
+
+                          <div id="increment"></div>
+
+                      </div>
+                  </div>
+              <hr>--}}
+
+                <div class="row">
+                    <div class="col-md-12" >
+                        <div class="form-group">
+                            <label class="form-label">Activity Report <span class="form-label-small">56/100</span></label>
+                            <textarea class="content" name="activity_report" rows="2" placeholder="Write activity report.." required></textarea>
                         </div>
-
-                        <div class="clone hide">
-                            <div class="hdtuto control-group lst input-group remuv" style="margin-top:10px">
-                                {{-- <div class="col-md-4" >
-                                 <input type="text" name="title[]" class="form-control" placeholder="Enter Attachment name">
-                                 </div>--}}
-                                <div class="col-md-4" >
-                                    <input type="file" name="attachments[]" class="form-control">
-                                </div>
-
-                                <div class="input-group-btn col-md-4" >
-                                    <button class="btn btn-danger att_button_rem" type="button"><i class=""></i>Remove attachment field</button>
-                                </div>
-
-                            </div>
-                        </div>
-
-
                     </div>
+
+
                 </div>
 
                 <hr>
@@ -237,47 +210,102 @@
 
     @push('after-scripts')
         <script>
-            calculate = function (a_paid, a_spent, a_variance) {
-                var amount_advanced = (document.getElementById(a_paid).value);
-                var amount_spent = parseFloat(document.getElementById(a_spent).value).toFixed(2);
-                var amount_variance = (amount_advanced) - (amount_spent);
-                (document.getElementById(a_variance).value) = (amount_variance);
-            }
+            // calculate = function (perdiem_total_amount, accomodation, ticket_fair,ontransit,transportation,other_cost) {
+            //     var perdiem_total_amount1 = (document.getElementById(perdiem_total_amount).value).toFixed(2);
+            //     var accomodation1 = parseFloat(document.getElementById(accomodation).value).toFixed(2);
+            //     var ticket_fair1 = parseFloat(document.getElementById(ticket_fair).value).toFixed(2);
+            //     var ontransit1 = parseFloat(document.getElementById(ontransit).value).toFixed(2);
+            //     var transportation1 = parseFloat(document.getElementById(transportation).value).toFixed(2);
+            //     var other_cost1 = parseFloat(document.getElementById(other_cost).value).toFixed(2);
+            //
+            //     var total_amount1 = perdiem_total_amount1 + accomodation1 + ticket_fair1 + ontransit1 + transportation1 + other_cost1;
+            //     (document.getElementById(total_amount).value) = (total_amount1);
+            //
+            // }
 
-            $(document).ready(function() {
-                $(".att_button").click(function(){
-                    var lsthmtl = $(".clone").html();
-                    $(".increment").after(lsthmtl);
+            $(document).ready(function (){
 
+                let $perdiem_total_amount = $("#perdiem_total_amount");
+                let $accomodation = $("#accomodation");
+                let $ticket_fair = $("#ticket_fair");
+                let $ontransit = $("#ontransit");
+                let $transportation = $("#transportation");
+                let $other_cost = $("#other_cost");
+                let $total_amount = $("#total_amount");
+                let $total_amount_hidden = $("#total_amount_hidden");
+                let $calculation = $("#calculation");
+                let $calculation_hidden = $("#calculation_hidden");
+                let $file_holder = $("#file_holder");
+                let $file_holder_text = $("#file_holder_text");
+                let $receipt_attachment = $("input[name='receipt_attachment']");
+
+                sum();
+
+                $accomodation.keyup(function (event){
+                    event.preventDefault();
+                    sum()
                 });
-                $("body").on("click",".att_button_rem",function(){
-                    $(this).parents(".remuv").remove();
+
+                $perdiem_total_amount.keyup(function (event){
+                    event.preventDefault();
+                    sum()
                 });
+
+
+                $ticket_fair.keyup(function (event){
+                    event.preventDefault();
+                    sum()
+                });
+
+                $ontransit.keyup(function (event){
+                    event.preventDefault();
+                    sum()
+                });
+
+                $transportation.keyup(function (event){
+                    event.preventDefault();
+                    sum()
+                });
+
+                $other_cost.keyup(function (event){
+                    event.preventDefault()
+                    sum()
+                });
+
+                function sum(){
+                    let $sum = (parseInt($perdiem_total_amount.val().replace(/\,/g,'')) +
+                        parseInt($accomodation.val().replace(/\,/g,'')) +
+                        parseInt($ticket_fair.val().replace(/\,/g,'')) +
+                        parseInt($ontransit.val().replace(/\,/g,'')) +
+                        parseInt($transportation.val().replace(/\,/g,'')) +
+                        parseInt($other_cost.val().replace(/\,/g,''))).toFixed(2)
+                    $total_amount.val($sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    $total_amount_hidden.val($sum);
+                    let $paid = "{{ $safariDetails->disbursed_amount }}";
+                    let $substraction =  $paid - $sum;
+                    if($paid > $sum){
+                        $calculation.removeClass("text-success");
+                        $calculation.addClass("text-danger");
+                        $file_holder.removeClass('hidden');
+                        $file_holder_text.removeClass('hidden');
+                        $receipt_attachment.attr('disabled',false);
+                    }else{
+                        $calculation.removeClass("text-danger");
+                        $calculation.addClass("text-success");
+                        $file_holder.addClass('hidden');
+                        $file_holder_text.addClass('hidden');
+                        $receipt_attachment.attr('disabled',true);
+                    }
+                    $calculation.html($substraction);
+                    $calculation_hidden.val($substraction);
+
+
+                }
             });
 
-            /* $(document).ready(function() {
-                 var max_fields      = 6; //maximum input boxes allowed
-                 var wrapper         = $(".increment"); //Fields wrapper
-                 var add_button      = $(".btn-success"); //Add button ID
 
-                 var x = 1; //initlal text box count
-                 $(add_button).click(function(e){ //on add input button click
-                     e.preventDefault();
-                     if(x < max_fields){ //max input box allowed
-                         x++; //text box increment
-                         $(wrapper).append('<div class="input-group-btn">'
-                             +'<button class="btn btn-danger remove_field" type="button">'+
-                             +'<i class="fldemo glyphicon glyphicon-remove"></i> Remove</button>'+
-                             +'</div>');
-                         var lsthmtl = $(".clone").html();
-                         $(".increment").after(lsthmtl);//add input box
-                     }
-                 });
 
-                 $(wrapper).on("click",".btn-danger", function(e){ //user click on remove text
-                     e.preventDefault(); $(this).parent('div').remove(); x--;
-                 })
-             });*/
+
 
         </script>
 
