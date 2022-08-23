@@ -77,13 +77,13 @@ trait PaymentsDatatable
 
     public function allApprovedProgramActivitiesReports()
     {
-        return DataTables::of($this->program_activity_reports->getAllApprovedActivityReports())
+        return DataTables::of($this->activity_reports->getAllApprovedForPaymentByRegion(access()->user()->region_id)->get())
             ->addIndexColumn()
             ->editColumn('created_at', function ($query) {
                 return $query->created_at->toDateTimeString();
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('programactivityreport.show', $query->uuid).'">View</a>';
+                return '<a href="'.route('activity_report.show', $query->uuid).'">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

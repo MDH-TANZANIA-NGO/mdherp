@@ -3,9 +3,9 @@
         <div class="card">
             {!! Form::open(['route' => ['training.payBulk']]) !!}
             <div class="card-header">
-
                 <button type="submit" class="btn btn-success" ><i class="fa fa-save"></i> Save</button>
                 <a href="#" class="btn btn-outline-success" style="margin-left: 2%"><i class="fa fa-file-excel-o"></i> Export to Excel</a>
+                <a href="#" class="btn btn-primary" data-toggle="modal" style="margin-left: 2%" data-target="#largemodal">Send for approval</a>
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
@@ -87,6 +87,60 @@
 </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="largemodal" tabindex="-1" role="dialog" aria-labelledby="largemodal" aria-hidden="true">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="largemodal1">Confirm and send for approval</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive push">
+                    <table class="table table-bordered table-hover">
+                        <tbody><tr class=" ">
+                            <th class="text-center " style="width: 1%"></th>
+                            <th>Paid Item</th>
+                            <th class="text-center" style="width: 1%">Qnt</th>
+                            <th class="text-right" style="width: 1%">Amount</th>
+                        </tr>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>
+                                <p class="font-w600 mb-1">Activity Participants</p>
+                            </td>
+                            <td class="text-center">2</td>
+                            <td class="text-right">$120.00</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="3" class="font-w600 text-right">Subtotal</td>
+                            <td class="text-right">TZS {{number_2_format($sum_to_be_paid)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="font-weight-bold text-uppercase text-right">Grand Total</td>
+                            <td class="font-weight-bold text-right">TZS {{number_2_format($sum_to_be_paid)}}</td>
+                        </tr>
+{{--                        <tr>--}}
+{{--                            <td colspan="5" class="text-right">--}}
+{{--                                <button type="button" class="btn btn-primary" onclick="javascript:window.print();"><i class="si si-wallet"></i> Pay Invoice</button>--}}
+{{--                                <button type="button" class="btn btn-secondary" onclick="javascript:window.print();"><i class="si si-paper-plane"></i> Send Invoice</button>--}}
+{{--                                <button type="button" class="btn btn-info" onclick="javascript:window.print();"><i class="si si-printer"></i> Print Invoice</button>--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
+                        </tbody></table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 @push('after-scripts')
     <script>
         $(document).ready(function (){

@@ -6,6 +6,7 @@ namespace App\Models\Activities\Reports;
 use App\Models\Activities\Traits\ActivityReportAttribute;
 use App\Models\Auth\User;
 use App\Models\BaseModel;
+use App\Models\ProgramActivity\ProgramActivityPayment;
 use App\Models\Requisition\Requisition;
 use App\Models\System\Region;
 use App\Models\Workflow\WfTrack;
@@ -35,5 +36,9 @@ class ActivityReport extends BaseModel
     public function region()
     {
         return $this->belongsTo(Region::class);
+    }
+    public function payment()
+    {
+        return $this->hasOne(ProgramActivityPayment::class);
     }
 }

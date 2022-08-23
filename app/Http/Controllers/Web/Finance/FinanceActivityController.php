@@ -78,11 +78,11 @@ class FinanceActivityController extends Controller
     }
     public function index()
     {
-
+//            dd($this->activity_reports->getAllApprovedForPaymentByRegion(access()->user()->region_id)->get());
         return view('finance.index')
             ->with('requisition', $this->requisitions->getAllApprovedRequisitions())
             ->with('program_activity', $this->program_activity->getAllApprovedProgramActivities())
-            ->with('program_activity_reports', $this->program_activity_reports->getAllApprovedActivityReports())
+            ->with('program_activity_reports', $this->activity_reports->getAllApprovedForPaymentByRegion(access()->user()->region_id))
             ->with('safariAdvance', $this->safariAdvance->getAllApprovedSafari())
             ->with('retirement', $this->retirement->getAllApprovedRetirements());
     }

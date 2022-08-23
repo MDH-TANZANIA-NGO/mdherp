@@ -73,6 +73,21 @@ public function getParticipantsByRequisition($requisition_id)
     return $this->getQuery()
         ->where('requisition_training_costs.requisition_id', $requisition_id);
 }
+
+public function getSumOfAmountPaid($requisition_id)
+{
+    return $this->getParticipantsByRequisition($requisition_id)
+        ->sum('requisition_training_costs.amount_paid');
+}
+
+public function getCountParticipantsToBePaid($requisition_id)
+{
+    return $this->getParticipantsByRequisition($requisition_id)
+        ->where('requisition_training_costs.amount_paid','!=', 0)
+        ->where('requisition_training_costs.amount_paid','!=', null)
+        ->get()
+        ->count();
+}
     public function getActivityParticipants($uuid)
     {
         return $this->getQuery()

@@ -128,6 +128,8 @@ class ActivityReportController extends Controller
             ->with('participants_attended', $option['attendance_for_pluck'])
             ->with('hotspots',$option['hotspot'])
             ->with('requisition',$option['requisition'])
+            ->with('sum_to_be_paid',$this->training_costs->getSumOfAmountPaid($activity_report->requisition_id))
+//            ->with('count_to_be_paid',$this->activity_reports->getCountForParticipantsForRequisition($option['requisition']->id))
             ->with('training_costs',$option['training_cost'])
             ->with('activity_reports', $this->activity_reports)
             ->with('activity_report', $activity_report)
