@@ -20,23 +20,22 @@
                         <thead >
                         <tr>
 
-                            <th>ID</th>
                             <th>name</th>
                             <th>Region</th>
                             <th>District</th>
+                            <th>Remarks</th>
                             <th >Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($hotels as $key => $hotel)
                             <tr>
-                                <th>{{ $key + 1 }}</th>
                                 <th>{{ $hotel->name }}</th>
                                 <th>{{ $hotel->district->region->name }}</th>
                                 <th>{{ $hotel->district->name }}</th>
-                                <th><a href="#" class="btn btn-primary" ><i class="fa fa-eye"></i></a>  </th>
+                                <th>{{ $hotel->remarks}}</th>
+                                <th><a href="{{route('admin.edit', $hotel->uuid)}}" class="btn btn-primary" >edit</a> <a href="{{route('admin.delete', $hotel->uuid)}}" onclick="if (confirm('Are you sure you want to remove?')){return true} else {return false}" class="btn btn-danger" >Remove</a>  </th>
                             </tr>
-                        </tbody>
                         @endforeach
                         </tbody>
                     </table>

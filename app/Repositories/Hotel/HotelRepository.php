@@ -79,6 +79,12 @@ class HotelRepository extends BaseRepository
             return $this->query()->create($this->inputProcess($inputs));
         });
     }
+    public function update($inputs, $uuid)
+    {
+        return DB::transaction(function () use ($inputs, $uuid){
+            return $this->findByUuid($uuid)->update($this->inputProcess($inputs));
+        });
+    }
 
     public function getHotelByDistrict($district)
     {
