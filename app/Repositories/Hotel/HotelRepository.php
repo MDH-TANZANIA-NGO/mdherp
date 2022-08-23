@@ -35,7 +35,7 @@ class HotelRepository extends BaseRepository
     {
       return  $this->getQuery()
           ->addSelect('program_activity_hotels.priority_level')
-            ->join('program_activity_hotels', 'program_activity_hotels.hotel_id', 'hotels.id')
+//            ->join('program_activity_hotels', 'program_activity_hotels.hotel_id', 'hotels.id')
             ->join('program_activities', 'program_activities.id', 'program_activity_hotels.program_activity_id')
         ->where('program_activity_hotels.program_activity_id', $program_activity);
     }

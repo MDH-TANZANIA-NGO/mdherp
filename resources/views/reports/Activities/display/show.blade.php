@@ -15,7 +15,7 @@
                         <div class="tags">
                             <div class="tag">
                                 Requisition number
-                                <span class="tag-addon tag-blue">{{$requisition->number}}</span>
+                                <a href="{{route('requisition.show', $requisition->uuid)}}"><span class="tag-addon tag-blue">{{$requisition->number}}</span></a>
                             </div>
                             <div class="tag">
                                 Code number
