@@ -55,6 +55,12 @@ public function getActivityAttendance($program_activity_id)
         ->where('program_activity_attendances.program_activity_id', $program_activity_id);
 }
 
+public function getActivityByRequisition($requisition)
+{
+    return $this->getQuery()
+        ->where('program_activities.requisition_id', $requisition);
+}
+
 public function storeActivityAttendance($inputs, $uuid)
 {
 

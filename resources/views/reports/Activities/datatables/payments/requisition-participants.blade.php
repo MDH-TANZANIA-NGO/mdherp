@@ -112,17 +112,14 @@
                             <td>
                                 <p class="font-w600 mb-1">Activity Participants</p>
                             </td>
-                            <td class="text-center">2</td>
-                            <td class="text-right">$120.00</td>
+                            <td class="text-center">{{$count_to_be_paid}}</td>
+                            <td class="text-right">{{number_2_format($sum_to_be_paid)}}</td>
                         </tr>
 
-                        <tr>
-                            <td colspan="3" class="font-w600 text-right">Subtotal</td>
-                            <td class="text-right">TZS {{number_2_format($sum_to_be_paid)}}</td>
-                        </tr>
+
                         <tr>
                             <td colspan="3" class="font-weight-bold text-uppercase text-right">Grand Total</td>
-                            <td class="font-weight-bold text-right">TZS {{number_2_format($sum_to_be_paid)}}</td>
+                            <td class="font-weight-bold text-right">{{number_2_format($sum_to_be_paid)}}</td>
                         </tr>
 {{--                        <tr>--}}
 {{--                            <td colspan="5" class="text-right">--}}
@@ -132,12 +129,24 @@
 {{--                            </td>--}}
 {{--                        </tr>--}}
                         </tbody></table>
+                    {!! Form::open(['route' => ['finance.store_activity_payment']]) !!}
+                    <input type="number" name="requisition_id" value="{{$requisition->id}}" hidden>
+                    <input type="number" name="region_id" value="{{access()->user()->region_id}}" hidden>
+                    <input type="text" name="remarks" value="Activity participants paid" hidden>
+                    <input type="number" name="requested_amount" value="{{$requisition->amount}}" hidden>
+                    <input type="number" name="total_amount" value="{{$sum_to_be_paid}}" hidden>
+<input type="number" name="program_activity_report_id" value="" hidden>
+                    <input type="number" name="activity_report_id" value="{{$activity_report->id}}" hidden>
+                    <input type="number" name="program_activity_id" value="{{$program_activity->id}}" hidden>
+
+
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Send for approval</button>
             </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

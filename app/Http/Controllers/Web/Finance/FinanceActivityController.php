@@ -334,13 +334,13 @@ class FinanceActivityController extends Controller
     public function storeActivityPayment(Request $request)
     {
         $payment_id = $this->finance->store($request->all());
-        $this->program_activity_payment_repo->storeActivityPayment($request->all());
+       $this->program_activity_payment_repo->storeActivityPayment($request->all());
         $payment =  $this->finance->find($payment_id);
 
         $number = $this->finance->generateNumber(Payment::query()->find($payment_id));
         DB::update('update payments set done = ?, number = ? where uuid = ?',[1,$number, $payment->uuid]);
-        DB::update('update program_activity_reports set paid = ? where id = ?',[true, $request['program_activity_report_id']]);
-        DB::update('update program_activity_payments set payment_id = ? where program_activity_report_id = ?', [$payment->id, $request['program_activity_report_id']]);
+        DB::update('update activity_reports set complete = ? where id = ?',[true, $request['activity_report_id']]);
+        DB::update('update program_activity_payments set payment_id = ? where activity_report_id = ?', [$payment->id, $request['activity_report_id']]);
 
         $wf_module_group_id = 6;
         $next_user = $payment->user->assignedSupervisor()->supervisor_id;

@@ -13,6 +13,7 @@ use App\Repositories\Activity\ActivityReportRepository;
 use App\Repositories\Attendance\ActivityAttendanceRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\Hotspot\HotspotRepository;
+use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
 use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
@@ -36,6 +37,7 @@ class ActivityReportController extends Controller
     protected $training_costs;
     protected $gofficer;
     protected $wf_tracks;
+    protected $program_activity;
 
     public function __construct()
     {
@@ -47,6 +49,7 @@ class ActivityReportController extends Controller
         $this->training_costs = (new RequestTrainingCostRepository());
         $this->gofficer =  (new GOfficerRepository());
         $this->wf_tracks = (new WfTrackRepository());
+        $this->program_activity =  (new ProgramActivityRepository());
 
 
     }
@@ -129,11 +132,12 @@ class ActivityReportController extends Controller
             ->with('hotspots',$option['hotspot'])
             ->with('requisition',$option['requisition'])
             ->with('sum_to_be_paid',$this->training_costs->getSumOfAmountPaid($activity_report->requisition_id))
-//            ->with('count_to_be_paid',$this->activity_reports->getCountForParticipantsForRequisition($option['requisition']->id))
+            ->with('count_to_be_paid',$this->training_costs->getCountParticipantsToBePaid($activity_report->requisition_id))
             ->with('training_costs',$option['training_cost'])
             ->with('activity_reports', $this->activity_reports)
             ->with('activity_report', $activity_report)
             ->with('attendances',$this->activity_attendance)
+            ->with('program_activity', $this->program_activity->getActivityByRequisition($activity_report->requisition_id)->first())
             ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
             ->with('trainings', $this->trainings->getPluckRequisitionNoWithRequisitionId());
     }
