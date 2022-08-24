@@ -110,6 +110,15 @@ RequisitionRepository extends BaseRepository
            ->where('requisitions.is_closed', false);
    }
 
+   public function getSafariAdvanceByRequisition($requisition_id)
+   {
+       return $this->getQuery()
+           ->leftjoin('requisition_travelling_costs','requisition_travelling_costs.requisition_id','requisitions.id')
+           ->leftjoin('safari_advances','safari_advances.requisition_travelling_cost_id', 'requisition_travelling_costs.id')
+           ->where('requisitions.id', $requisition_id);
+   }
+
+
 /*   Get all requisitions which are approved and they are for
     training or other program activities*/
 

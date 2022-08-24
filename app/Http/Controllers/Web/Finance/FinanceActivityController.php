@@ -175,7 +175,6 @@ class FinanceActivityController extends Controller
         $current_level = $workflow->currentLevel();
         $can_edit_resource = $this->wf_tracks->canEditResource($payment, $current_level, $workflow->wf_definition_id);
 
-        $payment_category = [];
 
         $travelling_details = requisition_travelling_cost::query()->where('requisition_id', $payment->requisition_id)->get()->first();
         $training_details =  requisition_training_cost::query()->where('requisition_id', $payment->requisition_id);
@@ -183,7 +182,7 @@ class FinanceActivityController extends Controller
         if (ProgramActivity::query()->where('requisition_id', $payment->requisition_id)->get()->count() > 0){
             $program_activity =  $this->program_activity->getActivityByRequisition($payment->requisition_id)->first();
             $safari_advance =  SafariAdvance::where('requisition_travelling_cost_id', null)->first();
-            $activity_report_id =  ProgramActivityPayment::query()->where('payment_id', $payment->id)->first()->activity_report_id;
+            $program_activity_report_id =  ProgramActivityPayment::query()->where('payment_id', $payment->id)->first()->activity_report_id;
             $program_activity_report = $this->activity_reports->find($program_activity_report_id);
 
 
