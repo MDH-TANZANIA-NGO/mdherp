@@ -125,6 +125,12 @@
                         case 11: /*Job Advertisement*/
                             window.open(base_url + "/advertisement/show/" + aData['resource_uuid'] , "_self");
                             break;
+                        case 13: /*job-shortlisters*/
+                            window.open(base_url + "/human-resource/job-shortlisters/" + aData['resource_uuid'] + '/show' , "_self");
+                            break;
+                        case 15: /*job-shortlisters*/
+                            window.open(base_url + "/human-resource/job-applicant-requests/" + aData['resource_uuid'] + '/show' , "_self");
+                            break;
                         default:
                             break;
                     }
