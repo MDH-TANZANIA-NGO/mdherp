@@ -144,6 +144,13 @@ trait WorkflowUserSelector
                         }
                         $user_id = $next_user->supervisor_id;
                         break;
+                    case 2:
+                        $next_user = (new UserRepository())->getRegionFinanceTeam($retirement->user->region_id);
+                        if (!$next_user) {
+                            throw new GeneralException('This user has not assigned supervisor');
+                        }
+                        $user_id = $next_user;
+                        break;
                 }
                 break;
             case 6:

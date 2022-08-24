@@ -440,6 +440,12 @@ class UserRepository extends BaseRepository
             ->where('users.designation_id', 8);
     }
 
+    public function getFinanceOfficer()
+    {
+        return $this->getQuery()
+            ->whereIn('users.designation_id', [48,49,96,107,114]);
+    }
+
     public function getCeo()
     {
         return $this->query()
@@ -468,8 +474,7 @@ class UserRepository extends BaseRepository
 
     public function getRegionFinanceTeam($region_id)
     {
-        return $this->getQuery()
-            ->whereIn('users.designation_id', [48,49,96,107,114])
+        return $this->getFinanceOfficer()
             ->where('users.region_id', $region_id)
             ->get();
     }

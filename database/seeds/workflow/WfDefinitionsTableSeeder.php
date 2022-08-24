@@ -303,7 +303,7 @@ class WfDefinitionsTableSeeder extends Seeder
             12 =>
                 array (
                     'id' => 13,
-                    'level' => '1',
+                    'level' => 1,
                     'unit_id' => 69,
                     'designation_id' => 124,
                     'description' => 'Submit Retirement',
@@ -326,11 +326,11 @@ class WfDefinitionsTableSeeder extends Seeder
             13 =>
                 array (
                     'id' => 14,
-                    'level' => '2',
+                    'level' => 2,
                     'unit_id' => 72,
                     'designation_id' => 125,
                     'description' => 'Approve Retirement',
-                    'msg_next' => 'Request for Endorsement',
+                    'msg_next' => 'Request for Review',
                     'wf_module_id' => '5',
                     'active' => '1',
                     'allow_rejection' => 1,
@@ -349,11 +349,11 @@ class WfDefinitionsTableSeeder extends Seeder
             14 =>
                 array (
                     'id' => 15,
-                    'level' => '3',
+                    'level' => 3,
                     'unit_id' => 73,
-                    'designation_id' => 126,
-                    'description' => 'Complete Retirement',
-                    'msg_next' => 'End Retirement',
+                    'designation_id' => 49,
+                    'description' => 'Review Retirement',
+                    'msg_next' => 'Request for Approval',
                     'wf_module_id' => '5',
                     'active' => '1',
                     'allow_rejection' => 1,
@@ -364,9 +364,9 @@ class WfDefinitionsTableSeeder extends Seeder
                     'is_approval' => 0,
                     'has_next_start_optional' => 0,
                     'is_optional' => 0,
-                    'can_close' => 1,
-                    'action_description' => 'Complete',
-                    'status_description' => 'Completed',
+                    'can_close' => 0,
+                    'action_description' => 'Review',
+                    'status_description' => 'Reviewed',
 //                'assign_next_user' => 0,
                 ),
             15 =>
@@ -415,8 +415,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-
-
             17 =>
                 array (
                     'id' => 18,
@@ -463,7 +461,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Reviewed',
 //                'assign_next_user' => 0,
                 ),
-
             19 =>
                 array (
                     'id' => 20,
@@ -487,7 +484,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Authorized',
 //                'assign_next_user' => 0,
                 ),
-
             20 =>
                 array (
                     'id' => 21,
@@ -741,7 +737,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Verified',
 //                'assign_next_user' => 0,
                 ),
-
             31 =>
                 array (
                     'id' => 32,
@@ -949,8 +944,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Save',
 //                'assign_next_user' => 0,
                 ),
-
-
             40 =>
                 array (
                     'id' => 41,
@@ -974,7 +967,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-
             41 =>
                 array (
                     'id' => 42,
@@ -1021,7 +1013,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-
             44 =>
                 array (
                     'id' => 45,
@@ -1068,7 +1059,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Submited',
 //                'assign_next_user' => 0,
                 ),
-
             46 =>
                 array (
                     'id' => 47,
@@ -1138,7 +1128,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-                49 =>
+            49 =>
                 array (
                     'id' => 50,
                     'level' => '3',
@@ -1161,7 +1151,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-                50 =>
+            50 =>
                 array (
                     'id' => 51,
                     'level' => 1,
@@ -1232,7 +1222,7 @@ class WfDefinitionsTableSeeder extends Seeder
                 ),
             53 =>
                 array (
-                    'id' => 55,
+                    'id' => 54,
                     'level' => 2,
                     'unit_id' => 72,
                     'designation_id' => 125,
@@ -1251,6 +1241,29 @@ class WfDefinitionsTableSeeder extends Seeder
                     'can_close' => 1,
                     'action_description' => 'Approve',
                     'status_description' => 'Approved',
+//                'assign_next_user' => 0,
+                ),
+            54 =>
+                array (
+                    'id' => 55,
+                    'level' => 4,
+                    'unit_id' => 75,
+                    'designation_id' => 93,
+                    'description' => 'Complete Retirement',
+                    'msg_next' => 'End Retirement',
+                    'wf_module_id' => '5',
+                    'active' => '1',
+                    'allow_rejection' => 1,
+                    'allow_repeat_participate' => 0,
+                    'created_at' => '2021-11-22 10:15:25',
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                    'is_approval' => 0,
+                    'has_next_start_optional' => 0,
+                    'is_optional' => 0,
+                    'can_close' => 1,
+                    'action_description' => 'Complete',
+                    'status_description' => 'Completed',
 //                'assign_next_user' => 0,
                 ),
 

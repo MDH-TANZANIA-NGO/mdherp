@@ -255,7 +255,7 @@ class WorkflowEventSubscriber
                     $retirement = $retirement_repo->find($resource_id);
                     /*check levels*/
                     switch ($level) {
-                        case 1: //Applicant level
+                        case 1: //User to Supervisor level
                             $retirement_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
 
@@ -264,6 +264,23 @@ class WorkflowEventSubscriber
                                 'subject' => $retirement->number . " Need your Approval",
                                 'message' =>  $retirement->number . ' need your approval'
                             ];
+                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+
+                        case 2: //Supervisor to Finance level
+                            $retirement_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
+                            $email_resource = (object)[
+                                'link' => route('retirement.show', $retirement),
+                                'subject' => $retirement->number . " Need Your Approval",
+                                'message' => 'Hi! Retirement Number'. $retirement->number . ' needs your approval'
+                            ];
+
+                            foreach ($data['next_user_id'] as $user)
+                            {
+                                SendEmailToFinanceJob::dispatch($user, $email_resource);
+                            }
                             //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     }
