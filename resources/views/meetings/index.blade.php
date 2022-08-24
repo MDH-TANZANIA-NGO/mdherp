@@ -95,6 +95,7 @@
                                             </td>
 
                                         </tr>
+                                        
                                         @endforeach
                                         <script>
                                             function myFunction() {

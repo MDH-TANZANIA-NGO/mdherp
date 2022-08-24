@@ -94,7 +94,13 @@
         @csrf
         <div class="punch-btn-section">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-            <button type="submit" class="btn btn-danger punch-btn"> <i class="fe fe-clock"></i>Check Out</button>
+            <button type="submit" onclick="return myFunction1();" class="btn btn-danger punch-btn"> <i class="fe fe-clock"></i>Check Out</button>
+            <script>
+                function myFunction1() {
+                    if (!confirm("Are you sure you want to check out"))
+                        event.preventDefault();
+                                     }
+            </script>
             <!-- leaflet js  -->
             <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
@@ -130,6 +136,7 @@
                         .catch(err => console.warn(err.message));
                 }
             </script>
+
 
         </div>
     </form>

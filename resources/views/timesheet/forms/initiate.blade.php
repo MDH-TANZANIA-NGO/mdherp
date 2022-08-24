@@ -32,7 +32,7 @@
                             <td><b>{{ $workday }}</b></td>
                             <input type="hidden" name="data[{{$key}}][date]" value="{{ $workday }}">
                             <td>
-                                <input type="number" step=any  name="data[{{$key}}][hours]" class="form-control col-md-4"
+                                <input type="number" readonly step=any  name="data[{{$key}}][hours]" class="form-control col-md-4"
                                 value="{{ get_working_hours($workday) }}"
                                 />
                             </td>

@@ -1,104 +1,32 @@
 @extends('layouts.app')
 @section('content')
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realtime location tracker</title>
-
-    <!-- leaflet css  -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        #map {
-            width: 100%;
-            height: 100vh;
-        }
-    </style>
-</head>
-
+<html>
 <body>
-    <div id="map"></div>
-</body>
 
-</html>
+<p>Click the button to get your coordinates.</p>
 
-<!-- leaflet js  -->
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
 <script>
-    // Map initialization 
-    var map = L.map('map').setView([14.0860746, 100.608406], 6);
+var x = document.getElementById("demo");
 
-    //osm layer
-    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    });
-    osm.addTo(map);
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
 
-    if (!navigator.geolocation) {
-        console.log("Your browser doesn't support geolocation feature!")
-    } else {
-
-        navigator.geolocation.getCurrentPosition(getPosition)
-
-    }
-
-    var marker, circle;
-
-    function getPosition(position) {
-        // console.log(position)
-        var lat = position.coords.latitude
-        var long = position.coords.longitude
-        var accuracy = position.coords.accuracy
-        $.ajax({
-            type: 'post',
-            url: "{{ route('map.store') }} ",
-            data: {
-                latitute: lat,
-                longitude: long,
-                '_token': "{{ csrf_token() }}",
-            },
-            success: function(data) {
-                console.log(data);
-            }
-        });
-        if (marker) {
-            map.removeLayer(marker)
-        }
-
-        if (circle) {
-            map.removeLayer(circle)
-        }
-
-        marker = L.marker([lat, long])
-        circle = L.circle([lat, long], {
-            radius: accuracy
-        })
-
-        var featureGroup = L.featureGroup([marker, circle]).addTo(map)
-
-        map.fitBounds(featureGroup.getBounds())
-        $('#address-latitude').val(lat);
-        $('#address-longitude').val(long);
-        console.log("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy)
-    }
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
 </script>
-<div class="form-group">
-    <label for="address_address">Address:</label><br>
-    <input type="hidden" id="address-input" name="address_address" class="form-control map-input">
-    Latitude
-    <input type="number" name="lat" id="address-latitude" />
-    Longitude
-    <input type="number" name="long" id="address-longitude" />
-</div>
-<div id="address-map-container" style="width:100%;height:400px; ">
-    <div style="width: 100%; height: 100%" id="map"></div>
-</div>
+
+</body>
+</html>
 @endsection
