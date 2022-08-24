@@ -14,7 +14,7 @@
                                     @endswitch
                                 </th>
 
-                                <th>ACTION PLAN</th>
+                                <th>ACTIVITIES / TASKS </th>
                                 <th>MAJOR ACCOMPLISHMENT</th>
                                 <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
                                 <th>SCORE</th>
