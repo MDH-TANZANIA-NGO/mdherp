@@ -20,20 +20,17 @@ trait HireRequisitionSteps
     public function stepGeneral(HireRequisitionJob $hireRequisitionJob, Request $request)
     {
         $step = 2;
-        $job_title = $this->designation->getQueryDesignationUnit()
-        ->where('designations.id', $hireRequisitionJob->designation_id)
-        ->first();
+        $job_title = $this->designation->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first();
         $data['hr_requisition_job_id'] = $hireRequisitionJob->id;
+        HireRequisitionLocation::where('hr_requisition_job_id',$hireRequisitionJob->id)->delete();
         foreach ($request->region as $region) {
             $region_data['hr_requisition_job_id'] = $hireRequisitionJob->id;
             $region_data['region_id'] = $region;
             HireRequisitionLocation::create($region_data);
         }
-         $hireRequisitionJob->update($request->except('region', 'files'));
+        $hireRequisitionJob->update($request->except('region', 'files'));
         return view('HumanResource.HireRequisition._parent.form.personal_required')
             ->with('step', $step)
-            ->with('job_title', $job_title)
-            ->with('job_title', $job_title)
             ->with('job_title', $job_title)
             ->with('hireRequisitionJob', $hireRequisitionJob)
             ->with('uuid', $hireRequisitionJob->uuid);
@@ -48,13 +45,11 @@ trait HireRequisitionSteps
             ->with('step', $step)
             ->with('job_title', $job_title)
             ->with('hireRequisitionJob', $hireRequisitionJob)
-            
             ->with('uuid', $hireRequisitionJob->uuid);
     }
     public function stepPersonalRequirement(HireRequisitionJob $hireRequisitionJob, Request $request)
     {
         $step = 3;
-        
         $job_title = $this->designation->getQueryDesignationUnit()
         ->where('designations.id', $hireRequisitionJob->designation_id)
         ->first();
@@ -77,9 +72,7 @@ trait HireRequisitionSteps
     public function stepPersonalRequirementView(HireRequisitionJob $hireRequisitionJob, Request $request)
     {
         $step = 3; 
-        $job_title = $this->designation->getQueryDesignationUnit()
-        ->where('designations.id', $hireRequisitionJob->designation_id)
-        ->first();
+        $job_title = $this->designation->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first();
         $current_working_tools = HireRequisitionWorkingTool::select("working_tools.id as id")
                                 ->join('working_tools', 'working_tools.id', 'hr_hire_requisition_working_tools.working_tool_id')
                                 ->where('hr_hire_requisition_working_tools.hr_requisitions_jobs_id', $hireRequisitionJob->id)

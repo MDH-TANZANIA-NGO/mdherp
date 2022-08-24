@@ -29,6 +29,14 @@
                     <td>{{ $hireRequisitionJob->empoyees_required }}</td>
                 </tr>
                 <tr>
+                    <td><strong>Project: </strong></td>
+                    <td>{{ $hireRequisitionJob->project->title }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Report To: </strong></td>
+                    <td>{{ $hireRequisitionJob->reportTo->unit->name." ".$hireRequisitionJob->reportTo->name }}</td>
+                </tr>
+                <tr>
                     <td><strong>Location: </strong></td>
                     <td> {{ $regions }}
                     </td>
@@ -70,7 +78,7 @@
                 </tr>
                 <tr>
                     <td><strong>Prospect for appointment : </strong></td>
-                    <td> {{ $appointment_prospect->name }} </td>
+                    <td> {{ isset($appointment_prospect->name) ? $appointment_prospect->name:'' }} </td>
                 </tr>
                 <tr>
                     <td><strong>Special Employment Condition : </strong></td>
@@ -125,7 +133,7 @@
 		@if(!isset($create))
 		<button id="" type="button" name="submit_job_requisition" value="Cancel" class="btn btn-inline-block btn-danger cancel"> <i class="fa fa-times"></i> Cancel </button>
 		@endif
-		<button type="button" class="btn btn-inline-block btn-azure prev-step"> <i class="fa fa-angle-left"></i> Back </button>
+        <a href="{{ route('hirerequisition.steps.employement_condition',$hireRequisitionJob->uuid) }}" class="btn btn-inline-block btn-azure prev-step"> <i class="fa fa-angle-left"></i> Back </a>
 		<button type="submit" class="btn btn-inline-block btn-azure"> <i class="fa fa-save"></i> Finish</button>
 	</div>
 </div>

@@ -9,6 +9,7 @@ use App\Models\System\Region;
 use App\Models\HumanResource\HireRequisition\HireRequisitionLocation;
 use App\Models\HumanResource\HireRequisition\HireRequisitionReplacedStaff;
 use App\Models\HumanResource\HireRequisition\HrHireRequisitionJobsCriteria;
+use App\Models\Project\Project;
 use App\Models\Unit\Department;
 use App\Models\Unit\Designation;
 use App\Models\Unit\Unit;
@@ -45,8 +46,9 @@ class HireRequisitionJob extends BaseModel
     }
     public function reportTo()
     {
-        return $this->belongsTo(Designation::class,'report_to','id');
+        return $this->belongsTo(Designation::class,'report_to','id')->with('unit');
     }
+
     public function unit()
     {
         return $this->hasOneThrough(Unit::class,Designation::class,'designation_id','id');
@@ -60,6 +62,10 @@ class HireRequisitionJob extends BaseModel
      public function locations()
      {
          return $this->hasMany(HireRequisitionLocation::class,'hr_requisition_job_id');
+     }
+     public function project()
+     {
+         return $this->belongsTo(Project::class,'project_id');
      }
 
      public function advertisment()

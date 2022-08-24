@@ -34,6 +34,14 @@
                     <td>{{ $job->empoyees_required }}</td>
                 </tr>
                 <tr>
+                    <td><strong>Project: </strong></td>
+                    
+                </tr>
+                <tr>
+                    <td><strong>Report To: </strong></td>
+                    <td>{{ $job->empoyees_required }}</td>
+                </tr>
+                <tr>
                     <td><strong>Location: </strong></td>
                     <td> {{ $job->regions }}
 
