@@ -5,13 +5,14 @@
 @endif
 <div class="card">
 	<div class="card-header">
-		<label class="form-label">Hire Requisition Number</label>
-		<span class="ml-3"> {{ $hireRequisition->number }} </span>
-		<div class="col-2 col-lg-2">
-		</div>
-		<div class="col-2 col-lg-2">
+		<div class="col-6 col-lg-6">
+			<label class="form-label">JOB TITLE</label>
 			{{ $hireRequisitionJob->job_title }}
 		</div>
+		<span class="ml-3"> 
+			<label class="form-label">HIRERING REQUISITION </label>
+			{{ $hireRequisition->number }} 
+		</span>
 	</div>
 	<div class="card-body" style="background-color:#FFFFFF">
 		<form action="{{route('advertisement.store')}}" method="post">
@@ -41,10 +42,17 @@
 					
 					<textarea type="text" rows="10" class="form-control summernotecontent" name="description" placeholder="description" required>
 						<p>
-							<h4>Job Title: </h4> {{ $hireRequisitionJob->job_title }}	
+							<h4>JOB VACANCY</h4>	
+						</p>
+					    <p> Management and Development for Health (MDH) is a non-profit, non-governmental organization whose primary aim is to contribute to address public health priorities of the people of Tanzania and the world at large. These priorities include: communicable diseases such as HIV/AIDS, Tuberculosis and Malaria; Reproductive, Maternal, New-born and Child health (RMNCH); Nutrition; Non-Communicable Diseases of public health significance; as well as Health System Strengthening. MDH strongly believes in and works in partnership with various local and global institutions, Ministry of Health (MoH); President’s Office Regional Authorities and Local Government (PORALG); donor agencies; academic and non-academic institutions; implementing partners; civil society, community-based and faith-based organizations and others. MDH seeks a qualified individual to fill the position below. </p>
+						<p>
+							<h4>Job Title:  {{ $hireRequisitionJob->job_title }}	</h4>
 						</p>	
 						<p>
-							<h4> Reports to : {{ $hireRequisitionJob->reportTo }}<h4> 
+							<h4> Reports to : {{ isset($hireRequisitionJob->reportTo->name) ? $hireRequisitionJob->reportTo->name :'' }}</h4> 
+						</p>
+						<p>
+							<h4> Locationb: {{  $hireRequisitionJob->regions()->get()->implode('name',',') }}</h4> 
 						</p>
 						<p>
 							<h4> Job Summary :  <h4> 
@@ -60,8 +68,8 @@
 							{{ $hireRequisitionJob->practical_experience }}
 							{{ $hireRequisitionJob->special_qualities_skills }}
 					    <P>
-						<h4>Reporting Line </h4>
-						{{ $hireRequisitionJob->special_employment_condition }}
+						<h4>Special Employment Condition </h4>
+							{{ $hireRequisitionJob->special_employment_condition }}
 					    <P>
 						
 					</textarea>

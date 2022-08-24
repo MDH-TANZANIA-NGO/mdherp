@@ -118,10 +118,11 @@
 	<div class="col-6">
 	</div>
 	<div class="col-6">
-		@if(!isset($create))
+		<!-- @if(!isset($create))
 		<button id="" type="button" name="submit_job_requisition" value="Cancel" class="btn btn-inline-block btn-danger cancel"> <i class="fa fa-times"></i> Cancel </button>
-		@endif
-		<a href="route()" class="btn btn-inline-block btn-azure prev-step"> <i class="fa fa-angle-left"></i> Back </button>
+		@endif -->
+		<a href="{{ route('hirerequisition.steps.personal_requirement',$uuid) }}" class="btn btn-inline-block btn-azure prev-step"> <i class="fa fa-angle-left"></i> Back </a> 
+		
 		<a href="{{ route('hirerequisition.hire_requisition_job_show',$uuid) }}" class="btn btn-inline-block btn-azure"> <i class="fa fa-save"></i> Next</a>
 	</div>
 </div>
@@ -136,7 +137,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{route('hirerequisition.steps.add_criteria',$uuid)}}" method="get">
+				<form action="{{route('hirerequisition.steps.add_criteria',$uuid)}}" method="post">
 					@csrf
 					<div class="row">
 						<label>Criteria</label>

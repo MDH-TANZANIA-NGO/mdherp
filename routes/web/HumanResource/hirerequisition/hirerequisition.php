@@ -9,17 +9,21 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
     Route::post('store', 'HireRequisitionController@store')->name('store');
 
     Route::group(['prefix' => 'steps', 'as' => 'steps.'], function () {
-            Route::GET('general/{hireRequisitionJob}', 'HireRequisitionController@stepGeneral')->name('general');
-            Route::GET('personal_requirement/{hireRequisitionJob}', 'HireRequisitionController@stepPersonalRequirement')->name('personal_requirement');
-            Route::GET('employement_condition/{hireRequisitionJob}', 'HireRequisitionController@stepEmploymentCondition')->name('employement_condition');
-            Route::GET('criteria/{hireRequisitionJob}', 'HireRequisitionController@stepCriteria')->name('criteria');
-            Route::GET('criteria/{hireRequisitionJob}', 'HireRequisitionController@stepReview')->name('review');
-            Route::GET('add_criteria/{hireRequisitionJob}', 'HireRequisitionController@addCriteria')->name('add_criteria');
-            Route::post('finish/{uuid}', 'HireRequisitionController@finish')->name('finish');
+            Route::POST('general/{hireRequisitionJob}', 'HireRequisitionController@stepGeneral')->name('general');
+            Route::get('general/{hireRequisitionJob}', 'HireRequisitionController@stepGeneralView')->name('general');
+            Route::POST('personal_requirement/{hireRequisitionJob}', 'HireRequisitionController@stepPersonalRequirement')->name('personal_requirement');
+            Route::get('personal_requirement/{hireRequisitionJob}', 'HireRequisitionController@stepPersonalRequirementView')->name('personal_requirement');
+            Route::post('employement_condition/{hireRequisitionJob}', 'HireRequisitionController@stepEmploymentCondition')->name('employement_condition');
+            Route::get('employement_condition/{hireRequisitionJob}', 'HireRequisitionController@stepEmploymentConditionView')->name('employement_condition');
+            Route::POST('criteria/{hireRequisitionJob}', 'HireRequisitionController@stepCriteriaView')->name('criteria');
+            Route::get('criteria/{hireRequisitionJob}', 'HireRequisitionController@stepReview')->name('review');
+            Route::POST('add_criteria/{hireRequisitionJob}', 'HireRequisitionController@addCriteria')->name('add_criteria');
+            Route::get('add_criteria/{hireRequisitionJob}', 'HireRequisitionController@addCriteriaView')->name('add_criteria');
+            Route::get('finish/{uuid}', 'HireRequisitionController@finish')->name('finish');
+            
     });
 
     Route::post('submit/{uuid}', 'HireRequisitionController@submit')->name('submit');
-
     Route::get('{hirerequisition}/show', 'HireRequisitionController@show')->name('show');
     Route::get('hirerequisitionjob/{hireRequisitionJob}/show', 'HireRequisitionController@stepReview')->name('hire_requisition_job_show');
     Route::get('{hireRequisitionJob}/edit', 'HireRequisitionController@edit')->name('edit');

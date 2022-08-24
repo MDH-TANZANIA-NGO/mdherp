@@ -4,72 +4,39 @@
 @include('HumanResource.HireRequisition._parent.datatables.index')
 @endif
 <div class="card">
-	<div class="card-header">
-		<label class="form-label">Hire Requisition Numbe</label>
-		<span class="ml-3"> {{ $hireRequisition->number }} </span>
-		<div class="col-2 col-lg-2">
-		</div>
-		<div class="col-2 col-lg-2">
-			{{ $hireRequisitionJob->job_title }}
-		</div>
-	</div>
 	<div class="card-body" style="background-color:#FFFFFF">
-		<form action="{{route('advertisement.postAdvertisement')}}" method="post">
+		<form action="{{route('advertisement.postAdvertisement',$_advertisement->uuid)}}" method="post">
 			@csrf
-			<input type="hidden" name="hr_requisition_job_id" value="{{$hireRequisitionJob->id}}">
-			<div class="row">
-				<div class="col-2 col-lg-2">
-					<label class="form-label">Post Title </label>
-				</div>
-				<div class="col-8 col-lg-8">
-					 {{ $hireRequisitionJob->job_title }} - {{ $hireRequisitionJob->empoyees_required }} 
-				</div>
-			</div>
+			<input type="hidden" name="hr_requisition_job_id" value="{{$_advertisement->hire_requisition_job_id}}">
+			<input type="hidden" name="advertisement_id" value="{{$_advertisement->id}}">
+			 
 			
-			<div class="row">
+			<div class="row mb-3">
 				<div class="col-2 col-lg-2">
 					<label class="form-label"> Dead Line </label>
 				</div>
 				<div class="col-8 col-lg-8">
-					<input type="date" class="form-control" name="dead_line">
+					<input type="date" class="form-control" required name="dead_line">
 				</div>
 			</div>
 			 
-			<div class="form-group row">
-				<div class="col-12 col-lg-12">
-					<label class="form-label">Description</label>
-					
-					 
-						<p>
-							<h4>Job Title: </h4> {{ $hireRequisitionJob->job_title }}	
-						</p>	
-						<p>
-							<h4> Reports to : {{ $hireRequisitionJob->reportTo }}<h4> 
-						</p>
-						<p>
-							<h4> Job Summary :  <h4> 
-							{!! $hireRequisitionJob->possition_summary !!}
-						</p>
-						<p>
-							<h4>Duties and Responsibilities:</h4>
-							{!! $hireRequisitionJob->duties_and_responsibilities !!}
-					    <P>
-						<p>
-							<h4>Requirements, Education, work experience and skills</h4>
-							{{ $hireRequisitionJob->education_and_qualification }}
-							{{ $hireRequisitionJob->practical_experience }}
-							{{ $hireRequisitionJob->special_qualities_skills }}
-					    <P>
-						<h4>Reporting Line </h4>
-						{{ $hireRequisitionJob->special_employment_condition }}
-					    <P>
-						
-					 
-					@error('duties_and_responsibilities')
-					<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-					@enderror
-				</div>
-			</div>
+			<div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h3 class="card-title"> {{ $_advertisement->title }} </h3>
+                        <div class="card-title">
+                           
+                        Number: <span> {{ $_advertisement->number }} </span> 
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {!! $_advertisement->description !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+   
 			<div class="form-group row mt-3">
 				<div class="col-6">
 				</div>

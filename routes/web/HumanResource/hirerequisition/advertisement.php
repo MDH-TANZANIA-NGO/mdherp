@@ -6,8 +6,8 @@ Route::group(['namespace' =>'HumanResource\Advertisement', 'middleware' => ['web
   Route::get('create','AdvertisementController@create')->name('create');
   Route::get('post','AdvertisementController@post')->name('post');
   Route::get('initiate/{initiate}','AdvertisementController@initiate')->name('initiate');
-  Route::post('postAdvertisement','AdvertisementController@postAdvertisement')->name('postAdvertisement');
-  Route::get('publish/{initiate}','AdvertisementController@publish')->name('publish');
+  Route::post('postAdvertisement/{advertisement}','AdvertisementController@postAdvertisement')->name('postAdvertisement');
+  Route::get('publish/{advertisement}','AdvertisementController@publish')->name('publish');
 
    Route::get('pending', 'AdvertisementController@pending')->name('pending');
    Route::post('approve', 'AdvertisementController@approve')->name('approve');

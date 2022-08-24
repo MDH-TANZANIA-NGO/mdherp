@@ -20,10 +20,9 @@ trait HireRequisitionSteps
     public function stepGeneral(HireRequisitionJob $hireRequisitionJob, Request $request)
     {
         $step = 2;
-        $job_title = $this->designation->getQueryDesignationUnit()
-        ->where('designations.id', $hireRequisitionJob->designation_id)
-        ->first();
+        $job_title = $this->designation->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first();
         $data['hr_requisition_job_id'] = $hireRequisitionJob->id;
+        HireRequisitionLocation::where('hr_requisition_job_id',$hireRequisitionJob->id)->delete();
         foreach ($request->region as $region) {
             $region_data['hr_requisition_job_id'] = $hireRequisitionJob->id;
             $region_data['region_id'] = $region;
@@ -33,6 +32,19 @@ trait HireRequisitionSteps
         return view('HumanResource.HireRequisition._parent.form.personal_required')
             ->with('step', $step)
             ->with('job_title', $job_title)
+            ->with('hireRequisitionJob', $hireRequisitionJob)
+            ->with('uuid', $hireRequisitionJob->uuid);
+    }
+    public function stepGeneralView(HireRequisitionJob $hireRequisitionJob, Request $request)
+    {
+        $step = 2;
+        $job_title = $this->designation->getQueryDesignationUnit()
+        ->where('designations.id', $hireRequisitionJob->designation_id)
+        ->first();
+        return view('HumanResource.HireRequisition._parent.form.personal_required')
+            ->with('step', $step)
+            ->with('job_title', $job_title)
+            ->with('hireRequisitionJob', $hireRequisitionJob)
             ->with('uuid', $hireRequisitionJob->uuid);
     }
     public function stepPersonalRequirement(HireRequisitionJob $hireRequisitionJob, Request $request)
@@ -46,6 +58,26 @@ trait HireRequisitionSteps
                                 ->where('hr_hire_requisition_working_tools.hr_requisitions_jobs_id', $hireRequisitionJob->id)
                                 ->pluck('id')->toArray();
         $hireRequisitionJob->update($request->except('region', 'files', 'prospect_for_appointment_cv_id'));
+        return view('HumanResource.HireRequisition._parent.form.employment_condition')
+            ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
+            ->with('users', User::where('designation_id', '!=', null)->get())
+            ->with('tools', WorkingTool::all())
+            ->with('step', $step)
+            ->with('job_title', $job_title)
+            ->with('uuid', $hireRequisitionJob->uuid)
+            ->with('hireRequisitionJob', $hireRequisitionJob)
+            ->with('current_working_tools', $current_working_tools) 
+            ->with('establishments', code_value()->query()->where('code_id', 9)->get());
+    }
+    public function stepPersonalRequirementView(HireRequisitionJob $hireRequisitionJob, Request $request)
+    {
+        $step = 3; 
+        $job_title = $this->designation->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first();
+        $current_working_tools = HireRequisitionWorkingTool::select("working_tools.id as id")
+                                ->join('working_tools', 'working_tools.id', 'hr_hire_requisition_working_tools.working_tool_id')
+                                ->where('hr_hire_requisition_working_tools.hr_requisitions_jobs_id', $hireRequisitionJob->id)
+                                ->pluck('id')->toArray();
+    
         return view('HumanResource.HireRequisition._parent.form.employment_condition')
             ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('users', User::where('designation_id', '!=', null)->get())
@@ -73,11 +105,54 @@ trait HireRequisitionSteps
                         ->where('hr_hire_requisition_job_id', $hireRequisitionJob->id)->get();
                        
         $_skills = $this->hireUserSkillsRepository->getQuery()->select('skills.name as name')->join('skills', 'skills.id', 'skill_user.skill_id', 'skills.id')->where('hr_requisition_job_id', $hireRequisitionJob->id)->get();            
+        
+        if($this->hireRequisitionWorkingToolRepository->query()->where('hire_requisition_job_id',$hireRequisitionJob->id)){
+
+        }else{
+
+        }
+
         $workingtools = ['tools' => $request->tools, 'hire_requisition_job_id' => $hireRequisitionJob->id];
+        // return $workingtools;
         $this->hireRequisitionWorkingToolRepository->store($workingtools);
         $data = $request->except('contract_type','tools');
         $data['hr_contract_type_id'] = $request->contract_type;
         $hireRequisitionJob->update($data);
+        return view('HumanResource.HireRequisition._parent.form.criteria')
+            ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
+            ->with('users', User::where('designation_id', '!=', null)->get())
+            ->with('tools', WorkingTool::all())
+            ->with('uuid', $hireRequisitionJob->uuid)
+            ->with('skillCategories', $skillCategories)
+            ->with('education_levels', $education_level)
+            ->with('criterias', $criterias)
+            ->with('experiences', $experiences)
+            ->with('skills', $skills) 
+            ->with('_skills', $_skills)
+            ->with('_experiences', $_experiences)
+            ->with('step', $step)
+            ->with('job_title', $job_title)
+            ->with('hireRequisitionJob', $hireRequisitionJob)
+            ->with('criteriaWeights', $criteriaWeights)
+            ->with('establishments', code_value()->query()->where('code_id', 9)->get());
+    }
+    public function stepEmploymentConditionView(HireRequisitionJob $hireRequisitionJob, Request $request)
+    {
+        $step = 4;
+       
+        $job_title = $this->designation->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first();
+        $education_level =  code_value()->query()->where('code_id', 10)->get();
+        $skillCategories = SkillCategory::get();
+        $criterias = HrHireRequisitionCriteria::all();
+        $skills = Skill::all();
+        $experiences = HrHireExperience::all();
+        $criteriaWeights = HrHireRequisitionJobsCriteriaWeight::join('hr_hire_requisitioin_criterias', 'hr_hire_requisitioin_criterias.id', 'hr_hire_requisitioin_job_criteria_weights.hr_hire_requisitioin_job_criteria_id')
+                            ->where('hr_requisition_job_id', $hireRequisitionJob->id)
+                            ->select('hr_hire_requisitioin_job_criteria_weights.hr_hire_requisitioin_job_criteria_id', 'hr_hire_requisitioin_criterias.id', 'hr_hire_requisitioin_criterias.name', 'hr_hire_requisitioin_job_criteria_weights.weight')->get();
+        $_experiences = HrHireRequisitionJobExperience::join('hr_hire_experiences', 'hr_hire_experiences.id', 'hr_hire_requisition_job_experiences.hr_hire_experience_id')
+                        ->where('hr_hire_requisition_job_id', $hireRequisitionJob->id)->get();
+                       
+        $_skills = $this->hireUserSkillsRepository->getQuery()->select('skills.name as name')->join('skills', 'skills.id', 'skill_user.skill_id', 'skills.id')->where('hr_requisition_job_id', $hireRequisitionJob->id)->get();            
         return view('HumanResource.HireRequisition._parent.form.criteria')
             ->with('contract_types', code_value()->query()->where('code_id', 8)->get())
             ->with('users', User::where('designation_id', '!=', null)->get())
@@ -135,6 +210,7 @@ trait HireRequisitionSteps
     }
     public function addCriteria(HireRequisitionJob $hireRequisitionJob, Request $request)
     {
+        
         //Education Level
         if ($request->criteria_id == 1) {
             $hireRequisitionJob->update(['education_level' => $request->education_level_id]);
@@ -177,4 +253,11 @@ trait HireRequisitionSteps
         }
         return redirect()->back();
     }
+   
+
+    public function addCriteriaView(HireRequisitionJob $hireRequisitionJob, Request $request)
+    {
+        return redirect()->back();
+    }
+   
 }

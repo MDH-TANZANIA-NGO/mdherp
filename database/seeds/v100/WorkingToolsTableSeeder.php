@@ -39,7 +39,7 @@ class WorkingToolsTableSeeder extends Seeder
             2 =>
                 array (
                     'id' => 3,
-                    'name' => 'Mobile Office Chair',
+                    'name' => 'Office Chair',
                     'department_id' => 2,
                     'email' => 'hr@mdh.or.tz',
                     'created_at' => \Carbon\Carbon::now(),

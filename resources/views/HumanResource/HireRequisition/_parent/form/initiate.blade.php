@@ -3,24 +3,12 @@
 @if(isset($initiate))
 @endif
 @include('HumanResource.HireRequisition._parent.form.step_header')
-<!-- <div class="card card-primary add_requisition_body" style="display: {{ isset($create) && $create == true ? ' ':'none' }}">
-	<div class=" tab-menu-heading card-header sw-theme-dots">
-		<div class="tabs-menu">
-			<ul class="nav panel-tabs">
-				<li class="nav-item"><a href="#processing" class="nav-link active" data-toggle="tab">1.General</a></li>
-				<li class="nav-item"><a href="#personal_requirement" class="nav-link disabled" data-toggle="tab">2.Personal Requirement</a></li>
-				<li class="nav-item"><a href="#employement_condition" class="nav-link disabled" data-toggle="tab">3.Employment Condition</a></li>
-				<li class="nav-item"><a href="#returned" class="nav-link disabled" data-toggle="tab">4.Criteria</a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="card tabs-menu-body" style="background-color:#FFFFFF"> -->
 		<div class="tab-content">
 			<div class="tab-pane active" id="processing">
 			@if(isset($initiate))
-			<form action="{{route('hirerequisition.steps.general',$uuid)}}" method="GET">
+			<form action="{{route('hirerequisition.steps.general',$uuid)}}" method="POST">
 			@else
-			<form action="{{route('hirerequisition.store')}}" method="GET">
+			<form action="{{route('hirerequisition.store')}}" method="POST">
 				@endif
 				@csrf
 				@include('HumanResource.HireRequisition._parent.form.general')

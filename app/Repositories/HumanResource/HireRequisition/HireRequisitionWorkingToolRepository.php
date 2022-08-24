@@ -11,10 +11,9 @@ use App\Models\HumanResource\HireRequisition\HireRequisitionWorkingTool;
 class HireRequisitionWorkingToolRepository extends BaseRepository
 {
     const MODEL = HireRequisitionWorkingTool::class;
-
-  
     public function store($workingTools)
     {
+        $this->query()->where('hr_requisitions_jobs_id',$workingTools['hire_requisition_job_id'])->delete();
         $tools = $workingTools['tools'];
         foreach($tools as $tool){
             $data['working_tool_id'] = $tool;
@@ -25,9 +24,8 @@ class HireRequisitionWorkingToolRepository extends BaseRepository
 
     public function update($workingTools)
     {
-        $tools = $workingTools['tools'];
-      
         $this->query()->where('hr_requisitions_jobs_id',$workingTools['hire_requisition_job_id'])->delete();
+        $tools = $workingTools['tools'];
         foreach($tools as $tool){
             $data['working_tool_id'] = $tool;
             $data['hr_requisitions_jobs_id'] = $workingTools['hire_requisition_job_id'];

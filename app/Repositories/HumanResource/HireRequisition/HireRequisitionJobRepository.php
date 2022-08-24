@@ -27,6 +27,8 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw('hr_hire_requisitions_jobs.education_level AS education_level'),
             DB::raw('hr_hire_requisitions_jobs.start_age AS start_age'),
             DB::raw('hr_hire_requisitions_jobs.end_age AS end_age'),
+            DB::raw('hr_hire_requisitions_jobs.appointement_prospects_id AS appointement_prospects_id'),
+            DB::raw('hr_hire_requisitions_jobs.report_to AS report_to'),
             DB::raw('hr_hire_requisitions_jobs.duties_and_responsibilities AS duties_and_responsibilities'),
             DB::raw('hr_hire_requisitions_jobs.duties_and_responsibilities AS duties_and_responsibilities'),
             DB::raw('designations.name AS title'),
@@ -41,6 +43,7 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw('hr_hire_requisitions_jobs.budget AS budget'),
             DB::raw('hr_hire_requisitions_jobs.has_budget AS has_budget'),
             DB::raw('hr_hire_requisitions_jobs.possition_summary AS possition_summary'),
+            DB::raw('hr_hire_requisitions_jobs.project_id AS project_id'),
             DB::raw('hr_hire_requisitions_jobs.updated_at AS updated_at'),
         ])
             ->leftjoin('departments','departments.id','hr_hire_requisitions_jobs.department_id')
