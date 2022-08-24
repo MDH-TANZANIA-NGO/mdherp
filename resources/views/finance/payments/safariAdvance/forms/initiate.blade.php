@@ -135,7 +135,7 @@
                             {!! Form::close() !!}
                         </table>
                     </div>
-                    <p class="text-muted text-center">Thank you very much for doing business with us. We look forward to working with you again!</p>
+                    <p class="text-muted text-center">Make sure to check approved requisition, safari advance and all fields carefully before you pay!</p>
                 </div>
             </div>
         </div>

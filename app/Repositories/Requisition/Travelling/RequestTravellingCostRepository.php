@@ -117,7 +117,7 @@ class RequestTravellingCostRepository extends BaseRepository
             alert()->error('Check and reselect your from and to dates','Dates Error');
             return redirect()->back();
         }
-        check_available_budget_individual($requisition,$this->inputProcess($inputs)['total_amount'], $requisition->amount, $this->inputProcess($inputs)['total_amount']);
+//        check_available_budget_individual($requisition,$this->inputProcess($inputs)['total_amount'], $requisition->amount, $this->inputProcess($inputs)['total_amount']);
         return DB::transaction(function () use ($requisition, $inputs){
             return $requisition->travellingCost()->create($this->inputProcess($inputs))->id;
 

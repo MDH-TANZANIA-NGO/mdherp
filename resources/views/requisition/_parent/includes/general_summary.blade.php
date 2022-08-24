@@ -89,7 +89,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     Available
-                                    <span class=" badgetext badge badge-default badge-pill"><b>$(USD) </b>{{number_2_format(currency_converter(($budget['actual'] - $budget['pipeline']), 'TSH'))}}</span>
+                                    <span class=" badgetext badge badge-default badge-pill"><b>$(USD) </b>{{number_2_format(currency_converter(($budget['virtual_amount'] - ( $budget['actual_expenditure']+$budget['pipeline'])), 'TSH'))}}</span>
                                 </li>
 
                             </ul>

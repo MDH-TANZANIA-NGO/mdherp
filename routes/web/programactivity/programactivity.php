@@ -13,6 +13,8 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::get('reports', 'ProgramActivityController@reports')->name('reports');
     Route::get('{uuid}/editParticipant', 'ProgramActivityController@editParticipant')->name('editParticipant');
     Route::post('{uuid}/updateParticipant', 'ProgramActivityController@updateParticipant')->name('updateParticipant');
+    Route::post('storeHotelReservation', 'ProgramActivityController@storeHotelReservation')->name('storeHotelReservation');
+    Route::get('{uuid}/removeHotel', 'ProgramActivityController@removeHotel')->name('removeHotel');
     Route::post('{uuid}/updateProgramActivity', 'ProgramActivityController@updateProgramActivity')->name('updateProgramActivity');
             Route::post('{uuid}/programActivityAttendance', 'ProgramActivityController@programActivityAttendance')->name('programActivityAttendance');
     Route::get('{uuid}/undoEverything', 'ProgramActivityController@undoEverything')->name('undoEverything');
@@ -21,6 +23,7 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::post('submitPayment', 'ProgramActivityController@submitPayment')->name('submitPayment');
     Route::post('{uuid}/submit', 'ProgramActivityController@submit')->name('submit');
     Route::post('{uuid}/approveReport', 'ProgramActivityController@approveReport')->name('approveReport');
+    Route::get('{uuid}/reserveHotel', 'ProgramActivityController@reserveHotel')->name('reserveHotel');
 
 
 

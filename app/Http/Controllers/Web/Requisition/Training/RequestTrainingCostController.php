@@ -70,10 +70,7 @@ class RequestTrainingCostController extends Controller
     {
         $from = $request->get('from');
         $to = $request->get('to');
-        $datetime1 = new \DateTime($from);
-        $datetime2 = new  \DateTime($to);
-        $interval = $datetime1->diff($datetime2);
-        $days = $interval->format('%a');
+        $days = getNoDays($from, $to);
 
         $training = new requisition_training();
         $training-> requisition_id = request('requisition_id');
@@ -98,10 +95,14 @@ class RequestTrainingCostController extends Controller
         $requisition_training_item = requisition_training_item::query()->where('uuid', $uuid)->first();
         $requisition = Requisition::query()->where('id', $requisition_training_item->requisition_id)->first();
 
+
         return DB::transaction(function () use ($requisition,$requisition_training_item, $uuid){
+            $current_total =  $requisition->amount;
 //                check_available_budget_individual($requisition, $requisition_training_item->total_amount,$requisition_training_item->total_amount, 0 );
                 DB::delete('delete from requisition_training_items where uuid = ?',[$uuid]);
                 $requisition->updatingTotalAmount();
+                $new_total =  $requisition->amount;
+                add_actual_amount_on_requisition_fund_checker($requisition->id, $current_total, $new_total);
             return redirect()->back();
         });
     }
@@ -111,9 +112,12 @@ class RequestTrainingCostController extends Controller
         $training_cost = requisition_training_cost::query()->where('uuid', $uuid)->first();
         $requisition =  Requisition::query()->where('id', $training_cost->requisition_id)->first();
         return DB::transaction(function () use ($requisition, $training_cost, $uuid){
+            $current_total =  $requisition->amount;
 //            check_available_budget_individual($requisition, $training_cost->total_amount, $training_cost->total_amount, 0);
             DB::delete('delete from requisition_training_costs where uuid = ?',[$uuid]);
             $requisition->updatingTotalAmount();
+            $new_total =  $requisition->amount;
+            add_actual_amount_on_requisition_fund_checker($requisition->id, $current_total, $new_total);
             return redirect()->back();
         });
     }
@@ -126,5 +130,75 @@ class RequestTrainingCostController extends Controller
 
 
     }
+
+    public function updateBulk(Request $request)
+    {
+
+        foreach ($request['participant_uid'] as $key=> $user)
+        {
+            $data = [];
+            $data = [
+                'participant_uid'=>$request['participant_uid'][$key],
+                'requisition_training_id'=>$request['requisition_training_id'][$key],
+                'uuid'=>$request['uuid'][$key],
+                'transportation'=>$request['transportation'][$key],
+                'other_cost'=>$request['other_cost'][$key],
+                'others_description'=>$request['others_description'][$key],
+                'perdiem_rate_id'=>$request['perdiem_rate_id'][$key],
+            ];
+          $training_cost =   $this->trainingCost->findByUuid($request['uuid'][$key]);
+           $this->trainingCost->update($training_cost, $data);
+        }
+
+        alert()->success('Data saved successfully', 'Success');
+
+        return redirect()->route('requisition.initiate', $request['requisition_uuid']);
+    }
+
+    public function payBulk(Request $request)
+    {
+
+        foreach ($request['uuid'] as $key=> $uuid) {
+            $data =  [];
+
+            if ($request['substitute_participant'][$key] != null){
+                $data = [
+                    'amount_paid'=>$request['amount_paid'][$key],
+                    'substitute_participant'=>$request['substitute_participant'][$key],
+                    'current_participant'=>$request['current_participant'][$key],
+                    'uuid'=>$request['uuid'][$key],
+                    'remarks'=>$request['remarks'][$key],
+                    'account_no'=>$request['account_no'][$key],
+                ];
+            }
+            else{
+                $data = [
+                    'amount_paid'=>$request['amount_paid'][$key],
+                    'substitute_participant'=>null,
+                    'uuid'=>$request['uuid'][$key],
+                    'remarks'=>$request['remarks'][$key],
+                    'account_no'=>$request['account_no'][$key],
+                ];
+            }
+
+            $this->trainingCost->payWithSwap($request['uuid'][$key], $data);
+       }
+        alert()->success('Payment saved successfully', 'Success');
+        return redirect()->back();
+
+    }
+    public function removeAllParticipant($requisition_id)
+    {
+
+        $training_cost =  $this->trainingCost->getParticipantsByRequisition($requisition_id)->get();
+
+        foreach ($training_cost as $costs)
+        {
+            $this->trainingCost->findByUuid($costs->uuid)->forceDelete();
+        }
+        alert()->success('Participants cleared successfully','Success');
+        return redirect()->back();
+    }
+
 }
 

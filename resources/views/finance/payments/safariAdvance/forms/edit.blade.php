@@ -52,7 +52,7 @@
                             <tr class=" ">
                                 <th class="text-center " style="width: 1%"></th>
                                 <th>Travel Requirements</th>
-                                {!! Form::open(['route'=> 'finance.store_safari_payment','method'=>'POST']) !!}
+                                {!! Form::open(['route'=> ['finance.update_safari_payment',$payment->uuid],'method'=>'POST']) !!}
                                 <th class="text-right" style="width: 20%">Amount</th>
                             </tr>
                             <tr>
@@ -112,6 +112,7 @@
                                 {!! Form::number('requisition_id', $requisition->id, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('requested_amount', $requisition->amount, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('safari_advance_id', $safari_advance->id, ['class'=>'form-control','hidden'])  !!}
+                                {!! Form::number('requisition_travelling_cost_id', $safari_advance->travellingCost->id, ['class'=>'form-control','hidden'])  !!}
                                 {!! Form::number('region_id', $requisition->region_id, ['class'=>'form-control','hidden'])  !!}
 
                                 <td class="text-right">{!! Form::text('phone', $safari_advance->user->phone, ['class'=>'form-control'])  !!}</td>
@@ -125,7 +126,7 @@
                             <tr>
                                 <td colspan="2" class="font-w800 text-right">Remarks:</td>
                                 <td class="font-weight-bold text-right">
-                                    {!! Form::text('remarks', null, ['class'=>'form-control'])  !!}</td>
+                                    {!! Form::text('remarks', $payment->remarks, ['class'=>'form-control'])  !!}</td>
                             </tr>
 
                             <tr>

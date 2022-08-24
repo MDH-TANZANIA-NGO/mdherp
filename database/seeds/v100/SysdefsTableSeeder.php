@@ -44,7 +44,7 @@ class SysdefsTableSeeder extends Seeder
             ['reference' => 'PROGRAMACTIVITYNUM'],
             [
                 'name' => 'programactivity',
-                'display_name' => 'Program Activities',
+                'display_name' => 'Program Activity',
                 'value' => '0',
                 'data_type' => 'integer',
                 'isactive' => 1,
@@ -220,6 +220,18 @@ class SysdefsTableSeeder extends Seeder
                 'data_type' => 'integer',
                 'isactive' => 1,
                 'reference' => 'MDH-JAR-NUM',
+                'sysdef_group_id' => 1,
+            ]
+        );
+        $sysdef = Sysdef::firstOrCreate(
+            ['reference' => 'MDH-ACT-RPT'],
+            [
+                'name' => 'activity_reports',
+                'display_name' => 'Activity Report Number',
+                'value' => '0',
+                'data_type' => 'integer',
+                'isactive' => 1,
+                'reference' => 'MDH-ACT-RPT',
                 'sysdef_group_id' => 1,
             ]
         );

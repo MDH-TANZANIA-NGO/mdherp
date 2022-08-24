@@ -466,6 +466,14 @@ class UserRepository extends BaseRepository
         return $this->getQuery()->pluck('name_and_unit','user_id');
     }
 
+    public function getRegionFinanceTeam($region_id)
+    {
+        return $this->getQuery()
+            ->whereIn('users.designation_id', [48,49,96,107,114])
+            ->where('users.region_id', $region_id)
+            ->get();
+    }
+
 
     //Not In HQ and not RPM
     public function regionalUser($user_id)

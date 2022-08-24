@@ -24,7 +24,7 @@ class payment_typesTableSeeder extends Seeder
             1 =>
                 array (
                     'id' => 2,
-                    'name' => 'Program Activities',
+                    'name' => 'Program Activity',
                     'description' => NULL,
                     'updated_at' => \Illuminate\Support\Carbon::now(),
 

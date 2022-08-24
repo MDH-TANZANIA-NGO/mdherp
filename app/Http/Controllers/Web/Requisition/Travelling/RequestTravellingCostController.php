@@ -95,10 +95,13 @@ class RequestTravellingCostController extends Controller
 
         $traveller =  $this->travellingCost->findByUuid($uuid);
         $traveller_details =  $this->travellingCost->getQuery()->first();
-        $requisition =  Requisition::query()->where('id',    $traveller->requisition_id)->first();
-        check_available_budget_individual($requisition, $traveller->total_amount, $traveller->total_amount);
+        $requisition =  $this->requisition->find($traveller->requisition_id);
+        $requisition_id = $requisition->id;
+        $current_total =  $requisition->amount;
         DB::delete('delete from requisition_travelling_costs where uuid = ?',[$uuid]);
         $this->requisition->updatingTotalAmount($requisition);
+        $new_total =  $requisition->amount;
+        add_actual_amount_on_requisition_fund_checker($requisition_id, $current_total, $new_total);
         return redirect()->back();
     }
     public function updateDateRange(Request $request, $uuid)
@@ -117,10 +120,12 @@ class RequestTravellingCostController extends Controller
     public function update($uuid, Request $request){
 
         $traveller  =  $this->travellingCost->findByUuid($uuid);
-        $requisition =  Requisition::query()->where('id', $traveller->requisition_id)->first();
+        $requisition =  $this->requisition->find($traveller->requisition_id);
+        $current_total =  $requisition->amount;
         $this->travellingCost->update($uuid, $request->all());
         $this->requisition->updatingTotalAmount($requisition);
-
+        $new_total =  $requisition->amount;
+        deduct_actual_amount_on_requisition_fund_checker($requisition->id, $current_total, $new_total);
         return redirect()->route('requisition.initiate', $traveller->requisition);
 
 

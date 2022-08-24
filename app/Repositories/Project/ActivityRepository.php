@@ -152,7 +152,7 @@ class ActivityRepository extends BaseRepository
     }
 
     /**
-     * Get Care And Treatment Activities
+     * Get Care And Treatment Activity
      * @param $user_id
      * @param $region_id
      * @param $project_id
@@ -172,7 +172,7 @@ class ActivityRepository extends BaseRepository
     }
 
     /**
-     * Get Care And Above Site Activities
+     * Get Care And Above Site Activity
      * @param $user_id
      * @param $project_id
      * @return mixed

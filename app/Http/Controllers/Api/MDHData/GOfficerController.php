@@ -94,7 +94,7 @@ class GOfficerController extends BaseController
             'email' => $request['email'],
             'phone' => '255'.substr($request['phone'], -9),
             'phone2' => '255'.substr($request['phone2'], -9),
-            'g_scale_id' => $request['g_scale'],
+            'g_scale_id' => $request['g_scale_id'],
             'region_id' => $request['region_id'],
             'district_id' => $request['district_id'],
             'gender_cv_id'=>$request['gender_cv_id'],
@@ -103,7 +103,7 @@ class GOfficerController extends BaseController
             'fingerprint_length' => $this->getFingerprintLength(),
             'password' => bcrypt(strtolower($request['last_name'])),
             'isactive' => 1,
-            'check_no'=> $check_no,
+            'check_no'=> $request['check_no'],
         ]);
         $success['g_officer'] = $g_officer;
 

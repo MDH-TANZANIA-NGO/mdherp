@@ -14,9 +14,9 @@ class AddColumnNoDaysOnRequisitionTrainingsTable extends Migration
     public function up()
     {
         //
-        Schema::table('requisition_trainings', function (Blueprint $table) {
+        Schema::table('requisition_trainings_costs', function (Blueprint $table) {
 
-            $table->bigInteger('no_days')->nullable();
+            $table->string('account_no')->nullable();
 
         });
     }
