@@ -45,7 +45,6 @@
                     <td><strong>Date Required : </strong></td>
                     <td>{{ $hireRequisitionJob->date_required }}</td>
                 </tr>
-
                 <tr>
                     <td><strong>Position Summary : </strong></td>
                     <td>{!! $hireRequisitionJob->possition_summary !!}</td>

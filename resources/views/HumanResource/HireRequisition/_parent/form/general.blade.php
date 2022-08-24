@@ -26,7 +26,6 @@
 		<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 		@enderror
 	</div>
-	{{ $hireRequisitionJob->project_id }}
 	<div class="col-6 col-lg-6">
 		<label class="form-label"> Project </label>
 		<select name="project_id" id="project_id" class="form-control select2-show-search" data-placeholder="select title" multiple required>

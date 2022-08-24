@@ -43,6 +43,7 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw('hr_hire_requisitions_jobs.budget AS budget'),
             DB::raw('hr_hire_requisitions_jobs.has_budget AS has_budget'),
             DB::raw('hr_hire_requisitions_jobs.possition_summary AS possition_summary'),
+            DB::raw('hr_hire_requisitions_jobs.project_id AS project_id'),
             DB::raw('hr_hire_requisitions_jobs.updated_at AS updated_at'),
         ])
             ->leftjoin('departments','departments.id','hr_hire_requisitions_jobs.department_id')

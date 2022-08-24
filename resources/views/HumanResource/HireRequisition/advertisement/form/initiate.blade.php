@@ -49,7 +49,7 @@
 							<h4>Job Title:  {{ $hireRequisitionJob->job_title }}	</h4>
 						</p>	
 						<p>
-							<h4> Reports to : {{ $hireRequisitionJob->reportTo->name }}</h4> 
+							<h4> Reports to : {{ isset($hireRequisitionJob->reportTo->name) ? isset($hireRequisitionJob->reportTo->name :'' }}</h4> 
 						</p>
 						<p>
 							<h4> Locationb: {{  $hireRequisitionJob->regions()->get()->implode('name',',') }}</h4> 
