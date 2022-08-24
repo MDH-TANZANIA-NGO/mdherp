@@ -71,6 +71,10 @@ trait WorkflowResourceModificationStageTrait
             case 23:
             case 24:
                 switch ($pending_level) {
+                    case 1:
+                        if ($model->user_id == access()->id()) {
+                            $allow = true;
+                        }
                     case 2:
                         if ($model->supervisor_id == access()->id()) {
                             $allow = true;
