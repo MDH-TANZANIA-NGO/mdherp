@@ -50,6 +50,18 @@
                                                 <div class="row">
                                                     <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
                                                         <div class="form-group">
+						                                    <label class="form-label">OBJECTIVE</label>
+						                                    <textarea name='goal' class="form-control" rows="5" placeholder="Add challenge" required>{{ $objective->goal }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+                                                        <div class="form-group">
+						                                    <label class="form-label">ACTIVITES / TASKS</label>
+						                                    <textarea name='plan' class="form-control" rows="5" placeholder="Add challenge" required>{{ $objective->plan }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+                                                        <div class="form-group">
 						                                    <label class="form-label">Major Accomplishment</label>
 						                                    <textarea name='accomplishment' class="form-control" rows="5" placeholder="Add challenge" required>{{ $objective->accomplishment }}</textarea>
                                                         </div>
