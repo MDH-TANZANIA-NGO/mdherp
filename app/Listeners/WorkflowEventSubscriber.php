@@ -536,7 +536,7 @@ class WorkflowEventSubscriber
                 case 23:
                 case 24:
                     //workflowAction class
-                    // $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
+                    $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
                     break;
                 case 19:
                     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
@@ -544,7 +544,7 @@ class WorkflowEventSubscriber
                 // case 11:
                 // case 13:
                 //     //workflowAction class
-                //     $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
+                    // $data['next_user_id'] = $workflow_action->processNextLevel($wf_module_id, $resource_id, $level)['next_user_id'];
                 //     break;
             }
 
