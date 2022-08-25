@@ -1,30 +1,48 @@
-
+@extends('layouts.app')
+@section('content')
+    @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
+    <br>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{route('requisition.show', $requisition->uuid)}}"><h3 class="card-title">{{$requisition->number}}</h3></a>
-                </div>
-                <div class="card-body">
-                    <div class="">
+                    <div class="tags">
 
-                        <a href="{{route('programactivityreport.show', $program_activity->programActivityReport->where('id', $payment->activityPayment->program_activity_report_id)->first()->uuid)}}"><h4 class="mb-1"><strong>{{$program_activity->programActivityReport->where('id', $payment->activityPayment->program_activity_report_id)->first()->number}}</strong></h4></a>
-                        Has been initiated Total Payment of<strong>{{number_2_format($payment->payed_amount)}}</strong> (TZS)
-                    </div>
-
-                    <div class="card-body pl-0 pr-0">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <span>Activity No.</span><br>
-                                <a href="{{route('programactivity.show',$program_activity->uuid)}}" ><strong>{{$program_activity->number}}</strong></a>
-                            </div>
-                            <div class="col-sm-6 text-right">
-                                <span>Requested Date</span><br>
-                                <strong>{{date('d-M-Y', strtotime($program_activity->created_at))}}</strong>
-                            </div>
+                        <div class="tag">
+                            Requisition
+                            <a href="{{route('requisition.show', $requisition->uuid)}}" class="tag-addon">{{$requisition->number}}</a>
+                        </div>
+                        <div class="tag">
+                            Activity
+                            <a href="{{route('programactivity.show', $program_activity->uuid)}}" class="tag-addon">{{$program_activity->number}}</a>
+                        </div>
+                        <div class="tag">
+                            Activity Report
+                            <a href="{{route('activity_report.show', $activity_report->uuid)}}" class="tag-addon">{{$activity_report->number}}</a>
                         </div>
                     </div>
-                    <div class="dropdown-divider"></div>
+{{--                    <a href="{{route('requisition.show', $requisition->uuid)}}"><h3 class="card-title">{{$requisition->number}}</h3></a>--}}
+                </div>
+                <div class="card-body">
+{{--                    <div class="">--}}
+
+{{--                        <a href="{{route('programactivityreport.show', $program_activity->programActivityReport->where('id', $payment->activityPayment->program_activity_report_id)->first()->uuid)}}"><h4 class="mb-1"><strong>{{$program_activity->programActivityReport->where('id', $payment->activityPayment->program_activity_report_id)->first()->number}}</strong></h4></a>--}}
+{{--                        Has been initiated Total Payment of<strong>{{number_2_format($payment->payed_amount)}}</strong> (TZS)--}}
+{{--                    </div>--}}
+
+{{--                    <div class="card-body pl-0 pr-0">--}}
+{{--                        <div class="row">--}}
+{{--                            <div class="col-sm-6">--}}
+{{--                                <span>Activity No.</span><br>--}}
+{{--                                <a href="{{route('programactivity.show',$program_activity->uuid)}}" ><strong>{{$program_activity->number}}</strong></a><br>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-sm-6 text-right">--}}
+{{--                                <span>Requested Date</span><br>--}}
+{{--                                <strong>{{date('d-M-Y', strtotime($program_activity->created_at))}}</strong>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="dropdown-divider"></div>--}}
                     <div class="row pt-4">
                         <div class="col-lg-6 ">
                             <p class="h3">Activity Info</p>
@@ -102,4 +120,4 @@
             </div>
         </div>
     </div>
-
+@endsection
