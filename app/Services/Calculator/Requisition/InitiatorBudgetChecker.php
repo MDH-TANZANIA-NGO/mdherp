@@ -2,6 +2,7 @@
 
 namespace App\Services\Calculator\Requisition;
 
+use App\Models\Requisition\RequisitionFundChecker;
 use App\Models\Requisition\RequisitionType\RequisitionType;
 use App\Repositories\Project\ActivityRepository;
 use App\Repositories\Requisition\RequisitionRepository;
@@ -28,6 +29,7 @@ trait InitiatorBudgetChecker
             'pipeline' => $this->pipeline($project_id, $activity_id, $region_id),
             'actual_expenditure'=> $this->actualExpenditure($project_id, $activity_id, $region_id),
             'available budget' => null,
+            'virtual_amount'=>$this->activity($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year)->budget_actual_amount,
             'exchange_rate' => $this->exchangeRate($requisition_type_id, $project_id, $activity_id, $region_id, $fiscal_year),
         ];
     }
@@ -57,7 +59,7 @@ trait InitiatorBudgetChecker
 
     public function actualExpenditure($project_id, $activity_id, $region_id)
     {
-        return (new RequisitionRepository())->getActualExpenditures($project_id, $activity_id, $region_id)->sum('requisitions.amount');
+        return (new RequisitionRepository())->getActualExpenditures($project_id, $activity_id, $region_id)->sum('payments.payed_amount');
 //        return (new RequisitionRepository())->getActualExpenditure()->sum('payments.payed_amount');
     }
 
@@ -69,5 +71,7 @@ trait InitiatorBudgetChecker
             $rate = Rate::query()->find($rate_id)->amount;
         return $rate;
     }
+
+
 
 }

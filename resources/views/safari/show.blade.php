@@ -131,33 +131,25 @@
     <table class="table  table-bordered border-left-0 border-right-0 text-nowrap border-bottom-0 mb-0">
         <thead>
         <tr>
-            <th>NO</th>
+{{--            <th>NO</th>--}}
             <th>Hotel Name</th>
-            <th>Priority Level</th>
+            <th>Region</th>
+            <th>District</th>
             <th>Status</th>
             @permission('admin_panel')
+            @if($safari->wf_done ==  1)
             <th>Action</th>
+            @endif
             @endpermission
         </tr>
         </thead>
         <tbody>
-
+        @foreach($hotels_reserved as $hotels)
         <tr>
-            @if($hotels_reserved->count() > 0)
-                @foreach($hotels_reserved as $key=>$hotels)
 
-                    <td>{{ $key + 1 }}</td>
                     <td>{{$hotels->name}}</td>
-                    <td>     @if($hotels->priority_level == 1)
-                            First
-                        @elseif($hotels->priority_level == 2)
-                            Second
-                        @elseif($hotels->priority_level == 3)
-                            Third
-                        @elseif($hotels->priority_level == 4)
-                            Fourth
-                        @endif
-                    </td>
+            <td>{{$hotels->district->region->name}}</td>
+            <td>{{$hotels->district->name}}</td>
                     <td>
                         @if($hotels->reserved == false)
                             Not reserved
@@ -166,6 +158,7 @@
                         @endif
                     </td>
                     @permission('admin_panel')
+            @if($safari->wf_done == 1)
                     <td>
 
                         @if($hotels->reserved == false)
@@ -173,15 +166,13 @@
                         @else
                             <a  href="{{route('safari.reserveHotel', $hotels->uuid)}}"><span class="btn btn-sm btn-primary"><i class="fa fa-undo"></i>Undo</span></a>
                         @endif
+
                     </td>
-                    @endpermission
-                @endforeach
-            @else
-                No Hotel reserved
-
             @endif
-        </tr>
+                    @endpermission
 
+        </tr>
+        @endforeach
         </tbody>
     </table>
 </div>

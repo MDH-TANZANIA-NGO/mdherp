@@ -59,7 +59,7 @@ class SafariController extends Controller
         $district_id = $safariAdvance->travellingCost()->first()->district_id;
         $region_id = $this->districts->find($district_id)->region_id;
         return view('safari.forms.create')
-            ->with('hotels', $this->hotel->getHotelByRegion($region_id)->pluck('name', 'id'))
+            ->with('hotels', $this->hotel->getHotelForPluck())
             ->with('hotels_reserved', $this->hotel->getSelectedHotelForSafari($safariAdvance->id))
             ->with('travelling_cost', $safariAdvance->travellingCost)
             ->with('district', $this->districts->getForPluck())

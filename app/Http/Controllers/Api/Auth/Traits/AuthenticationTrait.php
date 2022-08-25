@@ -18,6 +18,10 @@ use App\Models\Requisition\Training\requisition_training_cost;
 use App\Repositories\ProgramActivity\ProgramActivityAttendanceRepository;
 use App\Repositories\ProgramActivity\ProgramActivityRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingRepository;
+use App\Repositories\System\RegionRepository;
+use App\Repositories\System\DistrictRepository;
+use App\Repositories\GOfficer\GScaleRepository;
+use App\Repositories\Requisition\RequisitionRepository;
 
 
 trait AuthenticationTrait
@@ -25,12 +29,21 @@ trait AuthenticationTrait
     protected $g_officers;
     protected $program_activity_repo;
     protected $requisition_training_repo;
+    protected $users;
+    protected $regions;
+    protected $district;
+    protected $gScales;
 
     public function __construct()
     {
         $this->g_officers = (new GOfficerRepository());
-        $this->program_activity_repo =  (new ProgramActivityRepository());
-        $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
+        // $this->program_activity_repo =  (new ProgramActivityRepository());
+        // $this->requisition_training_repo =  (new  RequisitionTrainingRepository());
+        $this->users = (new UserRepository());
+        $this->regions = (new RegionRepository());
+        $this->districts = (new DistrictRepository());
+        $this->gScales = (new GScaleRepository());
+        $this->requisitions = (new RequisitionRepository());
     }
 
     public function loginValidator()
@@ -145,7 +158,12 @@ trait AuthenticationTrait
             'access_token' => $access_token,
         ];
 
-        $success['g_officers'] = $this->g_officers->getQuery()->get();
+        $success['g_officers'] = $this->g_officers->getFilteredGofficerByRegion($gOfficer->region_id)->get();
+        $success['staffs'] = $this->users->getUserQuery()->get();
+        $success['regions'] = $this->regions->getQuery()->get();
+        $success['districts'] = $this->districts->getQuery()->get();
+        $success['g_scales'] = $this->gScales->getActive()->get();
+        $success['requisitions'] = $this->requisitions->getAllApprovedTrainingNotClosedRequisitionsByRegion($gOfficer->region_id)->get();
 
         $wards = DB::table("wards")
             ->selectRaw('wards.id as id')
@@ -165,12 +183,20 @@ trait AuthenticationTrait
 //            ->selectRaw('g_officers.id as g_officer_id')
             ->selectRaw('facilities.facility_type_id as facility_type_id')
             ->selectRaw('facility_types.name as facility_type')
+            ->selectRaw('wards.id as ward_id')
+            ->selectRaw('wards.name as ward')
+            ->selectRaw('districts.id as district_id')
+            ->selectRaw('districts.name as district')
+            ->selectRaw('regions.id as region_id')
+            ->selectRaw('regions.name as region')
             ->leftJoin('wards', 'wards.id', '=', 'facilities.ward_id')
+            ->leftJoin('districts', 'districts.id', '=', 'wards.district_id')
+            ->leftJoin('regions', 'regions.id', '=', 'districts.region_id')
 //            ->leftJoin('facility_g_officer', 'facility_g_officer.facility_id', 'facilities.id')
 //            ->leftJoin('g_officers', 'g_officers.id', 'facility_g_officer.g_officer_id')
             ->leftJoin('facility_types', 'facility_types.id', '=', 'facilities.facility_type_id')
             ->leftJoin('ownerships', 'ownerships.id', '=', 'facilities.ownership_id')
-            ->where('wards.district_id', '=', $gOfficer->district_id)
+            ->where('districts.region_id', '=', $gOfficer->region_id)
             ->get();
         $success['facilities'] = $facilities;
 
@@ -210,9 +236,9 @@ trait AuthenticationTrait
         $success['g_officer_mchs_sent'] = $g_officer_mchs;
         
 
-        $valid_program_activities = $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
+        // $valid_program_activities = $this->requisition_training_repo->getValidProgramActivity()->whereDate('end_date', '>',Carbon::today())->pluck('program_activity_number', 'id');
 
-        $success['program_activities'] = $valid_program_activities;
+        // $success['program_activities'] = $valid_program_activities;
 
         return  $this->sendResponse($success, 'GOfficer Log in successfully');
 

@@ -27,6 +27,7 @@ class InductionScheduleController extends Controller
     public function __construct()
     {
         $this->designations = (new DesignationRepository())->getNewStaffDesignations();
+        $this->designations = (new DesignationRepository())->getNewStaffDesignations();
         $this->departments = (new DepartmentRepository())->getForSelect();
     }
 

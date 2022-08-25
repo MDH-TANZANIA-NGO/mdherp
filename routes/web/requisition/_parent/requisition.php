@@ -12,6 +12,7 @@ Route::group(['namespace' => 'Requisition', 'middleware' => ['web', 'auth'], 'pr
     Route::get('{requisition}/updateActualAmount', 'RequisitionController@updateActualAmount')->name('updateActualAmount');
     Route::get('get-json', 'RequisitionController@getResultsJson')->name('get_json');
     Route::get('all_requisitions', 'RequisitionController@allRequisitions')->name('all_requisitions');
+    Route::get('training_cost_favourite', 'RequisitionController@buildFromRequisitionTrainingCost')->name('training_cost_favourite');
 
     /**
      * Datatables

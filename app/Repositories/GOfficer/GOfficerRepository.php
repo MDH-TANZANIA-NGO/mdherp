@@ -21,13 +21,14 @@ class GOfficerRepository extends BaseRepository
     public function getQuery()
     {
         return $this->query()->select([
-            DB::raw('g_officers.id AS id'),
+            DB::raw('g_officers.id AS g_officer_id'),
             DB::raw('g_officers.first_name AS first_name'),
             DB::raw('g_officers.middle_name AS middle_name'),
             DB::raw('g_officers.last_name AS last_name'),
             DB::raw('g_officers.email AS email'),
             DB::raw('g_officers.phone AS phone'),
             DB::raw('g_officers.phone2 AS phone2'),
+            DB::raw('g_officers.gender_cv_id AS gender'),
             DB::raw("CONCAT_WS(', ',g_officers.last_name, g_officers.first_name) AS names"),
             DB::raw("CONCAT_WS(', ',g_officers.last_name, g_officers.first_name,  g_officers.phone) AS unique"),
             DB::raw('g_officers.uuid AS uuid'),
@@ -43,6 +44,8 @@ class GOfficerRepository extends BaseRepository
             DB::raw('g_officers.check_no as check_no'),
             DB::raw('g_officers.fingerprint_data as fingerprint_data'),
             DB::raw('g_officers.fingerprint_length as fingerprint_length'),
+            DB::raw('g_officers.isactive as isactive'),
+            DB::raw('g_officers.status as status'),
             DB::raw("string_agg(DISTINCT facilities.name, ',') as facilities"),
         ])
             ->leftjoin('g_scales','g_scales.id','g_officers.g_scale_id')
@@ -58,7 +61,7 @@ class GOfficerRepository extends BaseRepository
     public function getForPluckUnique()
     {
         return $this->getQuery()
-            ->pluck('unique', 'id');
+            ->pluck('unique', 'g_officer_id');
     }
 
 

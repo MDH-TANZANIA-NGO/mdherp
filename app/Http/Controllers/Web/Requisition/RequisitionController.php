@@ -11,6 +11,7 @@ use App\Models\Payment\Payment;
 use App\Models\Requisition\RequisitionType\requisition_type_category;
 use App\Models\Requisition\Training\requisition_training_cost;
 use App\Models\Requisition\Training\requisition_training_item;
+use App\Models\Requisition\Training\RequisitionTrainingCostFavourite;
 use App\Models\Requisition\Travelling\requisition_travelling_cost_district;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
@@ -18,6 +19,8 @@ use App\Repositories\Finance\FinancialReportsRepository;
 use App\Repositories\GOfficer\GOfficerRepository;
 use App\Repositories\GOfficer\GRateRepository;
 use App\Repositories\MdhRates\mdhRatesRepository;
+use App\Repositories\Requisition\Training\RequestTrainingCostRepository;
+use App\Repositories\Requisition\Training\RequisitionTrainingCostFavouriteRepository;
 use App\Repositories\Requisition\Training\RequisitionTrainingItemsRepository;
 use App\Repositories\Requisition\Training\trainingRepository;
 use App\Repositories\System\RegionRepository;
@@ -54,6 +57,8 @@ class RequisitionController extends Controller
     protected $requisition_training;
     protected $requisition_training_items;
     protected $financialReport;
+    protected $training_cost_favourites;
+    protected $training_cost;
 
 
     public function __construct()
@@ -73,6 +78,8 @@ class RequisitionController extends Controller
         $this->requisition_training = (new trainingRepository());
         $this->requisition_training_items = (new RequisitionTrainingItemsRepository());
         $this->financialReport = (new FinancialReportsRepository());
+        $this->training_cost_favourites =  (new RequisitionTrainingCostFavouriteRepository());
+        $this->training_cost =  (new RequestTrainingCostRepository());
 
 
     }
@@ -136,7 +143,6 @@ class RequisitionController extends Controller
      */
     public function initiate(Requisition $requisition)
     {
-
  return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
@@ -150,7 +156,10 @@ class RequisitionController extends Controller
             ->with('users', $this->users->getQuery()->pluck('name', 'user_id'))
             ->with('requisition_training_items', $requisition->trainingItems)
             ->with('training', $requisition->training)
-            ->with('training_details', $requisition->training()->first());
+            ->with('training_details', $requisition->training()->first())
+            ->with('access_training_costs_favourites', $this->training_cost_favourites->getAccessFavourites()->get())
+            ->with('requisition_favourite', RequisitionTrainingCostFavourite::query()->where('requisition_id', '=', $requisition->id)->first())
+            ->with('training_costs_favourites', $this->training_cost_favourites->getAccessFavoritesForPluck());
     }
 
     /**
@@ -162,7 +171,6 @@ class RequisitionController extends Controller
     public function show(Requisition $requisition)
     {
         $budget = $this->check($requisition->requisition_type_id, $requisition->project_id, $requisition->activity_id, $requisition->region_id, $requisition->budget()->first()->fiscal_year_id);
-
         /* Check workflow */
         $wf_module_group_id = 1;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $requisition->id);
@@ -205,24 +213,42 @@ class RequisitionController extends Controller
     {
 //        check_available_budget_individual($requisition,$requisition->amount);
         DB::transaction(function () use ($requisition){
-            $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
-            $wf_module_group_id = 1;
-            $next_user = null;
-            switch($requisition->type)
+//            $actual_amount = $requisition->budget->actual_amount;
+            $budget_attributes =  $this->check($requisition->requisition_type_id, $requisition->project_id, $requisition->activity_id, $requisition->region_id,$requisition->budget->fiscal_year_id);
+            $pipeline =  $budget_attributes['pipeline'];
+            $commitment =  $budget_attributes['commitment'];
+            $origin_budget =  $budget_attributes['budget'];
+           $actual_amount = $budget_attributes['actual_expenditure'];
+            $available_amount = $origin_budget - ($commitment + $actual_amount + $pipeline);
+            if ($available_amount > $requisition->amount)
             {
-                case 1:
-                    $next_user_id = $requisition->activity->subProgram->users()->first();
-                    if(!$next_user_id){
-                        throw new GeneralException('Sub Program Area Manager not assigned');
-                    }
-                    $next_user = $next_user_id->id;
-                    break;
+                $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
+                $wf_module_group_id = 1;
+                $next_user = null;
+                switch($requisition->type)
+                {
+                    case 1:
+                        $next_user_id = $requisition->activity->subProgram->users()->first();
+                        if(!$next_user_id){
+                            throw new GeneralException('Sub Program Area Manager not assigned');
+                        }
+                        $next_user = $next_user_id->id;
+                        break;
+                }
+                event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $requisition->type],[],['next_user_id' => $next_user]));
+                alert()->success(__('Submitted Successfully'), __('Purchase Requisition'));
+                return redirect()->route('requisition.show', $requisition->uuid);
             }
-            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $requisition->type],[],['next_user_id' => $next_user]));
-        });
 
-        alert()->success(__('Submitted Successfully'), __('Purchase Requisition'));
-        return redirect()->route('requisition.show', $requisition->uuid);
+            else{
+
+                alert()->error('Insufficient fund', 'Failed');
+                return redirect()->route('requisition.initiate', $requisition->uuid);
+            }
+
+          });
+
+
     }
 
     /**
@@ -266,6 +292,8 @@ class RequisitionController extends Controller
          return redirect()->back();
 
     }
+
+
 
 
 }

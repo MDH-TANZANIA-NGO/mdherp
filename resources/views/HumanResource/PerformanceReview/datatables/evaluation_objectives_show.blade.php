@@ -13,10 +13,11 @@
                                     <tr>
                                         <th>#</th>
                                         <th>OBJECTIVE/GOAL</th>
-                                        <th>ACTION PLAN</th>
+                                        <th>ACTIVITIES / TASKS</th>
                                         <th>MAJOR ACCOMPLISHMENT</th>
                                         <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
                                         <th style="width: 15%">RATE</th>
+                                        @if($current_level == 1 && $pr_report->user_id) <th>ACTION</th> @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -28,6 +29,10 @@
                                             <td>{{ $objective->accomplishment }}</td>
                                             <td>{{ $objective->challenge }}</td>
                                             <td>{!! Form::select('rate',$pr_rate_scales,$objective->pr_rate_scale_id,['class' => 'form-control text-center rate-select', 'placeholder' => 'Select', 'data-objective-uuid' => $objective->uuid]) !!}</td>
+                                            @if($current_level == 1 && $pr_report->user_id) 
+                                            <td><a href="#" class="mr-2" data-toggle="modal" data-target="#objectiveModel{{ $objective->uuid }}">Add/Update Challenge</a></td>
+                                            @include('HumanResource.PerformanceReview.includes.objective_update_modal')
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -49,7 +54,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>OBJECTIVE/GOAL</th>
-                                        <th>ACTION PLAN</th>
+                                        <th>ACTIVITIES / TASKS</th>
                                         <th>MAJOR ACCOMPLISHMENT</th>
                                         <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
                                         <th style="width: 2%">RATE</th>

@@ -282,6 +282,20 @@ if (!function_exists('true_false_pluck')) {
 /**
  *
  */
+if (!function_exists('add_actual_amount_on_requisition_fund_checker')) {
+    function add_actual_amount_on_requisition_fund_checker($requisition_id, $current_total, $new_total = null)
+    {
+        return (new \App\Repositories\Requisition\RequisitionRepository())->addActualAmountOnRequisitionFundChecker($requisition_id, $current_total, $new_total = null);
+    }
+}
+
+if (!function_exists('deduct_actual_amount_on_requisition_fund_checker')) {
+    function deduct_actual_amount_on_requisition_fund_checker($requisition_id, $current_total, $new_total = null)
+    {
+        return (new \App\Repositories\Requisition\RequisitionRepository())->deductActualAmountOnRequisitionFundChecker($requisition_id, $current_total, $new_total = null);
+    }
+}
+
 if (!function_exists('check_available_budget_individual')) {
     function check_available_budget_individual(Model $model, $amount, $current_amount = null, $updated_amount = null)
     {
@@ -292,6 +306,13 @@ if (!function_exists('getNoDays')) {
     function getNoDays($from, $to)
     {
         return (new \App\Repositories\Requisition\RequisitionRepository())->getNoDays($from, $to);
+    }
+}
+
+if (!function_exists('getNoHours')) {
+    function getNoHours($from, $to)
+    {
+        return (new \App\Repositories\Requisition\RequisitionRepository())->getNoHours($from, $to);
     }
 }
 

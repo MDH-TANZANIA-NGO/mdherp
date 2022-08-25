@@ -6,8 +6,10 @@ use App\Exceptions\GeneralException;
 use App\Models\Auth\User;
 use App\Models\Project\Traits\Relationship\ActivityRelationship;
 use App\Models\Requisition\Requisition;
+use App\Models\Requisition\RequisitionFundChecker;
 use App\Notifications\Workflow\WorkflowNotification;
 use App\Repositories\BaseRepository;
+use App\Repositories\Budget\BudgetRepository;
 use App\Services\Calculator\Requisition\InitiatorBudgetChecker;
 use App\Services\Generator\Number;
 use App\Services\Workflow\Traits\WorkflowUserSelector;
@@ -15,7 +17,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Project\Project;
 
-class RequisitionRepository extends BaseRepository
+class
+RequisitionRepository extends BaseRepository
 {
     use InitiatorBudgetChecker, Number, WorkflowUserSelector;
 
@@ -25,21 +28,56 @@ class RequisitionRepository extends BaseRepository
     {
         return $this->query()->select([
             DB::raw('requisitions.id AS id'),
+            DB::raw("CONCAT_WS(' ', users.first_name,users.last_name) AS full_name"),
             DB::raw('requisitions.number AS number'),
             DB::raw('requisition_types.title AS type_title'),
             DB::raw('requisitions.amount AS amount'),
             DB::raw('requisitions.uuid AS uuid'),
             DB::raw('requisitions.user_id AS user_id'),
+            DB::raw('requisitions.budget_id AS budget_id'),
+            DB::raw('requisitions.user_id AS user_id'),
+            DB::raw('requisitions.wf_done AS wf_done'),
+            DB::raw('requisitions.done AS done'),
+            DB::raw('requisitions.wf_done_date AS wf_done_date'),
+            DB::raw('requisitions.requisition_type_category AS requisition_type_category'),
+            DB::raw('requisitions.user_id AS user_id'),
+            DB::raw('requisitions.rejected AS rejected'),
+            DB::raw('requisitions.code AS code'),
+            DB::raw('requisitions.numeric_output AS numeric_output'),
+            DB::raw('requisitions.descriptions AS descriptions'),
+            DB::raw('requisitions.created_at AS created_at'),
+            DB::raw('requisitions.updated_at AS updated_at'),
+            DB::raw('requisitions.deleted_at AS deleted_at'),
+            DB::raw('regions.name AS region_name'),
             DB::raw('requisitions.is_closed AS is_closed'),
             DB::raw('requisitions.created_at AS created_at'),
-//            DB::raw('projects.title AS project_title'),
+            DB::raw('requisitions.project_id AS project_id'),
+            DB::raw('projects.title AS project_title'),
             DB::raw('activities.title AS activity_title'),
         ])
             ->join('requisition_types', 'requisition_types.id', 'requisitions.requisition_type_id')
-            ->join('projects', 'projects.id', 'requisitions.project_id')
+            ->leftjoin('projects', 'projects.id', 'requisitions.project_id')
             ->join('activities', 'activities.id', 'requisitions.activity_id')
+            ->join('regions', 'requisitions.region_id', 'regions.id')
             ->join('users', 'users.id', 'requisitions.user_id');
     }
+    public function getAccessTrainingRequisition()
+    {
+        return $this->getQuery()
+            ->addSelect([
+                DB::raw('districts.name AS district_name'),
+                'requisitions.number',
+                'requisition_trainings.id',
+                DB::raw("CONCAT_WS(' ', requisitions.number, districts.name, requisition_trainings.start_date, requisition_trainings.end_date ) AS training")
+            ])
+            ->join('requisition_trainings','requisition_trainings.requisition_id','requisitions.id')
+            ->join('districts','districts.id','requisition_trainings.district_id' )
+            ->where('requisitions.requisition_type_category', 2)
+            ->where('requisitions.user_id', access()->user()->id)
+            ->where('requisitions.wf_done', 1);
+
+    }
+
 
     public function getQueryAll()
     {
@@ -64,9 +102,54 @@ class RequisitionRepository extends BaseRepository
             ->whereHas('budget');
     }
 
+//    Get all approved requests but which they have not been closed
+
+   public function getAllApprovedNotClosedRequisitions()
+   {
+       return $this->getAllApprovedRequisitions()
+           ->where('requisitions.is_closed', false);
+   }
+
+   public function getSafariAdvanceByRequisition($requisition_id)
+   {
+       return $this->getQuery()
+           ->leftjoin('requisition_travelling_costs','requisition_travelling_costs.requisition_id','requisitions.id')
+           ->leftjoin('safari_advances','safari_advances.requisition_travelling_cost_id', 'requisition_travelling_costs.id')
+           ->where('requisitions.id', $requisition_id);
+   }
+
+
+/*   Get all requisitions which are approved and they are for
+    training or other program activities*/
+
+    public function getAllApprovedTrainingRequisitions()
+    {
+        return $this->getAllApprovedRequisitions()
+            ->where('requisitions.requisition_type_category', 2);
+    }
+    /*   Get all requisitions which are approved and they are for
+        training or other program activities but they have not been closed */
+
+    public function getAllApprovedTrainingNotClosedRequisitions()
+    {
+        return $this->getAllApprovedTrainingRequisitions()
+            ->where('requisitions.is_closed', false);
+    }
+
+    /*   Get all requisitions which are approved and they are for
+       training or other program activities but they have not been closed By region*/
+
+    public function getAllApprovedTrainingNotClosedRequisitionsByRegion($region_id)
+    {
+        return $this->getAllApprovedTrainingNotClosedRequisitions()
+            ->where('requisitions.region_id', $region_id);
+    }
+
+//    Get all approved requisitions from all requisition types
+
     public function getAllApprovedRequisitions()
     {
-        return $this->getQueryAll()
+        return $this->getQuery()
             ->where('requisitions.wf_done', 1);
     }
     public function getAllApprovedNotClosedInSameBudget()
@@ -516,25 +599,25 @@ class RequisitionRepository extends BaseRepository
         ]);
     }
 
-    public function updateIndividualAvailableBudget($requisition, $requested, $addition = null)
-    {
-        $current_amount = 0;
-        if ($requisition->amount) {
-            $current_amount = $requisition->amount;
-        }
-        if ($addition) {
-            $difference_amount = $current_amount - $requested;
-
+//    public function updateIndividualAvailableBudget($requisition, $requested, $addition = null)
+//    {
+//        $current_amount = 0;
+//        if ($requisition->amount) {
+//            $current_amount = $requisition->amount;
+//        }
+//        if ($addition) {
+//            $difference_amount = $current_amount - $requested;
 //
-            $actual_amount = $requisition->fundChecker()->first()->actual_amount + $difference_amount;
-
-            $requisition->fundChecker()->update([
-                'actual_amount' => $actual_amount
-            ]);
-
-
-        }
-    }
+////
+//            $actual_amount = $requisition->fundChecker()->first()->actual_amount + $difference_amount;
+//
+//            $requisition->fundChecker()->update([
+//                'actual_amount' => $actual_amount
+//            ]);
+//
+//
+//        }
+//    }
     /*public function checkAvailableBudgetIndividual($requisition, $total_amount, $current_amount = null, $updated_amount = null)
     {
         $check_budget = $requisition->fundChecker()->first();
@@ -597,7 +680,7 @@ class RequisitionRepository extends BaseRepository
 
             throw new GeneralException('Insufficient Fund' );
         }
-        return $this->updateIndividualAvailableBudget($requisition, $check_budget->actual_amount,$requested_amount, $options);
+        return redirect()->back();
 
 
 
@@ -620,6 +703,59 @@ class RequisitionRepository extends BaseRepository
 
         return $days;
     }
+
+    public function getNoHours($from, $to)
+    {
+        $hourdiff = round((strtotime($from) - strtotime($to))/3600, 1);
+
+        return $hourdiff;
+    }
+
+    public function addActualAmountOnRequisitionFundChecker($requisition_id, $current_total, $new_total = null )
+    {
+        $amount_diff =  $current_total - $new_total;
+        $requisition_fund_checker =  RequisitionFundChecker::query()->where('requisition_id', $requisition_id)->first();
+        $amount_to_add =  $requisition_fund_checker->actual_amount + $amount_diff;
+        if ($requisition_fund_checker->available_budget >= $requisition_fund_checker->actual_amount)
+        {
+            $requisition_fund_checker->update(['actual_amount'=>$amount_to_add]);
+        }
+        else
+        {
+            alert()->error('Failed to check budget','Error');
+        }
+
+
+        return $requisition_fund_checker;
+
+    }
+
+    public function deductActualAmountOnRequisitionFundChecker($requisition_id, $current_total, $new_total = null)
+    {
+        $amount_diff =  $current_total - $new_total;
+        $requisition_fund_checker =  RequisitionFundChecker::query()->where('requisition_id', $requisition_id)->first();
+        if ($requisition_fund_checker->actual_amount >=  $amount_diff)
+        {
+            $amount_to_add =  $requisition_fund_checker->actual_amount - $amount_diff;
+
+            $requisition_fund_checker->update(['actual_amount'=>$amount_to_add]);
+        }
+        else
+        {
+            alert()->error('Insufficient fund', 'Failed');
+        }
+
+
+        return $requisition_fund_checker;
+    }
+
+    public function checkAvailaleFund($budget_id)
+    {
+        $budget =  (new BudgetRepository())->find($budget_id);
+
+    }
+
+
 
 
 }

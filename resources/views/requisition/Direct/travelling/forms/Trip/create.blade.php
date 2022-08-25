@@ -81,29 +81,29 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    {!! Form::label('transportation', __("Ground Transport"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::number('transportation',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                    {!! Form::label('transportation', __("Ground Transport"),['class'=>'form-label']) !!}
+                    {!! Form::number('transportation',null,['class' => 'form-control', 'placeholder' => '']) !!}
                     {!! $errors->first('transportation', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    {!! Form::label('ticket_fair', __("Ticket Fair"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::number('ticket_fair',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                    {!! Form::label('ticket_fair', __("Ticket Fair"),['class'=>'form-label']) !!}
+                    {!! Form::number('ticket_fair',null,['class' => 'form-control', 'placeholder' => '']) !!}
                     {!! $errors->first('ticket_fair', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     {!! Form::label('other_cost', __("Other Cost"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::number('other_cost',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                    {!! Form::number('other_cost',null,['class' => 'form-control', 'placeholder' => '']) !!}
                     {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group">
                     {!! Form::label('other_cost_description', __("Other Cost Description"),['class'=>'form-label','required_asterik']) !!}
-                    {!! Form::text('other_cost_description',null,['class' => 'form-control', 'placeholder' => '','required']) !!}
+                    {!! Form::text('other_cost_description',null,['class' => 'form-control', 'placeholder' => '']) !!}
                     {!! $errors->first('other_cost_description', '<span class="badge badge-danger">:message</span>') !!}
                 </div>
             </div>
