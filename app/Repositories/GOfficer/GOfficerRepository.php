@@ -45,6 +45,7 @@ class GOfficerRepository extends BaseRepository
             DB::raw('g_officers.fingerprint_data as fingerprint_data'),
             DB::raw('g_officers.fingerprint_length as fingerprint_length'),
             DB::raw('g_officers.isactive as isactive'),
+            DB::raw('g_officers.status as status'),
             DB::raw("string_agg(DISTINCT facilities.name, ',') as facilities"),
         ])
             ->leftjoin('g_scales','g_scales.id','g_officers.g_scale_id')
