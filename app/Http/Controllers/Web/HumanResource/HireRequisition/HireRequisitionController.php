@@ -11,6 +11,7 @@ use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Repositories\Access\UserRepository;
 use App\Repositories\System\RegionRepository;
+use App\Repositories\Project\ProjectRepository;
 use App\Repositories\Unit\DepartmentRepository;
 use App\Repositories\Unit\DesignationRepository;
 use App\Repositories\Workflow\WfTrackRepository;
@@ -19,21 +20,24 @@ use App\Services\Workflow\Traits\WorkflowInitiator;
 use App\Models\HumanResource\HireRequisition\SkillUser;
 use App\Models\HumanResource\HireRequisition\SkillCategory;
 use App\Models\HumanResource\HireRequisition\HireRequisition;
+use App\Models\HumanResource\HireRequisition\HrHireExperience;
 use App\Models\HumanResource\HireRequisition\HireRequisitionJob;
 use App\Models\HumanResource\HireRequisition\HrHireDesignationSkill;
 use App\Models\HumanResource\HireRequisition\HireRequisitionLocation;
+use App\Models\HumanResource\HireRequisition\HrHireRequisitionCriteria;
 use App\Models\HumanResource\HireRequisition\HireRequisitionWorkingTool;
 use App\Models\HumanResource\HireRequisition\HrHireDesignationExperience;
+use App\Models\HumanResource\HireRequisition\HrHireRequisitionJobExperience;
 use App\Repositories\HumanResource\HireRequisition\HireUserSkillsRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobRepository;
+use App\Models\HumanResource\HireRequisition\HrHireRequisitionJobsCriteriaWeight;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionLocationRepository;
 use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HireRequisitionSteps;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionJobCreteriaRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionWorkingToolRepository;
 use App\Repositories\HumanResource\HireRequisition\HireRequisitionReplacedStaffRepository;
 use App\Http\Controllers\Web\HumanResource\HireRequisition\Traits\HireRequisitionDatatable;
-use App\Repositories\Project\ProjectRepository;
 
 class HireRequisitionController extends Controller
 {
@@ -284,6 +288,7 @@ class HireRequisitionController extends Controller
      */
     public function show($uuid)
     {
+        
         $hireRequisition = $this->hireRequisitionRepository->query()
                             ->select('hr_hire_requisitions.*', 'departments.title as department')
                             ->join('departments', 'departments.id', 'hr_hire_requisitions.department_id')
@@ -343,12 +348,23 @@ class HireRequisitionController extends Controller
         $current_regions = HireRequisitionLocation::select("regions.id as id")
             ->join('regions', 'regions.id', 'hr_hire_requisition_locations.region_id')
             ->where('hr_hire_requisition_locations.hr_requisition_job_id', $hireRequisitionJobs->id)->pluck('id')->toArray();
-
+        $criterias = HrHireRequisitionCriteria::all();
+        $criteriaWeights = HrHireRequisitionJobsCriteriaWeight::join('hr_hire_requisitioin_criterias', 'hr_hire_requisitioin_criterias.id', 'hr_hire_requisitioin_job_criteria_weights.hr_hire_requisitioin_job_criteria_id')
+        ->where('hr_requisition_job_id', $hireRequisitionJob->id)
+        ->select('hr_hire_requisitioin_job_criteria_weights.hr_hire_requisitioin_job_criteria_id', 'hr_hire_requisitioin_criterias.id', 'hr_hire_requisitioin_criterias.name', 'hr_hire_requisitioin_job_criteria_weights.weight')->get();
+        $education_level =  code_value()->query()->where('code_id', 10)->get();
+        $skills = Skill::all();
+        $experiences = HrHireExperience::all();
         $skillCategories = SkillCategory::get();
         $tools = WorkingTool::all();
         $skill_users  = SkillUser::where('hr_requisition_job_id', $hireRequisitionJobs->id)->pluck('skill_id')->toArray();;
+        $_skills = $this->hireUserSkillsRepository->getQuery()->select('skills.name as name')->join('skills', 'skills.id', 'skill_user.skill_id', 'skills.id')->where('hr_requisition_job_id', $hireRequisitionJob->id)->get();  
+        $_experiences = HrHireRequisitionJobExperience::join('hr_hire_experiences', 'hr_hire_experiences.id', 'hr_hire_requisition_job_experiences.hr_hire_experience_id')
+                        ->where('hr_hire_requisition_job_id', $hireRequisitionJob->id)->get();
+                       
         $skills  = Skill::all();
         $users = User::where('designation_id', '!=', null)->get();
+        
         return view('HumanResource.HireRequisition._parent.form.edit')
             ->with('prospects', code_value()->query()->where('code_id', 7)->get())
             ->with('_prospects', code_value()->query()->where('code_id', 7)->get()->pluck('name', 'id'))
@@ -360,6 +376,13 @@ class HireRequisitionController extends Controller
             ->with('departments', $this->departments->getAll())
             ->with('designations', $this->designation->getActiveForSelect())
             ->with('tools', $tools)
+            ->with('_skills', $_skills)
+            ->with('_experiences', $_experiences)
+            ->with('criterias', $criterias)
+            ->with('criteriaWeights', $criteriaWeights)
+            ->with('education_level', $education_level)
+            ->with('skills', $skills)
+            ->with('experiences', $experiences)
             ->with('current_working_tools', $current_working_tools)
             ->with('hireRequisitionJobs', $hireRequisitionJobs)
             ->with('regions', $this->regions->getAll())
@@ -398,6 +421,38 @@ class HireRequisitionController extends Controller
             DB::rollback();
             throw new \Exception($e->getMessage());
         }
+    }
+
+    public function deleteCriteria(Request $request)
+    {
+        $data = $request->all();
+        $hireRequisitionJob = $this->hireRequisitionJobRepository->getQuery()->where('hr_hire_requisitions_jobs.id', $request->hr_hire_requisition_job_idv)->first();
+         //Education Level
+         if ($request->criteria_id == 1) {
+            $hireRequisitionJob->update(['education_level' => NULL]);
+        }
+
+        // Age Limit
+        if ($request->criteria_id == 2) {
+            $data = ['start_age' => NULL, 'end_age' => NULL];
+            $hireRequisitionJob->update($data);
+        }
+
+        // Skills 
+        if ($request->criteria_id == 3) {
+            $this->hireUserSkillsRepository->query()->where('hr_requisition_job_id',$request->hr_hire_requisition_job_id)->delete();
+        }
+        // Experience 
+        if ($request->criteria_id == 4) {
+
+                HrHireRequisitionJobExperience::where('hr_hire_requisition_job_id',$request->hr_hire_requisition_job_id)->delete();
+        }
+
+        if ($request->criteria_id == 5) {
+            return  $request->criteria_id;
+        }
+        HrHireRequisitionJobsCriteriaWeight::where('hr_requisition_job_id',$request->hr_hire_requisition_job_id)->where('hr_hire_requisitioin_job_criteria_id',$request->criteria_id)->delete();
+        return response()->json(['status' => 'success']);
     }
 
     /**

@@ -253,6 +253,51 @@ trait HireRequisitionSteps
         }
         return redirect()->back();
     }
+    public function addCriteriaAjax(Request $request)
+    {
+        $hireRequisitionJob = HireRequisitionJob::where('id',$request->hr_hire_requisition_job_id);
+        //Education Level
+        if ($request->criteria_id == 1) {
+            $hireRequisitionJob->update(['education_level' => $request->education_level_id]);
+        }
+
+        // Age Limit
+        if ($request->criteria_id == 2) {
+            $hireRequisitionJob->update($request->except('criteria_id','education_level_id','weight'));
+            
+        }
+
+        // Skills 
+        if ($request->criteria_id == 3) {
+            $data = ['skills' => $request->skills, 'hr_requisition_job_id' => $hireRequisitionJob->id];
+            $this->hireUserSkillsRepository->store($data);
+        }
+        // Experience 
+        if ($request->criteria_id == 4) {
+            foreach ($request->experiences as $experience) {
+                $data = ['hr_hire_experience_id' => $experience, 'hr_hire_requisition_job_id' => $hireRequisitionJob->id];
+                HrHireRequisitionJobExperience::create($data);
+            }
+        }
+
+        if ($request->criteria_id == 5) {
+            return  $request->criteria_id;
+        }
+
+        $data = [
+            'hr_requisition_job_id' => $hireRequisitionJob->id,
+            'hr_hire_requisitioin_job_criteria_id' =>  $request->criteria_id,
+            'weight' =>  $request->weight,
+        ];
+
+        $jobCriteria = HrHireRequisitionJobsCriteriaWeight::where('hr_requisition_job_id',$hireRequisitionJob->id)->where('hr_hire_requisitioin_job_criteria_id',$request->criteria_id)->first();
+        if($jobCriteria){
+            $jobCriteria->update($data);
+        }else{
+            HrHireRequisitionJobsCriteriaWeight::create($data);
+        }
+        return redirect()->json(['message'=>'success']);
+    }
    
 
     public function addCriteriaView(HireRequisitionJob $hireRequisitionJob, Request $request)

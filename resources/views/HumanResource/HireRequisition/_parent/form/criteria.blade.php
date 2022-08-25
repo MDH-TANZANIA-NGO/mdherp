@@ -61,40 +61,6 @@
 		<tr>
 			<td></td><td>Total</td><td>{{ $total }}</td>
 		</tr>
-		<!-- <tr>
-			<td><label class="form-label"> Education Level </label></td>
-			<td>
-				<select name="education_level" id="select-region" style="width: 100%" class="form-control custom-select select2-show-search" data-placeholder="Education Level" required>
-					<option></option>
-					@foreach($education_levels as $education_level)
-					<option value="{{$education_level->id}}">{{$education_level->name}}</option>
-					@endforeach
-				</select>
-			</td>
-			<td>
-				<input class="form-control" type="number" name="weight">
-			</td>
-		</tr>
-		<tr>
-			<td><label class="form-label"> Minimum Years Of Experince </label></td>
-			<td>
-				<input type="number" class="form-control" name="experience_years" value="{{old('experience_years')}}" placeholder="Years of experience" required>
-			</td>
-			<td>
-				<input class="form-control" type="number" name="weight">
-			</td>
-		</tr>
-		<tr>
-			<td><label class="form-label"> Skills </label></td>
-			<td>
-				<select class="form-control select2-show-search" id="skills" name="skills[]" multiple data-placeholder="Select skill">
-					<option> choose Category</option>
-				</select>
-			</td>
-			<td>
-				<input class="form-control" type="number" name="weight">
-			</td>
-		</tr> -->
 	</tbody>
 </table>
 
