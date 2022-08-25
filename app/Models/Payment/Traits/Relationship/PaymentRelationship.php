@@ -2,7 +2,9 @@
 
 namespace App\Models\Payment\Traits\Relationship;
 
+use App\Models\Activities\Reports\ActivityReport;
 use App\Models\Auth\User;
+use App\Models\ProgramActivity\ProgramActivityPayment;
 use App\Models\Requisition\Requisition;
 use App\Models\Workflow\WfTrack;
 
@@ -21,6 +23,11 @@ trait PaymentRelationship
     public function requisition()
     {
         return $this->belongsTo(Requisition::class);
+    }
+
+    public function activityPayment()
+    {
+        return $this->belongsTo(ProgramActivityPayment::class);
     }
 
 

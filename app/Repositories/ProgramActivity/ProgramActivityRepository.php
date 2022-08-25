@@ -43,7 +43,7 @@ ProgramActivityRepository extends BaseRepository
             DB::raw('program_activities.amount_paid AS amount_paid'),
             DB::raw('program_activities.created_at AS created_at'),
             DB::raw('program_activities.uuid AS uuid'),
-//            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
+            DB::raw('program_activities.requisition_training_id AS requisition_training_id'),
             DB::raw('program_activities.region_id AS region_id'),
         ])
             ->join('users','users.id', 'program_activities.user_id');

@@ -1,5 +1,6 @@
-
-{{--    @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])--}}
+@extends('layouts.app')
+@section('content')
+    @include('includes.workflow.workflow_track', ['current_wf_track' => $current_wf_track])
 <!-- Row-->
 <div class="row">
     <div class="col-md-12">
@@ -9,6 +10,7 @@
             </div>
             <div class="card-body">
                 <div class="">
+
                     <h4 class="mb-1"><strong>{{$safari_advance->user->full_name_formatted}}</strong>,</h4>
                     Has Requested Safari Advance of  <strong>{{number_2_format($safari_advance->amount_requested)}}</strong> (TZS)
                 </div>
@@ -29,12 +31,12 @@
                 <div class="row pt-4">
                     <div class="col-lg-6 ">
                         <p class="h3">Safari Info</p>
-                        <address>
-                            Destination: {{$safari_advance->travellingCost->district->name}}<br>
-                            Departure: {{date('d-M-Y', strtotime($safari_advance->safariDetails->from))}}<br>
-                            Return: {{date('d-M-Y', strtotime($safari_advance->safariDetails->to))}}<br>
+{{--                        <address>--}}
+{{--                            Destination: {{$safari_advance->travellingCost->district->name}}<br>--}}
+{{--                            Departure: {{date('d-M-Y', strtotime($safari_advance->safariDetails->from))}}<br>--}}
+{{--                            Return: {{date('d-M-Y', strtotime($safari_advance->safariDetails->to))}}<br>--}}
 
-                        </address>
+{{--                        </address>--}}
                     </div>
                     <div class="col-lg-6 text-right">
                         <p class="h3">Pay To</p>
@@ -58,7 +60,7 @@
                                 <p class="font-w600 mb-1">Accommodation</p>
                             </td>
 
-                            <td class="text-right">{{number_2_format($safari_advance->travellingCost->accommodation)}}</td>
+{{--                            <td class="text-right">{{number_2_format($safari_advance->travellingCost->accommodation)}}</td>--}}
                         </tr>
                         <tr>
                             <td class="text-center">2</td>
@@ -128,4 +130,6 @@
     </div>
 </div>
 <!-- End row-->
+
+@endsection
 
