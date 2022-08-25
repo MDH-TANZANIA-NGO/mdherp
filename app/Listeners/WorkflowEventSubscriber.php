@@ -262,7 +262,7 @@ class WorkflowEventSubscriber
                             $email_resource = (object)[
                                 'link' => route('retirement.show', $retirement),
                                 'subject' => $retirement->number . " Need your Approval",
-                                'message' =>  $retirement->number . ' need your approval'
+                                'message' => 'Hi! Retirement Number'.  $retirement->number . ' need your approval'
                             ];
                             //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
