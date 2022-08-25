@@ -73,6 +73,21 @@ public function getParticipantsByRequisition($requisition_id)
     return $this->getQuery()
         ->where('requisition_training_costs.requisition_id', $requisition_id);
 }
+
+public function getSumOfAmountPaid($requisition_id)
+{
+    return $this->getParticipantsByRequisition($requisition_id)
+        ->sum('requisition_training_costs.amount_paid');
+}
+
+public function getCountParticipantsToBePaid($requisition_id)
+{
+    return $this->getParticipantsByRequisition($requisition_id)
+        ->where('requisition_training_costs.amount_paid','!=', 0)
+        ->where('requisition_training_costs.amount_paid','!=', null)
+        ->get()
+        ->count();
+}
     public function getActivityParticipants($uuid)
     {
         return $this->getQuery()
@@ -147,9 +162,11 @@ public function getParticipantsByRequisition($requisition_id)
     public function store(Requisition $requisition, $inputs)
     {
         return DB::transaction(function () use ($requisition, $inputs){
-//            check_available_budget_individual($requisition, $this->inputProcess($inputs)['total_amount'],0,$this->inputProcess($inputs)['total_amount']);
             $requisition->trainingCost()->create($this->inputProcess($inputs));
+            $current_total =  $requisition->amount;
             $requisition->updatingTotalAmount();
+            $new_total =  $requisition->amount;
+            deduct_actual_amount_on_requisition_fund_checker($requisition->id, $current_total, $new_total);
             return $requisition;
         });
     }

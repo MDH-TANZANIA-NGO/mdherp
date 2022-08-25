@@ -1,5 +1,5 @@
 <?php
-Route::group(['namespace' => 'humanResource', 'middleware' => ['web', 'auth'], 'prefix' => 'human-resource', 'as' => 'hr.'], function () {
+Route::group(['namespace' => 'HumanResource', 'middleware' => ['web', 'auth'], 'prefix' => 'human-resource', 'as' => 'hr.'], function () {
 
     //Performance Review
     Route::group(['namespace' => 'PerformanceReview', 'prefix' => 'performance-reviews', 'as' => 'pr.'], function () {
@@ -8,6 +8,7 @@ Route::group(['namespace' => 'humanResource', 'middleware' => ['web', 'auth'], '
         Route::post('store', 'PrReportController@store')->name('store');
         Route::get('{pr_report}/saved', 'PrReportController@saved')->name('saved');
         Route::get('{pr_report}/show', 'PrReportController@show')->name('show');
+        Route::get('{pr_report}/show-completed', 'PrReportController@showCompleted')->name('show_completed');
         Route::put('{pr_report}/update', 'PrReportController@update')->name('update');
         Route::post('{pr_report}/submit', 'PrReportController@submit')->name('submit');
         Route::get('{pr_report}/completed', 'PrReportController@completed')->name('completed');

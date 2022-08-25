@@ -85,7 +85,7 @@
                                     <th class="wd-25p">REQUESTER</th>
                                     <th class="wd-25p">REGION</th>
                                     <th class="wd-25p">PROJECT</th>
-                                    <th class="wd-25p">TYPE</th>
+{{--                                    <th class="wd-25p">TYPE</th>--}}
                                     <th class="wd-25p">CREATED ON</th>
                                     <th class="wd-25p">ACTION</th>
                                 </tr>
@@ -182,10 +182,10 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex','bSortable': false, 'aTargets': [0], 'bSearchable': false },
                     { data: 'number', name: 'program_activity_reports.number', searchable: true},
                     { data: 'activity_number', name: 'program_activities.number', searchable: true},
-                    { data: 'name', name: 'users.name', searchable: true},
+                    { data: 'full_name', name: 'users.name', searchable: true},
                     { data: 'region_name', name: 'regions.name', searchable: true},
                     { data: 'title', name: 'projects.title', searchable: true},
-                    { data: 'status', name: 'program_activity_reports.status', searchable: true},
+                    // { data: 'status', name: 'program_activity_reports.status', searchable: true},
                     // { data: 'activity_title', name: 'activities.title', searchable: true},
                     // { data: 'amount_paid', name: 'requisitions.amount', searchable: true},
                     { data: 'created_at', name: 'created_at', searchable: true },

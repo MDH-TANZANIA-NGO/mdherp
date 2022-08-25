@@ -14,7 +14,7 @@ class AddColumnMarksInterviewQuestionTable extends Migration
     public function up()
     {
         Schema::table('hr_interview_questions', function (Blueprint $table) {
-            $table->double('marks');
+            $table->double('marks')->nullable();
         });
     }
 

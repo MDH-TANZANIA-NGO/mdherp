@@ -8,7 +8,7 @@ Route::group(['namespace' => 'Finance', 'middleware' => ['web', 'auth'], 'prefix
     Route::post('{id}/update_activity_payment', 'FinanceActivityController@updateActivityPayment')->name('update_activity_payment');
     Route::post('{uuid}/update', 'FinanceActivityController@update')->name('update');
     Route::get('{payment}/view', 'FinanceActivityController@view')->name('view');
-    Route::get('{payment}/SubmitPayment', 'FinanceActivityController@SubmitPayment')->name('SubmitPayment');
+    Route::get('{payment}/submit_payment', 'FinanceActivityController@SubmitPayment')->name('submit_payment');
     Route::get('{uuid}/export', 'FinanceActivityController@export')->name('export');
     Route::get('{uuid}/safari_payment', 'FinanceActivityController@safariPayment')->name('safari_payment');
     Route::get('{uuid}/edit_safari_payment', 'FinanceActivityController@safariPaymentEditForApproval')->name('edit_safari_payment');

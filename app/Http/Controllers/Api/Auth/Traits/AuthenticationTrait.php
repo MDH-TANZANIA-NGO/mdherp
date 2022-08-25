@@ -183,12 +183,20 @@ trait AuthenticationTrait
 //            ->selectRaw('g_officers.id as g_officer_id')
             ->selectRaw('facilities.facility_type_id as facility_type_id')
             ->selectRaw('facility_types.name as facility_type')
+            ->selectRaw('wards.id as ward_id')
+            ->selectRaw('wards.name as ward')
+            ->selectRaw('districts.id as district_id')
+            ->selectRaw('districts.name as district')
+            ->selectRaw('regions.id as region_id')
+            ->selectRaw('regions.name as region')
             ->leftJoin('wards', 'wards.id', '=', 'facilities.ward_id')
+            ->leftJoin('districts', 'districts.id', '=', 'wards.district_id')
+            ->leftJoin('regions', 'regions.id', '=', 'districts.region_id')
 //            ->leftJoin('facility_g_officer', 'facility_g_officer.facility_id', 'facilities.id')
 //            ->leftJoin('g_officers', 'g_officers.id', 'facility_g_officer.g_officer_id')
             ->leftJoin('facility_types', 'facility_types.id', '=', 'facilities.facility_type_id')
             ->leftJoin('ownerships', 'ownerships.id', '=', 'facilities.ownership_id')
-            ->where('wards.district_id', '=', $gOfficer->district_id)
+            ->where('districts.region_id', '=', $gOfficer->region_id)
             ->get();
         $success['facilities'] = $facilities;
 

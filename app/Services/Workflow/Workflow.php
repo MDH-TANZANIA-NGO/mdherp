@@ -2,38 +2,39 @@
 
 namespace App\Services\Workflow;
 
-use App\Events\Sockets\BroadcastWorkflowUpdated;
-use App\Exceptions\WorkflowException;
+use Carbon\Carbon;
 use App\Models\Auth\User;
-use App\Models\Workflow\WfDefinition;
-use App\Models\Workflow\WfModule;
+use App\Jobs\Workflow\SendEmail;
 use App\Models\Workflow\WfTrack;
-use App\Notifications\Workflow\WorkflowNotification;
-use App\Repositories\Activity\ActivityReportRepository;
-use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
-use App\Repositories\Finance\FinanceActivityRepository;
-use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
-use App\Repositories\JobOfferRepository;
-use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
-use App\Repositories\ProgramActivity\ProgramActivityRepository;
-use App\Repositories\Report\ReportRepository;
-use App\Repositories\Requisition\RequisitionRepository;
-use App\Repositories\Retirement\RetirementRepository;
-use App\Repositories\SafariAdvance\SafariAdvanceRepository;
+use App\Models\Workflow\WfModule;
+use Illuminate\Support\Facades\Log;
+use App\Exceptions\GeneralException;
+use App\Exceptions\WorkflowException;
+use App\Models\Workflow\WfDefinition;
 use App\Repositories\taf\TafRepository;
+use Illuminate\Database\Eloquent\Model;
+use App\Repositories\JobOfferRepository;
 use App\Repositories\Tber\TberRepository;
 use App\Repositories\Leave\LeaveRepository;
-use App\Repositories\Timesheet\TimesheetRepository;
-use App\Repositories\Workflow\WfModuleRepository;
+use App\Repositories\Report\ReportRepository;
+use App\Events\Sockets\BroadcastWorkflowUpdated;
 use App\Repositories\Workflow\WfTrackRepository;
+use App\Repositories\Workflow\WfModuleRepository;
+use App\Repositories\Timesheet\TimesheetRepository;
+use App\Notifications\Workflow\WorkflowNotification;
+use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\Workflow\WfDefinitionRepository;
-use App\Exceptions\GeneralException;
-use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
+use App\Repositories\Finance\FinanceActivityRepository;
+use App\Repositories\Requisition\RequisitionRepository;
+use App\Repositories\SafariAdvance\SafariAdvanceRepository;
 use App\Models\HumanResource\Interview\InterviewWorkflowReport;
+use App\Repositories\ProgramActivity\ProgramActivityRepository;
+use App\Repositories\ProgramActivity\ProgramActivityReportRepository;
+use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
 use App\Repositories\HumanResource\PerformanceReview\PrReportRepository;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
+use App\Repositories\HumanResource\Advertisement\AdvertisementRepository;
+use App\Repositories\Cov_Cec_Payment_Module\CovCecMonthlyPaymentRepository;
+use App\Repositories\HumanResource\HireRequisition\HireRequisitionRepository;
 
 /**
  * Class Workflow
@@ -425,14 +426,14 @@ class Workflow
                     $leave_repo = (new LeaveRepository());
                     $leave = $leave_repo->find($wf_track->resource_id);
                     $string = htmlentities(
-                        "There is new" . " " . "leave application" . " " . "from " . " " . $leave->user->first_name . " " . $leave->user->last_name . " pending for your approval." . "<br>" . "<br>" .
-                            "<b>Region:</b>" . $leave->region->name . "<br>" .
-                            "<b>Leave Type:</b>" . $leave->type->name . "<br>" .
-                            "<b>Remaining days:</b>" . $leave->balance->remaining_days . "<br>" .
-                            "<b>Comments:</b>" . $leave->comment . "<br>" .
-                            "<b>Starting Date:</b>" . $leave->start_date . "<br>" .
-                            "<b>End Date:</b>" . $leave->end_date . "<br>" .
-                            "<b>Requested Days:</b>" . getNoDays($leave->start_date, $leave->end_date) . "<br>"
+                        "There is new"." "."leave application"." "."from "." ".$leave->user->first_name." ".$leave->user->last_name." pending for your review and approval."."<br>". "<br>".
+                        "<b>Region:</b>".$leave->region->name."<br>".
+                        "<b>Leave Type:</b>".$leave->type->name."<br>".
+//                        "<b>Remaining days:</b>".$leave->balance->remaining_days."<br>".
+                        "<b>Comments:</b>". $leave->comment."<br>".
+                        "<b>Starting Date:</b>". $leave->start_date."<br>".
+                        "<b>End Date:</b>". $leave->end_date."<br>".
+                        "<b>Requested Days:</b>". getNoDays($leave->start_date, $leave->end_date)."<br>"
 
                     );
                     $email_resource = (object)[
@@ -456,9 +457,9 @@ class Workflow
                     $timesheetrepo = (new TimesheetRepository());
                     $timesheet = $timesheetrepo->find($wf_track->resource_id);
                     $email_resource = (object)[
-                        'link' =>  route('timesheet.show', $timesheet),
-                        'subject' =>  " Need your Approval",
-                        'message' => ' need your approval'
+                        'link' =>  route('timesheet.show',$timesheet),
+                        'subject' =>  'Timesheet number '.$timesheet->number." Needs your Approval",
+                        'message' => 'There is timesheet '.$timesheet->number.' of '.$timesheet->user->fullname. "pending for your review and approval",
                     ];
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
@@ -484,15 +485,26 @@ class Workflow
                     User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
                     break;
 
-                case 11:
-                case 13:
+                case 11: case 13: 
+                case 12: 
+                    $advertisement = (new AdvertisementRepository());
+                    $advertisement  = $advertisement->find($wf_track->resource_id);
+                    /*check levels*/
+                    $email_resource = (object)[
+                        'link' => route('advertisement.show', $advertisement),
+                        'subject' => $advertisement->number . " Job Advertisement Post your approval",
+                        'message' =>  $advertisement->number . 'Job Advertisement Post needs  approval.'
+                    ];
+                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    break;
+                case 14: case 15: case 20: case 21: case 22: case 23: case 24:
                     $pr_report = (new PrReportRepository())->find($wf_track->resource_id);
                     $email_resource = (object)[
                         'link' =>  route('hr.pr.show', $pr_report),
-                        'subject' =>  " Need your review",
-                        'message' => ' Performance Appraisal'
+                        'subject' =>  " Performance Appraisal Request",
+                        'message' => ' Performance Appraisal is on your level kindly aprove'
                     ];
-                    // User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                    SendEmail::dispatch(User::query()->find($pr_report->supervisor_id), $email_resource);
                     break;
                 case 16:
                     $interview_report = (new InterviewWorkflowReport())->find($wf_track->resource_id);
@@ -511,19 +523,6 @@ class Workflow
                         'link' =>  route('job_offer.show', $job_offer),
                         'subject' => "Job Offer " . $job_offer->number . "needs your approval.",
                         'message' =>  "<b>" . $job_offer->user->first_name . "  " . $job_offer->user->last_name . ", " . "Submitted job offer:" . " " . $job_offer->number . ",  which needs your approval"
-
-                    ];
-
-                    User::query()->find($input['next_user_id'])->notify(new WorkflowNotification($email_resource));
-                    //                    $job_offer->interviewApplicant->applicant->notify(new  WorkflowNotification($email_resource_to_applicant));
-                    break;
-                case 20:
-                    $activity_report_repo = (new ActivityReportRepository());
-                    $activity_report  = $activity_report_repo->find($wf_track->resource_id);
-                    $email_resource = (object)[
-                        'link' =>  route('activity_report.show', $activity_report),
-                        'subject' => "Job Offer " . $activity_report->number . "needs your approval.",
-                        'message' =>  "<b>" . $activity_report->user->first_name . "  " . $activity_report->user->last_name . ", " . "Submitted activity report:" . " " . $activity_report->number . ",  which needs your approval"
 
                     ];
 

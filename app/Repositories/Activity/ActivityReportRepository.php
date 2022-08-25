@@ -38,9 +38,13 @@ class ActivityReportRepository extends BaseRepository
             DB::raw('activity_reports.report_type AS report_type'),
             DB::raw('activity_reports.uuid AS uuid'),
             DB::raw('regions.name AS region_name'),
+            DB::raw('program_activities.number AS activity_number'),
+            DB::raw('projects.title AS title'),
         ])
             ->join('users','users.id', 'activity_reports.user_id')
             ->join('requisitions','requisitions.id','activity_reports.requisition_id')
+            ->leftjoin('projects', 'projects.id','requisitions.project_id')
+            ->leftjoin('program_activities', 'program_activities.requisition_id','requisitions.id')
             ->join('regions','regions.id','activity_reports.region_id');
     }
 
@@ -76,6 +80,44 @@ class ActivityReportRepository extends BaseRepository
             ->where('activity_reports.rejected', false)
             ->where('activity_reports.wf_done', 1);
     }
+    public function getAllApproved()
+    {
+        return $this->getQuery()
+            ->where('activity_reports.wf_done' , 1);
+    }
+    public function getAllApprovedForPayment()
+    {
+        return $this->getAllApproved()
+            ->whereDoesntHave('payment');
+    }
+
+    public function getAllApprovedForPaymentByRegion($region_id)
+    {
+        return $this->getAllApprovedForPayment()
+            ->where('activity_reports.region_id', $region_id);
+    }
+
+    public function getSumOfPaidAmountToParticipantsForRequisition($requisition_id)
+    {
+        return $this->getQuery()
+            ->join('requisition_training_costs','requisition_training_costs.requisition_id','requisition_id')
+            ->where('requisition_training_costs.requisition_id', $requisition_id)
+            ->sum('requisition_training_costs.amount_paid');
+    }
+    public function getCountForParticipantsForRequisition($requisition_id)
+    {
+        return $this->getQuery()
+            ->join('requisition_training_costs','requisition_training_costs.requisition_id','requisition_id')
+            ->where('requisition_training_costs.requisition_id', $requisition_id)
+            ->where('requisition_training_costs.amount_paid','!=', 0)
+            ->orWhere('requisition_training_costs.amount_paid','!=', null)
+            ->get()
+            ->count();
+    }
+
+
+
+
     public function inputsProcess($inputs)
     {
         return [

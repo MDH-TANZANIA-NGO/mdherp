@@ -54,7 +54,10 @@ class RequisitionTrainingItemsRepository extends BaseModel
         return DB::transaction(function () use ($requisition, $inputs){
 //            check_available_budget_individual($requisition, $this->inputProcess($inputs)['total_amount'], 0, $this->inputProcess($inputs)['total_amount']);
             $requisition->trainingItems()->create($this->inputProcess($inputs));
+            $current_total =  $requisition->amount;
             $requisition->updatingTotalAmount();
+            $new_total =  $requisition->amount;
+            deduct_actual_amount_on_requisition_fund_checker($requisition->id, $current_total, $new_total);
             return $requisition;
         });
     }

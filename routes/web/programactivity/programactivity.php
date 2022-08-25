@@ -23,6 +23,7 @@ Route::group(['namespace' => 'ProgramActivity', 'middleware' => ['web', 'auth'],
     Route::post('submitPayment', 'ProgramActivityController@submitPayment')->name('submitPayment');
     Route::post('{uuid}/submit', 'ProgramActivityController@submit')->name('submit');
     Route::post('{uuid}/approveReport', 'ProgramActivityController@approveReport')->name('approveReport');
+    Route::get('{uuid}/reserveHotel', 'ProgramActivityController@reserveHotel')->name('reserveHotel');
 
 
 

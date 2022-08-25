@@ -15,7 +15,7 @@
                         <div class="tags">
                             <div class="tag">
                                 Requisition number
-                                <span class="tag-addon tag-blue">{{$requisition->number}}</span>
+                                <a href="{{route('requisition.show', $requisition->uuid)}}"><span class="tag-addon tag-blue">{{$requisition->number}}</span></a>
                             </div>
                             <div class="tag">
                                 Code number
@@ -95,19 +95,20 @@
                                     @include('reports.Activities.display.attachments')
                                 </div>
                                 <div class="tab-pane" id="tab8">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <a href="{{route('activity_report.export_participants', $activity_report->uuid)}}" class="btn btn-outline-success" ><i class="fa fa-file-excel-o"></i> Export to Excel</a>
 
-                                        </div>
-
-
-                                    </div>
                                     <br>
                                     @if(in_array(access()->user()->designation_id, $finance_designations))
                                         @include('reports.Activities.datatables.payments.requisition-participants')
 
                                     @else
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <a href="{{route('activity_report.export_participants', $activity_report->uuid)}}" class="btn btn-outline-success" ><i class="fa fa-file-excel-o"></i> Export to Excel</a>
+
+                                            </div>
+
+
+                                        </div>
                                         @include('reports.Activities.display.payments')
                                         @endif
                                 </div>
