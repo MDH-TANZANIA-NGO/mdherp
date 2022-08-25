@@ -38,4 +38,10 @@ class UserLoginTokenRepository extends  BaseRepository
         ])
             ->join('users','users.id','user_login_tokens.user_id');
     }
+
+    public function getUserDetailsByToken($token)
+    {
+        return $this->getUserDetails()
+            ->where('user_login_tokens.token', $token);
+    }
 }

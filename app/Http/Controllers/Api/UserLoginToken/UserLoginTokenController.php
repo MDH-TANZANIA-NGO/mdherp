@@ -16,11 +16,12 @@ class UserLoginTokenController extends BaseController
         $this->login_token = (new UserLoginTokenRepository());
     }
 
-    public function verifyToken()
+    public function verifyToken(Request  $request)
     {
         $this->login_token->update(\request()->input('token'));
-        $user_token = $this->login_token->getUserDetails()->where('user_login_tokens.token',\request()->input('token'));
-        $results['details'] = $user_token;
+        $user_token = $this->login_token->getUserDetailsByToken($request->get('token'));
+        $results['details'] = $user_token->get()->first();
+
         if ($user_token)
         {
 
