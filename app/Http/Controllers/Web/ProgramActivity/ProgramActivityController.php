@@ -359,4 +359,22 @@ class ProgramActivityController extends Controller
         return redirect()->back();
     }
 
+
+    public function reserveHotel($uuid)
+    {
+        $reserved_hotel = ProgramActivityHotel::query()->where('uuid', $uuid)->first();
+        if ($reserved_hotel->reserved ==  false)
+        {
+            $reserved_hotel->update(['reserved'=>'true']);
+            alert()->success('Hotel reserved successfully','Success');
+        }
+        else{
+            $reserved_hotel->update(['reserved'=>'false']);
+            alert()->success('Undo Hotel reserved successfully','Success');
+        }
+
+
+        return redirect()->back();
+    }
+
 }

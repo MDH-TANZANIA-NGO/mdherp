@@ -16,7 +16,7 @@
 
 
         <div class="col-4 col-sm-4 col-lg-3">
-            <a href="{{route('programactivity.index')}}">
+            <a href="{{route('admin.vendor')}}">
                 <div class="card">
                     <div class="card-body text-center">
                         <div class="h2 m-0"><i class="zmdi zmdi-balance multiple-outline text-primary"></i></div>
@@ -26,11 +26,11 @@
             </a>
         </div>
         <div class="col-4 col-sm-4 col-lg-3">
-            <a href="{{route('programactivity.index')}}">
+            <a href="{{route('admin.hotelRequests')}}">
                 <div class="card">
                     <div class="card-body text-center">
                         <div class="h2 m-0"><i class="zmdi zmdi-bus multiple-outline text-primary"></i></div>
-                        <div class="text-muted mb-0">Safaris</div>
+                        <div class="text-muted mb-0">Booking Requests</div>
                     </div>
                 </div>
             </a>

@@ -4,6 +4,7 @@ namespace App\Repositories\Finance;
 
 use App\Models\Payment\Payment;
 use App\Models\ProgramActivity\ProgramActivity;
+use App\Models\Requisition\Requisition;
 use App\Models\Requisition\Travelling\requisition_travelling_cost;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Notifications\Workflow\WorkflowNotification;
@@ -53,24 +54,38 @@ class FinanceActivityRepository extends BaseRepository
 
     public function inputProcess($inputs)
     {
+        $sum_payed = Payment::query()->where('requisition_id', $inputs['requisition_id'])->sum('payed_amount');
+        $requested_amount = Requisition::query()->find($inputs['requisition_id'])->amount;
+        if ($requested_amount > $sum_payed)
+        {
+            return[
 
-        return[
+                'region_id'=> (int) $inputs['region_id'],
+                'requisition_id' =>(int) $inputs['requisition_id'],
+                'requested_amount'=> (int)$inputs['requested_amount'],
+                'user_id'=>access()->user()->id,
+                'remarks'=>$inputs['remarks'],
 
-            'region_id'=> (int) $inputs['region_id'],
-            'requisition_id' =>(int) $inputs['requisition_id'],
-            'requested_amount'=> (int)$inputs['requested_amount'],
-            'user_id'=>access()->user()->id,
-            'remarks'=>$inputs['remarks'],
+                'payed_amount'=>(int) $inputs['total_amount'],
 
-            'payed_amount'=>(int) $inputs['total_amount'],
+            ];
+        }
+        else{
 
-        ];
+            alert()->error('You can not pay more than requested');
+            return  redirect()->back();
+        }
+
     }
     public function store($inputs)
     {
         return DB::transaction(function () use ($inputs){
+
             $payment_id = $this->query()->create($this->inputProcess($inputs))->id;
             return $payment_id;
+
+
+
         });
 
 

@@ -43,8 +43,25 @@ class RequestTrainingCostController extends Controller
 
     public function store(Request $request, Requisition $requisition){
 
+        $participants =  $request['participant_uid'];
 
-        $this->trainingCost->store($requisition, $request->all());
+
+        foreach ($participants as $participant)
+        {
+            $inputs = [
+                'requisition_training_id' => $request['requisition_training_id'],
+                'participant_uid'=> $participant,
+                'perdiem_rate_id'=> $request['perdiem_rate_id'],
+                'transportation'=> $request['transportation'],
+                'other_cost'=> $request['other_cost'],
+                'others_description'=> $request['others_description']
+
+            ];
+
+
+            $this->trainingCost->store($requisition, $inputs);
+        }
+
         return redirect()->back();
 
     }
@@ -95,10 +112,14 @@ class RequestTrainingCostController extends Controller
         $requisition_training_item = requisition_training_item::query()->where('uuid', $uuid)->first();
         $requisition = Requisition::query()->where('id', $requisition_training_item->requisition_id)->first();
 
+
         return DB::transaction(function () use ($requisition,$requisition_training_item, $uuid){
+            $current_total =  $requisition->amount;
 //                check_available_budget_individual($requisition, $requisition_training_item->total_amount,$requisition_training_item->total_amount, 0 );
                 DB::delete('delete from requisition_training_items where uuid = ?',[$uuid]);
                 $requisition->updatingTotalAmount();
+                $new_total =  $requisition->amount;
+                add_actual_amount_on_requisition_fund_checker($requisition->id, $current_total, $new_total);
             return redirect()->back();
         });
     }
@@ -108,9 +129,12 @@ class RequestTrainingCostController extends Controller
         $training_cost = requisition_training_cost::query()->where('uuid', $uuid)->first();
         $requisition =  Requisition::query()->where('id', $training_cost->requisition_id)->first();
         return DB::transaction(function () use ($requisition, $training_cost, $uuid){
+            $current_total =  $requisition->amount;
 //            check_available_budget_individual($requisition, $training_cost->total_amount, $training_cost->total_amount, 0);
             DB::delete('delete from requisition_training_costs where uuid = ?',[$uuid]);
             $requisition->updatingTotalAmount();
+            $new_total =  $requisition->amount;
+            add_actual_amount_on_requisition_fund_checker($requisition->id, $current_total, $new_total);
             return redirect()->back();
         });
     }

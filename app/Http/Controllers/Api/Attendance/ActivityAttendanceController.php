@@ -18,6 +18,7 @@ class ActivityAttendanceController extends BaseController
     {
         $this->attendances = (new ActivityAttendanceRepository());
     }
+    
     public function store(Request $request)
     {
         $attendance = $this->attendances->returnStore($request->all());

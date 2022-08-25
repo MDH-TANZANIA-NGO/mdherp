@@ -128,6 +128,98 @@
             @endif
         </div>
     </div>
+{{--    <div class="row">--}}
+{{--        <div class="col-lg-12">--}}
+{{--            <div class="card">--}}
+{{--                <div class="card-header" style="background-color: rgb(238, 241, 248)">--}}
+{{--                    <h3 class="card-title">Logistics Arrangements</h3>--}}
+{{--                </div>--}}
+{{--                <div class="card-body">--}}
+{{--                    <!-- Row -->--}}
+{{--                    <div class="row">--}}
+{{--                        @if($hotels->count() > 0)--}}
+{{--                        <div class="col-sm-12 col-md-12">--}}
+{{--                            <div class="card">--}}
+{{--                                <div class="card-header">--}}
+{{--                                    <h3 class="card-title">Hotel Reservation</h3>--}}
+{{--                                    <div class="card-options ">--}}
+{{--                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>--}}
+{{--                                        <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="card-body">--}}
+{{--                                    {!! Form::open(['route' => 'safari.storeHotelReservation','class'=>'card']) !!}--}}
+{{--                                    <div class="card-body">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-md-6">--}}
+{{--                                                <div class="form-group ">--}}
+{{--                                                    {!! Form::label('hotel', __("Choose Hotel"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                                                    {!! Form::select('hotel_id', $hotels, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}--}}
+{{--                                                    {!! $errors->first('hotel_id', '<span class="badge badge-danger">:message</span>') !!}--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-md-6">--}}
+{{--                                                <div class="form-group ">--}}
+{{--                                                    {!! Form::label('hotel', __("Priority Level"),['class'=>'form-label','required_asterik']) !!}--}}
+{{--                                                  <select name="priority_level" class="form-control">--}}
+{{--                                                      <option value="1">First</option>--}}
+{{--                                                      <option value="2">Second</option>--}}
+{{--                                                      <option value="3">Third</option>--}}
+{{--                                                      <option value="4">Fourth</option>--}}
+{{--                                                  </select>--}}
+{{--                                                    {!! $errors->first('hotel_id', '<span class="badge badge-danger">:message</span>') !!}--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--<input type="number" name="safari_advance_id" value="{{$safari_advance->id}}" hidden class="form-control" >--}}
+
+{{--                                            <button type="submit" class="btn btn-info" style="margin-left:45%;"><i class="fa fa-paper-plane mr-2"></i>Submit</button>--}}
+
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+
+{{--                                    {!! Form::close() !!}--}}
+{{--                                    <ul class="list-group">--}}
+{{--                                        @if($hotels_reserved->count() > 0)--}}
+{{--                                            @foreach($hotels_reserved as $hotels)--}}
+{{--                                                <li class="list-group-item justify-content-between">--}}
+{{--                                                    <a class="btn btn-outline-danger" href="{{route('safari.removeHotel', $hotels->uuid)}}" onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash text-danger" aria-hidden="true" ></i></a> {{$hotels->name}}--}}
+{{--                                                    <span class="badgetext badge badge-primary badge-pill">--}}
+{{--                                                        @if($hotels->priority_level == 1)--}}
+{{--                                                            First--}}
+{{--                                                        @elseif($hotels->priority_level == 2)--}}
+{{--                                                            Second--}}
+{{--                                                        @elseif($hotels->priority_level == 3)--}}
+{{--                                                        Third--}}
+{{--                                                        @elseif($hotels->priority_level == 4)--}}
+{{--                                                        Fourth--}}
+{{--                                                            @endif--}}
+
+
+{{--                                                    </span>--}}
+
+
+{{--                                                </li>--}}
+{{--                                            @endforeach--}}
+{{--                                        @else--}}
+{{--                                            No hotel reserved--}}
+{{--                                        @endif--}}
+{{--                                        @if($hotels_reserved->count() > 0)--}}
+
+
+{{--                                            @endif--}}
+{{--                                    </ul>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
+{{--                    <!-- End Row -->--}}
+{{--                    <!-- table-responsive -->--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -135,86 +227,78 @@
                     <h3 class="card-title">Logistics Arrangements</h3>
                 </div>
                 <div class="card-body">
-                    <!-- Row -->
-                    <div class="row">
-                        @if($hotels->count() > 0)
-                        <div class="col-sm-12 col-md-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Hotel Reservation</h3>
-                                    <div class="card-options ">
-                                        <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
-                                        <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                    @if($hotels->count() > 0)
+                        <div class="row">
+                            <div class="col-md-12  col-xl-6">
+                                <div class="card">
+
+                                    <div class="card-alert alert alert-info mb-0">
+                                        Select and add hotel based on your priority
                                     </div>
-                                </div>
-                                <div class="card-body">
-                                    {!! Form::open(['route' => 'safari.storeHotelReservation','class'=>'card']) !!}
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group ">
-                                                    {!! Form::label('hotel', __("Choose Hotel"),['class'=>'form-label','required_asterik']) !!}
+                                        {!! Form::open(['route' => 'safari.storeHotelReservation']) !!}
+                                        <div class="card-body">
+
+                                            <div class="row">
+                                                <div class="form-group " style="width: 100%;">
+                                                    {{--                                                        {!! Form::label('hotel', __("Choose Hotel"),['class'=>'form-label','required_asterik']) !!}--}}
                                                     {!! Form::select('hotel_id', $hotels, null, ['class' =>'form-control select2-show-search', 'placeholder' => __('label.select') , 'aria-describedby' => '', 'required']) !!}
                                                     {!! $errors->first('hotel_id', '<span class="badge badge-danger">:message</span>') !!}
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group ">
-                                                    {!! Form::label('hotel', __("Priority Level"),['class'=>'form-label','required_asterik']) !!}
-                                                  <select name="priority_level" class="form-control">
-                                                      <option value="1">First</option>
-                                                      <option value="2">Second</option>
-                                                      <option value="3">Third</option>
-                                                      <option value="4">Fourth</option>
-                                                  </select>
-                                                    {!! $errors->first('hotel_id', '<span class="badge badge-danger">:message</span>') !!}
-                                                </div>
-                                            </div>
-<input type="number" name="safari_advance_id" value="{{$safari_advance->id}}" hidden class="form-control" >
+                                                <button type="submit" class="btn btn-info" style="margin-left:45%;"><i class="fa fa-plus-circle mr-2"></i>Add Venue</button>
+                                                <select name="priority_level" class="form-control" hidden>
+                                                    <option value="1">First</option>
+                                                    <option value="2">Second</option>
+                                                    <option value="3">Third</option>
+                                                    <option value="4">Fourth</option>
+                                                </select>
+                                                <input type="number" name="safari_advance_id" value="{{$safari_advance->id}}" hidden class="form-control" >
 
-                                            <button type="submit" class="btn btn-info" style="margin-left:45%;"><i class="fa fa-paper-plane mr-2"></i>Submit</button>
 
+
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    {!! Form::close() !!}
-                                    <ul class="list-group">
-                                        @if($hotels_reserved->count() > 0)
-                                            @foreach($hotels_reserved as $hotels)
-                                                <li class="list-group-item justify-content-between">
-                                                    <a class="btn btn-outline-danger" href="{{route('safari.removeHotel', $hotels->uuid)}}" onclick="if (confirm('Are you sure you want to delete?')){return true} else {return false}"><i class="fa fa-trash text-danger" aria-hidden="true" ></i></a> {{$hotels->name}}
-                                                    <span class="badgetext badge badge-primary badge-pill">
-                                                        @if($hotels->priority_level == 1)
-                                                            First
-                                                        @elseif($hotels->priority_level == 2)
-                                                            Second
-                                                        @elseif($hotels->priority_level == 3)
-                                                        Third
-                                                        @elseif($hotels->priority_level == 4)
-                                                        Fourth
-                                                            @endif
+                                        {!! Form::close() !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12  col-xl-6">
+                                <div class="card">
+                                    <div class="card-alert alert alert-success mb-0">
+                                        Selected hotels based on your priority
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group">
+                                            @if($hotels_reserved->count() > 0)
+                                                @foreach($hotels_reserved as $hotels)
+                                                    <li class="list-group-item justify-content-between">
+                                                        {{$hotels->name}}
+                                                        <span class="badgetext badge ">
+
+                                                       <a class="btn btn-outline-danger" href="{{route('safari.removeHotel', $hotels->uuid)}}" onclick="if (confirm('Are you sure you want to remove hotel?')){return true} else {return false}"><i class="fa fa-trash text-danger" aria-hidden="true" ></i> Remove</a>
 
 
                                                     </span>
 
 
-                                                </li>
-                                            @endforeach
-                                        @else
-                                            No hotel reserved
-                                        @endif
-                                        @if($hotels_reserved->count() > 0)
+                                                    </li>
+                                                @endforeach
+                                            @else
+                                                No hotel reserved
+                                            @endif
+                                            @if($hotels_reserved->count() > 0)
 
 
                                             @endif
-                                    </ul>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        @endif
-                    </div>
-                    <!-- End Row -->
-                    <!-- table-responsive -->
+                @endif
+
+                <!-- table-responsive -->
                 </div>
             </div>
         </div>

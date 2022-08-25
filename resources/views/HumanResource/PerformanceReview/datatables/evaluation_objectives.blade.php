@@ -14,7 +14,7 @@
                                     @endswitch
                                 </th>
 
-                                <th>ACTION PLAN</th>
+                                <th>ACTIVITIES / TASKS </th>
                                 <th>MAJOR ACCOMPLISHMENT</th>
                                 <th>AREA OF CHALLENGE/ OPPORTUNITIES FOR IMPROVEMENT</th>
                                 <th>SCORE</th>
@@ -48,6 +48,18 @@
                                             <div class="modal-body">
                                            
                                                 <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+                                                        <div class="form-group">
+						                                    <label class="form-label">OBJECTIVE</label>
+						                                    <textarea name='goal' class="form-control" rows="5" placeholder="Add challenge" required>{{ $objective->goal }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
+                                                        <div class="form-group">
+						                                    <label class="form-label">ACTIVITES / TASKS</label>
+						                                    <textarea name='plan' class="form-control" rows="5" placeholder="Add challenge" required>{{ $objective->plan }}</textarea>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12">
                                                         <div class="form-group">
 						                                    <label class="form-label">Major Accomplishment</label>

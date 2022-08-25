@@ -143,7 +143,6 @@ class RequisitionController extends Controller
      */
     public function initiate(Requisition $requisition)
     {
-
  return view('requisition._parent.form.initiate')
             ->with('requisition', $requisition)
             ->with('items', $requisition->items)
@@ -172,7 +171,6 @@ class RequisitionController extends Controller
     public function show(Requisition $requisition)
     {
         $budget = $this->check($requisition->requisition_type_id, $requisition->project_id, $requisition->activity_id, $requisition->region_id, $requisition->budget()->first()->fiscal_year_id);
-
         /* Check workflow */
         $wf_module_group_id = 1;
         $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $requisition->id);
@@ -215,24 +213,44 @@ class RequisitionController extends Controller
     {
 //        check_available_budget_individual($requisition,$requisition->amount);
         DB::transaction(function () use ($requisition){
-            $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
-            $wf_module_group_id = 1;
-            $next_user = null;
-            switch($requisition->type)
+//            $actual_amount = $requisition->budget->actual_amount;
+            $budget_attributes =  $this->check($requisition->requisition_type_id, $requisition->project_id, $requisition->activity_id, $requisition->region_id,$requisition->budget->fiscal_year_id);
+            $pipeline =  $budget_attributes['pipeline'];
+            $commitment =  $budget_attributes['commitment'];
+            $origin_budget =  $budget_attributes['budget'];
+           $actual_amount = $budget_attributes['actual_expenditure'];
+            $available_amount = $origin_budget - ($commitment + $actual_amount + $pipeline);
+            if ($available_amount > $requisition->amount)
             {
-                case 1:
-                    $next_user_id = $requisition->activity->subProgram->users()->first();
-                    if(!$next_user_id){
-                        throw new GeneralException('Sub Program Area Manager not assigned');
-                    }
-                    $next_user = $next_user_id->id;
-                    break;
+                $this->requisitions->updateDoneAssignNextUserIdAndGenerateNumber($requisition);
+                $wf_module_group_id = 1;
+                $next_user = null;
+                switch($requisition->type)
+                {
+                    case 1:
+                        $next_user_id = $requisition->activity->subProgram->users()->first();
+                        if(!$next_user_id){
+                            throw new GeneralException('Sub Program Area Manager not assigned');
+                        }
+                        $next_user = $next_user_id->id;
+                        break;
+                }
+                event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $requisition->type],[],['next_user_id' => $next_user]));
+                alert()->success(__('Submitted Successfully'), __('Purchase Requisition'));
+                return redirect()->route('requisition.show', $requisition->uuid);
             }
-            event(new NewWorkflow(['wf_module_group_id' => $wf_module_group_id, 'resource_id' => $requisition->id,'region_id' => $requisition->region_id, 'type' => $requisition->type],[],['next_user_id' => $next_user]));
-        });
+
+            else{
+
+                alert()->error('Insufficient fund', 'Failed');
+                return redirect()->route('requisition.initiate', $requisition->uuid);
+            }
+
+          });
 
         alert()->success(__('Submitted Successfully'), __('Purchase Requisition'));
         return redirect()->route('requisition.show', $requisition->uuid);
+
     }
 
     /**

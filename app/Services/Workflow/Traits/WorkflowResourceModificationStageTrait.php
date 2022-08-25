@@ -48,6 +48,15 @@ trait WorkflowResourceModificationStageTrait
                         break;
                 }
                 break;
+            case 'hr_hire_requisitions':
+                switch ($pending_level) {
+                    case 1: //Applicant level
+                        if ($model->user_id == access()->id()) {
+                            $allow = true;
+                        }
+                        break;
+                }
+                break;
         }
         return $allow;
     }
@@ -57,17 +66,26 @@ trait WorkflowResourceModificationStageTrait
         $allow = false;
         switch ($wf_module_id) {
             case 11:
-            case 13:
+            case 21:
+            case 22:
+            case 23:
+            case 24:
                 switch ($pending_level) {
+                    case 1:
+                        if ($model->user_id == access()->id()) {
+                            $allow = true;
+                        }
                     case 2:
-                        if ($model->supervisor_id ?? $model->parent->supervisor_id  == access()->id()) {
+                        if ($model->supervisor_id == access()->id()) {
+                            $allow = true;
+                        }
+                        if ($model->parent->supervisor_id  == access()->id()) {
                             $allow = true;
                         }
                         break;
                 }
                 break;
         }
-
         return $allow;
     }
 }

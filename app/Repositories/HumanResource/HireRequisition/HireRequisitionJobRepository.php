@@ -27,6 +27,8 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw('hr_hire_requisitions_jobs.education_level AS education_level'),
             DB::raw('hr_hire_requisitions_jobs.start_age AS start_age'),
             DB::raw('hr_hire_requisitions_jobs.end_age AS end_age'),
+            DB::raw('hr_hire_requisitions_jobs.appointement_prospects_id AS appointement_prospects_id'),
+            DB::raw('hr_hire_requisitions_jobs.report_to AS report_to'),
             DB::raw('hr_hire_requisitions_jobs.duties_and_responsibilities AS duties_and_responsibilities'),
             DB::raw('hr_hire_requisitions_jobs.duties_and_responsibilities AS duties_and_responsibilities'),
             DB::raw('designations.name AS title'),
@@ -41,12 +43,13 @@ class HireRequisitionJobRepository extends BaseRepository
             DB::raw('hr_hire_requisitions_jobs.budget AS budget'),
             DB::raw('hr_hire_requisitions_jobs.has_budget AS has_budget'),
             DB::raw('hr_hire_requisitions_jobs.possition_summary AS possition_summary'),
+            DB::raw('hr_hire_requisitions_jobs.project_id AS project_id'),
             DB::raw('hr_hire_requisitions_jobs.updated_at AS updated_at'),
         ])
             ->leftjoin('departments','departments.id','hr_hire_requisitions_jobs.department_id')
             ->leftjoin('designations','designations.id','hr_hire_requisitions_jobs.designation_id')
             ->leftjoin('units','units.id','designations.unit_id')
-            ->join('code_values', 'code_values.id', 'hr_hire_requisitions_jobs.hr_contract_type_id');
+            ->leftjoin('code_values', 'code_values.id', 'hr_hire_requisitions_jobs.hr_contract_type_id');
     }
 
     public function getQueryWithInterview(){
@@ -101,25 +104,25 @@ class HireRequisitionJobRepository extends BaseRepository
         return [
             'designation_id' => $inputs['job_title'],
             'department_id' => $inputs['department_id'],
-            'hr_contract_type_id' =>  $inputs['contract_type'],
+            'hr_contract_type_id' =>  isset($inputs['contract_type']) ? $inputs['contract_type'] : null,
             // 'start_age' =>  $inputs['start_age'],
             // 'end_age' =>  $inputs['end_age'],
-            'special_employment_condition' => $inputs['special_employment_condition'],
-            'duties_and_responsibilities' => $inputs['duties_and_responsibilities'],
-            'experience_years' =>$inputs['experience_years'],
-            'date_required' =>$inputs['date_required'],
-            'empoyees_required' => $inputs['empoyees_required'],
-            'establishment' => $inputs['establishment'],
-            'practical_experience' => $inputs['practical_experience'],
-            'special_qualities_skills' => $inputs['special_qualities_skills'],
-            'education_and_qualification' => $inputs['education_and_qualification'],
-            'appointement_prospects_id' => $inputs['prospect_for_appointment_cv_id'],
-            'education_level' => $inputs['education_level'],
-            'hire_requisition_id' => $inputs['hire_requisition_id'],
+            'special_employment_condition' => isset($inputs['special_employment_condition']) ? $inputs['special_employment_condition'] : null,
+            'duties_and_responsibilities' => isset($inputs['duties_and_responsibilities']) ? $inputs['duties_and_responsibilities']: null,
+            'experience_years' =>  isset($inputs['experience_years']) ? $inputs['experience_years']:null,
+            'date_required' => isset($inputs['date_required']) ? $inputs['date_required']:null,
+            'empoyees_required' => isset($inputs['empoyees_required']) ? $inputs['empoyees_required']:null,
+            'establishment' => isset($inputs['establishment']) ?  $inputs['establishment']:null,
+            'practical_experience' =>  isset($inputs['practical_experience']) ? $inputs['practical_experience']:null,
+            'special_qualities_skills' => isset($inputs['special_qualities_skills']) ? $inputs['special_qualities_skills']:null,
+            'education_and_qualification' => isset($inputs['education_and_qualification']) ? $inputs['education_and_qualification']:null,
+            'appointement_prospects_id' => isset($inputs['prospect_for_appointment_cv_id']) ? $inputs['education_and_qualification']:null,
+            'education_level' => isset($inputs['education_level']) ? $inputs['education_and_qualification']:null,
+            'hire_requisition_id' => isset($inputs['hire_requisition_id']) ? $inputs['hire_requisition_id']:null,
             // 'budget' => $inputs['budget'],
-            'report_to' => $inputs['report_to'],
+            'report_to' => isset($inputs['report_to'])? $inputs['report_to']:null,
             'has_budget' => isset($inputs['has_budget']) ? $inputs['has_budget'] : null,
-            'possition_summary' => $inputs['possition_summary'],
+            'possition_summary' => isset($inputs['possition_summary']) ? $inputs['possition_summary']:null,
         ];
       
     }
@@ -149,7 +152,6 @@ class HireRequisitionJobRepository extends BaseRepository
      */
     public function update($inputs)
     {
-
         $hire_requisition_job_id = $inputs['hire_requisition_job_id'];
         return  $this->query()->where('id',$hire_requisition_job_id)->update($this->inputsProcessor($inputs));
     }
@@ -313,7 +315,7 @@ class HireRequisitionJobRepository extends BaseRepository
             'departments.title',
             'hr_hire_requisitions_jobs.empoyees_required',
             'code_values.name',
-            'hr_hire_requisitions_jobs.education_and_qualification',
+            'hr_hire_requisitions_jobs.education_and_qualification'
         );
     }
 

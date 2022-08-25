@@ -23,7 +23,7 @@ trait RequisitionDatatables
             })
             ->addColumn('action', function($query) {
                 //return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i> </a>';
-                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. '<a href="'.route('requisition.addDescription', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
+                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success">view</a>'. '<a href="'.route('requisition.addDescription', $query->uuid).'" class="btn btn-outline-primary">Edit</i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -44,7 +44,7 @@ trait RequisitionDatatables
                 return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'. '<a href="'.route('requisition.addDescription', $query->uuid).'" class="btn btn-outline-primary"><i class="fa fa-edit"></i></a>';
+                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success">View</a>'. '<a href="'.route('requisition.addDescription', $query->uuid).'" class="btn btn-outline-primary">Edit</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -65,7 +65,7 @@ trait RequisitionDatatables
                 return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>';
+                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -86,7 +86,7 @@ trait RequisitionDatatables
                 return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>';
+                return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -107,7 +107,7 @@ trait RequisitionDatatables
                 return number_2_format($query->amount);
             })
             ->addColumn('action', function($query) {
-                return '<a href="'.route('requisition.addDescription', $query->uuid).'"class="btn btn-outline-success"><i class="fa fa-edit"></i></a>';
+                return '<a href="'.route('requisition.addDescription', $query->uuid).'"class="btn btn-outline-success">View</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -132,9 +132,9 @@ trait RequisitionDatatables
             ->addColumn('action', function($query) {
                 if ($query->is_closed ==  true)
                 {
-                    return '<a href="'.route('requisition.show', $query->uuid).'"class="btn btn-outline-success"><i class="fa fa-eye"></i></a>';
+                    return '<a href="'.route('requisition.show', $query->uuid).'"class="btn btn-outline-success">View</a>';
                 }else{
-                    return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success"><i class="fa fa-eye"></i></a>'.''.'<a href="'.route('requisition.updateActualAmount', $query->uuid).'" class="btn btn-outline-danger" ><i class="fa fa-close"></i></a>';
+                    return '<a href="'.route('requisition.show', $query->uuid).'" class="btn btn-outline-success">View</a>'.''.'<a href="'.route('requisition.updateActualAmount', $query->uuid).'" class="btn btn-outline-danger" >close</a>';
 
                 }
                  })

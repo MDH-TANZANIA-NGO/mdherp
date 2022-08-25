@@ -17,6 +17,8 @@ use App\Repositories\HumanResource\PerformanceReview\PrAttributeRepository;
 use App\Repositories\HumanResource\PerformanceReview\PrCompetenceKeyRepository;
 use App\Repositories\HumanResource\PerformanceReview\PrRateScaleRepository;
 use App\Repositories\HumanResource\PerformanceReview\PrTypeRepository;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PrReportController extends Controller
 {
@@ -46,7 +48,7 @@ class PrReportController extends Controller
      */
     public function index()
     {
-        return view('humanResource.PerformanceReview.index')
+        return view('HumanResource.PerformanceReview.index')
         ->with('processing_count', $this->pr_reports->getAccessProcessing()->count())
         ->with('return_for_modification_count', $this->pr_reports->getAccessReturnedForModification()->count())
         ->with('approved_count', $this->pr_reports->getAccessApproved()->count())
@@ -61,7 +63,7 @@ class PrReportController extends Controller
      */
     public function create()
     {
-        return view('humanResource.PerformanceReview.create')
+        return view('HumanResource.PerformanceReview.create')
         ->with('pr_types', $this->pr_types->forSelect());
     }
 
@@ -99,7 +101,7 @@ class PrReportController extends Controller
      */
     public function saved(PrReport $pr_report)
     {
-        return view('humanResource.PerformanceReview.saved')
+        return view('HumanResource.PerformanceReview.saved')
         ->with('pr_report', $pr_report)
         ->with('pr_objectives', $pr_report->objectives)
         ->with('pr_rate_scales', $this->pr_rate_scales->pluckWithDescription())
@@ -116,14 +118,14 @@ class PrReportController extends Controller
      */
     public function show(PrReport $pr_report)
     {
-        $wf_module_group_id = $this->getWfModuleGroupId($pr_report);
-        $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $pr_report->id);
-        $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $pr_report->id, 'type' => $wf_module->type]);
-        $current_wf_track = $workflow->currentWfTrack();
-        $current_level = $workflow->currentLevel();
-        $can_edit_resource = $this->wf_tracks->canEditResource($pr_report, $current_level, $workflow->wf_definition_id);
-        $can_update_attribute_rate_resource =  $this->wf_tracks->canUpdateAttributeRateResource($pr_report, $current_level, $workflow->wf_module_id);
-        return view('humanResource.PerformanceReview.show')
+            $wf_module_group_id = $this->getWfModuleGroupId($pr_report);
+            $wf_module = $this->wf_tracks->getWfModuleAfterWorkflowStart($wf_module_group_id, $pr_report->id);
+            $workflow = new Workflow(['wf_module_group_id' => $wf_module_group_id, "resource_id" => $pr_report->id, 'type' => $wf_module->type]);
+            $current_wf_track = $workflow->currentWfTrack();
+            $current_level = $workflow->currentLevel();
+            $can_edit_resource = $this->wf_tracks->canEditResource($pr_report, $current_level, $workflow->wf_definition_id);
+            $can_update_attribute_rate_resource =  $this->wf_tracks->canUpdateAttributeRateResource($pr_report, $current_level, $workflow->wf_module_id);
+        return view('HumanResource.PerformanceReview.show')
             ->with('pr_report', $pr_report)
             ->with('pr_objectives', $pr_report->objectives)
             ->with('pr_rate_scales', $this->pr_rate_scales->forSelect())
@@ -141,6 +143,26 @@ class PrReportController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showCompleted(PrReport $pr_report)
+    {
+        return view('HumanResource.PerformanceReview.show_completed')
+            ->with('pr_report', $pr_report)
+            ->with('pr_objectives', $pr_report->objectives)
+            ->with('pr_rate_scales', $this->pr_rate_scales->forSelect())
+            ->with('pr_attributes', $this->pr_attributes->getAll())
+            ->with('pr_competence_keys', $this->pr_competence_keys->getAll())
+            ->with('pr_report_attribute_rates', $pr_report->attributeRates)
+            ->with('can_be_processed_for_evaluation', $this->pr_reports->canBeAprocessedForEvaluation($pr_report))
+            ->with('code_value_initiator_remark', code_value()->query()->where('code_id',13)->get())
+            ->with('can_edit_resource', false);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  PrReport $pr_report
@@ -148,9 +170,18 @@ class PrReportController extends Controller
      */
     public function submit(PrReport $pr_report)
     {
-        $this->pr_reports->updateDoneAssignNextUserIdAndGenerateNumber($pr_report);
-        $this->startWorkflow($pr_report, $pr_report->parent ? 2 : 1, $pr_report->supervisor_id);
+        DB::transaction(function() use($pr_report){
+            $this->pr_reports->updateDoneAssignNextUserIdAndGenerateNumber($pr_report);
+            if($pr_report->types != 1){
+            $this->startWorkflow($pr_report, $pr_report->types, $pr_report->supervisor_id);
+            }else{
+            $pr_report->update(['wf_done' => 1, 'wf_done_date' => Carbon::now()]);
+            }
+        });
         alert()->success(__('Submitted Successfully'), __('Performance Review'));
+        if($pr_report->types == 1){
+            return redirect()->route('hr.pr.show_completed', $pr_report);
+        }
         return redirect()->route('hr.pr.show', $pr_report);
     }
 

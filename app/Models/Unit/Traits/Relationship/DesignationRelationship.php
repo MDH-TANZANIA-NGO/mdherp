@@ -9,9 +9,9 @@
 namespace App\Models\Unit\Traits\Relationship;
 
 use App\Models\Auth\User;
-use App\Models\HumanResource\Advertisement\HireAdvertisementRequisition;
-use App\Models\Unit\Department;
 use App\Models\Unit\Unit;
+use App\Models\Unit\Department;
+use App\Models\HumanResource\HireRequisition\HrHireDesignationCriteria;
 
 trait DesignationRelationship
 {
@@ -37,6 +37,10 @@ trait DesignationRelationship
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+    public function criterias()
+    {
+        return $this->morphMany(HrHireDesignationCriteria::class,'criteriable');
     }
     
 
