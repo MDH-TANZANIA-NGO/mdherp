@@ -18,11 +18,10 @@ Route::post('g_officer/{g_officer}/refresh', 'Api\Auth\LoginController@refresh')
 Route::post('g_officer/{g_officer}/fingerprint/update', 'Api\MDHData\GOfficerController@update');
 Route::post('g_officer/hotspot/store', 'Api\Hotspot\HotspotController@store')->name("store");
 Route::post('g_officer/attendance/store', 'Api\Attendance\ActivityAttendanceController@store')->name("attendance.store");
-
+Route::post('logout', 'Api\Auth\LoginController@logout');
 
 Route::group( ['prefix' => 'g_officer','middleware' => ['auth:g_officer-api'] ],function(){
     
-    Route::post('logout', 'Api\Auth\LoginController@logout');
     Route::post('hts/store','Api\MDHData\HTSController@store');
     Route::post('covid/store', 'Api\MDHData\CovidController@store');
 
