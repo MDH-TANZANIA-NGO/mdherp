@@ -5,7 +5,11 @@
             <div class="card-header">
                 <button type="submit" class="btn btn-success" ><i class="fa fa-save"></i> Save</button>
                 <a href="#" class="btn btn-outline-success" style="margin-left: 2%"><i class="fa fa-file-excel-o"></i> Export to Excel</a>
+               @permission('finance_activity')
+                @if($activity_report != null)
                 <a href="#" class="btn btn-primary" data-toggle="modal" style="margin-left: 2%" data-target="#largemodal">Send for approval</a>
+                @endif
+                    @endpermission
                 <div class="card-options ">
                     <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
                     {{--                <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>--}}
@@ -87,7 +91,7 @@
 </div>
 </div>
 
-
+@if($activity_report != null)
 <!-- Modal -->
 <div class="modal fade" id="largemodal" tabindex="-1" role="dialog" aria-labelledby="largemodal" aria-hidden="true">
     <div class="modal-dialog modal-lg " role="document">
@@ -150,6 +154,8 @@
         </div>
     </div>
 </div>
+
+@endif
 @push('after-scripts')
     <script>
         $(document).ready(function (){

@@ -99,10 +99,10 @@
                                         <input type="date" name="to" value="{{$training->to}}" hidden>
                                         <input type="number" name="requisition_training_id" value="{{$training->id}}" hidden>
                                     @endforeach
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            {!! Form::label('participant', __("Participant Name"),['class'=>'form-label','required_asterik']) !!}
-                                            {!! Form::select('participant_uid',$gofficer, null, ['class' => 'form-control select2-show-search', 'required','placeholder'=>'Select Participant']) !!}
+                                            {!! Form::label('participant', __("Participant(s)"),['class'=>'form-label','required_asterik']) !!}
+                                            {!! Form::select('participant_uid[]',$gofficer, null, ['class' => 'form-control select2-show-search','multiple', 'required']) !!}
                                             {!! $errors->first('participant_uid', '<span class="badge badge-danger">:message</span>') !!}
                                         </div>
                                     </div>
@@ -129,7 +129,7 @@
                                             {!! $errors->first('other_cost', '<span class="badge badge-danger">:message</span>') !!}
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             {!! Form::label('others_description', __("Other Costs Description"),['class'=>'form-label','required_asterik']) !!}
                                             {!! Form::text('others_description',null,['class' => 'form-control', 'placeholder' => '']) !!}

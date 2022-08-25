@@ -43,8 +43,25 @@ class RequestTrainingCostController extends Controller
 
     public function store(Request $request, Requisition $requisition){
 
+        $participants =  $request['participant_uid'];
 
-        $this->trainingCost->store($requisition, $request->all());
+
+        foreach ($participants as $participant)
+        {
+            $inputs = [
+                'requisition_training_id' => $request['requisition_training_id'],
+                'participant_uid'=> $participant,
+                'perdiem_rate_id'=> $request['perdiem_rate_id'],
+                'transportation'=> $request['transportation'],
+                'other_cost'=> $request['other_cost'],
+                'others_description'=> $request['others_description']
+
+            ];
+
+
+            $this->trainingCost->store($requisition, $inputs);
+        }
+
         return redirect()->back();
 
     }

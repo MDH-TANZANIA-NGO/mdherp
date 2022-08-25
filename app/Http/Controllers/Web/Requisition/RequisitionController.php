@@ -248,6 +248,8 @@ class RequisitionController extends Controller
 
           });
 
+        alert()->success(__('Submitted Successfully'), __('Purchase Requisition'));
+        return redirect()->route('requisition.show', $requisition->uuid);
 
     }
 

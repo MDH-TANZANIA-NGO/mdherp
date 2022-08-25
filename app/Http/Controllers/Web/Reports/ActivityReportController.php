@@ -93,7 +93,9 @@ class ActivityReportController extends Controller
             ->with('inputs',isset($option['inputs'])? $option['inputs']: [])
             ->with('requisition',isset($option['requisition'])? $option['requisition']: [])
             ->with('training_costs',isset($option['training_cost'])? $option['training_cost']: [])
-            ->with('activity_report', $this->activity_reports)
+            ->with('sum_to_be_paid',0)
+            ->with('count_to_be_paid',0)
+            ->with('activity_report', null)
             ->with('attendances',$this->activity_attendance)
             ->with('attachment_type', DB::table('attachment_types')->get()->pluck('type','id'))
             ->with('trainings', $this->trainings->getPluckRequisitionNoWithRequisitionId());
