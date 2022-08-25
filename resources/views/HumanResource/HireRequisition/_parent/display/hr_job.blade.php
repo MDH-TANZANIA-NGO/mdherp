@@ -4,6 +4,7 @@
         <h3> Job Title : {{$job->job_title}} | Employees Required: ({{ $job->empoyees_required }}) </h3>
         <span> 
                 <a href="#"> View </a> 
+                <a href="{{ route('hirerequisition.edit',$job->uuid) }} ">Edt</a>
                 @if(isset($can_edit_resource) && $can_edit_resource == true ) |
                 <a href="{{ route('hirerequisition.edit',$job->uuid) }} ">Edt</a> | 
                 <a onclick="return confirm('Are you sure you want to delete this item?');" href="{{ route('hirerequisition.destroy',$job->uuid) }}">Delete</a>
@@ -35,11 +36,11 @@
                 </tr>
                 <tr>
                     <td><strong>Project: </strong></td>
-                    
+                    <td>{{ $job->project->title }}</td> 
                 </tr>
                 <tr>
                     <td><strong>Report To: </strong></td>
-                    <td>{{ $job->empoyees_required }}</td>
+                    <td>{{ $job->reportTo->unit->name." ".$job->reportTo->name }}</td>
                 </tr>
                 <tr>
                     <td><strong>Location: </strong></td>

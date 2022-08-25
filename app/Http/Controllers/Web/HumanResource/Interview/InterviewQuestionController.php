@@ -121,7 +121,9 @@ class InterviewQuestionController extends Controller
         $interview_id = $request->interview_id;
         $interview = $this->interviewRepository->find($interview_id);
         $applicant_id = $request->applicant_id;
-        $total_panelist = InterviewPanelistCounter::where('interview_id',$interview_id)->first();
+        // $total_panelist = InterviewPanelistCounter::where('interview_id',$interview_id)->first();
+        $total_panelist  = InterviewPanelistMarks::where('interview_id', $interview_id)->where('applicant_id', $applicant_id)->count();  
+        $total_panelist = $total_panelist + 1;
         $input['applicant_id'] = $request->applicant_id;
         try{
             DB::beginTransaction();
@@ -145,14 +147,12 @@ class InterviewQuestionController extends Controller
                     'applicant_id' => $applicant_id,
                 ]);
                 $total_panelist_marks = InterviewPanelistMarks::where('interview_id', $interview_id)->where('applicant_id', $applicant_id)->sum('marks');
-                // $interviewApplicantMarks = InterviewApplicantMarks::where('interview_id', $interview_id)->where('applicant_id',$applicant_id)->delete();
-                // return $total_panelist_marks;
                 $interviewApplicantMarks = InterviewApplicantMarks::where('interview_id', $interview_id)->where('applicant_id',$applicant_id)->first();
                 if(!is_null($interviewApplicantMarks)){
-                    $total = ($total_panelist_marks / $total_panelist->total_panelist);
+                    $total = ($total_panelist_marks / $total_panelist);
                     $interviewApplicantMarks->update(['marks'=>$total]);   
                 }else{
-                    $total = ($total_panelist_marks / $total_panelist->total_panelist);
+                    $total = ($total_panelist_marks / $total_panelist);
                     InterviewApplicantMarks::create(['interview_id'=> $interview_id,
                     'marks'=> $total,
                     'applicant_id' => $applicant_id]);

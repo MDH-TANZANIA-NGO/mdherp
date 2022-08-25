@@ -7,6 +7,8 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
     Route::get('initiate/{uuid}', 'HireRequisitionController@initiate')->name('initiate');
     Route::post('initiate/{uuid}', 'HireRequisitionController@addRequisition')->name('addRequisition');
     Route::post('store', 'HireRequisitionController@store')->name('store');
+    Route::post('deletecriteria', 'HireRequisitionController@deleteCriteria')->name('deleteCriteria');
+    
 
     Route::group(['prefix' => 'steps', 'as' => 'steps.'], function () {
             Route::POST('general/{hireRequisitionJob}', 'HireRequisitionController@stepGeneral')->name('general');
@@ -16,6 +18,7 @@ Route::group(['namespace' => 'HumanResource\HireRequisition', 'middleware' => ['
             Route::post('employement_condition/{hireRequisitionJob}', 'HireRequisitionController@stepEmploymentCondition')->name('employement_condition');
             Route::get('employement_condition/{hireRequisitionJob}', 'HireRequisitionController@stepEmploymentConditionView')->name('employement_condition');
             Route::POST('criteria/{hireRequisitionJob}', 'HireRequisitionController@stepCriteriaView')->name('criteria');
+            Route::POST('addcriteria/ajax', 'HireRequisitionController@addCriteriaAjax')->name('add_criteria_ajax');
             Route::get('criteria/{hireRequisitionJob}', 'HireRequisitionController@stepReview')->name('review');
             Route::POST('add_criteria/{hireRequisitionJob}', 'HireRequisitionController@addCriteria')->name('add_criteria');
             Route::get('add_criteria/{hireRequisitionJob}', 'HireRequisitionController@addCriteriaView')->name('add_criteria');
