@@ -258,19 +258,19 @@ class WorkflowEventSubscriber
                         case 1: //User to Supervisor level
                             $retirement_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
-                            $string = htmlentities(
+                            $string = /*htmlentities(
                                 "There is new" . " " . "retirement" . " " . "submitted by " . $retirement->user->first_name . "" . $retirement->user->last_name . "pending for your review and approval." . "<br>" . "<b>Number:</b>" . $retirement->number . "<br>" .
                                 "<b>Project:</b>" . $retirement->requisition->project->title . " (" . $retirement->requisition->project->code . ")" . "<br>" .
                                 "<b>Activity:</b>" . $retirement->requisition->activity->code . ": " . $retirement->requisition->activity->title . "<br>" .
 //                                "<b>Activity Location:</b>" . $retirement->training->district->name . "<br>" .
                                 "<b>Amount requested:</b>" . number_2_format($retirement->safari->amount_requested)
-                            );
+                            );*/
                             $email_resource = (object)[
                                 'link' => route('retirement.show', $retirement),
                                 'subject' => $retirement->number . " Need your Approval",
-                                'message' => html_entity_decode($string)
+                                /*'message' => html_entity_decode($string)*/
                             ];
-                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            //User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
                         case 2: //Supervisor to Finance level
@@ -283,11 +283,11 @@ class WorkflowEventSubscriber
                                 'message' => 'Hi! Retirement Number'. $retirement->number . ' needs your approval'
                             ];
 
-                            foreach ($data['next_user_id'] as $user)
+                           /* foreach ($data['next_user_id'] as $user)
                             {
                                 SendEmailToFinanceJob::dispatch($user, $email_resource);
-                            }
-                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            }*/
+                            //                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
                     }
 
