@@ -39,15 +39,15 @@
 		<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
 		@enderror
 	</div>
-	<div class="col-6 col-lg-6 budget " style="display: none">
+	<div class="col-6 col-lg-6 budget ">
 		<div class="form-label">Is there a budget for this position?</div>
 		<div class="d-flex flex-row">
 			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="has_budget" id="has_budget" value="1">
+				<input class="form-check-input" type="radio" {{ ($hireRequisitionJob->has_budget == 1) ? 'checked':'' }}  name="has_budget" id="has_budget" value="1">
 				<label class="form-check-label" for="inlineRadio1">yes</label>
 			</div>
 			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="has_budget" id="has_budget" value="0">
+				<input class="form-check-input" type="radio" {{ ($hireRequisitionJob->has_budget == 0 || $hireRequisitionJob->has_budget == NULL) ? 'checked':'' }} name="has_budget" id="has_budget" value="0">
 				<label class="form-check-label" for="inlineRadio2">No</label>
 			</div>
 		</div>

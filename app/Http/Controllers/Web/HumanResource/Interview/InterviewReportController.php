@@ -92,6 +92,34 @@ class InterviewReportController extends Controller
             ->with('panelists', $panelists)
             ->with('interview_workflow_report_id', $interviewReport->id);
     }
+    public function edit(InterviewWorkflowReport $interviewReport)
+    {
+        $hr_requisition_job_id =  $interviewReport->hr_requisition_job_id;
+        $hireRequisitionJob = $this->hireRequisitionJobRepository->find($hr_requisition_job_id);
+        $interview_id = InterviewReport::where('interview_report_id', $interviewReport->id)->pluck('interview_id')->toArray();
+        $interviews = $this->interviewRepository->query()->whereIn('id', $interview_id)->orderBy('id', 'DESC')->get();
+        $panelists = $this->interviewRepository->interviewPanelist($interviews)->get();       
+        $job_title = $this->designationRepository->getQueryDesignationUnit()->where('designations.id', $hireRequisitionJob->designation_id)->first();
+        $recommended_applicants = InterviewReportRecommendation::join('hr_hire_applicants', 'hr_hire_applicants.id', 'hr_interview_report_recommendations.applicant_id')
+            ->select([
+                'hr_interview_report_recommendations.id',
+                DB::raw("CONCAT_WS(' ',hr_hire_applicants.first_name,hr_hire_applicants.middle_name,hr_hire_applicants.last_name) as full_name"),
+                'hr_hire_applicants.email'
+            ])
+            ->where('hr_interview_report_recommendations.interview_report_id', $interviewReport->id)
+            ->get();
+        $applicants = $this->interviewApplicantRepository->getForSelect($interviews->pluck('id')->toArray());
+        $can_edit_resource = $this->wf_tracks->canEditResource($interviewReport, $current_level, $workflow->wf_definition_id);
+        return view('HumanResource.Interview.report.initiate')
+            ->with('job_title', $job_title)
+            ->with('applicants', $applicants)
+            ->with('interviews', $interviews)
+            ->with('recommended_applicants', $recommended_applicants)
+            ->with('hireRequisitionJob', $hireRequisitionJob->id)
+            ->with('panelists', $panelists)
+            ->with('can_edit_resource', $can_edit_resource)
+            ->with('interview_workflow_report_id', $interviewReport->id);
+    }
 
     public function recommend(Request $request)
     {

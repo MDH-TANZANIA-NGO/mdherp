@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 trait WorkflowResourceModificationStageTrait
 {
     public function canEditResource(Model $model, $pending_level, $wf_definition)
-    {
+    {       
         $allow = false;
         switch ($model->getTable()) {
                 /*requisitions Module*/
@@ -51,6 +51,20 @@ trait WorkflowResourceModificationStageTrait
             case 'hr_hire_requisitions':
                 switch ($pending_level) {
                     case 1: //Applicant level
+                        if ($model->user_id == access()->id()) {
+                            $allow = true;
+                        }
+                        break;
+                }
+                break;
+            case 'hr_interview_workflow_reports':
+                switch ($pending_level) {
+                    case 1: //Applicant level
+                        if ($model->user_id == access()->id()) {
+                            $allow = true;
+                        }
+                        break;
+                    case 2: //Applicant level
                         if ($model->user_id == access()->id()) {
                             $allow = true;
                         }

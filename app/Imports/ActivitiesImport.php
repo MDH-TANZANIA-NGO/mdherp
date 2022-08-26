@@ -38,11 +38,11 @@ class ActivitiesImport implements ToModel,WithHeadingRow
         if(!$outputunit) return null;
 
         # Filter duplicates 
-        $activitycode = $this->activityRepository->query()->where('code',$row['code'])->first();
-        if($activitycode){
-            $this->duplicate += 1;
-            return null;
-        }
+        // $activitycode = $this->activityRepository->query()->where('code',$row['code'])->first();
+        // if($activitycode){
+        //     $this->duplicate += 1;
+        //     return null;
+        // }
         $this->importedRowCount += 1;
         return new Activity([
             'sub_program_id' => $subprogram ,
