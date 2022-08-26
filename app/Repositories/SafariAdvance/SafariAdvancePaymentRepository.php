@@ -53,7 +53,7 @@ class SafariAdvancePaymentRepository extends BaseRepository
             DB::raw('safari_advance_payments.ontransit AS ontransit'),
             DB::raw('safari_advance_payments.other_cost AS other_cost'),
             DB::raw('safari_advance_payments.ticket_fair AS ticket_fair'),
-            DB::raw('safari_advance_payments.tranportation AS transportation'),
+            DB::raw('safari_advance_payments.transportation AS transportation'),
             DB::raw('safari_advances.number AS safari_advance_number'),
             DB::raw('safari_advances.uuid AS safari_advance_uuid'),
         ])
