@@ -254,14 +254,16 @@ class WorkflowEventSubscriber
                     $retirement_repo = (new RetirementRepository());
                     $retirement = $retirement_repo->find($resource_id);
                     /*check levels*/
+//                dd($retirement->safari->travellingCost->requisition->project->title);
                     switch ($level) {
                         case 1: //User to Supervisor level
                             $retirement_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+
                             $string = htmlentities(
-                                "There is new" . " " . "retirement" . " " . "submitted by " . $retirement->user->first_name . "" . $retirement->user->last_name . "pending for your review and approval." . "<br>" . "<b>Number:</b>" . $retirement->number . "<br>" .
-                                "<b>Project:</b>" . $retirement->requisition->project->title . " (" . $retirement->requisition->project->code . ")" . "<br>" .
-                                "<b>Activity:</b>" . $retirement->requisition->activity->code . ": " . $retirement->requisition->activity->title . "<br>" .
+                                "There is new" . " " . "retirement" . " " . "submitted by " . $retirement->user->first_name . " " . $retirement->user->last_name . "pending for your review and approval." . "<br>" . "<b>Number: </b>" . $retirement->number . "<br>" .
+                                "<b>Project: </b>" . $retirement->safari->travellingCost->requisition->project->title . " (" . $retirement->safari->travellingCost->requisition->project->code . ")" . "<br>" .
+                                "<b>Activity: </b>" . $retirement->safari->travellingCost->requisition->activity->code. ": " . $retirement->safari->travellingCost->requisition->activity->title . "<br>" .
 //                                "<b>Activity Location:</b>" . $retirement->training->district->name . "<br>" .
                                 "<b>Amount requested:</b>" . number_2_format($retirement->safari->amount_requested)
                             );
@@ -270,30 +272,54 @@ class WorkflowEventSubscriber
                                 'subject' => $retirement->number . " pending your review and approval",
                                 'message' => html_entity_decode($string)
                             ];
-                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
                         case 2: //Supervisor to Finance level
                             $retirement_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
                             $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
                             $string = htmlentities(
-                                "There is new" . " " . "retirement" . " " . "submitted by " . $retirement->user->first_name . "" . $retirement->user->last_name . "pending for your review and approval." . "<br>" . "<b>Number:</b>" . $retirement->number . "<br>" .
-                                "<b>Project:</b>" . $retirement->requisition->project->title . " (" . $retirement->requisition->project->code . ")" . "<br>" .
-                                "<b>Activity:</b>" . $retirement->requisition->activity->code . ": " . $retirement->requisition->activity->title . "<br>" .
+                                "There is new" . " " . "retirement" . " " . "submitted by " . $retirement->user->first_name . " " . $retirement->user->last_name . "pending for your review and approval." . "<br>" . "<b>Number: </b>" . $retirement->number . "<br>" .
+                                "<b>Project: </b>" . $retirement->safari->travellingCost->requisition->project->title . " (" . $retirement->safari->travellingCost->requisition->project->code . ")" . "<br>" .
+                                "<b>Activity: </b>" . $retirement->safari->travellingCost->requisition->activity->code. ": " . $retirement->safari->travellingCost->requisition->activity->title . "<br>" .
 //                                "<b>Activity Location:</b>" . $retirement->training->district->name . "<br>" .
-                                "<b>Amount requested:</b>" . number_2_format($retirement->safari->amount_requested)
+                                "<b>Amount requested: </b>" . number_2_format($retirement->safari->amount_requested)
                             );
                             $email_resource = (object)[
                                 'link' => route('retirement.show', $retirement),
-                                'subject' => $retirement->number . " pending your review and approval",
+                                'subject' => $retirement->number . " Need Your Approval",
+                               'message' => html_entity_decode($string)
+                            ];
+
+                            /*foreach ($data['next_user_id'] as $user)
+                            {
+                                SendEmailToFinanceJob::dispatch($user, $email_resource);
+                            }*/
+//                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;
+
+                        /*case 3: //Finance to Finance Manager Endorse
+                            $retirement_repo->processWorkflowLevelsAction($resource_id, $wf_module_id, $level, $sign);
+                            $data['next_user_id'] = $this->nextUserSelector($wf_module_id, $resource_id, $level);
+                            $string = htmlentities(
+                                "There is new" . " " . "retirement" . " " . "submitted by " . $retirement->user->first_name . " " . $retirement->user->last_name . "pending for your review and approval." . "<br>" . "<b>Number: </b>" . $retirement->number . "<br>" .
+                                "<b>Project: </b>" . $retirement->safari->travellingCost->requisition->project->title . " (" . $retirement->safari->travellingCost->requisition->project->code . ")" . "<br>" .
+                                "<b>Activity: </b>" . $retirement->safari->travellingCost->requisition->activity->code. ": " . $retirement->safari->travellingCost->requisition->activity->title . "<br>" .
+//                                "<b>Activity Location:</b>" . $retirement->training->district->name . "<br>" .
+                                "<b>Amount requested: </b>" . number_2_format($retirement->safari->amount_requested)
+                            );
+                            $email_resource = (object)[
+                                'link' => route('retirement.show', $retirement),
+                                'subject' => $retirement->number . " Need Your Approval",
+>>>>>>> retirement_work
                                 'message' => html_entity_decode($string)
                             ];
                             foreach ($data['next_user_id'] as $user)
                             {
                                 SendEmailToFinanceJob::dispatch($user, $email_resource);
                             }
-                            //                                User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
-                            break;
+                            //User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
+                            break;*/
                     }
 
                     break;
