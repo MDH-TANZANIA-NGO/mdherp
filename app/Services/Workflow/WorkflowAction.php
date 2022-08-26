@@ -156,7 +156,7 @@ class WorkflowAction
                         $this->processNextLevelMail($wf_module_id, $resource_id, $data['next_user_id']);
                         break;
                 }
-                break;
+                break; 
         }
         return $data;
     }
