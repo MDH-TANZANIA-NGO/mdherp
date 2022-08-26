@@ -1,16 +1,17 @@
 <?php
 namespace App\Http\Controllers\Web\Project;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\Project\Traits\ActivityDatatables;
+use Illuminate\Http\Request;
+use App\Imports\BudgetImport;
 use App\Models\Project\Activity;
+use App\Exports\ActivitiesExport;
+use App\Imports\ActivitiesImport;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\Project\ActivityRepository;
 use App\Repositories\Project\OutputUnitRepository;
 use App\Repositories\Project\SubProgramRepository;
-use App\Imports\ActivitiesImport;
-use App\Exports\ActivitiesExport;
-use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Web\Project\Traits\ActivityDatatables;
 
 class ActivityController extends Controller
 {
@@ -120,6 +121,21 @@ class ActivityController extends Controller
       
         if ($request->hasFile('file')){
             $activities = new ActivitiesImport();
+            $import_to_temporary_store = Excel::import($activities, \request()->file('file'));
+            alert()->warning('Please confirm imported data', 'Confirm');
+            return redirect()->back()
+                    ->with('importedRows', $activities->getImportedRowsCount())
+                    ->with('importedDuplicates',$activities->getDuplicateRowsCount());
+        }
+        else{
+            alert()->error('You have not attach any file', 'Failed');
+            return redirect()->back();
+        }
+    }
+    public function importBudget(Request $request)
+    {    
+        if ($request->hasFile('file')){
+            $activities = new BudgetImport();
             $import_to_temporary_store = Excel::import($activities, \request()->file('file'));
             alert()->warning('Please confirm imported data', 'Confirm');
             return redirect()->back()

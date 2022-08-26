@@ -3,6 +3,7 @@ Route::group(['namespace' => 'Budget', 'middleware' => ['web', 'auth'], 'prefix'
     Route::get('', 'BudgetController@index')->name('index');
     Route::get('create', 'BudgetController@create')->name('create');
     Route::post('store', 'BudgetController@store')->name('store');
+   
     Route::get('{budget}/show', 'BudgetController@show')->name('show');
     Route::put('{budget}/update', 'BudgetController@update')->name('update');
     Route::put('{budget}/activate', 'BudgetController@activate')->name('activate');
