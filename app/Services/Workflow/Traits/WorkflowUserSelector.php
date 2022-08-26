@@ -47,7 +47,7 @@ trait WorkflowUserSelector
 
     public function nextUserSelector($wf_module_id, $resource_id, $level, $department_id = null)
     {
-   
+
         $user_id = null;
         switch ($wf_module_id) {
             case 1:
@@ -143,13 +143,14 @@ trait WorkflowUserSelector
                         }
                         $user_id = $next_user->supervisor_id;
                         break;
-                    case 2:
-                        $next_user = (new UserRepository())->getRegionFinanceTeam($retirement->user->region_id);
+                    /*case 2:
+//                        $next_user = (new UserRepository())->getRegionFinanceTeam($retirement->user->region_id);
+                        $next_user = (new UserRepository())->getFinanceOfficer();
                         if (!$next_user) {
-                            throw new GeneralException('This user has not assigned supervisor');
+                            throw new GeneralException('No Finance officer found');
                         }
                         $user_id = $next_user;
-                        break;
+                        break;*/
                 }
                 break;
             case 6:

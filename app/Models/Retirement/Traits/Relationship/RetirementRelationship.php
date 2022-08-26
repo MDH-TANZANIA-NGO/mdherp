@@ -29,7 +29,8 @@ public function attachment()
 }
 public function safari()
 {
-    return $this->belongsTo(SafariAdvance::class);
+    //return $this->belongsTo(SafariAdvance::class);
+    return $this->belongsTo(SafariAdvance::class, 'safari_advance_id', 'id');
 }
 
 }
