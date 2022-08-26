@@ -167,6 +167,7 @@
                                 <ul class="nav panel-tabs">
                                     <li class=""><a href="#tab5" class="active" data-toggle="tab">Attendance</a></li>
                                     <li><a href="#tab8" data-toggle="tab" class="">Payments</a></li>
+                                    <li><a href="#tab7" data-toggle="tab" class="">Attachments</a></li>
                                     <li><a href="#tab6" data-toggle="tab" class="">Report</a></li>
 {{--                                    <li><a href="#tab7" data-toggle="tab" class="">Attachments</a></li>--}}
                                 </ul>
