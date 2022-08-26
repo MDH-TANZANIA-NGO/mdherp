@@ -274,7 +274,7 @@ class GOfficerController extends Controller
         foreach ($upload as $data) {
             $check_data = $this->g_officers->getQuery()->where('g_officers.uuid', $data->referenced_uuid);
 
-            
+
 
             if ($check_data->count() > 0)
             {
@@ -323,7 +323,7 @@ class GOfficerController extends Controller
 
         if ($get_duplicate_entries_count > 0 )
         {
-            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportDuplicateGOfficerImportedData(), 'Duplicate Imported Entries.xlsx');
+            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportDuplicateGOfficerImportedData(), 'Duplicate Imported Entries.csv');
 
         }
         if ($get_duplicate_entries_count <= 0)
