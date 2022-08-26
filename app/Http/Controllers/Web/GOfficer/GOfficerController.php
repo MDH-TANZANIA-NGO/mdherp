@@ -274,7 +274,7 @@ class GOfficerController extends Controller
         foreach ($upload as $data) {
             $check_data = $this->g_officers->getQuery()->where('g_officers.uuid', $data->referenced_uuid);
 
-            dd($check_data);
+            
 
             if ($check_data->count() > 0)
             {
@@ -316,7 +316,7 @@ class GOfficerController extends Controller
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    
+
     public function exportDuplicateImportedData()
     {
         $get_duplicate_entries_count = $this->g_officer_imported_data_repo->getAccessDuplicate()->get()->count();
