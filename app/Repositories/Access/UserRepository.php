@@ -10,10 +10,11 @@ use App\Repositories\Project\SubProgramRepository;
 use App\Services\Reset\ResetPasswordTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Services\Generator\DefaultFingerprints;
 
 class UserRepository extends BaseRepository
 {
-    use ResetPasswordTrait;
+    use ResetPasswordTrait, DefaultFingerprints;
 
     const MODEL = User::class;
 
@@ -97,6 +98,8 @@ class UserRepository extends BaseRepository
                 'designation_id' => $input['designation'],
                 'uni' => $input['uni'],
                 'isactive' => true,
+                'fingerprint_data' => $this->getDefaultFingerprints(),
+                'fingerprint_length' => $this->getFingerprintLength(),
             ]);
             $this->assignRoleAndAttachPermissions($user, $input);
             $user->wfDefinitions()->attach(1);
