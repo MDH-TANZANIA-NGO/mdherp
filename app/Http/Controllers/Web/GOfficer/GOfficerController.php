@@ -346,8 +346,8 @@ class GOfficerController extends Controller
     {
 
         if ($request->get('region') ==  null){
-            $get_filtered_g_officers_by_district =  $this->g_officers->getQuery()->get();
-            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_district), 'Beneficiaries List.xlsx');
+            $get_filtered_g_officers_by_district =  $this->g_officers->getFilteredGofficerByRegion(access()->user()->region_id)->get();
+            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_district), 'Beneficiaries List.csv');
 
         }
 
@@ -355,14 +355,14 @@ class GOfficerController extends Controller
         {
 
             $get_filtered_g_officers_by_region = $this->g_officers->getFilteredGofficerByRegion($request['region'])->get();
-            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_region), 'Beneficiaries List.xlsx');
+            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_region), 'Beneficiaries List.csv');
 
 
         }
         if (isset($request['districts']))
         {
             $get_filtered_g_officers_by_district =  $this->g_officers->getFilterGOfficerByDistrict($request['districts'])->get();
-            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_district), 'Beneficiaries List.xlsx');
+            return \Maatwebsite\Excel\Facades\Excel::download(new ExcelExportBeneficiaries($get_filtered_g_officers_by_district), 'Beneficiaries List.csv');
 
 
         }

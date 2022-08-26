@@ -358,8 +358,8 @@ RequisitionRepository extends BaseRepository
 
                 $email_resource = (object)[
                     'link' => route('requisition.show', $requisition),
-                    'subject' => $requisition->typeCategory->title . " Has been revised to your level",
-                    'message' => $requisition->typeCategory->title . " " . $requisition->number . ' need modification.. Please do the need and send it back for approval'
+                    'subject' => $requisition->typeCategory->title . " Has been reversed to your level",
+                    'message' => $requisition->typeCategory->title . " " . $requisition->number . ' needs modification.. Please review, address the comments from the reviewer and send back for review'
                 ];
 //                User::query()->find($requisition->user_id)->notify(new WorkflowNotification($email_resource));
 
@@ -370,7 +370,7 @@ RequisitionRepository extends BaseRepository
                 $email_resource = (object)[
                     'link' => route('requisition.show', $requisition),
                     'subject' => $requisition->typeCategory->title . " Has been revised to your level",
-                    'message' => $requisition->typeCategory->title . " " . $requisition->number . ' need modification.. Please do the need and send it back for approval'
+                    'message' => $requisition->typeCategory->title . " " . $requisition->number . ' needs modification.. Please review, address the comments from the reviewer and send back for review'
                 ];
               User::query()->find($this->nextUserSelector($wf_module_id, $resource_id, $current_level))->notify(new WorkflowNotification($email_resource));
 
