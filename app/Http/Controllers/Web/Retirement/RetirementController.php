@@ -12,6 +12,7 @@ use App\Models\Retirement\Retirement;
 use App\Models\Retirement\RetirementDetail;
 use App\Models\SafariAdvance\SafariAdvance;
 use App\Models\SafariAdvance\SafariAdvanceDetails;
+use App\Repositories\Access\UserRepository;
 use App\Repositories\Finance\FinanceActivityRepository;
 use App\Repositories\Retirement\RetirementRepository;
 use App\Repositories\SafariAdvance\SafariAdvanceRepository;
@@ -52,6 +53,7 @@ class RetirementController extends Controller
 
     public function index()
     {
+        //dd((new UserRepository())->getFinanceManagerByRegion(access()->user()->region_id)->get());
         return view('retirement.index')
             ->with('retirements', $this->retirements);
     }

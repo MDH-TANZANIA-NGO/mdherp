@@ -453,6 +453,7 @@ class UserRepository extends BaseRepository
             ->where('designations.name', 'Manager')
             ->where('departments.id', 3)
             ->get();
+
     }
     public function getFinanceManagerByRegion($region_id)
     {
