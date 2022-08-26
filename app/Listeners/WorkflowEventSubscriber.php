@@ -291,10 +291,10 @@ class WorkflowEventSubscriber
                                'message' => html_entity_decode($string)
                             ];
 
-                            foreach ($data['next_user_id'] as $user)
+                            /*foreach ($data['next_user_id'] as $user)
                             {
                                 SendEmailToFinanceJob::dispatch($user, $email_resource);
-                            }
+                            }*/
 //                            User::query()->find($data['next_user_id'])->notify(new WorkflowNotification($email_resource));
                             break;
 
