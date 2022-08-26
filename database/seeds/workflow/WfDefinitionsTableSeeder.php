@@ -1618,7 +1618,7 @@ class WfDefinitionsTableSeeder extends Seeder
 //                'assign_next_user' => 0,
                 ),
 
-            52 =>
+/*            52 =>
                 array (
                     'id' => 53,
                     'level' => '1',
@@ -1733,7 +1733,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-
             57 =>
                 array (
                     'id' => 58,
@@ -1826,9 +1825,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-
-
-
             61 =>
                 array (
                     'id' => 62,
@@ -1898,7 +1894,6 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Approved',
 //                'assign_next_user' => 0,
                 ),
-
             64 =>
                 array (
                     'id' => 65,
@@ -1945,7 +1940,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'status_description' => 'Reviewed',
 //                'assign_next_user' => 0,
                 ),
-                66 =>
+            66 =>
                 array (
                     'id' => 67,
                     'level' => '2',
@@ -1967,7 +1962,7 @@ class WfDefinitionsTableSeeder extends Seeder
                     'action_description' => 'Review and Approve',
                     'status_description' => 'Review and Approve',
 //                'assign_next_user' => 0,
-                ),
+                ),*/
 
         ));
 
