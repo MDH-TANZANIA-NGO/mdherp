@@ -4,8 +4,11 @@
 use App\Http\Controllers\web\Meetings\MeetingController;
 use App\Http\Controllers\web\Event\EventController;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
 //Home Page
 Route::get('/', function () {
+// \Illuminate\Support\Facades\Mail::send(new \App\Mail\TimeMail());
+// \Illuminate\Support\Facades\Notification::send(\App\Models\Auth\User::all(),new \App\Notifications\TimeNotification());
     return view('welcome');
 });
 

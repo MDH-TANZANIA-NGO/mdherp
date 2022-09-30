@@ -13,11 +13,11 @@ use Auth;
 class TimeController extends Controller
 {
 
-    public function __construct()
-    {
+    // public function __construct()
+    // {
 
-        $this->users = (new UserRepository());
-    }
+    //     $this->users = (new UserRepository());
+    // }
 
     public function time()
     {

@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use app\Console\Commands\Time\Time\TimeCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +14,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\Time\Time\TimeCommand::class,
+        Commands\Time\Time\TimeOutCommand::class,
     ];
 
     /**
@@ -24,9 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('time:cron')->dailyAt('7:25');
+        $schedule->command('timeout:cron')->dailyAt('17:00');
     }
-
     /**
      * Register the commands for the application.
      *
