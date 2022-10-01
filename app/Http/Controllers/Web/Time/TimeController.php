@@ -32,6 +32,7 @@ class TimeController extends Controller
     public function store(Request $request)
     {
         $time = date('Y-m-d H:i:s');
+       
         $data = ['time_start' => $time, 'lat_in' => $request->input('lat_in'), 'long_in' => $request->input('long_in'),'location_in' => $request->input('location_in'), 'user_id' => Auth::user()->id, 'name' => Auth::user()->first_name];
       
         Time::create($data);
@@ -43,9 +44,11 @@ class TimeController extends Controller
     public function update(Request $request)
     {
         $time = date('Y-m-d H:i:s');
+       
         $end = Time::where('user_id', Auth::user()->id)->whereNull('time_end')->first();
         //    {{ access()->user()->full_name_formatted }}
         $end->time_end = $time;
+       
         $end->lat_out = $request->input('lat_out');
         $end->long_out = $request->input('long_out');
         $end->location_out = $request->input('location_out');

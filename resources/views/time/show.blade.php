@@ -74,10 +74,12 @@
                     <thead>
                         <tr>
                             <th class="wd-15p">#</th>
+                            <th class="wd-15p">Start date</th>
+                            <th class="wd-15p">End  date</th>
                             <th class="wd-15p">Start time</th>
                             <th class="wd-15p">End Time</th>
                             <th class="wd-15p">User</th>
-                            <th class="wd-15p">Production</th>
+                            <th class="wd-15p">Hours</th>
                             <th class="wd-15p">Location Map</th>
                             <th class="wd-15p">Location In</th>
                             <th class="wd-15p">Location Out</th>
@@ -89,8 +91,18 @@
                         @foreach($times as $data)
                         <tr>
                             <td>{{$data->id}}</td>
-                            <td>{{$data->time_start}}</td>
-                            <td>{{$data->time_end}}</td>
+                            <td>{{$data->time_start->format('Y-m-d')}}</td>
+                            @if(is_null($data->time_end))
+                            <td>  </td>
+                            @else
+                            <td>{{$data->time_end->format('Y-m-d')}}</td>
+                            @endif
+                            <td>{{$data->time_start->format('H:i:s')}}</td>
+                            @if(is_null($data->time_end))
+                            <td>  </td>
+                            @else
+                            <td>{{$data->time_end->format('H:i:s')}}</td>
+                            @endif
                             <td>{{$data->user->fullname}}</td>
                             <td>
                                 <?php
